@@ -133,12 +133,30 @@ public:
         void clear();
 
 
+        /*
+          *
+          * waitOnQueue acts as a condition variable for the buffer. There is exactly one
+          * condition variable per buffer because there is exactly one QReadWriteLock per buffer.
+          *
+        */
         void waitOnQueue();
 
 
+
+        /*
+          *
+          * wakeAllOnQueue wakes all threads currently sitting on the buffers condition variable.
+          *
+        */
         void wakeAllOnQueue();
 
 
+
+        /*
+          *
+          * wakeOneOnQueue wakes exactly one thread from the condition variable.
+          *
+        */
         void wakeOneOnQueue();
 
 private:

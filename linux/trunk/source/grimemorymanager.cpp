@@ -265,7 +265,7 @@ char* GRIMemoryManager::readMemory(string dataBlockName, string bufferName, unsi
 
     //if buf = 0, should throw exception HERE
     int packSize = buf->packetSize(packetNumber);
-    char* packet = new char[packSize];
+    char* packet = new char[packSize];          //memory leak here
     int i;
     for (i = 0; i < packSize; i++) {
         *(packet+i) = buf->readBuffer(packetNumber,i);

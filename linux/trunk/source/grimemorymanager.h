@@ -165,14 +165,13 @@ protected:
         /*
         *
         * writeMemory() writes the data given from dataArray into the corresponding buffer and packet location. This is an
-        * asynchronous write, so the thread may be put to sleep if there are already threads accessing the packet location.
-        * This method also takes in three integer parameters:index, start, and end. index is the index position within the data packet
-        * that will be the beginning position to write to. start is the index position within dataArray to start writing from
-        * and end is the position to stop writing from within dataArray.
-        * i.e.
-        * writeMemory("test", 0, 0, 0, 3, [0, 9, 8, 7, 6, 5])
-        * this method call would write to buffer "test", packet 0, and starting from index 0 of packet 0 write the array [0,9,8,7]
-        * into that packet.
+        * asynchronous write, so the thread may be blocked if there are already threads accessing the packet location.
+        * This method also takes in two integer parameters. Size is the total number of char elements in the dataArray.
+        * packetNumber represents the packet to which the calling function is writing to.
+        *
+        * Each call to writeMemory will write the entire dataArray into one packet specified by the calling
+        * function. In general, however, packets should not be rewritten to unless the packet has been deleted
+        * otherwise there could be corruption of memory.
         *
         */
         bool writeMemory(string dataBlockName, string bufferName, unsigned int packetNumber, unsigned int size, char dataArray[]);
@@ -182,7 +181,9 @@ protected:
 
         /*
           *
-          * overloaded write function
+          * overloaded write function. This write function will always write to the last packet position
+          * in the buffer. If thread A wrote to packet 3, thread B wrote to packet 4, then thread C should
+          * write to packet 5 if it uses this method.
           *
         */
         bool writeMemory(string dataBlockName, string bufferName, unsigned int size, char dataArray[]);
