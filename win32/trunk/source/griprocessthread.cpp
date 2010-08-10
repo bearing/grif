@@ -8,7 +8,7 @@ GRIProcessThread::GRIProcessThread(QObject *obj)
     : QThread(obj)
 {
     thread_id = GRIProcessThread::counter++;
-    //curr_thread = NULL;
+
 }
 
 

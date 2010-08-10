@@ -21,7 +21,7 @@ public:
 private:
     unsigned int thread_id;
     static unsigned int counter;
-    //QThread* curr_thread;
+
 };
 
 
