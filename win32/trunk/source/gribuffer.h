@@ -84,7 +84,7 @@ public:
 
         /*
           *
-          *
+          * incrementPacketMarker increments the packet marker for a particular thread by one.
           *
         */
         void incrementPacketMarker();

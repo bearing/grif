@@ -99,6 +99,23 @@ void GRIMemoryManager::bufferDelete(string dataBlockName, string bufferName)
 {
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     buf->clear();
+    unsigned int i = locateBuffer(dataBlockName, bufferName);
+    unsigned int j = locateDataBlock(dataBlockName);
+    //remove lock
+    QList<QReadWriteLock *> *lockList = lockTable->at(j);
+    QReadWriteLock *lock = lockList->at(i);
+    delete lock;
+    lockList->removeAt(i);
+
+    //remove buffer
+    QList<GRIBuffer *> *bufList = dataBlockTable->at(j);
+    GRIBuffer *buf = bufList->at(i);
+    delete buf;
+    bufList->removeAt(i);
+
+    //remove name of buffer from table
+    QList<string> *strList = nameTable->at(j);
+    strList->removeAt(i);
 }
 
 
@@ -296,7 +313,7 @@ bool GRIMemoryManager::writeMemory(string dataBlockName, string bufferName, unsi
 {
     GRIMemoryManager::bufferWriteLock(dataBlockName, bufferName);
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
-    for (unsigned int s = 0; s < size-1; s++) {
+    for (unsigned int s = 0; s < size; s++) {
         if (!(buf->writeToBuffer(dataArray[s], packetNumber, s))) {
             return false;
         }

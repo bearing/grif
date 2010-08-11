@@ -98,7 +98,7 @@ protected:
 
         /*
           *
-          *
+          * sizeofPacket returns the size of a packet.
           *
         */
         unsigned int sizeofPacket(string dataBlockName, string bufferName, unsigned int packetNumber);
@@ -107,7 +107,7 @@ protected:
 
         /*
           *
-          *
+          * sizeofBuffer returns the total number of packets ever created.
           *
         */
         unsigned int sizeofBuffer(string dataBlockName, string bufferName);
@@ -116,7 +116,12 @@ protected:
 
         /*
           *
+          * bufferReadLock locks a single buffer for read access. While locked, all other
+          * threads will not be able to write to the buffer and will be blocked until the
+          * buffer is unlocked. Reads will still be possible.
           *
+          * If the buffer is locked by a thread, and other threads attempt to take the lock for
+          * read and writes, write threads will have priority for the lock over read threads.
           *
         */
         void bufferReadLock(string dataBlockName, string bufferName);
@@ -125,7 +130,11 @@ protected:
 
         /*
           *
+          * bufferWriteLock locks a single buffer for write access. While locked, all other threads
+          * will not be able to access the buffer for neither write or read.
           *
+          * If other threads try to take the lock, write threads will have priority for the lock
+          * over read threads.
           *
         */
         void bufferWriteLock(string dataBlockName, string bufferName);
@@ -135,7 +144,7 @@ protected:
 
         /*
           *
-          *
+          * unlockBuffer unlocks the buffer for other threads to have access.
           *
         */
         void unlockBuffer(string dataBlockName, string bufferName);
