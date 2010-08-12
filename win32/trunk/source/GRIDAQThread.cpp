@@ -10,7 +10,7 @@ GRIDAQThread::GRIDAQThread(GRIDAQ * d)
 }
 
 GRIDAQThread::~GRIDAQThread(){
-
+    QThread::wait();
 }
 
 
@@ -47,9 +47,6 @@ void GRIDAQThread::run()
     if(error != DAQTHREAD_SUCCESS) {
         this->errorHandling("initialize() failed", error);
     }
-
-
-
 
     error = daqObject->openRunTimeControl();
     if(error != DAQTHREAD_SUCCESS) {

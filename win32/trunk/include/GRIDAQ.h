@@ -1,36 +1,17 @@
 #ifndef GRIDAQ_ABSTRACT
 #define GRIDAQ_ABSTRACT
 
-// Tentative DAQ class
+
+/*
+  GRIDAQ abstract class
+  This class acts as an abstract class for all data acquisition classes. It provides the interface that the GRIDAQThread class uses to
+  interact with the class the app engineer derives from GRIDAQ.
+
+  The class separates different parts of data acquisition so that the GRIDAQThread class can effectively control GRIDAQ objects.
+
+  */
 
 
-/* DAQThread must have:
-
-   a DAQ object passed to it as an argument (let myDAC be this argument).
-
-   a start method that looks like:
-
-   DAQThread::startDAQThread(){
-        error1 = myDAC.openInitializationControl();
-        error2 = myDAC.initialize();
-        QThread::start();
-   }
-
-   a run loop that looks like:
-
-   DAQThread::run(){
-        error3 = myDAC.openRunTimeControl();
-        error4 = myDAC.startDataAcquisition();
-        error5 = myDAC.stopDataAcquistion();
-   }
-
-   a quit method that looks like:
-
-   DAQThread::quitDAQThread(){
-        error6 = myDAC.stopDataAcquisition();
-        QThread::quit();
-   }
- */
 
 class GRIDAQ{
 public:
@@ -52,15 +33,10 @@ public:
     GRIDAQ() {};
     virtual ~GRIDAQ() {};
 
-
-    //When implementing Run() in DAQThread, we should implement a way of recording the return values of the following
-    //methods so that users have another option for error checking in their implementations.
-
-
     /*
      *
      * connectToDaq()
-     * The method connectToDaq() MUST be implemented in your derived class.  This method is responsible for updating all
+     * The method connectToDaq() MUST be implemented in your derived class.  This method is responsible for updating and
      * connecting to the DAQ hardware, which will happen before initialization.  This method will
      * always be called before startDataAcquisition() and stopDataAcquisition() every time a DAQ thread is run.
      * The return value from this method will be recorded to indicate success or failure.
@@ -125,7 +101,7 @@ public:
 
     /*
  * openInitializationControl()
- * The method openInitializationControl will be called before before the initialize() method every time a DAQ thread is
+ * The method openInitializationControl will be called before before the connectToDaq() method every time a DAQ thread is
  * run.  This is a convenience method that can be used to open a GUI or command line interface to create an initialization
  * file or generate initialization settings before the initialize() method is called during run time.  Implementing this
  * method is not necessary.

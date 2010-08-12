@@ -10,10 +10,10 @@
 
 /*
 *
-* DAQThread abstract class
-* This DAQ abstract class is still in a temporary form. I also do not wish to present to you the actual internal
-* workings of the DAQThread class, so I will only give you the header file for the class, and a description of the
-* abstract methods.
+* GRIDAQThread concrete class
+* This class inherits the QThread class and interfaces with a GRIDAQ. The GRIDAQThread controls the connection, configuration,
+* initialization, acquisition start, and acquisition end of a GRIDAQ. It deals with the QThread aspects of the framework so that
+* the app engineer does not have to.
 *
 */
 
@@ -36,7 +36,7 @@ public:
     ~GRIDAQThread();
 
 
-//protected:
+protected:
 
     /*
     *
@@ -71,32 +71,40 @@ public:
     * child DAQThread object, which is specific to each DAQ system. In a standard DAQThread implementation, the run() method
     * should manage the DAQ fpga and hardware, retrieve data, and store that data into global memory.
     *
+    * This method also has error-handling for the methods it calls.
     */
     void run();
 
 private:
 
     /*
-    *
-    * this method is used to call QThread::start(priority)
-    *
-    */
+     *
+     * this method is used to call QThread::start(priority)
+     *
+     */
     void startDAQThread();
 
 
 
     /*
-      *
-      * this method is used to call QThread functions to stop the thread before it returns.
-      *
-    */
+     *
+     * this method is used to call QThread functions to stop the thread before it returns.
+     *
+     */
     void stopDAQThread();
 
 
+    /*
+     *  This method is used for error handling in run(). This allows the DAQThread class to know more about runtime errors when
+     *  they occur.
+     */
+
     void errorHandling(const char * message, int errorCode);
 
-    GRIDAQ * daqObject;
+
+
+    GRIDAQ * daqObject; // A pointer to the DAQ object that this DAQThread controls.
 
 };
 
-#endif // DAQTHREAD_H
+#endif // GRIDAQTHREAD_H
