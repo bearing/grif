@@ -109,8 +109,8 @@ void GRIMemoryManager::bufferDelete(string dataBlockName, string bufferName)
 
     //remove buffer
     QList<GRIBuffer *> *bufList = dataBlockTable->at(j);
-    GRIBuffer *buf = bufList->at(i);
-    delete buf;
+    GRIBuffer *temp = bufList->at(i);
+    delete temp;
     bufList->removeAt(i);
 
     //remove name of buffer from table
@@ -270,7 +270,7 @@ GRIBuffer* GRIMemoryManager::grabBuffer(string dataBlockName, string bufferName)
 
 
 //returns a copy of the packet requested
-char* GRIMemoryManager::readMemory(string dataBlockName, string bufferName, unsigned int packetNumber)
+char* GRIMemoryManager::readMemory(string dataBlockName, string bufferName, unsigned int packetNumber, char* buffer)
 {
     GRIMemoryManager::bufferReadLock(dataBlockName, bufferName);
 
@@ -281,11 +281,10 @@ char* GRIMemoryManager::readMemory(string dataBlockName, string bufferName, unsi
 
 
     //if buf = 0, should throw exception HERE
-    int packSize = buf->packetSize(packetNumber);
-    char* packet = new char[packSize];          //memory leak here
-    int i;
-    for (i = 0; i < packSize; i++) {
-        *(packet+i) = buf->readBuffer(packetNumber,i);
+
+
+    for (int i = 0; i < packSize; i++) {
+        *(buffer+i) = buf->readBuffer(packetNumber,i);
     }
     buf->incrementPacketMarker();
     GRIMemoryManager::unlockBuffer(dataBlockName, bufferName);
@@ -296,14 +295,14 @@ char* GRIMemoryManager::readMemory(string dataBlockName, string bufferName, unsi
 
 
 //returns a copy of the packet requested
-char* GRIMemoryManager::readMemory(string dataBlockName, string bufferName)
+char* GRIMemoryManager::readMemory(string dataBlockName, string bufferName, char* buffer)
 {
     //GRIMemoryManager::bufferReadLock(dataBlockName, bufferName);
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     int packetNumber = buf->currentPacket();
     buf->incrementPacketMarker();
     //GRIMemoryManager::unlockBuffer(dataBlockName, bufferName);
-    return GRIMemoryManager::readMemory(dataBlockName, bufferName, packetNumber);
+    return GRIMemoryManager::readMemory(dataBlockName, bufferName, packetNumber, buffer);
 }
 
 
@@ -313,11 +312,15 @@ bool GRIMemoryManager::writeMemory(string dataBlockName, string bufferName, unsi
 {
     GRIMemoryManager::bufferWriteLock(dataBlockName, bufferName);
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
+
     for (unsigned int s = 0; s < size; s++) {
         if (!(buf->writeToBuffer(dataArray[s], packetNumber, s))) {
             return false;
         }
     }
+
+
+
 
     buf->wakeAllOnQueue();
     GRIMemoryManager::unlockBuffer(dataBlockName,bufferName);

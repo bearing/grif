@@ -158,7 +158,7 @@ protected:
         * corresponding memory location. It then returns a copy of the requested packet of data inside a char array.
         *
         */
-        char* readMemory(string dataBlockName, string bufferName, unsigned int packetNumber);
+        char* readMemory(string dataBlockName, string bufferName, unsigned int packetNumber, char* buffer);
 
 
         /*
@@ -168,7 +168,7 @@ protected:
         * position 3, then the next call to this memoryRead() would take data from packet 4.
         *
         */
-        char* readMemory(string dataBlockName, string bufferName);
+        char* readMemory(string dataBlockName, string bufferName, char* buffer);
 
 
         /*
