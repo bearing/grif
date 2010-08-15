@@ -8,16 +8,14 @@
  */
 
 #include "TH1D.h"
-#include "TSpectrum"
-#include "GRIhistogramer.h"
-
+#include "TSpectrum.h"
 
 class GRICalibration {
 
 	public:
 	
 	//constructors
-	GRICalibration(TH1D *, histogrammer *, int, double *);
+	GRICalibration(TH1D *, int, double *);
 	
 	//destructor
 	~GRICalibration();
@@ -41,6 +39,6 @@ class GRICalibration {
 	int ID;
 	
 	//find and set data in linOffsetData
-	int findLinOffset();
+	virtual int findLinOffset();
 	
 }

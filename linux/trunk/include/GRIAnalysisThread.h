@@ -2,6 +2,7 @@
 #define GRIAnalysisThread_H
 
 #include <QThread>
+#include "grimemorymanager.h"
 
 /*
 *
@@ -28,9 +29,11 @@ public:
     *
     */
     GRIAnalysisThread();
-    //GRIAnalysisThread(memoryManager *);
     ~GRIAnalysisThread();
-    //memoryManager *mem;
+
+    //Memory Manager
+    GRIMemoryManager *memMgrPtr;
+
 
 
 

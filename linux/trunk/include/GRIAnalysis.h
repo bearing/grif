@@ -8,8 +8,7 @@
 #include <string>
 
 //GRI headers
-#include "GRIMemoryManager.h"
-
+#include"grimemorymanager.h"
 
 
 
@@ -18,24 +17,18 @@ class GRIAnalysis
 {
         private:
 
-        //The filter accesses the memory manager for reading and writing data.
-
         protected:
 
         public:
 
-        memoryManager *memMgr;
-
-        //memorymanager mem;
-
-        //Filter/Regulator pointer used to read and post data.
+        GRIMemoryManager *memMgrPtr;
 
         /* Constructor
          * The constructor will setup everything needed to create an Analysis object.
         */
 
         GRIAnalysis();
-
+        GRIAnalysis(GRIMemoryManager *);
 
         /* Deconstructor
          * The deconstructor will release data as needed.
@@ -56,19 +49,16 @@ class GRIAnalysis
          * take in energies and produce the data for a histogram.
          */
 
+        bool analyze();
+
 
         /* readData()
          * The readData() method accesses the filter to read data for analysis.
          */
 
-        char *readData(char blockName[], char  dataName[], int packet);
+        char *readData(char *, char *, int);
 
-
-         void postData(char blockName[], char  dataName[], int packet);
-
-
-
-        bool postData(char blockName[], char dataName[], char dataArray[]);
+        bool postData(char *, char *, int, char *);
 
         #ifdef ___CINT___
         public:
