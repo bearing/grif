@@ -11,12 +11,6 @@
 #include "TCanvas.h"
 using namespace std;
 
-
-/*GRIAnalysisThread::GRIAnalysisThread(memoryManager *memory)
-{
-    mem = memory;
-}*/
-
 GRIAnalysisThread::GRIAnalysisThread()
 {
 
@@ -30,14 +24,11 @@ GRIAnalysisThread::~GRIAnalysisThread()
 void GRIAnalysisThread::startAnalysis()
 {
     start(QThread::NormalPriority);
-
 }
 
 void GRIAnalysisThread::stopAnalysis()
 {
-
     QThread::quit();
-
 }
 
 void GRIAnalysisThread::run()
