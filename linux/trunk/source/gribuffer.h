@@ -6,7 +6,7 @@
 #include <QWaitCondition>
 #include <QReadWriteLock>
 #include <QThread>
-#include "griprocessthread.h"
+#include "GRIProcessThread.h"
 
 
 
