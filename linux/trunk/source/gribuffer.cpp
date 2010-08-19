@@ -19,6 +19,11 @@ GRIBuffer::~GRIBuffer()
 {
     this->clear();
     delete packetList;
+    markerList->clear();
+    threadList->clear();
+    delete waitQueue;
+    delete markerList;
+    delete threadList;
 }
 
 
@@ -27,7 +32,7 @@ GRIBuffer::~GRIBuffer()
 void GRIBuffer::addPacket()
 {
 
-    QVector<char> *packet = new QVector<char>(1024);
+    QVector<char> *packet = new QVector<char>();
     packetList->append(packet);
     size++;
 
@@ -64,14 +69,6 @@ bool GRIBuffer::writeToBuffer(char b, unsigned int packetNumber, int index)
 }
 
 
-
-//might not need this method
-bool GRIBuffer::appendToBuffer(char b, int packetNumber)
-{
-    QVector<char> *packet = packetList->at(packetNumber);
-    packet->append(b);
-    return true;
-}
 
 
 

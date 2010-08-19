@@ -120,6 +120,12 @@ void GRIMemoryManager::bufferDelete(string dataBlockName, string bufferName)
 
 
 
+void GRIMemoryManager::deletePacket(string dataBlockName, string bufferName, unsigned int packetNumber)
+{
+    GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
+    buf->clearPacket(packetNumber);
+}
+
 
 //returns the index of the current packet being read from
 unsigned int GRIMemoryManager::currentPacketPosition(string dataBlockName, string bufferName)
@@ -282,13 +288,16 @@ char* GRIMemoryManager::readMemory(string dataBlockName, string bufferName, unsi
 
     //if buf = 0, should throw exception HERE
 
+    unsigned int packSize = buf->packetSize(packetNumber);
 
     for (int i = 0; i < packSize; i++) {
         *(buffer+i) = buf->readBuffer(packetNumber,i);
     }
+
     buf->incrementPacketMarker();
+
     GRIMemoryManager::unlockBuffer(dataBlockName, bufferName);
-    return packet;
+    return buffer;
 
 }
 
@@ -300,7 +309,7 @@ char* GRIMemoryManager::readMemory(string dataBlockName, string bufferName, char
     //GRIMemoryManager::bufferReadLock(dataBlockName, bufferName);
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     int packetNumber = buf->currentPacket();
-    buf->incrementPacketMarker();
+    //buf->incrementPacketMarker();
     //GRIMemoryManager::unlockBuffer(dataBlockName, bufferName);
     return GRIMemoryManager::readMemory(dataBlockName, bufferName, packetNumber, buffer);
 }
