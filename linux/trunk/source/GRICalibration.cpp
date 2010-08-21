@@ -8,26 +8,28 @@
  */
 
 #include "GRICalibration.h"
-#include "iostream"
+#include <iostream>
+using namespace std;
 
-GRICalibration::GRICalibration(TH1D *histogram=0, int idNumber=0, float *energyArray=0){
+GRICalibration::GRICalibration(TH1D *histogram, int idNumber, double energyArray[]){
 	
-	this->spect = new TSpectrum();
-	this->hist = new TH1D();
-	
-	this->hist = histogram;
+        hist = new TH1D();
+        hist = histogram;
 		
-	this->ID=idNumber;
-	this->spect->fHistogram = hist;
-        this->linOffsetData.energies = new float[10];
-	this->linOffsetData.peaks = new float[10];
+        ID=idNumber;
+        this->fHistogram = hist;
+        this->linOffsetData.energies = new double[10];
+        this->linOffsetData.peaks = new double[10];
 	this->linOffsetData.energies = energyArray;
 	
 }
 
+GRICalibration::GRICalibration(){
+
+}
+
 GRICalibration::~GRICalibration(){
 	
-        delete(spect);
         delete(hist);
         delete(linOffsetData.peaks);
         delete(linOffsetData.energies);
@@ -37,25 +39,29 @@ GRICalibration::~GRICalibration(){
 int GRICalibration::findLinOffset(){
 	
 	//set spect's histogram
-	this->spect->fHistogram = hist;
+
+        this->Search(hist);
 	
 	//make sure there are enough peaks
-        if (this->spect->fNPeaks < 2){
+        if (this->fNPeaks < 2){
 		cout << "Error: not enough peaks" << endl;
+                cout << (this->fNPeaks) << " peaks found" << endl;
 		return -1;
 	}
 	else {
-		cout << this->spect(fNPeaks) << " peaks found" << endl;
+                cout << (this->fNPeaks) << " peaks found" << endl;
 	}
 	
 	//fPosition contains the peak locations
-	this->linOffsetData.peaks = spect->fPosition;
+        this->linOffsetData.peaks = (double *)fPositionX;
 	
 	//set the data in the structure
-        float x1 = linOffsetData.peaks[0];
-        float x2 = linOffsetData.peaks[1];
-        float e1 = linOffsetData.energies[0];
-        float e2 = linOffsetData.energies[1];
+        double x1 = (double)this->fPositionX[0];
+        double x2 = (double)this->fPositionX[1];
+
+        double e1 = linOffsetData.energies[0];
+        double e2 = linOffsetData.energies[1];
+
 	
 	//perform the linear offset
         this->linOffsetData.gain = (e2-e1)/(x2-x1);
@@ -63,6 +69,23 @@ int GRICalibration::findLinOffset(){
 	
 	return 0;
 				 
+}
+
+void GRICalibration::PrintLinOffset(){
+
+    if(this->fNPeaks >= 2)
+    {
+        cout << "Peak 1 at bin " << this->fPositionX[0];
+        cout << " corresponding to energy " << linOffsetData.energies[0] << endl;
+        cout << "Peak 2 at bin " << this->fPositionX[1];
+        cout << " corrseponding to energy " << linOffsetData.energies[1] << endl;
+        cout << "Gain/offset: E = " << linOffsetData.gain << "(n) + " << linOffsetData.offset << endl;
+    }
+    else
+    {
+        cout << "Linear offset and gain not calculated (not enough peaks found)" << endl;
+    }
+
 }
 
 	
