@@ -9,13 +9,15 @@
 
 #include "TH1D.h"
 #include "TSpectrum.h"
+#include "TROOT.h"
 
-class GRICalibration {
+class GRICalibration : public TSpectrum {
 
 	public:
 	
 	//constructors
-        GRICalibration(TH1D *, int, float *);
+        GRICalibration(TH1D *, int, double *);
+        GRICalibration();
 	
 	//destructor
         ~GRICalibration();
@@ -24,21 +26,24 @@ class GRICalibration {
 	TH1D *hist;
 	
 	//root class that analyzes histograms
-	//peaks stored in spect->fPosition
-	TSpectrum *spect;
+        //peaks stored in spect->fPosition
 	
 	//data
 	struct linearOffsetData {
-                float gain;
-		float offset;
-		float *peaks;
-		float *energies;
+                double gain;
+                double offset;
+                double *peaks;
+                double *energies;
 	} linOffsetData;
+
+        void PrintLinOffset();
 	
 	//marker
 	int ID;
 	
 	//find and set data in linOffsetData
 	virtual int findLinOffset();
+
+
 	
 };
