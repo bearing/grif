@@ -7,7 +7,6 @@
 #include "TH1D.h"
 #include <QCoreApplication>
 #include "qapplication.h"
-#include "SISEnergy.h"
 #include "TCanvas.h"
 using namespace std;
 

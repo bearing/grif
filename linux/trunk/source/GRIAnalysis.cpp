@@ -33,18 +33,16 @@ bool GRIAnalysis::analyze()
     return 0;
 }
 
-char* GRIAnalysis::readData(char blockName[], char dataName[], int packet=0)
+char* GRIAnalysis::readData(char blockName[], char dataName[], int packet, char buffer[])
 {
 
-    return (memMgrPtr->readMemory(blockName, dataName, packet) );
-
+   // return (memMgrPtr->readMemory(blockName, dataName, packet, buffer) );
+    return 0;
 }
 
 bool GRIAnalysis::postData(char blockName[], char dataName[], int size, char dataArray[])
 {
 
-    memMgrPtr->writeMemory(blockName, dataName,size, dataArray);
-
+    //return (memMgrPtr->writeMemory(blockName, dataName, size, dataArray) );
     return 0;
-
 }
