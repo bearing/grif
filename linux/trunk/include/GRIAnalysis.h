@@ -1,5 +1,5 @@
-#ifndef __GRIANALYSIS__
-#define __GRIANALYSIS__
+#ifndef __GRIAnalysis__
+#define __GRIAnalysis__
 
 // General libraries
 #include <iostream>
@@ -8,7 +8,7 @@
 #include <string>
 
 //GRI headers
-#include"grimemorymanager.h"
+#include "grimemorymanager.h"
 
 
 
@@ -56,7 +56,7 @@ class GRIAnalysis
          * The readData() method accesses the filter to read data for analysis.
          */
 
-        char *readData(char *, char *, int);
+        char *readData(char *, char *, int, char *);
 
         bool postData(char *, char *, int, char *);
 

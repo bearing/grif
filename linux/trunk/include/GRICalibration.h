@@ -15,10 +15,10 @@ class GRICalibration {
 	public:
 	
 	//constructors
-	GRICalibration(TH1D *, int, double *);
+        GRICalibration(TH1D *, int, float *);
 	
 	//destructor
-	~GRICalibration();
+        ~GRICalibration();
 	
 	//histogram
 	TH1D *hist;
@@ -29,7 +29,7 @@ class GRICalibration {
 	
 	//data
 	struct linearOffsetData {
-		float slope;
+                float gain;
 		float offset;
 		float *peaks;
 		float *energies;
@@ -41,4 +41,4 @@ class GRICalibration {
 	//find and set data in linOffsetData
 	virtual int findLinOffset();
 	
-}
+};
