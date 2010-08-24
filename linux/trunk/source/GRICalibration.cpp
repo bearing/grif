@@ -11,15 +11,14 @@
 #include <iostream>
 using namespace std;
 
-GRICalibration::GRICalibration(TH1D *histogram, int idNumber, double energyArray[]){
+GRICalibration::GRICalibration(TH1D *histogram, int idNumber, double energyArray[], int numOfE=2){
 	
         hist = new TH1D();
         hist = histogram;
 		
         ID=idNumber;
         this->fHistogram = hist;
-        this->linOffsetData.energies = new double[10];
-        this->linOffsetData.peaks = new double[10];
+        this->linOffsetData.energies = new double[numOfE];
 	this->linOffsetData.energies = energyArray;
 	
 }
@@ -31,7 +30,6 @@ GRICalibration::GRICalibration(){
 GRICalibration::~GRICalibration(){
 	
         delete(hist);
-        delete(linOffsetData.peaks);
         delete(linOffsetData.energies);
 	
 }
@@ -41,6 +39,13 @@ int GRICalibration::findLinOffset(){
 	//set spect's histogram
 
         this->Search(hist);
+        this->linOffsetData.peaks.resize(this->fNPeaks);
+
+        //fPosition contains the peak locations
+        for (int i=0; i < (this->fNPeaks); i++)
+        {
+            this->linOffsetData.peaks[i]=fPositionX[i];
+        }
 	
 	//make sure there are enough peaks
         if (this->fNPeaks < 2){
@@ -52,8 +57,7 @@ int GRICalibration::findLinOffset(){
                 cout << (this->fNPeaks) << " peaks found" << endl;
 	}
 	
-	//fPosition contains the peak locations
-        this->linOffsetData.peaks = (double *)fPositionX;
+
 	
 	//set the data in the structure
         double x1 = (double)this->fPositionX[0];
@@ -73,11 +77,14 @@ int GRICalibration::findLinOffset(){
 
 void GRICalibration::PrintLinOffset(){
 
+    // Assumes first two values of linOffsetData.energies correspond
+    // to the linear gain/offset computation
+
     if(this->fNPeaks >= 2)
     {
-        cout << "Peak 1 at bin " << this->fPositionX[0];
+        cout << "Peak 1 at bin " << this->linOffsetData.peaks[0];
         cout << " corresponding to energy " << linOffsetData.energies[0] << endl;
-        cout << "Peak 2 at bin " << this->fPositionX[1];
+        cout << "Peak 2 at bin " << this->linOffsetData.peaks[1];
         cout << " corrseponding to energy " << linOffsetData.energies[1] << endl;
         cout << "Gain/offset: E = " << linOffsetData.gain << "(n) + " << linOffsetData.offset << endl;
     }
