@@ -1,8 +1,12 @@
-#include "gri_commandandcontrol.h"
-//#include "gri_filter.h"
+#include <QFile>
 #include <QtXml/qdom.h>
 #include <stdlib.h>
 #include <iostream>
+#include <QProcess>
+#include <QVariant>
+#include "gri_commandandcontrol.h"
+#include "gri_memorymanager.h"
+
 
 using namespace std;
 
@@ -11,14 +15,16 @@ GRICommandAndControl::GRICommandAndControl(GRIRunManager *mgr)
     Init(mgr);
 }
 
+GRICommandAndControl::~GRICommandAndControl()
+{
+
+}
+
 bool GRICommandAndControl::Init(GRIRunManager *mgr)
 {
 
     // set the run manager
     this->runmanager = mgr;
-
-    // Create a new Configuration Settings object and load the settings;
-    this->LoadConfigurationSettings();
 
 
     // ************************************************************
@@ -26,224 +32,533 @@ bool GRICommandAndControl::Init(GRIRunManager *mgr)
     // ************************************************************
 
     // create a memory manager
-    // this->memorymanager = new memoryManager();
+     this->memorymanager = new GRIMemoryManager();
 
     // create a regulator with the new memory manager
-    // this->regulator = new filter(memorymanager);
+     this->regulator = new GRIRegulator(memorymanager);
+     //this->regulator = new GRIRegulator(); // CHANGE THIS LATER
+
+
+    // Create a new Configuration Settings object and load the settings;
+    this->ReadXMLsAndLoadConfiguration();
+
+    // DEBUG
+    cout << "INITIALIZING REGULATOR" << endl;
+    system("PAUSE");
+    //**********
 
     // initialize configuration settings
-    // this->regulator->init_config(this->config);
+     this->regulator->init_config(this->datablocks, this->processes);
 
     // ************************************************************
 
+     // DEBUG
+     cout << "INITIALIZING FINISHED" << endl;
+     system("PAUSE");
+     //**********
+
+
+     system("CLS");
+     cout << "DEBUG FINISHED\n\n";
+     system("PAUSE");
+     system("CLS");
+
+
+
+     // TEMPORARY, WILL DELETE AFTER PARAMETERS ARE READ THROUGH XML
+    this->createSampleParamList();
 
     this->usingCommandLine = false; // DEFAULT Setting
 
     return true;
 }
 
-bool GRICommandAndControl::LoadConfigurationSettings()
+void GRICommandAndControl::ReadXMLsAndLoadConfiguration()
 {
-    //MAKE THIS MORE EFFICIENT LATER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //REGULATOR AND MEMORY MANAGER HAVE BEEN INSTANTIATE
 
-    // create a new object
-    this->config = new GRIConfigurationSettings();
 
-    // load the Config File
-    vector<FilePathAndObjectName> filePaths = this->readPathXML();
-    vector<ANALYSIS_STRUCTURE> anaStruc = this->readAnalysisStructureXML();
+    // Read file path xml;
+    list<ProcessDetails*> filePaths = this->readPathXML();
+    list<ProcessDetails*>::iterator filePathIter;
+    // Read analysis structure xml
+    list<AnalysisStructureObject*> analyStructs = this->readAnalysisStructureXML();
+    list<AnalysisStructureObject*>::iterator analyStructIter;
 
-    FilePathAndObjectName currObj;
-
-    for( unsigned int i = 0; i< filePaths.size(); i++)
+    // Instantiate list of threads & data blocks
+    this->processes = new list<GRIProcessThread*>;
+    this->datablocks = new list<GRIDataBlock*>;
+      
+    cout << "\n";
+    
+    // create process threads out of the file path and names given in the XML file
+    for(filePathIter=filePaths.begin(); filePathIter!=filePaths.end(); filePathIter++)
     {
-        currObj = filePaths.at(i);
-
-        if(currObj.isDaq)
-        {
-          DAQ_STRUCTURE *currStructure = new DAQ_STRUCTURE(currObj);
-
-          config->daqStructure->push_back(currStructure);
-        }
-        else // object is an analysis
-        {
-            ANALYSIS_STRUCTURE *currStructure = new ANALYSIS_STRUCTURE(currObj);
-
-            for(unsigned int j = 0; j<anaStruc.size(); j++)
-            {
-
-                if(currObj.name == anaStruc.at(j).name)
-                {
-
-                     currStructure->analysis_dependencies_str = anaStruc.at(j).analysis_dependencies_str;
-                     currStructure->daq_dependencies_str = anaStruc.at(j).daq_dependencies_str;
-                    config->analysisStructure->push_back(currStructure);
-                    break;
-                }
-            }
-        }
+        //
+        processes->push_front(new GRIProcessThread(NULL,(*filePathIter)));
+    
+        //DEBUG
+        cout << "LOADING::";
+        cout << (*processes->front()).name << "::";
+        cout << (*processes->front()).xml_path << endl;
     }
 
-        // Once all of the DAQ and ANALYSIS Structures have been created, you can make
-        // the list of dependencies point to the actual analysis structure objects!
 
-        // For every analysis object
-        for (unsigned int z = 0; z < config->analysisStructure->size(); z++)
+    // DEBUG
+    cout << "\nCreated Threads" << endl;
+    system("PAUSE");
+    //**********
+
+    // create data blocks out of the analysis structure data
+    for(analyStructIter=analyStructs.begin(); analyStructIter!=analyStructs.end(); analyStructIter++)
+    {
+        // load analysis structure into threads & d
+        datablocks->push_front(new GRIDataBlock(*analyStructIter));
+
+    }
+
+    // DEBUG
+    cout << "Created DataBlocks" << endl;
+    system("PAUSE");
+    //**********
+
+}
+
+
+std::list<ProcessDetails*> GRICommandAndControl::readPathXML()
+{
+    list<ProcessDetails*> locPathVector;
+
+
+        ProcessDetails daq_info[200];
+        ProcessDetails ana_info[200];
+
+        int daq_index = 0;
+        int ana_index = 0;
+        int no_of_file = 0;
+
+        QDomDocument doc("CONFIG_FILE_PATH");
+
+        QFile file(":/file_paths.xml");
+        if(!file.open(QIODevice::ReadOnly))
         {
-            // get the name and size of the daq & analysis dependencies
-            string curr_name = config->analysisStructure->at(z)->name;
-            unsigned int curr_daq_list = config->analysisStructure->at(z)->daq_dependencies_str.size();
-            unsigned int curr_analysis_list = config->analysisStructure->at(z)->analysis_dependencies_str.size();
+            cout<<"Fail to Open FILEPATH File!"<<endl;
+            //return 0;
+        }
+        if(!doc.setContent(&file))
+        {
+            file.close();
+            cout<<"Fail to set file content!"<<endl;
+            //return 0;
+        }
+        file.close();
 
-//            // DEBUG
-//            cout << "Current Analysis Structure = " << curr_name << endl;
-//            cout << "   which has " << curr_daq_list << " daq & ";
-//            cout << curr_analysis_list << " dependencies." << endl;
-//            //---------
+        QDomElement root = doc.documentElement();
 
-            // Loop for however many daq dependencies
-            for (unsigned int j = 0; j < curr_daq_list ; j++)
-            {
-                curr_name = config->analysisStructure->at(z)->daq_dependencies_str.at(j);
+        if( root.tagName()!="CONFIG_FILE_PATH")
+        {
+            cout<<"Not right file!"<<endl;
+            //return 0;
+        }
 
-                // Check each daq_structure
-                for( unsigned int k = 0; k < config->daqStructure->size(); k++)
+        QDomNode n = root.firstChild();
+
+        while(!n.isNull())
+        {
+                if(n.nodeName()=="DAQ_INFO")
                 {
-                    // if the names match, connect the objects
-                    if(curr_name == config->daqStructure->at(k)->name)
+                    QDomElement temp = n.toElement();
+                    QDomNode temp_node = temp.firstChild();
+                    while(!temp_node.isNull())
                     {
-                        config->analysisStructure->at(z)->daq_dependencies->push_back(config->daqStructure->at(k));
-
-//                        // debug
-//                        cout << "       " << curr_name << "is a daq dependency" << endl;
-//                        //-------
+                        if(temp_node.nodeName()=="FILE")
+                        {
+                            QDomElement info_node = temp_node.toElement();
+                            daq_info[daq_index].name = info_node.attribute("name", "").toStdString();
+                        }
+                        else if( temp_node.nodeName()=="LOCATION")
+                        {
+                            QDomElement info_node = temp_node.toElement();
+                            daq_info[daq_index].xml_path = info_node.attribute("path", "").toStdString();
+                        }
+                        temp_node = temp_node.nextSibling();
                     }
+                    (++daq_index);
+
                 }
-            }
-            // Loop for however many analysis dependencies
-            for (unsigned int j = 0; j < curr_analysis_list ; j++)
-            {
-                curr_name = config->analysisStructure->at(z)->analysis_dependencies_str.at(j);
-                // check each anlysis structure
-                for( unsigned int k = 0; k < config->analysisStructure->size(); k++)
+                else
                 {
-                    // if the names match, connect the list
-                    if(curr_name == config->analysisStructure->at(k)->name)
+                    QDomElement temp = n.toElement();
+                    QDomNode temp_node = temp.firstChild();
+                    while(!temp_node.isNull())
                     {
-                        config->analysisStructure->at(z)->analysis_dependencies->push_back(config->analysisStructure->at(k));
-
-//                        // debug
-//                        cout << "       " << curr_name << "is a analysis dependency" << endl;
-//                        //-------
+                        if(temp_node.nodeName()=="FILE")
+                        {
+                            QDomElement info_node = temp_node.toElement();
+                            ana_info[ana_index].name = info_node.attribute("name", "").toStdString();
+                        }
+                        else if( temp_node.nodeName()=="LOCATION")
+                        {
+                            QDomElement info_node = temp_node.toElement();
+                            ana_info[ana_index].xml_path = info_node.attribute("path", "").toStdString();
+                        }
+                        temp_node = temp_node.nextSibling();
                     }
+                    (++ana_index);
                 }
-            }
+            n = n.nextSibling();
         }
 
-
-  return true;
-
+        no_of_file = daq_index + ana_index;
 
 
-}
-bool GRICommandAndControl::ExecuteCommand(int choice) // ONLY USED BY COMMAND PROMPT
-{
-
-    // if choice == 5 than quit
-    if(choice == 5)
-    {
-        bool quit;
-        std::string input;
-        while(input!="y" && input!= "Y" && input!= "n" && input!= "N")
+        // EVENTUALLY YOU WILL NEED TO REWRITE THIS TO MAKE IT FASTER!!!!!!!!!!!!!!!!!!!!
+        for(int j = 0; j<daq_index; j++)
         {
-            std::cout<<"ARE YOU SURE? (Y/N) ";
-            std::cin >> input;
+            ProcessDetails *temp = new ProcessDetails;
+            temp->isDaq = true;
+            temp->name = daq_info[j].name;
+            temp->xml_path = daq_info[j].xml_path;
 
-            //Check input for "Y" to quit, "N" for mistake
-            if(input=="y" || input =="Y")
-            {
-                quit = true;
-            }
-            else
-            {
-                if(input == "n" || input == "N")
-                {
-                    quit = false;
-                }
-            }
-
+            locPathVector.push_back(temp);
         }
-        if(quit == true)
+        for(int k = 0; k<ana_index; k++)
         {
-            //EXIT COMMAND PROMPT
-            this->runmanager->commandline->DisplayGoodbye();
-            cin.ignore(100,'\n');
-            cin.ignore();
-            exit(1);
-        }
+            ProcessDetails *temp = new ProcessDetails;
+            temp->isDaq = false;
+            temp->name = ana_info[k].name;
+            temp->xml_path = ana_info[k].xml_path;
 
-        // change loop in runmanager later so it's less cryptic
-        return !quit;   //will stop loop in RunManager
-    }
-    else
-    {
-        //continue loop
-        switch(choice)
-        {
-        case   1:   cout << "FOR NOW, THIS FEATURE ONLY IMPLEMENTED ON JAKES COMPUTER!\n"; break; //this->StartNewProcess("C:/TestProgram.exe"); break;
-        case   2:   this->runmanager->commandline->ListCommands(); break;
-        case   3:   this->DisplayDAQSettings(); break;
-        case   4:   this->DisplayAnalysisSettings(); break;
-        default : std::cerr << "*unknown switch case*" << std::endl; break;
+            locPathVector.push_back(temp);
         }
-        return true;
-    }
-}
-
-std::vector<FilePathAndObjectName> GRICommandAndControl::readPathXML()
-{
-    return this->runmanager->readXMLPaths();
+        return locPathVector;
 
 }
 
-// FOR NOW, IT IS NECESSARY TO CREATE A NEW PROCESS BECAUSE QT CANT RECIEVE TWO DIFFERENT TYPES
-// OF INPUTS (GRAPHICAL AND CLI) FOR THE SAME PROGRAM, SIMULTANEOUSLY, ON THE SAME THREAD
-void GRICommandAndControl::StartNewProcess(std::string filePath)
+// FOR NOW, IT IS NECESSARY TO CREATE A NEW PROCESS BECAUSE THIS PROGRAM IS CURRENTLY SINGLE-THREADED
+void GRICommandAndControl::startNewProcess(std::string filePath)
 {
     // create a new process
-    //QProcess *newProcess = new QProcess();
+    QProcess *newProcess = new QProcess();
     // start a new process
-    //newProcess->start(QVariant(filePath.c_str()).toString());
+    newProcess->start(QVariant(filePath.c_str()).toString());
 
 }
-std::vector<ANALYSIS_STRUCTURE> GRICommandAndControl::readAnalysisStructureXML()
+std::list<AnalysisStructureObject*> GRICommandAndControl::readAnalysisStructureXML()
 {
-    return this->runmanager->readAnalysisStructureXML();
+    //DEBUG
+    cout << "INSIDE ANALYSIS STRUCTURE XML READER" << endl;
+    //************
+
+        AnalysisStructureObject *temp_struc;
+        std::list<AnalysisStructureObject*> list;
+
+
+        int struc_index = 0;
+        int No_DAQ_depen;
+        int No_ANA_depen;
+        int i = 0;
+
+        QDomDocument doc("DATA_ANALYSIS_STRUCTURE");
+
+        QFile file(":/struc_config.xml");
+        if(!file.open(QIODevice::ReadOnly))
+        {
+            cout<<"Fail to Open Analysis Structure File!"<<endl;
+
+        }
+        if(!doc.setContent(&file))
+        {
+            file.close();
+            cout<<"Fail to set file content!"<<endl;
+
+        }
+        file.close();
+
+        QDomElement root = doc.documentElement();
+        if(root.tagName()!="DATA_ANALYSIS_STRUCTURE")
+        {
+            cout<<"Wrong File to Read!"<<endl;
+
+        }
+
+        QDomNode n = root.firstChild();
+
+        while(!n.isNull())
+        {
+            QDomElement e = n.toElement();
+            QDomNode node = e.firstChild();
+            No_DAQ_depen = 0;
+            No_ANA_depen = 0;
+            temp_struc = new AnalysisStructureObject;
+
+            while(!node.isNull())
+            {
+                QDomElement temp = node.toElement();
+                if(node.nodeName()=="DATA")
+                {
+                    temp_struc->data = temp.firstChild().toText().data().toStdString();
+                }
+                else if(node.nodeName()=="FROM")
+                {
+                    temp_struc->From = temp.firstChild().toText().data().toStdString();
+                }
+                else if(node.nodeName()=="TO")
+                {
+                    temp_struc->To.push_front(temp.firstChild().toText().data().toStdString());
+                }
+                else if(node.nodeName()=="ISDAQ")
+                {
+//                    temp_struc->isdaq = temp.firstChild().toText().data().toUInt();
+                }
+                node = node.nextSibling();
+            }
+            list.push_front(temp_struc);
+            struc_index++;
+            i++;
+            n = n.nextSibling();
+
+        }
+
+
+        //DEBUG
+        cout << "LEAVING ANALYSIS STRUCTURE XML READER" << endl;
+        //************
+
+
+
+        return list;
+
 }
 
-void GRICommandAndControl::DisplayAnalysisSettings()
+void GRICommandAndControl::DisplayDataBlocks()
 {
-    std::vector<ANALYSIS_STRUCTURE*>* analysisList= this->config->getAnalysisList();
+    list<GRIDataBlock*>::iterator iter;
 
+    cout << endl;
+    cout << "|****************************************|" << endl;
+    cout << "|        Displaying Data Blocks  !       |" << endl;
+    cout << "|****************************************|" << endl << endl;
 
-    cout << endl << "ANALYSIS STRUCTURES: " << endl << endl;
+    int count = 1;
 
-    for(unsigned int i=0; i<analysisList->size(); i++)
+    for(iter = this->datablocks->begin(); iter != this->datablocks->end(); iter++)
     {
-        cout << analysisList->at(i) << endl;
+        GRIDataBlock* temp = (*iter);
+
+        cout << "------------------------------------------" << endl;
+        cout << " DATA BLOCK " << count << " : " << endl;
+        cout << "------------------------------------------" << endl;
+//        cout << "  " << endl;
+        cout << "   Name = " << temp->get_name() <<endl;
+        cout << "   " << "\n**ask Hilfi about reader & writer names**" << endl;
+        cout << "------------------------------------------" << endl << endl;
+        count++;
     }
     cout << endl;
 }
 
-void GRICommandAndControl::DisplayDAQSettings()
+void GRICommandAndControl::DisplayProcesses()
 {
-    vector<DAQ_STRUCTURE*>* daqList = this->config->getDAQList();
+    list<GRIProcessThread*>::iterator iter;
 
-    std::cout << "DAQ STRUCTURES: " << std::endl << std::endl;
+    cout << endl;
+    cout << "|****************************************|" << endl;
+    cout << "|      Displaying Process Threads  !     |" << endl;
+    cout << "|****************************************|" << endl << endl;
 
-    for(unsigned int i = 0; i < daqList->size(); i++)
+    int count = 1;
+
+    for(iter = this->processes->begin(); iter != this->processes->end(); iter++)
     {
-        cout << daqList->at(i) << endl;
-    }
+        GRIProcessThread* temp = (*iter);
 
+        cout << "------------------------------------------" << endl;
+        cout << " PROCESS THREAD " << count << " : " << endl;
+        cout << "------------------------------------------" << endl;
+//        cout << "    " << endl;
+        cout << "   Name = " << temp->get_name() <<endl;
+        cout << "    Id  = " << temp->getID() << endl;
+        cout << "   Path = " << temp->get_xml_path() << endl;
+        cout << "------------------------------------------" << endl << endl;
+        count++;
+    }
+    cout << endl;
 }
+
+void GRICommandAndControl::startServer()
+{
+    //startServer = true;
+    this->runmanager->startServer();
+
+    int milisecs = 120000;
+    cout << "Connection will close in " << milisecs/1000 << " seconds.\n\n";
+    this->stopServerID = startTimer(milisecs);
+}
+
+void GRICommandAndControl::CloseServer()
+{
+    this->runmanager->closeServer();
+
+    //startServer = false;
+}
+void GRICommandAndControl::timerEvent(QTimerEvent *event)
+{
+  if(this->stopServerID == event->timerId())
+  {
+    this->CloseServer();
+    this->runmanager->startEventLoop();
+  }
+}
+
+// A TEMPORARY FUNCTION THAT WILL ALLOW ME TO TEST THE CUSTOMIZABLE MENU ABILITY
+ void GRICommandAndControl::createSampleParamList()
+ {
+
+     //this->pauseProgram("create sample paramlist");
+
+     this->parameterList = new GRIParamList(NULL, "GRI PARAMETERS", true, NULL);
+
+     //this->pauseProgram("created new parameter list");
+
+     // ERRRRORRRRR
+     parameterList->addParameterChild("global param 2");
+
+     parameterList->addParameterChild("global param 1!");
+
+     parameterList->addSubmenuChild("module 3", NULL);
+     (parameterList->childNodes->front())->addParameterChild("channel 4");
+     (parameterList->childNodes->front())->addParameterChild("channel 3");
+     (parameterList->childNodes->front())->addParameterChild("channel 2");
+     (parameterList->childNodes->front())->addParameterChild("channel 1");
+
+     parameterList->addSubmenuChild("module 2", NULL);
+     (parameterList->childNodes->front())->addParameterChild("channel 2");
+     (parameterList->childNodes->front())->addParameterChild("channel 1");
+
+     parameterList->addSubmenuChild("module 1", NULL);
+     (parameterList->childNodes->front())->addParameterChild("channel 8");
+     (parameterList->childNodes->front())->addParameterChild("channel 7");
+     (parameterList->childNodes->front())->addParameterChild("channel 6");
+     (parameterList->childNodes->front())->addParameterChild("channel 5");
+     (parameterList->childNodes->front())->addParameterChild("channel 4");
+     (parameterList->childNodes->front())->addParameterChild("channel 3");
+     (parameterList->childNodes->front())->addParameterChild("channel 2");
+     (parameterList->childNodes->front())->addParameterChild("channel 1");
+
+     //this->pauseProgram("added submenu with sample parameter child");
+
+ }
+
+
+ void GRICommandAndControl::startParameterChangeLoop()
+ {
+
+     GRIParamList* tempNode = this->parameterList;
+     bool quitLoop = false;
+
+     do
+     {
+
+       int count = 0;
+
+       if(tempNode->isSubMenu)
+       {
+           cout << "\nWhat parameter would you like to change ?" << endl << endl;
+
+           list<GRIParamList*>::iterator iter;
+
+           for(iter = tempNode->childNodes->begin();
+                    iter != tempNode->childNodes->end(); iter++)
+           {
+               if((*iter)->isSubMenu)
+               {
+                   cout << "  <Press " << count << "> to go to " << (*iter)->name << endl;
+               }
+               else
+               {
+                    cout << "  <Press " << count << "> to change paramater '" << (*iter)->name << "'" << endl;
+               }
+               count++;
+           }
+       }
+
+       // count is now equal to one more than the number of children
+
+
+       cout << "\n  <Press " << count << "> to return to previous menu** " << endl;
+       cout << "  <Press " << count+1 << "> to return to root menu" << endl << endl;
+
+       cout << "Make a selection! ";
+
+       QString choice = this->runmanager->getInput();
+
+       int intChoice = choice.toInt();
+
+       cout << endl << endl;
+
+
+       if(intChoice < (count+2) && intChoice >= 0)
+       {
+           if( intChoice == count)
+           {
+               if(tempNode->parent != NULL)
+               {
+                  tempNode = tempNode->parent;
+               }
+           }
+           else
+           {
+               if(intChoice == (count+1))
+               {
+
+                   quitLoop = true; // exit loop
+                   this->runmanager->commandline->RootMenu();
+                   break;
+               }
+               else
+               {
+                   // go through paramater nodes
+                   for(int i = 0; i < count; i++)
+                   {
+                       // if the choice equals the current index
+                       if(intChoice == i)
+                       {
+                           // create iter
+                           list<GRIParamList*>::iterator iter = tempNode->childNodes->begin();
+                           // increase iter by index number
+                           for(int j = 0; j < i; j++)
+                           {
+                               iter++;
+                           }
+
+                           // if the user wants to change an actual parameter
+                           if(!(*iter)->isSubMenu)
+                           {
+                               string newName;
+                               cout << "Enter Parameter Name: ";
+                               newName = this->runmanager->getInput().toStdString();
+                               cout << endl;
+                               (*iter)->name = newName;
+                           }
+                           else
+                           {
+                               // go to the next submenu and repeat the process
+                               tempNode = (*iter);
+                           }
+                       }
+                   }
+               }
+           }
+        }
+     }
+     while(quitLoop != true);
+
+ }
+
+ void GRICommandAndControl::pauseProgram(string message)
+ {
+     cout << endl << message << endl;
+     system("PAUSE");
+ }
+

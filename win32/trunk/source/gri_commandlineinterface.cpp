@@ -1,21 +1,22 @@
-#include "gri_commandlineinterface.h"
-#include <qprocess.h>
 
+#include <qprocess.h>
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
+#include <QMutex>
+#include "gri_commandlineinterface.h"
 
 using namespace::std;
 
 
 GRICommandLineInterface::GRICommandLineInterface()
 {
-
+     QThread(NULL);
+     exit = false;
 }
 
 int GRICommandLineInterface::InputCommand()
 {
-
     std::string input;
     int choice;
 
@@ -57,16 +58,20 @@ void GRICommandLineInterface::DisplayWelcomeScreen()
     system("cls");
 }
 
-void GRICommandLineInterface::ListCommands()
+
+void GRICommandLineInterface::RootMenu()
 {
+    cout << endl;
     cout << "|----------------------------------------|" << endl;
-    cout << "|               COMMANDS                 |" << endl;
+    cout << "|              ROOT MENU                 |" << endl;
     cout << "|----------------------------------------|" << endl;
-    cout << "|-- 1 -- Display Example Histogram       |" << endl;
-    cout << "|-- 2 -- Redisplay Choices               |" << endl;
-    cout << "|-- 3 -- Display DAQ Configuration       |" << endl;
-    cout << "|-- 4 -- Display Analysis Configuration  |" << endl;
-    cout << "|-- 5 -- EXIT                            |" << endl;
+    cout << "|-- 1 -- Run Example Histogram Widget    |" << endl;
+    cout << "|-- 2 -- Display Process Threads         |" << endl;
+    cout << "|-- 3 -- Display Data Blocks             |" << endl;
+    cout << "|-- 4 -- Listen for TCP SOCKET commands  |" << endl;
+    cout << "|-- 5 -- Change a Parameter              |" << endl;
+    cout << "|-- 6 -- Redisplay Choices               |" << endl;
+    cout << "|-- 7 -- EXIT                            |" << endl;
     cout << "|----------------------------------------|" << endl;
 }
 
@@ -90,6 +95,20 @@ bool GRICommandLineInterface::goodCommand(string command)
     bool goodInput = false;
     //if choice >0 good input is true, else it is false
     int choice = atoi(command.c_str());
-    (choice>0 && choice <= 5)? goodInput = true : cerr << "\nERROR: Bad Command";
+    (choice>0 && choice <= 7)? goodInput = true : cerr << "\nERROR: Bad Command\n";
     return goodInput;
+}
+
+
+void GRICommandLineInterface::run()
+{
+    string input;
+
+    while(!exit)
+    {
+        cin >> input;
+        emit this->ReceivedUserInput(QString(input.c_str()));
+
+    }
+
 }
