@@ -1,0 +1,126 @@
+#ifndef GRI_REGULATOR_H
+#define GRI_REGULATOR_H
+
+#define REGULATOR_DEBUG
+
+#include <string>
+#include <list>
+#include <iostream>
+#include <cassert>
+
+#include "gri_memorymanager.h"
+#include "gri_DataBlock.h"
+#include "gri_ProcessThread.h"
+#include "gri_Loader.h"
+
+using namespace std;
+
+class GRILoader;
+class GRIDataBlock;
+class GRIProcessThread;
+class GRIMemoryManager;
+
+// TODO: remove process_name in write/read/buffer_create
+class GRIRegulator
+{
+
+    friend class GRIDataBlock;
+    friend class GRIProcessThread;
+
+public:
+
+    GRIRegulator(GRIMemoryManager* mm);
+
+    ~GRIRegulator();
+
+    /*
+     * init_config() is called just before the whole system starts. It will require the
+     * dependencies' structure dictated by list<GRIBufferObject*> & list<GRIProcessThread*>
+     * and it will start (but not necessarily run) the thread.
+     */
+
+    void init_config(list<GRIDataBlock*>* data_blocks, list<GRIProcessThread*>* processes);
+
+    /*
+     *
+     * bufferCreate() creates a buffer in the specified data block.
+     * If the data block does not exist yet, then it will create the data block before
+     * it creates the buffer.
+     *
+     * invariants:
+     * each process_name must be unique from all other process_names
+     * within each dataBlock, each bufferName must be unique.
+     *
+     */
+    bool bufferCreate(string process_name, string bufferName);
+
+    /*
+     * readMemory() reads one packet from memory in the location specified
+     * by process_name & bufferName
+     */
+    char* readMemory(string process_name, string bufferName);
+
+    /*
+     *
+     * writeMemory() writes a data given in the char array to the location specified
+     * by process_name & bufferName
+     *
+     */
+    bool writeMemory(string process_name, string bufferName, unsigned int size, char dataArray[]);
+
+    /*
+     *
+     * currentPacketPosition() returns the current index of the packet marker. This is in most cases the last
+     * packet to be read next unless setPacketPosition() has been called.
+     *
+     */
+    unsigned int currentPacketPosition(string process_name, string bufferName);
+
+    /*
+     *
+     * lastPacket() returns the index of the last packet in the specified buffer. This is equivalent to
+     * the buffer size minus one.
+     *
+     */
+    unsigned int lastPacket(string process_name, string bufferName);
+
+    /*
+     *
+     * setPacketPosition() sets the packet marker for the specified buffer to the packetNumber position.
+     * This is useful for use with the overloaded readMemory function which allows users to read the packet
+     * that has been indexed by the packet marker. This is in most cases the last packet to be read from unless
+     * setPacketPosition() has been called.
+     *
+     * If the operation is successful, it returns true, otherwise false.
+     *
+     */
+    bool setPacketPosition(string process_name, string bufferName, unsigned int packetNumber);
+
+    unsigned int sizeofPacket(string process_name, string bufferName, unsigned int packetNumber);
+
+    unsigned int sizeofBuffer(string process_name, string bufferName);
+
+protected:
+
+    GRIMemoryManager* mm;
+
+private:
+
+    /*
+     * find_process() returns a pointer to the actual process given the name
+     */
+    GRIProcessThread* find_process(string process_name);
+
+    /*
+     * find_data() returns a pointer to the actual data block given the name
+     */
+    GRIDataBlock* find_data(string data_block_name);
+
+    GRILoader* loader;
+
+    list<GRIDataBlock*>* data_blocks;
+
+    list<GRIProcessThread*>* processes;
+};
+
+#endif // GRIREGULATOR_H
