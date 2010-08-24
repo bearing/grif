@@ -1,8 +1,8 @@
 #ifndef GRIAnalysisThread_H
 #define GRIAnalysisThread_H
 
-#include <QThread>
 #include "grimemorymanager.h"
+#include "GRIProcessThread.h"
 
 /*
 *
@@ -13,7 +13,7 @@
 *
 */
 
-class GRIAnalysisThread : public QThread
+class GRIAnalysisThread : public GRIProcessThread
 
 {
     Q_OBJECT
@@ -30,13 +30,6 @@ public:
     */
     GRIAnalysisThread();
     ~GRIAnalysisThread();
-
-    //Memory Manager
-    GRIMemoryManager *memMgrPtr;
-
-
-
-
 
     /*
     *
@@ -72,6 +65,18 @@ public:
     *
     */
     virtual void run();
+
+    //Pauses the analysis thread for time seconds
+    void pauseAnalysis(unsigned long time);
+
+    //Virtual method for getting an analysis thread parameter
+    template<typename T> T getParam(char paramName[]){return 0;}
+
+     //Virtual method for setting an analysis thread parameter
+    template<typename T> T setParam(char paramName[],T param){return 0;}
+
+    //Virtual method for initialization
+    virtual int openInitializationControl();
 
 
 };
