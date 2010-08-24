@@ -10,13 +10,14 @@
 #include "TH1D.h"
 #include "TSpectrum.h"
 #include "TROOT.h"
+#include <QVector>
 
 class GRICalibration : public TSpectrum {
 
 	public:
 	
 	//constructors
-        GRICalibration(TH1D *, int, double *);
+        GRICalibration(TH1D *, int, double *, int);
         GRICalibration();
 	
 	//destructor
@@ -24,18 +25,16 @@ class GRICalibration : public TSpectrum {
 	
 	//histogram
 	TH1D *hist;
-	
-	//root class that analyzes histograms
-        //peaks stored in spect->fPosition
-	
+
 	//data
 	struct linearOffsetData {
                 double gain;
                 double offset;
-                double *peaks;
+                QVector<double> peaks;
                 double *energies;
 	} linOffsetData;
 
+        //Print the linOffsetData struct data
         void PrintLinOffset();
 	
 	//marker
