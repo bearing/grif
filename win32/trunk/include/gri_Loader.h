@@ -30,9 +30,9 @@ public:
      * }
      */
 
-    list<GRIProcessThread*>* initProcessThreads(list<string> names, list<string>, filepaths);
+    list<GRIProcessThread*>* initProcessThreads(list<string> names, list<string> filepaths);
 
-    GRIProcessObj* load(string process_name, string xml_file);
+    virtual GRIProcessThread* load(string process_name, string xml_file);
 
 private:
 

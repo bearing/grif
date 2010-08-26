@@ -38,6 +38,7 @@ GRIProcessThread* GRILoader::load(string process_name, string xml_file)
     GRIProcessThread* p;
     // sadly, you can't use strings in c++ switch statements
     if(process_name == "hemi")   {
+//        for example
 //        p = new HemiDaq();
     }
 
