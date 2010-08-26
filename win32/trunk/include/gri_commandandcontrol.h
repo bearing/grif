@@ -13,6 +13,7 @@
 #include "gri_server.h"
 #include "gri_Regulator.h"
 #include "gri_runmanager.h"
+#include "gri_xmlparser.h"
 
 
 class GRIRunManager;
@@ -23,6 +24,7 @@ class GRIDataBlock;
 class GRIProcessThread;
 class GRIServer;
 class GRIParamList;
+class GRIXMLParser;
 
 
 using namespace std;
@@ -56,6 +58,11 @@ public:
       * @param mgr
       */
     bool Init(GRIRunManager *mgr);
+
+protected:
+
+    GRIXMLParser* xmlparser;
+
 
     /**
       * reads filepath xml file and creates a list of ProcessDetails
@@ -120,8 +127,13 @@ public:
       */
     void startParameterChangeLoop();
     
-protected:
-    // command and control must have access to the run manager, regulator, and mem manager
+    /**
+      * reads an example analysis xml file and returns a list of parameters
+      * @returns a list of parameters that will be loaded into the parameterlist during Init()
+      */
+
+    GRIParamList* readExampleAnalysisXMLFile();
+
     /**
       * a GRIRunManager ojbect
       * @see class GRIRunManager

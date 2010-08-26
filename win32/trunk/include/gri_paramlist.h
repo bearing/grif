@@ -11,26 +11,25 @@ class GRIParamList
     friend class GRICommandAndControl;
 
 public:
-    GRIParamList(GRIParamList* parent, string nm, bool isMenu,
+    GRIParamList()
+    {
+       this->childNodes = new list<GRIParamList*>;
+    }
+
+    GRIParamList(GRIParamList* parent, string nm, string defaultVal, string val,
+                 string min, string max, string units, string type, bool isMenu,
                  list<GRIParamList*>* children)
     {
-
-        if(children == NULL)
-        {
-
+        if(children == NULL){
             children = new list<GRIParamList*>;
         }
-        else
-        {
-        }
+        else {}
 
-
-        this->setInfo(parent, nm, isMenu, children);
+        this->setInfo(parent, nm, defaultVal, val, min, max, units, type, isMenu, children);
     }
 
 
-
-  //make set & get methods later
+//make set & get methods later
 
 //private:
 
@@ -39,44 +38,53 @@ public:
                    //     name will be the parameter name
     bool isSubMenu;
 
+    string defaultValue;
+    string data;
+    string min;
+    string max;
+    string units;
+    string data_type; // int, float, double, etc.
 
     list<GRIParamList*>* childNodes; // a linked list of child nodes
     GRIParamList* parent;           // a pointer to the parent
 
 
-    void setInfo(GRIParamList* parent, string nm, bool isMenu,
+    void setInfo(GRIParamList* parent, string nm, string defaultVal, string val,
+                 string min, string max, string units, string type, bool isMenu,
                  list<GRIParamList*>* children)
     {
         this->parent = parent;
         this->name = nm;
+        this->defaultValue = defaultVal;
+        this->data = val;
+        this->min = min;
+        this->max = max;
+        this->units = units;
+        this->data_type = type;
         this->isSubMenu = isMenu;
         this->childNodes = children;
-
-
     }
 
     void addChild(GRIParamList* node)
     {
-        childNodes->push_front(node);
+        childNodes->push_back(node);
     }
 
-    void addChild(string nm, bool isMenu, list<GRIParamList*>* children)
+    void addChild(string nm, string defaultVal, string val, string min, string max, string units,
+                  string type, bool isMenu, list<GRIParamList*>* children)
     {
-        GRIParamList* node = new GRIParamList(this, nm, isMenu, children);
-        childNodes->push_front(node);
+        GRIParamList* node = new GRIParamList(this, nm, defaultVal,val, min,max, units, type,isMenu, children);
+        childNodes->push_back(node);
     }
 
-    void addParameterChild(string nm)
+    void addParameterChild(string nm, string defaultVal, string val, string units, string type)
     {
-        //DEBUG
-        //this->pauseProgram("Inside 'add parameter child' ");
-
-        this->addChild(nm, false, NULL);
+        this->addChild(nm,defaultVal, val, "", "", units, type, false, NULL);
     }
 
-    void addSubmenuChild(string menuName,list<GRIParamList*>* children)
+    void addSubmenuChild(string nm, string defaultVal, string val, string units, string type, list<GRIParamList*>* children)
     {
-        this->addChild(menuName, true, children);
+        this->addChild(nm,defaultVal, val, "", "", units, type, true, children);
     }
 
 
@@ -84,6 +92,17 @@ public:
     {
         cout << endl << message << endl;
         system("PAUSE");
+    }
+
+    void display()
+    {
+        cout << endl;
+        cout << "------------------------" << endl;
+        cout << "NAME: " << this->name << endl;
+        cout << "PARENT: " << (*this->parent).name << endl;
+        cout << "DATA: " << this->data << endl;
+        cout << "CHILDREN: " << this->childNodes->size() << endl;
+        cout << "------------------------" << endl << endl;
     }
 
 
