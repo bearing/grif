@@ -29,6 +29,9 @@ public:
      *  case("SIS_DAQ"): new SIS_DAQ(xml_file)
      * }
      */
+
+    list<GRIProcessThread*>* initProcessThreads(list<string> names, list<string>, filepaths);
+
     GRIProcessObj* load(string process_name, string xml_file);
 
 private:

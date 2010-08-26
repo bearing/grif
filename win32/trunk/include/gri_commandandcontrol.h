@@ -14,6 +14,7 @@
 #include "gri_Regulator.h"
 #include "gri_runmanager.h"
 #include "gri_xmlparser.h"
+#include "gri_Loader.h"
 
 
 class GRIRunManager;
@@ -25,6 +26,7 @@ class GRIProcessThread;
 class GRIServer;
 class GRIParamList;
 class GRIXMLParser;
+class GRILoader;
 
 
 using namespace std;
@@ -186,6 +188,8 @@ protected:
       * distinguishes whether or not the user wants to use a server
       */
     bool usingServer;
+
+    GRILoader* loader;
 };
 
 
