@@ -54,15 +54,19 @@ double erfinv(double P)
      return Y;
    }
 
-double *SampleGauss(double Mean, double Sigma, double num){
-	double *N = new double[num]
+double *SampleGauss(double Mean, double Sigma, int num){
+
+        double *N = new double[num];
+
 	for(int i=0; i<num; i++)
 	{
 		N[i]=sqrt(2)*Sigma*erfinv(rand()*2-1) + Mean;
 	}
+
 	return N;
 }
 
-double SampleGauss(dobule Mean, double Sigma){
+double SampleGauss(double Mean, double Sigma){
+
 	return (sqrt(2)*Sigma*erfinv(rand()*2-1) + Mean);
 }
