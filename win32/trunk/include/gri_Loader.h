@@ -5,10 +5,12 @@
 
 #include "gri_ProcessObj.h"
 #include "gri_Regulator.h"
+#include "gri_ProcessThread.h"
 
 using namespace std;
 
 class GRIRegulator;
+class GRIProcessThread;
 
 class GRILoader
 {

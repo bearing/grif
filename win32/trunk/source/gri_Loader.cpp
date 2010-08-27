@@ -23,7 +23,10 @@ list<GRIProcessThread*>* GRILoader::initProcessThreads(list<string> names, list<
     for(int i = 0; i < names.size(); i++)
     {
         // load the process thread
-        p = this->load(names.pop_front(), filepaths.pop_front());
+        p = load(names.front(), filepaths.front());
+
+        filepaths.pop_front();
+        names.pop_front();
 
         // add to list
         processList->push_front(p);
