@@ -168,7 +168,7 @@ class GRIProcessThread : public QThread
 		 * readMemory() reads one packet from memory in the location specified
 		 * by process_name & bufferName
 		 */
-		char* readMemory(string const &bufferName);
+		template <class T> T* readMemory(string const &bufferName);
 		
 		/*
 		 *
@@ -176,7 +176,7 @@ class GRIProcessThread : public QThread
 		 * by process_name & bufferName
 		 *
 		 */
-		bool writeMemory(string const &bufferName, unsigned int size, char dataArray[]);
+		template <class T> bool writeMemory(string const &bufferName, unsigned int size, T dataArray[]);
 		
 		/*
 		 *
@@ -247,6 +247,24 @@ template<class T> T GRIProcessThread::getParam(QString Key){
 
 template<class T> void GRIProcessThread::setParam(QString Key, T value){
     *((T *) hashTable->value(Key)) = value;
+}
+
+/*
+ * readMemory() reads one packet from memory in the location specified
+ * by process_name & bufferName
+ */
+template<class T> T* GRIProcessThread::readMemory(string const &bufferName){
+    return ((T *) reg->readMemory(bufferName));
+}
+
+/*
+ *
+ * writeMemory() writes a data given in the char array to the location specified
+ * by process_name & bufferName
+ *
+ */
+template<class T> bool GRIProcessThread::writeMemory(string const &bufferName, unsigned int size, T dataArray[]){
+    return reg->writeMemory(bufferName, size * sizeof(T), (char) dataArray[] );
 }
 
 #endif // GRIPROCESSTHREAD_H

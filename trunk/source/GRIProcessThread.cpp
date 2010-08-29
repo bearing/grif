@@ -226,23 +226,7 @@ void GRIProcessThread::display_current_state()
 
 
 
-/*
- * readMemory() reads one packet from memory in the location specified
- * by process_name & bufferName
- */
-char* GRIProcessThread::readMemory(string const &bufferName){
-    return reg->readMemory(bufferName);
-}
 
-/*
- *
- * writeMemory() writes a data given in the char array to the location specified
- * by process_name & bufferName
- *
- */
-bool GRIProcessThread::writeMemory(string const &bufferName, unsigned int size, char dataArray[]){
-    return reg->writeMemory(bufferName, size, dataArray[] );
-}
 /*
  *
  * currentPacketPosition() returns the current index of the packet marker. This is in most cases the last
