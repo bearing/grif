@@ -14,6 +14,11 @@ GRIProcessThread::GRIProcessThread(QObject *obj)
     thread_id = GRIProcessThread::counter++;
 }
 
+GRIProcessThread::GRIProcessThread()
+{
+
+}
+
 GRIProcessThread::~GRIProcessThread()
 {
 	
