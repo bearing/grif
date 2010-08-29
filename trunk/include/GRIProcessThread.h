@@ -10,13 +10,11 @@
 
 #include "GRIRegulator.h"
 #include "GRIDataBlock.h"
-#include "GRIProcessObj.h"
 
 using namespace std;
 
 class GRIRegulator;
 class GRIDataBlock;
-class GRIProcessObj;
 
 #define DEFAULT_PACKETS_TO_SATURATION 1
 #define DEFAULT_PACKETS_FROM_SATURATION 1
@@ -45,7 +43,7 @@ friend class GRICommandAndControl;
 
 public:
 
-    GRIProcessThread(QObject* obj, process_details_t* proc_detail);
+    GRIProcessThread(QObject* obj);
 
     ~GRIProcessThread();
 
@@ -60,6 +58,11 @@ public:
     bool get_type();
 
     /*
+     * set_detail() sets i
+     */
+    void set_detail(GRIRegulator* reg, process_details* proc_detail);
+
+    /*
      * get_name() returns the name of this process
      */
     string get_name();
@@ -68,11 +71,6 @@ public:
      * get_xml_path() returns the path to the xml file of this process
      */
     string get_xml_path();
-
-    /*
-     * set_obj() sets the GRIProcessObj that this thread is going to run on
-     */
-    void set_obj(GRIProcessObj* obj);
 
     /*
      * set_load_balancing_vars() allows the user to customize the number of packets need to be
@@ -111,11 +109,23 @@ public:
      */
     GRIDataBlock* find_data_block(string data_block_name);
 
+    /*
+     * set() sets a parameter in the xml file
+     */
+    template<class T>
+    bool set(char* param, T data);
+
+    /*
+     * get() retrieves a parameter specified in the xml file
+     */
+    template<class T>
+    T get(char* param);
+
 #ifdef PROCESS_THREAD_DEBUG
     void display_current_state();
 #endif // PROCESS_THREAD_DEBUG
 
-private:
+protected:
 
     typedef struct data
     {
@@ -125,15 +135,15 @@ private:
 
     string name;
 
-    string xml_path; // path to this process' xml file
+    string xml_path;
+
+    GRIRegulator* reg;
 
     unsigned int thread_id; // id of this thread
 
     static unsigned int counter; // to keep track what id needs to be given to a new thread
 
     bool is_daq; // indicates whether this process is a daq or analysis
-
-    GRIProcessObj* obj;
 
     list<data_t*> data_outs; // list of data blocks this process writing to
 

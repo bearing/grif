@@ -10,7 +10,7 @@ using namespace std;
 
 using std::string;
 
-
+class GRIBuffer;
 
 
 //! A memory management class
@@ -35,7 +35,9 @@ using std::string;
 
 class GRIMemoryManager {
 
-protected:
+    friend class GRIRegulator;
+
+public:
 
         //!A constructor
         /*!

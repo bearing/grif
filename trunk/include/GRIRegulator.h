@@ -16,11 +16,12 @@
 using namespace std;
 
 class GRILoader;
-class GRIDataBlock;
 class GRIProcessThread;
+class GRIDataBlock;
 class GRIMemoryManager;
 
 // TODO: remove process_name in write/read/buffer_create
+
 class GRIRegulator
 {
 
@@ -42,6 +43,42 @@ public:
     void init_config(list<GRIDataBlock*>* data_blocks, list<GRIProcessThread*>* processes);
 
     /*
+     * readMemory() reads one packet from memory in the location specified
+     * by process_name & bufferName
+     */
+    char* readMemory(string bufferName);
+
+    /*
+     *
+     * writeMemory() writes a data given in the char array to the location specified
+     * by process_name & bufferName
+     *
+     */
+    bool writeMemory(string bufferName, unsigned int size, char dataArray[]);
+
+    /*
+     *
+     * currentPacketPosition() returns the current index of the packet marker. This is in most cases the last
+     * packet to be read next unless setPacketPosition() has been called.
+     *
+     */
+    unsigned int currentPacketPosition(string bufferName);
+
+    /*
+     *
+     * lastPacket() returns the index of the last packet in the specified buffer. This is equivalent to
+     * the buffer size minus one.
+     *
+     */
+    unsigned int lastPacket(string bufferName);
+
+    unsigned int sizeofPacket(string bufferName, unsigned int packetNumber);
+
+    unsigned int sizeofBuffer(string bufferName);
+
+protected:
+
+    /*
      *
      * bufferCreate() creates a buffer in the specified data block.
      * If the data block does not exist yet, then it will create the data block before
@@ -55,36 +92,6 @@ public:
     bool bufferCreate(string process_name, string bufferName);
 
     /*
-     * readMemory() reads one packet from memory in the location specified
-     * by process_name & bufferName
-     */
-    char* readMemory(string process_name, string bufferName);
-
-    /*
-     *
-     * writeMemory() writes a data given in the char array to the location specified
-     * by process_name & bufferName
-     *
-     */
-    bool writeMemory(string process_name, string bufferName, unsigned int size, char dataArray[]);
-
-    /*
-     *
-     * currentPacketPosition() returns the current index of the packet marker. This is in most cases the last
-     * packet to be read next unless setPacketPosition() has been called.
-     *
-     */
-    unsigned int currentPacketPosition(string process_name, string bufferName);
-
-    /*
-     *
-     * lastPacket() returns the index of the last packet in the specified buffer. This is equivalent to
-     * the buffer size minus one.
-     *
-     */
-    unsigned int lastPacket(string process_name, string bufferName);
-
-    /*
      *
      * setPacketPosition() sets the packet marker for the specified buffer to the packetNumber position.
      * This is useful for use with the overloaded readMemory function which allows users to read the packet
@@ -94,13 +101,7 @@ public:
      * If the operation is successful, it returns true, otherwise false.
      *
      */
-    bool setPacketPosition(string process_name, string bufferName, unsigned int packetNumber);
-
-    unsigned int sizeofPacket(string process_name, string bufferName, unsigned int packetNumber);
-
-    unsigned int sizeofBuffer(string process_name, string bufferName);
-
-protected:
+    bool setPacketPosition(string bufferName, unsigned int packetNumber);
 
     GRIMemoryManager* mm;
 

@@ -1,6 +1,6 @@
 #include "GRIDataBlock.h"
 
-GRIDataBlock::GRIDataBlock(struct AnalysisStructureObject* analysis_struct)
+GRIDataBlock::GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* analysis_struct)
 {
     list<string>::iterator it;
 
@@ -9,6 +9,7 @@ GRIDataBlock::GRIDataBlock(struct AnalysisStructureObject* analysis_struct)
     this->writer = NULL;
     this->write_counter = 0;
     this->first_packet = 0;
+    this->reg = reg;
 
     for(it = (analysis_struct->To).begin(); it != (analysis_struct->To).end(); it++) {
         reader_t* new_counter = new reader_t;
@@ -40,6 +41,16 @@ string GRIDataBlock::get_writer_name()
     return this->writer_name;
 }
 
+GRIProcessThread* GRIDataBlock::get_writer()
+{
+    return writer;
+}
+
+list<GRIDataBlock::reader_t*>* GRIDataBlock::get_reader()
+{
+    return &readers;
+}
+
 void GRIDataBlock::set_link(list<GRIProcessThread*>* processes)
 {
     list<GRIProcessThread*>::iterator process_it;
@@ -50,6 +61,9 @@ void GRIDataBlock::set_link(list<GRIProcessThread*>* processes)
         GRIProcessThread* process = *process_it;
         if (this->writer_name == process->get_name()) {
             this->writer = process;
+
+            cout << this->writer_name << "   " << this->name << endl << endl;
+            this->reg->bufferCreate(this->writer_name, this->name);
             break;
         }
     }
@@ -86,7 +100,6 @@ void GRIDataBlock::set_link(list<GRIProcessThread*>* processes)
             assert(false);
         }
     }
-
 }
 
 void GRIDataBlock::delete_packet()

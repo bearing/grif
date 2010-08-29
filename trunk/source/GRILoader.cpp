@@ -9,8 +9,3 @@ GRILoader::~GRILoader()
 {
 
 }
-
-GRIProcessObj* GRILoader::load(string process_name, string xml_file)
-{
-    return NULL;
-}

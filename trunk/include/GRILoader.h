@@ -3,12 +3,13 @@
 
 #include <string>
 
-#include "GRIProcessObj.h"
 #include "GRIRegulator.h"
+#include "GRIProcessThread.h"
 
 using namespace std;
 
 class GRIRegulator;
+class GRIProcessThread;
 
 class GRILoader
 {
@@ -29,7 +30,7 @@ public:
      *  case("SIS_DAQ"): new SIS_DAQ(xml_file)
      * }
      */
-    GRIProcessObj* load(string process_name, string xml_file);
+   GRIProcessThread* load(string process_name, string xml_file);
 
 private:
 
