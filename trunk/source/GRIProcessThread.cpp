@@ -5,7 +5,6 @@ unsigned int GRIProcessThread::counter = 0;
 GRIProcessThread::GRIProcessThread(QObject *obj)
 : QThread(obj)
 {
-    hashTable = new QHash<QString, void *>();
     num_packets_to_saturation = DEFAULT_PACKETS_TO_SATURATION;
     num_packets_from_saturation = DEFAULT_PACKETS_FROM_SATURATION;
 	
@@ -17,6 +16,7 @@ GRIProcessThread::GRIProcessThread(QObject *obj)
 
 GRIProcessThread::~GRIProcessThread()
 {
+	
     list<data_t*>::iterator it;
     for(it = data_ins.begin(); it != data_ins.end(); it++) {
 		delete *it;
@@ -25,6 +25,8 @@ GRIProcessThread::~GRIProcessThread()
     for(it = data_outs.begin(); it != data_outs.end(); it++) {
         delete *it;
     }
+	
+	
 }
 
 void GRIProcessThread::set_detail(GRIRegulator *reg, process_details *proc_detail)

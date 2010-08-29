@@ -233,20 +233,20 @@ class GRIProcessThread : public QThread
 		int last_adjustment_from_saturation;
 	private:
 		GRIRegulator* reg;
-		QHash<QString, void *> *hashTable;
+		QHash<QString, void *> hashTable;
 	};
 
 
 template<class T> void GRIProcessThread::addParam(QString Key, T& value){
-    hashTable->insert(Key, &value);
+    hashTable.insert(Key, &value);
 }
 
 template<class T> T GRIProcessThread::getParam(QString Key){
-    return *((T *) hashTable->value(Key));
+    return *((T *) hashTable.value(Key));
 }
 
 template<class T> void GRIProcessThread::setParam(QString Key, T value){
-    *((T *) hashTable->value(Key)) = value;
+    *((T *) hashTable.value(Key)) = value;
 }
 
 /*
