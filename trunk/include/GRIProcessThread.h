@@ -161,6 +161,44 @@ class GRIProcessThread : public QThread
 		template <class T> T getParam(QString Key);
 		template <class T> void setParam(QString Key, T value);
 		
+		
+		//Identical to regulator... essentially just abstracts the regulator away.
+		//Passing strings by constant reference to avoid using copy constructor.
+		/*
+		 * readMemory() reads one packet from memory in the location specified
+		 * by process_name & bufferName
+		 */
+		char* readMemory(string const &bufferName);
+		
+		/*
+		 *
+		 * writeMemory() writes a data given in the char array to the location specified
+		 * by process_name & bufferName
+		 *
+		 */
+		bool writeMemory(string const &bufferName, unsigned int size, char dataArray[]);
+		
+		/*
+		 *
+		 * currentPacketPosition() returns the current index of the packet marker. This is in most cases the last
+		 * packet to be read next unless setPacketPosition() has been called.
+		 *
+		 */
+		unsigned int currentPacketPosition(string const &bufferName);
+		
+		/*
+		 *
+		 * lastPacket() returns the index of the last packet in the specified buffer. This is equivalent to
+		 * the buffer size minus one.
+		 *
+		 */
+		unsigned int lastPacket(string const &bufferName);
+		
+		unsigned int sizeofPacket(string const &bufferName, unsigned int packetNumber);
+		
+		unsigned int sizeofBuffer(string const &bufferName);
+		
+		
 #ifdef PROCESS_THREAD_DEBUG
 		void display_current_state();
 #endif // PROCESS_THREAD_DEBUG
@@ -176,8 +214,6 @@ class GRIProcessThread : public QThread
 		string name;
 		
 		string xml_path;
-		
-		GRIRegulator* reg;
 		
 		unsigned int thread_id; // id of this thread
 		
@@ -196,6 +232,7 @@ class GRIProcessThread : public QThread
 		int last_adjustment_to_saturation;
 		int last_adjustment_from_saturation;
 	private:
+		GRIRegulator* reg;
 		QHash<QString, void *> *hashTable;
 	};
 

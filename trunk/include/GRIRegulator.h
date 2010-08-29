@@ -25,7 +25,7 @@ class GRIMemoryManager;
 class GRIRegulator
 {
 
-    friend class GRIDataBlock;
+    friend class GRIDataBlock; //Hilfi, does GRIRegulator really need to be a friend of these two classes?
     friend class GRIProcessThread;
 
 public:

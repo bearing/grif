@@ -223,4 +223,52 @@ void GRIProcessThread::display_current_state()
         cout << new_data->name << endl;
     }
 }
+
+
+
+/*
+ * readMemory() reads one packet from memory in the location specified
+ * by process_name & bufferName
+ */
+char* GRIProcessThread::readMemory(string const &bufferName){
+    return reg->readMemory(bufferName);
+}
+
+/*
+ *
+ * writeMemory() writes a data given in the char array to the location specified
+ * by process_name & bufferName
+ *
+ */
+bool GRIProcessThread::writeMemory(string const &bufferName, unsigned int size, char dataArray[]){
+    return reg->writeMemory(bufferName, size, dataArray[] );
+}
+/*
+ *
+ * currentPacketPosition() returns the current index of the packet marker. This is in most cases the last
+ * packet to be read next unless setPacketPosition() has been called.
+ *
+ */
+unsigned int GRIProcessThread::currentPacketPosition(string const &bufferName){
+    return reg->currentPacketPosition(bufferName);
+}
+
+/*
+ *
+ * lastPacket() returns the index of the last packet in the specified buffer. This is equivalent to
+ * the buffer size minus one.
+ *
+ */
+unsigned int GRIProcessThread::lastPacket(string const &bufferName){
+    return reg->lastPacket(bufferName);
+}
+
+unsigned int GRIProcessThread::sizeofPacket(string const &bufferName, unsigned int packetNumber){
+    return reg->sizeofPacket(bufferName, packetNumber);
+}
+
+unsigned int GRIProcessThread::sizeofBuffer(string const &bufferName){
+    return reg->sizeofBuffer(bufferName);
+}
+
 #endif // PROCESS_THREAD_DEBUG
