@@ -46,7 +46,7 @@ friend class GRICommandAndControl;
 public:
 
     GRIProcessThread(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator);
-
+    GRIProcessThread();
     ~GRIProcessThread();
 
     /*
@@ -170,7 +170,7 @@ public:
 	 * readMemory() reads one packet from memory in the location specified
 	 * by process_name & bufferName
 	 */
-	template <class T> T* readMemory(string bufferName);
+        template <class T> T* readMemory(string dataBlockName, string bufferName);
 	
 	/*
 	 *
@@ -178,7 +178,7 @@ public:
 	 * by process_name & bufferName
 	 *
 	 */
-	template <class T> bool writeMemory(string bufferName, unsigned int size, T dataArray[]);
+        template <class T> bool writeMemory(string dataBlockName, string bufferName, unsigned int size, T dataArray[]);
 	
 	/*
 	 *
@@ -186,7 +186,7 @@ public:
 	 * packet to be read next unless setPacketPosition() has been called.
 	 *
 	 */
-	unsigned int currentPacketPosition(string bufferName);
+        unsigned int currentPacketPosition(string process_name, string bufferName);
 	
 	/*
 	 *
@@ -194,11 +194,11 @@ public:
 	 * the buffer size minus one.
 	 *
 	 */
-	unsigned int lastPacket(string bufferName);
+        unsigned int lastPacket(string process_name, string bufferName);
 	
-	unsigned int sizeofPacket(string bufferName, unsigned int packetNumber);
+        unsigned int sizeofPacket(string process_name, string bufferName, unsigned int packetNumber);
 	
-	unsigned int sizeofBuffer(string bufferName);
+        unsigned int sizeofBuffer(string process_name, string bufferName);
 	
 #ifdef PROCESS_THREAD_DEBUG
     void display_current_state();
@@ -255,8 +255,8 @@ template<class T> void GRIProcessThread::setParam(QString Key, T value){
  * readMemory() reads one packet from memory in the location specified
  * by process_name & bufferName
  */
-template<class T> T* GRIProcessThread::readMemory(string bufferName){
-    return ((T *) reg->readMemory(bufferName));
+template<class T> T* GRIProcessThread::readMemory(string dataBlockName, string bufferName){
+    return ((T *) reg->readMemory(dataBlockName, bufferName));
 }
 
 /*
@@ -265,8 +265,8 @@ template<class T> T* GRIProcessThread::readMemory(string bufferName){
  * by process_name & bufferName
  *
  */
-template<class T> bool GRIProcessThread::writeMemory(string bufferName, unsigned int size, T dataArray[]){
-    return reg->writeMemory(bufferName, size * sizeof(T), (char) dataArray[] );
+template<class T> bool GRIProcessThread::writeMemory(string dataBlockName, string bufferName, unsigned int size, T dataArray[]){
+    return reg->writeMemory(dataBlockName, bufferName, size * sizeof(T), (char) dataArray );
 }
 
 
