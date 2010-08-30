@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <QThread>
-#include "GRIDefines.h"
 
 class GRICommandLineInterface : public QThread
 {
@@ -17,6 +16,7 @@ public:
     int  InputCommand(); // obtains the next command from the user
     bool goodCommand(std::string command); //checks whether the user's command is defined
     void DisplayGoodbye(); // displays a goodbye message to the user on closing
+
     void closeInterface();
 
 signals:

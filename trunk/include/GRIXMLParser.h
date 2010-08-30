@@ -7,12 +7,8 @@
 #include <QFile>
 #include <QMessageBox>
 #include "GRIParamList.h"
-#include "GRIProcessThread.h"
 
 class GRIParamList;
-
-
-struct AnalysisStructureObject;
 
 class GRIXMLParser : public QWidget
 {
@@ -21,33 +17,12 @@ public:
 
     GRIParamList* readExampleAnalysisXMLFile();
 
-
-    /**
-      * reads filepath xml file and creates a list of ProcessDetails
-      * @returns list<ProcessDetails*>
-      * @see ProcessDetails
-      */
-    list<ProcessDetails*> readPathXML();
-    /**
-      * reads an xml file that details the analysis structure and creates a list of AnalysisStructureObjects
-      * @returns list<AnalysisStructureObject*>
-      */
-    list<AnalysisStructureObject*> readAnalysisStructureXML();
-    /**
-      * reads xml files and loads these lists into objects that can be read by the GRIRegulator
-      * @see readPathXML()
-      * @see readAnalysisStructureXML()
-      * @returns list<AnalysisStructureObject*>
-      */
-
-
-
-
 protected:
 
     GRIParamList* readParameter(QXmlStreamReader& xml, GRIParamList* head);
     void addElementToParam(QXmlStreamReader& xml, GRIParamList* param);
     void addChildParams(QXmlStreamReader& xml, GRIParamList* head);
+
 
     void pauseProgram(string message);
 
