@@ -4,6 +4,8 @@
 #define PROCESS_THREAD_DEBUG
 
 #include <QThread>
+#include <QHash>
+#include <QString>
 #include <list>
 #include <string>
 #include "GRIRegulator.h"
@@ -43,7 +45,7 @@ friend class GRICommandAndControl;
 
 public:
 
-    GRIProcessThread(QObject* obj, ProcessDetails* proc_detail);
+    GRIProcessThread(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator);
 
     ~GRIProcessThread();
 
@@ -109,6 +111,95 @@ public:
      */
     GRIDataBlock* find_data_block(string data_block_name);
 
+	
+	/*
+	 * The following 3 methods are get/sets for the parameters of any class inheriting GRIProcessThread.
+	 * Usage:
+	 *
+	 * //Derived Class:
+	 * class GRIDAQThread : public GRIProcessThread
+	 * {
+	 *      public:
+	 *      GRIDAQThread();  //May possibly initialize parameters or whatever.
+	 *      double parameter1;
+	 *      int parameter2;
+	 *      string *parameter3;
+	 * }
+	 *
+	 * //Instantiation of Derived Class:
+	 * GRIDAQThread *someDAQ = new GRIDAQThread();
+	 *
+	 * //Make parameters callable.  Will probably be done in loader.
+	 * someDAQ->addParam<double>("FirstParameter", someDAQ->parameter1);
+	 * someDAQ->addParam<int>("SecondParameter", someDAQ->parameter2);
+	 * someDAQ->addParam<string *>("ThirdParameter", someDAQ->parameter3);
+	 *
+	 * //Gets and Sets for parameters.  Should be instructive.
+	 * cout<< *(someDAQ->getParameter<string *>("ThirdParameter")) <<endl;  //prints the string in parameter3
+	 *
+	 * getParameter<int>("SecondParameter") = 5;  // does not set parameter2 in someDAQ
+	 *                                            // because getParameter returns a copy.
+	 *
+	 * someDAQ->setParam<int>("SecondParameter", 5);  //sets parameter2 to 5 in someDAQ
+	 * string *aNewString = new string("wooogly wooooogly!");
+	 * someDAQ->setParam<string *>("ThirdParameter", aNewString);  //sets parameter3 to wooogly wooooogly!
+	 * aNewString = new string("booogly boooooogly@@@");
+	 * cout<< *(someDAQ->getParameter<string *>("ThirdParameter") <<endl; //prints wooogly wooooogly!
+	 *                                                                   //because setParameter sets
+	 *                                                                   //parameter3 to a copy of the
+	 *                                                                   //aNewString pointer.
+	 *
+	 * cout<< *(someDAQ->parameter3) <<endl; //also prints wooogly wooooogly!
+	 *     //As you can see, calling setParam also sets the parameter originally passed in using addParam.
+	 *
+	 * How it works:
+	 * GRIProcessThread now contains a hashtable.  Every time you do addParam, a <"Name", parameter> pair
+	 * is added to the hashtable where parameter is a reference to the parameter passed in.  Thus, setParam
+	 * actually sets the parameter referenced in the hashtable (usually a variable in a DAQThread or analysisThread).
+	 * getParam returns a copy of the parameter in the hashtable.  This is usually faster than doing a massive
+	 * if...elseif statement to check which parameter the user is trying to look up.
+	 */
+	template <class T> void addParam(QString Key, T& value);
+	template <class T> T getParam(QString Key);
+	template <class T> void setParam(QString Key, T value);
+	
+	
+	//Identical to regulator... essentially just abstracts the regulator away.
+	//Passing strings by constant reference to avoid using copy constructor.
+	/*
+	 * readMemory() reads one packet from memory in the location specified
+	 * by process_name & bufferName
+	 */
+	template <class T> T* readMemory(string bufferName);
+	
+	/*
+	 *
+	 * writeMemory() writes a data given in the char array to the location specified
+	 * by process_name & bufferName
+	 *
+	 */
+	template <class T> bool writeMemory(string bufferName, unsigned int size, T dataArray[]);
+	
+	/*
+	 *
+	 * currentPacketPosition() returns the current index of the packet marker. This is in most cases the last
+	 * packet to be read next unless setPacketPosition() has been called.
+	 *
+	 */
+	unsigned int currentPacketPosition(string bufferName);
+	
+	/*
+	 *
+	 * lastPacket() returns the index of the last packet in the specified buffer. This is equivalent to
+	 * the buffer size minus one.
+	 *
+	 */
+	unsigned int lastPacket(string bufferName);
+	
+	unsigned int sizeofPacket(string bufferName, unsigned int packetNumber);
+	
+	unsigned int sizeofBuffer(string bufferName);
+	
 #ifdef PROCESS_THREAD_DEBUG
     void display_current_state();
 #endif // PROCESS_THREAD_DEBUG
@@ -143,6 +234,8 @@ private:
 
     int last_adjustment_to_saturation;
     int last_adjustment_from_saturation;
+	GRIRegulator* reg;
+	QHash<QString, void *> hashTable;
 };
 
 #endif // GRIPROCESSTHREAD_H

@@ -2,9 +2,10 @@
 
 unsigned int GRIProcessThread::counter = 0;
 
-GRIProcessThread::GRIProcessThread(QObject *obj, ProcessDetails *proc_detail)
+GRIProcessThread::GRIProcessThread(QObject *obj, ProcessDetails *proc_detail, GRIRegulator *regulator)
     : QThread(obj)
 {
+	reg = regulator;
     this->is_daq = proc_detail->isDaq;
     this->name = proc_detail->name;
     this->xml_path = proc_detail->xml_path;
@@ -224,3 +225,32 @@ void GRIProcessThread::display_current_state()
     }
 }
 #endif // PROCESS_THREAD_DEBUG
+
+
+/*
+ *
+ * currentPacketPosition() returns the current index of the packet marker. This is in most cases the last
+ * packet to be read next unless setPacketPosition() has been called.
+ *
+ */
+unsigned int GRIProcessThread::currentPacketPosition(string bufferName){
+    return reg->currentPacketPosition(bufferName);
+}
+
+/*
+ *
+ * lastPacket() returns the index of the last packet in the specified buffer. This is equivalent to
+ * the buffer size minus one.
+ *
+ */
+unsigned int GRIProcessThread::lastPacket(string bufferName){
+    return reg->lastPacket(bufferName);
+}
+
+unsigned int GRIProcessThread::sizeofPacket(string bufferName, unsigned int packetNumber){
+    return reg->sizeofPacket(bufferName, packetNumber);
+}
+
+unsigned int GRIProcessThread::sizeofBuffer(string bufferName){
+    return reg->sizeofBuffer(bufferName);
+}
