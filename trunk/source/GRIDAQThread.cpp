@@ -35,7 +35,7 @@ void GRIDAQThread::run()
 {
     int error;
 	
-    error = connectToDaq();
+    error = connectToDAQ();
     if (error != DAQTHREAD_SUCCESS) {
         this->errorHandling("connectToDaq failed", error);
     }
