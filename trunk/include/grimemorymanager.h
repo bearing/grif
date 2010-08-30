@@ -1,10 +1,10 @@
-#ifndef GRIMEMORYMANAGER_H
-#define GRIMEMORYMANAGER_H
+#ifndef GRI_MEMORYMANAGER_H
+#define GRI_MEMORYMANAGER_H
 
 #include <string>
 
 #include <QReadWriteLock>
-#include "gribuffer.h"
+#include "GRIBuffer.h"
 
 using namespace std;
 
@@ -36,8 +36,9 @@ class GRIBuffer;
 class GRIMemoryManager {
 
     friend class GRIRegulator;
+    friend class GRICommandAndControl;
 
-public:
+protected:
 
         //!A constructor
         /*!

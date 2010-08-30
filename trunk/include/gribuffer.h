@@ -1,5 +1,5 @@
-#ifndef GRIBUFFER_H
-#define GRIBUFFER_H
+#ifndef GRI_BUFFER_H
+#define GRI_BUFFER_H
 
 #include <QList>
 #include <QVector>
