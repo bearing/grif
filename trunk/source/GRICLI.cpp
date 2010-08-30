@@ -51,12 +51,41 @@ void GRICommandLineInterface::DisplayWelcomeScreen()
     cout << space << "*     http://bearing.berkeley.edu        *\n";
     cout << space << "*                                        *\n";
     cout << space << "******************************************\n";
+    cout << endl;
+
+
+    #if OPERATING_SYSTEM == LINUX
+        cout << space << "LINUX Operating System : ";
+    #endif
+
+    #if OPERATING_SYSTEM == WINDOWS
+        cout << space << "WINDOWS Operating System : ";
+    #endif
+
+    #if OPERATING_SYSTEM == MAC
+        cout << space << "MAC OSX Operating System : ";
+    #endif
+
+    #if IS_64_BIT
+        cout << "64-bit" << endl;
+    #else
+        cout << "32-bit" << endl;
+    #endif
+
+
     cout << endl << endl;
 
     cout << "Press ENTER to begin\n\n";
     cin.ignore(100,'\n');
-    system("cls");
-}
+
+    #if OPERATING_SYSTEM==WINDOWS
+        system("cls");
+    #elif OPERATING_SYSTEM==LINUX
+        system("clear"); //bash shell
+    #elif OPERATING_SYSTEM==MAC
+        system("clear");//bash shell
+    #endif
+    }
 
 
 void GRICommandLineInterface::RootMenu()
@@ -78,7 +107,13 @@ void GRICommandLineInterface::RootMenu()
 
 void GRICommandLineInterface::DisplayGoodbye()
 {
-    system("cls");
+    #if OPERATING_SYSTEM==WINDOWS
+        system("cls");
+    #elif OPERATING_SYSTEM==LINUX
+        system("clear"); //bash shell
+    #elif OPERATING_SYSTEM==MAC
+        system("clear");//bash shell
+    #endif
     std::cout << std::endl << std::endl;
     std::cout << std::endl << std::endl;
     std::cout << std::endl << std::endl;
@@ -107,6 +142,7 @@ void GRICommandLineInterface::run()
 
     while(!exit)
     {
+
         cout << " >> ";
         cin >> input;
         emit this->ReceivedUserInput(QString(input.c_str()));
