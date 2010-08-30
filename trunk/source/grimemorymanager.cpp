@@ -1,4 +1,4 @@
-#include "grimemorymanager.h"
+#include "GRIMemoryManager.h"
 
 
 GRIMemoryManager::GRIMemoryManager()
@@ -345,7 +345,6 @@ bool GRIMemoryManager::writeMemory(string dataBlockName, string bufferName, unsi
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     int curPacket = buf->nextPacket();
     //GRIMemoryManager::unlockBuffer(dataBlockName, bufferName);
-
     return GRIMemoryManager::writeMemory(dataBlockName, bufferName, curPacket, size, dataArray);
 }
 

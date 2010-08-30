@@ -1,72 +1,56 @@
-#include <QtCore/QCoreApplication>
+#include <QtGui/QApplication>
+#include "gri_runmanager.h"
 
-#include "GRIDataBlock.h"
-#include "GRIRegulator.h"
-#include "dummy_thread1.h"
-#include "dummy_thread2.h"
+using namespace std;
 
-typedef struct reader
+// A function that checks the arguments that were passed to the application
+//   through the command line. See the instantiation below for more information.
+bool checkForCommandLineArguments(int argc, char *argv[]);
+
+
+/* The main event loop for the framework */
+
+int main(int argc, char *argv[])
 {
-    long read_counter;
-    GRIProcessThread* reader;
-    string reader_name;
-} reader_t;
+    // create application
+    QApplication app(argc, argv);
 
-int main(int argc, char* argv[])
-{
-    QCoreApplication app(argc, argv);
+    // determine whether user started program from commandline and wants to
+    //      continue to operate framework from the command line
+    bool usingGUI = checkForCommandLineArguments( argc,argv);
 
-    GRIMemoryManager* mm = new GRIMemoryManager();
-    GRIRegulator* reg = new GRIRegulator(mm);
+    // Until we have developed a GUI, We will have to use the Command Line Interface
+    usingGUI = false; // ******** CHANGE WHEN GUI HAS BEEN DEVELOPED *********
 
-    process_details_t* new_detail = new process_details_t;
-    new_detail->isDaq = true;
-    new_detail->name = "SISDAQ";
-    new_detail->xml_path = "SISDAQ XML";
-
-    DummyThread1* sisdaq = new DummyThread1(NULL);
-    sisdaq->set_detail(reg, new_detail);
-    sisdaq->add_data_block("ENERGY", 1);
-
-    new_detail = new process_details_t;
-    new_detail->isDaq = true;
-    new_detail->name = "A1";
-    new_detail->xml_path = "A1 XML";
-
-    DummyThread2* A1 = new DummyThread2(NULL);
-    A1->set_detail(reg, new_detail);
-    A1->add_data_block("ENERGY", 0);
-
-    list<GRIProcessThread*> processes;
-    processes.push_back(sisdaq);
-    processes.push_back(A1);
-
-    struct AnalysisStructureObject* obj = new struct AnalysisStructureObject;
-    obj->data = "ENERGY";
-    obj->From = "SISDAQ";
-    (obj->To).push_back("A1");
-
-    GRIDataBlock data(reg, obj);
-
-    list<GRIDataBlock*> data_blocks;
-    data_blocks.push_back(&data);
-
-    reg->init_config(&data_blocks, &processes);
-
-    sisdaq->start(QThread::NormalPriority);
-    A1->start(QThread::NormalPriority);
-
-//    sleep(1);
-//    data.delete_packet();
-//
-//    sisdaq->exit(*(new int));
-//    A1->exit(*(new int));
-//
-//    sisdaq->start(QThread::NormalPriority);
-//    A1->start(QThread::NormalPriority);
-//
-//    sleep(1);
-//    data.delete_packet();
+    // Instantiate Run Manager
+    GRIRunManager manager(usingGUI);
 
     return app.exec();
+}
+
+
+/* This function takes in command line arguments and returns a bool that
+   describes whether or not the user wants to run the framework from the
+   command line. To determine this, checkForCOmmandLineArguments searches
+   the passed characters (argv) for the following command "-c". Passing
+   "-c" from the command line will cause the program to start the command
+   line interface and will cause checkForCommandLineArguments to return
+   false, otherwise checkForCommandLineArguments will return true. */
+bool checkForCommandLineArguments(int argc, char *argv[])
+{
+    bool usingGUI = true;
+    // Loop through each argument
+    for(int i = 0; i<argc; i++)
+    {
+        string passed_argument = argv[i];
+        // see if user passed "-c"
+        if(passed_argument == "-c")
+        {
+            // if "-c" was passed, then the command line interface will be ran,
+            //   and the user does not want to run a GUI
+            usingGUI = false;
+        }
+    }
+
+    return usingGUI;
 }

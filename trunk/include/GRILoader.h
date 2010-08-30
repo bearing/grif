@@ -1,8 +1,9 @@
-#ifndef GRILOADER_H
-#define GRILOADER_H
+#ifndef GRI_LOADER_H
+#define GRI_LOADER_H
 
 #include <string>
 
+#include "GRIProcessObj.h"
 #include "GRIRegulator.h"
 #include "GRIProcessThread.h"
 
@@ -30,7 +31,11 @@ public:
      *  case("SIS_DAQ"): new SIS_DAQ(xml_file)
      * }
      */
-   GRIProcessThread* load(string process_name, string xml_file);
+
+    list<GRIProcessThread*>* initProcessThreads(list<string> names, list<string> filepaths);
+
+    virtual GRIProcessThread* load(string process_name, string xml_file);
+
 
 private:
 
