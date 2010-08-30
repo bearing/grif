@@ -1,113 +1,117 @@
 #ifndef GRIDAQTHREAD_H
 #define GRIDAQTHREAD_H
 
-#include <QThread>
-#include <iostream>
-#include "GRIDAQ.h"
 #include "GRIProcessThread.h"
+#include <iostream>
+#include <QHash>
+#include <QSTring>
 
 
 #define DAQTHREAD_SUCCESS   0
 
-/*
-*
-* GRIDAQThread concrete class
-* This class inherits the QThread class and interfaces with a GRIDAQ. The GRIDAQThread controls the connection, configuration,
-* initialization, acquisition start, and acquisition end of a GRIDAQ. It deals with the QThread aspects of the framework so that
-* the app engineer does not have to.
-*
-*/
 
+//Abstract DAQThreadClass
 class GRIDAQThread : public GRIProcessThread
 
 {
-    Q_OBJECT
 
 public:
 
-    /*
-    *
-    * Constructors and Destructors
-    * The constructuor implemented should initialize all necessary variables and data for object initialization.
-    * The destructor should include a call to QThread::wait() at the end so that the thread gets blocked until
-    * the end of its execuion cycle i.e. the run() method returns.
-    *
-    */
-    GRIDAQThread(GRIDAQ * d);
-    GRIDAQThread(int n){}
-    GRIDAQThread(){}
-    ~GRIDAQThread();
+
+GRIDAQThread();
+~GRIDAQThread();
 
 
-protected:
+/*
+The app engineer must create a class inheriting GRIDAQThread that implements
+the following methods.  Unlike in our SIS DAQ implementation, the app engineer
+will not implement the while loop controlling data collection (see run() method).
 
-    /*
-    *
-    * startAcquisition()
-    * This method performs the necessary functions in order to begin acquisition of data from the DAQ hardware.
-    * At the very minimum, this method must make a call to startDAQThread in order to initialize
-    * the thread process on the CPU. Depending on the DAQ hardware and application developers implementation of
-    * the DAQThread class, other method calls may be necessary to successfully initialize the thread.
-    *
-    */
-    void startAcquisition();
+This class might look something like this:
+
+class MyDAQ : public GRIDAQThread
+{
+public:
+myDAQ() {do stuff}
+~myDAQ() {do stuff}
+virtual int connectToDAQ(){
+//Talk to hardware
+}
+
+virtual int initalize(){
+//Initialize DAQ hardware
+}
+
+virtual int loadConfiguration(){
+//Configure DAQ hardware or something
+}
+
+virtual int startDataAcquisition(){
+//Do routines that must run immediately
+//before data collection.
+}
+
+virtual int acquireData(){
+//Do routine that actually collects data
+//with the expectation that acquireData()
+//will be run in a loop (as shown in run()).
+//Use the methods inherited from GRIProcessThread
+//to write data to memory through the regulator.
+
+}
+
+virtual int stopDataAcquisition(){
+//Do routines that must run immediately
+//after data collection.
+}
+
+//getParam and setParam for runtime getting and setting of parameters
+//in classes inheriting GRIDAQThread should use the getParam and setParam
+//functions inherited from GRIProcessThread
+}
+*/
+virtual int connectToDAQ() = 0;
+virtual int initialize() = 0;               //These three set up the DAQ initially,
+virtual int loadConfiguration() = 0;        //and area called only once per thread
+//execution.
+
+virtual int startDataAcquisition() = 0;     //Called at the beginning each run.
+virtual int acquireData() = 0;              //Called repeatedly for each run inside loop
+virtual int stopDataAcquisition() = 0;      //Called at the end of each run.
+
+virtual int openInitializationControl() { return 0; }  //Can override to tell GUI to open.
+
+virtual int openRunTimeControl() { return 0; }         //Can override to tell GUI to open.
 
 
+/*
+In order to stop a GRIDAQThread object safely, the regulator must call:
+GRIDAQThreadObject.setRunFlag(0);
+GRIDAQThreadObject.setExitThreadFlag(0);
+And the thread will reach the end of its run() method and exit.
 
-    /*
-    *
-    * stopAcquisition()
-    * This method stops data acquisition from the DAQ hardware. The app engineer must provide the appropriate method
-    * calls to stop acquisition on the specified DAQ hardware. This method is also a true "stop" and not a "pause",
-    * so this method should only be called when the software is exiting. This method should
-    * not be called until the application is exiting or if the thread has finished
-    * it's run cycle.
-    *
-    */
-    void stopAcquisition();
+In order to stop the DAQ hardware from collecting data and start again,
+the regulator must call:
+GRIDAQThreadObject.setRunFlag(0);
+... do some stuff until ready to run again
+GRIDAQThreadObject.setRunFlag(1);
+*/
 
-
-    /*
-    *
-    * run()
-    * run() is a virtual void method inherited from the QThread class. It must be reimplemented to determine the behavior of the
-    * child DAQThread object, which is specific to each DAQ system. In a standard DAQThread implementation, the run() method
-    * should manage the DAQ fpga and hardware, retrieve data, and store that data into global memory.
-    *
-    * This method also has error-handling for the methods it calls.
-    */
-    void run();
+void setRunFlag(bool newRunFlag);    //These four methods are getters/setters for
+bool getRunFlag();                   //the regulator to use as stated above.
+void setExitThreadFlag(bool newExitThreadFlag);
+bool getExitThreadFlag();
 
 private:
+bool runFlag;
+bool exitThreadFlag;
 
-    /*
-     *
-     * this method is used to call QThread::start(priority)
-     *
-     */
-    void startDAQThread();
+void run();
 
 
+void errorHandling(const char * message, int errorCode);
 
-    /*
-     *
-     * this method is used to call QThread functions to stop the thread before it returns.
-     *
-     */
-    void stopDAQThread();
-
-
-    /*
-     *  This method is used for error handling in run(). This allows the DAQThread class to know more about runtime errors when
-     *  they occur.
-     */
-
-    void errorHandling(const char * message, int errorCode);
-
-
-
-    GRIDAQ * daqObject; // A pointer to the DAQ object that this DAQThread controls.
 
 };
 
-#endif // GRIDAQTHREAD_H
+#endif // DAQTHREAD_H
