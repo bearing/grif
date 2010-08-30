@@ -1,4 +1,4 @@
-#include "gri_xmlparser.h"
+#include "GRIXMLParser.h"
 
 
 GRIXMLParser::GRIXMLParser() : QWidget(NULL)
