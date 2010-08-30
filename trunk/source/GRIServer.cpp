@@ -1,6 +1,6 @@
 #include <iostream>
-#include "gri_server.h"
-#include "gri_clientsocket.h"
+#include "GRIServer.h"
+#include "GRIClientSocket.h"
 using namespace std;
 
 GRIServer::GRIServer()

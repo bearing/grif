@@ -1,5 +1,5 @@
 #include <iostream>
-#include "gri_serverthread.h"
+#include "GRIServerThread.h"
 
 using namespace std;
 GRIServerThread::GRIServerThread() : QThread(NULL)

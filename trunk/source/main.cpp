@@ -1,5 +1,5 @@
 #include <QtGui/QApplication>
-#include "gri_runmanager.h"
+#include "GRIRunManager.h"
 
 using namespace std;
 

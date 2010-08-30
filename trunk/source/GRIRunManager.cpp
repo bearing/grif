@@ -4,8 +4,8 @@
 #include <QVariant>
 #include <QFile>
 #include <qapplication.h>
-#include "gri_runmanager.h"
-#include "gri_clientsocket.h"
+#include "GRIRunManager.h"
+#include "GRIClientSocket.h"
 
 
 using namespace std;

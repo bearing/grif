@@ -1,4 +1,4 @@
-#include "gri_buffer.h"
+#include "GRIBuffer.h"
 
 
 
