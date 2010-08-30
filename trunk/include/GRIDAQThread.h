@@ -4,6 +4,7 @@
 #include <QThread>
 #include <iostream>
 #include "GRIDAQ.h"
+#include "GRIProcessThread.h"
 
 
 #define DAQTHREAD_SUCCESS   0
@@ -17,7 +18,7 @@
 *
 */
 
-class GRIDAQThread : public QThread
+class GRIDAQThread : public GRIProcessThread
 
 {
     Q_OBJECT
@@ -33,6 +34,7 @@ public:
     *
     */
     GRIDAQThread(GRIDAQ * d);
+    GRIDAQThread(){}
     ~GRIDAQThread();
 
 
