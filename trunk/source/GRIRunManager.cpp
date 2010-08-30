@@ -157,8 +157,13 @@ QString GRIRunManager::getInput()
         cout << "\n\n\n";
     }
 
-    system("cls");
-
+    #if OPERATING_SYSTEM==WINDOWS
+        system("cls");
+    #elif OPERATING_SYSTEM==LINUX
+        system("clear"); //bash shell
+    #elif OPERATING_SYSTEM==MAC
+        system("clear");
+    #endif
     return temp;
 }
 
