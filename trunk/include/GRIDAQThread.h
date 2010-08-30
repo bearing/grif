@@ -4,7 +4,7 @@
 #include "GRIProcessThread.h"
 #include <iostream>
 #include <QHash>
-#include <QSTring>
+#include <QString>
 
 
 #define DAQTHREAD_SUCCESS   0
