@@ -105,7 +105,7 @@ std::list<ProcessDetails*> GRICommandAndControl::readPathXML()
 
         QDomDocument doc("CONFIG_FILE_PATH");
 
-        QFile file(":/file_paths.xml");
+        QFile file(":/file_paths.xml/");
         if(!file.open(QIODevice::ReadOnly))
         {
             cout<<"Fail to Open FILEPATH File!"<<endl;
