@@ -21,12 +21,6 @@ public:
 
     GRIParamList* readExampleAnalysisXMLFile();
 
-protected:
-
-    GRIParamList* readParameter(QXmlStreamReader& xml, GRIParamList* head);
-    void addElementToParam(QXmlStreamReader& xml, GRIParamList* param);
-    void addChildParams(QXmlStreamReader& xml, GRIParamList* head);
-
 
     /**
       * reads filepath xml file and creates a list of ProcessDetails
@@ -46,6 +40,14 @@ protected:
       * @returns list<AnalysisStructureObject*>
       */
 
+
+
+
+protected:
+
+    GRIParamList* readParameter(QXmlStreamReader& xml, GRIParamList* head);
+    void addElementToParam(QXmlStreamReader& xml, GRIParamList* param);
+    void addChildParams(QXmlStreamReader& xml, GRIParamList* head);
 
     void pauseProgram(string message);
 
