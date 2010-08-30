@@ -28,8 +28,12 @@
  *
  */
 
+// This is a C statement and seems to not be accessible to Preprocessor directives
+//enum OPSYS { LINUX, WINDOWS, MAC };
 
-enum OPSYS { LINUX, WINDOWS, MAC };
+#define LINUX 0
+#define WINDOWS 1
+#define MAC 2
 
 #ifdef Q_OS_LINUX
 #define OPERATING_SYSTEM LINUX
