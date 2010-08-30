@@ -238,4 +238,36 @@ private:
 	QHash<QString, void *> hashTable;
 };
 
+
+template<class T> void GRIProcessThread::addParam(QString Key, T& value){
+    hashTable.insert(Key, &value);
+}
+
+template<class T> T GRIProcessThread::getParam(QString Key){
+    return *((T *) hashTable.value(Key));
+}
+
+template<class T> void GRIProcessThread::setParam(QString Key, T value){
+    *((T *) hashTable.value(Key)) = value;
+}
+
+/*
+ * readMemory() reads one packet from memory in the location specified
+ * by process_name & bufferName
+ */
+template<class T> T* GRIProcessThread::readMemory(string bufferName){
+    return ((T *) reg->readMemory(bufferName));
+}
+
+/*
+ *
+ * writeMemory() writes a data given in the char array to the location specified
+ * by process_name & bufferName
+ *
+ */
+template<class T> bool GRIProcessThread::writeMemory(string bufferName, unsigned int size, T dataArray[]){
+    return reg->writeMemory(bufferName, size * sizeof(T), (char) dataArray[] );
+}
+
+
 #endif // GRIPROCESSTHREAD_H
