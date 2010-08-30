@@ -34,6 +34,7 @@ public:
     *
     */
     GRIDAQThread(GRIDAQ * d);
+    GRIDAQThread(int n){}
     GRIDAQThread(){}
     ~GRIDAQThread();
 
