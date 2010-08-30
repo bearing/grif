@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<DATA_ANALYSIS_STRUCTURE>
+
+    <STRUCTURE>
+        <DATA>energy</DATA>
+        <TYPE>hex</TYPE>
+        <FROM>ANA_1</FROM>
+        <TO>DAQ_1</TO>
+        <ISDAQ>1</ISDAQ>
+    </STRUCTURE>
+    
+    <STRUCTURE>
+        <DATA>time</DATA>
+        <TYPE>dec</TYPE>
+        <FROM>ANA_1</FROM>
+        <TO>DAQ_2</TO>
+        <ISDAQ>0</ISDAQ>
+    </STRUCTURE>
+    
+    <STRUCTURE>
+        <DATA>channel</DATA>
+        <TYPE>dec</TYPE>
+        <FROM>ANA_2</FROM>
+        <TO>DAQ_3</TO>
+        <ISDAQ>0</ISDAQ>
+    </STRUCTURE>
+    
+</DATA_ANALYSIS_STRUCTURE>

@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>file_paths.xml</file>
+        <file>struc_config.xml</file>
+        <file>runtime_params.xml</file>
+    </qresource>
+</RCC>

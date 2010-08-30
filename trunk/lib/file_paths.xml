@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<CONFIG_FILE_PATH>
+ <DAQ_INFO>
+    <FILE name = "DAQ_1"/>
+    <LOCATION path = "c:\sis_adc_system\config.xml"/>
+ </DAQ_INFO>
+ <DAQ_INFO>
+    <FILE name = "DAQ_2"/>
+    <LOCATION path = "c:\hemi_adc_system\config.xml"/>
+ </DAQ_INFO>
+ <DAQ_INFO>
+    <FILE name = "DAQ_3"/>
+    <LOCATION path = "c:\hemi_adc_system\config3.xml"/>
+ </DAQ_INFO>
+ <ANA_INFO>
+    <FILE name = "ANA_1"/>
+    <LOCATION path = "c:\ana_1"/>
+ </ANA_INFO>
+ <ANA_INFO>
+    <FILE name = "ANA_2"/>
+    <LOCATION path = "c:\ana_2"/>
+ </ANA_INFO>
+ <ANA_INFO>
+    <FILE name = "ANA_3"/>
+    <LOCATION path = "c:\ana_3"/>
+ </ANA_INFO>
+ <ANA_INFO>
+    <FILE name = "ANA_4"/>
+    <LOCATION path = "c:\ana_4"/>
+ </ANA_INFO>
+ 
+</CONFIG_FILE_PATH>
