@@ -233,8 +233,8 @@ void GRIProcessThread::display_current_state()
  * packet to be read next unless setPacketPosition() has been called.
  *
  */
-unsigned int GRIProcessThread::currentPacketPosition(string bufferName){
-    return reg->currentPacketPosition(bufferName);
+unsigned int GRIProcessThread::currentPacketPosition(string process_name, string bufferName){
+    return reg->currentPacketPosition(process_name, bufferName);
 }
 
 /*
@@ -243,14 +243,14 @@ unsigned int GRIProcessThread::currentPacketPosition(string bufferName){
  * the buffer size minus one.
  *
  */
-unsigned int GRIProcessThread::lastPacket(string bufferName){
-    return reg->lastPacket(bufferName);
+unsigned int GRIProcessThread::lastPacket(string process_name, string bufferName){
+    return reg->lastPacket(process_name, bufferName);
 }
 
-unsigned int GRIProcessThread::sizeofPacket(string bufferName, unsigned int packetNumber){
-    return reg->sizeofPacket(bufferName, packetNumber);
+unsigned int GRIProcessThread::sizeofPacket(string process_name, string bufferName, unsigned int packetNumber){
+    return reg->sizeofPacket(process_name, bufferName, packetNumber);
 }
 
-unsigned int GRIProcessThread::sizeofBuffer(string bufferName){
-    return reg->sizeofBuffer(bufferName);
+unsigned int GRIProcessThread::sizeofBuffer(string process_name, string bufferName){
+    return reg->sizeofBuffer(process_name, bufferName);
 }
