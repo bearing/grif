@@ -13,11 +13,11 @@
 #include "GRIProcessObj.h"
 
 using namespace std;
-
+/*
 class GRIRegulator;
 class GRIDataBlock;
 class GRIProcessObj;
-
+*/
 #define DEFAULT_PACKETS_TO_SATURATION 1
 #define DEFAULT_PACKETS_FROM_SATURATION 1
 
@@ -45,7 +45,6 @@ friend class GRICommandAndControl;
 
 public:
 
-    GRIProcessThread(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator);
     GRIProcessThread();
     ~GRIProcessThread();
 
@@ -53,6 +52,32 @@ public:
      * getID() returns the id of this process
      */
     unsigned int getID();
+
+    /*
+     * init() sets up GRIProcessThread.  Must be called after constructor.
+     */
+
+    //*******************************************************************
+    //*******************************************************************
+    //*******************************************************************
+    //*******************************************************************
+    //*******************************************************************
+    //*******************************************************************
+    //*******************************************************************
+    //*******************************************************************
+    //Please call init() before using other methods of GRIProcessThread.
+    //The reason for init() is to avoid a large constructor in the derived
+    //class that must pass down arguments to each parent class constructor.
+    //Ugly ugly ugly.  Thus, we have init().
+    //*******************************************************************
+    //*******************************************************************
+    //*******************************************************************
+    //*******************************************************************
+    //*******************************************************************
+    //*******************************************************************
+    //*******************************************************************
+    //*******************************************************************
+    void init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator);
 
     /*
      * get_type() returns the type of this process (either DAQ or analysis)
@@ -170,7 +195,7 @@ public:
 	 * readMemory() reads one packet from memory in the location specified
 	 * by process_name & bufferName
 	 */
-        template <class T> T* readMemory(string dataBlockName, string bufferName);
+        template <class T> T* readMemory(string bufferName);
 	
 	/*
 	 *
@@ -178,7 +203,7 @@ public:
 	 * by process_name & bufferName
 	 *
 	 */
-        template <class T> bool writeMemory(string dataBlockName, string bufferName, unsigned int size, T dataArray[]);
+        template <class T> bool writeMemory(string bufferName, unsigned int size, T dataArray[]);
 	
 	/*
 	 *
@@ -234,8 +259,8 @@ private:
 
     int last_adjustment_to_saturation;
     int last_adjustment_from_saturation;
-	GRIRegulator* reg;
-	QHash<QString, void *> hashTable;
+    GRIRegulator* reg;
+    QHash<QString, void *> hashTable;
 };
 
 
@@ -255,8 +280,8 @@ template<class T> void GRIProcessThread::setParam(QString Key, T value){
  * readMemory() reads one packet from memory in the location specified
  * by process_name & bufferName
  */
-template<class T> T* GRIProcessThread::readMemory(string dataBlockName, string bufferName){
-    return ((T *) reg->readMemory(dataBlockName, bufferName));
+template<class T> T* GRIProcessThread::readMemory(string bufferName){
+    return ((T *) reg->readMemory(name, bufferName));
 }
 
 /*
@@ -265,9 +290,9 @@ template<class T> T* GRIProcessThread::readMemory(string dataBlockName, string b
  * by process_name & bufferName
  *
  */
-template<class T> bool GRIProcessThread::writeMemory(string dataBlockName, string bufferName, unsigned int size, T dataArray[]){
-    return reg->writeMemory(dataBlockName, bufferName, size * sizeof(T), (char) dataArray );
+template<class T> bool GRIProcessThread::writeMemory(string bufferName, unsigned int size, T dataArray[]){
+    return reg->writeMemory(name, bufferName, size * sizeof(T), (char) dataArray );
 }
-
+\
 
 #endif // GRIPROCESSTHREAD_H

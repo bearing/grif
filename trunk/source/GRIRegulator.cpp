@@ -1,3 +1,7 @@
+#include "GRIMemoryManager.h"
+#include "GRIDataBlock.h"
+#include "GRIProcessThread.h"
+#include "GRILoader.h"
 #include "GRIRegulator.h"
 
 GRIRegulator::GRIRegulator(GRIMemoryManager* mm)

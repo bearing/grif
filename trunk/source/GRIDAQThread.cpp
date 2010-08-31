@@ -4,10 +4,10 @@
 
 using namespace std;
 
-GRIDAQThread::GRIDAQThread(){
+GRIDAQThread::GRIDAQThread()
+{
     runFlag = 1;
     exitThreadFlag = 1;
-	
 }
 
 GRIDAQThread::~GRIDAQThread(){
