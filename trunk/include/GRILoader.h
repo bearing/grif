@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "GRIProcessObj.h"
+//#include "GRIProcessObj.h"
 #include "GRIRegulator.h"
 #include "GRIProcessThread.h"
 

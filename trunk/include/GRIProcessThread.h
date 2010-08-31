@@ -95,7 +95,7 @@ public:
     /*
      * set_obj() sets the GRIProcessObj that this thread is going to run on
      */
-    void set_obj(GRIProcessObj* obj);
+    //void set_obj(GRIProcessObj* obj);
 
     /*
      * set_load_balancing_vars() allows the user to customize the number of packets need to be
@@ -245,7 +245,7 @@ private:
 
     bool is_daq; // indicates whether this process is a daq or analysis
 
-    GRIProcessObj* obj;
+    //GRIProcessObj* obj;
 
     list<data_t*> data_outs; // list of data blocks this process writing to
 
