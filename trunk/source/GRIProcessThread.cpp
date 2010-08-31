@@ -57,12 +57,12 @@ string GRIProcessThread::get_xml_path()
 {
     return this->xml_path;
 }
-
+/*
 void GRIProcessThread::set_obj(GRIProcessObj* obj)
 {
     this->obj = obj;
 }
-
+*/
 void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
 {
     list<GRIDataBlock*>::iterator data_block_it;

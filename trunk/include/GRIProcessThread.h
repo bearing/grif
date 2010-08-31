@@ -10,13 +10,11 @@
 #include <string>
 #include "GRIRegulator.h"
 #include "GRIDataBlock.h"
-#include "GRIProcessObj.h"
 
 using namespace std;
 /*
 class GRIRegulator;
 class GRIDataBlock;
-class GRIProcessObj;
 */
 #define DEFAULT_PACKETS_TO_SATURATION 1
 #define DEFAULT_PACKETS_FROM_SATURATION 1

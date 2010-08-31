@@ -17,7 +17,6 @@ GRIMath.h\
 GRIMemoryManager.h\
 #GRIParamList.h\
 #GRIAnalysis.h\
-GRIProcessObj.h\
 GRIProcessThread.h\
 GRIRegulator.h\
 #GRIRunManager.h\

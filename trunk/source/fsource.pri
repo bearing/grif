@@ -13,7 +13,6 @@ GRIDataBlock.cpp\
 GRILoader.cpp\
 GRIMath.cpp\
 GRIMemoryManager.cpp\
-GRIProcessObj.cpp\
 #GRIAnalysis.cpp\
 GRIRegulator.cpp\
 #GRIRunManager.cpp\
