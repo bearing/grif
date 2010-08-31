@@ -14,6 +14,11 @@ GRIProcessThread::GRIProcessThread(QObject *obj)
     thread_id = GRIProcessThread::counter++;
 }
 
+GRIProcessThread::GRIProcessThread()
+{
+    //needs to be filled in
+}
+
 GRIProcessThread::~GRIProcessThread()
 {
     list<data_t*>::iterator it;
