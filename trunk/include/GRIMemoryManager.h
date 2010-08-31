@@ -38,7 +38,7 @@ class GRIMemoryManager {
     friend class GRIRegulator;
     friend class GRICommandAndControl;
 
-protected:
+private:
 
         //!A constructor
         /*!
