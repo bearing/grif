@@ -1,6 +1,6 @@
 #include "GRIDataBlock.h"
 
-GRIDataBlock::GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* analysis_struct)
+GRIDataBlock::GRIDataBlock(struct AnalysisStructureObject* analysis_struct)
 {
     list<string>::iterator it;
 
@@ -9,7 +9,6 @@ GRIDataBlock::GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* an
     this->writer = NULL;
     this->write_counter = 0;
     this->first_packet = 0;
-    this->reg = reg;
 
     for(it = (analysis_struct->To).begin(); it != (analysis_struct->To).end(); it++) {
         reader_t* new_counter = new reader_t;
@@ -41,21 +40,6 @@ string GRIDataBlock::get_writer_name()
     return this->writer_name;
 }
 
-GRIProcessThread* GRIDataBlock::get_writer()
-{
-    return writer;
-}
-
-list<GRIDataBlock::reader_t*>* GRIDataBlock::get_reader()
-{
-    return &readers;
-}
-
-void GRIDataBlock::set_mm(GRIMemoryManager *mm)
-{
-    this->mm = mm;
-}
-
 void GRIDataBlock::set_link(list<GRIProcessThread*>* processes)
 {
     list<GRIProcessThread*>::iterator process_it;
@@ -66,9 +50,6 @@ void GRIDataBlock::set_link(list<GRIProcessThread*>* processes)
         GRIProcessThread* process = *process_it;
         if (this->writer_name == process->get_name()) {
             this->writer = process;
-
-            cout << this->writer_name << "   " << this->name << endl << endl;
-            mm->bufferCreate(this->writer_name, this->name);
             break;
         }
     }
@@ -105,6 +86,7 @@ void GRIDataBlock::set_link(list<GRIProcessThread*>* processes)
             assert(false);
         }
     }
+
 }
 
 void GRIDataBlock::delete_packet()
@@ -132,7 +114,7 @@ void GRIDataBlock::delete_packet()
 
     if(lowest_packet > first_packet) {
         for(int i = first_packet; i < lowest_packet; i++) {
-            mm->deletePacket(this->writer_name, this->name, i);
+            //TODO: mm deletes packet
         }
         first_packet = lowest_packet;
     }
@@ -156,9 +138,7 @@ void GRIDataBlock::load_balancing()
 
     // either decrease priority of writer (if possible) or increase the priority of the reader (if possible)
     if(rand() % 2 && (int)writer->priority() > (int)QThread::IdlePriority) {
-        //this->writer->change_priority(false);
-        cout << "fail";
-        cin.get();
+        this->writer->change_priority(false);
     }
     else {
         for(it = readers.begin(); it != readers.end(); it++) {
@@ -173,7 +153,6 @@ void GRIDataBlock::load_balancing()
                 reader->reader->change_priority(true);
             }
         }
-        cin.get();
     }
 }
 

@@ -2,9 +2,13 @@
 
 unsigned int GRIProcessThread::counter = 0;
 
-GRIProcessThread::GRIProcessThread(QObject *obj)
-    : QThread(obj)
+GRIProcessThread::GRIProcessThread()
 {
+    reg = NULL;
+    this->is_daq = false;
+    this->name = "";
+    this->xml_path = "";
+
     num_packets_to_saturation = DEFAULT_PACKETS_TO_SATURATION;
     num_packets_from_saturation = DEFAULT_PACKETS_FROM_SATURATION;
 
@@ -14,9 +18,12 @@ GRIProcessThread::GRIProcessThread(QObject *obj)
     thread_id = GRIProcessThread::counter++;
 }
 
-GRIProcessThread::GRIProcessThread()
-{
-    //needs to be filled in
+void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator){
+    this->setParent(obj);
+    reg = regulator;
+    this->is_daq = proc_detail->isDaq;
+    this->name = proc_detail->name;
+    this->xml_path = proc_detail->xml_path;
 }
 
 GRIProcessThread::~GRIProcessThread()
@@ -29,14 +36,6 @@ GRIProcessThread::~GRIProcessThread()
     for(it = data_outs.begin(); it != data_outs.end(); it++) {
         delete *it;
     }
-}
-
-void GRIProcessThread::set_detail(GRIRegulator *reg, process_details *proc_detail)
-{
-    this->reg = reg;
-    this->is_daq = proc_detail->isDaq;
-    this->name = proc_detail->name;
-    this->xml_path = proc_detail->xml_path;
 }
 
 unsigned int GRIProcessThread::getID()
@@ -57,6 +56,11 @@ string GRIProcessThread::get_name()
 string GRIProcessThread::get_xml_path()
 {
     return this->xml_path;
+}
+
+void GRIProcessThread::set_obj(GRIProcessObj* obj)
+{
+    this->obj = obj;
 }
 
 void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
@@ -155,7 +159,7 @@ bool GRIProcessThread::change_priority(bool is_up)
     }
 
     else {
-        if(current_priority <= normal_priority) {
+        if(current_priority < normal_priority) {
             if(last_adjustment_to_saturation >= num_packets_to_saturation) {
                 this->setPriority((QThread::Priority)(--current_priority));
                 last_adjustment_to_saturation = 0;
@@ -204,34 +208,6 @@ GRIDataBlock* GRIProcessThread::find_data_block(string data_block_name)
     return NULL; // Can't find the data block
 }
 
-/*
- *
- * currentPacketPosition() returns the current index of the packet marker. This is in most cases the last
- * packet to be read next unless setPacketPosition() has been called.
- *
- */
-unsigned int GRIProcessThread::currentPacketPosition(string bufferName){
-    return reg->currentPacketPosition(bufferName);
-}
-
-/*
- *
- * lastPacket() returns the index of the last packet in the specified buffer. This is equivalent to
- * the buffer size minus one.
- *
- */
-unsigned int GRIProcessThread::lastPacket(string bufferName){
-    return reg->lastPacket(bufferName);
-}
-
-unsigned int GRIProcessThread::sizeofPacket(string bufferName, unsigned int packetNumber){
-    return reg->sizeofPacket(bufferName, packetNumber);
-}
-
-unsigned int GRIProcessThread::sizeofBuffer(string bufferName){
-    return reg->sizeofBuffer(bufferName);
-}
-
 #ifdef PROCESS_THREAD_DEBUG
 void GRIProcessThread::display_current_state()
 {
@@ -256,3 +232,32 @@ void GRIProcessThread::display_current_state()
     }
 }
 #endif // PROCESS_THREAD_DEBUG
+
+
+/*
+ *
+ * currentPacketPosition() returns the current index of the packet marker. This is in most cases the last
+ * packet to be read next unless setPacketPosition() has been called.
+ *
+ */
+unsigned int GRIProcessThread::currentPacketPosition(string process_name, string bufferName){
+    return reg->currentPacketPosition(process_name, bufferName);
+}
+
+/*
+ *
+ * lastPacket() returns the index of the last packet in the specified buffer. This is equivalent to
+ * the buffer size minus one.
+ *
+ */
+unsigned int GRIProcessThread::lastPacket(string process_name, string bufferName){
+    return reg->lastPacket(process_name, bufferName);
+}
+
+unsigned int GRIProcessThread::sizeofPacket(string process_name, string bufferName, unsigned int packetNumber){
+    return reg->sizeofPacket(process_name, bufferName, packetNumber);
+}
+
+unsigned int GRIProcessThread::sizeofBuffer(string process_name, string bufferName){
+    return reg->sizeofBuffer(process_name, bufferName);
+}

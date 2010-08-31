@@ -1,5 +1,5 @@
-#ifndef GRIREGULATOR_H
-#define GRIREGULATOR_H
+#ifndef GRI_REGULATOR_H
+#define GRI_REGULATOR_H
 
 #define REGULATOR_DEBUG
 
@@ -7,19 +7,20 @@
 #include <list>
 #include <iostream>
 #include <cassert>
-
+/*
 #include "GRIMemoryManager.h"
 #include "GRIDataBlock.h"
 #include "GRIProcessThread.h"
 #include "GRILoader.h"
-
+*/
 using namespace std;
 
 class GRILoader;
-class GRIProcessThread;
 class GRIDataBlock;
+class GRIProcessThread;
 class GRIMemoryManager;
 
+// TODO: remove process_name in write/read/buffer_create
 class GRIRegulator
 {
 
@@ -41,10 +42,23 @@ public:
     void init_config(list<GRIDataBlock*>* data_blocks, list<GRIProcessThread*>* processes);
 
     /*
+     *
+     * bufferCreate() creates a buffer in the specified data block.
+     * If the data block does not exist yet, then it will create the data block before
+     * it creates the buffer.
+     *
+     * invariants:
+     * each process_name must be unique from all other process_names
+     * within each dataBlock, each bufferName must be unique.
+     *
+     */
+    bool bufferCreate(string process_name, string bufferName);
+
+    /*
      * readMemory() reads one packet from memory in the location specified
      * by process_name & bufferName
      */
-    char* readMemory(string bufferName);
+    char* readMemory(string process_name, string bufferName);
 
     /*
      *
@@ -52,7 +66,7 @@ public:
      * by process_name & bufferName
      *
      */
-    bool writeMemory(string bufferName, unsigned int size, char dataArray[]);
+    bool writeMemory(string process_name, string bufferName, unsigned int size, char dataArray[]);
 
     /*
      *
@@ -60,7 +74,7 @@ public:
      * packet to be read next unless setPacketPosition() has been called.
      *
      */
-    unsigned int currentPacketPosition(string bufferName);
+    unsigned int currentPacketPosition(string process_name, string bufferName);
 
     /*
      *
@@ -68,13 +82,7 @@ public:
      * the buffer size minus one.
      *
      */
-    unsigned int lastPacket(string bufferName);
-
-    unsigned int sizeofPacket(string bufferName, unsigned int packetNumber);
-
-    unsigned int sizeofBuffer(string bufferName);
-
-protected:
+    unsigned int lastPacket(string process_name, string bufferName);
 
     /*
      *
@@ -86,7 +94,13 @@ protected:
      * If the operation is successful, it returns true, otherwise false.
      *
      */
-    bool setPacketPosition(string bufferName, unsigned int packetNumber);
+    bool setPacketPosition(string process_name, string bufferName, unsigned int packetNumber);
+
+    unsigned int sizeofPacket(string process_name, string bufferName, unsigned int packetNumber);
+
+    unsigned int sizeofBuffer(string process_name, string bufferName);
+
+protected:
 
     GRIMemoryManager* mm;
 
