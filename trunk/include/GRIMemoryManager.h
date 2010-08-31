@@ -37,6 +37,7 @@ class GRIMemoryManager {
 
     friend class GRIRegulator;
     friend class GRICommandAndControl;
+    friend class GRIDataBlock;
 
 private:
 
