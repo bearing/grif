@@ -19,6 +19,7 @@ public:
 
 
 GRIDAQThread(QObject* obj = 0);
+GRIDAQThread();
 ~GRIDAQThread();
 
 
