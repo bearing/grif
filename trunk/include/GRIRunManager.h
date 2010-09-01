@@ -8,6 +8,7 @@
 #include "GRICommandAndControl.h"
 #include "GRIServer.h"
 #include "GRIServerThread.h"
+#include "GRIDefines.h"
 
 class GRICommandAndControl;
 class GRIServer;
