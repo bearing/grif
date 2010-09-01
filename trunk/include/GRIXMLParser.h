@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QMessageBox>
 #include "GRIParamList.h"
+#include "GRIProcessThread.h"
 
 class GRIParamList;
 
@@ -16,7 +17,8 @@ public:
     GRIXMLParser();
 
     GRIParamList* readExampleAnalysisXMLFile();
-
+    std::list<ProcessDetails*> readPathXML();
+    std::list<AnalysisStructureObject*> readAnalysisStructureXML();
 protected:
 
     GRIParamList* readParameter(QXmlStreamReader& xml, GRIParamList* head);
