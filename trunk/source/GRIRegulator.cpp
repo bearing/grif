@@ -7,7 +7,8 @@
 GRIRegulator::GRIRegulator(GRIMemoryManager* mm)
 {
     this->mm = mm;
-    loader = new GRILoader(this);
+    //DC: Loader will be implemented at the Command and Control
+    //loader = new GRILoader(this);
 }
 
 
