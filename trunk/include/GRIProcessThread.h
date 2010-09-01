@@ -43,7 +43,7 @@ friend class GRICommandAndControl;
 
 public:
 
-    GRIProcessThread();
+    GRIProcessThread(QObject* obj = 0);
     ~GRIProcessThread();
 
     /*

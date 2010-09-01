@@ -18,7 +18,7 @@ class GRIDAQThread : public GRIProcessThread
 public:
 
 
-GRIDAQThread();
+GRIDAQThread(QObject* obj = 0);
 ~GRIDAQThread();
 
 
