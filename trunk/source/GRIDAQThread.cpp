@@ -4,7 +4,8 @@
 
 using namespace std;
 
-GRIDAQThread::GRIDAQThread()
+GRIDAQThread::GRIDAQThread(QObject *obj)
+    :GRIProcessThread(obj)
 {
     runFlag = 1;
     exitThreadFlag = 1;
