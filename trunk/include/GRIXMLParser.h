@@ -17,8 +17,9 @@ public:
     GRIXMLParser();
 
     GRIParamList* readExampleAnalysisXMLFile();
-    std::list<ProcessDetails*> readPathXML();
     std::list<AnalysisStructureObject*> readAnalysisStructureXML();
+    std::list<ProcessDetails*> readPathXML();
+
 protected:
 
     GRIParamList* readParameter(QXmlStreamReader& xml, GRIParamList* head);

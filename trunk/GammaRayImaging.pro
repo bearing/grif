@@ -12,7 +12,6 @@ SOURCES += source/GRIXMLParser.cpp \
     source/GRIRunManager.cpp \
     source/GRIRegulator.cpp \
     source/GRIProcessThread.cpp \
-    source/GRIProcessObj.cpp \
     source/GRIMemoryManager.cpp \
     source/GRILoader.cpp \
     source/GRIDataBlock.cpp \
@@ -34,8 +33,7 @@ HEADERS += include/GRIXMLParser.h \
     include/GRICLI.h \
     include/GRICommandAndControl.h \
     include/GRIClientSocket.h \
-    include/GRIBuffer.h \
-    include/GRIProcessObj.h
+    include/GRIBuffer.h
 INCLUDEPATH += include
 OTHER_FILES += lib/file_paths.xml \
     lib/struc_config.xml \

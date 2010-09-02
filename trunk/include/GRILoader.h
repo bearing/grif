@@ -37,6 +37,8 @@ public:
     virtual GRIProcessThread* load(string process_name, string xml_file);
 
 
+
+
 private:
 
     GRIRegulator* regulator;
