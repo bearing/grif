@@ -452,3 +452,4 @@ std::list<AnalysisStructureObject*> GRIXMLParser::readAnalysisStructureXML()
         return list;
 
 }
+
