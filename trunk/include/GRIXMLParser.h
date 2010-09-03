@@ -6,28 +6,36 @@
 #include <QXmlStreamReader>
 #include <QFile>
 #include <QMessageBox>
-#include "GRIParamList.h"
+#include "GRIParam.h"
 #include "GRIProcessThread.h"
 
 class GRIParamList;
+
+using namespace std;
 
 class GRIXMLParser : public QWidget
 {
 public:
     GRIXMLParser();
 
-    GRIParamList* readExampleAnalysisXMLFile();
-    std::list<AnalysisStructureObject*> readAnalysisStructureXML();
-    std::list<ProcessDetails*> readPathXML();
+    list<GRIParam*>* readNewParamList(QString filePath, list<GRIParam*>* currentParams);
 
-protected:
+    list<AnalysisStructureObject*> readAnalysisStructureXML();
 
-    GRIParamList* readParameter(QXmlStreamReader& xml, GRIParamList* head);
-    void addElementToParam(QXmlStreamReader& xml, GRIParamList* param);
-    void addChildParams(QXmlStreamReader& xml, GRIParamList* head);
+    list<ProcessDetails*> readPathXML();
+
+    void setupMenuStructure();
+
+private:
+
+    GRIParam* readParameter(QXmlStreamReader& xml, QString paramIndexNumber);
+    void addElementToParam(QXmlStreamReader& xml, GRIParam* param);
+
+    void addChildParams(QXmlStreamReader& xml, GRIParam* head);
 
 
     void pauseProgram(string message);
+
 
 };
 

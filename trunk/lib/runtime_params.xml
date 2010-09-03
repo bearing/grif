@@ -10,9 +10,6 @@
         <MAX>10000</MAX>
         <UNITS>kEV</UNITS>
         <DATA_TYPE>DOUBLE</DATA_TYPE>
-        <IS_MENU>FALSE</IS_MENU>
-        <CHILD_PARAMS>
-        </CHILD_PARAMS>
     </PARAMETER>
 
     <PARAMETER>
@@ -23,8 +20,6 @@
         <MAX>100</MAX>
         <UNITS>/CHANNEL /SECOND</UNITS>
         <DATA_TYPE>DOUBLE</DATA_TYPE>
-        <IS_MENU>FALSE</IS_MENU>
-        <CHILD_PARAMS></CHILD_PARAMS>
     </PARAMETER>
 
     <PARAMETER>
@@ -35,152 +30,126 @@
         <MAX>1</MAX>
         <UNITS></UNITS>
         <DATA_TYPE>BOOL</DATA_TYPE>
-        <IS_MENU>TRUE</IS_MENU>
-        <CHILD_PARAMS>
-
-            <PARAMETER>
-                <NAME>CHANNEL 1</NAME>
-                <DEFAULT>ON</DEFAULT>
-                <DATA>ON</DATA>
-                <MIN>0</MIN>
-                <MAX>1</MAX>
-                <UNITS></UNITS>
-                <DATA_TYPE>BOOL</DATA_TYPE>
-                <IS_MENU>TRUE</IS_MENU>
-                <CHILD_PARAMS>
-                <PARAMETER>
-                    <NAME>CHANNEL 1A</NAME>
-                    <DEFAULT>ON</DEFAULT>
-                    <DATA>ON</DATA>
-                    <MIN>0</MIN>
-                    <MAX>1</MAX>
-                    <UNITS></UNITS>
-                    <DATA_TYPE>BOOL</DATA_TYPE>
-                    <IS_MENU>FALSE</IS_MENU>
-                    <CHILD_PARAMS></CHILD_PARAMS>
-                </PARAMETER>
-                <PARAMETER>
-                    <NAME>CHANNEL 1B</NAME>
-                    <DEFAULT>ON</DEFAULT>
-                    <DATA>ON</DATA>
-                    <MIN>0</MIN>
-                    <MAX>1</MAX>
-                    <UNITS></UNITS>
-                    <DATA_TYPE>BOOL</DATA_TYPE>
-                    <IS_MENU>FALSE</IS_MENU>
-                    <CHILD_PARAMS></CHILD_PARAMS>
-                </PARAMETER>
-                </CHILD_PARAMS>
-            </PARAMETER>
-
-
-            <PARAMETER>
-                <NAME>CHANNEL 2</NAME>
-                <DEFAULT>ON</DEFAULT>
-                <DATA>ON</DATA>
-                <MIN>0</MIN>
-                <MAX>1</MAX>
-                <UNITS></UNITS>
-                <DATA_TYPE>BOOL</DATA_TYPE>
-                <IS_MENU>TRUE</IS_MENU>
-                <CHILD_PARAMS>
-                <PARAMETER>
-                    <NAME>CHANNEL 2A</NAME>
-                    <DEFAULT>ON</DEFAULT>
-                    <DATA>ON</DATA>
-                    <MIN>0</MIN>
-                    <MAX>1</MAX>
-                    <UNITS></UNITS>
-                    <DATA_TYPE>BOOL</DATA_TYPE>
-                    <IS_MENU>FALSE</IS_MENU>
-                    <CHILD_PARAMS></CHILD_PARAMS>
-                </PARAMETER>
-                <PARAMETER>
-                    <NAME>CHANNEL 2B</NAME>
-                    <DEFAULT>ON</DEFAULT>
-                    <DATA>ON</DATA>
-                    <MIN>0</MIN>
-                    <MAX>1</MAX>
-                    <UNITS></UNITS>
-                    <DATA_TYPE>BOOL</DATA_TYPE>
-                    <IS_MENU>FALSE</IS_MENU>
-                    <CHILD_PARAMS></CHILD_PARAMS>
-                </PARAMETER>
-                </CHILD_PARAMS>
-            </PARAMETER>
-
-            <PARAMETER>
-                <NAME>CHANNEL 3</NAME>
-                <DEFAULT>ON</DEFAULT>
-                <DATA>ON</DATA>
-                <MIN>0</MIN>
-                <MAX>1</MAX>
-                <UNITS></UNITS>
-                <DATA_TYPE>BOOL</DATA_TYPE>
-                <IS_MENU>TRUE</IS_MENU>
-                <CHILD_PARAMS>
-                <PARAMETER>
-                    <NAME>CHANNEL 3A</NAME>
-                    <DEFAULT>ON</DEFAULT>
-                    <DATA>ON</DATA>
-                    <MIN>0</MIN>
-                    <MAX>1</MAX>
-                    <UNITS></UNITS>
-                    <DATA_TYPE>BOOL</DATA_TYPE>
-                    <IS_MENU>FALSE</IS_MENU>
-                    <CHILD_PARAMS></CHILD_PARAMS>
-                </PARAMETER>
-                <PARAMETER>
-                    <NAME>CHANNEL 3B</NAME>
-                    <DEFAULT>ON</DEFAULT>
-                    <DATA>ON</DATA>
-                    <MIN>0</MIN>
-                    <MAX>1</MAX>
-                    <UNITS></UNITS>
-                    <DATA_TYPE>BOOL</DATA_TYPE>
-                    <IS_MENU>FALSE</IS_MENU>
-                    <CHILD_PARAMS></CHILD_PARAMS>
-                </PARAMETER>
-                </CHILD_PARAMS>
-            </PARAMETER>
-
-
-            <PARAMETER>
-                <NAME>CHANNEL 4</NAME>
-                <DEFAULT>ON</DEFAULT>
-                <DATA>ON</DATA>
-                <MIN>0</MIN>
-                <MAX>1</MAX>
-                <UNITS></UNITS>
-                <DATA_TYPE>BOOL</DATA_TYPE>
-                <IS_MENU>TRUE</IS_MENU>
-                <CHILD_PARAMS>
-                <PARAMETER>
-                    <NAME>CHANNEL 4A</NAME>
-                    <DEFAULT>ON</DEFAULT>
-                    <DATA>ON</DATA>
-                    <MIN>0</MIN>
-                    <MAX>1</MAX>
-                    <UNITS></UNITS>
-                    <DATA_TYPE>BOOL</DATA_TYPE>
-                    <IS_MENU>FALSE</IS_MENU>
-                    <CHILD_PARAMS></CHILD_PARAMS>
-                </PARAMETER>
-                <PARAMETER>
-                    <NAME>CHANNEL 4B</NAME>
-                    <DEFAULT>ON</DEFAULT>
-                    <DATA>ON</DATA>
-                    <MIN>0</MIN>
-                    <MAX>1</MAX>
-                    <UNITS></UNITS>
-                    <DATA_TYPE>BOOL</DATA_TYPE>
-                    <IS_MENU>FALSE</IS_MENU>
-                    <CHILD_PARAMS></CHILD_PARAMS>
-                </PARAMETER>
-                </CHILD_PARAMS>
-            </PARAMETER>
-        </CHILD_PARAMS>
     </PARAMETER>
+
+    <PARAMETER>
+        <NAME>CHANNEL 1</NAME>
+        <DEFAULT>ON</DEFAULT>
+        <DATA>ON</DATA>
+        <MIN>0</MIN>
+        <MAX>1</MAX>
+        <UNITS></UNITS>
+        <DATA_TYPE>BOOL</DATA_TYPE>
+    </PARAMETER>
+
+
+    <PARAMETER>
+        <NAME>CHANNEL 1A</NAME>
+        <DEFAULT>ON</DEFAULT>
+        <DATA>ON</DATA>
+        <MIN>0</MIN>
+        <MAX>1</MAX>
+        <UNITS></UNITS>
+        <DATA_TYPE>BOOL</DATA_TYPE>
+    </PARAMETER>
+    <PARAMETER>
+        <NAME>CHANNEL 1B</NAME>
+        <DEFAULT>ON</DEFAULT>
+        <DATA>ON</DATA>
+        <MIN>0</MIN>
+        <MAX>1</MAX>
+        <UNITS></UNITS>
+        <DATA_TYPE>BOOL</DATA_TYPE>
+    </PARAMETER>
+
+
+    <PARAMETER>
+        <NAME>CHANNEL 2</NAME>
+        <DEFAULT>ON</DEFAULT>
+        <DATA>ON</DATA>
+        <MIN>0</MIN>
+        <MAX>1</MAX>
+        <UNITS></UNITS>
+        <DATA_TYPE>BOOL</DATA_TYPE>
+    </PARAMETER>
+    <PARAMETER>
+        <NAME>CHANNEL 2A</NAME>
+        <DEFAULT>ON</DEFAULT>
+        <DATA>ON</DATA>
+        <MIN>0</MIN>
+        <MAX>1</MAX>
+        <UNITS></UNITS>
+        <DATA_TYPE>BOOL</DATA_TYPE>
+    </PARAMETER>
+    <PARAMETER>
+        <NAME>CHANNEL 2B</NAME>
+        <DEFAULT>ON</DEFAULT>
+        <DATA>ON</DATA>
+        <MIN>0</MIN>
+        <MAX>1</MAX>
+        <UNITS></UNITS>
+        <DATA_TYPE>BOOL</DATA_TYPE>
+    </PARAMETER>
+    <PARAMETER>
+        <NAME>CHANNEL 3</NAME>
+        <DEFAULT>ON</DEFAULT>
+        <DATA>ON</DATA>
+        <MIN>0</MIN>
+        <MAX>1</MAX>
+        <UNITS></UNITS>
+        <DATA_TYPE>BOOL</DATA_TYPE>
+
+
+    </PARAMETER>
+    <PARAMETER>
+        <NAME>CHANNEL 3A</NAME>
+        <DEFAULT>ON</DEFAULT>
+        <DATA>ON</DATA>
+        <MIN>0</MIN>
+        <MAX>1</MAX>
+        <UNITS></UNITS>
+        <DATA_TYPE>BOOL</DATA_TYPE>
+    </PARAMETER>
+    <PARAMETER>
+        <NAME>CHANNEL 3B</NAME>
+        <DEFAULT>ON</DEFAULT>
+        <DATA>ON</DATA>
+        <MIN>0</MIN>
+        <MAX>1</MAX>
+        <UNITS></UNITS>
+        <DATA_TYPE>BOOL</DATA_TYPE>
+    </PARAMETER>
+
+    <PARAMETER>
+        <NAME>CHANNEL 4</NAME>
+        <DEFAULT>ON</DEFAULT>
+        <DATA>ON</DATA>
+        <MIN>0</MIN>
+        <MAX>1</MAX>
+        <UNITS></UNITS>
+        <DATA_TYPE>BOOL</DATA_TYPE>
+
+
+    </PARAMETER>
+    <PARAMETER>
+        <NAME>CHANNEL 4A</NAME>
+        <DEFAULT>ON</DEFAULT>
+        <DATA>ON</DATA>
+        <MIN>0</MIN>
+        <MAX>1</MAX>
+        <UNITS></UNITS>
+        <DATA_TYPE>BOOL</DATA_TYPE>
+    </PARAMETER>
+    <PARAMETER>
+        <NAME>CHANNEL 4B</NAME>
+        <DEFAULT>ON</DEFAULT>
+        <DATA>ON</DATA>
+        <MIN>0</MIN>
+        <MAX>1</MAX>
+        <UNITS></UNITS>
+        <DATA_TYPE>BOOL</DATA_TYPE>
+    </PARAMETER>
+
 
 
 </PARAMETER_LIST>

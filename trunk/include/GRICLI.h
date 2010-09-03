@@ -4,6 +4,8 @@
 #include <iostream>
 #include <QThread>
 
+using namespace std;
+
 class GRICommandLineInterface : public QThread
 {
     Q_OBJECT
@@ -21,6 +23,10 @@ public:
 
 signals:
     void ReceivedUserInput(QString);
+
+protected slots:
+    void displayOutput(list<string> output);
+    void displayOutput(string output);
 
 protected:
       void run();

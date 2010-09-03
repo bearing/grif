@@ -105,6 +105,13 @@ protected:
       */
     GRIServer *server; // A temporary
 
+    void displayOutput(list<string> output);
+    void displayOutput(string output);
+
+signals:
+
+    void newOutput(list<string> output);
+    void newOutput(string output);
 
 protected slots:
 
@@ -115,6 +122,9 @@ protected slots:
     void SetInput(QString input);
 
 private:
+
+
+
     /**
       * a variable that distinguishes whether or not the CLI or GUI will be running
       */

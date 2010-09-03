@@ -53,24 +53,38 @@ void GRICommandLineInterface::DisplayWelcomeScreen()
     cout << space << "******************************************\n";
     cout << endl;
 
-
-    #if OPERATING_SYSTEM == LINUX
-        cout << space << "LINUX Operating System : ";
-    #endif
-
-    #if OPERATING_SYSTEM == WINDOWS
+    #if defined(Q_WS_WIN)
         cout << space << "WINDOWS Operating System : ";
+    #elif defined(Q_WS_QWS)
+        cout << space << "LINUX Operating System : ";
+    #elif defined(Q_WS_MACX)
+    cout << space << "MAC OSX Operating System : ";
+    #elif defined(Q_WS_X11)
+    cout << space << "X11 Operating System : ";
     #endif
 
-    #if OPERATING_SYSTEM == MAC
-        cout << space << "MAC OSX Operating System : ";
-    #endif
+    cout << "*not sure how to determine OS bit size...*";
 
-    #if IS_64_BIT
-        cout << "64-bit" << endl;
-    #else
-        cout << "32-bit" << endl;
-    #endif
+
+
+
+//    #if OPERATING_SYSTEM == LINUX
+//        cout << space << "LINUX Operating System : ";
+//    #endif
+//
+//    #if OPERATING_SYSTEM == WINDOWS
+//        cout << space << "WINDOWS Operating System : ";
+//    #endif
+//
+//    #if OPERATING_SYSTEM == MAC
+//        cout << space << "MAC OSX Operating System : ";
+//    #endif
+//
+//    #if IS_64_BIT
+//        cout << "64-bit" << endl;
+//    #else
+//        cout << "32-bit" << endl;
+//    #endif
 
 
     cout << endl << endl;
@@ -94,13 +108,14 @@ void GRICommandLineInterface::RootMenu()
     cout << "|----------------------------------------|" << endl;
     cout << "|              ROOT MENU                 |" << endl;
     cout << "|----------------------------------------|" << endl;
-    cout << "|-- 1 -- Run Example Histogram Widget    |" << endl;
+    cout << "|-- 1 -- Redisplay Choices               |" << endl;
     cout << "|-- 2 -- Display Process Threads         |" << endl;
     cout << "|-- 3 -- Display Data Blocks             |" << endl;
-    cout << "|-- 4 -- Listen for TCP SOCKET commands  |" << endl;
+    cout << "|-- 4 -- Display Parameters              |" << endl;
     cout << "|-- 5 -- Change a Parameter              |" << endl;
-    cout << "|-- 6 -- Redisplay Choices               |" << endl;
-    cout << "|-- 7 -- EXIT                            |" << endl;
+    cout << "|-- 6 -- Listen for TCP SOCKET commands  |" << endl;
+    cout << "|-- 7 -- Run Example Histogram Widget    |" << endl;
+    cout << "|-- 8 -- EXIT                            |" << endl;
     cout << "|----------------------------------------|" << endl;
     cout << endl;
 }
@@ -140,14 +155,33 @@ void GRICommandLineInterface::run()
 {
     string input;
 
-    while(!exit)
-    {
+//    while(!exit)
+//    {
+//
+//        cout << " >> ";
+//        cin >> input;
+//        emit this->ReceivedUserInput(QString(input.c_str()));
+//        this->msleep(300);
+//
+//    }
 
-        cout << " >> ";
-        cin >> input;
-        emit this->ReceivedUserInput(QString(input.c_str()));
-        this->msleep(300);
-        
+    cout << " >> ";
+    cin >> input;
+    emit this->ReceivedUserInput(QString(input.c_str()));
+
+}
+
+void GRICommandLineInterface::displayOutput(list<string> output)
+{
+    list<string>::iterator iter;
+
+    for(iter = output.begin(); iter!= output.end(); iter++)
+    {
+        this->displayOutput(*iter);
     }
 
+}
+void GRICommandLineInterface::displayOutput(string output)
+{
+    cout << output;
 }

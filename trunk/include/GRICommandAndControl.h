@@ -9,12 +9,13 @@
 #include <QTimerEvent>
 #include <QtXml/qdom.h>
 #include <qxmlstream.h>
-#include "GRIParamList.h"
+#include "GRIParam.h"
 #include "GRIServer.h"
 #include "GRIRegulator.h"
 #include "GRIRunManager.h"
 #include "GRIXMLParser.h"
 #include "GRILoader.h"
+#include "GRIMenuStructure.h"
 
 
 class GRIRunManager;
@@ -63,6 +64,10 @@ public:
 
 protected:
 
+
+    void display(list<string> output);
+    void display(string output);
+
     GRIXMLParser* xmlparser;
 
 
@@ -84,6 +89,10 @@ protected:
       * @returns list<AnalysisStructureObject*>
       */
     void ReadXMLsAndLoadConfiguration();// Load these settings into a ConfigurationSettings object
+
+
+    void DisplayParameterList();
+
 
     /**
       * displays the data blocks using cout
@@ -134,7 +143,7 @@ protected:
       * @returns a list of parameters that will be loaded into the parameterlist during Init()
       */
 
-    GRIParamList* readExampleAnalysisXMLFile();
+    list<GRIParam*>* readNewParamList(QString filepath, list<GRIParam*>* params);
 
     /**
       * a GRIRunManager ojbect
@@ -183,13 +192,26 @@ protected:
       * a GRIParamList object
       * @see GRIParamList
       */
-    GRIParamList* parameterList;
+    list<GRIParam*>* parameterList;
+
+    GRIMenuStructure* menuStruc;
+
+
+
     /**
       * distinguishes whether or not the user wants to use a server
       */
     bool usingServer;
 
     GRILoader* loader;
+
+    string toString(double s);
+    string toString(int s);
+    string toString(unsigned int s);
+    string toString(QString s);
+    string toString(float s);
+    string toString(char s);
+    string toString(string s);
 };
 
 

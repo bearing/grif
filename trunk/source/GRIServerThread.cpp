@@ -16,7 +16,7 @@ void GRIServerThread::run()
         std::cerr << "Failed to bind to port" << std::endl;
     }
 
-    this->exec();
+    exec();
 
 }
 void GRIServerThread::emitNewConnection()

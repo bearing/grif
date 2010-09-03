@@ -32,25 +32,19 @@ void GRIRunManager::Init(bool usingGUI)
     // initialize a command and control object
     this->cmdcontrol = new GRICommandAndControl(this);
 
+
     //start either a CLI or GUI depending on what was passed through the main
-    if (!usingGUI)
-    {
-        // let the command and control know that the user will be running a commandline
-        this->cmdcontrol->usingCommandLine = true;
 
-        //start the command line
-        this->startCommandLine();
-    }
-    else
-    {
-        // let the command and control know that the user will be running a main GUI
-        this->cmdcontrol->usingCommandLine = false;
+    // let the command and control know that the user will be running a commandline
+    this->cmdcontrol->usingCommandLine = true;
 
+    //start the command line
+    this->startCommandLine();
+
+    if (usingGUI)
+    {
         this->startGUI();
     }
-
-    // start Server regardless of GUI
-    this->startServer();
 
 
     //keep waiting for user commands
@@ -65,7 +59,8 @@ void GRIRunManager::startCommandLine()
     this->commandline = new GRICommandLineInterface();
 
     connect(this->commandline, SIGNAL(ReceivedUserInput(QString)), this, SLOT(SetInput(QString)));
-
+    connect(this, SIGNAL(newOutput(list<string>)), this->commandline, SLOT(displayOutput(list<string>)));
+    connect(this, SIGNAL(newOutput(string)), this->commandline, SLOT(displayOutput(string)));
 
     //display welcome screen
     commandline->DisplayWelcomeScreen();
@@ -115,6 +110,11 @@ void GRIRunManager::startServer()
 
     connect(server, SIGNAL(incomingCommand(QString)), this, SLOT(SetInput(QString)));
 
+    connect(this, SIGNAL(newOutput(list<string>)), server, SLOT(displayOutput(list<string>)));
+    connect(this, SIGNAL(newOutput(string)), server, SLOT(displayOutput(string)));
+
+    cout << "\nServer Started!" << endl;
+    cout << endl << "Waiting for Server Commands..." << endl << endl;
 }
 
 void GRIRunManager::closeServer()
@@ -123,7 +123,6 @@ void GRIRunManager::closeServer()
     this->serverThread->server->deleteLater();
     this->serverThread->terminate();
 }
-
 
 void GRIRunManager::SetInput(QString input)
 
@@ -138,13 +137,20 @@ void GRIRunManager::SetInput(QString input)
 
 QString GRIRunManager::getInput()
 {
+    // if command line is not running / asleep
+    //    then start it!
+    if(!commandline->isRunning()){
+        commandline->start(QThread::LowPriority);
+    }
 
+    // wait for user input
     while(noInput)
     {
         qApp->processEvents();
     }
 
 
+    //access the input
     currentInputMutex.lock();
     QString temp = currentInput;
     this->currentInput = "<empty>";
@@ -173,13 +179,14 @@ bool GRIRunManager::api(QString command)
         //continue loop
         switch(command.toInt())
         {
-        case   1:   this->cmdcontrol->startNewProcess("C:/TestProgram.exe"); break;
+        case   1:   this->commandline->RootMenu(); break;
         case   2:   this->cmdcontrol->DisplayProcesses(); break;
         case   3:   this->cmdcontrol->DisplayDataBlocks(); break;
-        case   4:   break; //this->cmdcontrol->startServer(); break;
+        case   4:   this->cmdcontrol->DisplayParameterList(); break;
         case   5:   this->cmdcontrol->startParameterChangeLoop(); break;
-        case   6:   this->commandline->RootMenu(); break;
-        case   7:   quit = this->reallyquit(); break;
+        case   6:   this->startServer(); break;
+        case   7:   this->cmdcontrol->startNewProcess("C:/TestProgram.exe"); break;
+        case   8:   quit = this->reallyquit(); break;
         default : std::cerr << "*unrecognized command*" << std::endl; this->commandline->RootMenu(); break;
         }
 
@@ -204,15 +211,12 @@ bool GRIRunManager::reallyquit()
     cout << "ARE YOU SURE YOU WANT TO QUIT? (Y/N) ";
     QString input = this->getInput();
 
-    if(input == "Y" || input == "y")
-    {        
+    if(input == "Y" || input == "y") {
         exit = true;
         this->commandline->setTerminationEnabled(true);
         this->commandline->terminate();
-
     }
-    else
-    {
+    else {
         exit = false;
     }
 
@@ -224,4 +228,12 @@ void GRIRunManager::startGUI()
     //IMPLEMENT LATER
 }
 
+void GRIRunManager::displayOutput(list<string> output)
+{
+    emit this->newOutput(output);
+}\
+void GRIRunManager::displayOutput(string output)
+{
+    emit this->newOutput(output);
+}
 

@@ -6,21 +6,15 @@ GRIXMLParser::GRIXMLParser() : QWidget(NULL)
 }
 
 
-GRIParamList* GRIXMLParser::readExampleAnalysisXMLFile()
+list<GRIParam*>* GRIXMLParser::readNewParamList(QString filePath, list<GRIParam*>* paramList)
 {
-    GRIParamList *head = new GRIParamList(NULL, "Main Menu", "", "", "", "", "","", true, NULL);
-
-    QFile file(":/runtime_params.xml");
+    QFile file(filePath);
     if(!file.open(QIODevice::ReadOnly))
     {
         cout<<"Fail to Open RUNTIME PARAMS  File!"<<endl;
-
     }
 
     QXmlStreamReader xml(&file);
-
-    //debug
-//    this->pauseProgram("OPENED PARAMETER XML FILE");
 
     while(!xml.atEnd() && !xml.hasError())
     {
@@ -40,8 +34,9 @@ GRIParamList* GRIXMLParser::readExampleAnalysisXMLFile()
 
                 //debug-------------------------------------------------------
 //                this->pauseProgram("reading tag 'PARAMETER'");
-
-                    head->addChild(this->readParameter(xml, head));
+                  QVariant size = paramList->size();
+                   paramList->push_back(this->readParameter(xml, size.toString()));
+//                    head->addChild(this->readParameter(xml, head));
             }
         }
 
@@ -56,19 +51,13 @@ GRIParamList* GRIXMLParser::readExampleAnalysisXMLFile()
     }
     xml.clear();
 
-    return head;
+    return paramList;
 }
-GRIParamList* GRIXMLParser::readParameter(QXmlStreamReader& xml, GRIParamList* head)
+GRIParam* GRIXMLParser::readParameter(QXmlStreamReader& xml, QString paramIndex)
 {
-    GRIParamList* param = new GRIParamList();
+    GRIParam* param = new GRIParam();
 
-    //set parent
-    param->parent = head;
-
-
-//    //debug-------------------------------------------------------
-//    this->pauseProgram(("xml name = " + xml.name().toString().toStdString()));
-
+    param->index = paramIndex.toStdString();
 
     /* Let's check that we're really getting a parameter. */
     if(xml.tokenType() != QXmlStreamReader::StartElement &&
@@ -86,9 +75,6 @@ GRIParamList* GRIXMLParser::readParameter(QXmlStreamReader& xml, GRIParamList* h
     while(!(xml.tokenType() == QXmlStreamReader::EndElement &&
                     xml.name() == "PARAMETER")) {
             if(xml.tokenType() == QXmlStreamReader::StartElement) {
-
-                //debug-------------------------------------------------------
-//                this->pauseProgram(("READING TAG " + xml.name().toString().toStdString()));
 
                 /* We've found name. */
                 if(xml.name() == "NAME") {
@@ -119,42 +105,38 @@ GRIParamList* GRIXMLParser::readParameter(QXmlStreamReader& xml, GRIParamList* h
                         this->addElementToParam(xml, param);
                 }
                 /* We've found IS_MENU. */
-                if(xml.name() == "IS_MENU") {
-                        this->addElementToParam(xml, param);
-
-//                        //debug-------------------------------------------------------
-//                        this->pauseProgram(("FINISHED ADDING is_menu, TAG NOW = '" + xml.name().toString().toStdString() + "'"));
-//                        string isEndElement;
-//                        (xml.isEndElement())?  isEndElement= "true": isEndElement = "false";
-//                        this->pauseProgram("is end tag = " + isEndElement);
-
-                }
-                /* We've found CHILDREN */
-                if(xml.name() == "CHILD_PARAMS") {
-
-                        this->addElementToParam(xml, param);
+//                if(xml.name() == "IS_MENU") {
+//                        this->addElementToParam(xml, param);
 //
-//                        //debug-------------------------------------------------------
-//                        this->pauseProgram(("FINISHED ADDING CHILDREN, TAG NOW = '" + xml.name().toString().toStdString() + "'"));
-//                        string isEndElement;
-//                        (xml.isEndElement())?  isEndElement= "true": isEndElement = "false";
-//                        this->pauseProgram("is end tag = " + isEndElement);
-
-
-                }
+////                        //debug-------------------------------------------------------
+////                        this->pauseProgram(("FINISHED ADDING is_menu, TAG NOW = '" + xml.name().toString().toStdString() + "'"));
+////                        string isEndElement;
+////                        (xml.isEndElement())?  isEndElement= "true": isEndElement = "false";
+////                        this->pauseProgram("is end tag = " + isEndElement);
+//
+//                }
+                /* We've found CHILDREN */
+//                if(xml.name() == "CHILD_PARAMS") {
+//
+//                        this->addElementToParam(xml, param);
+////
+////                        //debug-------------------------------------------------------
+////                        this->pauseProgram(("FINISHED ADDING CHILDREN, TAG NOW = '" + xml.name().toString().toStdString() + "'"));
+////                        string isEndElement;
+////                        (xml.isEndElement())?  isEndElement= "true": isEndElement = "false";
+////                        this->pauseProgram("is end tag = " + isEndElement);
+//
+//
+//                }
             }
             /* ...and next... */
             xml.readNext();
     }
 
-//    param->display();
-
-
-
     return param;
 }
 
-void GRIXMLParser::addElementToParam(QXmlStreamReader& xml, GRIParamList* param)
+void GRIXMLParser::addElementToParam(QXmlStreamReader& xml, GRIParam* param)
 {
     /* We need a start element, like <foo> */
     if(xml.tokenType() != QXmlStreamReader::StartElement) {
@@ -168,9 +150,9 @@ void GRIXMLParser::addElementToParam(QXmlStreamReader& xml, GRIParamList* param)
      * This elements needs to contain Characters so we know it's
      * actually data, if it's not we'll leave.
      */
-    if(xml.tokenType() != QXmlStreamReader::Characters && elementName != "CHILD_PARAMS") {
-            return;
-    }
+//    if(xml.tokenType() != QXmlStreamReader::Characters && elementName != "CHILD_PARAMS") {
+//            return;
+//    }
 
     string text = xml.text().toString().toStdString();
 
@@ -205,27 +187,27 @@ void GRIXMLParser::addElementToParam(QXmlStreamReader& xml, GRIParamList* param)
     {
         param->data_type = text;
     }
-    else if(elementName == "IS_MENU")
-    {
-
-        for (int i = 0; i < text.length(); ++i)
-        {
-            text[i]=toupper(text[i]);
-        }
-        (text == "TRUE")? param->isSubMenu = true: param->isSubMenu = false;
-    }
-    else if(elementName == "CHILD_PARAMS")
-    {
-
-        this->addChildParams(xml, param);
-    }
+//    else if(elementName == "IS_MENU")
+//    {
+//
+//        for (int i = 0; i < text.length(); ++i)
+//        {
+//            text[i]=toupper(text[i]);
+//        }
+//        (text == "TRUE")? param->isSubMenu = true: param->isSubMenu = false;
+//    }
+//    else if(elementName == "CHILD_PARAMS")
+//    {
+//
+//        this->addChildParams(xml, param);
+//    }
     else
     {
         cout << "Unknown Element..." << endl;
     }
 
 }
-void GRIXMLParser::addChildParams(QXmlStreamReader& xml, GRIParamList* head)
+void GRIXMLParser::addChildParams(QXmlStreamReader& xml, GRIParam* head)
 {
 
     //debug-------------------------------------------------------
@@ -250,7 +232,7 @@ void GRIXMLParser::addChildParams(QXmlStreamReader& xml, GRIParamList* head)
             //debug-------------------------------------------------------
 //            this->pauseProgram(("ADDING A CHILD PARAM "));
 
-            head->addChild(this->readParameter(xml, head));
+//            head->addChild(this->readParameter(xml,head));
             xml.readNextStartElement();
 //            this->pauseProgram(("After child, tag = " + xml.name().toString().toStdString()));
     }

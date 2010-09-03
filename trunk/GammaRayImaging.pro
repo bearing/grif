@@ -19,23 +19,26 @@ SOURCES += source/GRIXMLParser.cpp \
     source/GRICommandAndControl.cpp \
     source/GRIClientSocket.cpp \
     source/GRIBuffer.cpp \
-    source/main.cpp
+    source/main.cpp \
+    source/GRIMenuStructure.cpp
 HEADERS += include/GRIXMLParser.h \
     include/GRIServerThread.h \
     include/GRIServer.h \
     include/GRIRunManager.h \
     include/GRIRegulator.h \
     include/GRIProcessThread.h \
-    include/GRIParamList.h \
+    include/GRIParam.h \
     include/GRIMemoryManager.h \
     include/GRILoader.h \
     include/GRIDataBlock.h \
     include/GRICLI.h \
     include/GRICommandAndControl.h \
     include/GRIClientSocket.h \
-    include/GRIBuffer.h
+    include/GRIBuffer.h \
+    include/GRIMenuStructure.h
 INCLUDEPATH += include
 OTHER_FILES += lib/file_paths.xml \
     lib/struc_config.xml \
-    lib/runtime_params.xml
+    lib/runtime_params.xml \
+    lib/menu_struc.xml
 RESOURCES += lib/GRI_resource.qrc

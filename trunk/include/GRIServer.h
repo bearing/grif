@@ -24,6 +24,8 @@ signals:
 protected slots:
     void connectionMessage();
     void emitIncomingCommand(QString command);
+    void displayOutput(list<string> output);
+    void displayOutput(string output);
 
 protected:
     void incomingConnection(int socketId);

@@ -35,3 +35,12 @@ void GRIServer::emitIncomingCommand(QString command)
 {
     emit this->incomingCommand(command);
 }
+
+void GRIServer::displayOutput(list<string>output)
+{
+
+}
+void GRIServer::displayOutput(string output)
+{
+
+}
