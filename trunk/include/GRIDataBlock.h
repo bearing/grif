@@ -10,6 +10,7 @@
 
 #include "GRIProcessThread.h"
 #include "GRIRegulator.h"
+#include "GRIMemoryManager.h"
 
 using namespace std;
 
