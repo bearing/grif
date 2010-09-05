@@ -276,27 +276,20 @@ GRIBuffer* GRIMemoryManager::grabBuffer(string dataBlockName, string bufferName)
 
 
 //returns a copy of the packet requested
-char* GRIMemoryManager::readMemory(string dataBlockName, string bufferName, unsigned int packetNumber, char* buffer, unsigned int length)
+char* GRIMemoryManager::readMemory(string dataBlockName, string bufferName, unsigned int packetNumber, char* buffer)
 {
     GRIMemoryManager::bufferReadLock(dataBlockName, bufferName);
 
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
-
-    if(buf == NULL){
-        cerr << "in GRIMemoryManager::readMemory, No buffer exists for block: "<<dataBlockName<<", and buffer: "<<bufferName<<endl;
-        return NULL;
-    }
-
     if (packetNumber >= buf->bufferSize()) {
         buf->waitOnQueue();
     }
 
 
+    //if buf = 0, should throw exception HERE
+
     unsigned int packSize = buf->packetSize(packetNumber);
-    if (length < packetSize){
-        cerr <<"in GRIMemoryManager::readMemory, parameter buffer is too small to contain packet"<<endl;
-        return NULL;
-    }
+
     for (int i = 0; i < packSize; i++) {
         *(buffer+i) = buf->readBuffer(packetNumber,i);
     }

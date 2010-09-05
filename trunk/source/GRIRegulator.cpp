@@ -1,17 +1,10 @@
-#include "GRIMemoryManager.h"
-#include "GRIDataBlock.h"
-#include "GRIProcessThread.h"
-#include "GRILoader.h"
 #include "GRIRegulator.h"
-#include <utility>
 
 GRIRegulator::GRIRegulator(GRIMemoryManager* mm)
 {
     this->mm = mm;
-    //DC: Loader will be implemented at the Command and Control
     //loader = new GRILoader(this);
 }
-
 
 GRIRegulator::~GRIRegulator()
 {
@@ -25,9 +18,20 @@ void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
     list<GRIProcessThread*>::iterator process_it;
 
     if(data_blocks == NULL || processes == NULL) {
-        cerr << "! GRIRegulator::init_config\n";
+#ifdef REGULATOR_DEBUG
+        cerr << "! GRIRegulator::init_config(): No processes or data blocks" << endl;
+#endif // REGULATOR_DEBUG
+
         return;
     }
+
+    for(process_it = (*processes).begin(); process_it != (*processes).end(); process_it++) {
+        GRIProcessThread* process = *process_it;
+
+        process->set_link(data_blocks);
+    }
+
+    this->processes = processes;
 
     for(data_it = (*data_blocks).begin(); data_it != (*data_blocks).end(); data_it++) {
         GRIDataBlock* data_block = *data_it;
@@ -35,115 +39,94 @@ void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
         data_block->set_link(processes);
     }
 
-    for(process_it = (*processes).begin(); process_it != (*processes).end(); process_it++) {
-        GRIProcessThread* process = *process_it;
-
-        process->set_link(data_blocks);
-        //process->set_obj(loader->load(process->get_name(), process->get_xml_path()));
-        // NEED TO FIX THE ABOVE CODE**********************************************************************************
-    }
-
     this->data_blocks = data_blocks;
-    this->processes = processes;
+
 }
 
-bool GRIRegulator::bufferCreate(string process_name, string bufferName)
-{
-    /* TODO:
-    GRIProcessThread* process = (GRIProcessThread*)QThread::currentThread();
-    */
-
-    GRIProcessThread* process = find_process(process_name);
-
-    if(!process) {
-
-#ifdef REGULATOR_DEBUG
-        cerr << "! GRIRegulator::bufferCreate(): Can't find process\n";
-#endif // REGULATOR_DEBUG
-
-        return false;
-    }
-
-    if(process->find_data_block(bufferName) == NULL) {
-
-#ifdef REGULATOR_DEBUG
-        cerr << "! GRIRegulator::bufferCreate(): Can't find buffer\n";
-#endif // REGULATOR_DEBUG
-
-        return false;
-    }
-
-    return mm->bufferCreate(process_name, bufferName);
-}
-
-pair<unsigned int, char*> GRIRegulator::readMemory(string process_name, string bufferName)
+pair<unsigned int, char*> GRIRegulator::readMemory(string bufferName)
 {
     GRIDataBlock* data = find_data(bufferName);
-    //string process_name;
+    string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
     if(data == NULL) {
 
 #ifdef REGULATOR_DEBUG
-        cerr << "! GRIRegulator::readMemory(): Can't find buffer\n";
+        cerr << "! GRIRegulator::readMemory(): Can't find buffer\n" << endl;
+#endif // REGULATOR_DEBUG
+
+        pair<unsigned int, char*> returnVal(0, NULL);
+        return returnVal;
+    }
+
+    if(data->update_reader()) {
+        unsigned int length = mm->sizeofPacket(process_name, bufferName,
+                                               mm->currentPacketPosition(process_name, bufferName));
+        pair<unsigned int, char*> returnVal(length, mm->readMemory(process_name, bufferName, new char[length]));
+        return returnVal;
+    }
+
+#ifdef REGULATOR_DEBUG
+    cerr << "! GRIRegulator::readMemory(): " << process_name << " is not reading from " <<
+            data->get_writer_name() << endl;
+#endif // REGULATOR_DEBUG
+
+    pair<unsigned int, char*> returnVal(0, NULL);
+    return returnVal;
+}
+
+bool GRIRegulator::writeMemory(string bufferName, unsigned int size, char dataArray[])
+{
+    GRIDataBlock* data = find_data(bufferName);
+    string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
+
+    if(data == NULL) {
+
+#ifdef REGULATOR_DEBUG
+        cerr << "! GRIRegulator::readMemory(): Can't find buffer" << endl;
 #endif // REGULATOR_DEBUG
 
         return NULL;
     }
 
-    //process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
-
-    if(data->update_reader(process_name)) {
-        unsigned int length = mm->sizeofPacket(process_name, bufferName, mm->currentPacketPosition(process_name, bufferName));
-        pair<unsigned int, char*> returnval (length, mm->readMemory(process_name, bufferName, new char[length]));
-        return returnval;
-    }
-
-    return NULL;
-}
-
-bool GRIRegulator::writeMemory(string process_name, string bufferName,
-                               unsigned int size, char dataArray[])
-{
-    GRIDataBlock* data = find_data(bufferName);
-
-    if(data == NULL) {
-
-#ifdef REGULATOR_DEBUG
-        cerr << "! GRIRegulator::readMemory(): Can't find buffer\n";
-#endif // REGULATOR_DEBUG
-
-        return NULL;
-    }
-
-    if(data->update_writer(process_name)) {
-        return mm->writeMemory(process_name, bufferName, size, dataArray);
+    if(data->update_writer()) {
+        return mm->writeMemory(process_name, bufferName, size, (char*) dataArray);
     }
 
     return false;
 }
 
-unsigned int GRIRegulator::currentPacketPosition(string process_name, string bufferName)
+unsigned int GRIRegulator::currentPacketPosition(string bufferName)
 {
+    string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
+
     return mm->currentPacketPosition(process_name, bufferName);
 }
 
-unsigned int GRIRegulator::lastPacket(string process_name, string bufferName)
+unsigned int GRIRegulator::lastPacket(string bufferName)
 {
+    string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
+
     return mm->lastPacket(process_name, bufferName);
 }
 
-bool GRIRegulator::setPacketPosition(string process_name, string bufferName, unsigned int packetNumber)
+bool GRIRegulator::setPacketPosition(string bufferName, unsigned int packetNumber)
 {
+    string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
+
     return mm->setPacketPosition(process_name, bufferName, packetNumber);
 }
 
-unsigned int GRIRegulator::sizeofPacket(string process_name, string bufferName, unsigned int packetNumber)
+unsigned int GRIRegulator::sizeofPacket(string bufferName, unsigned int packetNumber)
 {
+    string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
+
     return mm->sizeofPacket(process_name, bufferName, packetNumber);
 }
 
-unsigned int GRIRegulator::sizeofBuffer(string process_name, string bufferName)
+unsigned int GRIRegulator::sizeofBuffer(string bufferName)
 {
+    string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
+
     return mm->sizeofBuffer(process_name, bufferName);
 }
 

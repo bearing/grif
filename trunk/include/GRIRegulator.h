@@ -7,7 +7,12 @@
 #include <list>
 #include <iostream>
 #include <cassert>
+#include <utility>
 
+#include "GRIMemoryManager.h"
+#include "GRIDataBlock.h"
+#include "GRIProcessThread.h"
+#include "GRILoader.h"
 
 using namespace std;
 
@@ -16,7 +21,6 @@ class GRIDataBlock;
 class GRIProcessThread;
 class GRIMemoryManager;
 
-// TODO: remove process_name in write/read/buffer_create
 class GRIRegulator
 {
 
@@ -48,13 +52,13 @@ public:
      * within each dataBlock, each bufferName must be unique.
      *
      */
-    bool bufferCreate(string process_name, string bufferName);
+    bool bufferCreate(string bufferName);
 
     /*
      * readMemory() reads one packet from memory in the location specified
      * by process_name & bufferName
      */
-    char* readMemory(string process_name, string bufferName);
+    pair<unsigned int, char*> readMemory(string bufferName);
 
     /*
      *
@@ -62,7 +66,7 @@ public:
      * by process_name & bufferName
      *
      */
-    bool writeMemory(string process_name, string bufferName, unsigned int size, char dataArray[]);
+    bool writeMemory(string bufferName, unsigned int size, char dataArray[]);
 
     /*
      *
@@ -70,7 +74,7 @@ public:
      * packet to be read next unless setPacketPosition() has been called.
      *
      */
-    unsigned int currentPacketPosition(string process_name, string bufferName);
+    unsigned int currentPacketPosition(string bufferName);
 
     /*
      *
@@ -78,7 +82,7 @@ public:
      * the buffer size minus one.
      *
      */
-    unsigned int lastPacket(string process_name, string bufferName);
+    unsigned int lastPacket(string bufferName);
 
     /*
      *
@@ -90,11 +94,11 @@ public:
      * If the operation is successful, it returns true, otherwise false.
      *
      */
-    bool setPacketPosition(string process_name, string bufferName, unsigned int packetNumber);
+    bool setPacketPosition(string bufferName, unsigned int packetNumber);
 
-    unsigned int sizeofPacket(string process_name, string bufferName, unsigned int packetNumber);
+    unsigned int sizeofPacket(string bufferName, unsigned int packetNumber);
 
-    unsigned int sizeofBuffer(string process_name, string bufferName);
+    unsigned int sizeofBuffer(string bufferName);
 
 protected:
 
