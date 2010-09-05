@@ -243,7 +243,7 @@ protected:
         * \return a pointer to a char array containing the copied out data from the buffer
         * \sa readMemory(string dataBlockName, string bufferName, unsigned int packetNumber, char* buffer)
         */
-        char* readMemory(string dataBlockName, string bufferName, char* buffer);
+        char* readMemory(string dataBlockName, string bufferName, char* buffer, unsigned int length);
 
 
         //! A member function
@@ -326,7 +326,7 @@ private:
         //! A private member function
         /*!
           *
-          * locateBuffer() takes in the name of its buffer as a string and returns the index in hich
+          * locateBuffer() takes in the name of its buffer as a string and returns the index in which
           * the buffer is located inside bufferTable
           *
           * \param dataBlockName the first argument provides the data block argument

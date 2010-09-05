@@ -3,6 +3,7 @@
 #include "GRIProcessThread.h"
 #include "GRILoader.h"
 #include "GRIRegulator.h"
+#include <utility>
 
 GRIRegulator::GRIRegulator(GRIMemoryManager* mm)
 {
@@ -75,7 +76,7 @@ bool GRIRegulator::bufferCreate(string process_name, string bufferName)
     return mm->bufferCreate(process_name, bufferName);
 }
 
-char* GRIRegulator::readMemory(string process_name, string bufferName)
+pair<unsigned int, char*> GRIRegulator::readMemory(string process_name, string bufferName)
 {
     GRIDataBlock* data = find_data(bufferName);
     //string process_name;
@@ -92,8 +93,9 @@ char* GRIRegulator::readMemory(string process_name, string bufferName)
     //process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
     if(data->update_reader(process_name)) {
-        // TODO
-        return mm->readMemory(process_name, bufferName, new char[100]);
+        unsigned int length = mm->sizeofPacket(process_name, bufferName, mm->currentPacketPosition(process_name, bufferName));
+        pair<unsigned int, char*> returnval (length, mm->readMemory(process_name, bufferName, new char[length]));
+        return returnval;
     }
 
     return NULL;

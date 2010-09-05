@@ -43,7 +43,7 @@ friend class GRICommandAndControl;
 
 public:
 
-    GRIProcessThread(QObject* obj = 0);
+    GRIProcessThread();
 
     ~GRIProcessThread();
 
@@ -77,7 +77,6 @@ public:
     //*******************************************************************
     //*******************************************************************
     void init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator);
-
     /*
      * get_type() returns the type of this process (either DAQ or analysis)
      */
@@ -194,7 +193,7 @@ public:
 	 * readMemory() reads one packet from memory in the location specified
 	 * by process_name & bufferName
 	 */
-        template <class T> T* readMemory(string bufferName);
+        template <class T> T* readMemory(string blockName, string bufferName);
 	
 	/*
 	 *
@@ -279,8 +278,8 @@ template<class T> void GRIProcessThread::setParam(QString Key, T value){
  * readMemory() reads one packet from memory in the location specified
  * by process_name & bufferName
  */
-template<class T> T* GRIProcessThread::readMemory(string bufferName){
-    return ((T *) reg->readMemory(name, bufferName));
+template<class T> T* GRIProcessThread::readMemory(string blockName ,string bufferName){
+    return ((T *) reg->readMemory(blockName, bufferName));
 }
 
 /*

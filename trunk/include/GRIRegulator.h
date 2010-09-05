@@ -7,12 +7,8 @@
 #include <list>
 #include <iostream>
 #include <cassert>
-/*
-#include "GRIMemoryManager.h"
-#include "GRIDataBlock.h"
-#include "GRIProcessThread.h"
-#include "GRILoader.h"
-*/
+
+
 using namespace std;
 
 class GRILoader;

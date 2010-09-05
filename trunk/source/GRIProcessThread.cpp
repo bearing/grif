@@ -2,8 +2,7 @@
 
 unsigned int GRIProcessThread::counter = 0;
 
-GRIProcessThread::GRIProcessThread(QObject *obj)
-    :QThread(obj)
+GRIProcessThread::GRIProcessThread()
 {
     reg = NULL;
     this->is_daq = false;
