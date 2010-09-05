@@ -40,6 +40,7 @@ class GRIDataBlock
 {
 
 friend class GRICommandAndControl;
+friend class GRIMemoryManager;
 
 typedef struct reader
 {

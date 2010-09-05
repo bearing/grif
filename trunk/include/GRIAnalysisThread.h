@@ -1,7 +1,6 @@
 #ifndef GRIAnalysisThread_H
 #define GRIAnalysisThread_H
 
-#include "grimemorymanager.h"
 #include "GRIProcessThread.h"
 
 /*
@@ -16,7 +15,7 @@
 class GRIAnalysisThread : public GRIProcessThread
 
 {
-    Q_OBJECT
+
 
 public:
 

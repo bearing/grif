@@ -37,6 +37,7 @@ class GRIMemoryManager {
 
     friend class GRIRegulator;
     friend class GRICommandAndControl;
+    friend class GRIDataBlock;
 
 public:
 
@@ -58,7 +59,7 @@ public:
          */
         ~GRIMemoryManager();
 
-
+protected:
 
         //! A member function for creating buffers
         /*!

@@ -1,5 +1,5 @@
 HEADERS += GRIProcess.h\
-#GRIAnalysisThread.h\
+GRIAnalysisThread.h\
 GRIBuffer.h\
 #GRICLI.h\
 #GRICalibrate.h\

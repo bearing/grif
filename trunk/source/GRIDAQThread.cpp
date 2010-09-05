@@ -1,7 +1,5 @@
 #include "GRIDAQThread.h"
 
-
-
 using namespace std;
 
 GRIDAQThread::GRIDAQThread()
@@ -61,7 +59,7 @@ void GRIDAQThread::run()
         }
 		
 		
-        while(runFlag){
+        while(runFlag && exitThreadFlag){
             error = acquireData();
             if (error != DAQTHREAD_SUCCESS){
                 this->errorHandling("acquiData() failed", error);

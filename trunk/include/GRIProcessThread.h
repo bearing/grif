@@ -47,10 +47,6 @@ public:
 
     GRIProcessThread();
 
-
-    GRIProcessThread();
-
-
     ~GRIProcessThread();
 
 
@@ -153,7 +149,7 @@ public:
      * readMemory() reads one packet from memory in the location specified by process_name
      * & bufferName. Essentially abstracts regulator's readMemory() by templating it.
      */
-     template <class T> T* readMemory(string bufferName);
+     template <class T> T* readMemory(string blockName, string bufferName);
 
     /*
      * writeMemory() writes a data given in the char array to the location specified.
@@ -251,7 +247,9 @@ template<class T> T* GRIProcessThread::readMemory(string blockName ,string buffe
 }
 
 template<class T> bool GRIProcessThread::writeMemory(string bufferName, unsigned int size, T dataArray[]){
+
     return reg->writeMemory(bufferName, size * sizeof(T), (char*) dataArray);
+
 }
 
 #endif // GRIPROCESSTHREAD_H

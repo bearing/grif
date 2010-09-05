@@ -9,11 +9,6 @@
 #include <cassert>
 #include <utility>
 
-#include "GRIMemoryManager.h"
-#include "GRIDataBlock.h"
-#include "GRIProcessThread.h"
-#include "GRILoader.h"
-
 using namespace std;
 
 class GRILoader;
@@ -58,7 +53,7 @@ public:
      * readMemory() reads one packet from memory in the location specified
      * by process_name & bufferName
      */
-    pair<unsigned int, char*> readMemory(string bufferName);
+    pair<unsigned int, char*> readMemory(string blockName, string bufferName);
 
     /*
      *

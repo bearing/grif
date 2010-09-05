@@ -17,7 +17,6 @@ class GRIDAQThread : public GRIProcessThread
 
 public:
 
-
 GRIDAQThread();
 ~GRIDAQThread();
 
@@ -106,6 +105,7 @@ private:
 bool runFlag;
 bool exitThreadFlag;
 
+public:
 void run();
 
 

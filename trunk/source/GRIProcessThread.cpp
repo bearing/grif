@@ -2,8 +2,7 @@
 
 unsigned int GRIProcessThread::counter = 0;
 
-GRIProcessThread::GRIProcessThread(QObject *obj)
-    : QThread(obj)
+GRIProcessThread::GRIProcessThread()
 {
     num_packets_to_saturation = DEFAULT_PACKETS_TO_SATURATION;
     num_packets_from_saturation = DEFAULT_PACKETS_FROM_SATURATION;
@@ -12,6 +11,16 @@ GRIProcessThread::GRIProcessThread(QObject *obj)
     last_adjustment_from_saturation = 0;
 
     thread_id = GRIProcessThread::counter++;
+}
+
+void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator){
+    this->setParent(obj);
+    reg = regulator;
+    if(proc_detail != NULL){
+        this->is_daq = proc_detail->isDaq;
+        this->name = proc_detail->name;
+        this->xml_path = proc_detail->xml_path;
+    }
 }
 
 GRIProcessThread::~GRIProcessThread()
@@ -24,14 +33,6 @@ GRIProcessThread::~GRIProcessThread()
     for(it = data_outs.begin(); it != data_outs.end(); it++) {
         delete *it;
     }
-}
-
-void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator){
-    this->setParent(obj);
-    reg = regulator;
-    this->is_daq = proc_detail->isDaq;
-    this->name = proc_detail->name;
-    this->xml_path = proc_detail->xml_path;
 }
 
 void GRIProcessThread::set_detail(GRIRegulator *reg, process_details *proc_detail)

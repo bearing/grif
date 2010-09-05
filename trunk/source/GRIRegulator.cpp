@@ -1,4 +1,9 @@
+#include "GRIMemoryManager.h"
+#include "GRIDataBlock.h"
+#include "GRIProcessThread.h"
+#include "GRILoader.h"
 #include "GRIRegulator.h"
+
 
 GRIRegulator::GRIRegulator(GRIMemoryManager* mm)
 {
@@ -43,10 +48,9 @@ void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
 
 }
 
-pair<unsigned int, char*> GRIRegulator::readMemory(string bufferName)
+pair<unsigned int, char*> GRIRegulator::readMemory(string blockName, string bufferName)
 {
     GRIDataBlock* data = find_data(bufferName);
-    string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
     if(data == NULL) {
 
@@ -59,14 +63,14 @@ pair<unsigned int, char*> GRIRegulator::readMemory(string bufferName)
     }
 
     if(data->update_reader()) {
-        unsigned int length = mm->sizeofPacket(process_name, bufferName,
-                                               mm->currentPacketPosition(process_name, bufferName));
-        pair<unsigned int, char*> returnVal(length, mm->readMemory(process_name, bufferName, new char[length]));
+        unsigned int length = mm->sizeofPacket(blockName, bufferName,
+                                               mm->currentPacketPosition(blockName, bufferName));
+        pair<unsigned int, char*> returnVal(length, mm->readMemory(blockName, bufferName, new char[length]));
         return returnVal;
     }
 
 #ifdef REGULATOR_DEBUG
-    cerr << "! GRIRegulator::readMemory(): " << process_name << " is not reading from " <<
+    cerr << "! GRIRegulator::readMemory(): " << blockName << " is not reading from " <<
             data->get_writer_name() << endl;
 #endif // REGULATOR_DEBUG
 
