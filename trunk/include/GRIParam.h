@@ -50,6 +50,20 @@ public:
         cout << "------------------------------------" << endl << endl;
     }
 
+    list<string> getDisplay()
+    {
+        list<string> output;
+
+        output.push_back("\n");
+        output.push_back("------------------------------------\n");
+        output.push_back(" NAME : " + this->name + "\n");
+        output.push_back(" DATA : " + this->data + "\n");
+        output.push_back(" INDEX: " + this->index + "\n");
+        output.push_back("------------------------------------\n");
+
+        return output;
+    }
+
 };
 
 #endif // GRI_PARAM_H

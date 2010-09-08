@@ -30,7 +30,9 @@ private slots:
 
 
 protected:
-    void sendData();
+    void sendData(list<string> output);
+    void sendData(string output);
+
     void sendError();
 
     quint16 nextBlockSize;

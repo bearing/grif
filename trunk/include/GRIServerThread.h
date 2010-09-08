@@ -19,11 +19,16 @@ protected:
 
 signals:
     void newConnection();
+    void incomingCommand(QString command);
     void ReceivedUserInput(QString command);
 
 protected slots:
+    void connectionMessage();
     void emitNewConnection();
-    void getNewCommand(QString command);
+    void emitIncomingCommand(QString command);
+    void outputNewCommand(QString);
+    void displayOutput(list<string> output);
+    void displayOutput(string output);
 };
 
 #endif // SERVERTHREAD_H

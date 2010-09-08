@@ -17,15 +17,15 @@ class GRIServer : public QTcpServer
 public:
     GRIServer();
     GRIClientSocket* getSocket();
+    bool hasConnection;
 
 signals:
     void incomingCommand(QString command);
 
 protected slots:
     void connectionMessage();
+    void disconnectionMessage();
     void emitIncomingCommand(QString command);
-    void displayOutput(list<string> output);
-    void displayOutput(string output);
 
 protected:
     void incomingConnection(int socketId);
@@ -33,6 +33,7 @@ protected:
     QString messageback;
     int count;
     GRIClientSocket *socket;
+
 
 };
 

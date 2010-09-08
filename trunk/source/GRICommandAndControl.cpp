@@ -77,7 +77,7 @@ void GRICommandAndControl::ReadXMLsAndLoadConfiguration()
     {
         //
 //        processes->push_front(new GRIProcessThread(NULL,(*filePathIter)));
-        processes->push_front(new GRIProcessThread(NULL));
+        processes->push_front(new GRIProcessThread());
         (processes->front())->init(NULL, *filePathIter, this->regulator);
 
     }
@@ -86,7 +86,7 @@ void GRICommandAndControl::ReadXMLsAndLoadConfiguration()
     for(analyStructIter=analyStructs.begin(); analyStructIter!=analyStructs.end(); analyStructIter++)
     {
         // load analysis structure into threads & d
-        datablocks->push_front(new GRIDataBlock(*analyStructIter));
+//        datablocks->push_front(new GRIDataBlock(this->regulator, *analyStructIter));
 
     }
 
@@ -125,8 +125,7 @@ void GRICommandAndControl::DisplayDataBlocks()
 {
     list<GRIDataBlock*>::iterator iter;
 
-    cout << endl;
-    this->display("|****************************************|\n");
+    this->display("\n|****************************************|\n");
     this->display("|        Displaying Data Blocks  !       |\n");
     this->display("|****************************************|\n\n");
 
@@ -145,13 +144,12 @@ void GRICommandAndControl::DisplayDataBlocks()
         this->display("------------------------------------------\n\n");
         totalCount++;
     }
-    cout << endl;
+    this->display("\n");
 }
 
 void GRICommandAndControl::DisplayParameterList()
 {
-    cout << endl;
-    this->display("|****************************************|\n");
+    this->display("\n|****************************************|\n");
     this->display("|      Displaying All Parameters!        |\n");
     this->display("|****************************************|\n\n");
 
@@ -159,7 +157,7 @@ void GRICommandAndControl::DisplayParameterList()
 
     for(iter = this->parameterList->begin(); iter!= this->parameterList->end(); iter++)
     {
-        (*iter)->display();
+        this->display((*iter)->getDisplay());
     }
 
 }
@@ -168,8 +166,7 @@ void GRICommandAndControl::DisplayProcesses()
 {
     list<GRIProcessThread*>::iterator iter;
 
-    cout << endl;
-    this->display("|****************************************|\n");
+    this->display("\n|****************************************|\n");
     this->display("|      Displaying Process Threads  !     |\n");
     this->display("|****************************************|\n\n");
 
@@ -182,14 +179,14 @@ void GRICommandAndControl::DisplayProcesses()
         this->display("------------------------------------------\n");
         this->display(" PROCESS THREAD " + toString(totalCount) + " : \n");
         this->display("------------------------------------------\n");
-//        this->display("    " << endl;
         this->display("   Name = " + toString(temp->get_name()) + "\n");
         this->display("    Id  = " + toString(temp->getID()) + "\n");
         this->display("   Path = " + toString(temp->get_xml_path()) + "\n");
         this->display("------------------------------------------\n\n");
+
         totalCount++;
     }
-    cout << endl;
+    this->display("\n");
 }
 
 void GRICommandAndControl::startServer()
@@ -205,8 +202,6 @@ void GRICommandAndControl::startServer()
 void GRICommandAndControl::CloseServer()
 {
     this->runmanager->closeServer();
-
-    //startServer = false;
 }
 void GRICommandAndControl::timerEvent(QTimerEvent *event)
 {

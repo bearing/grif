@@ -7,8 +7,8 @@ GRIServer::GRIServer()
 {
     count = 0;
     connect(this,SIGNAL(newConnection()), this,SLOT(connectionMessage()));
-
-    //cout << "\ncreated server\n";
+    this->socket=NULL;
+    hasConnection = false;
 }
 void GRIServer::incomingConnection(int socketId)
 {
@@ -17,14 +17,19 @@ void GRIServer::incomingConnection(int socketId)
     socket = new GRIClientSocket(this, count);
     socket->setSocketDescriptor(socketId);
 
+    hasConnection = true;
+
 
     connect(this->socket, SIGNAL(incomingCommand(QString)), this,SLOT(emitIncomingCommand(QString)));
 
-    cout << "\nNEW SOCKET MADE!!";
 }
 void GRIServer::connectionMessage()
 {
-    cout << "\nClient " << count << " has connected!" << endl;
+
+}
+void GRIServer::disconnectionMessage()
+{
+    this->hasConnection = false;
 }
 GRIClientSocket* GRIServer::getSocket()
 {
@@ -36,11 +41,3 @@ void GRIServer::emitIncomingCommand(QString command)
     emit this->incomingCommand(command);
 }
 
-void GRIServer::displayOutput(list<string>output)
-{
-
-}
-void GRIServer::displayOutput(string output)
-{
-
-}

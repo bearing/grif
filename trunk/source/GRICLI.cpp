@@ -9,49 +9,28 @@
 using namespace::std;
 
 
-GRICommandLineInterface::GRICommandLineInterface()
+GRICommandLineInterface::GRICommandLineInterface(GRIRunManager* mgr)
 {
      QThread(NULL);
      exit = false;
+
+     this->manager = mgr;
 }
 
-int GRICommandLineInterface::InputCommand()
-{
-    std::string input;
-    int choice;
-
-    do
-    {
-        cout << endl << ">> ";
-
-        //get input from user
-        cin >> input;
-    }
-    while(!goodCommand(input)); //loop until good input
-
-    cout << endl;
-
-    //convert string to int, NOTE: atoi() will return '0' if string is not an integer
-    choice = atoi(input.c_str());
-
-
-    return choice;
-}
 
 void GRICommandLineInterface::DisplayWelcomeScreen()
 {
-    std::string space = "";
-    cout << endl;
-    cout << space << "******************************************\n";
-    cout << space << "*                                        *\n";
-    cout << space << "*   G A M M A - R A Y   I M A G I N G    *\n";
-    cout << space << "*                                        *\n";
-    cout << space << "*     VERSION 1.0   22, July 2010        *\n";
-    cout << space << "*                                        *\n";
-    cout << space << "*     http://bearing.berkeley.edu        *\n";
-    cout << space << "*                                        *\n";
-    cout << space << "******************************************\n";
-    cout << endl;
+    this->manager->displayOutput("\n******************************************\n");
+    this->manager->displayOutput("*                                        *\n");
+    this->manager->displayOutput("*   G A M M A - R A Y   I M A G I N G    *\n");
+    this->manager->displayOutput("*                                        *\n");
+    this->manager->displayOutput("*     VERSION 1.0   22, July 2010        *\n");
+    this->manager->displayOutput("*                                        *\n");
+    this->manager->displayOutput("*     http://bearing.berkeley.edu        *\n");
+    this->manager->displayOutput("*                                        *\n");
+    this->manager->displayOutput("******************************************\n\n");
+
+    string space = "";
 
     #if defined(Q_WS_WIN)
         cout << space << "WINDOWS Operating System : ";
@@ -63,7 +42,7 @@ void GRICommandLineInterface::DisplayWelcomeScreen()
     cout << space << "X11 Operating System : ";
     #endif
 
-    cout << "*not sure how to determine OS bit size...*";
+    this->manager->displayOutput("*not sure how to determine OS bit size...*");
 
 
 
@@ -86,10 +65,8 @@ void GRICommandLineInterface::DisplayWelcomeScreen()
 //        cout << "32-bit" << endl;
 //    #endif
 
+    this->manager->displayOutput("\n\nPress ENTER to begin\n\n");
 
-    cout << endl << endl;
-
-    cout << "Press ENTER to begin\n\n";
     cin.ignore(100,'\n');
 
     #if OPERATING_SYSTEM==WINDOWS
@@ -104,20 +81,20 @@ void GRICommandLineInterface::DisplayWelcomeScreen()
 
 void GRICommandLineInterface::RootMenu()
 {
-    cout << endl;
-    cout << "|----------------------------------------|" << endl;
-    cout << "|              ROOT MENU                 |" << endl;
-    cout << "|----------------------------------------|" << endl;
-    cout << "|-- 1 -- Redisplay Choices               |" << endl;
-    cout << "|-- 2 -- Display Process Threads         |" << endl;
-    cout << "|-- 3 -- Display Data Blocks             |" << endl;
-    cout << "|-- 4 -- Display Parameters              |" << endl;
-    cout << "|-- 5 -- Change a Parameter              |" << endl;
-    cout << "|-- 6 -- Listen for TCP SOCKET commands  |" << endl;
-    cout << "|-- 7 -- Run Example Histogram Widget    |" << endl;
-    cout << "|-- 8 -- EXIT                            |" << endl;
-    cout << "|----------------------------------------|" << endl;
-    cout << endl;
+    this->manager->displayOutput("\n");
+
+    this->manager->displayOutput("|----------------------------------------|\n");
+    this->manager->displayOutput("|              ROOT MENU                 |\n");
+    this->manager->displayOutput("|----------------------------------------|\n");
+    this->manager->displayOutput("|-- 1 -- Redisplay Choices               |\n");
+    this->manager->displayOutput("|-- 2 -- Display Process Threads         |\n");
+    this->manager->displayOutput("|-- 3 -- Display Data Blocks             |\n");
+    this->manager->displayOutput("|-- 4 -- Display Parameters              |\n");
+    this->manager->displayOutput("|-- 5 -- Change a Parameter              |\n");
+    this->manager->displayOutput("|-- 6 -- Listen for TCP SOCKET commands  |\n");
+    this->manager->displayOutput("|-- 7 -- Run Example Histogram Widget    |\n");
+    this->manager->displayOutput("|-- 8 -- EXIT                            |\n");
+    this->manager->displayOutput("|----------------------------------------|\n");
 }
 
 void GRICommandLineInterface::DisplayGoodbye()
@@ -129,10 +106,11 @@ void GRICommandLineInterface::DisplayGoodbye()
     #elif OPERATING_SYSTEM==MAC
         system("clear");//bash shell
     #endif
+
     std::cout << std::endl << std::endl;
     std::cout << std::endl << std::endl;
     std::cout << std::endl << std::endl;
-    std::cout << "                                GOODBYE!!\n\n\n\n\n";
+    this->manager->displayOutput("                                GOODBYE!!\n\n\n\n\n");
     std::cout << std::endl << std::endl;   // say goodbye
     std::cout << std::endl << std::endl << std::endl << std::endl;
     std::cout << std::endl << std::endl;
@@ -143,28 +121,19 @@ void GRICommandLineInterface::DisplayGoodbye()
 
 bool GRICommandLineInterface::goodCommand(string command)
 {
-    bool goodInput = false;
-    //if choice >0 good input is true, else it is false
-    int choice = atoi(command.c_str());
-    (choice>0 && choice <= 7)? goodInput = true : cerr << "\nERROR: Bad Command\n";
-    return goodInput;
+//    bool goodInput = false;
+//    //if choice >0 good input is true, else it is false
+//    int choice = atoi(command.c_str());
+//    (choice>0 && choice <= 7)? goodInput = true : this->manager->displayOutput("\nERROR: Bad Command\n");
+//    return goodInput;
+    return true;
 }
 
 
 void GRICommandLineInterface::run()
 {
+
     string input;
-
-//    while(!exit)
-//    {
-//
-//        cout << " >> ";
-//        cin >> input;
-//        emit this->ReceivedUserInput(QString(input.c_str()));
-//        this->msleep(300);
-//
-//    }
-
     cout << " >> ";
     cin >> input;
     emit this->ReceivedUserInput(QString(input.c_str()));

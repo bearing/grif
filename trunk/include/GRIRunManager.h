@@ -13,6 +13,7 @@
 class GRICommandAndControl;
 class GRIServer;
 class GRIServerThread;
+class GRICommandLineInterface;
 
 /**
   * The Run Manager's primary function is to process user inputs from any or all of the following: a command line interface, a graphical user internal to the framework, a graphical user interface external to the framework.
@@ -23,6 +24,7 @@ class GRIRunManager : public QObject
 {
     // The following classes may need access to the protected methods of this class:
     friend class GRICommandAndControl;
+    friend class GRICommandLineInterface;
 
     Q_OBJECT
 
@@ -166,6 +168,8 @@ private:
       * a variable that locks certain variables that are used on multiple threads
       */
     QMutex currentInputMutex;
+
+    void clearScreen();
 
 
 };

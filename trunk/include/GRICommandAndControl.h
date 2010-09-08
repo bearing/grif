@@ -25,6 +25,7 @@ class GRIConfigurationSettings;
 class GRIDataBlock;
 class GRIProcessThread;
 class GRIServer;
+class GRIServerThread;
 class GRIParamList;
 class GRIXMLParser;
 class GRILoader;
@@ -178,6 +179,9 @@ protected:
       * @see GRIServer
       */
     GRIServer *server;
+
+    GRIServerThread *serverThread;
+
     /**
       * distinguishes whether or not the user wants the command line interface to run
       */

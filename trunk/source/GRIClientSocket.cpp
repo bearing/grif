@@ -14,7 +14,7 @@ GRIClientSocket::GRIClientSocket(QObject *parent, int id, GRIRunManager* mgr) : 
     nextBlockSize = 0;
     this->message = " ";
 
-    cout << "\nsocket created!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+//    cout << "\nsocket created!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
 }
 
 
@@ -54,7 +54,7 @@ string GRIClientSocket::getInputWithSpaces()
 
 void GRIClientSocket::readClient()
 {
-    cout << "READING CLIENT!!!!!!";
+//    cout << "READING CLIENT!!!!!!";
 
     QDataStream in(this);
     in.setVersion(QDataStream::Qt_4_3);
@@ -79,21 +79,41 @@ void GRIClientSocket::readClient()
     QDataStream out(this);
     out << quint16(0xFFFF);
 
-
     this->nextBlockSize = 0;
-
-
 }
 
-void GRIClientSocket::sendData()
+void GRIClientSocket::sendData(list<string> output)
 {
+    string oneLineOutput = "";
+
+    list<string>::iterator iter;
+
+    for(iter = output.begin(); iter!= output.end(); iter++)
+    {
+        oneLineOutput = oneLineOutput + *iter;
+    }
+
+    this->sendData(oneLineOutput);
+}
+
+void GRIClientSocket::sendData(string messageback)
+{
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_4_6);
+    out << quint16(0) << QString(messageback.c_str());
+    out.device()->seek(0);
+    out << quint16(block.size()- sizeof(quint16));
+
+    write(block);
+
+    this->nextBlockSize = 0;
 
 }
 
 void GRIClientSocket::sendError()
 {
         this->message = "UNRECOGNIZED COMMAND";
-
 
         QByteArray block;
         QDataStream out(&block, QIODevice::WriteOnly);
