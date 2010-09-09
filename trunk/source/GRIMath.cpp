@@ -60,7 +60,7 @@ double *SampleGauss(double Mean, double Sigma, int num){
 
 	for(int i=0; i<num; i++)
 	{
-		N[i]=sqrt(2)*Sigma*erfinv(rand()*2-1) + Mean;
+            N[i]=sqrt(2)*Sigma*erfinv(rand()*2-1) + Mean;
 	}
 
 	return N;

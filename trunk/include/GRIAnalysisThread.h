@@ -68,11 +68,7 @@ public:
     //Pauses the analysis thread for time seconds
     void pauseAnalysis(unsigned long time);
 
-    //Virtual method for getting an analysis thread parameter
-    template<typename T> T getParam(char paramName[]){return 0;}
 
-     //Virtual method for setting an analysis thread parameter
-    template<typename T> T setParam(char paramName[],T param){return 0;}
 
     //Virtual method for initialization
     virtual int openInitializationControl();
