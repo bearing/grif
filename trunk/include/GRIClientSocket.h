@@ -18,6 +18,7 @@ class GRIClientSocket : public QTcpSocket
 
 public:
     GRIClientSocket(QObject *parent = 0, int count = 0, GRIRunManager* = 0);
+    ~GRIClientSocket();
     string getInputWithSpaces();
 
 

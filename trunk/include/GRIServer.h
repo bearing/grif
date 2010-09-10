@@ -16,6 +16,7 @@ class GRIServer : public QTcpServer
     Q_OBJECT
 public:
     GRIServer();
+    ~GRIServer();
     GRIClientSocket* getSocket();
     bool hasConnection;
 

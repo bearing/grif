@@ -216,6 +216,9 @@ protected:
     string toString(float s);
     string toString(char s);
     string toString(string s);
+signals:
+    void output(string);
+    void output(list<string>);
 };
 
 

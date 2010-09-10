@@ -16,7 +16,11 @@ GRIClientSocket::GRIClientSocket(QObject *parent, int id, GRIRunManager* mgr) : 
 
 //    cout << "\nsocket created!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
 }
-
+GRIClientSocket::~GRIClientSocket()
+{
+    this->disconnect();
+    this->close();
+}
 
 void GRIClientSocket::disconnectionMessage()
 {

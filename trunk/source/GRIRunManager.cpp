@@ -13,7 +13,9 @@ GRIRunManager::GRIRunManager(bool usingGUI)
 {
 
     this->usingGUI = usingGUI;
+    usingServer = false;
     Init(usingGUI);
+
 }
 
 GRIRunManager::~GRIRunManager()
@@ -28,6 +30,9 @@ void GRIRunManager::Init(bool usingGUI)
 
     // initialize a command and control object
     this->cmdcontrol = new GRICommandAndControl(this);
+    connect(cmdcontrol, SIGNAL(output(list<string>)), this, SLOT(displayOutput(list<string>)));
+    connect(cmdcontrol, SIGNAL(output(string)), this, SLOT(displayOutput(string)));
+
 
     // let the command and control know that the user will be running a commandline
     this->cmdcontrol->usingCommandLine = true;
@@ -41,6 +46,20 @@ void GRIRunManager::Init(bool usingGUI)
 
     //begin waiting for user commands
     this->startEventLoop();
+}
+
+void GRIRunManager::reinitialize(bool usingGUI)
+{
+    this->clearScreen();
+
+    // this function is not completed...
+    delete this->cmdcontrol;
+    delete this->commandline;
+    if(this->usingServer) {
+//        this->closeServer();
+        delete this->serverThread;
+    }
+    this->Init(usingGUI);
 }
 
 
@@ -77,17 +96,20 @@ void GRIRunManager::startEventLoop()
             commandline->start(QThread::NormalPriority);
         }
 
-        quit = api(this->getInput());
-        qApp->processEvents();
+        qApp->processEvents(); // finish other important processes
+
+        quit = api(this->getInput()); // get and execute user commands
+
     }
-    cout << "Goodbye";
+
 
 }
 
 
 void GRIRunManager::startServer()
 {
-    //cout << "STARTING SERVER!!\n";
+
+    usingServer = true;
 
     this->serverThread = new GRIServerThread();
 
@@ -96,19 +118,22 @@ void GRIRunManager::startServer()
     // Listen for incoming messages, and show error if port is not accepted
     connect(this->serverThread, SIGNAL(ReceivedUserInput(QString)), this, SLOT(SetInput(QString)));
 
+    //output going to server
     connect(this, SIGNAL(newOutput(list<string>)), serverThread, SLOT(displayOutput(list<string>)));
     connect(this, SIGNAL(newOutput(string)), serverThread, SLOT(displayOutput(string)));
 
-    cout << "\nServer Started!" << endl;
-    cout << endl << "Waiting for Server Commands..." << endl << endl;
+    //input coming from server
+    connect(serverThread, SIGNAL(cout(list<string>)), this, SLOT(displayOutput(list<string>)));
+    connect(serverThread, SIGNAL(cout(string)), this, SLOT(displayOutput(string)));
+
+    this->commandline->displayOutput("\nServer Started!\n");
+    this->commandline->displayOutput("\nWaiting for Server Commands...\n\n");
 
 }
 
 void GRIRunManager::closeServer()
 {
-    this->serverThread->server->disconnect();
-    this->serverThread->server->deleteLater();
-    this->serverThread->quit();
+    delete this->serverThread;
 }
 
 void GRIRunManager::SetInput(QString input)
@@ -154,11 +179,6 @@ QString GRIRunManager::getInput()
     //UNLOCK INPUT
     currentInputMutex.unlock();
 
-//    for(int i = 0; i < 20; i++)
-//    {
-//        cout << "\n\n\n";
-//    }
-
     this->clearScreen();
 
 
@@ -194,7 +214,8 @@ bool GRIRunManager::api(QString command)
         case   5:   this->cmdcontrol->startParameterChangeLoop(); break;
         case   6:   this->startServer(); break;
         case   7:   this->cmdcontrol->startNewProcess("C:/TestProgram.exe"); break;
-        case   8:   quit = this->reallyquit(); break;
+        case   8:   this->reinitialize(this->usingGUI); quit = true; break;
+        case   9:   quit = this->reallyquit(); break;
         default : std::cerr << "*unrecognized command*" << std::endl; this->commandline->RootMenu(); break;
         }
 
@@ -216,7 +237,7 @@ bool GRIRunManager::reallyquit()
     //make sure user wants to quit
 
     bool exit;
-    cout << "ARE YOU SURE YOU WANT TO QUIT? (Y/N) ";
+    this->displayOutput("ARE YOU SURE YOU WANT TO QUIT? (Y/N) ");
     QString input = this->getInput();
 
     if(input == "Y" || input == "y") {
@@ -246,6 +267,11 @@ void GRIRunManager::displayOutput(string output)
 }
 void GRIRunManager::clearScreen()
 {
+    for(int i = 0; i < 20; i++)
+    {
+        cout << "\n\n\n";
+    }
+
     #if OPERATING_SYSTEM==WINDOWS
         system("cls");
     #elif OPERATING_SYSTEM==LINUX

@@ -44,7 +44,7 @@ bool GRICommandAndControl::Init(GRIRunManager *mgr)
     this->ReadXMLsAndLoadConfiguration();
 
     // initialize configuration settings
-     this->regulator->init_config(this->datablocks, this->processes);
+//     this->regulator->init_config(this->datablocks, this->processes);
 
     this->usingCommandLine = false; // DEFAULT Setting
 
@@ -86,7 +86,7 @@ void GRICommandAndControl::ReadXMLsAndLoadConfiguration()
     for(analyStructIter=analyStructs.begin(); analyStructIter!=analyStructs.end(); analyStructIter++)
     {
         // load analysis structure into threads & d
-//        datablocks->push_front(new GRIDataBlock(this->regulator, *analyStructIter));
+        datablocks->push_front(new GRIDataBlock(this->regulator, *analyStructIter));
 
     }
 
@@ -402,12 +402,14 @@ void GRICommandAndControl::timerEvent(QTimerEvent *event)
 
  void GRICommandAndControl::display(list<string> output)
  {
-     this->runmanager->displayOutput(output);
+//     this->runmanager->displayOutput(output);
+     emit this->output(output);
  }
 
  void GRICommandAndControl::display(string output)
  {
-     this->runmanager->displayOutput(output);
+//     this->runmanager->displayOutput(output);
+     emit this->output(output);
  }
 
  string GRICommandAndControl::toString(double s)

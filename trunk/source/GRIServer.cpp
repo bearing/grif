@@ -10,6 +10,13 @@ GRIServer::GRIServer()
     this->socket=NULL;
     hasConnection = false;
 }
+GRIServer::~GRIServer()
+{
+    this->disconnect();
+    this->close();
+    delete this->socket;
+}
+
 void GRIServer::incomingConnection(int socketId)
 {
     ++count;

@@ -2,8 +2,15 @@
 #include "GRIServerThread.h"
 
 using namespace std;
+
 GRIServerThread::GRIServerThread() : QThread(NULL)
 {
+}
+GRIServerThread::~GRIServerThread()
+{
+    this->disconnect();
+    this->quit();
+    delete this->server;
 }
 void GRIServerThread::run()
 {
@@ -13,7 +20,11 @@ void GRIServerThread::run()
 
     if(!server->listen(QHostAddress::Any, 22222))
     {
-        std::cerr << "Failed to bind to port" << std::endl;
+        string temp = "Failed to bind to port";
+
+        qRegisterMetaType<string>("string"); // see qt's online guide for why this is
+                                             //     necessary
+        this->emitOutput(temp);
     }
 
     exec();
@@ -53,5 +64,14 @@ void GRIServerThread::displayOutput(string output)
 
 void GRIServerThread::connectionMessage()
 {
-//    cout << "\nClient " << this->server->count << " has connected!" << endl;
+}
+
+void GRIServerThread::emitOutput(string display)
+{
+    emit this->cout(display);
+}
+
+void GRIServerThread::emitOutput(list<string>display)
+{
+    emit this->cout(display);
 }

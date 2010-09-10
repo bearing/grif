@@ -105,10 +105,12 @@ protected:
       * a server object
       * @see class GRIServer
       */
-    GRIServer *server; // A temporary
+//    GRIServer *server; // A temporary
 
-    void displayOutput(list<string> output);
-    void displayOutput(string output);
+
+
+
+    void reinitialize(bool usingGUI);
 
 signals:
 
@@ -122,6 +124,9 @@ protected slots:
       * @see currentInput
       */
     void SetInput(QString input);
+
+    void displayOutput(list<string> output);
+    void displayOutput(string output);
 
 private:
 
@@ -170,6 +175,7 @@ private:
     QMutex currentInputMutex;
 
     void clearScreen();
+    bool usingServer;
 
 
 };
