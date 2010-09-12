@@ -29,8 +29,16 @@ int GRIHistogrammer::openInitializationControl(){
 }
 
 int GRIHistogrammer::analyze(){
-
         return 0;
+}
 
-    }
+void GRIHistogrammer::fill(double data){
+    //hist->Fill(data);
+}
+
+void GRIHistogrammer::fill(unsigned int numOfElmts, double *data){
+    /*for(int i = 0; i < numOfElmts; i++){
+        hist->Fill(data[i]);
+    }*/
+}
 

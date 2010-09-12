@@ -12,6 +12,10 @@
 
 #include "GRIRegulator.h"
 #include "GRIDataBlock.h"
+#include "GRIHistogrammer.h"
+
+#include <queue>
+#include <util.h>
 
 using namespace std;
 
@@ -48,8 +52,23 @@ public:
     GRIProcessThread();
 
     ~GRIProcessThread();
+    /*
+    // Store the total number of inputs and outputs
+    unsigned int numInOut;
+    pair<unsigned int, queue<GRIHistogrammer *> *> *histArray;
+    template <typename T> add2Queue(unsigned int inOutIndex, pair<unsigned int, T*> dataElmt);
+    template <typename T> convertToHistType(T dataElmt);
 
-
+    //The following are needed for add2Queue
+    template <typename T> double convertToHistType(T dataElmt){return dataElmt.convert();}
+    template < >
+    double convertToHistType<int>(int dataElmt){ return (double)dataElmt;}
+    double convertToHistType<char>(char dataElmt){ return (double)dataElmt;}
+    double convertToHistType<short>(short dataElmt){ return (double)dataElmt;}
+    double convertToHistType<unsigned int>(unsigned int dataElmt){ return (double)dataElmt;}
+    double convertToHistType<float>(float dataElmt){ return (double)dataElmt;}
+    double convertToHistType<double>(double dataElmt){ return dataElmt;}
+    */
 
     /*
      * init() sets up GRIProcessThread.  Must be called after constructor.
@@ -248,9 +267,32 @@ GRIProcessThread::readMemory(string blockName ,string bufferName){
 }
 
 template<class T> bool GRIProcessThread::writeMemory(string bufferName, unsigned int size, T dataArray[]){
-
     return reg->writeMemory(bufferName, size * sizeof(T), (char*) dataArray);
-
 }
+/*
+template <class T> pair<unsigned int, T*>
+GRIProcessThread::add2Queue(unsigned int inOutIndex, pair<unsigned int, T*> dataIn){
+    //Allocate for the new histogrammer
+    GRIHistogrammer *newHist = new GRIHistogrammer();
+    //Fill the histogrammer here
+
+    for(int i = 0; i < dataIn.first; i++){
+        newHist->fill(convertToHistType(dataIn.second[i]));
+    }
+
+    //Check to see if the queue is full
+    if(histArray[inOutIndex].second->size() >= histArray[inOutIndex].first){
+        //Queue is full -> Delete oldest element from memory and pop it from the queue
+        delete (histArray[inOutIndex].second->front());
+        histArray[inOutIndex].second->pop();
+    }
+
+    //Push the new histogrammer on the queue
+    histArray[inOutIndex].second->push(newHist);
+}
+*/
+
+
+
 
 #endif // GRIPROCESSTHREAD_H

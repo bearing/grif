@@ -11,6 +11,8 @@ GRIProcessThread::GRIProcessThread()
     last_adjustment_from_saturation = 0;
 
     thread_id = GRIProcessThread::counter++;
+
+    //numInOut = 1;
 }
 
 void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator){
@@ -21,6 +23,18 @@ void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegula
         this->name = proc_detail->name;
         this->xml_path = proc_detail->xml_path;
     }
+
+    /*histArray = (pair<unsigned int, queue<GRIHistogrammer *> *> *)malloc(sizeof(pair<unsigned int, queue<GRIHistogrammer *> *)*numInOut);
+    if(histArray == NULL)
+    {
+        cout << "ERROR: Not enough memory for histArray" << endl;
+    }
+
+    for(int i = 0; i < numInOut; i++){
+        histArray[i].second = new queue<GRIHistogrammer *>();
+    }*/
+
+
 }
 
 GRIProcessThread::~GRIProcessThread()

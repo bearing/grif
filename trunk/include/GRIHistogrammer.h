@@ -3,22 +3,23 @@
 
 
 #include "GRIAnalysis.h"
-#include "TH1D.h"
+//#include "TH1D.h"
 
-class GRIHistogrammer : public GRIAnalysis
+class GRIHistogrammer
 {
     public:
     GRIHistogrammer();
     GRIHistogrammer(int, int, int);
     ~GRIHistogrammer();
 
-    TH1D hist;
+    //TH1D hist;
+
+    void fill(double data);
+    void fill (unsigned int numOfElmts, double *data);
 
     int ID;
 
     int openInitializationControl();
-    int analyze();
-
 };
 
 #endif // GRIHISTOGRAMMER_H
