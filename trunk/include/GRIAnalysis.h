@@ -8,7 +8,7 @@
 #include <string>
 
 //GRI headers
-#include "grimemorymanager.h"
+#include "GRIMemoryManager.h"
 
 
 

@@ -62,7 +62,18 @@ pair<unsigned int, char*> GRIRegulator::readMemory(string blockName, string buff
         return returnVal;
     }
 
+    /*cout << "readMemory: " << mm->lastPacket(blockName, bufferName) << " " <<
+            mm->currentPacketPosition(blockName, bufferName) << endl;*/
+    while(mm->lastPacket(blockName, bufferName) <= mm->currentPacketPosition(blockName, bufferName)) {
+        /*cout << "readMemory: " << mm->lastPacket(blockName, bufferName) << " " <<
+                mm->currentPacketPosition(blockName, bufferName) << endl;*/
+        QThread::yieldCurrentThread();
+    }
+
     if(data->update_reader()) {
+        /*cout << "readMemory: " << mm->lastPacket(blockName, bufferName) << " " <<
+                mm->currentPacketPosition(blockName, bufferName) << " " <<
+                mm->sizeofBuffer(blockName, bufferName);*/
         unsigned int length = mm->sizeofPacket(blockName, bufferName,
                                                mm->currentPacketPosition(blockName, bufferName));
         pair<unsigned int, char*> returnVal(length, mm->readMemory(blockName, bufferName, new char[length]));
@@ -93,6 +104,9 @@ bool GRIRegulator::writeMemory(string bufferName, unsigned int size, char dataAr
     }
 
     if(data->update_writer()) {
+        /*cout << "writeMemory: " << mm->lastPacket(process_name, bufferName) << " " <<
+                mm->currentPacketPosition(process_name, bufferName) << " " <<
+                mm->sizeofBuffer(process_name, bufferName);*/
         return mm->writeMemory(process_name, bufferName, size, (char*) dataArray);
     }
 
