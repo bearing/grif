@@ -11,7 +11,7 @@ GRIDAQThread.h\
 GRIDataBlock.h\
 GRIDefines.h\
 #GRIHistDraw.h\
-#GRIHistogrammer.h\
+GRIHistogrammer.h\
 GRILoader.h\
 GRIMath.h\
 GRIMemoryManager.h\

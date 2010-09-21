@@ -12,7 +12,7 @@ GRIProcessThread::GRIProcessThread()
 
     thread_id = GRIProcessThread::counter++;
 
-    //numInOut = 1;
+    numInOut = 1;
 }
 
 void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator){
@@ -24,16 +24,10 @@ void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegula
         this->xml_path = proc_detail->xml_path;
     }
 
-    /*histArray = (pair<unsigned int, queue<GRIHistogrammer *> *> *)malloc(sizeof(pair<unsigned int, queue<GRIHistogrammer *> *)*numInOut);
-    if(histArray == NULL)
-    {
-        cout << "ERROR: Not enough memory for histArray" << endl;
-    }
-
+    histArray = (GRIHistogrammer **)malloc(sizeof(GRIHistogrammer *)*numInOut);
     for(int i = 0; i < numInOut; i++){
-        histArray[i].second = new queue<GRIHistogrammer *>();
-    }*/
-
+        histArray[i] = new GRIHistogrammer(100, 0, 100);
+    }
 
 }
 
@@ -47,6 +41,36 @@ GRIProcessThread::~GRIProcessThread()
     for(it = data_outs.begin(); it != data_outs.end(); it++) {
         delete *it;
     }
+
+    for(int i = 0; i < numInOut; i++){
+        delete(histArray[i]);
+    }
+    free(histArray);
+}
+
+void GRIProcessThread::set_numInOut(int n){
+    if(n > 0){
+        numInOut = n;
+    }
+}
+
+void GRIProcessThread::addToHist(double *data, int size, int streamIndex){
+    if(streamIndex < 0){
+        cout << "WARNING: There is no histogram at index " << streamIndex << ".  Not adding to the histogram." << endl;
+    }
+    histArray[streamIndex]->fill(data, size);
+}
+
+void GRIProcessThread::addToHist(double data, int streamIndex){
+    if(streamIndex < 0){
+        cout << "WARNING: There is no histogram at index " << streamIndex << ".  Not adding to the histogram." << endl;
+    }
+    histArray[streamIndex]->fill(data);
+}
+
+
+int GRIProcessThread::get_numInOut(){
+    return numInOut;
 }
 
 void GRIProcessThread::set_detail(GRIRegulator *reg, process_details *proc_detail)

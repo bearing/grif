@@ -9,7 +9,7 @@ GRIBuffer.cpp\
 GRIDAQThread.cpp\
 GRIDataBlock.cpp\
 #GRIHistDraw.cpp\
-#GRIHistogrammer.cpp\
+GRIHistogrammer.cpp\
 GRILoader.cpp\
 GRIMath.cpp\
 GRIMemoryManager.cpp\

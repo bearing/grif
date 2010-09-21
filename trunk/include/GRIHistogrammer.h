@@ -1,21 +1,19 @@
 #ifndef GRIHISTOGRAMMER_H
 #define GRIHISTOGRAMMER_H
 
-
-#include "GRIAnalysis.h"
-//#include "TH1D.h"
+#include "TH1D.h"
 
 class GRIHistogrammer
 {
     public:
     GRIHistogrammer();
-    GRIHistogrammer(int, int, int);
+    GRIHistogrammer(int nbins, int xlow, int xhigh);
     ~GRIHistogrammer();
 
-    //TH1D hist;
+    TH1D *hist;
 
     void fill(double data);
-    void fill (unsigned int numOfElmts, double *data);
+    void fill (double *data, unsigned int numOfElmts);
 
     int ID;
 
