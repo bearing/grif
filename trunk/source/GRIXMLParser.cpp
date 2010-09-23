@@ -1,4 +1,5 @@
 #include "GRIXMLParser.h"
+#include <QVariant>
 
 
 GRIXMLParser::GRIXMLParser() : QWidget(NULL)
@@ -249,7 +250,7 @@ void GRIXMLParser::pauseProgram(string message)
     cin.ignore(100,'\n');
 }
 
-std::list<ProcessDetails*> GRIXMLParser::readPathXML()
+std::list<ProcessDetails*> GRIXMLParser::readPathXML(QString rootXMLFile)
 {
     list<ProcessDetails*> locPathVector;
 
@@ -263,7 +264,7 @@ std::list<ProcessDetails*> GRIXMLParser::readPathXML()
 
         QDomDocument doc("CONFIG_FILE_PATH");
 
-        QFile file(":/file_paths.xml");
+        QFile file(rootXMLFile);
         if(!file.open(QIODevice::ReadOnly))
         {
             cout<<"Fail to Open FILEPATH File!"<<endl;

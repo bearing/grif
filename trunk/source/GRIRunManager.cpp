@@ -28,17 +28,31 @@ void GRIRunManager::Init(bool usingGUI)
 
     this->clearInput();
 
+    //start the command line
+    this->startCommandLine();
+
+    this->displayOutput("Enter Root XML File Path\n\n");
+    QString rootXMLFile = this->getInput();
+
+    while(!isRootPathFile(rootXMLFile))
+    {
+        this->displayOutput("Please Enter A Correct File Path for the Root XML File.\n\n");
+        rootXMLFile = this->getInput();
+        this->clearScreen();
+    }
+
+    // IMPLIMENT ERROR CHECK TO MAKE SURE THE FILE PATH IS VALID
+    /////////////////////////////////////////////////////////////////////////
+    // example: C:\FRAMEWORK_PROJECT\grif\framework\trunk\lib\file_paths.xml
+    /////////////////////////////////////////////////////////////////////////
+
     // initialize a command and control object
-    this->cmdcontrol = new GRICommandAndControl(this);
+    this->cmdcontrol = new GRICommandAndControl(this, rootXMLFile);
     connect(cmdcontrol, SIGNAL(output(list<string>)), this, SLOT(displayOutput(list<string>)));
     connect(cmdcontrol, SIGNAL(output(string)), this, SLOT(displayOutput(string)));
 
-
     // let the command and control know that the user will be running a commandline
     this->cmdcontrol->usingCommandLine = true;
-
-    //start the command line
-    this->startCommandLine();
 
     if (usingGUI){
         this->startGUI();
@@ -76,9 +90,6 @@ void GRIRunManager::startCommandLine()
     //display welcome screen
     commandline->DisplayWelcomeScreen();
 
-    //list commands
-    commandline->RootMenu();
-
     this->commandline->start(QThread::NormalPriority);
 
 }
@@ -87,6 +98,9 @@ void GRIRunManager::startCommandLine()
 void GRIRunManager::startEventLoop()
 {
     bool quit = false;
+
+    // After successful initialization, display root menu
+    this->commandline->RootMenu();
 
     while(!quit)
     {
@@ -102,9 +116,7 @@ void GRIRunManager::startEventLoop()
 
     }
 
-
 }
-
 
 void GRIRunManager::startServer()
 {
@@ -279,5 +291,39 @@ void GRIRunManager::clearScreen()
     #elif OPERATING_SYSTEM==MAC
         system("clear");
     #endif
+}
+
+bool GRIRunManager::isRootPathFile(QString rootXMLFile){
+
+    QDomDocument doc("CONFIG_FILE_PATH");
+
+    QFile file(rootXMLFile);
+    if(!file.open(QIODevice::ReadOnly))
+    {
+        //check to make sure that the file path is correct
+
+        this->displayOutput(QVariant("ERROR: '" + rootXMLFile + "' is not a valid file path!\n\n").toString().toStdString().c_str());
+        return false;
+    }
+    if(!doc.setContent(&file))
+    {
+        file.close();
+        this->displayOutput(QVariant("ERROR: '" + rootXMLFile + "' is not a valid ROOT XML file!\n\n").toString().toStdString().c_str());
+
+        return false;
+    }
+    file.close();
+
+    QDomElement root = doc.documentElement();
+
+    //check the main root tag to make sure it's the root file path
+    // document
+    if( root.tagName()!="CONFIG_FILE_PATH")
+    {
+        return false;
+    }
+
+    // if none of the above errors out than return true
+    return true;
 }
 
