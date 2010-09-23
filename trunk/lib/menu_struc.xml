@@ -1,18 +1,14 @@
 <?xml version="1.0"?>
 
 <MENU_STRUC>
-
     <MENU>
-        <PARAM>
-            <NAME>PEAK</NAME>
-            <PROCESS_OBJ>HEMI</PROCESS_OBJ>
-        </PARAM>
         <TAB>
-            <PARAM>
-                <NAME>FREQUENCY</NAME>
-                <PROCESS_OBJ>HEMI</PROCESS_OBJ>
-            </PARAM>
+            <BLOCK>
+                <PARAM>
+                    <NAME>FREQUENCY</NAME>
+                    <PROCESS_OBJ>HEMI</PROCESS_OBJ>
+                </PARAM>
+            </BLOCK>
         </TAB>
     </MENU>
-
 </MENU_STRUC>
