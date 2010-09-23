@@ -17,6 +17,7 @@ SOURCES += source/GRIXMLParser.cpp \
     source/GRIDataBlock.cpp \
     source/GRICLI.cpp \
     source/GRICommandAndControl.cpp \
+    source/GRIHistogrammer.cpp \
     source/GRIClientSocket.cpp \
     source/GRIBuffer.cpp \
     source/main.cpp \
@@ -32,6 +33,7 @@ HEADERS += include/GRIXMLParser.h \
     include/GRILoader.h \
     include/GRIDataBlock.h \
     include/GRICLI.h \
+    include/GRIHistogrammer.h \
     include/GRICommandAndControl.h \
     include/GRIClientSocket.h \
     include/GRIBuffer.h \
