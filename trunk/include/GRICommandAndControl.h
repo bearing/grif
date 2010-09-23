@@ -51,7 +51,7 @@ public:
       * A Constructor
       * @param mgr
       */
-    GRICommandAndControl(GRIRunManager *mgr);
+    GRICommandAndControl(GRIRunManager *mgr, QString rootXMLFile);
     /**
       * A Destructor
       */
@@ -61,7 +61,7 @@ public:
       * Initialize
       * @param mgr
       */
-    bool Init(GRIRunManager *mgr);
+    bool Init(GRIRunManager *mgr, QString rootXMLFile);
 
 protected:
 
@@ -77,7 +77,7 @@ protected:
       * @returns list<ProcessDetails*>
       * @see ProcessDetails
       */
-    list<ProcessDetails*> readPathXML();
+    list<ProcessDetails*> readPathXML(QString rootXMLFile);
     /**
       * reads an xml file that details the analysis structure and creates a list of AnalysisStructureObjects
       * @returns list<AnalysisStructureObject*>
@@ -89,7 +89,7 @@ protected:
       * @see readAnalysisStructureXML()
       * @returns list<AnalysisStructureObject*>
       */
-    void ReadXMLsAndLoadConfiguration();// Load these settings into a ConfigurationSettings object
+    void ReadXMLsAndLoadConfiguration(QString rootXMLFile);// Load these settings into a ConfigurationSettings object
 
 
     void DisplayParameterList();
@@ -209,6 +209,8 @@ protected:
 
     GRILoader* loader;
 
+
+    //for convenience...
     string toString(double s);
     string toString(int s);
     string toString(unsigned int s);

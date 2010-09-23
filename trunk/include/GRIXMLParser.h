@@ -22,7 +22,7 @@ public:
 
     list<AnalysisStructureObject*> readAnalysisStructureXML();
 
-    list<ProcessDetails*> readPathXML();
+    list<ProcessDetails*> readPathXML(QString rootXMLFile);
 
     void setupMenuStructure();
 

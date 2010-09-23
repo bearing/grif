@@ -112,6 +112,8 @@ protected:
 
     void reinitialize(bool usingGUI);
 
+    bool isRootPathFile(QString filepath);
+
 signals:
 
     void newOutput(list<string> output);
