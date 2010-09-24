@@ -21,13 +21,4 @@
     <FILE name = "ANA_2"/>
     <LOCATION path = "c:\ana_2"/>
  </ANA_INFO>
- <ANA_INFO>
-    <FILE name = "ANA_3"/>
-    <LOCATION path = "c:\ana_3"/>
- </ANA_INFO>
- <ANA_INFO>
-    <FILE name = "ANA_4"/>
-    <LOCATION path = "c:\ana_4"/>
- </ANA_INFO>
- 
 </CONFIG_FILE_PATH>

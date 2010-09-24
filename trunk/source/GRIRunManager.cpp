@@ -34,6 +34,12 @@ void GRIRunManager::Init(bool usingGUI)
     this->displayOutput("Enter Root XML File Path\n\n");
     QString rootXMLFile = this->getInput();
 
+    //temporary, so I don't have to type in the file path every time
+    if(rootXMLFile == "me"){
+        rootXMLFile = "C:\\FRAMEWORK_PROJECT\\grif\\framework\\trunk\\lib\\file_paths.xml";
+    }
+
+
     while(!isRootPathFile(rootXMLFile))
     {
         this->displayOutput("Please Enter A Correct File Path for the Root XML File.\n\n");

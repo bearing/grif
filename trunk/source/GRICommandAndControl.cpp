@@ -35,9 +35,6 @@ bool GRICommandAndControl::Init(GRIRunManager *mgr, QString rootXMLFile)
     // create a regulator with the new memory manager
      this->regulator = new GRIRegulator(memorymanager);
 
-    // Create a new XML Parser object and load the settings;
-//    this->xmlparser = new GRIXMLParser();
-
     // Create a new GRILoader to load the xml files
     this->loader = new GRILoader(this->regulator);
 
@@ -45,8 +42,9 @@ bool GRICommandAndControl::Init(GRIRunManager *mgr, QString rootXMLFile)
     // NOTE: This will use the GRILoader
     this->ReadXMLsAndLoadConfiguration(rootXMLFile);
 
+    //***************************************BUGS
     // initialize configuration settings
-//     this->regulator->init_config(this->datablocks, this->processes);
+    // this->regulator->init_config(this->datablocks, this->processes);
 
     this->usingCommandLine = false; // DEFAULT Setting
 

@@ -11,6 +11,8 @@ GRILoader::~GRILoader()
 
 }
 
+
+// IS FILEPATH NECESSARY???
 list<GRIProcessThread*>* GRILoader::initProcessThreads(list<string> names, list<string> filepaths)
 {
     // create a process thread list
