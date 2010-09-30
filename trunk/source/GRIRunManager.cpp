@@ -26,6 +26,7 @@ GRIRunManager::~GRIRunManager()
 void GRIRunManager::Init(bool usingGUI)
 {
 
+    //clear input
     this->clearInput();
 
     //start the command line
@@ -45,7 +46,16 @@ void GRIRunManager::Init(bool usingGUI)
         this->displayOutput("Please Enter A Correct File Path for the Root XML File.\n\n");
         rootXMLFile = this->getInput();
         this->clearScreen();
+
+        //temporary, so I don't have to type in the file path every time
+        if(rootXMLFile == "me"){
+            rootXMLFile = "C:\\FRAMEWORK_PROJECT\\grif\\framework\\trunk\\lib\\file_paths.xml";
+        }
+
     }
+
+    //start and connect GRILogger
+    this->startLogger();
 
     // IMPLIMENT ERROR CHECK TO MAKE SURE THE FILE PATH IS VALID
     /////////////////////////////////////////////////////////////////////////
@@ -75,10 +85,13 @@ void GRIRunManager::reinitialize(bool usingGUI)
     // this function is not completed...
     delete this->cmdcontrol;
     delete this->commandline;
-    if(this->usingServer) {
-//        this->closeServer();
-        delete this->serverThread;
+    delete this->logger;
+
+    if(this->usingServer)
+    {
+        emit this->closeServer();
     }
+
     this->Init(usingGUI);
 }
 
@@ -147,11 +160,10 @@ void GRIRunManager::startServer()
     this->commandline->displayOutput("\nServer Started!\n");
     this->commandline->displayOutput("\nWaiting for Server Commands...\n\n");
 
-}
+    //servers  operating on their own threads must close themselves.
+    //   therefore, must use signals and slots...
+    connect(this, SIGNAL(closeServer()), serverThread, SLOT(closeSlot()));
 
-void GRIRunManager::closeServer()
-{
-    delete this->serverThread;
 }
 
 void GRIRunManager::SetInput(QString input)
@@ -173,7 +185,6 @@ QString GRIRunManager::getInput()
     // wait for user input
     while(noInput)
     {
-
         // if command line is not running / asleep
         //    then start it!
         if(!commandline->isRunning()){
@@ -184,8 +195,6 @@ QString GRIRunManager::getInput()
     }
 
     //Once input has been received, save it in temporary variable, and return it
-
-
 
     //LOCK INPUT
     currentInputMutex.lock();
@@ -199,28 +208,24 @@ QString GRIRunManager::getInput()
 
     this->clearScreen();
 
+    this->logger->writeLogFile((" >> " + temp + "\n"));
 
     return temp;
 }
 
 bool GRIRunManager::api(QString command)
 {
-
-
     //if CLI is still running, quit before
     if(this->commandline->isRunning())
     {
 //        cout << "DEBUG: CLI was Running, now quitting\n";
         this->commandline->quit();
-
     }
     else
     {
 //        cout << "DEBUG: CLI not Running\n";
     }
-
         bool quit = false;
-
 
         //continue loop
         switch(command.toInt())
@@ -278,10 +283,16 @@ void GRIRunManager::startGUI()
 void GRIRunManager::displayOutput(list<string> output)
 {
     emit this->newOutput(output);
+
+    //write to log file
+    this->logger->writeLogFile(output);
 }\
 void GRIRunManager::displayOutput(string output)
 {
     emit this->newOutput(output);
+
+    //write to log file
+    this->logger->writeLogFile(output);
 }
 void GRIRunManager::clearScreen()
 {
@@ -333,3 +344,17 @@ bool GRIRunManager::isRootPathFile(QString rootXMLFile){
     return true;
 }
 
+void GRIRunManager::startLogger()
+{
+    logger = new GRILogger();
+    this->displayOutput("Clear Previous Log File? (Y/N) ");
+    QString input = this->getInput();
+    if(input == "Y" || input == "y")
+    {
+        this->logger->clearLogFile();
+        this->logger->clearErrorLogFile();
+    }
+
+    connect(logger, SIGNAL(output(list<string>)), this, SLOT(displayOutput(list<string>)));
+    connect(logger, SIGNAL(output(string)), this, SLOT(displayOutput(string)));
+}

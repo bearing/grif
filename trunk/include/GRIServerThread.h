@@ -15,6 +15,7 @@ public:
     ~GRIServerThread();
     GRIServer *server;
 
+
 protected:
     void run();
 
@@ -34,6 +35,7 @@ protected slots:
     void displayOutput(string output);
     void emitOutput(string display);
     void emitOutput(list<string> display);
+    void closeSlot();
 };
 
 #endif // SERVERTHREAD_H

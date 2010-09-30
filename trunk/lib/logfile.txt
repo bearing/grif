@@ -1,0 +1,699 @@
+
+|----------------------------------------|
+|              ROOT MENU                 |
+|----------------------------------------|
+|-- 1 -- Redisplay Choices               |
+|-- 2 -- Display Process Threads         |
+|-- 3 -- Display Data Blocks             |
+|-- 4 -- Display Parameters              |
+|-- 5 -- Change a Parameter              |
+|-- 6 -- Listen for TCP SOCKET commands  |
+|-- 7 -- Run Example Histogram Widget    |
+|-- 8 -- Reinitialize Program            |
+|-- 9 -- EXIT                            |
+|----------------------------------------|
+ >> 1
+
+|----------------------------------------|
+|              ROOT MENU                 |
+|----------------------------------------|
+|-- 1 -- Redisplay Choices               |
+|-- 2 -- Display Process Threads         |
+|-- 3 -- Display Data Blocks             |
+|-- 4 -- Display Parameters              |
+|-- 5 -- Change a Parameter              |
+|-- 6 -- Listen for TCP SOCKET commands  |
+|-- 7 -- Run Example Histogram Widget    |
+|-- 8 -- Reinitialize Program            |
+|-- 9 -- EXIT                            |
+|----------------------------------------|
+ >> 2
+
+|****************************************|
+|      Displaying Process Threads  !     |
+|****************************************|
+
+------------------------------------------
+ PROCESS THREAD 1 : 
+------------------------------------------
+   Name = ANA_2
+    Id  = 4
+   Path = c:\ana_2
+------------------------------------------
+
+------------------------------------------
+ PROCESS THREAD 2 : 
+------------------------------------------
+   Name = ANA_1
+    Id  = 3
+   Path = c:\ana_1
+------------------------------------------
+
+------------------------------------------
+ PROCESS THREAD 3 : 
+------------------------------------------
+   Name = DAQ_3
+    Id  = 2
+   Path = c:\hemi_adc_system\config3.xml
+------------------------------------------
+
+------------------------------------------
+ PROCESS THREAD 4 : 
+------------------------------------------
+   Name = DAQ_2
+    Id  = 1
+   Path = c:\hemi_adc_system\config.xml
+------------------------------------------
+
+------------------------------------------
+ PROCESS THREAD 5 : 
+------------------------------------------
+   Name = DAQ_1
+    Id  = 0
+   Path = c:\sis_adc_system\config.xml
+------------------------------------------
+
+
+ >> 3
+
+|****************************************|
+|        Displaying Data Blocks  !       |
+|****************************************|
+
+------------------------------------------
+ DATA BLOCK 1 : 
+------------------------------------------
+   Name = energy
+   
+**ask Hilfi about reader & writer names**
+------------------------------------------
+
+------------------------------------------
+ DATA BLOCK 2 : 
+------------------------------------------
+   Name = time
+   
+**ask Hilfi about reader & writer names**
+------------------------------------------
+
+------------------------------------------
+ DATA BLOCK 3 : 
+------------------------------------------
+   Name = channel
+   
+**ask Hilfi about reader & writer names**
+------------------------------------------
+
+
+ >> 4
+
+|****************************************|
+|      Displaying All Parameters!        |
+|****************************************|
+
+
+------------------------------------
+ NAME : PEAK
+ DATA : 650.23
+ INDEX: 0
+------------------------------------
+
+------------------------------------
+ NAME : BACKGROUND PERCENTAGES
+ DATA : 54
+ INDEX: 1
+------------------------------------
+
+------------------------------------
+ NAME : MODULE 1
+ DATA : 1
+ INDEX: 2
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 1
+ DATA : ON
+ INDEX: 3
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 1A
+ DATA : ON
+ INDEX: 4
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 1B
+ DATA : ON
+ INDEX: 5
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 2
+ DATA : ON
+ INDEX: 6
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 2A
+ DATA : ON
+ INDEX: 7
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 2B
+ DATA : ON
+ INDEX: 8
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 3
+ DATA : ON
+ INDEX: 9
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 3A
+ DATA : ON
+ INDEX: 10
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 3B
+ DATA : ON
+ INDEX: 11
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 4
+ DATA : ON
+ INDEX: 12
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 4A
+ DATA : ON
+ INDEX: 13
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 4B
+ DATA : ON
+ INDEX: 14
+------------------------------------
+ >> 5
+PARAMETER CHANGE LOOP IS STILL UNDER CONSTRUCTION 
+
+IT NEEDS TO BE REDESIGNED TO ENCORPORATE CHANGES THAT WERE MADE TO THE XML STRUCTURE!
+
+ >> 6
+ >> 1
+
+|----------------------------------------|
+|              ROOT MENU                 |
+|----------------------------------------|
+|-- 1 -- Redisplay Choices               |
+|-- 2 -- Display Process Threads         |
+|-- 3 -- Display Data Blocks             |
+|-- 4 -- Display Parameters              |
+|-- 5 -- Change a Parameter              |
+|-- 6 -- Listen for TCP SOCKET commands  |
+|-- 7 -- Run Example Histogram Widget    |
+|-- 8 -- Reinitialize Program            |
+|-- 9 -- EXIT                            |
+|----------------------------------------|
+ >> 9
+ARE YOU SURE YOU WANT TO QUIT? (Y/N)  >> y
+
+******************************************
+*                                        *
+*   G A M M A - R A Y   I M A G I N G    *
+*                                        *
+*     VERSION 1.0   22, July 2010        *
+*                                        *
+*     http://bearing.berkeley.edu        *
+*                                        *
+******************************************
+
+*not sure how to determine OS bit size...*
+
+Press ENTER to begin
+
+Enter Root XML File Path
+
+ >> me
+Clear Previous Log File? (Y/N)  >> n
+
+|----------------------------------------|
+|              ROOT MENU                 |
+|----------------------------------------|
+|-- 1 -- Redisplay Choices               |
+|-- 2 -- Display Process Threads         |
+|-- 3 -- Display Data Blocks             |
+|-- 4 -- Display Parameters              |
+|-- 5 -- Change a Parameter              |
+|-- 6 -- Listen for TCP SOCKET commands  |
+|-- 7 -- Run Example Histogram Widget    |
+|-- 8 -- Reinitialize Program            |
+|-- 9 -- EXIT                            |
+|----------------------------------------|
+ >> 2
+
+|****************************************|
+|      Displaying Process Threads  !     |
+|****************************************|
+
+------------------------------------------
+ PROCESS THREAD 1 : 
+------------------------------------------
+   Name = ANA_2
+    Id  = 4
+   Path = c:\ana_2
+------------------------------------------
+
+------------------------------------------
+ PROCESS THREAD 2 : 
+------------------------------------------
+   Name = ANA_1
+    Id  = 3
+   Path = c:\ana_1
+------------------------------------------
+
+------------------------------------------
+ PROCESS THREAD 3 : 
+------------------------------------------
+   Name = DAQ_3
+    Id  = 2
+   Path = c:\hemi_adc_system\config3.xml
+------------------------------------------
+
+------------------------------------------
+ PROCESS THREAD 4 : 
+------------------------------------------
+   Name = DAQ_2
+    Id  = 1
+   Path = c:\hemi_adc_system\config.xml
+------------------------------------------
+
+------------------------------------------
+ PROCESS THREAD 5 : 
+------------------------------------------
+   Name = DAQ_1
+    Id  = 0
+   Path = c:\sis_adc_system\config.xml
+------------------------------------------
+
+
+ >> 3
+
+|****************************************|
+|        Displaying Data Blocks  !       |
+|****************************************|
+
+------------------------------------------
+ DATA BLOCK 1 : 
+------------------------------------------
+   Name = energy
+   
+**ask Hilfi about reader & writer names**
+------------------------------------------
+
+------------------------------------------
+ DATA BLOCK 2 : 
+------------------------------------------
+   Name = time
+   
+**ask Hilfi about reader & writer names**
+------------------------------------------
+
+------------------------------------------
+ DATA BLOCK 3 : 
+------------------------------------------
+   Name = channel
+   
+**ask Hilfi about reader & writer names**
+------------------------------------------
+
+
+ >> 4
+
+|****************************************|
+|      Displaying All Parameters!        |
+|****************************************|
+
+
+------------------------------------
+ NAME : PEAK
+ DATA : 650.23
+ INDEX: 0
+------------------------------------
+
+------------------------------------
+ NAME : BACKGROUND PERCENTAGES
+ DATA : 54
+ INDEX: 1
+------------------------------------
+
+------------------------------------
+ NAME : MODULE 1
+ DATA : 1
+ INDEX: 2
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 1
+ DATA : ON
+ INDEX: 3
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 1A
+ DATA : ON
+ INDEX: 4
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 1B
+ DATA : ON
+ INDEX: 5
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 2
+ DATA : ON
+ INDEX: 6
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 2A
+ DATA : ON
+ INDEX: 7
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 2B
+ DATA : ON
+ INDEX: 8
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 3
+ DATA : ON
+ INDEX: 9
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 3A
+ DATA : ON
+ INDEX: 10
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 3B
+ DATA : ON
+ INDEX: 11
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 4
+ DATA : ON
+ INDEX: 12
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 4A
+ DATA : ON
+ INDEX: 13
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 4B
+ DATA : ON
+ INDEX: 14
+------------------------------------
+ >> 5
+PARAMETER CHANGE LOOP IS STILL UNDER CONSTRUCTION 
+
+IT NEEDS TO BE REDESIGNED TO ENCORPORATE CHANGES THAT WERE MADE TO THE XML STRUCTURE!
+
+ >> 6
+ >> 7
+Starting Process: C:/TestProgram.exe
+
+NOTE: this will only work on Jake's computer 
+
+ >> 8
+
+******************************************
+*                                        *
+*   G A M M A - R A Y   I M A G I N G    *
+*                                        *
+*     VERSION 1.0   22, July 2010        *
+*                                        *
+*     http://bearing.berkeley.edu        *
+*                                        *
+******************************************
+
+*not sure how to determine OS bit size...*
+
+Press ENTER to begin
+
+Enter Root XML File Path
+
+ >> me
+Clear Previous Log File? (Y/N)  >> n
+
+|----------------------------------------|
+|              ROOT MENU                 |
+|----------------------------------------|
+|-- 1 -- Redisplay Choices               |
+|-- 2 -- Display Process Threads         |
+|-- 3 -- Display Data Blocks             |
+|-- 4 -- Display Parameters              |
+|-- 5 -- Change a Parameter              |
+|-- 6 -- Listen for TCP SOCKET commands  |
+|-- 7 -- Run Example Histogram Widget    |
+|-- 8 -- Reinitialize Program            |
+|-- 9 -- EXIT                            |
+|----------------------------------------|
+ >> 2
+
+|****************************************|
+|      Displaying Process Threads  !     |
+|****************************************|
+
+------------------------------------------
+ PROCESS THREAD 1 : 
+------------------------------------------
+   Name = ANA_2
+    Id  = 9
+   Path = c:\ana_2
+------------------------------------------
+
+------------------------------------------
+ PROCESS THREAD 2 : 
+------------------------------------------
+   Name = ANA_1
+    Id  = 8
+   Path = c:\ana_1
+------------------------------------------
+
+------------------------------------------
+ PROCESS THREAD 3 : 
+------------------------------------------
+   Name = DAQ_3
+    Id  = 7
+   Path = c:\hemi_adc_system\config3.xml
+------------------------------------------
+
+------------------------------------------
+ PROCESS THREAD 4 : 
+------------------------------------------
+   Name = DAQ_2
+    Id  = 6
+   Path = c:\hemi_adc_system\config.xml
+------------------------------------------
+
+------------------------------------------
+ PROCESS THREAD 5 : 
+------------------------------------------
+   Name = DAQ_1
+    Id  = 5
+   Path = c:\sis_adc_system\config.xml
+------------------------------------------
+
+
+ >> 3
+
+|****************************************|
+|        Displaying Data Blocks  !       |
+|****************************************|
+
+------------------------------------------
+ DATA BLOCK 1 : 
+------------------------------------------
+   Name = energy
+   
+**ask Hilfi about reader & writer names**
+------------------------------------------
+
+------------------------------------------
+ DATA BLOCK 2 : 
+------------------------------------------
+   Name = time
+   
+**ask Hilfi about reader & writer names**
+------------------------------------------
+
+------------------------------------------
+ DATA BLOCK 3 : 
+------------------------------------------
+   Name = channel
+   
+**ask Hilfi about reader & writer names**
+------------------------------------------
+
+
+ >> 4
+
+|****************************************|
+|      Displaying All Parameters!        |
+|****************************************|
+
+
+------------------------------------
+ NAME : PEAK
+ DATA : 650.23
+ INDEX: 0
+------------------------------------
+
+------------------------------------
+ NAME : BACKGROUND PERCENTAGES
+ DATA : 54
+ INDEX: 1
+------------------------------------
+
+------------------------------------
+ NAME : MODULE 1
+ DATA : 1
+ INDEX: 2
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 1
+ DATA : ON
+ INDEX: 3
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 1A
+ DATA : ON
+ INDEX: 4
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 1B
+ DATA : ON
+ INDEX: 5
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 2
+ DATA : ON
+ INDEX: 6
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 2A
+ DATA : ON
+ INDEX: 7
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 2B
+ DATA : ON
+ INDEX: 8
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 3
+ DATA : ON
+ INDEX: 9
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 3A
+ DATA : ON
+ INDEX: 10
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 3B
+ DATA : ON
+ INDEX: 11
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 4
+ DATA : ON
+ INDEX: 12
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 4A
+ DATA : ON
+ INDEX: 13
+------------------------------------
+
+------------------------------------
+ NAME : CHANNEL 4B
+ DATA : ON
+ INDEX: 14
+------------------------------------
+ >> 5
+PARAMETER CHANGE LOOP IS STILL UNDER CONSTRUCTION 
+
+IT NEEDS TO BE REDESIGNED TO ENCORPORATE CHANGES THAT WERE MADE TO THE XML STRUCTURE!
+
+ >> 6
+Failed to bind to port >> 7
+Starting Process: C:/TestProgram.exe
+
+NOTE: this will only work on Jake's computer 
+
+ >> 8
+
+******************************************
+*                                        *
+*   G A M M A - R A Y   I M A G I N G    *
+*                                        *
+*     VERSION 1.0   22, July 2010        *
+*                                        *
+*     http://bearing.berkeley.edu        *
+*                                        *
+******************************************
+
+*not sure how to determine OS bit size...*
+
+Press ENTER to begin
+
+Enter Root XML File Path
+
+ >> me
+Clear Previous Log File? (Y/N)  >> n
+
+|----------------------------------------|
+|              ROOT MENU                 |
+|----------------------------------------|
+|-- 1 -- Redisplay Choices               |
+|-- 2 -- Display Process Threads         |
+|-- 3 -- Display Data Blocks             |
+|-- 4 -- Display Parameters              |
+|-- 5 -- Change a Parameter              |
+|-- 6 -- Listen for TCP SOCKET commands  |
+|-- 7 -- Run Example Histogram Widget    |
+|-- 8 -- Reinitialize Program            |
+|-- 9 -- EXIT                            |
+|----------------------------------------|
+ >> 9
+ARE YOU SURE YOU WANT TO QUIT? (Y/N)  >> y

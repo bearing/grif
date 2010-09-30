@@ -201,7 +201,6 @@ protected:
     GRIMenuStructure* menuStruc;
 
 
-
     /**
       * distinguishes whether or not the user wants to use a server
       */

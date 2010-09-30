@@ -9,11 +9,14 @@
 #include "GRIServer.h"
 #include "GRIServerThread.h"
 #include "GRIDefines.h"
+#include "GRILogger.h"
+
 
 class GRICommandAndControl;
 class GRIServer;
 class GRIServerThread;
 class GRICommandLineInterface;
+class GRILogger;
 
 /**
   * The Run Manager's primary function is to process user inputs from any or all of the following: a command line interface, a graphical user internal to the framework, a graphical user interface external to the framework.
@@ -73,11 +76,6 @@ protected:
       */
     void startGUI();
     /**
-      *closes the server
-      * @see startServer()
-      */
-    void closeServer();
-    /**
       * gets user input from one of the three user interfaces
       * this method waits for the user to enter a command through either the command line, gui, or a client program.
       * @see setInput(QString input)
@@ -110,6 +108,9 @@ protected:
 
 
 
+    bool error(QString message);
+    GRILogger* getLogger();
+
     void reinitialize(bool usingGUI);
 
     bool isRootPathFile(QString filepath);
@@ -118,6 +119,7 @@ signals:
 
     void newOutput(list<string> output);
     void newOutput(string output);
+    void closeServer();
 
 protected slots:
 
@@ -178,6 +180,13 @@ private:
 
     void clearScreen();
     bool usingServer;
+
+    bool clearLogFile();
+
+    GRILogger* logger;
+
+    void startLogger();
+
 
 
 };

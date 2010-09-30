@@ -44,7 +44,7 @@ bool GRICommandAndControl::Init(GRIRunManager *mgr, QString rootXMLFile)
 
     //***************************************BUGS
     // initialize configuration settings
-    // this->regulator->init_config(this->datablocks, this->processes);
+    //this->regulator->init_config(this->datablocks, this->processes);
 
     this->usingCommandLine = false; // DEFAULT Setting
 
@@ -147,6 +147,7 @@ void GRICommandAndControl::DisplayDataBlocks()
 
 void GRICommandAndControl::DisplayParameterList()
 {
+
     this->display("\n|****************************************|\n");
     this->display("|      Displaying All Parameters!        |\n");
     this->display("|****************************************|\n\n");
@@ -155,7 +156,15 @@ void GRICommandAndControl::DisplayParameterList()
 
     for(iter = this->parameterList->begin(); iter!= this->parameterList->end(); iter++)
     {
-        this->display((*iter)->getDisplay());
+
+        if((*iter) != NULL)
+        {
+            this->display((*iter)->getDisplay());
+        }
+        else
+        {
+            this->display("BAD PARAMETER!");
+        }
     }
 
 }

@@ -75,3 +75,9 @@ void GRIServerThread::emitOutput(list<string>display)
 {
     emit this->cout(display);
 }
+
+
+void GRIServerThread::closeSlot()
+{
+    this->exit();
+}
