@@ -9,6 +9,7 @@ GRIMemoryManager::GRIMemoryManager()
     dataBlockTable = new QList< QList<GRIBuffer*>* >();
     lockTable = new QList< QList<QReadWriteLock *>* >();
 
+    cout << blockNameTable->size() << endl;
 }
 
 
@@ -50,7 +51,10 @@ GRIMemoryManager::~GRIMemoryManager()
 //creates a new buffer
 bool GRIMemoryManager::bufferCreate(string dataBlockName, string bufferName)
 {
+    cout << "** mm.cpp: bufferCreate" << endl;
+
     int blockIndex = locateDataBlock(dataBlockName);
+
     if (blockIndex == -1) {                         //if block does not exist yet
 
         QList<QReadWriteLock *> *locks = new QList<QReadWriteLock *>();  //add lock block
@@ -97,6 +101,7 @@ bool GRIMemoryManager::bufferCreate(string dataBlockName, string bufferName)
 
 void GRIMemoryManager::bufferDelete(string dataBlockName, string bufferName)
 {
+
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     buf->clear();
     unsigned int i = locateBuffer(dataBlockName, bufferName);
@@ -137,10 +142,11 @@ unsigned int GRIMemoryManager::currentPacketPosition(string dataBlockName, strin
 
 
 //returns the index of the most recently added packet (the last packet in the buffer)
-unsigned int GRIMemoryManager::lastPacket(string dataBlockName, string bufferName)
+int GRIMemoryManager::lastPacket(string dataBlockName, string bufferName)
 {
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
-    return (buf->bufferSize())-1;
+
+    return buf->bufferSize() == 0 ? -1 : (buf->bufferSize())-1;
 }
 
 
@@ -247,10 +253,11 @@ unsigned int GRIMemoryManager::locateBuffer(string bufferName, unsigned int bloc
 
 
 //returns the index of the given data block in the GRIMemoryManager's tables
-unsigned int GRIMemoryManager::locateDataBlock(string dataBlockName)
+int GRIMemoryManager::locateDataBlock(string dataBlockName)
 {
     int i;
     int size = blockNameTable->size();
+
     for (i = 0; i < size; i++ ) {
         if (blockNameTable->at(i) == dataBlockName) {
             return i;

@@ -44,13 +44,19 @@ void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
         data_block->set_link(processes);
     }
 
+    cout << "** Regulator.cpp: Done setting the link" << endl;
     this->data_blocks = data_blocks;
 
 }
 
 pair<unsigned int, char*> GRIRegulator::readMemory(string blockName, string bufferName)
 {
+#ifdef REGULATOR_DEBUG
+    cout << "** Regulator.cpp: readMemory()" << endl;
+#endif
+
     GRIDataBlock* data = find_data(bufferName);
+    int packet_to_read = mm->currentPacketPosition(blockName, bufferName);
 
     if(data == NULL) {
 
@@ -62,18 +68,18 @@ pair<unsigned int, char*> GRIRegulator::readMemory(string blockName, string buff
         return returnVal;
     }
 
-    /*cout << "readMemory: " << mm->lastPacket(blockName, bufferName) << " " <<
-            mm->currentPacketPosition(blockName, bufferName) << endl;*/
-    while(mm->lastPacket(blockName, bufferName) <= mm->currentPacketPosition(blockName, bufferName)) {
-        /*cout << "readMemory: " << mm->lastPacket(blockName, bufferName) << " " <<
-                mm->currentPacketPosition(blockName, bufferName) << endl;*/
-        QThread::yieldCurrentThread();
+    cout << "readMemory: " << mm->lastPacket(blockName, bufferName) << " " <<
+            mm->currentPacketPosition(blockName, bufferName) << endl;
+    while(mm->lastPacket(blockName, bufferName) < packet_to_read) {
+        bufferIsReady.wait(&mutex);
     }
 
+    cout << "readMemory1: " << mm->lastPacket(blockName, bufferName) << " " <<
+            mm->currentPacketPosition(blockName, bufferName) << endl;
+    cout << "** Regulator.cpp: Trying to update reader" << endl;
+
     if(data->update_reader()) {
-        /*cout << "readMemory: " << mm->lastPacket(blockName, bufferName) << " " <<
-                mm->currentPacketPosition(blockName, bufferName) << " " <<
-                mm->sizeofBuffer(blockName, bufferName);*/
+
         unsigned int length = mm->sizeofPacket(blockName, bufferName,
                                                mm->currentPacketPosition(blockName, bufferName));
         pair<unsigned int, char*> returnVal(length, mm->readMemory(blockName, bufferName, new char[length]));
@@ -87,27 +93,37 @@ pair<unsigned int, char*> GRIRegulator::readMemory(string blockName, string buff
 
     pair<unsigned int, char*> returnVal(0, NULL);
     return returnVal;
+
+#ifdef REGULATOR_DEBUG
+    cout << "** Regulator.cpp: done readMemory()" << endl;
+#endif
 }
 
 bool GRIRegulator::writeMemory(string bufferName, unsigned int size, char dataArray[])
 {
+#ifdef REGULATOR_DEBUG
+    cout << "** Regulator.cpp: writeMemory()" << endl;
+#endif
+
     GRIDataBlock* data = find_data(bufferName);
     string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
+    bool ret_flag;
 
     if(data == NULL) {
 
 #ifdef REGULATOR_DEBUG
-        cerr << "! GRIRegulator::readMemory(): Can't find buffer" << endl;
+        cerr << "! GRIRegulator::writerMemory(): Can't find buffer" << endl;
 #endif // REGULATOR_DEBUG
 
         return NULL;
     }
 
     if(data->update_writer()) {
-        /*cout << "writeMemory: " << mm->lastPacket(process_name, bufferName) << " " <<
-                mm->currentPacketPosition(process_name, bufferName) << " " <<
-                mm->sizeofBuffer(process_name, bufferName);*/
-        return mm->writeMemory(process_name, bufferName, size, (char*) dataArray);
+        ret_flag =  mm->writeMemory(process_name, bufferName, size, (char*) dataArray);
+        if(ret_flag) {
+            bufferIsReady.wakeAll();
+        }
+        return ret_flag;
     }
 
     return false;

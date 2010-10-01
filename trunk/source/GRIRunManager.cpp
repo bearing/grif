@@ -25,7 +25,6 @@ GRIRunManager::~GRIRunManager()
 
 void GRIRunManager::Init(bool usingGUI)
 {
-
     //clear input
     this->clearInput();
 

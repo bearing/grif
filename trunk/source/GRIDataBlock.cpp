@@ -105,6 +105,9 @@ void GRIDataBlock::set_link(list<GRIProcessThread*>* processes)
             assert(false);
         }
     }
+#ifdef DATA_BLOCK_DEBUG
+    cout << "** DataBlock.cpp: Done setting the reader & writers link" << endl;
+#endif
 }
 
 void GRIDataBlock::delete_packet()

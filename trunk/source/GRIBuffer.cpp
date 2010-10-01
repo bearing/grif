@@ -122,7 +122,7 @@ unsigned int GRIBuffer::currentPacket()
 
 
 //returns the total number of packets
-unsigned int GRIBuffer::bufferSize()
+int GRIBuffer::bufferSize()
 {
     return size;
 }

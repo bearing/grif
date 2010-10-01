@@ -109,7 +109,7 @@ protected:
         * \sa currentPacketPosition(), setPacketPosition(),
         *
         */
-        unsigned int lastPacket(string dataBlockName, string bufferName);
+        int lastPacket(string dataBlockName, string bufferName);
 
 
 
@@ -366,7 +366,7 @@ private:
           * \return the index of the specified data block
           * \sa locateBuffer(), grabBuffer()
         */
-        unsigned int locateDataBlock(string dataBlockName);
+        int locateDataBlock(string dataBlockName);
 
 
         //! a private member function

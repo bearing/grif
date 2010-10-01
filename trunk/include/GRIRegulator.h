@@ -3,11 +3,15 @@
 
 #define REGULATOR_DEBUG
 
+#include <QWaitCondition>
+#include <QMutexLocker>
+
 #include <string>
 #include <list>
 #include <iostream>
 #include <cassert>
 #include <utility>
+
 
 using namespace std;
 
@@ -116,6 +120,10 @@ private:
     list<GRIDataBlock*>* data_blocks;
 
     list<GRIProcessThread*>* processes;
+
+    QMutex mutex;
+
+    QWaitCondition bufferIsReady;
 };
 
 #endif // GRIREGULATOR_H

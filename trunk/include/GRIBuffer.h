@@ -136,7 +136,7 @@ public:
         * \sa packetSize()
         *
         */
-        unsigned int bufferSize();
+        int bufferSize();
 
 
 
@@ -226,7 +226,7 @@ private:
           * variable representing number of packets in the buffer
           *
           */
-        unsigned int size;
+        int size;
 
 
         //! a private variable
