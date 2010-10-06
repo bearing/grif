@@ -13,7 +13,7 @@
 #include "GRIServer.h"
 #include "GRIRegulator.h"
 #include "GRIRunManager.h"
-#include "GRIXMLParser.h"
+//#include "GRIXMLParser.h"
 #include "GRILoader.h"
 #include "GRIMenuStructure.h"
 
@@ -69,7 +69,7 @@ protected:
     void display(list<string> output);
     void display(string output);
 
-    GRIXMLParser* xmlparser;
+    //GRIXMLParser* xmlparser;
 
 
     /**

@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <QVariant>
 #include <QFile>
-#include <qapplication.h>
+#include <QApplication>
 #include "GRIRunManager.h"
 #include "GRIClientSocket.h"
 
