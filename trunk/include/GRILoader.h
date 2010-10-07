@@ -9,7 +9,7 @@
 #include <QtGui/QTreeWidget>
 #include <QXmlStreamReader>
 #include <QFile>
-#include <QtGui/qmessagebox.h>
+#include <QtGui/QMessageBox>
 #include "GRIParam.h"
 #include "GRIProcessThread.h"
 

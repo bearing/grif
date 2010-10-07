@@ -11,6 +11,7 @@
 #include <iostream>
 #include <cassert>
 #include <utility>
+#include <QTime>
 
 
 using namespace std;
@@ -31,6 +32,10 @@ public:
     GRIRegulator(GRIMemoryManager* mm);
 
     ~GRIRegulator();
+
+    FILE *regulator_log;
+
+    QTime timer;
 
     /*
      * init_config() is called just before the whole system starts. It will require the

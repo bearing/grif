@@ -11,12 +11,13 @@ GRIDataBlock.cpp\
 #GRIHistDraw.cpp\
 GRIHistogrammer.cpp\
 GRILoader.cpp\
+#GRILogger.cpp\
 GRIMath.cpp\
 GRIMemoryManager.cpp\
-#GRIAnalysis.cpp\
+#GRIMenuStructure.cpp\
 GRIRegulator.cpp\
 #GRIRunManager.cpp\
 #GRIServer.cpp\
 #GRIServerThread.cpp\
-#GRIXMLParser.cpp\
+GRIXMLParser.cpp\
 #main.cpp

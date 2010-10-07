@@ -55,7 +55,7 @@ public:
 
     // Store the total number of inputs and outputs
     unsigned int numInOut;
-    GRIHistogrammer **histArray;
+    GRIHistogrammer *histArray;
 
     /*
      * init() sets up GRIProcessThread.  Must be called after constructor.
@@ -90,13 +90,13 @@ public:
      * size.  streamIndex corresponds to the index of the
      * histogram in HistArray
      */
-    void addToHist(double *data, int size, int streamIndex);
+    void addToHist(double *data, int size);
 
     /*
      * Add to the histograms.  Takes in a single double for data.
      * streamIndex corresponds to the index of the histogram in HistArray.
      */
-    void addToHist(double data, int streamIndex);
+    void addToHist(double data);
 
     /*
      * get_type() returns the type of this process (either DAQ or analysis)

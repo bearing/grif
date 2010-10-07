@@ -8,6 +8,8 @@
 GRIRegulator::GRIRegulator(GRIMemoryManager* mm)
 {
     this->mm = mm;
+    regulator_log = fopen("regulatorlogfile.txt","w");
+    timer.start();
     //loader = new GRILoader(this);
 }
 
@@ -71,6 +73,8 @@ pair<unsigned int, char*> GRIRegulator::readMemory(string blockName, string buff
     cout << "readMemory: " << mm->lastPacket(blockName, bufferName) << " " <<
             mm->currentPacketPosition(blockName, bufferName) << endl;
     while(mm->lastPacket(blockName, bufferName) < packet_to_read) {
+        fprintf(this->regulator_log, "\nelapsed time is: %d ms\n", this->timer.elapsed());
+        fprintf(this->regulator_log, "putting thread %d to sleep", (int)QThread::currentThread());
         bufferIsReady.wait(&mutex);
     }
 
@@ -121,6 +125,8 @@ bool GRIRegulator::writeMemory(string bufferName, unsigned int size, char dataAr
     if(data->update_writer()) {
         ret_flag =  mm->writeMemory(process_name, bufferName, size, (char*) dataArray);
         if(ret_flag) {
+            fprintf(this->regulator_log, "\nelapsed time is: %d ms\n", this->timer.elapsed());
+            fprintf(this->regulator_log, "waking all threads\n");
             bufferIsReady.wakeAll();
         }
         return ret_flag;

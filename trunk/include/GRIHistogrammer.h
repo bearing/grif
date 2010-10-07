@@ -1,7 +1,7 @@
 #ifndef GRIHISTOGRAMMER_H
 #define GRIHISTOGRAMMER_H
 
-//#include "TH1D.h"
+#include "TH1D.h"
 
 class GRIHistogrammer
 {
@@ -10,7 +10,7 @@ class GRIHistogrammer
     GRIHistogrammer(int nbins, int xlow, int xhigh);
     ~GRIHistogrammer();
 
-//    TH1D *hist;
+    TH1D *hist;
 
     void fill(double data);
     void fill (double *data, unsigned int numOfElmts);

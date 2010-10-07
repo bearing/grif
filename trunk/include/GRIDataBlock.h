@@ -11,6 +11,7 @@
 #include "GRIProcessThread.h"
 #include "GRIRegulator.h"
 #include "GRIMemoryManager.h"
+#include "time.h"
 
 using namespace std;
 

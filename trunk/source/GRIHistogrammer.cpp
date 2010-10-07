@@ -9,13 +9,14 @@ using namespace std;
 
 GRIHistogrammer::GRIHistogrammer()
 {
-//    hist = new TH1D();
-//    //Default Binning (100 bins, 0-2500 range)
-//    hist->SetBins(100,0,2500);
+    //Default Binning (100 bins, 0-2500 range)
+    hist = new TH1D();
+    hist->SetBins(100,1,100);
 }
 GRIHistogrammer::GRIHistogrammer(int nbins, int xlow, int xhigh)
 {
-//    hist->SetBins(nbins, xlow, xhigh);
+    hist = new TH1D("","",100,0,100);
+    hist->SetBins(100,1,100);
 }
 
 GRIHistogrammer::~GRIHistogrammer()

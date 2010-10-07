@@ -24,10 +24,7 @@ void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegula
         this->xml_path = proc_detail->xml_path;
     }
 
-    histArray = (GRIHistogrammer **)malloc(sizeof(GRIHistogrammer *)*numInOut);
-    for(int i = 0; i < numInOut; i++){
-        histArray[i] = new GRIHistogrammer(100, 0, 100);
-    }
+    histArray = new GRIHistogrammer(100,0,100);
 
 }
 
@@ -42,10 +39,8 @@ GRIProcessThread::~GRIProcessThread()
         delete *it;
     }
 
-    for(int i = 0; i < numInOut; i++){
-        delete(histArray[i]);
-    }
-    free(histArray);
+    delete(histArray);
+
 }
 
 void GRIProcessThread::set_numInOut(int n){
@@ -54,18 +49,12 @@ void GRIProcessThread::set_numInOut(int n){
     }
 }
 
-void GRIProcessThread::addToHist(double *data, int size, int streamIndex){
-    if(streamIndex < 0){
-        cout << "WARNING: There is no histogram at index " << streamIndex << ".  Not adding to the histogram." << endl;
-    }
-    histArray[streamIndex]->fill(data, size);
+void GRIProcessThread::addToHist(double *data, int size){
+    histArray->fill(data, size);
 }
 
-void GRIProcessThread::addToHist(double data, int streamIndex){
-    if(streamIndex < 0){
-        cout << "WARNING: There is no histogram at index " << streamIndex << ".  Not adding to the histogram." << endl;
-    }
-    histArray[streamIndex]->fill(data);
+void GRIProcessThread::addToHist(double data){
+    histArray->fill(data);
 }
 
 

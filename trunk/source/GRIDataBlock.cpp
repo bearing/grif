@@ -152,6 +152,9 @@ void GRIDataBlock::load_balancing()
         return;
     }
 
+
+
+
 #ifdef DATA_BLOCK_DEBUG
     cout << endl << "** DataBlock::load_balancing()" << endl << endl;
     cout << "writer_name: " << writer->get_name() << " priority: " << (int)writer->priority() << endl;
@@ -174,6 +177,8 @@ void GRIDataBlock::load_balancing()
             if((reader->read_counter - first_packet) > LOAD_BALANCING_FACTOR * MAX_THRESHOLD &&
                (int)reader->reader->priority() < (int)QThread::TimeCriticalPriority) {
                 reader->reader->change_priority(true);
+                fprintf(reg->regulator_log, "\nelapsed time is: %d ms\n", reg->timer.elapsed());
+                fprintf(reg->regulator_log, "changing thread priority for thread %d to priority %d\n", (int)QThread::currentThread(), (int)reader->reader->priority());
             }
         }
         cin.get();
