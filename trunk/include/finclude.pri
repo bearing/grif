@@ -10,7 +10,7 @@ GRIDAQThread.h\
 GRIDataBlock.h\
 GRIDefines.h\
 #GRIHistDraw.h\
-GRIHistogrammer.h\
+#GRIHistogrammer.h\
 #GRILogger.h \
 GRILoader.h\
 GRIMath.h\
@@ -23,4 +23,4 @@ GRIRegulator.h\
 #GRIRunManager.h\
 #GRIServer.h\
 #GRIServerThread.h\
-GRIXMLParser.h
+#GRIXMLParser.h

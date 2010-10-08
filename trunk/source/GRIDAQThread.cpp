@@ -4,8 +4,10 @@ using namespace std;
 
 GRIDAQThread::GRIDAQThread()
 {
-    runFlag = 1;
-    exitThreadFlag = 1;
+    sleeping = false;
+    runFlag = false;
+    exitThreadFlag = true;
+    forceQuit = false;
 }
 
 GRIDAQThread::~GRIDAQThread(){
@@ -14,6 +16,11 @@ GRIDAQThread::~GRIDAQThread(){
 
 void GRIDAQThread::setRunFlag(bool newRunFlag){
     runFlag = newRunFlag;
+    if(sleeping){
+        sleeping = false;
+    //TODO:
+    //Tell regulator to unsleep thread.
+    }
 }
 
 bool GRIDAQThread::getRunFlag(){
@@ -21,6 +28,11 @@ bool GRIDAQThread::getRunFlag(){
 }
 
 void GRIDAQThread::setExitThreadFlag(bool newExitThreadFlag){
+    if(sleeping){
+        sleeping = false;
+    //TODO:
+    //Tell regulator to unsleep thread.
+    }
     exitThreadFlag = newExitThreadFlag;
 }
 
@@ -28,11 +40,33 @@ bool GRIDAQThread::getExitThreadFlag(){
     return exitThreadFlag;
 }
 
+void GRIDAQThread::startCollection(){
+    setRunFlag(true);
+}
+
+void GRIDAQThread::stopCollection(){
+    setRunFlag(false);
+
+}
+
+void GRIDAQThread::quitDAQ(){
+    setExitThreadFlag(false);
+}
+
+void GRIDAQThread::forceQuitDAQ(){
+    forceQuit = true;
+    setExitThreadFlag(false);
+}
+
 
 void GRIDAQThread::run()
 {
     int error;
-	
+
+    error = openInitializationControl();
+    if (error != DAQTHREAD_SUCCESS) {
+        this->errorHandling("openInitializationControl failed", error);
+    }
     error = connectToDAQ();
     if (error != DAQTHREAD_SUCCESS) {
         this->errorHandling("connectToDaq failed", error);
@@ -47,6 +81,12 @@ void GRIDAQThread::run()
     if(error != DAQTHREAD_SUCCESS) {
         this->errorHandling("initialize() failed", error);
     }
+    while(!runFlag && exitThreadFlag){
+        sleeping = true;
+        //TODO:
+        //Tell regulator to sleep thread.
+    }
+
     while(exitThreadFlag){
         error = openRunTimeControl();
         if(error != DAQTHREAD_SUCCESS) {
@@ -65,14 +105,23 @@ void GRIDAQThread::run()
                 this->errorHandling("acquiData() failed", error);
             }
         }
-		
-        error = stopDataAcquisition();
-        if(error != DAQTHREAD_SUCCESS) {
-            this->errorHandling("stopDataAcquisition() failed", error);
+        if(!forceQuit){
+            error = stopDataAcquisition();
+            if(error != DAQTHREAD_SUCCESS) {
+                this->errorHandling("stopDataAcquisition() failed", error);
+            }
         }
-		
         while(!runFlag && exitThreadFlag){
-            //do nothing
+            sleeping = true;
+            //TODO:
+            //Tell regulator to sleep thread.
+        }
+    }
+
+    if(!forceQuit){
+        error = terminationRoutines();
+        if(error != DAQTHREAD_SUCCESS) {
+            this->errorHandling("terminationRoutines() failed", error);
         }
     }
 }

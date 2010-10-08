@@ -80,7 +80,7 @@ list<GRIParam*>* GRILoader::readNewParamList(QString filePath, list<GRIParam*>* 
 
                 //debug-------------------------------------------------------
 //                this->pauseProgram("reading tag 'PARAMETER'");
-                  QVariant size = paramList->size();
+                  QVariant size = (unsigned int) paramList->size();
                    paramList->push_back(this->readParameter(xml, size.toString()));
 //                    head->addChild(this->readParameter(xml, head));
             }
