@@ -8,11 +8,13 @@ GRIBuffer.h\
 #GRICommandAndControl.h\
 GRIDAQThread.h\
 GRIDataBlock.h\
+GRIDataDefines.h\
 GRIDefines.h\
+GRIDiagnostics.h\
 #GRIHistDraw.h\
 GRIHistogrammer.h\
 #GRILogger.h \
-#GRILoader.h\
+GRILoader.h\
 GRIMath.h\
 GRIMemoryManager.h\
 #GRIMenuStructure.h\
@@ -24,5 +26,4 @@ GRIRegulator.h\
 #GRIServer.h\
 #GRIServerThread.h\
 #GRIXMLParser.h
-GRIDataDefines.h \
-GRIDiagnostics.h
+

@@ -24,7 +24,7 @@ void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegula
         this->xml_path = proc_detail->xml_path;
     }
 
-    histArray = new GRIHistogrammer(100,0,100);
+    //histArray = new GRIHistogrammer(100,0,100);
 
 }
 
@@ -39,7 +39,7 @@ GRIProcessThread::~GRIProcessThread()
         delete *it;
     }
 
-    delete(histArray);
+    //delete(histArray);
 
 }
 
@@ -50,11 +50,11 @@ void GRIProcessThread::set_numInOut(int n){
 }
 
 void GRIProcessThread::addToHist(double *data, int size){
-    histArray->fill(data, size);
+    //histArray->fill(data, size);
 }
 
 void GRIProcessThread::addToHist(double data){
-    histArray->fill(data);
+    //histArray->fill(data);
 }
 
 

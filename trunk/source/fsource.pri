@@ -8,9 +8,10 @@ GRIBuffer.cpp\
 #GRICommandAndControl.cpp\
 GRIDAQThread.cpp\
 GRIDataBlock.cpp\
+GRIDiagnostics.cpp\
 #GRIHistDraw.cpp\
 #GRIHistogrammer.cpp\
-#GRILoader.cpp\
+GRILoader.cpp\
 #GRILogger.cpp\
 GRIMath.cpp\
 GRIMemoryManager.cpp\
@@ -21,4 +22,4 @@ GRIRegulator.cpp\
 #GRIServerThread.cpp\
 #GRIXMLParser.cpp\
 #main.cpp
-    framework/trunk/source/GRIDiagnostics.cpp
+

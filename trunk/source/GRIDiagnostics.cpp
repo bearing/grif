@@ -39,10 +39,6 @@ void GRIDiagnostics::postAll(FILE *f){
     postWrites(f);
 }
 
-void GRIDiagnostics::~GRIDiagnostics(){
-
-}
-
 void GRIDiagnostics::postPacketNumbers(){
 
 }
@@ -78,7 +74,7 @@ void GRIDiagnostics::setLogger(GRILogger *logger){
 }
 
 void GRIDiagnostics::setCloseFileFlag(bool set){
-    closeFileFlag = set;
+    CloseFileFlag = set;
 }
 
 /*
@@ -86,7 +82,7 @@ void GRIDiagnostics::setCloseFileFlag(bool set){
  */
 
 unsigned int GRIDiagnostics::getBufferSize(string bufferName){
-    return sizeofBuffer(bufferName);
+    return reg->sizeofBuffer(bufferName);
 }
 
 unsigned int GRIDiagnostics::getPacketSize(string bufferName, unsigned int packetNumber){

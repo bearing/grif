@@ -27,7 +27,7 @@ class GRIRegulator
 
     friend class GRIDataBlock;
     friend class GRIProcessThread;
-    friend class GRIDiagnosticsThread;
+    //friend class GRIDiagnosticsThread;
 
 public:
 
