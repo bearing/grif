@@ -8,7 +8,7 @@
  * just used for mainpulation within the acquisition/analysis, but is not posted
  * to the memory, then it is not necessary to define them here.  However, you can
  * store them here for flexibility, in case you want to post it later.
- *  An example of this is the following (for a DAQ Simulator Thread):
+ * An example of this is the following (for a DAQ Simulator Thread):
  *
  *   struct peak{
  *     double value;
