@@ -74,7 +74,7 @@ pair<unsigned int, char*> GRIRegulator::readMemory(string blockName, string buff
             mm->currentPacketPosition(blockName, bufferName) << endl;
     while(mm->lastPacket(blockName, bufferName) < packet_to_read) {
         fprintf(this->regulator_log, "\nelapsed time is: %d ms\n", this->timer.elapsed());
-        fprintf(this->regulator_log, "putting thread %d to sleep", (int)QThread::currentThread());
+        //fprintf(this->regulator_log, "putting thread %d to sleep", (int)QThread::currentThread());
         bufferIsReady.wait(&mutex);
     }
 

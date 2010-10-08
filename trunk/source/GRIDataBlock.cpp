@@ -178,7 +178,7 @@ void GRIDataBlock::load_balancing()
                (int)reader->reader->priority() < (int)QThread::TimeCriticalPriority) {
                 reader->reader->change_priority(true);
                 fprintf(reg->regulator_log, "\nelapsed time is: %d ms\n", reg->timer.elapsed());
-                fprintf(reg->regulator_log, "changing thread priority for thread %d to priority %d\n", (int)QThread::currentThread(), (int)reader->reader->priority());
+                //fprintf(reg->regulator_log, "changing thread priority for thread %d to priority %d\n", (int)(QThread::currentThread()), (int)reader->reader->priority());
             }
         }
         cin.get();
