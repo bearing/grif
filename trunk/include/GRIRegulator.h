@@ -14,6 +14,7 @@
 #include <QTime>
 
 
+
 using namespace std;
 
 class GRILoader;
@@ -26,6 +27,7 @@ class GRIRegulator
 
     friend class GRIDataBlock;
     friend class GRIProcessThread;
+    friend class GRIDiagnosticsThread;
 
 public:
 
