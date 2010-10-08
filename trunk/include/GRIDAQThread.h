@@ -280,7 +280,7 @@ virtual int stopDataAcquisition() = 0;      //Called at the end of each run.
 * \see forceQuitDAQ()
 *
 */
-virtual int terminationRoutines() = 0;
+virtual int terminationRoutines() {return 0;}
 
 
 //! A member function for opening a GUI during DAQ initialization.
