@@ -4,6 +4,7 @@
 #define DATA_BLOCK_DEBUG
 
 #include <string>
+#include <cstdio>
 #include <list>
 #include <cstdlib>
 #include <cassert>
@@ -118,21 +119,21 @@ public:
 
 private:
 
-    string name;
-
-    long write_counter; // # of times this buffer is written
-
-    long first_packet; // last packet # deleted + 1
-
-    GRIProcessThread* writer; // the thread that's writing to this object
-
-    string writer_name;
-
-    list<reader_t*> readers; // list of threads reading from this object
-
     GRIRegulator* reg;
 
     GRIMemoryManager* mm;
+
+    string name; // name of this data block
+
+    GRIProcessThread* writer; // the thread that's writing to this object
+
+    string writer_name; // name of writer writing to this object
+
+    list<reader_t*> readers; // list of threads reading from this object
+    
+    long write_counter; // # of times this buffer is written
+
+    long first_packet; // last packet # deleted + 1
 };
 
 #endif // GRIDATAOBJECT_H

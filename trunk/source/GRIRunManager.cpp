@@ -54,7 +54,7 @@ void GRIRunManager::Init(bool usingGUI)
     }
 
     //start and connect GRILogger
-    this->startLogger();
+    //this->startLogger();
 
     // IMPLIMENT ERROR CHECK TO MAKE SURE THE FILE PATH IS VALID
     /////////////////////////////////////////////////////////////////////////
@@ -65,6 +65,7 @@ void GRIRunManager::Init(bool usingGUI)
     this->cmdcontrol = new GRICommandAndControl(this, rootXMLFile);
     connect(cmdcontrol, SIGNAL(output(list<string>)), this, SLOT(displayOutput(list<string>)));
     connect(cmdcontrol, SIGNAL(output(string)), this, SLOT(displayOutput(string)));
+
 
     // let the command and control know that the user will be running a commandline
     this->cmdcontrol->usingCommandLine = true;

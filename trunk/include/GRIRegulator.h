@@ -40,12 +40,18 @@ public:
     QTime timer;
 
     /*
-     * init_config() is called just before the whole system starts. It will require the
+     * init_config() is called to initialize the whole system. It will require the
      * dependencies' structure dictated by list<GRIBufferObject*> & list<GRIProcessThread*>
      * and it will start (but not necessarily run) the thread.
      */
 
     void init_config(list<GRIDataBlock*>* data_blocks, list<GRIProcessThread*>* processes);
+
+
+    /*
+     * start_threads() is called just before the whole system starts. It runs all the threads
+     */
+    void start_threads();
 
     /*
      *
@@ -102,8 +108,14 @@ public:
      */
     bool setPacketPosition(string bufferName, unsigned int packetNumber);
 
+    /*
+     * sizeofPacket() returns how big the packet is
+     */
     unsigned int sizeofPacket(string bufferName, unsigned int packetNumber);
 
+    /*
+     * sizeofBuffer() returns how big the buffer is
+     */
     unsigned int sizeofBuffer(string bufferName);
 
 protected:

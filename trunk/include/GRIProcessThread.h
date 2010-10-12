@@ -171,10 +171,6 @@ public:
      */
     template <class T> void setParam(QString Key, T value);
 
-    /* TODO:
-        virtual void* run_action(void* pParam);
-     */
-
     /*
      * readMemory() reads one packet from memory in the location specified by process_name
      * & bufferName. Essentially abstracts regulator's readMemory() by templating it.
@@ -216,6 +212,10 @@ public:
      */
     unsigned int sizeofBuffer(string bufferName);
 
+    /*
+     * For debugging purpose; display the important state of the process, ie: who it's writing
+     * to, who it's reading from, etc
+     */
 #ifdef PROCESS_THREAD_DEBUG
     void display_current_state();
 #endif // PROCESS_THREAD_DEBUG
@@ -240,14 +240,13 @@ public:
 
     bool is_daq; // indicates whether this process is a daq or analysis
 
-    list<data_t*> data_outs; // list of data blocks this process writing to
+    list<data_t*> data_outs; // list of data blocks this process is writing to
 
-    list<data_t*> data_ins; // list of data blocks this process reading from
+    list<data_t*> data_ins; // list of data blocks this process is reading from
 
     // Load balancing variables: refer to the description of the class for more details
     int num_packets_to_saturation;
     int num_packets_from_saturation;
-
     int last_adjustment_to_saturation;
     int last_adjustment_from_saturation;
 
@@ -268,10 +267,6 @@ template<class T> void GRIProcessThread::setParam(QString Key, T value){
     *((T *) hashTable.value(Key)) = value;
 }
 
-/*
- * readMemory() reads one packet from memory in the location specified
- * by process_name & bufferName
- */
 template<class T> pair<unsigned int, T*>
 GRIProcessThread::readMemory(string blockName ,string bufferName){
     return ((pair<unsigned int, T*>) reg->readMemory(blockName, bufferName));

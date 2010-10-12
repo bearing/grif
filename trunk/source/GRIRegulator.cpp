@@ -9,7 +9,6 @@ GRIRegulator::GRIRegulator(GRIMemoryManager* mm)
 {
     this->mm = mm;
     regulator_log = fopen("regulatorlogfile.txt","w");
-    timer.start();
     //loader = new GRILoader(this);
 }
 
@@ -43,12 +42,23 @@ void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
     for(data_it = (*data_blocks).begin(); data_it != (*data_blocks).end(); data_it++) {
         GRIDataBlock* data_block = *data_it;
 
+        data_block->set_mm(mm);
         data_block->set_link(processes);
     }
 
     cout << "** Regulator.cpp: Done setting the link" << endl;
     this->data_blocks = data_blocks;
 
+}
+
+void GRIRegulator::start_threads()
+{
+    timer.start();
+    list<GRIProcessThread*>::iterator it;
+    for(it = (*processes).begin(); it != (*processes).end(); it++) {
+        GRIProcessThread* process = *it;
+        process->start(QThread::NormalPriority);
+    }
 }
 
 pair<unsigned int, char*> GRIRegulator::readMemory(string blockName, string bufferName)

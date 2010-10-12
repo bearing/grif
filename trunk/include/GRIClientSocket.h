@@ -1,7 +1,7 @@
 #ifndef GRI_CLIENTSOCKET_H
 #define GRI_CLIENTSOCKET_H
 
-#include <qtcpsocket.h>
+#include <QtNetwork/qtcpsocket.h>
 #include <string>
 #include "GRIRunManager.h"
 

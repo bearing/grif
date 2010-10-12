@@ -2,10 +2,10 @@
 #define GRI_XMLPARSER_H
 
 #include <QtXml/qdom.h>
-#include <QTreeWidget>
+#include <QtGui/QTreeWidget>
 #include <QXmlStreamReader>
 #include <QFile>
-#include <QMessageBox>
+#include <QtGui/qmessagebox.h>
 #include "GRIParam.h"
 #include "GRIProcessThread.h"
 

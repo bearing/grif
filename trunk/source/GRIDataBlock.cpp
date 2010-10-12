@@ -66,8 +66,6 @@ void GRIDataBlock::set_link(list<GRIProcessThread*>* processes)
         GRIProcessThread* process = *process_it;
         if (this->writer_name == process->get_name()) {
             this->writer = process;
-
-            cout << this->writer_name << "   " << this->name << endl << endl;
             mm->bufferCreate(this->writer_name, this->name);
             break;
         }
@@ -126,7 +124,6 @@ void GRIDataBlock::delete_packet()
         }
     }
 
-
 #ifdef DATA_BLOCK_DEBUG
     display_current_state();
     cout << "lowest_packet: " << lowest_packet << endl;
@@ -153,8 +150,6 @@ void GRIDataBlock::load_balancing()
     }
 
 
-
-
 #ifdef DATA_BLOCK_DEBUG
     cout << endl << "** DataBlock::load_balancing()" << endl << endl;
     cout << "writer_name: " << writer->get_name() << " priority: " << (int)writer->priority() << endl;
@@ -162,9 +157,7 @@ void GRIDataBlock::load_balancing()
 
     // either decrease priority of writer (if possible) or increase the priority of the reader (if possible)
     if(rand() % 2 && (int)writer->priority() > (int)QThread::IdlePriority) {
-        //this->writer->change_priority(false);
-        cout << "fail";
-        cin.get();
+        this->writer->change_priority(false);
     }
     else {
         for(it = readers.begin(); it != readers.end(); it++) {
@@ -181,7 +174,6 @@ void GRIDataBlock::load_balancing()
                 //fprintf(reg->regulator_log, "changing thread priority for thread %d to priority %d\n", (int)(QThread::currentThread()), (int)reader->reader->priority());
             }
         }
-        cin.get();
     }
 }
 

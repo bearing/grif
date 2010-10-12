@@ -3,13 +3,10 @@
 
 GRIMemoryManager::GRIMemoryManager()
 {
-
     blockNameTable = new QList<string>();
     nameTable = new QList< QList<string>* >();
     dataBlockTable = new QList< QList<GRIBuffer*>* >();
     lockTable = new QList< QList<QReadWriteLock *>* >();
-
-    cout << blockNameTable->size() << endl;
 }
 
 
@@ -51,8 +48,6 @@ GRIMemoryManager::~GRIMemoryManager()
 //creates a new buffer
 bool GRIMemoryManager::bufferCreate(string dataBlockName, string bufferName)
 {
-    cout << "** mm.cpp: bufferCreate" << endl;
-
     int blockIndex = locateDataBlock(dataBlockName);
 
     if (blockIndex == -1) {                         //if block does not exist yet
@@ -256,6 +251,7 @@ unsigned int GRIMemoryManager::locateBuffer(string bufferName, unsigned int bloc
 int GRIMemoryManager::locateDataBlock(string dataBlockName)
 {
     int i;
+
     int size = blockNameTable->size();
 
     for (i = 0; i < size; i++ ) {

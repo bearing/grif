@@ -1,7 +1,7 @@
 #ifndef GRI_SERVER_H
 #define GRI_SERVER_H
 
-#include <qtcpserver.h>
+#include <QtNetwork/qtcpserver.h>
 #include "GRIRunManager.h"
 
 using namespace std;

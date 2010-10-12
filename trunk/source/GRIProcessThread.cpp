@@ -235,22 +235,10 @@ GRIDataBlock* GRIProcessThread::find_data_block(string data_block_name)
     return NULL; // Can't find the data block
 }
 
-/*
- *
- * currentPacketPosition() returns the current index of the packet marker. This is in most cases the last
- * packet to be read next unless setPacketPosition() has been called.
- *
- */
 unsigned int GRIProcessThread::currentPacketPosition(string bufferName){
     return reg->currentPacketPosition(bufferName);
 }
 
-/*
- *
- * lastPacket() returns the index of the last packet in the specified buffer. This is equivalent to
- * the buffer size minus one.
- *
- */
 unsigned int GRIProcessThread::lastPacket(string bufferName){
     return reg->lastPacket(bufferName);
 }

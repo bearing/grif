@@ -44,7 +44,7 @@ bool GRICommandAndControl::Init(GRIRunManager *mgr, QString rootXMLFile)
 
     //***************************************BUGS
     // initialize configuration settings
-    //this->regulator->init_config(this->datablocks, this->processes);
+    this->regulator->init_config(this->datablocks, this->processes);
 
     this->usingCommandLine = false; // DEFAULT Setting
 
