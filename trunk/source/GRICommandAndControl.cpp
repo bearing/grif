@@ -12,8 +12,10 @@
 
 using namespace std;
 
-GRICommandAndControl::GRICommandAndControl(GRIRunManager *mgr, QString rootXMLFile)
+GRICommandAndControl::GRICommandAndControl(GRIRunManager *mgr, QString rootXMLFile, GRILogger* logger)
 {
+    this->logger = logger;
+
     Init(mgr, rootXMLFile);
 }
 
@@ -33,7 +35,7 @@ bool GRICommandAndControl::Init(GRIRunManager *mgr, QString rootXMLFile)
      this->memorymanager = new GRIMemoryManager();
 
     // create a regulator with the new memory manager
-     this->regulator = new GRIRegulator(memorymanager);
+     this->regulator = new GRIRegulator(memorymanager, logger);
 
     // Create a new GRILoader to load the xml files
     this->loader = new GRILoader(this->regulator);

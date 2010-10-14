@@ -5,11 +5,21 @@
 #include "GRIRegulator.h"
 
 
-GRIRegulator::GRIRegulator(GRIMemoryManager* mm)
+GRIRegulator::GRIRegulator(GRIMemoryManager* mm, GRILogger* logger)
 {
     this->mm = mm;
     regulator_log = fopen("regulatorlogfile.txt","w");
+
+    if(logger != NULL)  {
+         this->logger = logger;
+    }
+
     //loader = new GRILoader(this);
+}
+
+GRIRegulator::GRIRegulator(GRIMemoryManager *mm)
+{
+    GRIRegulator(mm, NULL);
 }
 
 GRIRegulator::~GRIRegulator()

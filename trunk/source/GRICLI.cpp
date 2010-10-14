@@ -20,7 +20,8 @@ GRICommandLineInterface::GRICommandLineInterface(GRIRunManager* mgr)
 
 void GRICommandLineInterface::DisplayWelcomeScreen()
 {
-    this->manager->displayOutput("\n******************************************\n");
+    this->manager->displayOutput("\n");
+    this->manager->displayOutput("******************************************\n");
     this->manager->displayOutput("*                                        *\n");
     this->manager->displayOutput("*   G A M M A - R A Y   I M A G I N G    *\n");
     this->manager->displayOutput("*                                        *\n");

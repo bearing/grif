@@ -16,6 +16,7 @@
 //#include "GRIXMLParser.h"
 #include "GRILoader.h"
 #include "GRIMenuStructure.h"
+#include "GRILogger.h"
 
 
 class GRIRunManager;
@@ -29,6 +30,7 @@ class GRIServerThread;
 class GRIParamList;
 class GRIXMLParser;
 class GRILoader;
+class GRILogger;
 
 
 using namespace std;
@@ -51,7 +53,7 @@ public:
       * A Constructor
       * @param mgr
       */
-    GRICommandAndControl(GRIRunManager *mgr, QString rootXMLFile);
+    GRICommandAndControl(GRIRunManager *mgr, QString rootXMLFile, GRILogger* logger);
     /**
       * A Destructor
       */
@@ -217,6 +219,9 @@ protected:
     string toString(float s);
     string toString(char s);
     string toString(string s);
+
+    GRILogger* logger;
+
 signals:
     void output(string);
     void output(list<string>);

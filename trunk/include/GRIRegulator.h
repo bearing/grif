@@ -13,6 +13,8 @@
 #include <utility>
 #include <QTime>
 
+//#include "GRILogger.h"
+
 
 
 using namespace std;
@@ -21,6 +23,7 @@ class GRILoader;
 class GRIDataBlock;
 class GRIProcessThread;
 class GRIMemoryManager;
+class GRILogger;
 
 class GRIRegulator
 {
@@ -31,11 +34,14 @@ class GRIRegulator
 
 public:
 
+    GRIRegulator(GRIMemoryManager* mm, GRILogger* logger);
     GRIRegulator(GRIMemoryManager* mm);
 
     ~GRIRegulator();
 
     FILE *regulator_log;
+
+    GRILogger *logger;
 
     QTime timer;
 
@@ -123,6 +129,8 @@ protected:
     GRIMemoryManager* mm;
 
 private:
+
+
 
     /*
      * find_process() returns a pointer to the actual process given the name

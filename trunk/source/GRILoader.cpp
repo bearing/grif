@@ -1,4 +1,8 @@
+
 #include "GRILoader.h"
+#include "SIMDAQThread.h"
+
+class SIMDAQThread;
 
 GRILoader::GRILoader(GRIRegulator* regulator)
 {
@@ -42,9 +46,12 @@ GRIProcessThread* GRILoader::load(string process_name, string xml_file)
 {
     GRIProcessThread* p;
     // sadly, you can't use strings in c++ switch statements
-    if(process_name == "hemi")   {
-//        for example
-//        p = new HemiDaq();
+    if(!strcmp(process_name.c_str(),"DAQ1") )
+    {
+    //        for example
+        //DEBUG
+        cout << "CORRECT PROCESS NAME!";
+        // p = new SIMDAQThread();
     }
 
     return p;

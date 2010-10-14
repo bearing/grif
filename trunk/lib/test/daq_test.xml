@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<CONFIG_FILE_PATH>
+ <DAQ_INFO>
+    <FILE name = "DAQ_1"/>
+    <LOCATION path = "c:\sis_adc_system\config.xml"/>
+ </DAQ_INFO>
+</CONFIG_FILE_PATH>

@@ -7,7 +7,10 @@ GRILogger::GRILogger()
 bool GRILogger::clearLogFile()
 {
 
-    QFile f("C:/FRAMEWORK_PROJECT/grif/framework/trunk/lib/logfile.txt");
+
+
+    QFile f("C:/FRAMEWORK_PROJECT/WORKING/framework/trunk/lib/logfile.txt");
+    //QFile f("../../framework/trunk/lib/logfile.txt");
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Truncate) )
     {
@@ -25,7 +28,7 @@ bool GRILogger::clearLogFile()
 bool GRILogger::clearErrorLogFile()
 {
 
-    QFile f("C:/FRAMEWORK_PROJECT/grif/framework/trunk/lib/errorlogfile.txt");
+    QFile f("C:/FRAMEWORK_PROJECT/WORKING/framework/trunk/lib/errorlogfile.txt");
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Truncate) )
     {
@@ -41,21 +44,36 @@ bool GRILogger::clearErrorLogFile()
 
 }
 
-bool GRILogger::writeLogFile(list<string>d)
+bool GRILogger::writeLogFile(list<string>d, int time)
 {
+
     list<string>::iterator iter;
 
     for(iter = d.begin(); iter!= d.end(); iter++)
     {
 
-        this->writeLogFile((*iter));
+        this->writeLogFile((*iter), time);
     }
     return 1;
+
+}
+bool GRILogger::writeLogFile(list<string>d)
+{
+
+  this->writeLogFile(d, 0);
+
 }
 
-bool GRILogger::writeLogFile(string output)
+bool GRILogger::writeLogFile(string output, int time)
 {
-    QFile f("C:/FRAMEWORK_PROJECT/grif/framework/trunk/lib/logfile.txt");
+    //
+    if(time == 0)
+    {
+        time = -1;
+    }
+
+
+    QFile f("C:/FRAMEWORK_PROJECT/WORKING/framework/trunk/lib/logfile.txt");
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Append ) )
     {
@@ -66,19 +84,32 @@ bool GRILogger::writeLogFile(string output)
     QTextStream ts( &f );
 
 
-    ts << output.c_str();
+    ts << "TIME = " << QVariant(time).toString().toStdString().c_str() << ":        " << output.c_str();
+
 
     f.close();
 
     return 1;
 }
-bool GRILogger::writeLogFile(QString output)
+
+bool GRILogger::writeLogFile(string output)
 {
-    return this->writeLogFile(output.toStdString());
+    this->writeLogFile(output, 0);
 }
 
-bool GRILogger::writeErrorLogFile(string output)
+bool GRILogger::writeLogFile(QString output, int time)
 {
+    return this->writeLogFile(output.toStdString(), time);
+}
+bool GRILogger::writeLogFile(QString output)
+{
+    return this->writeLogFile(output.toStdString(), 0);
+}
+
+bool GRILogger::writeErrorLogFile(string output, int time)
+{
+   // this->errorMutex.lock();
+
     QFile f("C:/FRAMEWORK_PROJECT/grif/framework/trunk/lib/errorlogfile.txt");
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Append ) )
@@ -94,22 +125,38 @@ bool GRILogger::writeErrorLogFile(string output)
 
     f.close();
 
+    //this->errorMutex.unlock();
+
     return 1;
+}
+
+bool GRILogger::writeErrorLogFile(string output)
+{
+    this->writeErrorLogFile(output, 0);
+}
+
+bool GRILogger::writeErrorLogFile(QString output, int time)
+{
+    return this->writeErrorLogFile(output.toStdString(), time);
 }
 
 bool GRILogger::writeErrorLogFile(QString output)
 {
-    return this->writeErrorLogFile(output.toStdString());
+    return this->writeErrorLogFile(output, 0);
 }
 
-bool GRILogger::writeErrorLogFile(list<string>d)
+bool GRILogger::writeErrorLogFile(list<string>d, int time)
 {
     list<string>::iterator iter;
     for(iter = d.begin(); iter!= d.end(); iter++)
     {
-        this->writeErrorLogFile(*iter);
+        this->writeErrorLogFile(*iter, time);
     }
     return 1;
+}
+bool GRILogger::writeErrorLogFile(list<string>d)
+{
+   return this->writeErrorLogFile(d, 0);
 }
 
 void GRILogger::display(string a)
