@@ -25,7 +25,7 @@ class GRILoader
 
 public:
 
-    GRILoader(GRIRegulator* regulator);
+    GRILoader();
 
     ~GRILoader();
 
@@ -40,9 +40,10 @@ public:
      * }
      */
 
-    list<GRIProcessThread*>* initProcessThreads(list<string> names, list<string> filepaths);
+    list<GRIProcessThread*>* initProcessThreads(list<ProcessDetails*> details);
 
     virtual GRIProcessThread* load(string process_name, string xml_file);
+    
 
 
 

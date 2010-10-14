@@ -1,4 +1,5 @@
 #include "GRILogger.h"
+#include <QDir>
 
 GRILogger::GRILogger()
 {
@@ -7,10 +8,7 @@ GRILogger::GRILogger()
 bool GRILogger::clearLogFile()
 {
 
-
-
-    QFile f("C:/FRAMEWORK_PROJECT/WORKING/framework/trunk/lib/logfile.txt");
-    //QFile f("../../framework/trunk/lib/logfile.txt");
+    QFile f("../../../framework/trunk/lib/logfile.txt");
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Truncate) )
     {
@@ -28,7 +26,7 @@ bool GRILogger::clearLogFile()
 bool GRILogger::clearErrorLogFile()
 {
 
-    QFile f("C:/FRAMEWORK_PROJECT/WORKING/framework/trunk/lib/errorlogfile.txt");
+    QFile f("../../../framework/trunk/lib/errorlogfile.txt");
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Truncate) )
     {
@@ -72,8 +70,7 @@ bool GRILogger::writeLogFile(string output, int time)
         time = -1;
     }
 
-
-    QFile f("C:/FRAMEWORK_PROJECT/WORKING/framework/trunk/lib/logfile.txt");
+    QFile f("../../../framework/trunk/lib/logfile.txt");
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Append ) )
     {
@@ -110,7 +107,7 @@ bool GRILogger::writeErrorLogFile(string output, int time)
 {
    // this->errorMutex.lock();
 
-    QFile f("C:/FRAMEWORK_PROJECT/grif/framework/trunk/lib/errorlogfile.txt");
+    QFile f("../../../framework/trunk/lib/errorlogfile.txt");
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Append ) )
     {

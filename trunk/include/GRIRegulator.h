@@ -34,8 +34,8 @@ class GRIRegulator
 
 public:
 
-    GRIRegulator(GRIMemoryManager* mm, GRILogger* logger);
-    GRIRegulator(GRIMemoryManager* mm);
+    GRIRegulator(GRIMemoryManager* mm, GRILogger* logger, GRILoader* loader);
+    GRIRegulator(GRIMemoryManager* mm, GRILoader* loader);
 
     ~GRIRegulator();
 

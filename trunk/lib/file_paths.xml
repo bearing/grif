@@ -2,11 +2,12 @@
 
 <CONFIG_FILE_PATH>
  <DAQ_INFO>
-    <FILE name = "DAQ1"/>
-    <LOCATION path = "C:/FRAMEWORK_PROJECT/WORKING/framework/trunk/lib/test/daq_test.xml"/>
+    <FILE name = "DAQ_1"/>
+    <LOCATION path = "c:\sis_adc_system\config.xml"/>
  </DAQ_INFO>
  <ANA_INFO>
-    <FILE name = "ANA1"/>
-    <LOCATION path = "C:/FRAMEWORK_PROJECT/WORKING/framework/trunk/lib/test/ana_test.xml"/>
+    <FILE name = "ANA_1"/>
+    <LOCATION path = "c:\ana_1"/>
  </ANA_INFO>
+
 </CONFIG_FILE_PATH>

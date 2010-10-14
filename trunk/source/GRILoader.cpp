@@ -4,9 +4,8 @@
 
 class SIMDAQThread;
 
-GRILoader::GRILoader(GRIRegulator* regulator)
+GRILoader::GRILoader()
 {
-    this->regulator = regulator;
 
 }
 
@@ -16,8 +15,7 @@ GRILoader::~GRILoader()
 }
 
 
-// IS FILEPATH NECESSARY???
-list<GRIProcessThread*>* GRILoader::initProcessThreads(list<string> names, list<string> filepaths)
+list<GRIProcessThread*>* GRILoader::initProcessThreads(list<ProcessDetails*> details)
 {
     // create a process thread list
     list<GRIProcessThread*>* processList = new list<GRIProcessThread*>;
@@ -26,13 +24,12 @@ list<GRIProcessThread*>* GRILoader::initProcessThreads(list<string> names, list<
     GRIProcessThread* p;
 
     // for however many process threads there are
-    for(int i = 0; i < names.size(); i++)
+    for(int i = 0; i < details.size(); i++)
     {
         // load the process thread
-        p = load(names.front(), filepaths.front());
+        p = load(details.front()->name, details.front()->xml_path);
 
-        filepaths.pop_front();
-        names.pop_front();
+        details.pop_front();
 
         // add to list
         processList->push_front(p);
@@ -42,16 +39,47 @@ list<GRIProcessThread*>* GRILoader::initProcessThreads(list<string> names, list<
     return processList;
 }
 
+// IS FILEPATH NECESSARY???
+//list<GRIProcessThread*>* GRILoader::initProcessThreads(list<string> names, list<string> filepaths)
+//{
+//    // create a process thread list
+//    list<GRIProcessThread*>* processList = new list<GRIProcessThread*>;
+//
+//    // create a process thread variable
+//    GRIProcessThread* p;
+//
+//    // for however many process threads there are
+//    for(int i = 0; i < names.size(); i++)
+//    {
+//        // load the process thread
+//        p = load(names.front(), filepaths.front());
+//
+//        filepaths.pop_front();
+//        names.pop_front();
+//
+//        // add to list
+//        processList->push_front(p);
+//    }
+//
+//    // return list
+//    return processList;
+//}
+
 GRIProcessThread* GRILoader::load(string process_name, string xml_file)
 {
     GRIProcessThread* p;
+
     // sadly, you can't use strings in c++ switch statements
-    if(!strcmp(process_name.c_str(),"DAQ1") )
+    if(!strcmp(process_name.c_str(),"DAQ_1") )
     {
     //        for example
         //DEBUG
-        cout << "CORRECT PROCESS NAME!";
-        // p = new SIMDAQThread();
+        cout << "CORRECT PROCESS NAME!\n";
+        p = new SIMDAQThread();
+    }
+    else
+    {
+       cout << "BAD NAME IN XML FILE\n";
     }
 
     return p;
@@ -411,6 +439,7 @@ std::list<AnalysisStructureObject*> GRILoader::readAnalysisStructureXML()
         int i = 0;
 
         QDomDocument doc("DATA_ANALYSIS_STRUCTURE");
+
 
         QFile file(":/struc_config.xml");
         if(!file.open(QIODevice::ReadOnly))

@@ -36,7 +36,7 @@ void GRIRunManager::Init(bool usingGUI)
 
     //temporary, so I don't have to type in the file path every time
     if(rootXMLFile == "me"){
-        rootXMLFile = "C:\\FRAMEWORK_PROJECT\\grif\\framework\\trunk\\lib\\file_paths.xml";
+        rootXMLFile = "C:\\FRAMEWORK_PROJECT\\WORKING\\framework\\trunk\\lib\\file_paths.xml";
     }
 
 
@@ -48,7 +48,7 @@ void GRIRunManager::Init(bool usingGUI)
 
         //temporary, so I don't have to type in the file path every time
         if(rootXMLFile == "me"){
-            rootXMLFile = "C:\\FRAMEWORK_PROJECT\\grif\\framework\\trunk\\lib\\file_paths.xml";
+            rootXMLFile = "C:\\FRAMEWORK_PROJECT\\WORKING\\framework\\trunk\\lib\\file_paths.xml";
         }
 
     }

@@ -34,11 +34,13 @@ bool GRICommandAndControl::Init(GRIRunManager *mgr, QString rootXMLFile)
     // create a memory manager
      this->memorymanager = new GRIMemoryManager();
 
-    // create a regulator with the new memory manager
-     this->regulator = new GRIRegulator(memorymanager, logger);
+     // Create a new GRILoader to load the xml files
+     this->loader = new GRILoader();
 
-    // Create a new GRILoader to load the xml files
-    this->loader = new GRILoader(this->regulator);
+    // create a regulator with the new memory manager
+     this->regulator = new GRIRegulator(memorymanager, logger, loader);
+
+
 
     // read xml and load parameters
     // NOTE: This will use the GRILoader
@@ -47,6 +49,8 @@ bool GRICommandAndControl::Init(GRIRunManager *mgr, QString rootXMLFile)
     //***************************************BUGS
     // initialize configuration settings
     this->regulator->init_config(this->datablocks, this->processes);
+    // test this function
+    this->regulator->start_threads();
 
     this->usingCommandLine = false; // DEFAULT Setting
 
@@ -73,6 +77,9 @@ void GRICommandAndControl::ReadXMLsAndLoadConfiguration(QString rootXMLFile)
     this->datablocks = new list<GRIDataBlock*>;
       
     this->display("\n");
+
+    // ACTUALLY LOAD THE PROCESS THREADS!
+    this->loader->initProcessThreads(filePaths);
     
     // create process threads out of the file path and names given in the XML file
     for(filePathIter=filePaths.begin(); filePathIter!=filePaths.end(); filePathIter++)
