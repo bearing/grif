@@ -3,11 +3,11 @@
 <CONFIG_FILE_PATH>
  <DAQ_INFO>
     <FILE name = "DAQ_1"/>
-    <LOCATION path = "c:\sis_adc_system\config.xml"/>
+    <LOCATION path = "test/daq_test.xml"/>
  </DAQ_INFO>
  <ANA_INFO>
     <FILE name = "ANA_1"/>
-    <LOCATION path = "c:\ana_1"/>
+    <LOCATION path = "test/ana_test.xml"/>
  </ANA_INFO>
 
 </CONFIG_FILE_PATH>

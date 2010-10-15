@@ -52,6 +52,7 @@ bool GRILogger::writeLogFile(list<string>d, int time)
 
         this->writeLogFile((*iter), time);
     }
+
     return 1;
 
 }
@@ -64,7 +65,10 @@ bool GRILogger::writeLogFile(list<string>d)
 
 bool GRILogger::writeLogFile(string output, int time)
 {
-    //
+    QMutex mutex;
+    //prevent multiple threads from writing at the same time
+    mutex.lock();
+
     if(time == 0)
     {
         time = -1;
@@ -80,12 +84,12 @@ bool GRILogger::writeLogFile(string output, int time)
 
     QTextStream ts( &f );
 
-
     ts << "TIME = " << QVariant(time).toString().toStdString().c_str() << ":        " << output.c_str();
-
 
     f.close();
 
+    //unlock
+    mutex.unlock();
     return 1;
 }
 
@@ -105,7 +109,9 @@ bool GRILogger::writeLogFile(QString output)
 
 bool GRILogger::writeErrorLogFile(string output, int time)
 {
-   // this->errorMutex.lock();
+    QMutex mutex;
+    //prevent multiple threads from writing at the same time
+    mutex.lock();
 
     QFile f("../../../framework/trunk/lib/errorlogfile.txt");
 
@@ -117,13 +123,12 @@ bool GRILogger::writeErrorLogFile(string output, int time)
 
     QTextStream ts( &f );
 
-
     ts << output.c_str();
 
     f.close();
 
-    //this->errorMutex.unlock();
-
+    //unlock
+    mutex.unlock();
     return 1;
 }
 

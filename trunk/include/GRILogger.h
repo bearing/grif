@@ -43,13 +43,6 @@ signals:
     void output(string);
     void output(list<string>);
 
-private:
-    QMutex logMutex;
-    QMutex errorMutex;
-
-
-
-
 };
 
 #endif // GRILOGGER_H
