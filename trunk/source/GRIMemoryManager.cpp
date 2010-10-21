@@ -252,7 +252,7 @@ int GRIMemoryManager::locateDataBlock(string dataBlockName)
 {
     int i;
 
-    int size = this->blockNameTable->size();
+    int size = blockNameTable->size();
 
     for (i = 0; i < size; i++ ) {
         if (blockNameTable->at(i) == dataBlockName) {

@@ -45,8 +45,6 @@ public:
 
     QTime timer;
 
-
-    void dostuff();
     /*
      * init_config() is called to initialize the whole system. It will require the
      * dependencies' structure dictated by list<GRIBufferObject*> & list<GRIProcessThread*>
@@ -126,11 +124,11 @@ public:
      */
     unsigned int sizeofBuffer(string bufferName);
 
-//protected:
+protected:
 
     GRIMemoryManager* mm;
 
-//private:
+private:
 
 
 
