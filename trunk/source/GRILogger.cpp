@@ -1,18 +1,22 @@
 #include "GRILogger.h"
 #include <QDir>
+#include <QResource>
 
-GRILogger::GRILogger()
+GRILogger::GRILogger(QString rootXMLFile)
 {
+    this->rootXMLFilePath = rootXMLFile;
 }
 
 bool GRILogger::clearLogFile()
 {
 
-    QFile f("../../../framework/trunk/lib/logfile.txt");
+//    QFile f(":/log_files/logfile.txt");
+
+    QFile f(rootXMLFilePath + "framework/trunk/lib/logfile.txt");
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Truncate) )
     {
-      this->display("Failed to open file.\n");
+      cout << "Failed to locate logfile.txt.\n";
       return 0;
     }
 
@@ -26,11 +30,12 @@ bool GRILogger::clearLogFile()
 bool GRILogger::clearErrorLogFile()
 {
 
-    QFile f("../../../framework/trunk/lib/errorlogfile.txt");
+    QFile f(this->rootXMLFilePath + "framework/trunk/lib/errorlogfile.txt");
+
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Truncate) )
     {
-      this->display("Failed to open file.\n");
+      cout << "Failed to locate errorlogfile.txt.\n";
       return 0;
     }
 
@@ -74,11 +79,12 @@ bool GRILogger::writeLogFile(string output, int time)
         time = -1;
     }
 
-    QFile f("../../../framework/trunk/lib/logfile.txt");
+//    QFile f(":/log_files/logfile.txt");
+    QFile f(this->rootXMLFilePath + "framework/trunk/lib/logfile.txt");
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Append ) )
     {
-      this->display("Failed to open file.\n");
+      cout << "Failed to locate logfile.txt.\n";
       return 0;
     }
 
@@ -113,11 +119,11 @@ bool GRILogger::writeErrorLogFile(string output, int time)
     //prevent multiple threads from writing at the same time
     mutex.lock();
 
-    QFile f("../../../framework/trunk/lib/errorlogfile.txt");
+    QFile f(this->rootXMLFilePath + "framework/trunk/lib/errorlogfile.txt");
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Append ) )
     {
-      this->display("Failed to open file.\n");
+      cout << "Failed to locate errorlogfile.txt.\n";
       return 0;
     }
 
@@ -170,3 +176,5 @@ void GRILogger::display(list<string> a)
 {
     emit this->output(a);
 }
+
+

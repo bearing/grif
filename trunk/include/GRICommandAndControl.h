@@ -79,7 +79,7 @@ protected:
       * @returns list<ProcessDetails*>
       * @see ProcessDetails
       */
-    list<ProcessDetails*> readPathXML(QString rootXMLFile);
+    list<ProcessDetails*> readPathXML();
     /**
       * reads an xml file that details the analysis structure and creates a list of AnalysisStructureObjects
       * @returns list<AnalysisStructureObject*>
@@ -146,7 +146,7 @@ protected:
       * @returns a list of parameters that will be loaded into the parameterlist during Init()
       */
 
-    list<GRIParam*>* readNewParamList(QString filepath, list<GRIParam*>* params);
+    list<GRIParam*>* readNewParamList(list<GRIParam*>* params);
 
     /**
       * a GRIRunManager ojbect

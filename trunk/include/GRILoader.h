@@ -25,7 +25,7 @@ class GRILoader
 
 public:
 
-    GRILoader();
+    GRILoader(QString filepath);
 
     ~GRILoader();
 
@@ -48,14 +48,15 @@ public:
 
 
     // used to be in class GRIXMLParser.h
-    list<GRIParam*>* readNewParamList(QString filePath, list<GRIParam*>* currentParams);
+    list<GRIParam*>* readNewParamList(list<GRIParam*>* currentParams);
     list<AnalysisStructureObject*> readAnalysisStructureXML();
-    list<ProcessDetails*> readPathXML(QString rootXMLFile);
+    list<ProcessDetails*> readPathXML();
     void setupMenuStructure();
 
 
 private:
 
+    QString rootGRIFPath;
     GRIRegulator* regulator;
 
     // used to be in class GRIXMLParser.h

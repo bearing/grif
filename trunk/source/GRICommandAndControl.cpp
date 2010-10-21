@@ -35,7 +35,7 @@ bool GRICommandAndControl::Init(GRIRunManager *mgr, QString rootXMLFile)
      this->memorymanager = new GRIMemoryManager();
 
      // Create a new GRILoader to load the xml files
-     this->loader = new GRILoader();
+     this->loader = new GRILoader(rootXMLFile);
 
     // create a regulator with the new memory manager
      this->regulator = new GRIRegulator(memorymanager, logger, loader);
@@ -62,11 +62,11 @@ void GRICommandAndControl::ReadXMLsAndLoadConfiguration(QString rootXMLFile)
     //REGULATOR AND MEMORY MANAGER HAVE BEEN INSTANTIATED
 
     // read parameters
-    this->parameterList = this->readNewParamList(":/runtime_params.xml", this->parameterList);
+    this->parameterList = this->readNewParamList(this->parameterList);
 
 
     // Read file path xml;
-    list<ProcessDetails*> filePaths = this->readPathXML(rootXMLFile);
+    list<ProcessDetails*> filePaths = this->readPathXML();
     list<ProcessDetails*>::iterator filePathIter;
     // Read analysis structure xml
     list<AnalysisStructureObject*> analyStructs = this->readAnalysisStructureXML();
@@ -100,9 +100,9 @@ void GRICommandAndControl::ReadXMLsAndLoadConfiguration(QString rootXMLFile)
 }
 
 
-std::list<ProcessDetails*> GRICommandAndControl::readPathXML(QString rootXMLFile)
+std::list<ProcessDetails*> GRICommandAndControl::readPathXML()
 {
-        return this->loader->readPathXML(rootXMLFile);
+        return this->loader->readPathXML();
 
 }
 
@@ -411,9 +411,9 @@ void GRICommandAndControl::timerEvent(QTimerEvent *event)
  }
 
 
- list<GRIParam*>* GRICommandAndControl::readNewParamList(QString filePath, list<GRIParam*>* params)
+ list<GRIParam*>* GRICommandAndControl::readNewParamList( list<GRIParam*>* params)
  {
-    return this->loader->readNewParamList(filePath,params);
+    return this->loader->readNewParamList(params);
  }
 
  void GRICommandAndControl::display(list<string> output)

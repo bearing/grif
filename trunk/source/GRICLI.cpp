@@ -20,16 +20,16 @@ GRICommandLineInterface::GRICommandLineInterface(GRIRunManager* mgr)
 
 void GRICommandLineInterface::DisplayWelcomeScreen()
 {
-    this->manager->displayOutput("\n");
-    this->manager->displayOutput("******************************************\n");
-    this->manager->displayOutput("*                                        *\n");
-    this->manager->displayOutput("*   G A M M A - R A Y   I M A G I N G    *\n");
-    this->manager->displayOutput("*                                        *\n");
-    this->manager->displayOutput("*     VERSION 1.0   22, July 2010        *\n");
-    this->manager->displayOutput("*                                        *\n");
-    this->manager->displayOutput("*     http://bearing.berkeley.edu        *\n");
-    this->manager->displayOutput("*                                        *\n");
-    this->manager->displayOutput("******************************************\n\n");
+    this->manager->displayOutput("\n", false);
+    this->manager->displayOutput("******************************************\n", false);
+    this->manager->displayOutput("*                                        *\n", false);
+    this->manager->displayOutput("*   G A M M A - R A Y   I M A G I N G    *\n", false);
+    this->manager->displayOutput("*                                        *\n", false);
+    this->manager->displayOutput("*     VERSION 1.0   22, July 2010        *\n", false);
+    this->manager->displayOutput("*                                        *\n", false);
+    this->manager->displayOutput("*     http://bearing.berkeley.edu        *\n", false);
+    this->manager->displayOutput("*                                        *\n", false);
+    this->manager->displayOutput("******************************************\n\n", false);
 
     string space = "";
 
@@ -43,7 +43,7 @@ void GRICommandLineInterface::DisplayWelcomeScreen()
     cout << space << "X11 Operating System : ";
     #endif
 
-    this->manager->displayOutput("*not sure how to determine OS bit size...*");
+    this->manager->displayOutput("*not sure how to determine OS bit size...*", false);
 
 
 
@@ -66,7 +66,7 @@ void GRICommandLineInterface::DisplayWelcomeScreen()
 //        cout << "32-bit" << endl;
 //    #endif
 
-    this->manager->displayOutput("\n\nPress ENTER to begin\n\n");
+    this->manager->displayOutput("\n\nPress ENTER to begin\n\n", false);
 
     cin.ignore(100,'\n');
 

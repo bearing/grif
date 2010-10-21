@@ -131,10 +131,13 @@ protected slots:
 
     void displayOutput(list<string> output);
     void displayOutput(string output);
+    void displayOutput(string output, bool logText);
 
 private:
 
+    bool startedLogger;
 
+    bool goodFilePath(QString path);
 
     /**
       * a variable that distinguishes whether or not the CLI or GUI will be running
@@ -185,7 +188,7 @@ private:
 
     GRILogger* logger;
 
-    void startLogger();
+    void startLogger(QString rootXMLFile);
 
 
 

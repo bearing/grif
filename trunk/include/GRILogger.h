@@ -14,7 +14,7 @@ class GRILogger : public QObject
 {
     Q_OBJECT;
 public:
-    GRILogger();
+    GRILogger(QString rootXMLFile);
 
     // May want to create and pass an Error class object
     // that contains all important descriptions
@@ -39,9 +39,14 @@ public:
     void display(string);
     void display(list<string>);
 
+
+
 signals:
     void output(string);
     void output(list<string>);
+
+private:
+    QString rootXMLFilePath;
 
 };
 
