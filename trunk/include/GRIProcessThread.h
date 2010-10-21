@@ -269,7 +269,9 @@ template<class T> void GRIProcessThread::setParam(QString Key, T value){
 
 template<class T> pair<unsigned int, T*>
 GRIProcessThread::readMemory(string blockName ,string bufferName){
-    return ((pair<unsigned int, T*>) reg->readMemory(blockName, bufferName));
+    pair<unsigned int, char *> refPair = reg->readMemory(blockName, bufferName);
+    pair<unsigned int, T*> castPair(refPair.first / sizeof(T), (T*) refPair.second);
+    return castPair;
 }
 
 template<class T> bool GRIProcessThread::writeMemory(string bufferName, unsigned int size, T dataArray[]){
