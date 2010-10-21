@@ -59,7 +59,7 @@ public:
          */
         ~GRIMemoryManager();
 
-protected:
+//protected:
 
         //! A member function for creating buffers
         /*!
@@ -321,7 +321,7 @@ protected:
         void deletePacket(string dataBlockName, string bufferName, unsigned int packetNumber);
 
 
-private:
+//private:
 
 
         //! A private member function

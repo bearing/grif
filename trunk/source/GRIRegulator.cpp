@@ -8,8 +8,8 @@
 GRIRegulator::GRIRegulator(GRIMemoryManager* mm, GRILogger* logger, GRILoader* loader)
 {
     this->mm = mm;
+    this->dostuff();
     regulator_log = fopen("regulatorlogfile.txt","w");
-
     if(logger != NULL)  {
          this->logger = logger;
     }
@@ -25,6 +25,10 @@ GRIRegulator::GRIRegulator(GRIMemoryManager *mm, GRILoader* loader)
 GRIRegulator::~GRIRegulator()
 {
 
+}
+
+void GRIRegulator::dostuff(){
+    int index = this->mm->locateDataBlock("SISDAQ0");
 }
 
 void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
@@ -48,6 +52,7 @@ void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
     }
 
     this->processes = processes;
+
 
     for(data_it = (*data_blocks).begin(); data_it != (*data_blocks).end(); data_it++) {
         GRIDataBlock* data_block = *data_it;
