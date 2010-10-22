@@ -5,10 +5,15 @@
 #include "GRIRegulator.h"
 
 
-GRIRegulator::GRIRegulator(GRIMemoryManager* mm, GRILogger* logger, GRILoader* loader)
-{
-    this->mm = mm;
+void GRIRegulator::reg_init(){
     regulator_log = fopen("regulatorlogfile.txt","w");
+}
+
+GRIRegulator::GRIRegulator(GRIMemoryManager* ma, GRILogger* logger, GRILoader* loader)
+{
+    mm = ma;
+
+    regulator_log = fopen("regulatorlogfile.txt","w"); //All these pointer assignments cause bugs later
 
     if(logger != NULL)  {
          this->logger = logger;
@@ -17,14 +22,18 @@ GRIRegulator::GRIRegulator(GRIMemoryManager* mm, GRILogger* logger, GRILoader* l
     this->loader = loader;
 }
 
-GRIRegulator::GRIRegulator(GRIMemoryManager *mm, GRILoader* loader)
+GRIRegulator::GRIRegulator(GRIMemoryManager *ma, GRILoader* loader)
 {
-    GRIRegulator(mm, NULL, loader);
+    GRIRegulator(ma, NULL, loader);
 }
 
 GRIRegulator::~GRIRegulator()
 {
 
+}
+
+void GRIRegulator::setMemMgrPtr(GRIMemoryManager *managerPointer){
+    this->mm = managerPointer;
 }
 
 void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,

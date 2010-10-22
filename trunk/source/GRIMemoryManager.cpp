@@ -3,7 +3,7 @@
 
 GRIMemoryManager::GRIMemoryManager()
 {
-    blockNameTable = new QList<string>();
+    blockNameTable = new QList<string>();  //These pointer assignments lead to later bugs for soem reason
     nameTable = new QList< QList<string>* >();
     dataBlockTable = new QList< QList<GRIBuffer*>* >();
     lockTable = new QList< QList<QReadWriteLock *>* >();

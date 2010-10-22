@@ -34,8 +34,9 @@ class GRIRegulator
 
 public:
 
-    GRIRegulator(GRIMemoryManager* mm, GRILogger* logger, GRILoader* loader);
-    GRIRegulator(GRIMemoryManager* mm, GRILoader* loader);
+    void reg_init();
+    GRIRegulator(GRIMemoryManager* ma, GRILogger* logger, GRILoader* loader);
+    GRIRegulator(GRIMemoryManager* ma, GRILoader* loader);
 
     ~GRIRegulator();
 
@@ -45,6 +46,7 @@ public:
 
     QTime timer;
 
+    void setMemMgrPtr(GRIMemoryManager *managerPointer);
     /*
      * init_config() is called to initialize the whole system. It will require the
      * dependencies' structure dictated by list<GRIBufferObject*> & list<GRIProcessThread*>

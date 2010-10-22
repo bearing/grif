@@ -40,7 +40,6 @@ class GRIMemoryManager {
     friend class GRIDataBlock;
 
 public:
-
         //!A constructor
         /*!
           *
