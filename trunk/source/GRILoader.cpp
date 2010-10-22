@@ -77,6 +77,9 @@ GRIProcessThread* GRILoader::load(string process_name, string xml_file)
         cout << "CORRECT PROCESS NAME!\n";
         p = new SIMDAQThread();
     }
+    else if(!strcmp(process_name.c_str(), "SIMDAQ")){
+        p = new SIMDAQThread();
+    }
     else
     {
        cout << "BAD NAME IN XML FILE\n";

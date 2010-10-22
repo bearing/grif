@@ -3,7 +3,8 @@
 #include <stdio.h>
 #include <QVariant>
 #include <QFile>
-#include <QApplication>
+//#include <QApplication> //THIS IS A WINDOWS FILE
+#include <QtCore/QCoreApplication>
 #include "GRIRunManager.h"
 #include "GRIClientSocket.h"
 #include <QResource>

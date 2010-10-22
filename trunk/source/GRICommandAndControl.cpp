@@ -2,7 +2,9 @@
 #include <iostream>
 #include <QFile>
 #include <QtXml/qdom.h>
-#include <QTreeWidget>
+//#include <QTreeWidget>  //WINDOWS
+#include <QtGui/QTreeWidget>  //MAC, LINUX
+#include <QtGui/qtreewidget.h> //MAC, LINUX
 #include <QXmlStreamReader>
 #include <QProcess>
 #include <QVariant>
