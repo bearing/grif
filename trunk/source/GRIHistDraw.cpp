@@ -30,7 +30,7 @@ void GRIHistDraw::getAndDrawHist(GRIHistogrammer *myHist)
     histWidg[currentID]->GetCanvas()->cd();
 
     //Draw on the canvas
-    myHist->hist.Draw();
+    myHist->hist->Draw();
 
     //Update
     histWidg[currentID]->GetCanvas()->Update();

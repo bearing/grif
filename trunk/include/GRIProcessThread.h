@@ -46,6 +46,8 @@ typedef struct process_details
 class GRIProcessThread : public QThread
 {
 
+    Q_OBJECT
+
 friend class GRICommandAndControl;
 
 public:
@@ -254,6 +256,9 @@ public:
     GRIRegulator* reg;
 
     QHash<QString, void *> hashTable;
+
+signals:
+    void histUpdate(GRIHistogrammer *hist);
 };
 
 template<class T> void GRIProcessThread::addParam(QString Key, T& value){

@@ -12,6 +12,8 @@ GRIProcessThread::GRIProcessThread()
 
     thread_id = GRIProcessThread::counter++;
 
+    histArray = new GRIHistogrammer(100,0,100);
+
     numInOut = 1;
 }
 
@@ -24,7 +26,7 @@ void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegula
         this->xml_path = proc_detail->xml_path;
     }
 
-    //histArray = new GRIHistogrammer(100,0,100);
+
 
 }
 
@@ -147,6 +149,7 @@ void GRIProcessThread::set_load_balancing_vars(int num_packets_to_saturation,
 
 void GRIProcessThread::add_data_block(string data_block, bool is_output)
 {
+    //make sure only one data block/thread
     data_t* new_data = new data_t;
     new_data->name = data_block;
 
@@ -272,6 +275,8 @@ void GRIProcessThread::display_current_state()
     for(it = data_outs.begin(); it != data_outs.end(); it++) {
         data_t* new_data = *it;
         cout << new_data->name << endl;
-    }
+    }  
+
 }
+
 #endif // PROCESS_THREAD_DEBUG

@@ -9,7 +9,6 @@
 
 #define DAQTHREAD_SUCCESS   0
 
-
 //Abstract DAQThreadClass
 
 //! A GRIDAQThread class
