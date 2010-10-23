@@ -51,12 +51,16 @@ bool GRICommandAndControl::Init(GRIRunManager *mgr, QString rootXMLFile)
     //***************************************BUGS
     // initialize configuration settings
     this->regulator->init_config(this->datablocks, this->processes);
-    // test this function
-    this->regulator->start_threads();
 
     this->usingCommandLine = false; // DEFAULT Setting
 
     return true;
+}
+
+void GRICommandAndControl::startProcessThreads()
+{
+    // test this function
+    this->regulator->start_threads();
 }
 
 void GRICommandAndControl::ReadXMLsAndLoadConfiguration(QString rootXMLFile)

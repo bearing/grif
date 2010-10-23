@@ -1,12 +1,17 @@
 
 #include "GRILoader.h"
-#include "SIMDAQThread.h"
+//#include "SIMDAQThread.h"
+#include "SIMDAQThread_JAKE_VS.h"
+//#include "SIMAnalysisThread.h"
 
-class SIMDAQThread;
 
-GRILoader::GRILoader(QString rootGRIFPath)
+//class SIMDAQThread;
+class SIMDAQThread_JAKE_VS;
+//class SIMAnalysisThread;
+
+GRILoader::GRILoader(QString localGRIFPath)
 {
-    this->rootGRIFPath = rootGRIFPath;
+    this->localGRIFPath = localGRIFPath;
 }
 
 GRILoader::~GRILoader()
@@ -72,13 +77,14 @@ GRIProcessThread* GRILoader::load(string process_name, string xml_file)
     // sadly, you can't use strings in c++ switch statements
     if(!strcmp(process_name.c_str(),"DAQ_1") )
     {
-    //        for example
+        p = new SIMDAQThread_JAKE_VS();
+        //p = new SIMDAQThread();
+
         //DEBUG
-        cout << "CORRECT PROCESS NAME!\n";
-        p = new SIMDAQThread();
+        cout << "PROCESS: "<< process_name.c_str() << " LOADED !\n";
     }
-    else if(!strcmp(process_name.c_str(), "SIMDAQ")){
-        p = new SIMDAQThread();
+    else if(!strcmp(process_name.c_str(), "ANA_1")){
+        //p = new SIMAnalysisThread();
     }
     else
     {
@@ -92,7 +98,7 @@ GRIProcessThread* GRILoader::load(string process_name, string xml_file)
 
 list<GRIParam*>* GRILoader::readNewParamList( list<GRIParam*>* paramList)
 {
-    QFile file(this->rootGRIFPath + "framework/trunk/lib/runtime_params.xml" );
+    QFile file(this->localGRIFPath + "framework/trunk/lib/runtime_params.xml" );
     if(!file.open(QIODevice::ReadOnly))
     {
         cout<<"Fail to Open RUNTIME PARAMS  File!"<<endl;
@@ -335,7 +341,7 @@ std::list<ProcessDetails*> GRILoader::readPathXML()
 
         QDomDocument doc("CONFIG_FILE_PATH");
 
-        QFile file(this->rootGRIFPath + "framework/trunk/lib/file_paths.xml");
+        QFile file(this->localGRIFPath + "framework/trunk/lib/file_paths.xml");
         if(!file.open(QIODevice::ReadOnly))
         {
             cout<<"Fail to Open FILEPATH File!"<<endl;
@@ -444,7 +450,7 @@ std::list<AnalysisStructureObject*> GRILoader::readAnalysisStructureXML()
         QDomDocument doc("DATA_ANALYSIS_STRUCTURE");
 
 
-        QFile file(this->rootGRIFPath + "framework/trunk/lib/struc_config.xml");
+        QFile file(this->localGRIFPath + "framework/trunk/lib/struc_config.xml");
         if(!file.open(QIODevice::ReadOnly))
         {
             cout<<"Fail to Open Analysis Structure File!"<<endl;

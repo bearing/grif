@@ -20,7 +20,7 @@ GRIMemoryManager.h\
 #GRIMenuStructure.h\
 #GRIParam.h \
 #GRIParamList.h\
-GRIProcessThread.h\
+#GRIProcessThread.h\
 GRIRegulator.h\
 #GRIRunManager.h\
 #GRIServer.h\

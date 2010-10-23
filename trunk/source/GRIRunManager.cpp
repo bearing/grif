@@ -33,41 +33,13 @@ void GRIRunManager::Init(bool usingGUI)
     //start the command line
     this->startCommandLine();
 
-    this->displayOutput("Please Enter File Path To the GRIF Folder (eg. C:/my_documents/grif/)\n\n");
-
-    QString rootXMLFile = this->getInput();
-
-    //temporary, so I don't have to type in the file path every time
-    if(rootXMLFile == "me"){
-        rootXMLFile = "C:/FRAMEWORK_PROJECT/WORKING/";
-    }
-
-    while(!this->goodFilePath(rootXMLFile))
-    {
-        cout << "\nPlease Enter File Path To the GRIF Folder (eg. C:/my_documents/grif/)\n\n";
-        rootXMLFile = this->getInput();
-        this->clearScreen();
-
-
-        if(rootXMLFile == "me"){
-            rootXMLFile = "C:/FRAMEWORK_PROJECT/WORKING/";
-        }
-    }
+    this->localGRIFPath = this->getGRIFPath();
 
     //start and connect GRILogger
-    this->startLogger(rootXMLFile);
-    this->startedLogger = true;
+    this->startLogger(localGRIFPath);
 
-    // IMPLIMENT ERROR CHECK TO MAKE SURE THE FILE PATH IS VALID
-    /////////////////////////////////////////////////////////////////////////
-    // example: C:\FRAMEWORK_PROJECT\grif\framework\trunk\lib\file_paths.xml
-    /////////////////////////////////////////////////////////////////////////
-
-    // initialize a command and control object
-    this->cmdcontrol = new GRICommandAndControl(this, rootXMLFile, logger);
-    connect(cmdcontrol, SIGNAL(output(list<string>)), this, SLOT(displayOutput(list<string>)));
-    connect(cmdcontrol, SIGNAL(output(string)), this, SLOT(displayOutput(string)));
-
+    //initialize the command and control
+    this->startCommandAndControl();
 
     // let the command and control know that the user will be running a commandline
     this->cmdcontrol->usingCommandLine = true;
@@ -78,6 +50,40 @@ void GRIRunManager::Init(bool usingGUI)
 
     //begin waiting for user commands
     this->startEventLoop();
+}
+
+void GRIRunManager::startCommandAndControl()
+{
+
+    // initialize a command and control object
+    this->cmdcontrol = new GRICommandAndControl(this, localGRIFPath, logger);
+    connect(cmdcontrol, SIGNAL(output(list<string>)), this, SLOT(displayOutput(list<string>)));
+    connect(cmdcontrol, SIGNAL(output(string)), this, SLOT(displayOutput(string)));
+}
+
+QString GRIRunManager::getGRIFPath()
+{
+    this->displayOutput("Please Enter File Path To the GRIF Folder (eg. C:/my_documents/grif/)\n\n");
+
+    QString rootXMLPath = this->getInput();
+
+    //temporary, so I don't have to type in the file path every time
+    if(rootXMLPath == "me"){
+        rootXMLPath = "C:/FRAMEWORK_PROJECT/CURRENT_WORKING/";
+    }
+
+    while(!this->goodFilePath(rootXMLPath))
+    {
+        cout << "\nPlease Enter File Path To the GRIF Folder (eg. C:/my_documents/grif/)\n\n";
+        rootXMLPath = this->getInput();
+        this->clearScreen();
+
+
+        if(rootXMLPath == "me"){
+            rootXMLPath = "C:/FRAMEWORK_PROJECT/CURRENT_WORKING/";
+        }
+    }
+    return rootXMLPath;
 }
 
 void GRIRunManager::reinitialize(bool usingGUI)
@@ -234,15 +240,16 @@ bool GRIRunManager::api(QString command)
         //continue loop
         switch(command.toInt())
         {
-        case   1:   this->commandline->RootMenu(); break;
-        case   2:   this->cmdcontrol->DisplayProcesses(); break;
-        case   3:   this->cmdcontrol->DisplayDataBlocks(); break;
-        case   4:   this->cmdcontrol->DisplayParameterList(); break;
-        case   5:   this->cmdcontrol->startParameterChangeLoop(); break;
-        case   6:   this->startServer(); break;
-        case   7:   this->cmdcontrol->startNewProcess("C:/TestProgram.exe"); break;
-        case   8:   this->reinitialize(this->usingGUI); quit = true; break;
-        case   9:   quit = this->reallyquit(); break;
+        case    1:   this->commandline->RootMenu(); break;
+        case    2:   this->cmdcontrol->DisplayProcesses(); break;
+        case    3:   this->cmdcontrol->DisplayDataBlocks(); break;
+        case    4:   this->cmdcontrol->DisplayParameterList(); break;
+        case    5:   this->cmdcontrol->startParameterChangeLoop(); break;
+        case    6:   this->startServer(); break;
+        case    7:   this->cmdcontrol->startProcessThreads(); break;
+        case    8:   this->cmdcontrol->startNewProcess("C:/TestProgram.exe"); break;
+        case    9:   this->reinitialize(this->usingGUI); quit = true; break;
+        case   10:   quit = this->reallyquit(); break;
         default : std::cerr << "*unrecognized command*" << std::endl; this->commandline->RootMenu(); break;
         }
 
@@ -298,11 +305,23 @@ void GRIRunManager::displayOutput(string output)
 {
     emit this->newOutput(output);
 
+
+    //debug
+//    cout << "(displaying output and ";
+
     //write to log file
     if(this->startedLogger)
     {
+//        cout << "logging output)";
+
         this->logger->writeLogFile(output);
     }
+    else
+    {
+//        cout << "not logging output)";
+    }
+
+
 }
 void GRIRunManager::displayOutput(string output, bool temp)
 {
@@ -316,18 +335,18 @@ void GRIRunManager::displayOutput(string output, bool temp)
 }
 void GRIRunManager::clearScreen()
 {
-    for(int i = 0; i < 20; i++)
-    {
-        cout << "\n\n\n";
-    }
-
-    #if OPERATING_SYSTEM==WINDOWS
-        system("cls");
-    #elif OPERATING_SYSTEM==LINUX
-        system("clear"); //bash shell
-    #elif OPERATING_SYSTEM==MAC
-        system("clear");
-    #endif
+//    for(int i = 0; i < 20; i++)
+//    {
+//        cout << "\n\n\n";
+//    }
+//
+//    #if OPERATING_SYSTEM==WINDOWS
+//        system("cls");
+//    #elif OPERATING_SYSTEM==LINUX
+//        system("clear"); //bash shell
+//    #elif OPERATING_SYSTEM==MAC
+//        system("clear");
+//    #endif
 }
 
 bool GRIRunManager::isRootPathFile(QString rootXMLFile){
@@ -376,10 +395,11 @@ void GRIRunManager::startLogger(QString rootXMLFile)
 
     }
 
-
-
     connect(logger, SIGNAL(output(list<string>)), this, SLOT(displayOutput(list<string>)));
     connect(logger, SIGNAL(output(string)), this, SLOT(displayOutput(string)));
+
+    this->startedLogger = true;
+
 }
 bool GRIRunManager::goodFilePath(QString path)
 {

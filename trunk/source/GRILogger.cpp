@@ -64,7 +64,7 @@ bool GRILogger::writeLogFile(list<string>d, int time)
 bool GRILogger::writeLogFile(list<string>d)
 {
 
-  this->writeLogFile(d, 0);
+  return this->writeLogFile(d, 0);
 
 }
 
@@ -101,7 +101,7 @@ bool GRILogger::writeLogFile(string output, int time)
 
 bool GRILogger::writeLogFile(string output)
 {
-    this->writeLogFile(output, 0);
+    return this->writeLogFile(output, 0);
 }
 
 bool GRILogger::writeLogFile(QString output, int time)
@@ -140,7 +140,7 @@ bool GRILogger::writeErrorLogFile(string output, int time)
 
 bool GRILogger::writeErrorLogFile(string output)
 {
-    this->writeErrorLogFile(output, 0);
+    return this->writeErrorLogFile(output, 0);
 }
 
 bool GRILogger::writeErrorLogFile(QString output, int time)

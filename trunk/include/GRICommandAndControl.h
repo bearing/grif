@@ -68,6 +68,8 @@ public:
 protected:
 
 
+    void startProcessThreads();
+
     void display(list<string> output);
     void display(string output);
 

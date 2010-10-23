@@ -51,6 +51,11 @@ public:
 
 
 protected:
+
+    QString localGRIFPath;
+    QString getGRIFPath();
+    void startCommandAndControl();
+
     /**
       * starts the Command Line Interface
       * @see Init(bool)

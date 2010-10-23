@@ -56,7 +56,7 @@ public:
 
 private:
 
-    QString rootGRIFPath;
+    QString localGRIFPath;
     GRIRegulator* regulator;
 
     // used to be in class GRIXMLParser.h
