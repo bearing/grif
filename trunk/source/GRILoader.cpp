@@ -2,16 +2,17 @@
 #include "GRILoader.h"
 //#include "SIMDAQThread.h"
 #include "SIMDAQThread_JAKE_VS.h"
-//#include "SIMAnalysisThread.h"
+#include "SIMAnalysisThread.h"
 
 
 //class SIMDAQThread;
 class SIMDAQThread_JAKE_VS;
 //class SIMAnalysisThread;
 
-GRILoader::GRILoader(QString localGRIFPath)
+GRILoader::GRILoader(QString localGRIFPath, GRIRegulator* regulator)
 {
     this->localGRIFPath = localGRIFPath;
+    this->regulator = regulator;
 }
 
 GRILoader::~GRILoader()
@@ -25,16 +26,19 @@ list<GRIProcessThread*>* GRILoader::initProcessThreads(list<ProcessDetails*> det
     // create a process thread list
     list<GRIProcessThread*>* processList = new list<GRIProcessThread*>;
 
+    list<ProcessDetails*>::iterator iter;
+
     // create a process thread variable
     GRIProcessThread* p;
 
     // for however many process threads there are
-    for(int i = 0; i < details.size(); i++)
+    for(iter = details.begin(); iter != details.end(); iter++)
     {
         // load the process thread
-        p = load(details.front()->name, details.front()->xml_path);
+        p = load((*iter)->name, (*iter)->xml_path);
 
-        details.pop_front();
+        // necessary function that has to be called, for some reason...
+        p->init(NULL, (*iter), regulator);
 
         // add to list
         processList->push_front(p);
@@ -44,31 +48,20 @@ list<GRIProcessThread*>* GRILoader::initProcessThreads(list<ProcessDetails*> det
     return processList;
 }
 
-// IS FILEPATH NECESSARY???
-//list<GRIProcessThread*>* GRILoader::initProcessThreads(list<string> names, list<string> filepaths)
-//{
-//    // create a process thread list
-//    list<GRIProcessThread*>* processList = new list<GRIProcessThread*>;
-//
-//    // create a process thread variable
-//    GRIProcessThread* p;
-//
-//    // for however many process threads there are
-//    for(int i = 0; i < names.size(); i++)
-//    {
-//        // load the process thread
-//        p = load(names.front(), filepaths.front());
-//
-//        filepaths.pop_front();
-//        names.pop_front();
-//
-//        // add to list
-//        processList->push_front(p);
-//    }
-//
-//    // return list
-//    return processList;
-//}
+
+list<GRIDataBlock*>* GRILoader::initDataBlocks(list<GRIProcessThread*>* processes, list<AnalysisStructureObject*> analyStructs)
+{
+    list<GRIDataBlock*>* datablocks = new list<GRIDataBlock*>;
+    list<AnalysisStructureObject*>::iterator analyStructIter;
+
+    // create data blocks out of the analysis structure data
+    for(analyStructIter=analyStructs.begin(); analyStructIter!=analyStructs.end(); analyStructIter++)
+    {
+        // load analysis structure into threads & d
+        datablocks->push_front(new GRIDataBlock(this->regulator, *analyStructIter));
+    }
+}
+
 
 GRIProcessThread* GRILoader::load(string process_name, string xml_file)
 {
@@ -81,10 +74,16 @@ GRIProcessThread* GRILoader::load(string process_name, string xml_file)
         //p = new SIMDAQThread();
 
         //DEBUG
-        cout << "PROCESS: "<< process_name.c_str() << " LOADED !\n";
+        cout << "LOADING PROCESSTHREAD: "<< process_name.c_str() << " LOADED !\n";
+
+
     }
     else if(!strcmp(process_name.c_str(), "ANA_1")){
-        //p = new SIMAnalysisThread();
+        //NEEDS TO BE FIXED*******************************************
+//        p = new SIMAnalysisThread();
+        p = new GRIProcessThread();
+
+        cout << "LOADING ProcessThread: ANA_1" << endl;
     }
     else
     {

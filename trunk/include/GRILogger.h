@@ -16,6 +16,9 @@ class GRILogger : public QObject
 public:
     GRILogger(QString rootXMLFile);
 
+//    bool operator<< (GRILogger const&x, QString const&y );
+ void operator<< (QString const&y );
+
     // May want to create and pass an Error class object
     // that contains all important descriptions
     bool writeErrorLogFile(string ErrorDescription, int time);

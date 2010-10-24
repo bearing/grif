@@ -86,6 +86,7 @@ void GRIDataBlock::set_link(list<GRIProcessThread*>* processes)
         reader_t* reader = *reader_it;
         for(process_it = (*processes).begin(); process_it != (*processes).end(); process_it++) {
             GRIProcessThread* process = *process_it;
+
             if (reader->reader_name == process->get_name()) {
                 reader->reader = process;
                 break;

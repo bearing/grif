@@ -5,8 +5,8 @@
     <STRUCTURE>
         <DATA>energy</DATA>
         <TYPE>hex</TYPE>
-        <FROM>ANA_1</FROM>
-        <TO>DAQ_1</TO>
+        <FROM>DAQ_1</FROM>
+        <TO>ANA_1</TO>
         <ISDAQ>1</ISDAQ>
     </STRUCTURE>
 

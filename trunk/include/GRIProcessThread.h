@@ -223,6 +223,10 @@ public:
     void display_current_state();
 #endif // PROCESS_THREAD_DEBUG
 
+protected:
+    //*********************************TESING***********************************
+    virtual void run();
+
 private:
 
     typedef struct data

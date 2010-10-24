@@ -11,6 +11,10 @@
 #include "GRICommandAndControl.h"
 #include "GRIMemoryManager.h"
 
+#include <QMainWindow>
+
+#include "histplotthread.h"
+class histplotthread;
 
 using namespace std;
 
@@ -37,10 +41,10 @@ bool GRICommandAndControl::Init(GRIRunManager *mgr, QString rootXMLFile)
      this->memorymanager = new GRIMemoryManager();
 
      // Create a new GRILoader to load the xml files
-     this->loader = new GRILoader(rootXMLFile);
+     this->loader = new GRILoader(rootXMLFile, regulator);
 
     // create a regulator with the new memory manager
-     this->regulator = new GRIRegulator(memorymanager, logger, loader);
+     this->regulator = new GRIRegulator(memorymanager, logger);
 
 
 
@@ -59,8 +63,10 @@ bool GRICommandAndControl::Init(GRIRunManager *mgr, QString rootXMLFile)
 
 void GRICommandAndControl::startProcessThreads()
 {
+
     // test this function
     this->regulator->start_threads();
+
 }
 
 void GRICommandAndControl::ReadXMLsAndLoadConfiguration(QString rootXMLFile)
@@ -74,34 +80,17 @@ void GRICommandAndControl::ReadXMLsAndLoadConfiguration(QString rootXMLFile)
     // Read file path xml;
     list<ProcessDetails*> filePaths = this->readPathXML();
     list<ProcessDetails*>::iterator filePathIter;
+
     // Read analysis structure xml
     list<AnalysisStructureObject*> analyStructs = this->readAnalysisStructureXML();
     list<AnalysisStructureObject*>::iterator analyStructIter;
 
-    // Instantiate list of threads & data blocks
-    this->processes = new list<GRIProcessThread*>;
-    this->datablocks = new list<GRIDataBlock*>;
-      
-    this->display("\n");
 
-    // ACTUALLY LOAD THE PROCESS THREADS!
-    this->loader->initProcessThreads(filePaths);
-    
-    // create process threads out of the file path and names given in the XML file
-    for(filePathIter=filePaths.begin(); filePathIter!=filePaths.end(); filePathIter++)
-    {
-//        processes->push_front(new GRIProcessThread(NULL,(*filePathIter)));
-        processes->push_front(new GRIProcessThread());
-        (processes->front())->init(NULL, *filePathIter, this->regulator);
+    // LOAD THE USER-CREATED CLASSES INTO THE PROCESS THREADS!
+    this->processes = this->loader->initProcessThreads(filePaths);
 
-    }
-
-    // create data blocks out of the analysis structure data
-    for(analyStructIter=analyStructs.begin(); analyStructIter!=analyStructs.end(); analyStructIter++)
-    {
-        // load analysis structure into threads & d
-        datablocks->push_front(new GRIDataBlock(this->regulator, *analyStructIter));
-    }
+    // CONNECT THE DATA BLOCKS
+    this->datablocks = this->loader->initDataBlocks(this->processes, analyStructs);
 
 }
 
@@ -209,6 +198,18 @@ void GRICommandAndControl::DisplayProcesses()
         totalCount++;
     }
     this->display("\n");
+}
+
+void GRICommandAndControl::createNewHistogrammer()
+{
+
+    // MAKE SURE YOU'RE BUILDING IN RELEASE MODE
+    histplotthread* newThread = new histplotthread();
+    newThread->start();
+
+
+
+
 }
 
 void GRICommandAndControl::startServer()

@@ -9,7 +9,7 @@ void GRIRegulator::reg_init(){
     regulator_log = fopen("regulatorlogfile.txt","w");
 }
 
-GRIRegulator::GRIRegulator(GRIMemoryManager* ma, GRILogger* logger, GRILoader* loader)
+GRIRegulator::GRIRegulator(GRIMemoryManager* ma, GRILogger* logger)
 {
     mm = ma;
 
@@ -19,12 +19,11 @@ GRIRegulator::GRIRegulator(GRIMemoryManager* ma, GRILogger* logger, GRILoader* l
          this->logger = logger;
     }
 
-    this->loader = loader;
 }
 
-GRIRegulator::GRIRegulator(GRIMemoryManager *ma, GRILoader* loader)
+GRIRegulator::GRIRegulator(GRIMemoryManager *ma)
 {
-    GRIRegulator(ma, NULL, loader);
+    GRIRegulator(ma, NULL);
 }
 
 GRIRegulator::~GRIRegulator()

@@ -247,7 +247,8 @@ bool GRIRunManager::api(QString command)
         case    5:   this->cmdcontrol->startParameterChangeLoop(); break;
         case    6:   this->startServer(); break;
         case    7:   this->cmdcontrol->startProcessThreads(); break;
-        case    8:   this->cmdcontrol->startNewProcess("C:/TestProgram.exe"); break;
+//      case    8:   this->cmdcontrol->startNewProcess("C:/TestProgram.exe"); break;
+        case    8:   this->cmdcontrol->createNewHistogrammer(); break;
         case    9:   this->reinitialize(this->usingGUI); quit = true; break;
         case   10:   quit = this->reallyquit(); break;
         default : std::cerr << "*unrecognized command*" << std::endl; this->commandline->RootMenu(); break;
@@ -335,18 +336,18 @@ void GRIRunManager::displayOutput(string output, bool temp)
 }
 void GRIRunManager::clearScreen()
 {
-//    for(int i = 0; i < 20; i++)
-//    {
-//        cout << "\n\n\n";
-//    }
-//
-//    #if OPERATING_SYSTEM==WINDOWS
-//        system("cls");
-//    #elif OPERATING_SYSTEM==LINUX
-//        system("clear"); //bash shell
-//    #elif OPERATING_SYSTEM==MAC
-//        system("clear");
-//    #endif
+    for(int i = 0; i < 20; i++)
+    {
+        cout << "\n\n\n";
+    }
+
+    #if OPERATING_SYSTEM==WINDOWS
+        system("cls");
+    #elif OPERATING_SYSTEM==LINUX
+        system("clear"); //bash shell
+    #elif OPERATING_SYSTEM==MAC
+        system("clear");
+    #endif
 }
 
 bool GRIRunManager::isRootPathFile(QString rootXMLFile){

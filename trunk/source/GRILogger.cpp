@@ -7,6 +7,12 @@ GRILogger::GRILogger(QString rootXMLFile)
     this->rootXMLFilePath = rootXMLFile;
 }
 
+
+void GRILogger::operator <<(QString const&y )
+{
+    this->display(y.toStdString().c_str());
+}
+
 bool GRILogger::clearLogFile()
 {
 

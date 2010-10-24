@@ -68,6 +68,8 @@ public:
 protected:
 
 
+    void createNewHistogrammer();
+
     void startProcessThreads();
 
     void display(list<string> output);

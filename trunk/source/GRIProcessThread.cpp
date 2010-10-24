@@ -279,4 +279,11 @@ void GRIProcessThread::display_current_state()
 
 }
 
+// virtual
+void GRIProcessThread::run()
+{
+//    cout << "Using GRIProcessThread's run method instead of "<< this->name << "'s run method :-( " << endl;
+
+}
+
 #endif // PROCESS_THREAD_DEBUG

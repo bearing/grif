@@ -12,6 +12,7 @@
 #include <QtGui/QMessageBox>
 #include "GRIParam.h"
 #include "GRIProcessThread.h"
+#include "GRIRegulator.h"
 
 class GRIParamList;
 
@@ -25,7 +26,7 @@ class GRILoader
 
 public:
 
-    GRILoader(QString filepath);
+    GRILoader(QString filepath, GRIRegulator* regulator);
 
     ~GRILoader();
 
@@ -41,6 +42,8 @@ public:
      */
 
     list<GRIProcessThread*>* initProcessThreads(list<ProcessDetails*> details);
+
+    list<GRIDataBlock*>* initDataBlocks(list<GRIProcessThread*>* processes, list<AnalysisStructureObject*> analyStructs);
 
     virtual GRIProcessThread* load(string process_name, string xml_file);
     
@@ -66,6 +69,7 @@ private:
     GRIParam* readParameter(QXmlStreamReader& xml, QString paramIndexNumber);
     void addElementToParam(QXmlStreamReader& xml, GRIParam* param);
     void addChildParams(QXmlStreamReader& xml, GRIParam* head);
+
 
 };
 

@@ -28,6 +28,7 @@ class GRILogger;
 class GRIRegulator
 {
 
+    friend class GRICommandAndControl;
     friend class GRIDataBlock;
     friend class GRIProcessThread;
     //friend class GRIDiagnosticsThread;
@@ -35,8 +36,8 @@ class GRIRegulator
 public:
 
     void reg_init();
-    GRIRegulator(GRIMemoryManager* ma, GRILogger* logger, GRILoader* loader);
-    GRIRegulator(GRIMemoryManager* ma, GRILoader* loader);
+    GRIRegulator(GRIMemoryManager* ma, GRILogger* logger);
+    GRIRegulator(GRIMemoryManager* ma);
 
     ~GRIRegulator();
 
@@ -144,7 +145,7 @@ private:
      */
     GRIDataBlock* find_data(string data_block_name);
 
-    GRILoader* loader;
+
 
     list<GRIDataBlock*>* data_blocks;
 
