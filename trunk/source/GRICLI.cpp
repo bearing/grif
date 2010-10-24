@@ -84,20 +84,31 @@ void GRICommandLineInterface::RootMenu()
 {
     this->manager->displayOutput("\n");
 
-    this->manager->displayOutput("|----------------------------------------|\n");
-    this->manager->displayOutput("|              ROOT MENU                 |\n");
-    this->manager->displayOutput("|----------------------------------------|\n");
-    this->manager->displayOutput("|-- 1 -- Redisplay Choices               |\n");
-    this->manager->displayOutput("|-- 2 -- Display Process Threads         |\n");
-    this->manager->displayOutput("|-- 3 -- Display Data Blocks             |\n");
-    this->manager->displayOutput("|-- 4 -- Display Parameters              |\n");
-    this->manager->displayOutput("|-- 5 -- Change a Parameter              |\n");
-    this->manager->displayOutput("|-- 6 -- Listen for TCP SOCKET commands  |\n");
-    this->manager->displayOutput("|-- 7 -- Start Data Aquisition           |\n");
-    this->manager->displayOutput("|-- 8 -- Run Example Histogram Widget    |\n");
-    this->manager->displayOutput("|-- 9 -- Reinitialize Program            |\n");
-    this->manager->displayOutput("|-- 10 -- EXIT                           |\n");
-    this->manager->displayOutput("|----------------------------------------|\n");
+    this->manager->displayOutput("|----------------------------------------------|\n");
+    this->manager->displayOutput("|                  ROOT MENU                   |\n");
+    this->manager->displayOutput("|----------------------------------------------|\n");
+    this->manager->displayOutput("|                                              |\n");
+    this->manager->displayOutput("| --  1  --  Redisplay Choices                 |\n");
+    this->manager->displayOutput("|                                              |\n");
+    this->manager->displayOutput("| --  2  --  Display Process Threads           |\n");
+    this->manager->displayOutput("|                                              |\n");
+    this->manager->displayOutput("| --  3  --  Display Data Blocks               |\n");
+    this->manager->displayOutput("|                                              |\n");
+    this->manager->displayOutput("| --  4  --  Display Parameters                |\n");
+    this->manager->displayOutput("|                                              |\n");
+    this->manager->displayOutput("| --  5  --  Change a Parameter                |\n");
+    this->manager->displayOutput("|                                              |\n");
+    this->manager->displayOutput("| --  6  --  Listen for TCP SOCKET commands    |\n");
+    this->manager->displayOutput("|                                              |\n");
+    this->manager->displayOutput("| --  7  --  Start Data Aquisition             |\n");
+    this->manager->displayOutput("|                                              |\n");
+    this->manager->displayOutput("| --  8  --  Run Example Histogram Widget      |\n");
+    this->manager->displayOutput("|                                              |\n");
+    this->manager->displayOutput("| --  9  --  Reinitialize Program              |\n");
+    this->manager->displayOutput("|                                              |\n");
+    this->manager->displayOutput("| -- 10  --  EXIT                              |\n");
+    this->manager->displayOutput("|                                              |\n");
+    this->manager->displayOutput("|----------------------------------------------|\n");
 }
 
 void GRICommandLineInterface::DisplayGoodbye()
