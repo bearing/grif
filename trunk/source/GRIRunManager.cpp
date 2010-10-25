@@ -71,6 +71,7 @@ QString GRIRunManager::getGRIFPath()
     if(rootXMLPath == "me"){
         rootXMLPath = "C:/FRAMEWORK_PROJECT/CURRENT_WORKING/";
     }
+    else if(rootXMLPath == "me2"){ rootXMLPath = "C:/GRIF/"; }
 
     while(!this->goodFilePath(rootXMLPath))
     {
@@ -82,6 +83,7 @@ QString GRIRunManager::getGRIFPath()
         if(rootXMLPath == "me"){
             rootXMLPath = "C:/FRAMEWORK_PROJECT/CURRENT_WORKING/";
         }
+         else if(rootXMLPath == "me2"){ rootXMLPath = "C:/GRIF/"; }
     }
     return rootXMLPath;
 }
@@ -216,9 +218,11 @@ QString GRIRunManager::getInput()
 
     this->clearScreen();
 
-    if(this->startedLogger)    {
-    this->logger->writeLogFile((" >> " + temp + "\n"));
-    }
+    // UNCOMMENT WHEN DAN WRITES LOGFILE.TXT IN CORRECT PATH
+
+//    if(this->startedLogger)    {
+//    this->logger->writeLogFile((" >> " + temp + "\n"));
+//    }
 
     return temp;
 }
@@ -296,11 +300,12 @@ void GRIRunManager::displayOutput(list<string> output)
 {
     emit this->newOutput(output);
 
-    //write to log file
-    if(this->startedLogger)
-    {
-        this->logger->writeLogFile(output);
-    }
+    //UNCOMMENT WHEN NEW LOGFILE.TXT IS IN CORRECT PATH
+//    //write to log file
+//    if(this->startedLogger)
+//    {
+//        this->logger->writeLogFile(output);
+//    }
 }\
 void GRIRunManager::displayOutput(string output)
 {
@@ -310,17 +315,18 @@ void GRIRunManager::displayOutput(string output)
     //debug
 //    cout << "(displaying output and ";
 
+    //UNCOMMENT WHEN NEW LOGFILE.TXT IS IN CORRECT PATH
     //write to log file
-    if(this->startedLogger)
-    {
-//        cout << "logging output)";
-
-        this->logger->writeLogFile(output);
-    }
-    else
-    {
-//        cout << "not logging output)";
-    }
+//    if(this->startedLogger)
+//    {
+////        cout << "logging output)";
+//
+//        this->logger->writeLogFile(output);
+//    }
+//    else
+//    {
+////        cout << "not logging output)";
+//    }
 
 
 }
@@ -328,11 +334,12 @@ void GRIRunManager::displayOutput(string output, bool temp)
 {
     emit this->newOutput(output);
 
-    //write to log file
-    if(temp && startedLogger)
-    {
-       this->logger->writeLogFile(output);
-    }
+    //UNCOMMENT WHEN NEW LOGFILE.TXT IS IN CORRECT PATH
+//    //write to log file
+//    if(temp && startedLogger)
+//    {
+//       this->logger->writeLogFile(output);
+//    }
 }
 void GRIRunManager::clearScreen()
 {

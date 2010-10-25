@@ -13,8 +13,9 @@
 
 #include <QMainWindow>
 
-#include "histplotthread.h"
-class histplotthread;
+//CAN BE UNCOMMENTED WHEN QWT HAS BEEN ADDED TO SVN
+//#include "histplotthread.h"
+//class histplotthread;
 
 using namespace std;
 
@@ -202,10 +203,11 @@ void GRICommandAndControl::DisplayProcesses()
 
 void GRICommandAndControl::createNewHistogrammer()
 {
+    //CAN BE UNCOMMENTED WHEN QWT HAS BEEN ADDED TO SVN
 
     // MAKE SURE YOU'RE BUILDING IN RELEASE MODE
-    histplotthread* newThread = new histplotthread();
-    newThread->start();
+//    histplotthread* newThread = new histplotthread();
+//    newThread->start();
 
 
 
