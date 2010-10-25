@@ -5,6 +5,15 @@
 GRILogger::GRILogger(QString rootXMLFile)
 {
     this->rootXMLFilePath = rootXMLFile;
+    this->logfilename = rootXMLFile + "/log/logfile.txt";
+    clearLogFile();
+}
+
+
+GRILogger::~GRILogger()
+{
+
+
 }
 
 
@@ -13,18 +22,25 @@ void GRILogger::operator <<(QString const&y )
     this->display(y.toStdString().c_str());
 }
 
+
 bool GRILogger::clearLogFile()
 {
 
 //    QFile f(":/log_files/logfile.txt");
 
-    QFile f(rootXMLFilePath + "framework/trunk/lib/logfile.txt");
+    //QFile f(rootXMLFilePath + "/log/logfile.txt");
+    QFile f(logfilename);
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Truncate) )
     {
-      cout << "Failed to locate logfile.txt.\n";
-      return 0;
+
+        if(!f.open(QIODevice::WriteOnly))
+        {
+            cout << "Failure to open log file\n";
+            return 0;
+        }
     }
+    cout << "Successful Log File Opening: " << (const char*)rootXMLFilePath << "/log/logfile.txt" << endl;
 
     QTextStream ts( &f );
 
@@ -52,6 +68,15 @@ bool GRILogger::clearErrorLogFile()
     return 1;
 
 }
+
+
+//bool GRILogger::writeLogFile(GRILogMessage lm)
+//{
+//    //QString s = lm->DateTime + " " + lm->msg->read();
+//    cout << lm.MsgStr.toStdString().c_str() << endl;
+//    writeLogFile(lm.MsgStr);
+
+//}
 
 bool GRILogger::writeLogFile(list<string>d, int time)
 {
@@ -86,7 +111,8 @@ bool GRILogger::writeLogFile(string output, int time)
     }
 
 //    QFile f(":/log_files/logfile.txt");
-    QFile f(this->rootXMLFilePath + "framework/trunk/lib/logfile.txt");
+    //QFile f(this->rootXMLFilePath + "framework/trunk/lib/logfile.txt");
+    QFile f(logfilename);
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Append ) )
     {
@@ -96,7 +122,8 @@ bool GRILogger::writeLogFile(string output, int time)
 
     QTextStream ts( &f );
 
-    ts << "TIME = " << QVariant(time).toString().toStdString().c_str() << ":        " << output.c_str();
+    //ts << "TIME = " << QVariant(time).toString().toStdString().c_str() << ":        " << output.c_str();
+    ts << output.c_str();
 
     f.close();
 
@@ -116,6 +143,7 @@ bool GRILogger::writeLogFile(QString output, int time)
 }
 bool GRILogger::writeLogFile(QString output)
 {
+    cout << output.toStdString().c_str() << endl;
     return this->writeLogFile(output.toStdString(), 0);
 }
 
