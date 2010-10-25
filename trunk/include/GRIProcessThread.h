@@ -14,6 +14,7 @@
 #include "GRIDataBlock.h"
 #include "GRIHistogrammer.h"
 #include "GRIDataDefines.h"
+#include "GRILogMessage.h"
 
 #include <queue>
 #include <utility>
@@ -158,6 +159,10 @@ public:
      */
     GRIDataBlock* find_data_block(string data_block_name);
 
+    void CommitLog(int logLevel=0);
+    //QTextStream* msg;
+    QTextStream log;
+    QString temp;
 
     template <class T> void addParam(QString Key, T& value);
 
@@ -239,6 +244,8 @@ private:
 
     string xml_path;
 
+    GRILogMessage* LogMsg;
+
 public:
 
     unsigned int thread_id; // id of this thread
@@ -263,6 +270,7 @@ public:
 
 signals:
     void histUpdate(GRIHistogrammer *hist);
+    void logSignal(QString m);
 };
 
 template<class T> void GRIProcessThread::addParam(QString Key, T& value){
