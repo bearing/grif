@@ -15,7 +15,7 @@ class GRILogger : public QObject
 {
     Q_OBJECT;
 public:
-    GRILogger(QString rootXMLFile);
+    GRILogger(QString localGRIFdirectory);
     ~GRILogger();
 
 //    bool operator<< (GRILogger const&x, QString const&y );
@@ -54,7 +54,7 @@ public slots:
     bool writeLogFile(QString msg);
 
 private:
-    QString rootXMLFilePath;
+    QString localGRIFdirectory;
 
 };
 
