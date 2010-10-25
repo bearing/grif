@@ -7,6 +7,7 @@
 #include <QTextStream>
 #include <QMutex>
 #include "GRIRunManager.h"
+#include "GRILogMessage.h"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ class GRILogger : public QObject
     Q_OBJECT;
 public:
     GRILogger(QString rootXMLFile);
+    ~GRILogger();
 
 //    bool operator<< (GRILogger const&x, QString const&y );
  void operator<< (QString const&y );
@@ -31,7 +33,7 @@ public:
     bool writeLogFile(QString output, int time);
     bool writeLogFile(string output, int time);
     bool writeLogFile(list<string> output, int time);
-    bool writeLogFile(QString output);
+    //bool writeLogFile(QString output);
     bool writeLogFile(string output);
     bool writeLogFile(list<string> output);
 
@@ -42,11 +44,14 @@ public:
     void display(string);
     void display(list<string>);
 
-
+    QString logfilename;
 
 signals:
     void output(string);
     void output(list<string>);
+
+public slots:
+    bool writeLogFile(QString msg);
 
 private:
     QString rootXMLFilePath;
