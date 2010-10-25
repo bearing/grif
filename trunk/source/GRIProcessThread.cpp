@@ -15,6 +15,10 @@ GRIProcessThread::GRIProcessThread()
     histArray = new GRIHistogrammer(100,0,100);
 
     numInOut = 1;
+    LogMsg = new GRILogMessage();
+    //msg = LogMsg->GetStream();
+    log.setString(&temp,QIODevice::ReadWrite);
+
 }
 
 void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator){
@@ -25,8 +29,6 @@ void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegula
         this->name = proc_detail->name;
         this->xml_path = proc_detail->xml_path;
     }
-
-
 
 }
 
@@ -91,6 +93,15 @@ string GRIProcessThread::get_xml_path()
 {
     return this->xml_path;
 }
+
+void GRIProcessThread::CommitLog(int level)
+{
+    //cout << "Process Thread Log" << endl;
+    LogMsg->SetMessageTime(log.read(),level);
+    logSignal(LogMsg->MsgStr);
+    LogMsg->ClearMessage();
+}
+
 
 void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
 {
