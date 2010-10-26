@@ -16,22 +16,20 @@ class GRILogMessage
 {
 
 public:
-    GRILogMessage(QString msg);  //msg used for initial log file text
+
     GRILogMessage();
     ~GRILogMessage();
 
-    int ClearMessage();
-    int SetMessageTime(int level=0);
+
     int SetMessageTime(QString s, int level=0);
-    QTextStream* GetStream(){return msg;}
 
     int level;
-    QTextStream* msg;
+
     QString DateTime;
     QString MsgStr;
 
 private:
-    QString str;
+
     void SetTimeString();
 
 };
