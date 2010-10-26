@@ -115,7 +115,8 @@ public:
     /*
      * get_name() returns the name of this process
      */
-    string get_name();
+    string get_name(){return name;}
+    int set_name(string s){name = s;}
 
     /*
      * get_xml_path() returns the path to the xml file of this process
