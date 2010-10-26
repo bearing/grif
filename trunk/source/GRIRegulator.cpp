@@ -9,21 +9,25 @@ void GRIRegulator::reg_init(){
     regulator_log = fopen("regulatorlogfile.txt","w");
 }
 
-GRIRegulator::GRIRegulator(GRIMemoryManager* ma, GRILogger* logger)
-{
-    mm = ma;
+// DC: Removing logger at this point as there will be a more elegant method
+//GRIRegulator::GRIRegulator(GRIMemoryManager* ma, GRILogger* logger)
+//{
+//    mm = ma;
 
-    regulator_log = fopen("regulatorlogfile.txt","w"); //All these pointer assignments cause bugs later
+//    regulator_log = fopen("regulatorlogfile.txt","w"); //All these pointer assignments cause bugs later
 
-    if(logger != NULL)  {
-         this->logger = logger;
-    }
+//    if(logger != NULL)  {
+//         this->logger = logger;
+//    }
 
-}
+//}
 
 GRIRegulator::GRIRegulator(GRIMemoryManager *ma)
 {
-    GRIRegulator(ma, NULL);
+    mm = ma;
+    //temporary log file until GRILogMessage Implemented...
+    regulator_log = fopen("regulatorlogfile.txt","w"); //All these pointer assignments cause bugs later
+    //GRIRegulator(ma, NULL);
 }
 
 GRIRegulator::~GRIRegulator()
