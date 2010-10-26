@@ -244,7 +244,7 @@ private:
 
     string xml_path;
 
-    GRILogMessage* LogMsg;
+    GRILogMessage LogMsg;
 
 public:
 
@@ -271,6 +271,7 @@ public:
 signals:
     void histUpdate(GRIHistogrammer *hist);
     void logSignal(QString m);
+    void logSignal(GRILogMessage m);
 };
 
 template<class T> void GRIProcessThread::addParam(QString Key, T& value){
