@@ -99,7 +99,6 @@ void GRIProcessThread::CommitLog(int level)
     //cout << "Process Thread Log" << endl;
     LogMsg.SetMessageTime(log.read(),level);
     logSignal(LogMsg);
-    LogMsg.ClearMessage();
 }
 
 
