@@ -533,21 +533,40 @@ int GRILoader::ConnectLogger(QString fname, QObject* sender)
 
         if(!found)
         {
-            GRILogger *gl = new GRILogger(fname);
+            cout << "WARNING: Logger " << fname.toStdString().c_str() << " was not found" << endl;
+            return 0;
+        }
+
+    return 1;
+}
+
+int GRILoader::CreateLogger(QString fname, int LogLevel)
+{
+
+    list<GRILogger*>::iterator logIter;
+    bool found = false;
+
+    for(logIter=this->LogList.begin(); logIter!=this->LogList.end(); logIter++)
+    {
+        GRILogger *gl = *logIter;
+        if(fname == gl->GetLogFileName())
+        {
+            found=true;
+        }
+    }
+
+        if(!found)
+        {
+            GRILogger *gl = new GRILogger(fname,LogLevel);
             GRIThread *th = new GRIThread();
 
             gl->moveToThread(th);
             th->start();
 
-            QObject::connect(sender, SIGNAL(logSignal(GRILogMessage)), gl, SLOT(writeLogFile(GRILogMessage)));
             LogList.push_back(gl);
             LogThreadList.push_back(th);
+            return 1;
         }
-        // load analysis structure into threads & d
-        //datablocks->push_front(new GRIDataBlock(this->regulator, *analyStructIter));
 
-
-
-
+    return 0;
 }
-
