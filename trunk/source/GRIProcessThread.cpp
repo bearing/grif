@@ -15,7 +15,7 @@ GRIProcessThread::GRIProcessThread()
     histArray = new GRIHistogrammer(100,0,100);
 
     numInOut = 1;
-    LogMsg = new GRILogMessage();
+    //LogMsg = new GRILogMessage();
     //msg = LogMsg->GetStream();
     log.setString(&temp,QIODevice::ReadWrite);
 
@@ -97,9 +97,9 @@ string GRIProcessThread::get_xml_path()
 void GRIProcessThread::CommitLog(int level)
 {
     //cout << "Process Thread Log" << endl;
-    LogMsg->SetMessageTime(log.read(),level);
-    logSignal(LogMsg->MsgStr);
-    LogMsg->ClearMessage();
+    LogMsg.SetMessageTime(log.read(),level);
+    logSignal(LogMsg);
+    LogMsg.ClearMessage();
 }
 
 
