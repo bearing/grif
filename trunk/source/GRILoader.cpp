@@ -1,8 +1,8 @@
 
 #include "GRILoader.h"
 //#include "SIMDAQThread.h"
-#include "SIMDAQThread_JAKE_VS.h"
-#include "SIMAnalysisThread.h"
+//#include "SIMDAQThread_JAKE_VS.h"
+//#include "SIMAnalysisThread.h"
 
 
 //class SIMDAQThread;
@@ -70,7 +70,7 @@ GRIProcessThread* GRILoader::load(string process_name, string xml_file)
     // sadly, you can't use strings in c++ switch statements
     if(!strcmp(process_name.c_str(),"DAQ_1") )
     {
-        p = new SIMDAQThread_JAKE_VS();
+        //p = new SIMDAQThread_JAKE_VS();
         //p = new SIMDAQThread();
 
         //DEBUG
