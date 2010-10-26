@@ -8,7 +8,7 @@ GRILogger::GRILogger(QString FileName)
     GRIFProjectFilePath = getenv("GRIFPROJECTDIR");
 
     if(GRIFProjectFilePath.length() == 0){
-        cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!"
+        cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!" << endl;
             }else{
         filename = FileName;
 
@@ -28,7 +28,7 @@ GRILogger::GRILogger()
 {
     GRIFProjectFilePath = getenv("GRIFPROJECTDIR");
     if(GRIFProjectFilePath.length() == 0){
-        cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!"
+        cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!" << endl;
             }else{
 
         filename = "runlog.txt";
