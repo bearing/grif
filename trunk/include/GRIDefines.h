@@ -96,11 +96,11 @@ enum ENDIAN { LITTLE_END, BIG_END };
 //const bool systemIs64Bit = (sizeof(void *) == 8 ? 1 : 0);
 //const bool systemIs32Bit = (sizeof(void *) == 4 ? 1 : 0);
 
-#define LOG_VERBOSE 0
-#define LOG_DEBUG 1
-#define LOG_WARNING 2
-#define LOG_ERROR 3
-
+#define LOG_DEBUG 0
+#define LOG_VERBOSE 1
+#define LOG_MESSAGE 2
+#define LOG_WARNING 3
+#define LOG_ERROR 4
 
 
 // For Qt's internally defined globals see http://doc.trolltech.com/4.5/qtglobal.html#details

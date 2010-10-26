@@ -5,6 +5,7 @@
 
 #include <QWaitCondition>
 #include <QMutexLocker>
+#include <QTextStream>
 
 #include <string>
 #include <list>
@@ -13,7 +14,7 @@
 #include <utility>
 #include <QTime>
 
-//#include "GRILogger.h"
+#include "GRILogMessage.h"
 
 
 
@@ -25,8 +26,10 @@ class GRIProcessThread;
 class GRIMemoryManager;
 class GRILogger;
 
-class GRIRegulator
+class GRIRegulator: public QObject
 {
+
+    Q_OBJECT
 
     friend class GRICommandAndControl;
     friend class GRIDataBlock;
@@ -127,6 +130,12 @@ public:
      */
     unsigned int sizeofBuffer(string bufferName);
 
+    GRIMemoryManager* GetMemoryManager(){return mm;}
+
+    // ***** Used for logging
+    QTextStream log;
+    void CommitLog(int level);
+    // *********
 protected:
 
     GRIMemoryManager* mm;
@@ -154,6 +163,13 @@ private:
     QMutex mutex;
 
     QWaitCondition bufferIsReady;
+
+    // *** Used for logging capability
+    GRILogMessage LogMsg;
+    QString temp;
+    // **************************
+signals:
+    void logSignal(GRILogMessage m);
 };
 
 #endif // GRIREGULATOR_H

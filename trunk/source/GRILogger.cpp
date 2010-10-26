@@ -216,7 +216,7 @@ bool GRILogger::writeLogFile(QString output, int time)
 }
 bool GRILogger::writeLogFile(QString output)
 {
-    cout << output.toStdString().c_str() << endl;
+    //cout << output.toStdString().c_str() << endl;
     return this->writeLogFile(output.toStdString(), 0);
 }
 

@@ -13,6 +13,7 @@
 #include "GRIRegulator.h"
 #include "GRIDataBlock.h"
 #include "GRIHistogrammer.h"
+#include "GRIDefines.h"
 #include "GRIDataDefines.h"
 #include "GRILogMessage.h"
 

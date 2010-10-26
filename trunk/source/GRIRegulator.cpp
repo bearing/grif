@@ -28,6 +28,8 @@ GRIRegulator::GRIRegulator(GRIMemoryManager *ma)
     //temporary log file until GRILogMessage Implemented...
     regulator_log = fopen("regulatorlogfile.txt","w"); //All these pointer assignments cause bugs later
     //GRIRegulator(ma, NULL);
+    LogMsg.SetObjectName("REG");
+    log.setString(&temp,QIODevice::ReadWrite);
 }
 
 GRIRegulator::~GRIRegulator()
@@ -68,7 +70,8 @@ void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
         data_block->set_link(processes);
     }
 
-    cout << "** Regulator.cpp: Done setting the link" << endl;
+    log << "Done setting the link" << endl; CommitLog(LOG_VERBOSE);
+
     this->data_blocks = data_blocks;
 
 }
@@ -85,34 +88,37 @@ void GRIRegulator::start_threads()
 
 pair<unsigned int, char*> GRIRegulator::readMemory(string blockName, string bufferName)
 {
-#ifdef REGULATOR_DEBUG
-    cout << "** Regulator.cpp: readMemory()" << endl;
-#endif
+
+
+    log << "readMemory()" << endl;  CommitLog(LOG_DEBUG);
 
     GRIDataBlock* data = find_data(bufferName);
     int packet_to_read = mm->currentPacketPosition(blockName, bufferName);
 
     if(data == NULL) {
 
-#ifdef REGULATOR_DEBUG
-        cerr << "! GRIRegulator::readMemory(): Can't find buffer\n" << endl;
-#endif // REGULATOR_DEBUG
+        log << "GRIRegulator::readMemory(): Can't find buffer" << endl;
+        CommitLog(LOG_ERROR);
+
 
         pair<unsigned int, char*> returnVal(0, NULL);
         return returnVal;
     }
 
-    cout << "readMemory: " << mm->lastPacket(blockName, bufferName) << " " <<
+    log << "readMemory: " << mm->lastPacket(blockName, bufferName) << " " <<
             mm->currentPacketPosition(blockName, bufferName) << endl;
+    CommitLog(LOG_VERBOSE);
+
     while(mm->lastPacket(blockName, bufferName) < packet_to_read) {
         fprintf(this->regulator_log, "\nelapsed time is: %d ms\n", this->timer.elapsed());
         //fprintf(this->regulator_log, "putting thread %d to sleep", (int)QThread::currentThread());
         bufferIsReady.wait(&mutex);
     }
 
-    cout << "readMemory1: " << mm->lastPacket(blockName, bufferName) << " " <<
+    log << "readMemory1: " << mm->lastPacket(blockName, bufferName) << " " <<
             mm->currentPacketPosition(blockName, bufferName) << endl;
-    cout << "** Regulator.cpp: Trying to update reader" << endl;
+    log << "Trying to update reader" << endl;
+    CommitLog(LOG_VERBOSE);
 
     if(data->update_reader()) {
 
@@ -122,24 +128,25 @@ pair<unsigned int, char*> GRIRegulator::readMemory(string blockName, string buff
         return returnVal;
     }
 
-#ifdef REGULATOR_DEBUG
-    cerr << "! GRIRegulator::readMemory(): " << blockName << " is not reading from " <<
-            data->get_writer_name() << endl;
-#endif // REGULATOR_DEBUG
+
+    log << "GRIRegulator::readMemory(): " << QString::fromStdString(blockName) <<
+            " is not reading from " << QString::fromStdString(data->get_writer_name()) << endl;
+    CommitLog(LOG_ERROR);
+
 
     pair<unsigned int, char*> returnVal(0, NULL);
     return returnVal;
 
-#ifdef REGULATOR_DEBUG
-    cout << "** Regulator.cpp: done readMemory()" << endl;
-#endif
+
+    log << "done readMemory()" << endl;
+    CommitLog(LOG_DEBUG);
 }
 
 bool GRIRegulator::writeMemory(string bufferName, unsigned int size, char dataArray[])
 {
-#ifdef REGULATOR_DEBUG
-    cout << "** Regulator.cpp: writeMemory()" << endl;
-#endif
+
+    log << "writeMemory()" << endl;
+    CommitLog(LOG_DEBUG);
 
     GRIDataBlock* data = find_data(bufferName);
     string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
@@ -147,9 +154,9 @@ bool GRIRegulator::writeMemory(string bufferName, unsigned int size, char dataAr
 
     if(data == NULL) {
 
-#ifdef REGULATOR_DEBUG
-        cerr << "! GRIRegulator::writerMemory(): Can't find buffer" << endl;
-#endif // REGULATOR_DEBUG
+
+        log << "GRIRegulator::writerMemory(): Can't find buffer" << endl;
+        CommitLog(LOG_ERROR);
 
         return NULL;
     }
@@ -157,8 +164,11 @@ bool GRIRegulator::writeMemory(string bufferName, unsigned int size, char dataAr
     if(data->update_writer()) {
         ret_flag =  mm->writeMemory(process_name, bufferName, size, (char*) dataArray);
         if(ret_flag) {
-            fprintf(this->regulator_log, "\nelapsed time is: %d ms\n", this->timer.elapsed());
-            fprintf(this->regulator_log, "waking all threads\n");
+            log << "elapsed time is: " << this->timer.elapsed() << endl;
+            log << "Waking all threads" << endl;
+            CommitLog(LOG_VERBOSE);
+            //fprintf(this->regulator_log, "\nelapsed time is: %d ms\n", this->timer.elapsed());
+            //fprintf(this->regulator_log, "waking all threads\n");
             bufferIsReady.wakeAll();
         }
         return ret_flag;
@@ -228,4 +238,18 @@ GRIDataBlock* GRIRegulator::find_data(string data_block_name)
     }
 
     return NULL;
+}
+
+void GRIRegulator::CommitLog(int level)
+{
+
+    if(LogMsg.IsLevelEnabled(level))
+    {
+
+        if(LogMsg.SetMessageTime(log.read(),level))
+
+            logSignal(LogMsg);
+    } else {
+        log.flush();
+    }
 }

@@ -14,6 +14,11 @@ GRILoader::GRILoader(QString localGRIFPath, GRIRegulator* regulator)
     this->localGRIFPath = localGRIFPath;
     this->regulator = regulator;
      qRegisterMetaType<GRILogMessage>("GRILogMessage");  //Needed for connections since GRILogMessage is not derived QObject
+
+    // Need to create loggers for the framework here
+     CreateLogger("GRIFLog.txt",0);  // All logging enabled for framework components at this point.
+     ConnectLogger("GRIFLog.txt",regulator);
+     //ConnectLogger("GRIFLog.txt",regulator->GetMemoryManager());
 }
 
 GRILoader::~GRILoader()
@@ -80,8 +85,7 @@ GRIProcessThread* GRILoader::load(string process_name, string xml_file)
 
     }
     else if(!strcmp(process_name.c_str(), "ANA_1")){
-        //NEEDS TO BE FIXED*******************************************
-//        p = new SIMAnalysisThread();
+
         p = new GRIProcessThread();
 
         cout << "LOADING ProcessThread: ANA_1" << endl;

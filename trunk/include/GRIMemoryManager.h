@@ -2,9 +2,12 @@
 #define GRI_MEMORYMANAGER_H
 
 #include <string>
+#include <QString>
+#include <QTextStream>
 
 #include <QReadWriteLock>
 #include "GRIBuffer.h"
+#include "GRILogMessage.h"
 
 using namespace std;
 
@@ -33,7 +36,10 @@ class GRIBuffer;
 */
 
 
-class GRIMemoryManager {
+class GRIMemoryManager : public QObject
+{
+
+    Q_OBJECT
 
     friend class GRIRegulator;
     friend class GRICommandAndControl;
@@ -319,6 +325,10 @@ protected:
           */
         void deletePacket(string dataBlockName, string bufferName, unsigned int packetNumber);
 
+        // ***** Used for logging
+        QTextStream log;
+        void CommitLog(int level);
+        // *********
 
 private:
 
@@ -415,6 +425,12 @@ private:
           */
         QList< QList<QReadWriteLock *>* > *lockTable;
 
+        // *** Used for logging capability
+           GRILogMessage LogMsg;
+           QString temp;
+       // **************************
+       signals:
+           void logSignal(GRILogMessage m);
 
 
 };

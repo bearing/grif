@@ -179,12 +179,12 @@ bool GRIProcessThread::change_priority(bool is_up)
     int current_priority = (int)(this->priority());
     int normal_priority = (int)QThread::NormalPriority;
 
-#ifdef PROCESS_THREAD_DEBUG
-    cout << endl << "** GRIProcessThread::change_priority()" << endl << endl;
-    cout << "process name: " << name << " priority: " << (int)this->priority()
+
+    log << endl << "GRIProcessThread::change_priority()"  << endl;
+    log << "process name: " << QString::fromStdString(name) << " priority: " << (int)this->priority()
             << " last adjustment to saturation: " << last_adjustment_to_saturation
             << " last adjustment from saturation: " << last_adjustment_from_saturation << endl;
-#endif // PROCESS_THREAD_DEBUG
+    CommitLog(LOG_VERBOSE);
 
     if(is_up) {
         if(current_priority >= normal_priority) {
@@ -277,30 +277,31 @@ void GRIProcessThread::display_current_state()
 {
     list<data_t*>::iterator it;
 
-    cout << endl << "** GRIProcessThread::current_state" << endl << endl;
-    cout << "process name: " << this->name << " id: " << this->thread_id
+    log << endl << "** GRIProcessThread::current_state" << endl;
+    log << "process name: " << QString::fromStdString(name) << " id: " << this->thread_id
             << " last adjustment from saturation: " << this->last_adjustment_from_saturation
             << " last adjustment to saturation: " << this->last_adjustment_to_saturation
             << endl;
 
-    cout << endl << "Data inputs" << endl;
+    log << endl << "Data inputs" << endl;
     for(it = data_ins.begin(); it != data_ins.end(); it++) {
         data_t* new_data = *it;
-        cout << new_data->name << endl;
+        log << QString::fromStdString(new_data->name) << endl;
     }
 
-    cout << endl << "Data outputs" << endl;
+    log << endl << "Data outputs" << endl;
     for(it = data_outs.begin(); it != data_outs.end(); it++) {
         data_t* new_data = *it;
-        cout << new_data->name << endl;
+        log << QString::fromStdString(new_data->name) << endl;
     }  
+    CommitLog(LOG_VERBOSE);
 
 }
 
 // virtual
 void GRIProcessThread::run()
 {
-//    cout << "Using GRIProcessThread's run method instead of "<< this->name << "'s run method :-( " << endl;
+
 
 }
 
