@@ -19,6 +19,7 @@ GRIProcessThread::GRIProcessThread()
     //msg = LogMsg->GetStream();
     log.setString(&temp,QIODevice::ReadWrite);
 
+
 }
 
 void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator){
@@ -72,6 +73,7 @@ void GRIProcessThread::set_detail(GRIRegulator *reg, process_details *proc_detai
     this->is_daq = proc_detail->isDaq;
     this->name = proc_detail->name;
     this->xml_path = proc_detail->xml_path;
+    LogMsg.SetObjectName(QString::fromStdString(name));
 }
 
 unsigned int GRIProcessThread::getID()
@@ -84,10 +86,11 @@ bool GRIProcessThread::get_type()
     return this->is_daq;
 }
 
-string GRIProcessThread::get_name()
-{
-    return this->name;
-}
+// DC: Moved to header in-line...
+//string GRIProcessThread::get_name()
+//{
+//    return this->name;
+//}
 
 string GRIProcessThread::get_xml_path()
 {
@@ -96,9 +99,14 @@ string GRIProcessThread::get_xml_path()
 
 void GRIProcessThread::CommitLog(int level)
 {
-    //cout << "Process Thread Log" << endl;
-    LogMsg.SetMessageTime(log.read(),level);
-    logSignal(LogMsg);
+    if(LogMsg.IsLevelEnabled(level))
+    {
+
+        if(LogMsg.SetMessageTime(log.read(),level))
+            logSignal(LogMsg);
+    } else {
+        log.flush();
+    }
 }
 
 
