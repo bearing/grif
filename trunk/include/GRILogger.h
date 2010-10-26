@@ -17,6 +17,8 @@ class GRILogger : public QObject
 public:
     GRILogger(QString FileName);
     GRILogger();
+    GRILogger(QString FileName,int level);
+    GRILogger(int level);
     ~GRILogger();
 
     //    bool operator<< (GRILogger const&x, QString const&y );
@@ -47,6 +49,8 @@ public:
 
     QString GetLogFileName(){return filename;}
     QString GetLogFilePath(){return GRIFProjectFilePath;}
+    void SetLogLevel(int l){LogLevel = l;}
+    int GetLogLevel(){return LogLevel;}
 
 signals:
     void output(string);
@@ -59,6 +63,7 @@ private:
     QString GRIFProjectFilePath;  //Just the filepath (imported by GRIFPROJECTPATH)
     QString filename;  // Just the filename
     QString logfilepath; //full file path
+    int LogLevel;
 
 };
 
