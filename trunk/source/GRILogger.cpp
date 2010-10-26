@@ -2,15 +2,46 @@
 #include <QDir>
 #include <QResource>
 
-GRILogger::GRILogger(QString GRIFProjectFilePath)
+
+GRILogger::GRILogger(QString FileName)
 {
-    this->GRIFProjectFilePath = GRIFProjectFilePath;
+    GRIFProjectFilePath = getenv("GRIFPROJECTDIR");
 
-    this->logfilename = GRIFProjectFilePath + "/log/logfile.txt";
+    if(GRIFProjectFilePath.length() == 0){
+        cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!"
+            }else{
+        filename = FileName;
 
-    clearLogFile();
+
+#if OPERATING_SYSTEM==WINDOWS
+        logfilepath = GRIFProjectFilePath + "\\log\\" + FileName;
+#else
+        logfilepath = GRIFProjectFilePath + "/log/" + FileName;
+#endif
+
+        clearLogFile();
+
+    }
 }
 
+GRILogger::GRILogger()
+{
+    GRIFProjectFilePath = getenv("GRIFPROJECTDIR");
+    if(GRIFProjectFilePath.length() == 0){
+        cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!"
+            }else{
+
+        filename = "runlog.txt";
+
+#if OPERATING_SYSTEM==WINDOWS
+        logfilepath = GRIFProjectFilePath + "\\log\\" + filename;
+#else
+        logfilepath = GRIFProjectFilePath + "/log/" + filename;
+#endif
+
+        clearLogFile();
+    }
+}
 
 GRILogger::~GRILogger()
 {
@@ -31,7 +62,7 @@ bool GRILogger::clearLogFile()
 //    QFile f(":/log_files/logfile.txt");
 
     //QFile f(GRIFProjectFilePath + "/log/logfile.txt");
-    QFile f(logfilename);
+    QFile f(logfilepath);
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Truncate) )
     {
@@ -114,7 +145,7 @@ bool GRILogger::writeLogFile(string output, int time)
 
 //    QFile f(":/log_files/logfile.txt");
     //QFile f(this->GRIFProjectFilePath + "framework/trunk/lib/logfile.txt");
-    QFile f(logfilename);
+    QFile f(logfilepath);
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Append ) )
     {
@@ -187,6 +218,12 @@ bool GRILogger::writeErrorLogFile(QString output, int time)
 bool GRILogger::writeErrorLogFile(QString output)
 {
     return this->writeErrorLogFile(output, 0);
+}
+
+bool GRILogger::writeLogFile(GRILogMessage m)
+{
+    return this->writeLogFile(m.MsgStr);
+
 }
 
 bool GRILogger::writeErrorLogFile(list<string>d, int time)
