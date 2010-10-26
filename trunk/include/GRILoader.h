@@ -58,7 +58,7 @@ public:
     list<ProcessDetails*> readPathXML();
     void setupMenuStructure();
     int ConnectLogger(QString LogFileName, QObject* sender);
-
+    int CreateLogger(QString fname, int LogLevel);
 
 private:
     list<GRILogger*> LogList;
