@@ -12,7 +12,7 @@
 
 using namespace std;
 
-class GRILogMessage : public QObject
+class GRILogMessage
 {
 
 public:
@@ -32,6 +32,7 @@ public:
 
 private:
     QString str;
+    void SetTimeString();
 
 };
 
