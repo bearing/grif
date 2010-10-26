@@ -36,7 +36,7 @@ class GRIRegulator
 public:
 
     void reg_init();
-    GRIRegulator(GRIMemoryManager* ma, GRILogger* logger);
+    //GRIRegulator(GRIMemoryManager* ma, GRILogger* logger);
     GRIRegulator(GRIMemoryManager* ma);
 
     ~GRIRegulator();
