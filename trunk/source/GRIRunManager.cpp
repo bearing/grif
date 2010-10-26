@@ -33,10 +33,11 @@ void GRIRunManager::Init(bool usingGUI)
     //start the command line
     this->startCommandLine();
 
-    this->localGRIFPath = this->getGRIFPath();
+    //get the file path to the project folder that the user would like to run
+    this->GRIFProjectFilePath = this->getGRIFProjectPath();
 
     //start and connect GRILogger
-    this->startLogger(localGRIFPath);
+    this->startLogger(GRIFProjectFilePath);
 
     //initialize the command and control
     this->startCommandAndControl();
@@ -56,36 +57,36 @@ void GRIRunManager::startCommandAndControl()
 {
 
     // initialize a command and control object
-    this->cmdcontrol = new GRICommandAndControl(this, localGRIFPath, logger);
+    this->cmdcontrol = new GRICommandAndControl(this, GRIFProjectFilePath, logger);
     connect(cmdcontrol, SIGNAL(output(list<string>)), this, SLOT(displayOutput(list<string>)));
     connect(cmdcontrol, SIGNAL(output(string)), this, SLOT(displayOutput(string)));
 }
 
-QString GRIRunManager::getGRIFPath()
+QString GRIRunManager::getGRIFProjectPath()
 {
-    this->displayOutput("Please Enter File Path To the GRIF Folder (eg. C:/my_documents/grif/)\n\n");
+    this->displayOutput("Please Enter File Path To the desired GRIF Project Folder (eg. C:/grif/dan/)\n\n");
 
-    QString rootXMLPath = this->getInput();
+    QString GRIFProjectPath = this->getInput();
 
     //temporary, so I don't have to type in the file path every time
-    if(rootXMLPath == "me"){
-        rootXMLPath = "C:/FRAMEWORK_PROJECT/CURRENT_WORKING/";
+    if(GRIFProjectPath == "me"){
+        GRIFProjectPath = "C:/FRAMEWORK_PROJECT/CURRENT_WORKING/project/jake/";
     }
-    else if(rootXMLPath == "me2"){ rootXMLPath = "C:/GRIF/"; }
+    else if(GRIFProjectPath == "me2"){ GRIFProjectPath = "C:/GRIF/jake/"; }
 
-    while(!this->goodFilePath(rootXMLPath))
+    while(!this->goodFilePath(GRIFProjectPath))
     {
-        cout << "\nPlease Enter File Path To the GRIF Folder (eg. C:/my_documents/grif/)\n\n";
-        rootXMLPath = this->getInput();
+        cout << "\nPlease Enter File Path To the GRIF Folder (eg. C:/grif/dan/)\n\n";
+        GRIFProjectPath = this->getInput();
         this->clearScreen();
 
 
-        if(rootXMLPath == "me"){
-            rootXMLPath = "C:/FRAMEWORK_PROJECT/CURRENT_WORKING/";
+        if(GRIFProjectPath == "me"){
+            GRIFProjectPath = "C:/FRAMEWORK_PROJECT/CURRENT_WORKING/project/jake/";
         }
-         else if(rootXMLPath == "me2"){ rootXMLPath = "C:/GRIF/"; }
+         else if(GRIFProjectPath == "me2"){ GRIFProjectPath = "C:/GRIF/jake/"; }
     }
-    return rootXMLPath;
+    return GRIFProjectPath;
 }
 
 void GRIRunManager::reinitialize(bool usingGUI)
@@ -218,11 +219,9 @@ QString GRIRunManager::getInput()
 
     this->clearScreen();
 
-    // UNCOMMENT WHEN DAN WRITES LOGFILE.TXT IN CORRECT PATH
-
-//    if(this->startedLogger)    {
-//    this->logger->writeLogFile((" >> " + temp + "\n"));
-//    }
+    if(this->startedLogger)    {
+    this->logger->writeLogFile((" >> " + temp + "\n"));
+    }
 
     return temp;
 }
@@ -300,33 +299,28 @@ void GRIRunManager::displayOutput(list<string> output)
 {
     emit this->newOutput(output);
 
-    //UNCOMMENT WHEN NEW LOGFILE.TXT IS IN CORRECT PATH
-//    //write to log file
-//    if(this->startedLogger)
-//    {
-//        this->logger->writeLogFile(output);
-//    }
+    //write to log file
+    if(this->startedLogger)
+    {
+        this->logger->writeLogFile(output);
+    }
 }\
 void GRIRunManager::displayOutput(string output)
 {
     emit this->newOutput(output);
 
 
-    //debug
-//    cout << "(displaying output and ";
-
-    //UNCOMMENT WHEN NEW LOGFILE.TXT IS IN CORRECT PATH
     //write to log file
-//    if(this->startedLogger)
-//    {
-////        cout << "logging output)";
-//
-//        this->logger->writeLogFile(output);
-//    }
-//    else
-//    {
-////        cout << "not logging output)";
-//    }
+    if(this->startedLogger)
+    {
+//        cout << "logging output)";
+
+        this->logger->writeLogFile(output);
+    }
+    else
+    {
+//        cout << "not logging output)";
+    }
 
 
 }
@@ -334,12 +328,11 @@ void GRIRunManager::displayOutput(string output, bool temp)
 {
     emit this->newOutput(output);
 
-    //UNCOMMENT WHEN NEW LOGFILE.TXT IS IN CORRECT PATH
-//    //write to log file
-//    if(temp && startedLogger)
-//    {
-//       this->logger->writeLogFile(output);
-//    }
+    //write to log file
+    if(temp && startedLogger)
+    {
+       this->logger->writeLogFile(output);
+    }
 }
 void GRIRunManager::clearScreen()
 {
@@ -394,14 +387,6 @@ bool GRIRunManager::isRootPathFile(QString rootXMLFile){
 void GRIRunManager::startLogger(QString rootXMLFile)
 {
     logger = new GRILogger(rootXMLFile);
-    this->displayOutput("Clear Previous Log File? (Y/N) ");
-    QString input = this->getInput();
-    if(input == "Y" || input == "y")
-    {
-        this->logger->clearLogFile();
-        this->logger->clearErrorLogFile();
-
-    }
 
     connect(logger, SIGNAL(output(list<string>)), this, SLOT(displayOutput(list<string>)));
     connect(logger, SIGNAL(output(string)), this, SLOT(displayOutput(string)));
@@ -411,7 +396,7 @@ void GRIRunManager::startLogger(QString rootXMLFile)
 }
 bool GRIRunManager::goodFilePath(QString path)
 {
-    QFile f(path + "framework/trunk/lib/logfile.txt");
+    QFile f(path + "log/logfile.txt");
     if( !f.open( QIODevice::WriteOnly | QIODevice::Append ) )
     {
       cout << "BAD GRIF DIRECTORY\n";

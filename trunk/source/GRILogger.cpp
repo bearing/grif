@@ -2,11 +2,11 @@
 #include <QDir>
 #include <QResource>
 
-GRILogger::GRILogger(QString localGRIFdirectory)
+GRILogger::GRILogger(QString GRIFProjectFilePath)
 {
-    this->localGRIFdirectory = localGRIFdirectory;
+    this->GRIFProjectFilePath = GRIFProjectFilePath;
 
-    this->logfilename = localGRIFdirectory + "/log/logfile.txt";
+    this->logfilename = GRIFProjectFilePath + "/log/logfile.txt";
 
     clearLogFile();
 }
@@ -30,7 +30,7 @@ bool GRILogger::clearLogFile()
 
 //    QFile f(":/log_files/logfile.txt");
 
-    //QFile f(localGRIFdirectory + "/log/logfile.txt");
+    //QFile f(GRIFProjectFilePath + "/log/logfile.txt");
     QFile f(logfilename);
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Truncate) )
@@ -42,7 +42,7 @@ bool GRILogger::clearLogFile()
             return 0;
         }
     }
-    cout << "Successful Log File Opening: " << (const char*)localGRIFdirectory << "/log/logfile.txt" << endl;
+    cout << "Successful Log File Opening: " << (const char*)GRIFProjectFilePath << "/log/logfile.txt" << endl;
 
     QTextStream ts( &f );
 
@@ -54,7 +54,7 @@ bool GRILogger::clearLogFile()
 bool GRILogger::clearErrorLogFile()
 {
 
-    QFile f(this->localGRIFdirectory + "framework/trunk/lib/errorlogfile.txt");
+    QFile f(this->GRIFProjectFilePath + "/log/errorlogfile.txt");
 
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Truncate) )
@@ -113,7 +113,7 @@ bool GRILogger::writeLogFile(string output, int time)
     }
 
 //    QFile f(":/log_files/logfile.txt");
-    //QFile f(this->localGRIFdirectory + "framework/trunk/lib/logfile.txt");
+    //QFile f(this->GRIFProjectFilePath + "framework/trunk/lib/logfile.txt");
     QFile f(logfilename);
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Append ) )
@@ -155,7 +155,7 @@ bool GRILogger::writeErrorLogFile(string output, int time)
     //prevent multiple threads from writing at the same time
     mutex.lock();
 
-    QFile f(this->localGRIFdirectory + "framework/trunk/lib/errorlogfile.txt");
+    QFile f(this->GRIFProjectFilePath + "/log/errorlogfile.txt");
 
     if( !f.open( QIODevice::WriteOnly | QIODevice::Append ) )
     {

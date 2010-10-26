@@ -52,8 +52,8 @@ public:
 
 protected:
 
-    QString localGRIFPath;
-    QString getGRIFPath();
+    QString GRIFProjectFilePath;
+    QString getGRIFProjectPath();
     void startCommandAndControl();
 
     /**
@@ -193,7 +193,7 @@ private:
 
     GRILogger* logger;
 
-    void startLogger(QString rootXMLFile);
+    void startLogger(QString localGRIFProjectPath);
 
 
 

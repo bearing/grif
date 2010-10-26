@@ -97,7 +97,7 @@ GRIProcessThread* GRILoader::load(string process_name, string xml_file)
 
 list<GRIParam*>* GRILoader::readNewParamList( list<GRIParam*>* paramList)
 {
-    QFile file(this->localGRIFPath + "framework/trunk/lib/runtime_params.xml" );
+    QFile file("../../../framework/trunk/lib/runtime_params.xml" );
     if(!file.open(QIODevice::ReadOnly))
     {
         cout<<"Fail to Open RUNTIME PARAMS  File!"<<endl;
@@ -340,7 +340,8 @@ std::list<ProcessDetails*> GRILoader::readPathXML()
 
         QDomDocument doc("CONFIG_FILE_PATH");
 
-        QFile file(this->localGRIFPath + "framework/trunk/lib/file_paths.xml");
+        QFile file("../../../framework/trunk/lib/file_paths.xml");
+
         if(!file.open(QIODevice::ReadOnly))
         {
             cout<<"Fail to Open FILEPATH File!"<<endl;
@@ -449,7 +450,7 @@ std::list<AnalysisStructureObject*> GRILoader::readAnalysisStructureXML()
         QDomDocument doc("DATA_ANALYSIS_STRUCTURE");
 
 
-        QFile file(this->localGRIFPath + "framework/trunk/lib/struc_config.xml");
+        QFile file("../../../framework/trunk/lib/struc_config.xml");
         if(!file.open(QIODevice::ReadOnly))
         {
             cout<<"Fail to Open Analysis Structure File!"<<endl;

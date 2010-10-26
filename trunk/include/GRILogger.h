@@ -15,11 +15,11 @@ class GRILogger : public QObject
 {
     Q_OBJECT;
 public:
-    GRILogger(QString localGRIFdirectory);
+    GRILogger(QString GRIFProjectFilePath);
     ~GRILogger();
 
-//    bool operator<< (GRILogger const&x, QString const&y );
- void operator<< (QString const&y );
+    //    bool operator<< (GRILogger const&x, QString const&y );
+    void operator<< (QString const&y );
 
     // May want to create and pass an Error class object
     // that contains all important descriptions
@@ -54,7 +54,7 @@ public slots:
     bool writeLogFile(QString msg);
 
 private:
-    QString localGRIFdirectory;
+    QString GRIFProjectFilePath;
 
 };
 
