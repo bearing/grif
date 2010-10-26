@@ -13,6 +13,8 @@
 #include "GRIParam.h"
 #include "GRIProcessThread.h"
 #include "GRIRegulator.h"
+#include "GRILogger.h"
+#include "GRIThread.h"
 
 class GRIParamList;
 
@@ -55,9 +57,12 @@ public:
     list<AnalysisStructureObject*> readAnalysisStructureXML();
     list<ProcessDetails*> readPathXML();
     void setupMenuStructure();
+    int ConnectLogger(QString LogFileName, QObject* sender);
 
 
 private:
+    list<GRILogger*> LogList;
+    list<GRIThread*> LogThreadList;
 
     QString localGRIFPath;
     GRIRegulator* regulator;
