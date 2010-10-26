@@ -12,18 +12,41 @@ GRILogger::GRILogger(QString FileName)
             }else{
         filename = FileName;
 
-
-#if OPERATING_SYSTEM==WINDOWS
-        logfilepath = GRIFProjectFilePath + "\\log\\" + FileName;
-#else
+// QFile handles slash issues...
+//#if OPERATING_SYSTEM==WINDOWS
+//        logfilepath = GRIFProjectFilePath + "\\log\\" + FileName;
+//#else
         logfilepath = GRIFProjectFilePath + "/log/" + FileName;
-#endif
+//#endif
 
         clearLogFile();
+        LogLevel = 2;
 
     }
 }
 
+
+GRILogger::GRILogger(QString FileName, int level)
+{
+    GRIFProjectFilePath = getenv("GRIFPROJECTDIR");
+
+    if(GRIFProjectFilePath.length() == 0){
+        cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!" << endl;
+            }else{
+        filename = FileName;
+
+// QFile handles slash issues...
+//#if OPERATING_SYSTEM==WINDOWS
+//        logfilepath = GRIFProjectFilePath + "\\log\\" + FileName;
+//#else
+        logfilepath = GRIFProjectFilePath + "/log/" + FileName;
+//#endif
+
+        clearLogFile();
+        LogLevel = level;
+
+    }
+}
 GRILogger::GRILogger()
 {
     GRIFProjectFilePath = getenv("GRIFPROJECTDIR");
@@ -33,13 +56,36 @@ GRILogger::GRILogger()
 
         filename = "runlog.txt";
 
-#if OPERATING_SYSTEM==WINDOWS
-        logfilepath = GRIFProjectFilePath + "\\log\\" + filename;
-#else
+// QFile handles slash issues...
+//#if OPERATING_SYSTEM==WINDOWS
+//        logfilepath = GRIFProjectFilePath + "\\log\\" + filename;
+//#else
         logfilepath = GRIFProjectFilePath + "/log/" + filename;
-#endif
+//#endif
 
         clearLogFile();
+        LogLevel = 2;
+    }
+}
+
+GRILogger::GRILogger(int level)
+{
+    GRIFProjectFilePath = getenv("GRIFPROJECTDIR");
+    if(GRIFProjectFilePath.length() == 0){
+        cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!" << endl;
+            }else{
+
+        filename = "runlog.txt";
+
+// QFile handles slash issues...
+//#if OPERATING_SYSTEM==WINDOWS
+//        logfilepath = GRIFProjectFilePath + "\\log\\" + filename;
+//#else
+        logfilepath = GRIFProjectFilePath + "/log/" + filename;
+//#endif
+
+        clearLogFile();
+        LogLevel = level;
     }
 }
 
@@ -73,11 +119,13 @@ bool GRILogger::clearLogFile()
             return 0;
         }
     }
-    cout << "Successful Log File Opening: " << (const char*)GRIFProjectFilePath << "/log/logfile.txt" << endl;
+    cout << "Successful Log File Opening: " << logfilepath.toStdString().c_str() << endl;
 
     QTextStream ts( &f );
 
     f.close();
+
+    this->writeLogFile((QString)"GRI Framework Log V1.0\n\n");
 
     return 1;
 
@@ -102,14 +150,6 @@ bool GRILogger::clearErrorLogFile()
 
 }
 
-
-//bool GRILogger::writeLogFile(GRILogMessage lm)
-//{
-//    //QString s = lm->DateTime + " " + lm->msg->read();
-//    cout << lm.MsgStr.toStdString().c_str() << endl;
-//    writeLogFile(lm.MsgStr);
-
-//}
 
 bool GRILogger::writeLogFile(list<string>d, int time)
 {
@@ -222,7 +262,8 @@ bool GRILogger::writeErrorLogFile(QString output)
 
 bool GRILogger::writeLogFile(GRILogMessage m)
 {
-    return this->writeLogFile(m.MsgStr);
+    if(m.level >= this->LogLevel)
+        return this->writeLogFile(m.MsgStr);
 
 }
 
