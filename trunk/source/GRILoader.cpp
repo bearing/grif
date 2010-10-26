@@ -13,6 +13,7 @@ GRILoader::GRILoader(QString localGRIFPath, GRIRegulator* regulator)
 {
     this->localGRIFPath = localGRIFPath;
     this->regulator = regulator;
+     qRegisterMetaType<GRILogMessage>("GRILogMessage");  //Needed for connections since GRILogMessage is not derived QObject
 }
 
 GRILoader::~GRILoader()
@@ -513,4 +514,40 @@ std::list<AnalysisStructureObject*> GRILoader::readAnalysisStructureXML()
 
 }
 
+int GRILoader::ConnectLogger(QString fname, QObject* sender)
+{
+
+    list<GRILogger*>::iterator logIter;
+    bool found = false;
+
+    // create data blocks out of the analysis structure data
+    for(logIter=this->LogList.begin(); logIter!=this->LogList.end(); logIter++)
+    {
+        GRILogger *gl = *logIter;
+        if(fname == gl->GetLogFileName())
+        {
+            found=true;
+            QObject::connect(sender, SIGNAL(logSignal(GRILogMessage)), gl, SLOT(writeLogFile(GRILogMessage)));
+        }
+    }
+
+        if(!found)
+        {
+            GRILogger *gl = new GRILogger(fname);
+            GRIThread *th = new GRIThread();
+
+            gl->moveToThread(th);
+            th->start();
+
+            QObject::connect(sender, SIGNAL(logSignal(GRILogMessage)), gl, SLOT(writeLogFile(GRILogMessage)));
+            LogList.push_back(gl);
+            LogThreadList.push_back(th);
+        }
+        // load analysis structure into threads & d
+        //datablocks->push_front(new GRIDataBlock(this->regulator, *analyStructIter));
+
+
+
+
+}
 
