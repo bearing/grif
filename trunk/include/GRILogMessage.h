@@ -21,15 +21,20 @@ public:
     ~GRILogMessage();
 
 
-    int SetMessageTime(QString s, int level=0);
-
+    bool SetMessageTime(QString s, int level=0);
+    int SetObjectName(QString s){ObjectName = s;}
+    bool IsLevelEnabled(int level);
+    bool IsLevelEnabled();
+    QString GetObjectName(){return ObjectName;}
     int level;
+
 
     QString DateTime;
     QString MsgStr;
 
-private:
 
+private:
+    QString ObjectName;
     void SetTimeString();
 
 };
