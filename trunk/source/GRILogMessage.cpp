@@ -6,14 +6,14 @@ GRILogMessage::GRILogMessage(QString s)
     msg = new QTextStream(&str,QIODevice::ReadWrite);
     level = 0;
     msg->setString(&s);
-    DateTime = QDateTime(QDate::currentDate(),QTime::currentTime()).toString(Qt::ISODate);
+    SetTimeString();
 }
 
 GRILogMessage::GRILogMessage()
 {
     msg = new QTextStream(&str,QIODevice::ReadWrite);
     level = 0;
-    DateTime = QDateTime(QDate::currentDate(),QTime::currentTime()).toString(Qt::ISODate);
+    SetTimeString();
 }
 
 GRILogMessage::~GRILogMessage()
@@ -24,7 +24,7 @@ GRILogMessage::~GRILogMessage()
 int GRILogMessage::SetMessageTime(int l)
 {
    // cout << "Set Log Message Time" << endl;
-    DateTime = QDateTime(QDate::currentDate(),QTime::currentTime()).toString();
+   SetTimeString();
     MsgStr = DateTime + ": " + msg->read();
 
 
@@ -35,7 +35,7 @@ int GRILogMessage::SetMessageTime(int l)
 int GRILogMessage::SetMessageTime(QString s, int l)
 {
    // cout << "Set Log Message Time" << endl;
-    DateTime = QDateTime(QDate::currentDate(),QTime::currentTime()).toString();
+    SetTimeString();
     MsgStr = DateTime + ": " + s;
     cout << "Set Message Time: " << MsgStr.toStdString().c_str() << endl;
 
@@ -47,4 +47,9 @@ int GRILogMessage::ClearMessage()
 {
   //  cout << "Log Message Flush" << endl;
     msg->flush();
+}
+
+void GRILogMessage::SetTimeString()
+{
+    DateTime = QDateTime(QDate::currentDate(),QTime::currentTime()).toString("ddd MMMM d,yyyy  hh:mm:ss.zzz");
 }
