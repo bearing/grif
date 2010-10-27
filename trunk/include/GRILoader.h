@@ -29,6 +29,8 @@ class GRILoader
 public:
 
     GRILoader(QString filepath, GRIRegulator* regulator);
+    GRILoader(QString localGRIFPath, GRIRegulator* regulator,QString GRIFLogFilename);
+    GRILoader(QString localGRIFPath, GRIRegulator* regulator,QString GRIFLogFilename,int LogLevel);
 
     ~GRILoader();
 
@@ -59,6 +61,8 @@ public:
     void setupMenuStructure();
     int ConnectLogger(QString LogFileName, QObject* sender);
     int CreateLogger(QString fname, int LogLevel);
+protected
+        virtual GRIProcessThread* load(QString process_name, QString xml_file) = 0;
 
 private:
     list<GRILogger*> LogList;

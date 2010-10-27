@@ -18,7 +18,31 @@ GRILoader::GRILoader(QString localGRIFPath, GRIRegulator* regulator)
     // Need to create loggers for the framework here
      CreateLogger("GRIFLog.txt",0);  // All logging enabled for framework components at this point.
      ConnectLogger("GRIFLog.txt",regulator);
-     //ConnectLogger("GRIFLog.txt",regulator->GetMemoryManager());
+     ConnectLogger("GRIFLog.txt",regulator->GetMemoryManager());
+}
+
+GRILoader::GRILoader(QString localGRIFPath, GRIRegulator* regulator,QString GRIFLogFilename)
+{
+    this->localGRIFPath = localGRIFPath;
+    this->regulator = regulator;
+     qRegisterMetaType<GRILogMessage>("GRILogMessage");  //Needed for connections since GRILogMessage is not derived QObject
+
+    // Need to create loggers for the framework here
+     CreateLogger(GRIFLogFilename,0);  // All logging enabled for framework components at this point.
+     ConnectLogger(GRIFLogFilename,regulator);
+     ConnectLogger(GRIFLogFilename,regulator->GetMemoryManager());
+}
+
+GRILoader::GRILoader(QString localGRIFPath, GRIRegulator* regulator,QString GRIFLogFilename, int GRIFLogLevel)
+{
+    this->localGRIFPath = localGRIFPath;
+    this->regulator = regulator;
+     qRegisterMetaType<GRILogMessage>("GRILogMessage");  //Needed for connections since GRILogMessage is not derived QObject
+
+    // Need to create loggers for the framework here
+     CreateLogger(GRIFLogFilename,GRIFLogLevel);  // All logging enabled for framework components at this point.
+     ConnectLogger(GRIFLogFilename,regulator);
+     ConnectLogger(GRIFLogFilename,regulator->GetMemoryManager());
 }
 
 GRILoader::~GRILoader()
@@ -69,34 +93,34 @@ list<GRIDataBlock*>* GRILoader::initDataBlocks(list<GRIProcessThread*>* processe
 }
 
 
-GRIProcessThread* GRILoader::load(string process_name, string xml_file)
-{
-    GRIProcessThread* p;
+//GRIProcessThread* GRILoader::load(string process_name, string xml_file)
+//{
+//    GRIProcessThread* p;
 
-    // sadly, you can't use strings in c++ switch statements
-    if(!strcmp(process_name.c_str(),"DAQ_1") )
-    {
-        //p = new SIMDAQThread_JAKE_VS();
-        //p = new SIMDAQThread();
+//    // sadly, you can't use strings in c++ switch statements
+//    if(!strcmp(process_name.c_str(),"DAQ_1") )
+//    {
+//        //p = new SIMDAQThread_JAKE_VS();
+//        //p = new SIMDAQThread();
 
-        //DEBUG
-        cout << "LOADING PROCESSTHREAD: "<< process_name.c_str() << " LOADED !\n";
+//        //DEBUG
+//        cout << "LOADING PROCESSTHREAD: "<< process_name.c_str() << " LOADED !\n";
 
 
-    }
-    else if(!strcmp(process_name.c_str(), "ANA_1")){
+//    }
+//    else if(!strcmp(process_name.c_str(), "ANA_1")){
 
-        p = new GRIProcessThread();
+//        p = new GRIProcessThread();
 
-        cout << "LOADING ProcessThread: ANA_1" << endl;
-    }
-    else
-    {
-       cout << "BAD NAME IN XML FILE\n";
-    }
+//        cout << "LOADING ProcessThread: ANA_1" << endl;
+//    }
+//    else
+//    {
+//       cout << "BAD NAME IN XML FILE\n";
+//    }
 
-    return p;
-}
+//    return p;
+//}
 
 
 
