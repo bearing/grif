@@ -3,7 +3,7 @@
 // Users need to add all possible process thread headers to GRIUserProcesses.h
 #include "GRIUserProcesses.h"
 
-GRIProcessThread* load(QString process_name,QString XMLFile)
+GRIProcessThread* GRIUserLoader::load(QString process_name,QString XMLFile)
 {
     GRIProcessThread* p = NULL;
 

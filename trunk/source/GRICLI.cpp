@@ -43,28 +43,11 @@ void GRICommandLineInterface::DisplayWelcomeScreen()
     cout << space << "X11 Operating System : ";
     #endif
 
-    this->manager->displayOutput("*not sure how to determine OS bit size...*", false);
-
-
-
-
-//    #if OPERATING_SYSTEM == LINUX
-//        cout << space << "LINUX Operating System : ";
-//    #endif
-//
-//    #if OPERATING_SYSTEM == WINDOWS
-//        cout << space << "WINDOWS Operating System : ";
-//    #endif
-//
-//    #if OPERATING_SYSTEM == MAC
-//        cout << space << "MAC OSX Operating System : ";
-//    #endif
-//
-//    #if IS_64_BIT
-//        cout << "64-bit" << endl;
-//    #else
-//        cout << "32-bit" << endl;
-//    #endif
+    #if IS_64_BIT==1
+    cout << space << "64-bit" << endl;
+    #else
+    cout << space << "32-bit" << endl;
+    #endif
 
     this->manager->displayOutput("\n\nPress ENTER to begin\n\n", false);
 

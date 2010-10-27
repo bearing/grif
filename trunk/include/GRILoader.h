@@ -2,7 +2,7 @@
 #define GRI_LOADER_H
 
 #include <string>
-
+#include <QString>
 #include "GRIRegulator.h"
 #include "GRIProcessThread.h"
 #include <QtXml/qdom.h>
@@ -49,10 +49,6 @@ public:
 
     list<GRIDataBlock*>* initDataBlocks(list<GRIProcessThread*>* processes, list<AnalysisStructureObject*> analyStructs);
 
-    virtual GRIProcessThread* load(string process_name, string xml_file);
-    
-
-
 
     // used to be in class GRIXMLParser.h
     list<GRIParam*>* readNewParamList(list<GRIParam*>* currentParams);
@@ -61,7 +57,7 @@ public:
     void setupMenuStructure();
     int ConnectLogger(QString LogFileName, QObject* sender);
     int CreateLogger(QString fname, int LogLevel);
-protected
+protected:
         virtual GRIProcessThread* load(QString process_name, QString xml_file) = 0;
 
 private:

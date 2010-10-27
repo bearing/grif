@@ -37,7 +37,7 @@ void GRIRunManager::Init(bool usingGUI)
     this->GRIFProjectFilePath = this->getGRIFProjectPath();
 
     //start and connect GRILogger
-    this->startLogger(GRIFProjectFilePath);
+    //this->startLogger(GRIFProjectFilePath);
 
     //initialize the command and control
     this->startCommandAndControl();

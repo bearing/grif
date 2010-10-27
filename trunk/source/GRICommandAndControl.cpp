@@ -10,6 +10,7 @@
 #include <QVariant>
 #include "GRICommandAndControl.h"
 #include "GRIMemoryManager.h"
+#include "GRIUserLoader.h"
 
 #include <QMainWindow>
 
@@ -41,16 +42,14 @@ bool GRICommandAndControl::Init(GRIRunManager *mgr, QString rootXMLFile)
     // create a memory manager
      this->memorymanager = new GRIMemoryManager();
 
-     // Create a new GRILoader to load the xml files
-     this->loader = new GRILoader(rootXMLFile, regulator);
+     // create a regulator with the new memory manager
+      this->regulator = new GRIRegulator(memorymanager);
 
-    // create a regulator with the new memory manager
-     this->regulator = new GRIRegulator(memorymanager, logger);
-
-
+     // Create a new GRIUserLoader to load the xml files
+     this->loader = new GRIUserLoader(rootXMLFile, regulator);
 
     // read xml and load parameters
-    // NOTE: This will use the GRILoader
+    // NOTE: This will use the GRIUserLoader
     this->ReadXMLsAndLoadConfiguration(rootXMLFile);
 
     //***************************************BUGS

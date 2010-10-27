@@ -64,8 +64,15 @@ list<GRIProcessThread*>* GRILoader::initProcessThreads(list<ProcessDetails*> det
     // for however many process threads there are
     for(iter = details.begin(); iter != details.end(); iter++)
     {
+
+        ProcessDetails* pd = *iter;
+
+        QString name = QString::fromStdString(pd->name);
+        QString xml = QString::fromStdString(pd->xml_path);
+
         // load the process thread
-        p = load((*iter)->name, (*iter)->xml_path);
+        p = load(name,xml);
+
 
         // necessary function that has to be called, for some reason...
         p->init(NULL, (*iter), regulator);
