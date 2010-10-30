@@ -16,6 +16,7 @@
 #include "GRIDefines.h"
 #include "GRIDataDefines.h"
 #include "GRILogMessage.h"
+#include "GRIThread.h"
 
 #include <queue>
 #include <utility>
@@ -45,7 +46,7 @@ typedef struct process_details
  * last time this process adjusts its priority away/to saturation. If the latter is
  * greater than the former, priority adjustment will be done
  */
-class GRIProcessThread : public QThread
+class GRIProcessThread : public GRIThread
 {
 
     Q_OBJECT
@@ -116,8 +117,8 @@ public:
     /*
      * get_name() returns the name of this process
      */
-    string get_name(){return name;}
-    int set_name(string s){name = s;}
+    string get_name(){return this->name();}
+    int set_name(string s){this->setObjectName(QString::fromStdString(s));}
 
     /*
      * get_xml_path() returns the path to the xml file of this process
@@ -161,10 +162,10 @@ public:
      */
     GRIDataBlock* find_data_block(string data_block_name);
 
-    void CommitLog(int logLevel=0);
+    //void CommitLog(int logLevel=0);
     //QTextStream* msg;
-    QTextStream log;
-    QString temp;
+    //QTextStream log;
+    //QString temp;
 
     template <class T> void addParam(QString Key, T& value);
 
@@ -242,11 +243,11 @@ private:
         GRIDataBlock* data_block;
     } data_t;
 
-    string name;
+    //string name;  // name is contained in QObject use name() to return...
 
     string xml_path;
 
-    GRILogMessage LogMsg;
+    //GRILogMessage LogMsg;
 
 public:
 
@@ -272,8 +273,8 @@ public:
 
 signals:
     void histUpdate(GRIHistogrammer *hist);
-    void logSignal(QString m);
-    void logSignal(GRILogMessage m);
+    //void logSignal(QString m);
+    //void logSignal(GRILogMessage m);
 };
 
 template<class T> void GRIProcessThread::addParam(QString Key, T& value){

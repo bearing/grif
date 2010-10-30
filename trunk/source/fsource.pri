@@ -24,3 +24,4 @@ GRIXMLParser.cpp\
 GRILogMessage.cpp\
 GRIUserLoader.cpp\
 GRIObject.cpp\
+GRIThread.cpp\

@@ -17,7 +17,7 @@ GRIProcessThread::GRIProcessThread()
     numInOut = 1;
     //LogMsg = new GRILogMessage();
     //msg = LogMsg->GetStream();
-    log.setString(&temp,QIODevice::ReadWrite);
+    //log.setString(&temp,QIODevice::ReadWrite);
 
 
 }
@@ -27,7 +27,8 @@ void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegula
     reg = regulator;
     if(proc_detail != NULL){
         this->is_daq = proc_detail->isDaq;
-        this->name = proc_detail->name;
+        this->setObjectName(QString::fromStdString(proc_detail->name));
+        //this->name = proc_detail->name; done above...
         this->xml_path = proc_detail->xml_path;
     }
 
@@ -71,9 +72,9 @@ void GRIProcessThread::set_detail(GRIRegulator *reg, process_details *proc_detai
 {
     this->reg = reg;
     this->is_daq = proc_detail->isDaq;
-    this->name = proc_detail->name;
+    //this->name = proc_detail->name;  //GRIObject has a name property...set below
     this->xml_path = proc_detail->xml_path;
-    LogMsg.SetObjectName(QString::fromStdString(name));
+    this->setObjectName(QString::fromStdString(proc_detail->name));
 }
 
 unsigned int GRIProcessThread::getID()
@@ -97,17 +98,17 @@ string GRIProcessThread::get_xml_path()
     return this->xml_path;
 }
 
-void GRIProcessThread::CommitLog(int level)
-{
-    if(LogMsg.IsLevelEnabled(level))
-    {
+//void GRIProcessThread::CommitLog(int level)
+//{
+//    if(LogMsg.IsLevelEnabled(level))
+//    {
 
-        if(LogMsg.SetMessageTime(log.read(),level))
-            logSignal(LogMsg);
-    } else {
-        log.flush();
-    }
-}
+//        if(LogMsg.SetMessageTime(log.read(),level))
+//            logSignal(LogMsg);
+//    } else {
+//        log.flush();
+//    }
+//}
 
 
 void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
@@ -181,7 +182,7 @@ bool GRIProcessThread::change_priority(bool is_up)
 
 
     log << endl << "GRIProcessThread::change_priority()"  << endl;
-    log << "process name: " << QString::fromStdString(name) << " priority: " << (int)this->priority()
+    log << "process name: " << QString::fromStdString(this->name()) << " priority: " << (int)this->priority()
             << " last adjustment to saturation: " << last_adjustment_to_saturation
             << " last adjustment from saturation: " << last_adjustment_from_saturation << endl;
     CommitLog(LOG_VERBOSE);
@@ -278,7 +279,7 @@ void GRIProcessThread::display_current_state()
     list<data_t*>::iterator it;
 
     log << endl << "** GRIProcessThread::current_state" << endl;
-    log << "process name: " << QString::fromStdString(name) << " id: " << this->thread_id
+    log << "process name: " << QString::fromStdString(this->name()) << " id: " << this->thread_id
             << " last adjustment from saturation: " << this->last_adjustment_from_saturation
             << " last adjustment to saturation: " << this->last_adjustment_to_saturation
             << endl;

@@ -1,21 +1,34 @@
 #ifndef GRITHREAD_H
 #define GRITHREAD_H
 
-// Generic thread class for encapsulation
-// Usage:
-// myThread workThread;
-//  myWorker workObject;
-
-//  // move the worker objects to the new thread
-//  workObject.moveToThread(&workThread);
-
-//  // Start the work thread
-//  workThread.start();
+#include <QTime>
+#include <QTextStream>
+#include <QString>
+#include <QThread>
+#include "GRILogMessage.h"
+using namespace std;
 
 class GRIThread : public QThread
 {
+  Q_OBJECT
+
    public:
-      void run () { exec (); }
+      GRIThread();
+      ~GRIThread();
+      virtual void run () { exec (); }
+
+      QTextStream log;
+      void CommitLog(int level);
+      void setObjectName(QString name);
+
+  private:
+
+      GRILogMessage LogMsg;
+      QString temp;
+
+  signals:
+      void logSignal(GRILogMessage m);
+
 };
 
 

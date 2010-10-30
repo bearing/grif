@@ -29,3 +29,4 @@ GRILogMessage.h\
 GRIUserLoader.h \
 GRIUserProcesses.h\
 GRIObject.h\
+GRIThread.h\
