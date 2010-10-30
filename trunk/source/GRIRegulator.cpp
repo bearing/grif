@@ -28,13 +28,15 @@ GRIRegulator::GRIRegulator(GRIMemoryManager *ma)
     //temporary log file until GRILogMessage Implemented...
     regulator_log = fopen("regulatorlogfile.txt","w"); //All these pointer assignments cause bugs later
     //GRIRegulator(ma, NULL);
-    LogMsg.SetObjectName("REG");
-    log.setString(&temp,QIODevice::ReadWrite);
+
+    setObjectName("REG");
+    //LogMsg.SetObjectName("REG");
+   // log.setString(&temp,QIODevice::ReadWrite);
 }
 
 GRIRegulator::~GRIRegulator()
 {
-
+    setObjectName("REG");
 }
 
 void GRIRegulator::setMemMgrPtr(GRIMemoryManager *managerPointer){
@@ -240,16 +242,17 @@ GRIDataBlock* GRIRegulator::find_data(string data_block_name)
     return NULL;
 }
 
-void GRIRegulator::CommitLog(int level)
-{
+// Now in GRIObject
+//void GRIRegulator::CommitLog(int level)
+//{
 
-    if(LogMsg.IsLevelEnabled(level))
-    {
+//    if(LogMsg.IsLevelEnabled(level))
+//    {
 
-        if(LogMsg.SetMessageTime(log.read(),level))
+//        if(LogMsg.SetMessageTime(log.read(),level))
 
-            logSignal(LogMsg);
-    } else {
-        log.flush();
-    }
-}
+//            logSignal(LogMsg);
+//    } else {
+//        log.flush();
+//    }
+//}

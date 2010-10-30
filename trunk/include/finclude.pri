@@ -28,3 +28,4 @@ GRIXMLParser.h\
 GRILogMessage.h\
 GRIUserLoader.h \
 GRIUserProcesses.h\
+GRIObject.h\

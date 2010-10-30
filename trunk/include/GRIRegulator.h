@@ -15,7 +15,7 @@
 #include <QTime>
 
 #include "GRILogMessage.h"
-
+#include "GRIObject.h"
 
 
 using namespace std;
@@ -26,10 +26,10 @@ class GRIProcessThread;
 class GRIMemoryManager;
 class GRILogger;
 
-class GRIRegulator: public QObject
+class GRIRegulator: public GRIObject
 {
 
-    Q_OBJECT
+    //Q_OBJECT
 
     friend class GRICommandAndControl;
     friend class GRIDataBlock;
@@ -133,8 +133,8 @@ public:
     GRIMemoryManager* GetMemoryManager(){return mm;}
 
     // ***** Used for logging
-    QTextStream log;
-    void CommitLog(int level);
+    //QTextStream log;
+    //void CommitLog(int level);
     // *********
 protected:
 
@@ -165,11 +165,11 @@ private:
     QWaitCondition bufferIsReady;
 
     // *** Used for logging capability
-    GRILogMessage LogMsg;
-    QString temp;
+    //GRILogMessage LogMsg;
+    //QString temp;
     // **************************
-signals:
-    void logSignal(GRILogMessage m);
+//signals:
+    //void logSignal(GRILogMessage m);
 };
 
 #endif // GRIREGULATOR_H
