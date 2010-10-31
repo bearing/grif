@@ -10,6 +10,8 @@ class GRIHistogrammer
     GRIHistogrammer(int nbins, int xlow, int xhigh);
     ~GRIHistogrammer();
 
+    void init_hist(); //workaround for SEGFAULTBUG
+
     TH1D *hist;
 
     void fill(double data);

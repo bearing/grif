@@ -15,8 +15,16 @@ GRIHistogrammer::GRIHistogrammer()
 }
 GRIHistogrammer::GRIHistogrammer(int nbins, int xlow, int xhigh)
 {
-    hist = new TH1D("","",100,0,100);
+    hist = new TH1D("","",100,0,100);  //SEGFAULTBUG is preventing these from working
     hist->SetBins(100,1,100);
+}
+
+void GRIHistogrammer::init_hist(){
+    //cout << "is this equal to null?" << (this == NULL) << "this is: " << this << endl;
+
+    this->hist = new TH1D("","",100,0,100);  //SEGFAULTBUG: makes this necessary
+    this->hist->SetBins(100,1,100);
+
 }
 
 GRIHistogrammer::~GRIHistogrammer()

@@ -112,6 +112,7 @@ public:
     /*
      * set_detail() sets i
      */
+    //PLEASE USE INIT() INSTEAD
     void set_detail(GRIRegulator* reg, process_details* proc_detail);
 
     /*
