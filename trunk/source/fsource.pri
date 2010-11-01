@@ -25,3 +25,4 @@ GRILogMessage.cpp\
 GRIUserLoader.cpp\
 GRIObject.cpp\
 GRIThread.cpp\
+GRITrace.cpp\

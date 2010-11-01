@@ -30,3 +30,4 @@ GRIUserLoader.h \
 GRIUserProcesses.h\
 GRIObject.h\
 GRIThread.h\
+GRITrace.h\
