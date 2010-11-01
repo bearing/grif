@@ -4,12 +4,13 @@
 #include <iostream>
 #include <QThread>
 #include "GRIRunManager.h"
+#include "GRIThread.h"
 
 using namespace std;
 
 class GRIRunManager;
 
-class GRICommandLineInterface : public QThread
+class GRICommandLineInterface : public GRIThread
 {
     Q_OBJECT
     friend class GRIRunManager;
@@ -19,7 +20,7 @@ public:
 
     void DisplayWelcomeScreen(); // displays the project welcome screen
     void RootMenu(); // lists the commands that are defined
-    bool goodCommand(std::string command); //checks whether the user's command is defined
+    bool goodCommand(QString command); //checks whether the user's command is defined
     void DisplayGoodbye(); // displays a goodbye message to the user on closing
     void closeInterface();
 
@@ -27,8 +28,8 @@ signals:
     void ReceivedUserInput(QString);
 
 protected slots:
-    void displayOutput(list<string> output);
-    void displayOutput(string output);
+    void displayOutput(list<QString> output);
+    void displayOutput(QString output);
 
 protected:
       void run();

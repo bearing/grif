@@ -15,7 +15,7 @@ GRIRunManager::GRIRunManager(bool usingGUI)
 {
     this->usingGUI = usingGUI;
     usingServer = false;
-    startedLogger = false;
+    //startedLogger = false;
     Init(usingGUI);
 
 }
@@ -57,9 +57,11 @@ void GRIRunManager::startCommandAndControl()
 {
 
     // initialize a command and control object
-    this->cmdcontrol = new GRICommandAndControl(this, GRIFProjectFilePath, logger);
-    connect(cmdcontrol, SIGNAL(output(list<string>)), this, SLOT(displayOutput(list<string>)));
-    connect(cmdcontrol, SIGNAL(output(string)), this, SLOT(displayOutput(string)));
+    //this->cmdcontrol = new GRICommandAndControl(this, GRIFProjectFilePath, logger);
+    //No Direct Logger ... use log/CommitLog...from GRIObject
+    this->cmdcontrol = new GRICommandAndControl(this, GRIFProjectFilePath);
+    connect(cmdcontrol, SIGNAL(output(list<QString>)), this, SLOT(displayOutput(list<QString>)));
+    connect(cmdcontrol, SIGNAL(output(QString)), this, SLOT(displayOutput(QString)));
 }
 
 QString GRIRunManager::getGRIFProjectPath()
@@ -96,7 +98,7 @@ void GRIRunManager::reinitialize(bool usingGUI)
     // this function is not completed...
     delete this->cmdcontrol;
     delete this->commandline;
-    delete this->logger;
+    //delete this->logger;
 
     if(this->usingServer)
     {
@@ -114,8 +116,8 @@ void GRIRunManager::startCommandLine()
     this->commandline = new GRICommandLineInterface(this);
 
     connect(this->commandline, SIGNAL(ReceivedUserInput(QString)), this, SLOT(SetInput(QString)));
-    connect(this, SIGNAL(newOutput(list<string>)), this->commandline, SLOT(displayOutput(list<string>)));
-    connect(this, SIGNAL(newOutput(string)), this->commandline, SLOT(displayOutput(string)));
+    connect(this, SIGNAL(newOutput(list<QString>)), this->commandline, SLOT(displayOutput(list<QString>)));
+    connect(this, SIGNAL(newOutput(QString)), this->commandline, SLOT(displayOutput(QString)));
 
     //display welcome screen
     commandline->DisplayWelcomeScreen();
@@ -161,12 +163,12 @@ void GRIRunManager::startServer()
     connect(this->serverThread, SIGNAL(ReceivedUserInput(QString)), this, SLOT(SetInput(QString)));
 
     //output going to server
-    connect(this, SIGNAL(newOutput(list<string>)), serverThread, SLOT(displayOutput(list<string>)));
-    connect(this, SIGNAL(newOutput(string)), serverThread, SLOT(displayOutput(string)));
+    connect(this, SIGNAL(newOutput(list<QString>)), serverThread, SLOT(displayOutput(list<QString>)));
+    connect(this, SIGNAL(newOutput(QString)), serverThread, SLOT(displayOutput(QString)));
 
     //input coming from server
-    connect(serverThread, SIGNAL(cout(list<string>)), this, SLOT(displayOutput(list<string>)));
-    connect(serverThread, SIGNAL(cout(string)), this, SLOT(displayOutput(string)));
+    connect(serverThread, SIGNAL(cout(list<QString>)), this, SLOT(displayOutput(list<QString>)));
+    connect(serverThread, SIGNAL(cout(QString)), this, SLOT(displayOutput(QString)));
 
     this->commandline->displayOutput("\nServer Started!\n");
     this->commandline->displayOutput("\nWaiting for Server Commands...\n\n");
@@ -219,9 +221,9 @@ QString GRIRunManager::getInput()
 
     this->clearScreen();
 
-    if(this->startedLogger)    {
-    this->logger->writeLogFile((" >> " + temp + "\n"));
-    }
+//    if(this->startedLogger)    {
+//    this->logger->writeLogFile((" >> " + temp + "\n"));
+//    }
 
     return temp;
 }
@@ -295,44 +297,45 @@ void GRIRunManager::startGUI()
     //IMPLEMENT LATER
 }
 
-void GRIRunManager::displayOutput(list<string> output)
+void GRIRunManager::displayOutput(list<QString> output)
 {
     emit this->newOutput(output);
 
-    //write to log file
-    if(this->startedLogger)
-    {
-        this->logger->writeLogFile(output);
-    }
-}\
-void GRIRunManager::displayOutput(string output)
+    //write to log file...DC: Logging will be change from this
+//    if(this->startedLogger)
+//    {
+//        this->logger->writeLogFile(output);
+//    }
+}
+
+void GRIRunManager::displayOutput(QString output)
 {
     emit this->newOutput(output);
 
 
-    //write to log file
-    if(this->startedLogger)
-    {
-//        cout << "logging output)";
+//    //write to log file
+//    if(this->startedLogger)
+//    {
+////        cout << "logging output)";
 
-        this->logger->writeLogFile(output);
-    }
-    else
-    {
-//        cout << "not logging output)";
-    }
+//        this->logger->writeLogFile(output);
+//    }
+//    else
+//    {
+////        cout << "not logging output)";
+//    }
 
 
 }
-void GRIRunManager::displayOutput(string output, bool temp)
+void GRIRunManager::displayOutput(QString output, bool temp)
 {
     emit this->newOutput(output);
 
-    //write to log file
-    if(temp && startedLogger)
-    {
-       this->logger->writeLogFile(output);
-    }
+//    //write to log file
+//    if(temp && startedLogger)
+//    {
+//       this->logger->writeLogFile(output);
+//    }
 }
 void GRIRunManager::clearScreen()
 {
@@ -359,13 +362,13 @@ bool GRIRunManager::isRootPathFile(QString rootXMLFile){
     {
         //check to make sure that the file path is correct
 
-        this->displayOutput(QVariant("ERROR: '" + rootXMLFile + "' is not a valid file path!\n\n").toString().toStdString().c_str());
+        this->displayOutput(QVariant("ERROR: '" + rootXMLFile + "' is not a valid file path!\n\n").toString());
         return false;
     }
     if(!doc.setContent(&file))
     {
         file.close();
-        this->displayOutput(QVariant("ERROR: '" + rootXMLFile + "' is not a valid ROOT XML file!\n\n").toString().toStdString().c_str());
+        this->displayOutput(QVariant("ERROR: '" + rootXMLFile + "' is not a valid ROOT XML file!\n\n").toString());
 
         return false;
     }
@@ -384,16 +387,17 @@ bool GRIRunManager::isRootPathFile(QString rootXMLFile){
     return true;
 }
 
-void GRIRunManager::startLogger(QString rootXMLFile)
-{
-    logger = new GRILogger(rootXMLFile);
+// Logger will be implemented through GRIObject...
+//void GRIRunManager::startLogger(QString rootXMLFile)
+//{
+//    logger = new GRILogger(rootXMLFile);
 
-    connect(logger, SIGNAL(output(list<string>)), this, SLOT(displayOutput(list<string>)));
-    connect(logger, SIGNAL(output(string)), this, SLOT(displayOutput(string)));
+//    connect(logger, SIGNAL(output(list<QString>)), this, SLOT(displayOutput(list<QString>)));
+//    connect(logger, SIGNAL(output(QString)), this, SLOT(displayOutput(QString)));
 
-    this->startedLogger = true;
+//    this->startedLogger = true;
 
-}
+//}
 bool GRIRunManager::goodFilePath(QString path)
 {
     QFile f(path + "log/logfile.txt");

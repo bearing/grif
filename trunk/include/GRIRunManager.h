@@ -10,6 +10,7 @@
 #include "GRIServerThread.h"
 #include "GRIDefines.h"
 #include "GRILogger.h"
+#include "GRIObject.h"
 
 
 class GRICommandAndControl;
@@ -23,7 +24,7 @@ class GRILogger;
   * (Note: commands from external GUIs are sent through TCP Sockets.) The Run Manager waits for commands from the mentioned user interfaces and then calls on the appropriate Command And Control method to execute these commands.
   */
 
-class GRIRunManager : public QObject
+class GRIRunManager : public GRIObject
 {
     // The following classes may need access to the protected methods of this class:
     friend class GRICommandAndControl;
@@ -122,8 +123,8 @@ protected:
 
 signals:
 
-    void newOutput(list<string> output);
-    void newOutput(string output);
+    void newOutput(list<QString> output);
+    void newOutput(QString output);
     void closeServer();
 
 protected slots:
@@ -134,9 +135,9 @@ protected slots:
       */
     void SetInput(QString input);
 
-    void displayOutput(list<string> output);
-    void displayOutput(string output);
-    void displayOutput(string output, bool logText);
+    void displayOutput(list<QString> output);
+    void displayOutput(QString output);
+    void displayOutput(QString output, bool logText);
 
 private:
 
@@ -193,7 +194,8 @@ private:
 
     GRILogger* logger;
 
-    void startLogger(QString localGRIFProjectPath);
+    // Logging implemented in GRIObject...
+    //void startLogger(QString localGRIFProjectPath);
 
 
 

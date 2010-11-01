@@ -116,7 +116,7 @@ void GRICommandLineInterface::DisplayGoodbye()
 
 }
 
-bool GRICommandLineInterface::goodCommand(string command)
+bool GRICommandLineInterface::goodCommand(QString command)
 {
 //    bool goodInput = false;
 //    //if choice >0 good input is true, else it is false
@@ -133,13 +133,13 @@ void GRICommandLineInterface::run()
     string input;
     cout << " >> ";
     cin >> input;
-    emit this->ReceivedUserInput(QString(input.c_str()));
+    emit this->ReceivedUserInput(QString::fromStdString(input));
 
 }
 
-void GRICommandLineInterface::displayOutput(list<string> output)
+void GRICommandLineInterface::displayOutput(list<QString> output)
 {
-    list<string>::iterator iter;
+    list<QString>::iterator iter;
 
     for(iter = output.begin(); iter!= output.end(); iter++)
     {
@@ -147,8 +147,8 @@ void GRICommandLineInterface::displayOutput(list<string> output)
     }
 
 }
-void GRICommandLineInterface::displayOutput(string output)
+void GRICommandLineInterface::displayOutput(QString output)
 {
     //put mutex here
-    cout << output;
+    cout << output.toStdString().c_str();
 }

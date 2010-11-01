@@ -18,6 +18,7 @@
 #include "GRILoader.h"
 #include "GRIMenuStructure.h"
 #include "GRILogger.h"
+#include "GRIObject.h"
 
 
 class GRIRunManager;
@@ -42,7 +43,7 @@ using namespace std;
   * @see class GRIRunManager
   */
 
-class GRICommandAndControl : public QObject
+class GRICommandAndControl : public GRIObject
 {
     // Command and control will need access to the run manager's protected methods
             // to load the XML files
@@ -54,7 +55,8 @@ public:
       * A Constructor
       * @param mgr
       */
-    GRICommandAndControl(GRIRunManager *mgr, QString rootXMLFile, GRILogger* logger);
+   // GRICommandAndControl(GRIRunManager *mgr, QString rootXMLFile, GRILogger* logger);
+    GRICommandAndControl(GRIRunManager *mgr, QString rootXMLFile);
     /**
       * A Destructor
       */
@@ -225,7 +227,7 @@ protected:
     QString toString(char s);
     QString toString(string s);
 
-    GRILogger* logger;
+    //GRILogger* logger;
 
 signals:
     void output(QString);

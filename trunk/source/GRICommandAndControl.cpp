@@ -20,9 +20,9 @@
 
 using namespace std;
 
-GRICommandAndControl::GRICommandAndControl(GRIRunManager *mgr, QString rootXMLFile, GRILogger* logger)
+GRICommandAndControl::GRICommandAndControl(GRIRunManager *mgr, QString rootXMLFile) //, GRILogger* logger)
 {
-    this->logger = logger;
+   // this->logger = logger;
 
     Init(mgr, rootXMLFile);
 }

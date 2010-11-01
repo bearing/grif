@@ -58,7 +58,7 @@ GRIParam* GRIXMLParser::readParameter(QXmlStreamReader& xml, QString paramIndex)
 {
     GRIParam* param = new GRIParam();
 
-    param->index = paramIndex.toStdString();
+    param->index = paramIndex;
 
     /* Let's check that we're really getting a parameter. */
     if(xml.tokenType() != QXmlStreamReader::StartElement &&
@@ -155,7 +155,7 @@ void GRIXMLParser::addElementToParam(QXmlStreamReader& xml, GRIParam* param)
 //            return;
 //    }
 
-    string text = xml.text().toString().toStdString();
+    QString text = xml.text().toString();
 
 //    //debug-------------------------------------------------------
 //    this->pauseProgram(("READING elementName " + elementName.toStdString() + ": " + text));
@@ -299,12 +299,12 @@ std::list<ProcessDetails*> GRIXMLParser::readPathXML(QString rootXMLFile)
                         if(temp_node.nodeName()=="FILE")
                         {
                             QDomElement info_node = temp_node.toElement();
-                            daq_info[daq_index].name = info_node.attribute("name", "").toStdString();
+                            daq_info[daq_index].name = info_node.attribute("name", "");
                         }
                         else if( temp_node.nodeName()=="LOCATION")
                         {
                             QDomElement info_node = temp_node.toElement();
-                            daq_info[daq_index].xml_path = info_node.attribute("path", "").toStdString();
+                            daq_info[daq_index].xml_path = info_node.attribute("path", "");
                         }
                         temp_node = temp_node.nextSibling();
                     }
@@ -320,12 +320,12 @@ std::list<ProcessDetails*> GRIXMLParser::readPathXML(QString rootXMLFile)
                         if(temp_node.nodeName()=="FILE")
                         {
                             QDomElement info_node = temp_node.toElement();
-                            ana_info[ana_index].name = info_node.attribute("name", "").toStdString();
+                            ana_info[ana_index].name = info_node.attribute("name", "");
                         }
                         else if( temp_node.nodeName()=="LOCATION")
                         {
                             QDomElement info_node = temp_node.toElement();
-                            ana_info[ana_index].xml_path = info_node.attribute("path", "").toStdString();
+                            ana_info[ana_index].xml_path = info_node.attribute("path", "");
                         }
                         temp_node = temp_node.nextSibling();
                     }
@@ -409,15 +409,15 @@ std::list<AnalysisStructureObject*> GRIXMLParser::readAnalysisStructureXML()
                 QDomElement temp = node.toElement();
                 if(node.nodeName()=="DATA")
                 {
-                    temp_struc->data = temp.firstChild().toText().data().toStdString();
+                    temp_struc->data = temp.firstChild().toText().data();
                 }
                 else if(node.nodeName()=="FROM")
                 {
-                    temp_struc->From = temp.firstChild().toText().data().toStdString();
+                    temp_struc->From = temp.firstChild().toText().data();
                 }
                 else if(node.nodeName()=="TO")
                 {
-                    temp_struc->To.push_front(temp.firstChild().toText().data().toStdString());
+                    temp_struc->To.push_front(temp.firstChild().toText().data());
                 }
                 else if(node.nodeName()=="ISDAQ")
                 {
