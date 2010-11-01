@@ -7,6 +7,7 @@
 #include <QMutexLocker>
 #include <QTextStream>
 
+#include <QString>
 #include <string>
 #include <list>
 #include <iostream>
@@ -76,13 +77,13 @@ public:
      * within each dataBlock, each bufferName must be unique.
      *
      */
-    bool bufferCreate(string bufferName);
+    bool bufferCreate(QString bufferName);
 
     /*
      * readMemory() reads one packet from memory in the location specified
      * by process_name & bufferName
      */
-    pair<unsigned int, char*> readMemory(string blockName, string bufferName);
+    pair<unsigned int, char*> readMemory(QString blockName, QString bufferName);
 
     /*
      *
@@ -90,7 +91,7 @@ public:
      * by process_name & bufferName
      *
      */
-    bool writeMemory(string bufferName, unsigned int size, char dataArray[]);
+    bool writeMemory(QString bufferName, unsigned int size, char dataArray[]);
 
     /*
      *
@@ -98,7 +99,7 @@ public:
      * packet to be read next unless setPacketPosition() has been called.
      *
      */
-    unsigned int currentPacketPosition(string bufferName);
+    unsigned int currentPacketPosition(QString bufferName);
 
     /*
      *
@@ -106,7 +107,7 @@ public:
      * the buffer size minus one.
      *
      */
-    unsigned int lastPacket(string bufferName);
+    unsigned int lastPacket(QString bufferName);
 
     /*
      *
@@ -118,17 +119,17 @@ public:
      * If the operation is successful, it returns true, otherwise false.
      *
      */
-    bool setPacketPosition(string bufferName, unsigned int packetNumber);
+    bool setPacketPosition(QString bufferName, unsigned int packetNumber);
 
     /*
      * sizeofPacket() returns how big the packet is
      */
-    unsigned int sizeofPacket(string bufferName, unsigned int packetNumber);
+    unsigned int sizeofPacket(QString bufferName, unsigned int packetNumber);
 
     /*
      * sizeofBuffer() returns how big the buffer is
      */
-    unsigned int sizeofBuffer(string bufferName);
+    unsigned int sizeofBuffer(QString bufferName);
 
     GRIMemoryManager* GetMemoryManager(){return mm;}
 
@@ -147,12 +148,12 @@ private:
     /*
      * find_process() returns a pointer to the actual process given the name
      */
-    GRIProcessThread* find_process(string process_name);
+    GRIProcessThread* find_process(QString process_name);
 
     /*
      * find_data() returns a pointer to the actual data block given the name
      */
-    GRIDataBlock* find_data(string data_block_name);
+    GRIDataBlock* find_data(QString data_block_name);
 
 
 

@@ -4,6 +4,7 @@
 #define DATA_BLOCK_DEBUG
 
 #include <string>
+#include <QString>
 #include <cstdio>
 #include <list>
 #include <cstdlib>
@@ -34,9 +35,9 @@ class GRIMemoryManager;
 
 struct AnalysisStructureObject
 {
-    string data;
-    string From;
-    list<string> To;
+    QString data;
+    QString From;
+    list<QString> To;
 };
 
 class GRIDataBlock
@@ -49,7 +50,7 @@ typedef struct reader
 {
     long read_counter;
     GRIProcessThread* reader;
-    string reader_name;
+    QString reader_name;
 } reader_t;
 
 public:
@@ -61,12 +62,12 @@ public:
     /*
      * get_name() returns the name of this data block
      */
-    string get_name();
+    QString get_name();
 
     /*
      * get_writer_name() returns the thread's name that's writing to this block
      */
-    string get_writer_name();
+    QString get_writer_name();
 
     /*
      * get_writer() returns the thread that's writing to this data block
@@ -123,11 +124,11 @@ private:
 
     GRIMemoryManager* mm;
 
-    string name; // name of this data block
+    QString name; // name of this data block
 
     GRIProcessThread* writer; // the thread that's writing to this object
 
-    string writer_name; // name of writer writing to this object
+    QString writer_name; // name of writer writing to this object
 
     list<reader_t*> readers; // list of threads reading from this object
     

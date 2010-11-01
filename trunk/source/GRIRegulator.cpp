@@ -88,7 +88,7 @@ void GRIRegulator::start_threads()
     }
 }
 
-pair<unsigned int, char*> GRIRegulator::readMemory(string blockName, string bufferName)
+pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
 {
 
 
@@ -131,8 +131,8 @@ pair<unsigned int, char*> GRIRegulator::readMemory(string blockName, string buff
     }
 
 
-    log << "GRIRegulator::readMemory(): " << QString::fromStdString(blockName) <<
-            " is not reading from " << QString::fromStdString(data->get_writer_name()) << endl;
+    log << "GRIRegulator::readMemory(): " << blockName <<
+            " is not reading from " << data->get_writer_name() << endl;
     CommitLog(LOG_ERROR);
 
 
@@ -144,7 +144,7 @@ pair<unsigned int, char*> GRIRegulator::readMemory(string blockName, string buff
     CommitLog(LOG_DEBUG);
 }
 
-bool GRIRegulator::writeMemory(string bufferName, unsigned int size, char dataArray[])
+bool GRIRegulator::writeMemory(QString bufferName, unsigned int size, char dataArray[])
 {
 
     log << "writeMemory()" << endl;
@@ -154,7 +154,7 @@ bool GRIRegulator::writeMemory(string bufferName, unsigned int size, char dataAr
     //THIS IS WRONG.  FIND_DATA TAKES THE BLOCKNAME, NOT BUFFERNAME
     //NEED TO FIX BEFORE WE CAN DO WRITES WITH MORE THAN ONE THREAD.
     GRIDataBlock* data = find_data(bufferName);
-    string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
+    QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
     bool ret_flag;
 
     if(data == NULL) {
@@ -182,48 +182,48 @@ bool GRIRegulator::writeMemory(string bufferName, unsigned int size, char dataAr
     return false;
 }
 
-unsigned int GRIRegulator::currentPacketPosition(string bufferName)
+unsigned int GRIRegulator::currentPacketPosition(QString bufferName)
 {
-    string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
+    QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
     return mm->currentPacketPosition(process_name, bufferName);
 }
 
-unsigned int GRIRegulator::lastPacket(string bufferName)
+unsigned int GRIRegulator::lastPacket(QString bufferName)
 {
-    string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
+    QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
     return mm->lastPacket(process_name, bufferName);
 }
 
-bool GRIRegulator::setPacketPosition(string bufferName, unsigned int packetNumber)
+bool GRIRegulator::setPacketPosition(QString bufferName, unsigned int packetNumber)
 {
-    string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
+    QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
     return mm->setPacketPosition(process_name, bufferName, packetNumber);
 }
 
-unsigned int GRIRegulator::sizeofPacket(string bufferName, unsigned int packetNumber)
+unsigned int GRIRegulator::sizeofPacket(QString bufferName, unsigned int packetNumber)
 {
-    string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
+    QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
     return mm->sizeofPacket(process_name, bufferName, packetNumber);
 }
 
-unsigned int GRIRegulator::sizeofBuffer(string bufferName)
+unsigned int GRIRegulator::sizeofBuffer(QString bufferName)
 {
-    string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
+    QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
     return mm->sizeofBuffer(process_name, bufferName);
 }
 
-GRIProcessThread* GRIRegulator::find_process(string process_name)
+GRIProcessThread* GRIRegulator::find_process(QString process_name)
 {
     list<GRIProcessThread*>::iterator it;
 
     for(it = processes->begin(); it != processes->end(); it++) {
         GRIProcessThread* process = *it;
-        if(!(process->get_name()).compare(process_name)) {
+        if(!(process->get_name()==process_name)) {
             return process;
         }
     }
@@ -231,13 +231,13 @@ GRIProcessThread* GRIRegulator::find_process(string process_name)
     return NULL;
 }
 
-GRIDataBlock* GRIRegulator::find_data(string data_block_name)
+GRIDataBlock* GRIRegulator::find_data(QString data_block_name)
 {
     list<GRIDataBlock*>::iterator it;
 
     for(it = data_blocks->begin(); it != data_blocks->end(); it++) {
         GRIDataBlock* data_block = *it;
-        if(!(data_block->get_name()).compare(data_block_name)) {
+        if(!(data_block->get_name()==data_block_name)) {
             return data_block;
         }
     }

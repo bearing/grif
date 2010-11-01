@@ -6,6 +6,8 @@
 #include "GRIBuffer.h"
 #include "GRIDataBlock.h"
 
+#include <QString>
+
 /*
  *
  * This class serves as a diagnostics tool for the framework.
@@ -81,9 +83,9 @@ public:
 
 private:
     //gets the size of a given buffer
-    unsigned int getBufferSize(string bufferName);
+    unsigned int getBufferSize(QString bufferName);
     //gets the size of a given packet in a given buffer
-    unsigned int getPacketSize(string bufferName, unsigned int packetNumber);
+    unsigned int getPacketSize(QString bufferName, unsigned int packetNumber);
 
     //instance variables:
     GRIRegulator *reg; //regulator pointer

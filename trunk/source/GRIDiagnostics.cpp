@@ -81,11 +81,11 @@ void GRIDiagnostics::setCloseFileFlag(bool set){
  * Gets
  */
 
-unsigned int GRIDiagnostics::getBufferSize(string bufferName){
+unsigned int GRIDiagnostics::getBufferSize(QString bufferName){
     return reg->sizeofBuffer(bufferName);
 }
 
-unsigned int GRIDiagnostics::getPacketSize(string bufferName, unsigned int packetNumber){
+unsigned int GRIDiagnostics::getPacketSize(QString bufferName, unsigned int packetNumber){
     return reg->sizeofPacket(bufferName, packetNumber);
 }
 

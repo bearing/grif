@@ -31,8 +31,8 @@ class GRIDataBlock;
 
 typedef struct process_details
 {
-    string xml_path;
-    string name;
+    QString xml_path;
+    QString name;
     bool isDaq;
 } ProcessDetails;
 
@@ -118,13 +118,13 @@ public:
     /*
      * get_name() returns the name of this process
      */
-    string get_name(){return this->name();}
-    int set_name(string s){this->setObjectName(QString::fromStdString(s));}
+    QString get_name(){return QString::fromStdString(this->name());}
+    int set_name(QString s){this->setObjectName(s);}
 
     /*
      * get_xml_path() returns the path to the xml file of this process
      */
-    string get_xml_path();
+    QString get_xml_path();
 
     /*
      * set_load_balancing_vars() allows the user to customize the number of packets need to be
@@ -143,7 +143,7 @@ public:
      * adds a data block that this process is going to use. Whether it's a buffer that this
      * process is writing to or reading from will be dictated by type (OUT or IN).
      */
-    void add_data_block(string data_block, bool is_output);
+    void add_data_block(QString data_block, bool is_output);
 
     /*
      * change_priority() decides whether to change the thread's priority or not
@@ -161,7 +161,7 @@ public:
      * find_data_block() finds a data block that this process is possibly writing to/
      * reading from. It will return NULL when it could not find the data block.
      */
-    GRIDataBlock* find_data_block(string data_block_name);
+    GRIDataBlock* find_data_block(QString data_block_name);
 
     //void CommitLog(int logLevel=0);
     //QTextStream* msg;
@@ -187,14 +187,14 @@ public:
      * readMemory() reads one packet from memory in the location specified by process_name
      * & bufferName. Essentially abstracts regulator's readMemory() by templating it.
      */
-     template<class T> pair<unsigned int, T*> readMemory(string blockName, string bufferName);
+     template<class T> pair<unsigned int, T*> readMemory(QString blockName, QString bufferName);
 
     /*
      * writeMemory() writes a data given in the char array to the location specified.
      * by process_name & bufferName. Also abstracts regulator's readMemory() by
      * templating it.
      */
-    template <class T> bool writeMemory(string bufferName, unsigned int size, T dataArray[]);
+    template <class T> bool writeMemory(QString bufferName, unsigned int size, T dataArray[]);
 
     /*
      *
@@ -202,7 +202,7 @@ public:
      * packet to be read next unless setPacketPosition() has been called.
      *
      */
-    unsigned int currentPacketPosition(string bufferName);
+    unsigned int currentPacketPosition(QString bufferName);
 
     /*
      *
@@ -210,19 +210,19 @@ public:
      * the buffer size minus one.
      *
      */
-    unsigned int lastPacket(string bufferName);
+    unsigned int lastPacket(QString bufferName);
 
 
     /*
      * sizeOfPacket() computes the size of a specific packet in a specific buffer
      */
-    unsigned int sizeofPacket(string bufferName, unsigned int packetNumber);
+    unsigned int sizeofPacket(QString bufferName, unsigned int packetNumber);
 
 
     /*
      * sizeOfBuffer() computes the total size of a specific buffer
      */
-    unsigned int sizeofBuffer(string bufferName);
+    unsigned int sizeofBuffer(QString bufferName);
 
     /*
      * For debugging purpose; display the important state of the process, ie: who it's writing
@@ -240,13 +240,13 @@ private:
 
     typedef struct data
     {
-        string name;
+        QString name;
         GRIDataBlock* data_block;
     } data_t;
 
     //string name;  // name is contained in QObject use name() to return...
 
-    string xml_path;
+    QString xml_path;
 
     //GRILogMessage LogMsg;
 
@@ -291,13 +291,13 @@ template<class T> void GRIProcessThread::setParam(QString Key, T value){
 }
 
 template<class T> pair<unsigned int, T*>
-GRIProcessThread::readMemory(string blockName ,string bufferName){
+GRIProcessThread::readMemory(QString blockName ,QString bufferName){
     pair<unsigned int, char *> refPair = reg->readMemory(blockName, bufferName);
     pair<unsigned int, T*> castPair(refPair.first / sizeof(T), (T*) refPair.second);
     return castPair;
 }
 
-template<class T> bool GRIProcessThread::writeMemory(string bufferName, unsigned int size, T dataArray[]){
+template<class T> bool GRIProcessThread::writeMemory(QString bufferName, unsigned int size, T dataArray[]){
     return reg->writeMemory(bufferName, size * sizeof(T), (char*) dataArray);
 }
 

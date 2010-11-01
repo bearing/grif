@@ -82,7 +82,7 @@ protected:
         * \return a boolean which is true if the buffer creation was successful, false if not
         *
         */
-        bool bufferCreate(string dataBlockName, string bufferName);
+        bool bufferCreate(QString dataBlockName, QString bufferName);
 
 
 
@@ -98,7 +98,7 @@ protected:
         * \sa lastPacket(), setPacketPosition()
         *
         */
-        unsigned int currentPacketPosition(string dataBlockName, string bufferName);
+        unsigned int currentPacketPosition(QString dataBlockName, QString bufferName);
 
 
 
@@ -114,7 +114,7 @@ protected:
         * \sa currentPacketPosition(), setPacketPosition(),
         *
         */
-        int lastPacket(string dataBlockName, string bufferName);
+        int lastPacket(QString dataBlockName, QString bufferName);
 
 
 
@@ -135,7 +135,7 @@ protected:
         * \sa currentPacketPosition(), lastPacket()
         *
         */
-        bool setPacketPosition(string dataBlockName, string bufferName, unsigned int packetNumber);
+        bool setPacketPosition(QString dataBlockName, QString bufferName, unsigned int packetNumber);
 
 
         //! a member function
@@ -150,7 +150,7 @@ protected:
           * \sa sizeofBuffer()
           *
         */
-        unsigned int sizeofPacket(string dataBlockName, string bufferName, unsigned int packetNumber);
+        unsigned int sizeofPacket(QString dataBlockName, QString bufferName, unsigned int packetNumber);
 
 
         //! a member function
@@ -164,7 +164,7 @@ protected:
           * \sa sizeofPacket()
           *
         */
-        unsigned int sizeofBuffer(string dataBlockName, string bufferName);
+        unsigned int sizeofBuffer(QString dataBlockName, QString bufferName);
 
 
         //! a member funtion
@@ -182,7 +182,7 @@ protected:
           * \return void value
           * \sa bufferWriteLock(), unlockBuffer()
         */
-        void bufferReadLock(string dataBlockName, string bufferName);
+        void bufferReadLock(QString dataBlockName, QString bufferName);
 
 
         //! a member function
@@ -200,7 +200,7 @@ protected:
           * \sa bufferReadLock(), unlockBuffer()
           *
         */
-        void bufferWriteLock(string dataBlockName, string bufferName);
+        void bufferWriteLock(QString dataBlockName, QString bufferName);
 
 
 
@@ -214,7 +214,7 @@ protected:
           * \return a void value
           * \sa bufferWriteLock(), bufferReadLock()
         */
-        void unlockBuffer(string dataBlockName, string bufferName);
+        void unlockBuffer(QString dataBlockName, QString bufferName);
 
 
         //! a member function
@@ -229,16 +229,16 @@ protected:
         * \param packetNumber is the index of the specified packet to read out from
         * \param buffer a pointer to an array of chars that read() will use to copy data into.
         * \return a pointer to the char array that was used to copy data into.
-        * \sa readMemory(string dataBlockName, string bufferName, char* buffer), writeMemory()
+        * \sa readMemory(QString dataBlockName, QString bufferName, char* buffer), writeMemory()
         */
-        char* readMemory(string dataBlockName, string bufferName, unsigned int packetNumber, char* buffer);
+        char* readMemory(QString dataBlockName, QString bufferName, unsigned int packetNumber, char* buffer);
 
 
 
         //! A member function
         /*!
         *
-        * \overload char* readMemory(string dataBlockName, string bufferName, char* buffer)
+        * \overload char* readMemory(QString dataBlockName, QString bufferName, char* buffer)
         * this readMemory() method is an overloaded function. It does not require the user to enter in a packet number
         * because it automatically attempts to read from the last accessed position. If the last packet to be read from was
         * position 3, then the next call to this memoryRead() would take data from packet 4.
@@ -247,9 +247,9 @@ protected:
         * \param bufferName the second argument provides the name of the buffer or the data name
         * \param buffer is the third argument which holds a pointer reference to the copy out array
         * \return a pointer to a char array containing the copied out data from the buffer
-        * \sa readMemory(string dataBlockName, string bufferName, unsigned int packetNumber, char* buffer)
+        * \sa readMemory(QString dataBlockName, QString bufferName, unsigned int packetNumber, char* buffer)
         */
-        char* readMemory(string dataBlockName, string bufferName, char* buffer);
+        char* readMemory(QString dataBlockName, QString bufferName, char* buffer);
 
 
         //! A member function
@@ -270,16 +270,16 @@ protected:
         * \param size is the number of elements in dataArray that need to be written to the buffer starting from element 0
         * \param dataArray is the array containing elements that need to be copied to the buffer
         * \return true if the write operation was successful and false otherwise
-        * \sa writeMemory(string dataBlockName, string bufferName, unsigned int size, char dataArray[])
+        * \sa writeMemory(QString dataBlockName, QString bufferName, unsigned int size, char dataArray[])
         *
         */
-        bool writeMemory(string dataBlockName, string bufferName, unsigned int packetNumber, unsigned int size, char dataArray[]);
+        bool writeMemory(QString dataBlockName, QString bufferName, unsigned int packetNumber, unsigned int size, char dataArray[]);
 
 
 
         //! a member function
         /*!
-          * \overload bool writeMemory(string dataBlockName, string bufferName, unsigned int size, char dataArray[]
+          * \overload bool writeMemory(QString dataBlockName, QString bufferName, unsigned int size, char dataArray[]
           *
           * overloaded write function. This write function will always write to the last packet position
           * in the buffer. If thread A wrote to packet 3, thread B wrote to packet 4, then thread C should
@@ -290,10 +290,10 @@ protected:
           * \param size is the number of elements in dataArray
           * \param dataArray is the array containing elements to be copied into the buffer
           * \return true if the operation was successful , false otherwise
-          * \sa writeMemory(string dataBlockName, string bufferName, unsigned int size, char dataArray[]
+          * \sa writeMemory(QString dataBlockName, QString bufferName, unsigned int size, char dataArray[]
           *
         */
-        bool writeMemory(string dataBlockName, string bufferName, unsigned int size, char dataArray[]);
+        bool writeMemory(QString dataBlockName, QString bufferName, unsigned int size, char dataArray[]);
 
 
         //! a member function
@@ -306,7 +306,7 @@ protected:
         * \return a void value
         * \sa bufferCreate()
         */
-        void bufferDelete(string dataBlockName, string bufferName);
+        void bufferDelete(QString dataBlockName, QString bufferName);
 
 
 
@@ -323,7 +323,7 @@ protected:
           * \sa bufferDelete()
           *
           */
-        void deletePacket(string dataBlockName, string bufferName, unsigned int packetNumber);
+        void deletePacket(QString dataBlockName, QString bufferName, unsigned int packetNumber);
 
         // ***** Used for logging
         QTextStream log;
@@ -336,33 +336,33 @@ private:
         //! A private member function
         /*!
           *
-          * locateBuffer() takes in the name of its buffer as a string and returns the index in hich
+          * locateBuffer() takes in the name of its buffer as a QString and returns the index in hich
           * the buffer is located inside bufferTable
           *
           * \param dataBlockName the first argument provides the data block argument
           * \param bufferName the second argument provides the name of the buffer or the data name
           * \return the index location of the buffer inside the given data block
-          * \sa locateBuffer(string bufferName, unsigned int blockIdentifier), locateDataBlock(), grabBuffer()
+          * \sa locateBuffer(QString bufferName, unsigned int blockIdentifier), locateDataBlock(), grabBuffer()
           *
         */
-        unsigned int locateBuffer(string dataBlockName, string bufferName);
+        unsigned int locateBuffer(QString dataBlockName, QString bufferName);
 
 
 
         //! a private member function
         /*!
           *
-          * \overload unsigned int locateBuffer(string bufferName, unsigned int blockIdentifier)
-          * overloaded function that takes in the string name of the buffer requested and in the index of the
-          * block identifier which is equivalent to the return value of locateDataBlock(string dataBlockName)
+          * \overload unsigned int locateBuffer(QString bufferName, unsigned int blockIdentifier)
+          * overloaded function that takes in the QString name of the buffer requested and in the index of the
+          * block identifier which is equivalent to the return value of locateDataBlock(QString dataBlockName)
           *
           * \param bufferName the second argument provides the name of the buffer or the data name
           * \param blockIdentifier is the index of the block from which this buffer belongs to
           * \return the index location of the buffer inside the given data block
-          * \sa locateBuffer(string dataBlockName, string bufferName), locateDataBlock(), grabBuffer()
+          * \sa locateBuffer(QString dataBlockName, QString bufferName), locateDataBlock(), grabBuffer()
           *
         */
-        unsigned int locateBuffer(string bufferName, unsigned int blockIdentifier);
+        unsigned int locateBuffer(QString bufferName, unsigned int blockIdentifier);
 
 
         //! a private member function
@@ -375,7 +375,7 @@ private:
           * \return the index of the specified data block
           * \sa locateBuffer(), grabBuffer()
         */
-        int locateDataBlock(string dataBlockName);
+        int locateDataBlock(QString dataBlockName);
 
 
         //! a private member function
@@ -390,7 +390,7 @@ private:
           * \sa locateBuffer(), locateDataBlock()
           *
         */
-        GRIBuffer* grabBuffer(string dataBlockName, string bufferName);
+        GRIBuffer* grabBuffer(QString dataBlockName, QString bufferName);
 
 
         //! a private variable
@@ -404,9 +404,9 @@ private:
         //! a private variable
         /*!
           *
-          * a table for finding data blocks by referencing their string names
+          * a table for finding data blocks by referencing their QString names
           * */
-        QList<string> *blockNameTable;
+        QList<QString> *blockNameTable;
 
         //! a private variable
         /*!
@@ -414,7 +414,7 @@ private:
           * a list of lists containing the names of buffers. This table should be matched up with dataBlockTable so that names and buffers have the same indexes
           *
           */
-        QList< QList<string>* > *nameTable;
+        QList< QList<QString>* > *nameTable;
 
 
         //! a private variable

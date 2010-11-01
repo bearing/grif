@@ -102,10 +102,10 @@ std::list<ProcessDetails*> GRICommandAndControl::readPathXML()
 }
 
 // FOR NOW, IT IS NECESSARY TO CREATE A NEW PROCESS BECAUSE THIS PROGRAM IS CURRENTLY SINGLE-THREADED
-void GRICommandAndControl::startNewProcess(std::string filePath)
+void GRICommandAndControl::startNewProcess(QString filePath)
 {
 
-    this->display("Starting Process: " + toString(filePath) +  "\n\n");
+    this->display("Starting Process: " + filePath +  "\n\n");
 
 
     this->display("NOTE: this will only work on Jake's computer \n\n");
@@ -114,7 +114,7 @@ void GRICommandAndControl::startNewProcess(std::string filePath)
     // create a new process
     QProcess *newProcess = new QProcess();
     // start a new process
-    newProcess->start(QVariant(filePath.c_str()).toString());
+    newProcess->start(filePath);
 
 }
 std::list<AnalysisStructureObject*> GRICommandAndControl::readAnalysisStructureXML()
@@ -141,7 +141,7 @@ void GRICommandAndControl::DisplayDataBlocks()
         this->display(" DATA BLOCK " + toString(totalCount) + " : \n");
         this->display("------------------------------------------\n");
 
-        this->display("   Name = " + toString(temp->get_name()) + "\n" );
+        this->display("   Name = " + temp->get_name() + "\n" );
         this->display("   \n**ask Hilfi about reader & writer names**\n");
         this->display("------------------------------------------\n\n");
         totalCount++;
@@ -190,9 +190,9 @@ void GRICommandAndControl::DisplayProcesses()
         this->display("------------------------------------------\n");
         this->display(" PROCESS THREAD " + toString(totalCount) + " : \n");
         this->display("------------------------------------------\n");
-        this->display("   Name = " + toString(temp->get_name()) + "\n");
+        this->display("   Name = " + temp->get_name() + "\n");
         this->display("    Id  = " + toString(temp->getID()) + "\n");
-        this->display("   Path = " + toString(temp->get_xml_path()) + "\n");
+        this->display("   Path = " + temp->get_xml_path() + "\n");
         this->display("------------------------------------------\n\n");
 
         totalCount++;
@@ -412,9 +412,9 @@ void GRICommandAndControl::timerEvent(QTimerEvent *event)
 
  }
 
- void GRICommandAndControl::pauseProgram(string message)
+ void GRICommandAndControl::pauseProgram(QString message)
  {
-     cout << endl << message << endl;
+     cout << endl << message.toStdString().c_str() << endl;
      cin.ignore(100,'\n');
  }
 
@@ -424,47 +424,47 @@ void GRICommandAndControl::timerEvent(QTimerEvent *event)
     return this->loader->readNewParamList(params);
  }
 
- void GRICommandAndControl::display(list<string> output)
+ void GRICommandAndControl::display(list<QString> output)
  {
 //     this->runmanager->displayOutput(output);
      emit this->output(output);
  }
 
- void GRICommandAndControl::display(string output)
+ void GRICommandAndControl::display(QString output)
  {
 //     this->runmanager->displayOutput(output);
      emit this->output(output);
  }
 
- string GRICommandAndControl::toString(double s)
+ QString GRICommandAndControl::toString(double s)
  {
-     return QVariant(s).toString().toStdString();
+     return QVariant(s).toString();
  }
 
- string GRICommandAndControl::toString(int s)
+ QString GRICommandAndControl::toString(int s)
  {
-     return QVariant(s).toString().toStdString();
+     return QVariant(s).toString();
  }
 
- string GRICommandAndControl::toString(QString s)
+// QString GRICommandAndControl::toString(QString s)
+// {
+//     return s;
+// }
+
+ QString GRICommandAndControl::toString(float s)
  {
-     return s.toStdString();
+    return QVariant(s).toString();
  }
 
- string GRICommandAndControl::toString(float s)
+ QString GRICommandAndControl::toString(char s)
  {
-    return QVariant(s).toString().toStdString();
+     return QVariant(s).toString();
  }
-
- string GRICommandAndControl::toString(char s)
+ QString GRICommandAndControl::toString(string s)
  {
-     return QVariant(s).toString().toStdString();
+     return QString::fromStdString(s);
  }
- string GRICommandAndControl::toString(string s)
+ QString GRICommandAndControl::toString(unsigned int s)
  {
-     return s;
- }
- string GRICommandAndControl::toString(unsigned int s)
- {
-     return QVariant(s).toString().toStdString();
+     return QVariant(s).toString();
  }

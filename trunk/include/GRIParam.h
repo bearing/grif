@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <list>
+#include <QString>
 
 using namespace std;
 
@@ -12,23 +13,23 @@ class GRIParam
 public:
     GRIParam() {   }
 
-    GRIParam(GRIParam* parent, string nm, string defaultVal, string val,
-                 string min, string max, string units, string type, string index)
+    GRIParam(GRIParam* parent, QString nm, QString defaultVal, QString val,
+                 QString min, QString max, QString units, QString type, QString index)
     {
         this->setInfo(nm, defaultVal, val, min, max, units, type, index);
     }
 
-    string name;
-    string defaultValue;
-    string data;
-    string min;
-    string max;
-    string units;
-    string data_type; // int, float, double, etc.
-    string index;
+    QString name;
+    QString defaultValue;
+    QString data;
+    QString min;
+    QString max;
+    QString units;
+    QString data_type; // int, float, double, etc.
+    QString index;
 
-    void setInfo(string nm, string defaultVal, string val,
-                 string min, string max, string units, string type, string index)
+    void setInfo(QString nm, QString defaultVal, QString val,
+                 QString min, QString max, QString units, QString type, QString index)
     {
         this->name = nm;
         this->defaultValue = defaultVal;
@@ -44,15 +45,15 @@ public:
     {
         cout << endl;
         cout << "------------------------------------" << endl;
-        cout << " NAME : " << this->name << endl;
-        cout << " DATA : " << this->data << endl;
-        cout << " INDEX: " << this->index << endl;
+        cout << " NAME : " << this->name.toStdString().c_str() << endl;
+        cout << " DATA : " << this->data.toStdString().c_str() << endl;
+        cout << " INDEX: " << this->index.toStdString().c_str() << endl;
         cout << "------------------------------------" << endl << endl;
     }
 
-    list<string> getDisplay()
+    list<QString> getDisplay()
     {
-        list<string> output;
+        list<QString> output;
 
         output.push_back("\n");
         output.push_back("------------------------------------\n");

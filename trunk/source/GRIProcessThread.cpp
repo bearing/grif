@@ -27,7 +27,7 @@ void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegula
     reg = regulator;
     if(proc_detail != NULL){
         this->is_daq = proc_detail->isDaq;
-        this->setObjectName(QString::fromStdString(proc_detail->name));
+        this->setObjectName(proc_detail->name);
         //this->name = proc_detail->name; done above...
         this->xml_path = proc_detail->xml_path;
     }
@@ -74,7 +74,7 @@ void GRIProcessThread::set_detail(GRIRegulator *reg, process_details *proc_detai
     this->is_daq = proc_detail->isDaq;
     //this->name = proc_detail->name;  //GRIObject has a name property...set below
     this->xml_path = proc_detail->xml_path;
-    this->setObjectName(QString::fromStdString(proc_detail->name));
+    this->setObjectName(proc_detail->name);
 }
 
 unsigned int GRIProcessThread::getID()
@@ -93,7 +93,7 @@ bool GRIProcessThread::get_type()
 //    return this->name;
 //}
 
-string GRIProcessThread::get_xml_path()
+QString GRIProcessThread::get_xml_path()
 {
     return this->xml_path;
 }
@@ -130,7 +130,7 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
         if(data_block_it == (*data_blocks).end()) {
 
 #ifdef PROCESS_THREAD_DEBUG
-            cerr << "! GRIProcessThread::set_link(): Could not find " << data->name << endl;
+            cerr << "! GRIProcessThread::set_link(): Could not find " << data->name.toStdString().c_str() << endl;
 #endif // PROCESS_THREAD_DEBUG
 
             assert(false);
@@ -151,7 +151,7 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
         if(data_block_it == (*data_blocks).end()) {
 
 #ifdef PROCESS_THREAD_DEBUG
-            cerr << "! GRIProcessThread::set_link(): Could not find " << data->name << endl;
+            cerr << "! GRIProcessThread::set_link(): Could not find " << data->name.toStdString().c_str() << endl;
 #endif // PROCESS_THREAD_DEBUG
 
             assert(false);
@@ -166,7 +166,7 @@ void GRIProcessThread::set_load_balancing_vars(int num_packets_to_saturation,
     this->num_packets_from_saturation = num_packets_from_saturation;
 }
 
-void GRIProcessThread::add_data_block(string data_block, bool is_output)
+void GRIProcessThread::add_data_block(QString data_block, bool is_output)
 {
     //make sure only one data block/thread
     data_t* new_data = new data_t;
@@ -234,7 +234,7 @@ void GRIProcessThread::increment_packet_count()
     last_adjustment_from_saturation++;
 }
 
-GRIDataBlock* GRIProcessThread::find_data_block(string data_block_name)
+GRIDataBlock* GRIProcessThread::find_data_block(QString data_block_name)
 {
     list<data_t*>::iterator data_it;
 
@@ -257,19 +257,19 @@ GRIDataBlock* GRIProcessThread::find_data_block(string data_block_name)
     return NULL; // Can't find the data block
 }
 
-unsigned int GRIProcessThread::currentPacketPosition(string bufferName){
+unsigned int GRIProcessThread::currentPacketPosition(QString bufferName){
     return reg->currentPacketPosition(bufferName);
 }
 
-unsigned int GRIProcessThread::lastPacket(string bufferName){
+unsigned int GRIProcessThread::lastPacket(QString bufferName){
     return reg->lastPacket(bufferName);
 }
 
-unsigned int GRIProcessThread::sizeofPacket(string bufferName, unsigned int packetNumber){
+unsigned int GRIProcessThread::sizeofPacket(QString bufferName, unsigned int packetNumber){
     return reg->sizeofPacket(bufferName, packetNumber);
 }
 
-unsigned int GRIProcessThread::sizeofBuffer(string bufferName){
+unsigned int GRIProcessThread::sizeofBuffer(QString bufferName){
     return reg->sizeofBuffer(bufferName);
 }
 
@@ -279,7 +279,7 @@ void GRIProcessThread::display_current_state()
     list<data_t*>::iterator it;
 
     log << endl << "** GRIProcessThread::current_state" << endl;
-    log << "process name: " << QString::fromStdString(this->name()) << " id: " << this->thread_id
+    log << "process name: " << this->name() << " id: " << this->thread_id
             << " last adjustment from saturation: " << this->last_adjustment_from_saturation
             << " last adjustment to saturation: " << this->last_adjustment_to_saturation
             << endl;
@@ -287,13 +287,13 @@ void GRIProcessThread::display_current_state()
     log << endl << "Data inputs" << endl;
     for(it = data_ins.begin(); it != data_ins.end(); it++) {
         data_t* new_data = *it;
-        log << QString::fromStdString(new_data->name) << endl;
+        log << new_data->name << endl;
     }
 
     log << endl << "Data outputs" << endl;
     for(it = data_outs.begin(); it != data_outs.end(); it++) {
         data_t* new_data = *it;
-        log << QString::fromStdString(new_data->name) << endl;
+        log << new_data->name << endl;
     }  
     CommitLog(LOG_VERBOSE);
 

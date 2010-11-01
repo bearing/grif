@@ -7,6 +7,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <QTimerEvent>
+#include <QString>
 #include <QtXml/qdom.h>
 #include <qxmlstream.h>
 #include "GRIParam.h"
@@ -72,8 +73,8 @@ protected:
 
     void startProcessThreads();
 
-    void display(list<string> output);
-    void display(string output);
+    void display(list<QString> output);
+    void display(QString output);
 
     //GRIXMLParser* xmlparser;
 
@@ -129,11 +130,11 @@ protected:
       * starts a new external process (meaning an external, ".exe" or ".app" file)
       * @param FilePath
       */
-    void startNewProcess(std::string FilePath);
+    void startNewProcess(QString FilePath);
     /**
       * used for debug purposes
       */
-    void pauseProgram(string message);
+    void pauseProgram(QString message);
     /**
       * temporarily used to make a sample parameter list.
       * eventually, this paramater list will be created from an xml file
@@ -216,19 +217,19 @@ protected:
 
 
     //for convenience...
-    string toString(double s);
-    string toString(int s);
-    string toString(unsigned int s);
-    string toString(QString s);
-    string toString(float s);
-    string toString(char s);
-    string toString(string s);
+    QString toString(double s);
+    QString toString(int s);
+    QString toString(unsigned int s);
+    //QString toString(QString s);
+    QString toString(float s);
+    QString toString(char s);
+    QString toString(string s);
 
     GRILogger* logger;
 
 signals:
-    void output(string);
-    void output(list<string>);
+    void output(QString);
+    void output(list<QString>);
 };
 
 
