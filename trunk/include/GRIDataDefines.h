@@ -49,6 +49,7 @@ struct background{
 };
 
 struct dataOutput{
+    int num;
     int chan;
     double ADC;
     double time;

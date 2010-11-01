@@ -150,6 +150,9 @@ bool GRIRegulator::writeMemory(string bufferName, unsigned int size, char dataAr
     log << "writeMemory()" << endl;
     CommitLog(LOG_DEBUG);
 
+
+    //THIS IS WRONG.  FIND_DATA TAKES THE BLOCKNAME, NOT BUFFERNAME
+    //NEED TO FIX BEFORE WE CAN DO WRITES WITH MORE THAN ONE THREAD.
     GRIDataBlock* data = find_data(bufferName);
     string process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
     bool ret_flag;

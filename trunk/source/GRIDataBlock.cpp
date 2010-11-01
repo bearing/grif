@@ -1,4 +1,5 @@
 #include "GRIDataBlock.h"
+#include <cassert>
 
 GRIDataBlock::GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* analysis_struct)
 {
@@ -208,7 +209,8 @@ bool GRIDataBlock::update_writer()
 
 #ifdef DATA_BLOCK_DEBUG
         cerr << "! GRIDataBlock::mem_write(): " << curr_thread_name <<
-                " is not allowed to write to " << this->name << endl;
+                " is not equal to " << this->writer_name << " so it is not allowed to write to " << this->name << endl;
+        assert(false);
 #endif
 
         return NULL;
