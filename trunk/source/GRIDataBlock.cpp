@@ -206,7 +206,7 @@ bool GRIDataBlock::update_writer()
     QString curr_thread_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
    // if(curr_thread_name.compare(this->writer_name)) {
-    if(curr_thread_name == this->writer_name)
+    if(curr_thread_name != this->writer_name)
     {
 #ifdef DATA_BLOCK_DEBUG
         cerr << "! GRIDataBlock::mem_write(): " << curr_thread_name.toStdString().c_str() <<

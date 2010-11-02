@@ -94,9 +94,10 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
 
     log << "readMemory()" << endl;  CommitLog(LOG_DEBUG);
 
-    GRIDataBlock* data = find_data(bufferName);
+    GRIDataBlock* data = find_data(blockName);
     int packet_to_read = mm->currentPacketPosition(blockName, bufferName);
-
+    log << "BufferName: " << bufferName.toStdString().c_str() << endl; CommitLog(LOG_DEBUG);
+    log << "ProcessName: " << blockName.toStdString().c_str() << endl; CommitLog(LOG_DEBUG);
     if(data == NULL) {
 
         log << "GRIRegulator::readMemory(): Can't find buffer" << endl;
@@ -153,14 +154,17 @@ bool GRIRegulator::writeMemory(QString bufferName, unsigned int size, char dataA
 
     //THIS IS WRONG.  FIND_DATA TAKES THE BLOCKNAME, NOT BUFFERNAME
     //NEED TO FIX BEFORE WE CAN DO WRITES WITH MORE THAN ONE THREAD.
-    GRIDataBlock* data = find_data(bufferName);
+    //GRIDataBlock* data = find_data(bufferName);
+    log << "BufferName: " << bufferName.toStdString().c_str() << endl; CommitLog(LOG_DEBUG);
     QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
+    log << "ProcessName: " << process_name.toStdString().c_str() << endl; CommitLog(LOG_DEBUG);
+    GRIDataBlock* data = find_data(process_name);
     bool ret_flag;
 
     if(data == NULL) {
 
 
-        log << "GRIRegulator::writerMemory(): Can't find buffer" << endl;
+        log << "GRIRegulator::writeMemory(): Can't find buffer" << endl;
         CommitLog(LOG_ERROR);
 
         return NULL;
