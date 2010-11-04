@@ -5,6 +5,11 @@ GRIDataBlock::GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* an
 {
     list<QString>::iterator it;
 
+    log << "GRIDataBlock Entry" << endl;
+    log << "Data: " << analysis_struct->data.toStdString().c_str() << endl;
+    log << "From: " << analysis_struct->From.toStdString().c_str() << endl;
+    CommitLog(LOG_VERBOSE);
+
     this->name = analysis_struct->data;
     this->writer_name = analysis_struct->From;
     this->writer = NULL;
@@ -105,9 +110,10 @@ void GRIDataBlock::set_link(list<GRIProcessThread*>* processes)
             assert(false);
         }
     }
-#ifdef DATA_BLOCK_DEBUG
-    cout << "** DataBlock.cpp: Done setting the reader & writers link" << endl;
-#endif
+//#ifdef DATA_BLOCK_DEBUG
+    log << "** DataBlock.cpp: Done setting the reader & writers link" << endl;
+    CommitLog(LOG_VERBOSE);
+//#endif
 }
 
 void GRIDataBlock::delete_packet()
@@ -115,9 +121,10 @@ void GRIDataBlock::delete_packet()
     list<reader_t*>::iterator it;
     int lowest_packet = write_counter;
 
-#ifdef DATA_BLOCK_DEBUG
-    cout << endl << "** DataBlock::delete_packet()" << endl << endl;
-#endif // DATA_BLOCK_DEBUG
+//#ifdef DATA_BLOCK_DEBUG
+    log << endl << "** DataBlock::delete_packet()" << endl << endl;
+    CommitLog(LOG_VERBOSE);
+//#endif // DATA_BLOCK_DEBUG
 
     for(it = readers.begin(); it != readers.end(); it++) {
         reader_t* reader = *it;
@@ -128,8 +135,9 @@ void GRIDataBlock::delete_packet()
 
 #ifdef DATA_BLOCK_DEBUG
     display_current_state();
-    cout << "lowest_packet: " << lowest_packet << endl;
-    cout << "first_packet: " << first_packet << endl;
+    log << "lowest_packet: " << lowest_packet << endl;
+    log << "first_packet: " << first_packet << endl;
+    CommitLog(LOG_VERBOSE);
 #endif // DATA_BLOCK_DEBUG
 
     if(lowest_packet > first_packet) {
@@ -153,8 +161,9 @@ void GRIDataBlock::load_balancing()
 
 
 #ifdef DATA_BLOCK_DEBUG
-    cout << endl << "** DataBlock::load_balancing()" << endl << endl;
-    cout << "writer_name: " << writer->get_name().toStdString().c_str() << " priority: " << (int)writer->priority() << endl;
+    log << endl << "** DataBlock::load_balancing()" << endl << endl;
+    log << "writer_name: " << writer->get_name().toStdString().c_str() << " priority: " << (int)writer->priority() << endl;
+    CommitLog(LOG_VERBOSE);
 #endif // DATA_BLOCK_DEBUG
 
     // either decrease priority of writer (if possible) or increase the priority of the reader (if possible)
@@ -166,7 +175,8 @@ void GRIDataBlock::load_balancing()
             reader_t* reader = *it;
 
 #ifdef DATA_BLOCK_DEBUG
-    cout << "reader_name: " << reader->reader_name.toStdString().c_str() << " priority: " << (int)reader->reader->priority() << endl;
+    log << "reader_name: " << reader->reader_name.toStdString().c_str() << " priority: " << (int)reader->reader->priority() << endl;
+    CommitLog(LOG_DEBUG);
 #endif // DATA_BLOCK_DEBUG
 
             if((reader->read_counter - first_packet) > LOAD_BALANCING_FACTOR * MAX_THRESHOLD &&
@@ -194,9 +204,9 @@ bool GRIDataBlock::update_reader()
         }
     }
 
-#ifdef DATA_BLOCK_DEBUG
-    cout << "! GRIDataBlock::mem_read(): Invalid reader: " << curr_thread_name.toStdString().c_str() << endl;
-#endif // DATA_BLOCK_DEBUG
+
+    log << "GRIDataBlock::mem_read(): Invalid reader: " << curr_thread_name.toStdString().c_str() << endl;
+    CommitLog(LOG_ERROR);
 
     return false;
 }
@@ -209,8 +219,9 @@ bool GRIDataBlock::update_writer()
     if(curr_thread_name != this->writer_name)
     {
 #ifdef DATA_BLOCK_DEBUG
-        cerr << "! GRIDataBlock::mem_write(): " << curr_thread_name.toStdString().c_str() <<
+        log << "! GRIDataBlock::mem_write(): " << curr_thread_name.toStdString().c_str() <<
                 " is not equal to " << this->writer_name.toStdString().c_str() << " so it is not allowed to write to " << this->name.toStdString().c_str() << endl;
+        CommitLog(LOG_DEBUG);
         assert(false);
 
 #endif
@@ -227,13 +238,14 @@ bool GRIDataBlock::update_writer()
 #ifdef DATA_BLOCK_DEBUG
 void GRIDataBlock::display_current_state()
 {
-    cout << "** GRIDataBlock::current state" << endl << endl;
-    cout << "writer: " << write_counter << " " << writer_name.toStdString().c_str() << endl;
+    log << "** GRIDataBlock::current state" << endl << endl;
+    log << "writer: " << write_counter << " " << writer_name.toStdString().c_str() << endl;
 
     list<reader_t*>::iterator it;
     for(it = readers.begin(); it != readers.end(); it++) {
         reader_t* new_reader = *it;
-        cout << "reader: " << new_reader->read_counter << " " << new_reader->reader_name.toStdString().c_str() << endl;
+        log << "reader: " << new_reader->read_counter << " " << new_reader->reader_name.toStdString().c_str() << endl;
     }
+    CommitLog(LOG_VERBOSE);
 }
 #endif //DATA_BLOCK_DEBUG
