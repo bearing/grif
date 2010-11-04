@@ -40,7 +40,7 @@ struct AnalysisStructureObject
     list<QString> To;
 };
 
-class GRIDataBlock
+class GRIDataBlock: public GRIObject
 {
 
 friend class GRICommandAndControl;
