@@ -51,7 +51,8 @@ void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
 
     if(data_blocks == NULL || processes == NULL) {
 #ifdef REGULATOR_DEBUG
-        cerr << "! GRIRegulator::init_config(): No processes or data blocks" << endl;
+        log << "! GRIRegulator::init_config(): No processes or data blocks" << endl;
+        CommitLog(LOG_ERROR);
 #endif // REGULATOR_DEBUG
 
         return;
@@ -94,7 +95,7 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
 
     log << "readMemory()" << endl;  CommitLog(LOG_DEBUG);
 
-    GRIDataBlock* data = find_data(blockName);
+    GRIDataBlock* data = find_data(blockName,bufferName);
     int packet_to_read = mm->currentPacketPosition(blockName, bufferName);
     log << "BufferName: " << bufferName.toStdString().c_str() << endl; CommitLog(LOG_DEBUG);
     log << "ProcessName: " << blockName.toStdString().c_str() << endl; CommitLog(LOG_DEBUG);
@@ -110,7 +111,7 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
 
     log << "readMemory: " << mm->lastPacket(blockName, bufferName) << " " <<
             mm->currentPacketPosition(blockName, bufferName) << endl;
-    CommitLog(LOG_VERBOSE);
+    CommitLog(LOG_DEBUG);
 
     while(mm->lastPacket(blockName, bufferName) < packet_to_read) {
         fprintf(this->regulator_log, "\nelapsed time is: %d ms\n", this->timer.elapsed());
@@ -121,7 +122,7 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
     log << "readMemory1: " << mm->lastPacket(blockName, bufferName) << " " <<
             mm->currentPacketPosition(blockName, bufferName) << endl;
     log << "Trying to update reader" << endl;
-    CommitLog(LOG_VERBOSE);
+    CommitLog(LOG_DEBUG);
 
     if(data->update_reader()) {
 
@@ -145,20 +146,19 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
     CommitLog(LOG_DEBUG);
 }
 
-bool GRIRegulator::writeMemory(QString bufferName, unsigned int size, char dataArray[])
+bool GRIRegulator::writeMemory(QString blockName, QString bufferName, unsigned int size, char dataArray[])
 {
 
     log << "writeMemory()" << endl;
     CommitLog(LOG_DEBUG);
 
-
-    //THIS IS WRONG.  FIND_DATA TAKES THE BLOCKNAME, NOT BUFFERNAME
-    //NEED TO FIX BEFORE WE CAN DO WRITES WITH MORE THAN ONE THREAD.
     //GRIDataBlock* data = find_data(bufferName);
-    log << "BufferName: " << bufferName.toStdString().c_str() << endl; CommitLog(LOG_DEBUG);
+    log << "BufferName: " << bufferName.toStdString().c_str() << endl; //CommitLog(LOG_DEBUG);
     QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
-    log << "ProcessName: " << process_name.toStdString().c_str() << endl; CommitLog(LOG_DEBUG);
-    GRIDataBlock* data = find_data(process_name);
+    log << "BlockName: " << blockName.toStdString().c_str() << endl; //CommitLog(LOG_DEBUG);
+    log << "Current Process Name: " << ((GRIProcessThread*)QThread::currentThread())->get_name().toStdString().c_str() << endl;
+    CommitLog(LOG_VERBOSE);
+    GRIDataBlock* data = find_data(blockName,bufferName);
     bool ret_flag;
 
     if(data == NULL) {
@@ -175,7 +175,7 @@ bool GRIRegulator::writeMemory(QString bufferName, unsigned int size, char dataA
         if(ret_flag) {
             log << "elapsed time is: " << this->timer.elapsed() << endl;
             log << "Waking all threads" << endl;
-            CommitLog(LOG_VERBOSE);
+            CommitLog(LOG_DEBUG);
             //fprintf(this->regulator_log, "\nelapsed time is: %d ms\n", this->timer.elapsed());
             //fprintf(this->regulator_log, "waking all threads\n");
             bufferIsReady.wakeAll();
@@ -235,31 +235,17 @@ GRIProcessThread* GRIRegulator::find_process(QString process_name)
     return NULL;
 }
 
-GRIDataBlock* GRIRegulator::find_data(QString data_block_name)
+GRIDataBlock* GRIRegulator::find_data(QString data_block_name, QString buffer_name)
 {
     list<GRIDataBlock*>::iterator it;
 
     for(it = data_blocks->begin(); it != data_blocks->end(); it++) {
         GRIDataBlock* data_block = *it;
-        if(!(data_block->get_name()==data_block_name)) {
+
+        if(data_block->get_writer_name()==data_block_name && data_block->get_name() == buffer_name) {
             return data_block;
         }
     }
 
     return NULL;
 }
-
-// Now in GRIObject
-//void GRIRegulator::CommitLog(int level)
-//{
-
-//    if(LogMsg.IsLevelEnabled(level))
-//    {
-
-//        if(LogMsg.SetMessageTime(log.read(),level))
-
-//            logSignal(LogMsg);
-//    } else {
-//        log.flush();
-//    }
-//}
