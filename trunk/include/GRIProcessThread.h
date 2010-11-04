@@ -194,7 +194,7 @@ public:
      * by process_name & bufferName. Also abstracts regulator's readMemory() by
      * templating it.
      */
-    template <class T> bool writeMemory(QString bufferName, unsigned int size, T dataArray[]);
+    template <class T> bool writeMemory(QString blockName, QString bufferName, unsigned int size, T dataArray[]);
 
     /*
      *
@@ -297,8 +297,8 @@ GRIProcessThread::readMemory(QString blockName ,QString bufferName){
     return castPair;
 }
 
-template<class T> bool GRIProcessThread::writeMemory(QString bufferName, unsigned int size, T dataArray[]){
-    return reg->writeMemory(bufferName, size * sizeof(T), (char*) dataArray);
+template<class T> bool GRIProcessThread::writeMemory(QString blockName, QString bufferName, unsigned int size, T dataArray[]){
+    return reg->writeMemory(blockName, bufferName, size * sizeof(T), (char*) dataArray);
 }
 
 #endif // GRIPROCESSTHREAD_H
