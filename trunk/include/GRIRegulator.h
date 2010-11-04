@@ -91,7 +91,7 @@ public:
      * by process_name & bufferName
      *
      */
-    bool writeMemory(QString bufferName, unsigned int size, char dataArray[]);
+    bool writeMemory(QString blockName, QString bufferName, unsigned int size, char dataArray[]);
 
     /*
      *
@@ -153,7 +153,7 @@ private:
     /*
      * find_data() returns a pointer to the actual data block given the name
      */
-    GRIDataBlock* find_data(QString data_block_name);
+    GRIDataBlock* find_data(QString data_block_name, QString buffer_name);
 
 
 
