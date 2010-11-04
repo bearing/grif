@@ -121,6 +121,7 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
         data_t* data = *data_it;
         for(data_block_it = (*data_blocks).begin(); data_block_it != (*data_blocks).end(); data_block_it++) {
             GRIDataBlock* data_block = *data_block_it;
+
             if(data->name == data_block->get_name()) {
                 data->data_block = data_block;
                 break;
@@ -185,7 +186,7 @@ bool GRIProcessThread::change_priority(bool is_up)
     log << "process name: " << QString::fromStdString(this->name()) << " priority: " << (int)this->priority()
             << " last adjustment to saturation: " << last_adjustment_to_saturation
             << " last adjustment from saturation: " << last_adjustment_from_saturation << endl;
-    CommitLog(LOG_VERBOSE);
+    CommitLog(LOG_DEBUG);
 
     if(is_up) {
         if(current_priority >= normal_priority) {
@@ -295,7 +296,7 @@ void GRIProcessThread::display_current_state()
         data_t* new_data = *it;
         log << new_data->name << endl;
     }  
-    CommitLog(LOG_VERBOSE);
+    CommitLog(LOG_DEBUG);
 
 }
 
