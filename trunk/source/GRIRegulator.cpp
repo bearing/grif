@@ -29,14 +29,14 @@ GRIRegulator::GRIRegulator(GRIMemoryManager *ma)
     regulator_log = fopen("regulatorlogfile.txt","w"); //All these pointer assignments cause bugs later
     //GRIRegulator(ma, NULL);
 
-    setObjectName("REG");
+    this->set_name("REG");
     //LogMsg.SetObjectName("REG");
    // log.setString(&temp,QIODevice::ReadWrite);
 }
 
 GRIRegulator::~GRIRegulator()
 {
-    setObjectName("REG");
+
 }
 
 void GRIRegulator::setMemMgrPtr(GRIMemoryManager *managerPointer){
@@ -73,7 +73,7 @@ void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
         data_block->set_link(processes);
     }
 
-    log << "Done setting the link" << endl; CommitLog(LOG_VERBOSE);
+ //   log << "Done setting the link" << endl; CommitLog(LOG_VERBOSE);
 
     this->data_blocks = data_blocks;
 
@@ -93,36 +93,37 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
 {
 
 
-    log << "readMemory()" << endl;  CommitLog(LOG_DEBUG);
-
+    //log << "readMemory()" << endl;
+    //CommitLog(LOG_DEBUG);
+ //   cout << "REG: Read Memory " << blockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << endl;
     GRIDataBlock* data = find_data(blockName,bufferName);
     int packet_to_read = mm->currentPacketPosition(blockName, bufferName);
-    log << "BufferName: " << bufferName.toStdString().c_str() << endl; CommitLog(LOG_DEBUG);
-    log << "ProcessName: " << blockName.toStdString().c_str() << endl; CommitLog(LOG_DEBUG);
+    //log << "BufferName: " << bufferName.toStdString().c_str() << endl; CommitLog(LOG_DEBUG);
+    //log << "ProcessName: " << blockName.toStdString().c_str() << endl; CommitLog(LOG_DEBUG);
     if(data == NULL) {
 
-        log << "GRIRegulator::readMemory(): Can't find buffer" << endl;
-        CommitLog(LOG_ERROR);
+//        cout << "GRIRegulator::readMemory(): Can't find buffer" << endl;
+//        //CommitLog(LOG_ERROR);
 
 
         pair<unsigned int, char*> returnVal(0, NULL);
         return returnVal;
     }
 
-    log << "readMemory: " << mm->lastPacket(blockName, bufferName) << " " <<
-            mm->currentPacketPosition(blockName, bufferName) << endl;
-    CommitLog(LOG_DEBUG);
+//    cout << "readMemory: " << mm->lastPacket(blockName, bufferName) << " " <<
+//            mm->currentPacketPosition(blockName, bufferName) << endl;
+    //CommitLog(LOG_DEBUG);
 
     while(mm->lastPacket(blockName, bufferName) < packet_to_read) {
-        fprintf(this->regulator_log, "\nelapsed time is: %d ms\n", this->timer.elapsed());
+        //fprintf(this->regulator_log, "\nelapsed time is: %d ms\n", this->timer.elapsed());
         //fprintf(this->regulator_log, "putting thread %d to sleep", (int)QThread::currentThread());
         bufferIsReady.wait(&mutex);
     }
 
-    log << "readMemory1: " << mm->lastPacket(blockName, bufferName) << " " <<
-            mm->currentPacketPosition(blockName, bufferName) << endl;
-    log << "Trying to update reader" << endl;
-    CommitLog(LOG_DEBUG);
+//    cout << "readMemory1: " << mm->lastPacket(blockName, bufferName) << " " <<
+//            mm->currentPacketPosition(blockName, bufferName) << endl;
+//    cout << "Trying to update reader" << endl;
+    //CommitLog(LOG_DEBUG);
 
     if(data->update_reader()) {
 
@@ -133,56 +134,61 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
     }
 
 
-    log << "GRIRegulator::readMemory(): " << blockName <<
-            " is not reading from " << data->get_writer_name() << endl;
-    CommitLog(LOG_ERROR);
+//    cout << "GRIRegulator::readMemory(): " << blockName.toStdString().c_str() <<
+//            " is not reading from " << data->get_writer_name().toStdString().c_str() << endl;
+    //CommitLog(LOG_ERROR);
 
 
     pair<unsigned int, char*> returnVal(0, NULL);
     return returnVal;
 
 
-    log << "done readMemory()" << endl;
-    CommitLog(LOG_DEBUG);
+  //  cout << "done readMemory()" << endl;
+    //CommitLog(LOG_DEBUG);
+    //cout << "Done Read Memory"  << endl;
 }
 
 bool GRIRegulator::writeMemory(QString blockName, QString bufferName, unsigned int size, char dataArray[])
 {
 
-    log << "writeMemory()" << endl;
-    CommitLog(LOG_DEBUG);
+    //log << "writeMemory()" << endl;
+    //CommitLog(LOG_DEBUG);
+  //  cout << "REG: Write Memory "  << blockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << endl;
 
     //GRIDataBlock* data = find_data(bufferName);
-    log << "BufferName: " << bufferName.toStdString().c_str() << endl; //CommitLog(LOG_DEBUG);
+  //  cout << "BufferName: " << bufferName.toStdString().c_str() << endl; //CommitLog(LOG_DEBUG);
     QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
-    log << "BlockName: " << blockName.toStdString().c_str() << endl; //CommitLog(LOG_DEBUG);
-    log << "Current Process Name: " << ((GRIProcessThread*)QThread::currentThread())->get_name().toStdString().c_str() << endl;
-    CommitLog(LOG_VERBOSE);
+  //  cout << "BlockName: " << blockName.toStdString().c_str() << endl; //CommitLog(LOG_DEBUG);
+ //   cout << "Current Process Name: " << ((GRIProcessThread*)QThread::currentThread())->get_name().toStdString().c_str() << endl;
+    //CommitLog(LOG_VERBOSE);
     GRIDataBlock* data = find_data(blockName,bufferName);
     bool ret_flag;
 
     if(data == NULL) {
 
 
-        log << "GRIRegulator::writeMemory(): Can't find buffer" << endl;
-        CommitLog(LOG_ERROR);
+     //   cout << "GRIRegulator::writeMemory(): Can't find buffer" << endl;
+        //CommitLog(LOG_ERROR);
 
+   //    cout << "Write Memory Return NULL"  << endl;
         return NULL;
     }
 
     if(data->update_writer()) {
         ret_flag =  mm->writeMemory(process_name, bufferName, size, (char*) dataArray);
         if(ret_flag) {
-            log << "elapsed time is: " << this->timer.elapsed() << endl;
-            log << "Waking all threads" << endl;
-            CommitLog(LOG_DEBUG);
+//            cout << "elapsed time is: " << this->timer.elapsed() << endl;
+//            cout << "Waking all threads" << endl;
+            //CommitLog(LOG_DEBUG);
             //fprintf(this->regulator_log, "\nelapsed time is: %d ms\n", this->timer.elapsed());
             //fprintf(this->regulator_log, "waking all threads\n");
             bufferIsReady.wakeAll();
         }
+      // cout << "Write Memory Return"  << endl;
         return ret_flag;
     }
 
+    //cout << "Write Memory Return False"  << endl;
     return false;
 }
 
