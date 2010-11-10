@@ -20,7 +20,7 @@ public:
 
     QTextStream log;
     void CommitLog(int level);
-    void setObjectName(QString name);
+    void set_name(QString name);
 
 private:
 
