@@ -43,12 +43,14 @@ void GRIBuffer::addPacket()
 //writes to specified packet in buffer
 bool GRIBuffer::writeToBuffer(char b, unsigned int packetNumber, int index)
 {
+
     if (packetNumber < 0 || packetNumber > size) return false;
     if (packetNumber == size) {
         QVector<char> *packet = new QVector<char>();
         if (index < 0 || index > packet->size()) return false;
         if (index == packet->size()) {
-            packet->insert(index, b);
+            //packet->insert(index, b);
+            packet->append(b);
         } else {
             packet->replace(index, b);
         }
@@ -59,7 +61,8 @@ bool GRIBuffer::writeToBuffer(char b, unsigned int packetNumber, int index)
         QVector<char> *packet = packetList->at(packetNumber);
         if (index < 0 || index > packet->size()) return false;
         if (index == packet->size()) {
-            packet->insert(index, b);
+            //packet->insert(index, b);
+            packet->append(b);
         } else {
             packet->replace(index, b);
         }
