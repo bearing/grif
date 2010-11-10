@@ -42,10 +42,10 @@ public:
 //        this->addChild(nm,defaultVal, val, "", "", units, type, false, NULL);
     }
 
-    void addSubmenuChild(string nm, string defaultVal, string val, string units, string type, list<GRIParam*>* children)
-    {
-//        this->addChild(nm,defaultVal, val, "", "", units, type, true, children);
-    }
+//    void addSubmenuChild(string nm, string defaultVal, string val, string units, string type, list<GRIParam*>* children)
+//    {
+////        this->addChild(nm,defaultVal, val, "", "", units, type, true, children);
+//    }
 
 
     void pauseProgram(string message)
