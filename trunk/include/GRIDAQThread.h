@@ -2,6 +2,8 @@
 #define GRIDAQTHREAD_H
 
 #include "GRIProcessThread.h"
+#include "GRIDAQAccumulator.h"
+#include "GRIDAQAccumNode.h"
 #include <iostream>
 #include <QHash>
 #include <QString>
@@ -109,6 +111,25 @@ mydaq->run(); //which calls the user defined methods in a well-defined order.
 
 
 */
+
+void registerAccumulator(QString buffname)
+{
+    GRIDAQAccumNode* p = RegisterDataOutput(buffname);
+    if(p != NULL){
+        p->SetDAQThreadObject(this);
+        accumList.push_back(p);
+
+    }
+    else
+        cerr << "! Accumulation Node " << buffname.toStdString().c_str() <<
+                "not found in RegisterDataOutput." << endl;
+
+}
+
+virtual GRIDAQAccumNode* RegisterDataOutput(QString outName) = 0;
+
+
+
 //! A member function for procedures that establish a connection to a DAQ
 /*!
 *
@@ -411,21 +432,59 @@ void forceQuitDAQ();
 
 
 
-
-
-protected:
+//placing this public temporarily for testing...
 void setRunFlag(bool newRunFlag);    //These four methods are getters/setters for
+protected:
+//void setRunFlag(bool newRunFlag);    //These four methods are getters/setters for
 bool getRunFlag();                   //the regulator to use as stated above.
 void setExitThreadFlag(bool newExitThreadFlag);
 bool getExitThreadFlag();
 
+template <class T> int PostData(int numel, QString buffer_name, T _data[], qint64 timestamps[]){
 
+    list<GRIDAQAccumNode*>::iterator accum_it;
+
+    // Finding the Accumulator in the list
+    bool found = false;
+    for(accum_it = accumList.begin(); accum_it != accumList.end(); accum_it++) {
+        GRIDAQAccumNode* accum = *accum_it;
+        if(accum->GetBufferName() == buffer_name) {
+            found = true;
+            break;
+        }
+    }
+
+    if(!found){
+        cerr << "!Accumulator not found in PostData()"<< endl;
+        log << "Accumulator not found in PostData()" << endl;
+        CommitLog(LOG_ERROR);
+        return 0;
+    }
+
+    GRIDAQAccumNode* accum = *accum_it;
+    if(numel > 0){
+        cout << "Accumulating " << numel << " counts in " << buffer_name.toStdString().c_str() << endl;
+
+        accum->Accumulate(numel, _data,timestamps);
+    }
+
+    return 1;
+}
+
+void InitializeAccumulators(QDateTime tstart,
+                            qint64 timestamp_0,
+                            qint64 ticksPerSecond,
+                            int NBuff,
+                            int msecPerAccum
+                            );
 
 private:
 bool runFlag;
 bool exitThreadFlag;
 bool sleeping;
 bool forceQuit;
+
+list<GRIDAQAccumNode*> accumList;
 
 };
 
