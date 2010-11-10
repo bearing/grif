@@ -18,7 +18,7 @@ void GRIThread::CommitLog(int level)
     if(LogMsg.IsLevelEnabled(level))
     {
 
-        if(LogMsg.SetMessageTime(log.read(),level))
+        if(LogMsg.SetMessageTime(log.readAll(),level))
 
             logSignal(LogMsg);
     } else {
