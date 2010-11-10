@@ -154,17 +154,21 @@ void GRIDataBlock::load_balancing()
 
     delete_packet();
 
+    log << ((GRIProcessThread*)QThread::currentThread())->get_name().toStdString().c_str() <<
+            ": Write Counter: " << write_counter << " -- First Packet: " << first_packet << endl;
+    CommitLog(LOG_VERBOSE);
     // not much imbalance in the system
     if((write_counter - first_packet) < MAX_THRESHOLD) {
+        log << "NO IMBALANCE: Write_Counter: " << write_counter << "- First Packet: " << first_packet << endl;
+        CommitLog(LOG_VERBOSE);
         return;
     }
 
 
-#ifdef DATA_BLOCK_DEBUG
     log << endl << "** DataBlock::load_balancing()" << endl << endl;
     log << "writer_name: " << writer->get_name().toStdString().c_str() << " priority: " << (int)writer->priority() << endl;
     CommitLog(LOG_VERBOSE);
-#endif // DATA_BLOCK_DEBUG
+
 
     // either decrease priority of writer (if possible) or increase the priority of the reader (if possible)
     if(rand() % 2 && (int)writer->priority() > (int)QThread::IdlePriority) {
@@ -174,16 +178,19 @@ void GRIDataBlock::load_balancing()
         for(it = readers.begin(); it != readers.end(); it++) {
             reader_t* reader = *it;
 
-#ifdef DATA_BLOCK_DEBUG
     log << "reader_name: " << reader->reader_name.toStdString().c_str() << " priority: " << (int)reader->reader->priority() << endl;
-    CommitLog(LOG_DEBUG);
-#endif // DATA_BLOCK_DEBUG
+    CommitLog(LOG_VERBOSE);
+
 
             if((reader->read_counter - first_packet) > LOAD_BALANCING_FACTOR * MAX_THRESHOLD &&
                (int)reader->reader->priority() < (int)QThread::TimeCriticalPriority) {
                 reader->reader->change_priority(true);
-                fprintf(reg->regulator_log, "\nelapsed time is: %d ms\n", reg->timer.elapsed());
-                //fprintf(reg->regulator_log, "changing thread priority for thread %d to priority %d\n", (int)(QThread::currentThread()), (int)reader->reader->priority());
+                //fprintf(reg->regulator_log, "\nelapsed time is: %d ms\n", reg->timer.elapsed());
+                log << "Changing thread priority for thread " <<
+                        ((GRIProcessThread*)QThread::currentThread())->get_name().toStdString().c_str() <<
+                        " to priority " <<
+                        (int)reader->reader->priority() << endl;
+                CommitLog(LOG_VERBOSE);
             }
         }
     }
@@ -232,6 +239,7 @@ bool GRIDataBlock::update_writer()
     this->write_counter++;
     this->writer->increment_packet_count();
 
+   // load_balancing();
     return true;
 }
 
