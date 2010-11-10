@@ -118,7 +118,7 @@ public:
     /*
      * get_name() returns the name of this process
      */
-    QString get_name(){return QString::fromStdString(this->name());}
+    QString get_name(){return this->objectName();}
     int set_name(QString s){this->setObjectName(s);}
 
     /*
@@ -144,6 +144,8 @@ public:
      * process is writing to or reading from will be dictated by type (OUT or IN).
      */
     void add_data_block(QString data_block, bool is_output);
+    // This is overloaded in GRIDAQThread...
+    virtual void registerAccumulator(QString datablock){}
 
     /*
      * change_priority() decides whether to change the thread's priority or not
@@ -298,7 +300,7 @@ GRIProcessThread::readMemory(QString blockName ,QString bufferName){
 }
 
 template<class T> bool GRIProcessThread::writeMemory(QString blockName, QString bufferName, unsigned int size, T dataArray[]){
-    return reg->writeMemory(blockName, bufferName, size * sizeof(T), (char*) dataArray);
+    return reg->writeMemory(this->get_name(), bufferName, size * sizeof(T), (char*) dataArray);
 }
 
 #endif // GRIPROCESSTHREAD_H

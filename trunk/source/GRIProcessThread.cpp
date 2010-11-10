@@ -138,6 +138,7 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
         }
     }
 
+
     // Setting up the pointer to the data blocks that this process is reading from
     for(data_it = data_ins.begin(); data_it != data_ins.end(); data_it++) {
         data_t* data = *data_it;
@@ -165,15 +166,22 @@ void GRIProcessThread::set_load_balancing_vars(int num_packets_to_saturation,
 {
     this->num_packets_to_saturation = num_packets_to_saturation;
     this->num_packets_from_saturation = num_packets_from_saturation;
+
+
 }
 
 void GRIProcessThread::add_data_block(QString data_block, bool is_output)
 {
     //make sure only one data block/thread
     data_t* new_data = new data_t;
-    new_data->name = data_block;
+    new_data->name = data_block;  // This is actually the buffer name
 
     is_output ? data_outs.push_back(new_data) : data_ins.push_back(new_data);
+
+    if(is_output && this->is_daq)
+    {
+        registerAccumulator(data_block);
+    }
 }
 
 bool GRIProcessThread::change_priority(bool is_up)
@@ -183,10 +191,10 @@ bool GRIProcessThread::change_priority(bool is_up)
 
 
     log << endl << "GRIProcessThread::change_priority()"  << endl;
-    log << "process name: " << QString::fromStdString(this->name()) << " priority: " << (int)this->priority()
+    log << "process name: " << this->get_name() << " priority: " << (int)this->priority()
             << " last adjustment to saturation: " << last_adjustment_to_saturation
             << " last adjustment from saturation: " << last_adjustment_from_saturation << endl;
-    CommitLog(LOG_DEBUG);
+    CommitLog(LOG_VERBOSE);
 
     if(is_up) {
         if(current_priority >= normal_priority) {
@@ -280,7 +288,7 @@ void GRIProcessThread::display_current_state()
     list<data_t*>::iterator it;
 
     log << endl << "** GRIProcessThread::current_state" << endl;
-    log << "process name: " << this->name() << " id: " << this->thread_id
+    log << "process name: " << this->get_name() << " id: " << this->thread_id
             << " last adjustment from saturation: " << this->last_adjustment_from_saturation
             << " last adjustment to saturation: " << this->last_adjustment_to_saturation
             << endl;
