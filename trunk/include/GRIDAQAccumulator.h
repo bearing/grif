@@ -123,9 +123,9 @@ public:
                  if(b->isBubble() && !NewBubble){
 
                      // Write Bubble Accumulator to mm
-                    // cout << QTime::currentTime().toString("dd.MM.yyyy hh:mm:ss.zzz").toStdString().c_str() << ": " <<
-                    //         this->GetBufferName().toStdString().c_str() << " accumulator writing"  <<
-                    //         b->GetDataSize() << "events." << endl;
+                     cout << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": " <<
+                             this->GetBufferName().toStdString().c_str() << " accumulator writing"  <<
+                             b->GetDataSize() << "events." << endl;
                      T* da = b->DataArray();
 
 //                     for(int i=0; i<b->GetDataSize(); i++) cout << da[i] << " ";
