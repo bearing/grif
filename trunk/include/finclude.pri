@@ -17,7 +17,7 @@ GRILogger.h \
 GRILoader.h\
 GRIMath.h\
 GRIMemoryManager.h\
-GRIMenuStructure.h\
+#GRIMenuStructure.h\
 GRIParam.h \
 GRIParamList.h\
 GRIRegulator.h\
@@ -31,3 +31,6 @@ GRIUserProcesses.h\
 GRIObject.h\
 GRIThread.h\
 GRITrace.h\
+GRIDAQAccumulator.h\
+GRIAccumBuff.h\
+GRIDAQAccumNode.h\

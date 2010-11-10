@@ -15,7 +15,7 @@ GRILoader.cpp\
 GRILogger.cpp\
 GRIMath.cpp\
 GRIMemoryManager.cpp\
-GRIMenuStructure.cpp\
+#GRIMenuStructure.cpp\
 GRIRegulator.cpp\
 GRIRunManager.cpp\
 GRIServer.cpp\
@@ -25,4 +25,3 @@ GRILogMessage.cpp\
 GRIUserLoader.cpp\
 GRIObject.cpp\
 GRIThread.cpp\
-GRITrace.cpp\
