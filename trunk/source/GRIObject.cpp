@@ -18,7 +18,7 @@ void GRIObject::CommitLog(int level)
     if(LogMsg.IsLevelEnabled(level))
     {
 
-        if(LogMsg.SetMessageTime(log.read(),level))
+        if(LogMsg.SetMessageTime(log.readAll(),level))
 
             logSignal(LogMsg);
     } else {
@@ -27,8 +27,8 @@ void GRIObject::CommitLog(int level)
 
 }
 
-void GRIObject::setObjectName(QString n){
+void GRIObject::set_name(QString n){
 
-    this->setName(n.toStdString().c_str());  //This should set the QObject name property
+    this->setObjectName(n);  //This should set the QObject name property
     LogMsg.SetObjectName(n);
 }
