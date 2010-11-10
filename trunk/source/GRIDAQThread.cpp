@@ -131,6 +131,32 @@ void GRIDAQThread::run()
 
 
 void GRIDAQThread::errorHandling(const char * message, int errorCode){
-    cout << "GRIDAQThreadError: Message: " << message << endl;
-    cout << "\tError code = " << errorCode << endl;
+    cerr << "GRIDAQThreadError: Message: " << message << endl;
+    cerr << "\tError code = " << errorCode << endl;
+    log << "GRIDAQThreadError: Message: " << message << endl;
+    log << "\tError code = " << errorCode << endl;
+    CommitLog(LOG_ERROR);
 }
+
+
+void GRIDAQThread::InitializeAccumulators(QDateTime tstart,
+                                          qint64 timestamp_0,
+                                          qint64 ticksPerSecond,
+                                          int NBuff,
+                                          int msecPerAccum
+                                          )
+{
+    list<GRIDAQAccumNode*>::iterator accum_it;
+
+    // Finding the Accumulator in the list
+    bool found = false;
+    for(accum_it = accumList.begin(); accum_it != accumList.end(); accum_it++) {
+        GRIDAQAccumNode* accum = *accum_it;
+            accum->Initialize(tstart,timestamp_0);
+        }
+
+}
+
+
+
+
