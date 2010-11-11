@@ -17,6 +17,7 @@ GRIBuffer::GRIBuffer(QReadWriteLock *l)
 
 GRIBuffer::~GRIBuffer()
 {
+
     this->clear();
     delete packetList;
     markerList->clear();
@@ -95,6 +96,8 @@ char GRIBuffer::readBuffer(unsigned int packetNumber, int index)
         markerList->append(packetNumber);
     }
 
+    if(index > packet->size()-1)
+        cerr << "! Sensed Index Out of Range" << endl;
     return packet->at(index);
 }
 

@@ -174,7 +174,7 @@ bool GRILogger::writeLogFile(list<string>d)
 
 bool GRILogger::writeLogFile(string output, int time)
 {
-    QMutex mutex;
+
     //prevent multiple threads from writing at the same time
     mutex.lock();
 

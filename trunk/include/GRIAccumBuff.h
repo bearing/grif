@@ -24,7 +24,10 @@ public:
             if(t[i]>=t1 && t[i]<t2)
             {
                 time.append(t[i]);
-                data.append(d[i]);
+                  data.append(d[i]);
+                //QList::append()
+
+                //QListData::realloc()
             }
 
             // trigger on times greater than leading edge buffer

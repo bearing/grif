@@ -7,8 +7,7 @@ GRIMemoryManager::GRIMemoryManager()
     nameTable = new QList< QList<QString>* >();
     dataBlockTable = new QList< QList<GRIBuffer*>* >();
     lockTable = new QList< QList<QReadWriteLock *>* >();
-    LogMsg.SetObjectName("MM");
-    log.setString(&temp,QIODevice::ReadWrite);
+    this->setName("MM");
 }
 
 
@@ -379,18 +378,4 @@ bool GRIMemoryManager::writeMemory(QString dataBlockName, QString bufferName, un
     int curPacket = buf->nextPacket();
     //GRIMemoryManager::unlockBuffer(dataBlockName, bufferName);
     return GRIMemoryManager::writeMemory(dataBlockName, bufferName, curPacket, size, dataArray);
-}
-
-void GRIMemoryManager::CommitLog(int level)
-{
-
-    if(LogMsg.IsLevelEnabled(level))
-    {
-
-        if(LogMsg.SetMessageTime(log.read(),level))
-
-            logSignal(LogMsg);
-    } else {
-        log.flush();
-    }
 }

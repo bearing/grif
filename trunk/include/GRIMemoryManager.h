@@ -36,7 +36,7 @@ class GRIBuffer;
 */
 
 
-class GRIMemoryManager : public QObject
+class GRIMemoryManager : public GRIObject
 {
 
     Q_OBJECT
@@ -325,10 +325,6 @@ protected:
           */
         void deletePacket(QString dataBlockName, QString bufferName, unsigned int packetNumber);
 
-        // ***** Used for logging
-        QTextStream log;
-        void CommitLog(int level);
-        // *********
 
 private:
 
@@ -425,12 +421,6 @@ private:
           */
         QList< QList<QReadWriteLock *>* > *lockTable;
 
-        // *** Used for logging capability
-           GRILogMessage LogMsg;
-           QString temp;
-       // **************************
-       signals:
-           void logSignal(GRILogMessage m);
 
 
 };

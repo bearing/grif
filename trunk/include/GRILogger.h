@@ -64,6 +64,7 @@ private:
     QString filename;  // Just the filename
     QString logfilepath; //full file path
     int LogLevel;
+    QMutex mutex;
 
 };
 
