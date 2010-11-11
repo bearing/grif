@@ -25,6 +25,7 @@ void GRIObject::CommitLog(int level)
         log.flush();
     }
 
+
 }
 
 void GRIObject::set_name(QString n){
