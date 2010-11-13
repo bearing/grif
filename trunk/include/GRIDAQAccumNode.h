@@ -15,18 +15,20 @@ class GRIDAQAccumNode: public GRIObject
 public:
 
     virtual void GRIDAQAccumulationTimer()=0;
-    virtual void ResetAccumulators(qint64 t_0)=0;
+    virtual void ResetAccumBuffs(qint64 t_0)=0;
 
     //These are placeholders for supported data types
-    virtual void Accumulate(int numel, double data[], qint64 timestamps[]){} // placeholders
-    virtual void Accumulate(int numel, float data[], qint64 timestamps[]){}
-    virtual void Accumulate(int numel, int data[], qint64 timestamps[]){}
-    virtual void Accumulate(int numel, qint64 data[], qint64 timestamps[]){}
-    virtual void Accumulate(int numel, long data[], qint64 timestamps[]){}
-    virtual void Accumulate(int numel, short data[], qint64 timestamps[]){}
-    virtual void Accumulate(int numel, char data[], qint64 timestamps[]){}
-    virtual void Accumulate(int numel, unsigned char data[], qint64 timestamps[]){}
-    virtual void Accumulate(int numel, bool data[], qint64 timestamps[]){}
+    virtual void Accumulate(int numel, double data[], qint64 timestamps[],bool runflag){} // placeholders
+    virtual void Accumulate(int numel, float data[], qint64 timestamps[],bool runflag){}
+    virtual void Accumulate(int numel, int data[], qint64 timestamps[],bool runflag){}
+    virtual void Accumulate(int numel, qint64 data[], qint64 timestamps[],bool runflag){}
+    virtual void Accumulate(int numel, long data[], qint64 timestamps[],bool runflag){}
+    virtual void Accumulate(int numel, short data[], qint64 timestamps[],bool runflag){}
+    virtual void Accumulate(int numel, char data[], qint64 timestamps[],bool runflag){}
+    virtual void Accumulate(int numel, unsigned char data[], qint64 timestamps[],bool runflag){}
+    virtual void Accumulate(int numel, bool data[], qint64 timestamps[],bool runflag){}
+
+
 
 private:
     void timerEvent()
@@ -47,6 +49,7 @@ public:
         this->InitializeTime(tst,t_0,ticksPerSecond);
     }
 
+
     void InitializeTime(qint64 timestamp)
     {
     }
@@ -58,7 +61,7 @@ public:
         this->ts0 = timestamp;
         this->ticksPerSecond = ticks;
         this->running = true;
-        ResetAccumulators(timestamp);
+        ResetAccumBuffs(timestamp);
 
     }
 

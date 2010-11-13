@@ -4,7 +4,7 @@
 
 GRIBuffer::GRIBuffer(QReadWriteLock *l)
 {
-
+    busyWrite = false;
     size = 0;
     packetList = new QList< QVector<char>* >();
     markerList = new QList<unsigned int>();
@@ -130,7 +130,10 @@ unsigned int GRIBuffer::currentPacket()
 //returns the total number of packets
 int GRIBuffer::bufferSize()
 {
-    return size;
+    if(busyWrite)
+            return (size-1);  // Return only completed packets
+    else
+        return size;
 }
 
 

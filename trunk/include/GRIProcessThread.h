@@ -237,6 +237,8 @@ public:
 protected:
     //*********************************TESING***********************************
     virtual void run();
+    bool RunFlag;
+
 
 private:
 
@@ -253,7 +255,8 @@ private:
     //GRILogMessage LogMsg;
 
 public:
-
+    void setRunFlag(bool tf){RunFlag = tf;}  // This could be moved into protected once integration is completed.
+    bool getRunFlag(){return RunFlag;}
     unsigned int thread_id; // id of this thread
 
     static unsigned int counter; // to keep track what id needs to be given to a new thread

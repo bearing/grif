@@ -98,18 +98,6 @@ QString GRIProcessThread::get_xml_path()
     return this->xml_path;
 }
 
-//void GRIProcessThread::CommitLog(int level)
-//{
-//    if(LogMsg.IsLevelEnabled(level))
-//    {
-
-//        if(LogMsg.SetMessageTime(log.read(),level))
-//            logSignal(LogMsg);
-//    } else {
-//        log.flush();
-//    }
-//}
-
 
 void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
 {
@@ -194,7 +182,7 @@ bool GRIProcessThread::change_priority(bool is_up)
     log << "process name: " << this->get_name() << " priority: " << (int)this->priority()
             << " last adjustment to saturation: " << last_adjustment_to_saturation
             << " last adjustment from saturation: " << last_adjustment_from_saturation << endl;
-    CommitLog(LOG_VERBOSE);
+    CommitLog(GRILOG_VERBOSE);
 
     if(is_up) {
         if(current_priority >= normal_priority) {
@@ -304,7 +292,7 @@ void GRIProcessThread::display_current_state()
         data_t* new_data = *it;
         log << new_data->name << endl;
     }  
-    CommitLog(LOG_DEBUG);
+    CommitLog(GRILOG_DEBUG);
 
 }
 

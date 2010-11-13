@@ -217,8 +217,12 @@ public:
           *
         */
         void wakeOneOnQueue();
+        void SetBusyWrite(bool tf){busyWrite = tf;}
+        bool GetBusyWrite(){return busyWrite;}
 
 private:
+
+        bool busyWrite;
 
         //! a private variable
         /*!

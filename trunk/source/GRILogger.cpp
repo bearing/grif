@@ -3,6 +3,7 @@
 #include <QResource>
 
 
+
 GRILogger::GRILogger(QString FileName)
 {
     GRIFProjectFilePath = getenv("GRIFPROJECTDIR");

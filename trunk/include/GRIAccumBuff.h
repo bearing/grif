@@ -15,8 +15,10 @@ public:
         LeadingEdge = false;
     }
     ~GRIAccumBuff(){}
-    bool BufferData(int numel, qint64 t[], T d[])
+    qint64 BufferData(int numel, qint64 t[], T d[])
     {
+        qint64 dt = 0;
+
         bool trigger = false;
 
         for(int i=0; i<numel; i++)
@@ -31,12 +33,13 @@ public:
             }
 
             // trigger on times greater than leading edge buffer
-            if(t[i] >= t2 && LeadingEdge)
-                trigger = true;
+            if(t[i] >= t2 && LeadingEdge){
+                if(t[i]-t2 > dt) dt = t[i]-t2;  // time greater than leading edge
+            }
 
         }
 
-        return trigger;
+        return dt;
     }
 
     void ResetBuffer(qint64 t1_, qint64 t2_)

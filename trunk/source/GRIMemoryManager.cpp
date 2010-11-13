@@ -161,6 +161,8 @@ unsigned int GRIMemoryManager::sizeofBuffer(QString dataBlockName, QString buffe
 unsigned int GRIMemoryManager::sizeofPacket(QString dataBlockName, QString bufferName, unsigned int packetNumber)
 {
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
+//    cout << "MM: sizeofPacket: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "pack" << packetNumber
+//            << "(" << buf->packetSize(packetNumber) << ")" << endl;
     return buf->packetSize(packetNumber);
 }
 
@@ -305,8 +307,11 @@ GRIBuffer* GRIMemoryManager::grabBuffer(QString dataBlockName, QString bufferNam
 //returns a copy of the packet requested
 char* GRIMemoryManager::readMemory(QString dataBlockName, QString bufferName, unsigned int packetNumber, char* buffer)
 {
- //   cout << "MM: Read Memory" << endl;
+
     GRIMemoryManager::bufferReadLock(dataBlockName, bufferName);
+   // cout << "(MM) Read: Lock Buffer: " << qstrdup(qPrintable(dataBlockName)) << "-" << qstrdup(qPrintable(bufferName)) << endl;
+
+
 
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     if (packetNumber >= buf->bufferSize()) {
@@ -319,14 +324,20 @@ char* GRIMemoryManager::readMemory(QString dataBlockName, QString bufferName, un
 
     unsigned int packSize = buf->packetSize(packetNumber);
 
+    log << "(MM) Read: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "-pack" <<
+            packetNumber << "(" << packSize << ")" << endl;
+    CommitLog(GRILOG_VERBOSE);
+
     for (int i = 0; i < packSize; i++) {
         *(buffer+i) = buf->readBuffer(packetNumber,i);
     }
-//    cout << "MM: Buffer Read" << endl;
+
+//    cout << "(MM) Read Complete: " << qstrdup(qPrintable(dataBlockName)) << "-" << qstrdup(qPrintable(bufferName)) << "-pack" <<
+//            packetNumber << "(" << packSize << ")" << endl;
     buf->incrementPacketMarker();
 
     GRIMemoryManager::unlockBuffer(dataBlockName, bufferName);
-//    cout << "Read Memory: Unlocked Buffer" << endl;
+//    cout << "(MM) Read: Unlocked Buffer: " << qstrdup(qPrintable(dataBlockName)) << "-" << qstrdup(qPrintable(bufferName)) << endl;
     return buffer;
 
 }
@@ -349,22 +360,32 @@ char* GRIMemoryManager::readMemory(QString dataBlockName, QString bufferName, ch
 //writes into the packet specified
 bool GRIMemoryManager::writeMemory(QString dataBlockName, QString bufferName, unsigned int packetNumber, unsigned int size, char dataArray[])
 {
- //   cout << "MM: write Memory" << endl;
+
+   log << "(MM) Write: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "-pack" <<
+           packetNumber << "(" << size << ")" << endl;
+   CommitLog(GRILOG_VERBOSE);
+
     GRIMemoryManager::bufferWriteLock(dataBlockName, bufferName);
- //   cout << "MM: writeMemory-->bufferWriteLocked" << endl;
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
- //   cout << "MM: writeMemory-->grabBuffer" << endl;
+
+    buf->SetBusyWrite(true);  // This prevents the new packet to be included in the size parameter until fully written to.
     for (unsigned int s = 0; s < size; s++) {
         if (!(buf->writeToBuffer(dataArray[s], packetNumber, s))) {
             return false;
         }
     }
- //   cout << "MM: writeMemory-->" << endl;
+    // Want to wait until buffer fully registers inputs
+    while(buf->packetSize(packetNumber) < size)
+    {}
+    buf->SetBusyWrite(false);  // All is well with the new packet so clear the BusyWrite
 
+//    cout << "(MM) Write Complete: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "-pack" <<
+//            packetNumber << "(" << size << ")" << endl;
 
     buf->wakeAllOnQueue();
     GRIMemoryManager::unlockBuffer(dataBlockName,bufferName);
-  //  cout << "MM: write Memory Finished" << endl;
+//    cout << "(MM): Buffer UnLock: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << endl;
+
     return true;
 }
 

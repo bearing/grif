@@ -52,7 +52,7 @@ void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
     if(data_blocks == NULL || processes == NULL) {
 #ifdef REGULATOR_DEBUG
         log << "! GRIRegulator::init_config(): No processes or data blocks" << endl;
-        CommitLog(LOG_ERROR);
+        CommitLog(GRILOG_ERROR);
 #endif // REGULATOR_DEBUG
 
         return;
@@ -102,8 +102,8 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
     //log << "ProcessName: " << blockName.toStdString().c_str() << endl; CommitLog(LOG_DEBUG);
     if(data == NULL) {
 
-//        cout << "GRIRegulator::readMemory(): Can't find buffer" << endl;
-//        //CommitLog(LOG_ERROR);
+        log << "GRIRegulator::readMemory(): Can't find buffer" << endl;
+       CommitLog(GRILOG_ERROR);
 
 
         pair<unsigned int, char*> returnVal(0, NULL);
@@ -129,6 +129,7 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
 
         unsigned int length = mm->sizeofPacket(blockName, bufferName,
                                                mm->currentPacketPosition(blockName, bufferName));
+//        cout << "REG: sizeofPacket: " << length << endl;
         pair<unsigned int, char*> returnVal(length, mm->readMemory(blockName, bufferName, new char[length]));
         return returnVal;
     }

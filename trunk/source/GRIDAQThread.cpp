@@ -5,7 +5,6 @@ using namespace std;
 GRIDAQThread::GRIDAQThread()
 {
     sleeping = false;
-    runFlag = false;
     exitThreadFlag = true;
     forceQuit = false;
 }
@@ -14,18 +13,15 @@ GRIDAQThread::~GRIDAQThread(){
 }
 
 
-void GRIDAQThread::setRunFlag(bool newRunFlag){
-    runFlag = newRunFlag;
-    if(sleeping){
-        sleeping = false;
-    //TODO:
-    //Tell regulator to unsleep thread.
-    }
-}
+//void GRIDAQThread::setRunFlag(bool newRunFlag){
+//    this->setRunFlag(newRunFlag);
+//    if(sleeping){
+//        sleeping = false;
+//    //TODO:
+//    //Tell regulator to unsleep thread.
+//    }
+//}
 
-bool GRIDAQThread::getRunFlag(){
-    return runFlag;
-}
 
 void GRIDAQThread::setExitThreadFlag(bool newExitThreadFlag){
     if(sleeping){
@@ -82,7 +78,7 @@ void GRIDAQThread::run()
     if(error != DAQTHREAD_SUCCESS) {
         this->errorHandling("initialize() failed", error);
     }
-    while(!runFlag && exitThreadFlag){
+    while(!this->getRunFlag() && exitThreadFlag){
         sleeping = true;
         //TODO:
         //Tell regulator to sleep thread.
@@ -100,19 +96,26 @@ void GRIDAQThread::run()
         }
 		
 		
-        while(runFlag && exitThreadFlag){
+        while(this->getRunFlag() && exitThreadFlag){
             error = acquireData();
             if (error != DAQTHREAD_SUCCESS){
                 this->errorHandling("acquiData() failed", error);
             }
         }
+
+        // Run one more to ensure flush occurred...
+        error = acquireData();
+        if (error != DAQTHREAD_SUCCESS){
+            this->errorHandling("acquiData() failed", error);
+        }
+
         if(!forceQuit){
             error = stopDataAcquisition();
             if(error != DAQTHREAD_SUCCESS) {
                 this->errorHandling("stopDataAcquisition() failed", error);
             }
         }
-        while(!runFlag && exitThreadFlag){
+        while(!this->getRunFlag() && exitThreadFlag){
             sleeping = true;
             //TODO:
             //Tell regulator to sleep thread.
@@ -135,7 +138,7 @@ void GRIDAQThread::errorHandling(const char * message, int errorCode){
     cerr << "\tError code = " << errorCode << endl;
     log << "GRIDAQThreadError: Message: " << message << endl;
     log << "\tError code = " << errorCode << endl;
-    CommitLog(LOG_ERROR);
+    CommitLog(GRILOG_ERROR);
 }
 
 

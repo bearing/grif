@@ -30,7 +30,7 @@ void GRIHistogrammer::init_hist(){
 GRIHistogrammer::~GRIHistogrammer()
         
 {
-//    delete(hist);
+    delete(hist);
 }
 
 int GRIHistogrammer::openInitializationControl(){

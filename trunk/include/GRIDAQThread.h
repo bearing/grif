@@ -430,15 +430,13 @@ void quitDAQ();
 */
 void forceQuitDAQ();
 
-
-
-//placing this public temporarily for testing...
-void setRunFlag(bool newRunFlag);    //These four methods are getters/setters for
-protected:
-//void setRunFlag(bool newRunFlag);    //These four methods are getters/setters for
-bool getRunFlag();                   //the regulator to use as stated above.
 void setExitThreadFlag(bool newExitThreadFlag);
 bool getExitThreadFlag();
+
+protected:
+
+//bool getRunFlag();                   //the regulator to use as stated above.
+
 
 template <class T> int PostData(int numel, QString buffer_name, T _data[], qint64 timestamps[]){
 
@@ -457,7 +455,7 @@ template <class T> int PostData(int numel, QString buffer_name, T _data[], qint6
     if(!found){
         cerr << "!Accumulator not found in PostData()"<< endl;
         log << "Accumulator not found in PostData()" << endl;
-        CommitLog(LOG_ERROR);
+        CommitLog(GRILOG_ERROR);
         return 0;
     }
 
@@ -465,7 +463,7 @@ template <class T> int PostData(int numel, QString buffer_name, T _data[], qint6
     if(numel > 0){
        // cout << "Accumulating " << numel << " counts in " << buffer_name.toStdString().c_str() << endl;
 
-        accum->Accumulate(numel, _data,timestamps);
+        accum->Accumulate(numel, _data,timestamps,this->getRunFlag());
     }
 
     return 1;
@@ -479,7 +477,6 @@ void InitializeAccumulators(QDateTime tstart,
                             );
 
 private:
-bool runFlag;
 bool exitThreadFlag;
 bool sleeping;
 bool forceQuit;

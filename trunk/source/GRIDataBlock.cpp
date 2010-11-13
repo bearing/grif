@@ -8,7 +8,7 @@ GRIDataBlock::GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* an
     log << "GRIDataBlock Entry" << endl;
     log << "Data: " << analysis_struct->data.toStdString().c_str() << endl;
     log << "From: " << analysis_struct->From.toStdString().c_str() << endl;
-    CommitLog(LOG_VERBOSE);
+    CommitLog(GRILOG_VERBOSE);
 
     this->name = analysis_struct->data;
     this->writer_name = analysis_struct->From;
@@ -112,7 +112,7 @@ void GRIDataBlock::set_link(list<GRIProcessThread*>* processes)
     }
 //#ifdef DATA_BLOCK_DEBUG
     log << "** DataBlock.cpp: Done setting the reader & writers link" << endl;
-    CommitLog(LOG_VERBOSE);
+    CommitLog(GRILOG_VERBOSE);
 //#endif
 }
 
@@ -123,7 +123,7 @@ void GRIDataBlock::delete_packet()
 
 //#ifdef DATA_BLOCK_DEBUG
     log << endl << "** DataBlock::delete_packet()" << endl << endl;
-    CommitLog(LOG_VERBOSE);
+    CommitLog(GRILOG_VERBOSE);
 //#endif // DATA_BLOCK_DEBUG
 
     for(it = readers.begin(); it != readers.end(); it++) {
@@ -137,7 +137,7 @@ void GRIDataBlock::delete_packet()
     display_current_state();
     log << "lowest_packet: " << lowest_packet << endl;
     log << "first_packet: " << first_packet << endl;
-    CommitLog(LOG_VERBOSE);
+    CommitLog(GRILOG_VERBOSE);
 #endif // DATA_BLOCK_DEBUG
 
     if(lowest_packet > first_packet) {
@@ -156,18 +156,18 @@ void GRIDataBlock::load_balancing()
 
     log << ((GRIProcessThread*)QThread::currentThread())->get_name().toStdString().c_str() <<
             ": Write Counter: " << write_counter << " -- First Packet: " << first_packet << endl;
-    CommitLog(LOG_VERBOSE);
+    CommitLog(GRILOG_VERBOSE);
     // not much imbalance in the system
     if((write_counter - first_packet) < MAX_THRESHOLD) {
         log << "NO IMBALANCE: Write_Counter: " << write_counter << "- First Packet: " << first_packet << endl;
-        CommitLog(LOG_VERBOSE);
+        CommitLog(GRILOG_VERBOSE);
         return;
     }
 
 
     log << endl << "** DataBlock::load_balancing()" << endl << endl;
     log << "writer_name: " << writer->get_name().toStdString().c_str() << " priority: " << (int)writer->priority() << endl;
-    CommitLog(LOG_VERBOSE);
+    CommitLog(GRILOG_VERBOSE);
 
 
     // either decrease priority of writer (if possible) or increase the priority of the reader (if possible)
@@ -179,7 +179,7 @@ void GRIDataBlock::load_balancing()
             reader_t* reader = *it;
 
     log << "reader_name: " << reader->reader_name.toStdString().c_str() << " priority: " << (int)reader->reader->priority() << endl;
-    CommitLog(LOG_VERBOSE);
+    CommitLog(GRILOG_VERBOSE);
 
 
             if((reader->read_counter - first_packet) > LOAD_BALANCING_FACTOR * MAX_THRESHOLD &&
@@ -190,7 +190,7 @@ void GRIDataBlock::load_balancing()
                         ((GRIProcessThread*)QThread::currentThread())->get_name().toStdString().c_str() <<
                         " to priority " <<
                         (int)reader->reader->priority() << endl;
-                CommitLog(LOG_VERBOSE);
+                CommitLog(GRILOG_VERBOSE);
             }
         }
     }
@@ -213,7 +213,7 @@ bool GRIDataBlock::update_reader()
 
 
     log << "GRIDataBlock::mem_read(): Invalid reader: " << curr_thread_name.toStdString().c_str() << endl;
-    CommitLog(LOG_ERROR);
+    CommitLog(GRILOG_ERROR);
 
     return false;
 }
@@ -228,7 +228,7 @@ bool GRIDataBlock::update_writer()
 #ifdef DATA_BLOCK_DEBUG
         log << "! GRIDataBlock::mem_write(): " << curr_thread_name.toStdString().c_str() <<
                 " is not equal to " << this->writer_name.toStdString().c_str() << " so it is not allowed to write to " << this->name.toStdString().c_str() << endl;
-        CommitLog(LOG_DEBUG);
+        CommitLog(GRILOG_DEBUG);
         assert(false);
 
 #endif
@@ -254,6 +254,6 @@ void GRIDataBlock::display_current_state()
         reader_t* new_reader = *it;
         log << "reader: " << new_reader->read_counter << " " << new_reader->reader_name.toStdString().c_str() << endl;
     }
-    CommitLog(LOG_VERBOSE);
+    CommitLog(GRILOG_VERBOSE);
 }
 #endif //DATA_BLOCK_DEBUG
