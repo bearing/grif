@@ -203,6 +203,8 @@ public:
                          //                     cout << endl;
 
                          pDAQ->writeMemory(pDAQ->get_name(),this->GetBufferName(),b->GetDataSize(),da);
+                         delete [] da;
+
                          NewBubble = true;  // Sets up next buffer to be the bubble
                          b->SetBubble(false);
                          b->ResetBuffer(b->GetT1() + this->AccumulationTime*this->NAccumBuff,
