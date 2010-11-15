@@ -201,22 +201,22 @@ template <class T> int PostData(int numel, QString buffer_name, T _data[]){
 
 }
 
-template <class T> unsigned int ReadData(QString block_name, QString buffer_name, T* pRet){
+template <class T> pair<unsigned int, T*> ReadData(QString block_name, QString buffer_name){
 
    pair<unsigned int, T*> p = readMemory<T>(block_name, buffer_name);
    ReadDataPtrs.push_back((void*)p.second);
 
-   pRet = p.second;
-   return p.first;
+   return p;
 
 }
 
+QList<void*> ReadDataPtrs;
 
 private:
 bool exitThreadFlag;
 bool sleeping;
 bool forceQuit;
-QList<void*> ReadDataPtrs;
+
 void ReadGarbageCollection();
 
 
