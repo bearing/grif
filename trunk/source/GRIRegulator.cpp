@@ -130,7 +130,11 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
         unsigned int length = mm->sizeofPacket(blockName, bufferName,
                                                mm->currentPacketPosition(blockName, bufferName));
 //        cout << "REG: sizeofPacket: " << length << endl;
-        pair<unsigned int, char*> returnVal(length, mm->readMemory(blockName, bufferName, new char[length]));
+
+        // Note: the new char array must be deleted
+        char *c = new char[length];
+        pair<unsigned int, char*> returnVal(length, mm->readMemory(blockName, bufferName, c));
+        ReadDataPtrs.push_back(c);
         return returnVal;
     }
 
@@ -255,4 +259,30 @@ GRIDataBlock* GRIRegulator::find_data(QString data_block_name, QString buffer_na
     }
 
     return NULL;
+}
+
+
+int GRIRegulator::GarbageCollection(void* p)
+{
+    //cout << "Regulator Garbage Collection" << endl;
+    for(int i=0; i<ReadDataPtrs.size(); i++)
+    {
+        if(p == ReadDataPtrs[i]){
+            char* c = ReadDataPtrs.takeAt(i);
+            delete [] c;
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int GRIRegulator::GarbageCollection(QList<void*> pList)
+{
+    int n = 0;
+    for(int i=0; i<pList.size(); i++)
+    {
+        n += GarbageCollection(pList[i]);
+    }
+
+    return n;
 }

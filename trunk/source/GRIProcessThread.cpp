@@ -12,7 +12,7 @@ GRIProcessThread::GRIProcessThread()
 
     thread_id = GRIProcessThread::counter++;
 
-    histArray = new GRIHistogrammer(100,0,100);
+    //histArray = new GRIHistogrammer(100,0,100);
 
     numInOut = 1;
     //LogMsg = new GRILogMessage();
@@ -45,7 +45,7 @@ GRIProcessThread::~GRIProcessThread()
         delete *it;
     }
 
-    //delete(histArray);
+    qDeleteAll(histArray);
 
 }
 
