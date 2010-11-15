@@ -2,78 +2,226 @@
 #define GRIAnalysisThread_H
 
 #include "GRIProcessThread.h"
+#include <iostream>
+#include <QHash>
+#include <QString>
 
-/*
+
+#define ANALYSISTHREAD_SUCCESS   0
+
+//Abstract AnalysisThreadClass
+
+//! A GRIAnalysisThread class
+/*!
 *
-* anlaysisThread abstract class
-* This analysis abstract class is still in a temporary form. I also do not wish to present to you the actual internal
-* workings of the GRIAnalysisThread class, so I will only give you the header file for the class, and a description of the
-* abstract methods.
+* The GRIAnalysisThread class is an abstract class that must be inherited by any class
+* that represents a particular data acquisition device (Analysis).  It contains purely
+* virtual methods that must be implemented, and are guaranteed to be called in a
+* particular order.  These methods must handle the initialization, data acquisition
+* and shutdown procedures for a Analysis.  Within these methods, please use the public
+* methods available in GRIProcessThread to write to the memory manager and read from
+* the memory manager.  Methods in GRIProcessThread are also available for dynamically
+* changing parameters in any inheriting class.
 *
+* \see GRIProcessThread()
 */
-
 class GRIAnalysisThread : public GRIProcessThread
 
 {
 
-
 public:
-
-    /*
-    *
-    * Constructors and Destructors
-    * The constructuor implemented should initialize all necessary variables and data for object initialization.
-    * The destructor should include a call to QThread::wait() at the end so that the thread gets blocked until
-    * the end of its execuion cycle i.e. the run() method returns.
-    *
-    */
-    GRIAnalysisThread();
-    ~GRIAnalysisThread();
-
-    /*
-    *
-    * startAnalysis()
-    * This method performs the necessary functions in order to begin analysis of data from the DAQ.
-    * At the very minimum, this method must make a call to QThread::start(priority) in order to initialize
-    * the thread process on the CPU. Depending on the analysis functions required and the application developer's
-    * implementation of the GRIAnalysisThread class, other method calls may be necessary to successfully initialize the thread.
-    *
-    */
-    void startAnalysis();
-
-    /*
-    *
-    * stopAnalysis()
-    * This method stops the analysis procedure. The app engineer must provide the appropriate method
-    * calls to stop analysis and data processing for the specified analysis technique. This method is also a true "stop"
-    * and not a "pause", so this method should only be called when the software is exiting. This method should include a call to
-    * QThread::quit(), and should not be called until the application is exiting or if the thread has finished
-    * it's run cycle.
-    *
-    */
-    void stopAnalysis();
+//! A constructor
+GRIAnalysisThread();
+//! A destructor
+~GRIAnalysisThread();
 
 
-    /*
-    *
-    * run()
-    * run() is a virtual void method inherited from the QThread class. It must be reimplemented to determine the behavior of the
-    * child GRIAnalysisThread object, which is specific to each anlaysis requested. In a standard GRIAnalysisThread implementation, the run() method
-    * should retrieve data sent from a DAQ through the memory manager, perform analysis operatios upon the data, then either send it back into
-    * memory manager or output it directly as a GUI element.
-    *
-    */
-    virtual void run();
+/*
+The app engineer must create a class inheriting GRIAnalysisThread that implements
+the following methods.  Unlike in our SIS Analysis implementation, the app engineer
+will not implement the while loop controlling data collection (see run() method).
 
-    //Pauses the analysis thread for time seconds
-    void pauseAnalysis(unsigned long time);
+This class might look something like this:
+
+class MyAnalysis : public GRIAnalysisThread
+{
+public:
+myAnalysis() {do stuff}
+~myAnalysis() {do stuff}
+
+//Talk to hardware
+}
 
 
+virtual int startDataAcquisition(){
+//Do routines that must run immediately
+//before data collection.
+}
 
-    //Virtual method for initialization
-    virtual int openInitializationControl();
+virtual int acquireData(){
+//Do routine that actually collects data
+//with the expectation that acquireData()
+//will be run in a loop (as shown in run()).
+//Use the methods inherited from GRIProcessThread
+//to write data to memory through the regulator.
+
+}
+
+virtual int stopDataAcquisition(){
+//Do routines that must run immediately
+//after data collection.
+}
+
+virtual int terminationRoutines(){
+//Do things that turn off DAQ
+}
+
+//getParam and setParam for runtime getting and setting of parameters
+//in classes inheriting GRIDAQThread should use the getParam and setParam
+//functions inherited from GRIProcessThread
+}
+
+
+Setting up and running this class would look something like this.
+
+//In loader:
+MyDAQ * mydaq = new myDAQ();
+//initialize
+mydaq->init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator);
+//add a bunch of parameters so we can do gets and sets later
+mydaq->addParam(QString Key, T& value);
+mydaq->addParam(QString Key, T& value);
+mydaq->addParam(QString Key, T& value);  //These will be user defined
+mydaq->addParam(QString Key, T& value);
+mydaq->addParam(QString Key, T& value);
+mydaq->addParam(QString Key, T& value);
+
+
+//Something will later start the daq thread, resulting in:
+mydaq->run(); //which calls the user defined methods in a well-defined order.
+
+*/
+
+//! A member function for procedures that initialize the Analysis
+/*!
+*
+* initialize() should contain procedures for doing any initial setup necessary
+* for a given data acquisition device.  Simply return ANALYSISTHREAD_SUCCESS if there
+* is nothing to do for your particular data acquisition device.
+*
+* invariants:
+* This method is guaranteed to be called only once, and only when this thread
+* starts.  It is called immediately after loadConfiguration().  It is not called for
+* each startCollection().
+*
+* \return an int containing ANALYSISTHREAD_SUCCESS if the method succeeds, or an error
+* code of your choosing upon failure.  The error will be reported using the
+* errorHandling() method.
+* \see errorHandling()
+*
+*/
+virtual int initialize(){return 0;}
+
+
+//! A member function for procedures will be called repeatedly to analyze data
+/*!
+*
+* Analyze() should contain procedures that reads data and performs analysis then
+* uses PostData to send results to the next analysis block.
+*
+*/
+virtual int Analyze() = 0;              //Called repeatedly for each run inside loop
+
+
+//! A member function for opening a GUI during DAQ initialization.
+/*!
+*
+* openInitializationControl() should open a GUI for controlling initialization of
+* the DAQ.  Dynamically getting and setting parameters may be done through the
+* getParam() and setParam() methods in GRIProcessThread().  Implementation of this
+* method is optional.
+*
+* invariants:
+* This method is guaranteed to be called once immediately after this DAQThread
+* runs. It is called before any other methods in GRIDAQThread (except
+* openInitializationControl()).  It is not called for each startCollection().
+*
+* \return an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
+* code of your choosing upon failure.  The error will be reported using the
+* errorHandling() method.
+* \see errorHandling()
+* \see getParam()
+* \see setParam()
+*
+*/
+virtual int openInitializationControl() { return 0; }  //Can override to tell GUI to open.
+
+//! A member function for opening a GUI during a DAQ run.
+/*!
+*
+* openRunTimeControl() should open a GUI for controlling running of
+* the DAQ.  Dynamically getting and setting parameters may be done through the
+* getParam() and setParam() methods in GRIProcessThread().  Implementation of this
+* method is optional.
+*
+* invariants:
+* This method is guaranteed to be called once immediately after startCollection()
+* assuming collection is not already occurring, and will be called again every time
+* collection is stopped and restarted using stopCollection(), and startCollection().
+*
+* \return an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
+* code of your choosing upon failure.  The error will be reported using the
+* errorHandling() method.
+* \see errorHandling()
+* \see getParam()
+* \see setParam()
+* \see startCollection()
+* \see stopCollection()
+*/
+virtual int openRunTimeControl() { return 0; }         //Can override to tell GUI to open.
+
+//!  The run() method.  Called when this thread is started by the regulator.
+void run();
+
+//! The errorHandling() method. Reports user generated errors for a DAQThread to standard output.
+void errorHandling(const char * message, int errorCode);
+
+void forceQuitAnalysis();
+void setExitThreadFlag(bool newExitThreadFlag);
+bool getExitThreadFlag();
+
+protected:
+
+//bool getRunFlag();                   //the regulator to use as stated above.
+
+
+template <class T> int PostData(int numel, QString buffer_name, T _data[]){
+
+    return this->writeMemory(this->get_name(),buffer_name,numel,_data);
+
+}
+
+template <class T> unsigned int ReadData(QString block_name, QString buffer_name, T* pRet){
+
+   pair<unsigned int, T*> p = readMemory<T>(block_name, buffer_name);
+   ReadDataPtrs.push_back((void*)p.second);
+
+   pRet = p.second;
+   return p.first;
+
+}
+
+
+private:
+bool exitThreadFlag;
+bool sleeping;
+bool forceQuit;
+QList<void*> ReadDataPtrs;
+void ReadGarbageCollection();
+
 
 
 };
+
 
 #endif // GRIAnalysisThread_H
