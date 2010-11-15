@@ -61,7 +61,7 @@ public:
 
     // Store the total number of inputs and outputs
     unsigned int numInOut;
-    GRIHistogrammer *histArray;
+    QList<GRIHistogrammer *> histArray;
 
     /*
      * init() sets up GRIProcessThread.  Must be called after constructor.
@@ -238,7 +238,7 @@ protected:
     //*********************************TESING***********************************
     virtual void run();
     bool RunFlag;
-
+    GRIRegulator* reg;
 
 private:
 
@@ -273,7 +273,7 @@ public:
     int last_adjustment_to_saturation;
     int last_adjustment_from_saturation;
 
-    GRIRegulator* reg;
+
 
     QHash<QString, void *> hashTable;
 
@@ -296,8 +296,13 @@ template<class T> void GRIProcessThread::setParam(QString Key, T value){
 }
 
 template<class T> pair<unsigned int, T*>
-GRIProcessThread::readMemory(QString blockName ,QString bufferName){
+GRIProcessThread::readMemory(QString blockName ,QString bufferName)
+{
+    // Recasting here must de-couple char array and the T array to allow for proper
+    // memory de-allocation via the delete method.
+
     pair<unsigned int, char *> refPair = reg->readMemory(blockName, bufferName);
+
     pair<unsigned int, T*> castPair(refPair.first / sizeof(T), (T*) refPair.second);
     return castPair;
 }
