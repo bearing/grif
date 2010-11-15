@@ -132,7 +132,7 @@ public:
     unsigned int sizeofBuffer(QString bufferName);
 
     GRIMemoryManager* GetMemoryManager(){return mm;}
-
+    int GarbageCollection(QList<void*> pList);
     // ***** Used for logging
     //QTextStream log;
     //void CommitLog(int level);
@@ -143,6 +143,8 @@ protected:
 
 private:
 
+    QList<char*> ReadDataPtrs;
+    int GarbageCollection(void* p);
 
 
     /*
