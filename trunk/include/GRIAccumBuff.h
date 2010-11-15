@@ -56,7 +56,9 @@ public:
     bool isLeadingEdge(){return LeadingEdge;}
 
     T* DataArray(){
-        T* a = new T[data.size()];  //ToDo: Is this getting freed somewhere in the mm???
+        // Note the array is passed back and copied to the MM
+        // The deletion comes after the write statement(s) in GRIDAQAccumulator::Accumulate
+        T* a = new T[data.size()];
 
        // typename QList<T>::iterator data_it;
        // int ncnt = 0;
