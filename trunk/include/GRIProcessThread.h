@@ -60,8 +60,8 @@ public:
     ~GRIProcessThread();
 
     // Store the total number of inputs and outputs
-    unsigned int numInOut;
-    QList<GRIHistogrammer *> histArray;
+//    unsigned int numInOut;
+//    QList<GRIHistogrammer *> histArray;
 
     /*
      * init() sets up GRIProcessThread.  Must be called after constructor.
@@ -81,28 +81,28 @@ public:
      */
     unsigned int getID();
 
-    /*
-     * Set the number of input/output streams for histogrammer
-     */
-    void set_numInOut(int n);
+//    /*
+//     * Set the number of input/output streams for histogrammer
+//     */
+//    void set_numInOut(int n);
 
-    /*
-     * Get the number of input/output streams for histogrammer
-     */
-    int get_numInOut();
+//    /*
+//     * Get the number of input/output streams for histogrammer
+//     */
+//    int get_numInOut();
 
-    /*
-     * Add to the histograms.  Takes in an array data of size
-     * size.  streamIndex corresponds to the index of the
-     * histogram in HistArray
-     */
-    void addToHist(double *data, int size);
+//    /*
+//     * Add to the histograms.  Takes in an array data of size
+//     * size.  streamIndex corresponds to the index of the
+//     * histogram in HistArray
+//     */
+//    void addToHist(double *data, int size);
 
-    /*
-     * Add to the histograms.  Takes in a single double for data.
-     * streamIndex corresponds to the index of the histogram in HistArray.
-     */
-    void addToHist(double data);
+//    /*
+//     * Add to the histograms.  Takes in a single double for data.
+//     * streamIndex corresponds to the index of the histogram in HistArray.
+//     */
+//    void addToHist(double data);
 
     /*
      * get_type() returns the type of this process (either DAQ or analysis)

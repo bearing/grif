@@ -16,7 +16,7 @@ void GRIHistDraw::getAndDrawHist(GRIHistogrammer *myHist)
 {
 
     //check ID Number
-    int currentID = myHist->ID;
+    int currentID = myHist->GetID();
 
     //check if we need more entries in the vector
     if (currentID > histWidg.size())
@@ -30,7 +30,7 @@ void GRIHistDraw::getAndDrawHist(GRIHistogrammer *myHist)
     histWidg[currentID]->GetCanvas()->cd();
 
     //Draw on the canvas
-    myHist->hist->Draw();
+    myHist->GetHist()->Draw();
 
     //Update
     histWidg[currentID]->GetCanvas()->Update();

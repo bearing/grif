@@ -14,7 +14,7 @@ GRIProcessThread::GRIProcessThread()
 
     //histArray = new GRIHistogrammer(100,0,100);
 
-    numInOut = 1;
+    //numInOut = 1;
     //LogMsg = new GRILogMessage();
     //msg = LogMsg->GetStream();
     //log.setString(&temp,QIODevice::ReadWrite);
@@ -45,28 +45,28 @@ GRIProcessThread::~GRIProcessThread()
         delete *it;
     }
 
-    qDeleteAll(histArray);
+    //qDeleteAll(histArray);
 
 }
 
-void GRIProcessThread::set_numInOut(int n){
-    if(n > 0){
-        numInOut = n;
-    }
-}
+//void GRIProcessThread::set_numInOut(int n){
+//    if(n > 0){
+//        numInOut = n;
+//    }
+//}
 
-void GRIProcessThread::addToHist(double *data, int size){
-    //histArray->fill(data, size);
-}
+//void GRIProcessThread::addToHist(double *data, int size){
+//    //histArray->fill(data, size);
+//}
 
-void GRIProcessThread::addToHist(double data){
-    //histArray->fill(data);
-}
+//void GRIProcessThread::addToHist(double data){
+//    //histArray->fill(data);
+//}
 
 
-int GRIProcessThread::get_numInOut(){
-    return numInOut;
-}
+//int GRIProcessThread::get_numInOut(){
+//    return numInOut;
+//}
 
 void GRIProcessThread::set_detail(GRIRegulator *reg, process_details *proc_detail)
 {

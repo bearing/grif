@@ -22,7 +22,7 @@ public:
 
 
     bool SetMessageTime(QString s, int level=0);
-    int SetObjectName(QString s){ObjectName = s;}
+    void SetObjectName(QString s){ObjectName = s;}
     bool IsLevelEnabled(int level);
     bool IsLevelEnabled();
     QString GetObjectName(){return ObjectName;}

@@ -2,6 +2,8 @@
 #define GRIAnalysisThread_H
 
 #include "GRIProcessThread.h"
+#include "GRIHistogrammer.h"
+#include "GRIHist1D.h"
 #include <iostream>
 #include <QHash>
 #include <QString>
@@ -190,11 +192,6 @@ void forceQuitAnalysis();
 void setExitThreadFlag(bool newExitThreadFlag);
 bool getExitThreadFlag();
 
-protected:
-
-//bool getRunFlag();                   //the regulator to use as stated above.
-
-
 template <class T> int PostData(int numel, QString buffer_name, T _data[]){
 
     return this->writeMemory(this->get_name(),buffer_name,numel,_data);
@@ -210,12 +207,22 @@ template <class T> pair<unsigned int, T*> ReadData(QString block_name, QString b
 
 }
 
-QList<void*> ReadDataPtrs;
+GRIHistogrammer* GetHistogram(QString HistName);
+int CreateNewHistogram(QString HistName, int nx, double xBins[]);
+int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax);
+int SetHistRateMode(QString HistName, bool tf);
+int SetHistPacketScaleFactor(QString HistName, double ScaleFactor);
+int ClearHistogram(QString HistName);
+int UpdateHistogram(QString HistName, double x[], int numel);
 
 private:
+
+QList<void*> ReadDataPtrs;
+QList<GRIHistogrammer*> HistArray;
 bool exitThreadFlag;
 bool sleeping;
 bool forceQuit;
+
 
 void ReadGarbageCollection();
 

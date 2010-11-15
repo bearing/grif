@@ -10,7 +10,6 @@ GRIDAQThread.cpp\
 GRIDataBlock.cpp\
 GRIDiagnostics.cpp\
 GRIHistDraw.cpp\
-GRIHistogrammer.cpp\
 GRILoader.cpp\
 GRILogger.cpp\
 GRIMath.cpp\
@@ -25,3 +24,4 @@ GRILogMessage.cpp\
 GRIUserLoader.cpp\
 GRIObject.cpp\
 GRIThread.cpp\
+    ../../../framework/trunk/source/GRIHist1D.cpp
