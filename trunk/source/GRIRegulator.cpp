@@ -6,32 +6,20 @@
 
 
 void GRIRegulator::reg_init(){
-    regulator_log = fopen("regulatorlogfile.txt","w");
+    regulator_log = fopen("regulator//logfile.txt","w");
 }
 
-// DC: Removing logger at this point as there will be a more elegant method
-//GRIRegulator::GRIRegulator(GRIMemoryManager* ma, GRILogger* logger)
-//{
-//    mm = ma;
-
-//    regulator_log = fopen("regulatorlogfile.txt","w"); //All these pointer assignments cause bugs later
-
-//    if(logger != NULL)  {
-//         this->logger = logger;
-//    }
-
-//}
 
 GRIRegulator::GRIRegulator(GRIMemoryManager *ma)
 {
     mm = ma;
-    //temporary log file until GRILogMessage Implemented...
-    regulator_log = fopen("regulatorlogfile.txt","w"); //All these pointer assignments cause bugs later
+    //temporary //log file until GRI//logMessage Implemented...
+    regulator_log = fopen("regulator//logfile.txt","w"); //All these pointer assignments cause bugs later
     //GRIRegulator(ma, NULL);
 
     this->set_name("REG");
-    //LogMsg.SetObjectName("REG");
-   // log.setString(&temp,QIODevice::ReadWrite);
+    ////logMsg.SetObjectName("REG");
+   // //log.setString(&temp,QIODevice::ReadWrite);
 }
 
 GRIRegulator::~GRIRegulator()
@@ -51,8 +39,8 @@ void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
 
     if(data_blocks == NULL || processes == NULL) {
 #ifdef REGULATOR_DEBUG
-        log << "! GRIRegulator::init_config(): No processes or data blocks" << endl;
-        CommitLog(GRILOG_ERROR);
+        //log << "! GRIRegulator::init_config(): No processes or data blocks" << endl;
+        //Commit//log(GRI//log_ERROR);
 #endif // REGULATOR_DEBUG
 
         return;
@@ -73,7 +61,7 @@ void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
         data_block->set_link(processes);
     }
 
- //   log << "Done setting the link" << endl; CommitLog(LOG_VERBOSE);
+ //   //log << "Done setting the link" << endl; //Commit//log(//log_VERBOSE);
 
     this->data_blocks = data_blocks;
 
@@ -92,108 +80,84 @@ void GRIRegulator::start_threads()
 pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
 {
 
-
-    //log << "readMemory()" << endl;
-    //CommitLog(LOG_DEBUG);
- //   cout << "REG: Read Memory " << blockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << endl;
     GRIDataBlock* data = find_data(blockName,bufferName);
     int packet_to_read = mm->currentPacketPosition(blockName, bufferName);
-    //log << "BufferName: " << bufferName.toStdString().c_str() << endl; CommitLog(LOG_DEBUG);
-    //log << "ProcessName: " << blockName.toStdString().c_str() << endl; CommitLog(LOG_DEBUG);
+
     if(data == NULL) {
 
-        log << "GRIRegulator::readMemory(): Can't find buffer" << endl;
-       CommitLog(GRILOG_ERROR);
+        //log << "GRIRegulator::readMemory(): Can't find buffer" << endl;
+       //Commit//log(GRI//log_ERROR);
 
 
         pair<unsigned int, char*> returnVal(0, NULL);
         return returnVal;
     }
 
-//    cout << "readMemory: " << mm->lastPacket(blockName, bufferName) << " " <<
-//            mm->currentPacketPosition(blockName, bufferName) << endl;
-    //CommitLog(LOG_DEBUG);
-
     while(mm->lastPacket(blockName, bufferName) < packet_to_read) {
-        //fprintf(this->regulator_log, "\nelapsed time is: %d ms\n", this->timer.elapsed());
-        //fprintf(this->regulator_log, "putting thread %d to sleep", (int)QThread::currentThread());
+
         bufferIsReady.wait(&mutex);
     }
 
-//    cout << "readMemory1: " << mm->lastPacket(blockName, bufferName) << " " <<
-//            mm->currentPacketPosition(blockName, bufferName) << endl;
-//    cout << "Trying to update reader" << endl;
-    //CommitLog(LOG_DEBUG);
 
     if(data->update_reader()) {
 
         unsigned int length = mm->sizeofPacket(blockName, bufferName,
                                                mm->currentPacketPosition(blockName, bufferName));
-//        cout << "REG: sizeofPacket: " << length << endl;
-
+        //log << "sizeofPacket: " << length << endl;
+        //Commit//log(GRI//log_VERBOSE);
         // Note: the new char array must be deleted
         char *c = new char[length];
         pair<unsigned int, char*> returnVal(length, mm->readMemory(blockName, bufferName, c));
-        ReadDataPtrs.push_back(c);
+
+        // Should add char* to garbage collection list for later deletion
+        // GarbageCollection requires mutex!!!
+        GarbageCollection(c);
+
+        data->load_balancing();
+
         return returnVal;
     }
 
 
 //    cout << "GRIRegulator::readMemory(): " << blockName.toStdString().c_str() <<
 //            " is not reading from " << data->get_writer_name().toStdString().c_str() << endl;
-    //CommitLog(LOG_ERROR);
+    ////Commit//log(//log_ERROR);
 
 
     pair<unsigned int, char*> returnVal(0, NULL);
     return returnVal;
 
 
-  //  cout << "done readMemory()" << endl;
-    //CommitLog(LOG_DEBUG);
+ //   cout << "done readMemory()" << endl;
+    ////Commit//log(//log_DEBUG);
     //cout << "Done Read Memory"  << endl;
 }
 
 bool GRIRegulator::writeMemory(QString blockName, QString bufferName, unsigned int size, char dataArray[])
 {
 
-    //log << "writeMemory()" << endl;
-    //CommitLog(LOG_DEBUG);
-  //  cout << "REG: Write Memory "  << blockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << endl;
 
-    //GRIDataBlock* data = find_data(bufferName);
-  //  cout << "BufferName: " << bufferName.toStdString().c_str() << endl; //CommitLog(LOG_DEBUG);
     QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
-  //  cout << "BlockName: " << blockName.toStdString().c_str() << endl; //CommitLog(LOG_DEBUG);
- //   cout << "Current Process Name: " << ((GRIProcessThread*)QThread::currentThread())->get_name().toStdString().c_str() << endl;
-    //CommitLog(LOG_VERBOSE);
+
     GRIDataBlock* data = find_data(blockName,bufferName);
     bool ret_flag;
 
     if(data == NULL) {
 
-
-     //   cout << "GRIRegulator::writeMemory(): Can't find buffer" << endl;
-        //CommitLog(LOG_ERROR);
-
-   //    cout << "Write Memory Return NULL"  << endl;
         return NULL;
     }
 
     if(data->update_writer()) {
         ret_flag =  mm->writeMemory(process_name, bufferName, size, (char*) dataArray);
         if(ret_flag) {
-//            cout << "elapsed time is: " << this->timer.elapsed() << endl;
-//            cout << "Waking all threads" << endl;
-            //CommitLog(LOG_DEBUG);
-            //fprintf(this->regulator_log, "\nelapsed time is: %d ms\n", this->timer.elapsed());
-            //fprintf(this->regulator_log, "waking all threads\n");
+
             bufferIsReady.wakeAll();
         }
-      // cout << "Write Memory Return"  << endl;
+
         return ret_flag;
     }
 
-    //cout << "Write Memory Return False"  << endl;
+
     return false;
 }
 
@@ -264,15 +228,30 @@ GRIDataBlock* GRIRegulator::find_data(QString data_block_name, QString buffer_na
 
 int GRIRegulator::GarbageCollection(void* p)
 {
-    //cout << "Regulator Garbage Collection" << endl;
+
+    //  Garbage collection must be synchronized due to the sensitive nature of the
+    // deletion of arrays.  This mutex will ensure that deletion is done in a serial
+    // manner.
+
+    GCMutex.lock();
+    bool found = false;
     for(int i=0; i<ReadDataPtrs.size(); i++)
     {
         if(p == ReadDataPtrs[i]){
             char* c = ReadDataPtrs.takeAt(i);
             delete [] c;
+            //cout << "Delete from GC" << endl;
+            GCMutex.unlock();
             return 1;
         }
     }
+
+    if(!found)
+    {
+        ReadDataPtrs.push_back((char*)p);
+        //cout << "Push to GC" << endl;
+    }
+    GCMutex.unlock();
     return 0;
 }
 
