@@ -461,7 +461,6 @@ template <class T> int PostData(int numel, QString buffer_name, T _data[], qint6
 
     GRIDAQAccumNode* accum = *accum_it;
     if(numel > 0){
-       // cout << "Accumulating " << numel << " counts in " << buffer_name.toStdString().c_str() << endl;
 
         accum->Accumulate(numel, _data,timestamps,this->getRunFlag());
     }
