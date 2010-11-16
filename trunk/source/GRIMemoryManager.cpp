@@ -7,7 +7,7 @@ GRIMemoryManager::GRIMemoryManager()
     nameTable = new QList< QList<QString>* >();
     dataBlockTable = new QList< QList<GRIBuffer*>* >();
     lockTable = new QList< QList<QReadWriteLock *>* >();
-    this->setName("MM");
+    this->set_name("MM");
 }
 
 
@@ -20,7 +20,7 @@ GRIMemoryManager::~GRIMemoryManager()
     for (i = 0; i< s; i++ ) {
         QList<GRIBuffer*> *bufferTable = dataBlockTable->at(i);
         QList<QString> *bufferNameTable = nameTable->at(i);
-        QList<QReadWriteLock *> *mutexs = lockTable->at(i);
+        QList<QReadWriteLock*> *mutexs = lockTable->at(i);
         int bIndex;
         int bSize = bufferTable->size();
         for (bIndex =0; bIndex < bSize; bIndex++) {
@@ -98,7 +98,8 @@ bool GRIMemoryManager::bufferCreate(QString dataBlockName, QString bufferName)
 
 void GRIMemoryManager::bufferDelete(QString dataBlockName, QString bufferName)
 {
-  //  cout << "Buffer Delete" << endl;
+    //log << "Buffer Delete:" << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << endl;
+    //Commit//log(GRI//log_VERBOSE);
 
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     buf->clear();
@@ -125,6 +126,8 @@ void GRIMemoryManager::bufferDelete(QString dataBlockName, QString bufferName)
 
 void GRIMemoryManager::deletePacket(QString dataBlockName, QString bufferName, unsigned int packetNumber)
 {
+    //log << "Deleting Packet: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "(" << packetNumber << ")" << endl;
+    //Commit//log(GRI//log_VERBOSE);
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     buf->clearPacket(packetNumber);
 }
@@ -161,8 +164,10 @@ unsigned int GRIMemoryManager::sizeofBuffer(QString dataBlockName, QString buffe
 unsigned int GRIMemoryManager::sizeofPacket(QString dataBlockName, QString bufferName, unsigned int packetNumber)
 {
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
-//    cout << "MM: sizeofPacket: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "pack" << packetNumber
-//            << "(" << buf->packetSize(packetNumber) << ")" << endl;
+    //log << "MM: sizeofPacket: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "pack" << packetNumber
+           // << "(" << buf->packetSize(packetNumber) << ")" << endl;
+    //Commit//log(GRI//log_DEBUG);
+
     return buf->packetSize(packetNumber);
 }
 
@@ -181,7 +186,8 @@ bool GRIMemoryManager::setPacketPosition(QString dataBlockName, QString bufferNa
 
 void GRIMemoryManager::bufferReadLock(QString dataBlockName, QString bufferName)
 {
-  //  cout << "BufferReadLock" << endl;
+    //log << "BufferReadLock:" << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << endl;
+    //Commit//log(GRI//log_VERBOSE);
     unsigned int i = locateDataBlock(dataBlockName);
     unsigned int j = locateBuffer(bufferName, i);
     QList<QReadWriteLock *> *locks = lockTable->at(i);
@@ -196,7 +202,8 @@ void GRIMemoryManager::bufferReadLock(QString dataBlockName, QString bufferName)
 
 void GRIMemoryManager::bufferWriteLock(QString dataBlockName, QString bufferName)
 {
-  //  cout << "bufferWriteLock" << endl;
+    //log << "bufferWriteLock: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << endl;
+    //Commit//log(GRI//log_VERBOSE);
     unsigned int i = locateDataBlock(dataBlockName);
     unsigned int j = locateBuffer(bufferName, i);
     QList<QReadWriteLock *> *locks = lockTable->at(i);
@@ -211,13 +218,14 @@ void GRIMemoryManager::bufferWriteLock(QString dataBlockName, QString bufferName
 
 void GRIMemoryManager::unlockBuffer(QString dataBlockName, QString bufferName)
 {
- //   cout << "unlockBuffer" << endl;
+    //log << "unlockBuffer:" << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << endl;
+    //Commit//log(GRI//log_VERBOSE);
     unsigned int i = locateDataBlock(dataBlockName);
     unsigned int j = locateBuffer(bufferName, i);
     QList<QReadWriteLock *> *locks = lockTable->at(i);
     QReadWriteLock *lock = locks->at(j);
     lock->unlock();
- //   cout << "Buffer unlocked" << endl;
+
 }
 
 
@@ -226,11 +234,10 @@ void GRIMemoryManager::unlockBuffer(QString dataBlockName, QString bufferName)
 unsigned int GRIMemoryManager::locateBuffer(QString dataBlockName, QString bufferName)
 {
 
- //   cout << "Locate Data Block" << endl;
-    int blockIndex = locateDataBlock(dataBlockName);
- //   cout << "Get BufferName" << endl;
-    QList<QString> *bufferNames = nameTable->at(blockIndex);
- //   cout << "Got BufferName" << endl;
+    cout << "locateBuffer: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << endl;
+    //Commit//log(GRI//log_VERBOSE);
+    int blockIndex = locateDataBlock(dataBlockName); 
+   QList<QString> *bufferNames = nameTable->at(blockIndex);
     int i;
     int size = bufferNames->size();
     for (i = 0; i < size ; i++) {
@@ -238,6 +245,9 @@ unsigned int GRIMemoryManager::locateBuffer(QString dataBlockName, QString buffe
             return i;
         }
     }
+    //log << "locateBuffer: BUFFER NOT LOCATED" << endl;
+    //Commit//log(GRI//log_ERROR);
+
     return -1;                                      //should not reach here if buffer exists
 }
 
@@ -247,8 +257,8 @@ unsigned int GRIMemoryManager::locateBuffer(QString dataBlockName, QString buffe
 unsigned int GRIMemoryManager::locateBuffer(QString bufferName, unsigned int blockIndex)
 {
 
- //   cout << "locateBuffer: " << blockIndex << ":" << nameTable->size() << endl;
-
+    //log << "locateBuffer: BlockIndex: " << blockIndex << " - " << bufferName.toStdString().c_str() << endl;
+    //Commit//log(GRI//log_VERBOSE);
     QList<QString> *bufferNames = nameTable->at(blockIndex);
 //    cout << "Buffer Located " << endl;
     int i;
@@ -260,8 +270,8 @@ unsigned int GRIMemoryManager::locateBuffer(QString bufferName, unsigned int blo
         }
     }
 
-
-
+    //log << "locateBuffer: BUFFER NOT LOCATED" << endl;
+    //Commit//log(GRI//log_ERROR);
     return -1;                                      //should not reach here if buffer exists
 }
 
@@ -270,7 +280,9 @@ unsigned int GRIMemoryManager::locateBuffer(QString bufferName, unsigned int blo
 //returns the index of the given data block in the GRIMemoryManager's tables
 int GRIMemoryManager::locateDataBlock(QString dataBlockName)
 {
- //   cout << "locateDataBlock" << endl;
+
+    //log  << "locateDataBlock:" << dataBlockName.toStdString().c_str() << endl;
+    //Commit//log(GRI//log_VERBOSE);
 
     int i;
 
@@ -282,6 +294,9 @@ int GRIMemoryManager::locateDataBlock(QString dataBlockName)
             return i;
         }
     }
+
+    //log << "locateDataBlock: DataBlock NOT LOCATED" << endl;
+    //Commit//log(GRI//log_ERROR);
     return -1;                                      //should not reach here if buffer block exists
 }
 
@@ -290,8 +305,11 @@ int GRIMemoryManager::locateDataBlock(QString dataBlockName)
 //returns a pointer a to the buffer requested
 GRIBuffer* GRIMemoryManager::grabBuffer(QString dataBlockName, QString bufferName)
 {
-  //  cout << "grabBuffer" << endl;
+
     int blockIndex = locateDataBlock(dataBlockName);
+    //log << "grabBuffer:blockIndex -> " << blockIndex << endl;
+    //Commit//log(GRI//log_VERBOSE);
+
     if (blockIndex == -1) return 0;
     QList<GRIBuffer*> *bufferTable = dataBlockTable->at(blockIndex);
     int bufferIndex = locateBuffer(bufferName, blockIndex);
@@ -324,20 +342,18 @@ char* GRIMemoryManager::readMemory(QString dataBlockName, QString bufferName, un
 
     unsigned int packSize = buf->packetSize(packetNumber);
 
-    log << "(MM) Read: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "-pack" <<
-            packetNumber << "(" << packSize << ")" << endl;
-    CommitLog(GRILOG_VERBOSE);
+    cout << "(MM) Read: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "-packet " <<
+            packetNumber << " (" << packSize << ")" << endl;
+    //Commit//log(GRI//log_VERBOSE);
 
     for (int i = 0; i < packSize; i++) {
         *(buffer+i) = buf->readBuffer(packetNumber,i);
     }
 
-//    cout << "(MM) Read Complete: " << qstrdup(qPrintable(dataBlockName)) << "-" << qstrdup(qPrintable(bufferName)) << "-pack" <<
-//            packetNumber << "(" << packSize << ")" << endl;
     buf->incrementPacketMarker();
 
     GRIMemoryManager::unlockBuffer(dataBlockName, bufferName);
-//    cout << "(MM) Read: Unlocked Buffer: " << qstrdup(qPrintable(dataBlockName)) << "-" << qstrdup(qPrintable(bufferName)) << endl;
+
     return buffer;
 
 }
@@ -361,9 +377,9 @@ char* GRIMemoryManager::readMemory(QString dataBlockName, QString bufferName, ch
 bool GRIMemoryManager::writeMemory(QString dataBlockName, QString bufferName, unsigned int packetNumber, unsigned int size, char dataArray[])
 {
 
-   log << "(MM) Write: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "-pack" <<
-           packetNumber << "(" << size << ")" << endl;
-   CommitLog(GRILOG_VERBOSE);
+   cout << "(MM) Write: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "-packet " <<
+           packetNumber << " (" << size << ")" << endl;
+   //Commit//log(GRI//log_VERBOSE);
 
     GRIMemoryManager::bufferWriteLock(dataBlockName, bufferName);
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
@@ -379,12 +395,9 @@ bool GRIMemoryManager::writeMemory(QString dataBlockName, QString bufferName, un
     {}
     buf->SetBusyWrite(false);  // All is well with the new packet so clear the BusyWrite
 
-//    cout << "(MM) Write Complete: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "-pack" <<
-//            packetNumber << "(" << size << ")" << endl;
-
     buf->wakeAllOnQueue();
     GRIMemoryManager::unlockBuffer(dataBlockName,bufferName);
-//    cout << "(MM): Buffer UnLock: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << endl;
+
 
     return true;
 }
