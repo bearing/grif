@@ -57,7 +57,8 @@ void GRIDAQThread::forceQuitDAQ(){
 
 void GRIDAQThread::run()
 {
-    cout << "GRIDAQThread run" << endl;
+    log << "GRIDAQThread run" << endl;
+    CommitLog(GRILOG_MESSAGE);
     int error;
 
     error = openInitializationControl();
