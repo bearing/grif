@@ -34,4 +34,6 @@ GRITrace.h\
 GRIDAQAccumulator.h\
 GRIAccumBuff.h\
 GRIDAQAccumNode.h\
-    ../../../framework/trunk/include/GRIHist1D.h
+    ../../../framework/trunk/include/GRIHist1D.h \
+    ../../../framework/trunk/include/GRIHist2D.h \
+    ../../../framework/trunk/include/GRIHist3D.h

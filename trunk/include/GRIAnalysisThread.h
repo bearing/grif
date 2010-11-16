@@ -4,6 +4,8 @@
 #include "GRIProcessThread.h"
 #include "GRIHistogrammer.h"
 #include "GRIHist1D.h"
+#include "GRIHist2D.h"
+#include "GRIHist3D.h"
 #include <iostream>
 #include <QHash>
 #include <QString>
@@ -210,11 +212,18 @@ template <class T> pair<unsigned int, T*> ReadData(QString block_name, QString b
 GRIHistogrammer* GetHistogram(QString HistName);
 int CreateNewHistogram(QString HistName, int nx, double xBins[]);
 int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax);
+int CreateNewHistogram(QString HistName, int nx, double xBins[],int ny, double yBins[]);
+int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax,int ny, double ymin, double ymax);
+// Not available in my version of Root...but leaving hook for later integration...
+//int CreateNewHistogram(QString HistName, int nx, double xBins[],int ny, double yBins[],int nz, double zBins[]);
+int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax,int ny, double ymin, double ymax,int nz, double zmin, double zmax);
+
 int SetHistRateMode(QString HistName, bool tf);
 int SetHistPacketScaleFactor(QString HistName, double ScaleFactor);
 int ClearHistogram(QString HistName);
 int UpdateHistogram(QString HistName, double x[], int numel);
-
+int UpdateHistogram(QString HistName, double x[], double y[], int numel);
+int UpdateHistogram(QString HistName, double x[], double y[], double z[], int numel);
 private:
 
 QList<void*> ReadDataPtrs;

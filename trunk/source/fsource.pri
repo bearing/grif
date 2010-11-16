@@ -24,4 +24,6 @@ GRILogMessage.cpp\
 GRIUserLoader.cpp\
 GRIObject.cpp\
 GRIThread.cpp\
-    ../../../framework/trunk/source/GRIHist1D.cpp
+    ../../../framework/trunk/source/GRIHist1D.cpp \
+    ../../../framework/trunk/source/GRIHist2D.cpp \
+    ../../../framework/trunk/source/GRIHist3D.cpp

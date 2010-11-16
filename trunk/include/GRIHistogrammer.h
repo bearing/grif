@@ -3,6 +3,7 @@
 
 #include "TH1D.h"
 #include "TH2D.h"
+#include "TH3D.h"
 #include "GRIObject.h"
 #include <QString>
 
@@ -23,7 +24,8 @@ public:
     virtual int SetBins(int nx, double xmin, double xmax){return -1;}
     virtual int SetBins(int nx, double xBins[], int ny, double yBins[]){return -1;}
     virtual int SetBins(int nx, double xmin, double xmax, int ny, double ymin, double ymax){return -1;}
-    virtual int SetBins(int nx, double xBins[], int ny, double yBins[], int nz, double zBins[]){return -1;}
+    // See comments in GRIHist3D.cpp
+    // virtual int SetBins(int nx, double xBins[], int ny, double yBins[], int nz, double zBins[]){return -1;}
     virtual int SetBins(int nx, double xmin, double xmax, int ny, double ymin, double ymax, int nz, double zmin, double zmax){return -1;}
 
     //Updating

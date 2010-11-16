@@ -140,6 +140,67 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin,
     }
 }
 
+
+int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xBins[], int ny, double yBins[]){
+
+
+    // This is two dimensional
+    if(this->GetHistogram(HistName) == NULL){
+        GRIHistogrammer* p = new GRIHist2D(this->get_name(),HistArray.size(),HistName);
+        p->SetBins(nx,xBins,ny,yBins);
+        HistArray.push_back(p);
+        return 0;
+    }else{
+        cerr << "!Histogrammer: "  << HistName.toStdString().c_str() << " already present" << endl;
+        return -1;
+    }
+}
+
+int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin, double xmax,int ny, double ymin, double ymax){
+    // This is two dimensional
+    if(this->GetHistogram(HistName) == NULL){
+        GRIHistogrammer* p = new GRIHist2D(this->get_name(),HistArray.size(),HistName);
+        p->SetBins(nx,xmin,xmax,ny,ymin,ymax);
+        HistArray.push_back(p);
+        return 0;
+    }else{
+        cerr << "!Histogrammer: "  << HistName.toStdString().c_str() << " already present" << endl;
+        return -1;
+    }
+}
+
+
+// Hook for later integration...
+//int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xBins[], int ny, double yBins[],int nz, double zBins[]){
+
+
+//    // This is 3 dimensional
+//    if(this->GetHistogram(HistName) == NULL){
+//        GRIHistogrammer* p = new GRIHist2D(this->get_name(),HistArray.size(),HistName);
+//        p->SetBins(nx,xBins,ny,yBins);
+//        HistArray.push_back(p);
+//        return 0;
+//    }else{
+//        cerr << "!Histogrammer: "  << HistName.toStdString().c_str() << " already present" << endl;
+//        return -1;
+//    }
+//}
+
+int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin, double xmax, int ny, double ymin, double ymax,int nz, double zmin, double zmax){
+    // This is 3 dimensional
+    if(this->GetHistogram(HistName) == NULL){
+        GRIHistogrammer* p = new GRIHist3D(this->get_name(),HistArray.size(),HistName);
+        p->SetBins(nx,xmin,xmax,ny,ymin,ymax,nz,zmin,zmax);
+        HistArray.push_back(p);
+        return 0;
+    }else{
+        cerr << "!Histogrammer: "  << HistName.toStdString().c_str() << " already present" << endl;
+        return -1;
+    }
+}
+
+
+
 int GRIAnalysisThread::SetHistRateMode(QString HistName, bool tf){
 
     GRIHistogrammer* p;
@@ -187,7 +248,15 @@ int GRIAnalysisThread::UpdateHistogram(QString HistName, double x[], int numel){
 
     GRIHistogrammer* p;
     if((p = this->GetHistogram(HistName)) != NULL){
-        p->Update(x,numel);
+        if(p->GetDimension() == 1)
+            p->Update(x,numel);
+        else
+        {
+            cerr << "!Called Histogram Update with 1D parameters but Hist:" << HistName.toStdString().c_str() <<
+                    " is " << p->GetDimension() << "D" << endl;
+            return -1;
+
+        }
         return 0;
     }
     else{
@@ -196,6 +265,46 @@ int GRIAnalysisThread::UpdateHistogram(QString HistName, double x[], int numel){
     }
 }
 
+
+int GRIAnalysisThread::UpdateHistogram(QString HistName, double x[], double y[], int numel){
+
+    GRIHistogrammer* p;
+    if((p = this->GetHistogram(HistName)) != NULL){
+        if(p->GetDimension()==2)
+            p->Update(x,y,numel);
+        else
+        {
+            cerr << "!Called Histogram Update with 2D parameters but Hist:" << HistName.toStdString().c_str() <<
+                    " is " << p->GetDimension() << "D" << endl;
+            return -1;
+        }
+        return 0;
+    }
+    else{
+        cerr << "!Histogrammer: "  << HistName.toStdString().c_str() << " is not in current list." << endl;
+        return -1;
+    }
+}
+
+int GRIAnalysisThread::UpdateHistogram(QString HistName, double x[], double y[], double z[], int numel){
+
+    GRIHistogrammer* p;
+    if((p = this->GetHistogram(HistName)) != NULL){
+        if(p->GetDimension() == 3)
+            p->Update(x,y,z,numel);
+        else
+        {
+            cerr << "!Called Histogram Update with 3D parameters but Hist:" << HistName.toStdString().c_str() <<
+                    " is " << p->GetDimension() << "D" << endl;
+            return -1;
+        }
+        return 0;
+    }
+    else{
+        cerr << "!Histogrammer: "  << HistName.toStdString().c_str() << " is not in current list." << endl;
+        return -1;
+    }
+}
 
 
 
