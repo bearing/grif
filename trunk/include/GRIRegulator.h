@@ -14,6 +14,7 @@
 #include <cassert>
 #include <utility>
 #include <QTime>
+#include <QMutex>
 
 #include "GRILogMessage.h"
 #include "GRIObject.h"
@@ -142,7 +143,7 @@ protected:
     GRIMemoryManager* mm;
 
 private:
-
+    QMutex GCMutex;
     QList<char*> ReadDataPtrs;
     int GarbageCollection(void* p);
 
@@ -167,12 +168,6 @@ private:
 
     QWaitCondition bufferIsReady;
 
-    // *** Used for logging capability
-    //GRILogMessage LogMsg;
-    //QString temp;
-    // **************************
-//signals:
-    //void logSignal(GRILogMessage m);
 };
 
 #endif // GRIREGULATOR_H
