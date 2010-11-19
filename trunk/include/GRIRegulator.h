@@ -144,6 +144,9 @@ protected:
 
 private:
     QMutex GCMutex;
+    QMutex WriteMutex;
+    QMutex ReadMutex;
+
     QList<char*> ReadDataPtrs;
     int GarbageCollection(void* p);
 

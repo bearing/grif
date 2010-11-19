@@ -87,7 +87,7 @@ public:
 
        bool FlushFlag = !runflag;
 
-       //cout << "Accumulate - RunFlag = " << runflag << endl;
+      //cout << "Accumulate (" << numel << ")" << endl;
 
        bool BubbleTrigger = false;
        int BubbleWriteNum = 0;

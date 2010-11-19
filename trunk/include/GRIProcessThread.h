@@ -119,7 +119,7 @@ public:
      * get_name() returns the name of this process
      */
     QString get_name(){return this->objectName();}
-    int set_name(QString s){this->setObjectName(s);}
+    void set_name(QString s){this->setObjectName(s);}
 
     /*
      * get_xml_path() returns the path to the xml file of this process

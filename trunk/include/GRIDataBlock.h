@@ -33,11 +33,26 @@ class GRIMemoryManager;
  * thread reading from it.
  */
 
+struct ReaderDataObject
+{
+    QString name;
+    QString buffer;
+};
+
 struct AnalysisStructureObject
 {
     QString data;
     QString From;
-    list<QString> To;
+    list<ReaderDataObject> To;
+
+};
+
+struct reader_t
+{
+    long read_counter;
+    GRIProcessThread* reader;
+    QString reader_name;
+    QString reader_data;
 };
 
 class GRIDataBlock: public GRIObject
@@ -46,12 +61,6 @@ class GRIDataBlock: public GRIObject
 friend class GRICommandAndControl;
 friend class GRIMemoryManager;
 
-typedef struct reader
-{
-    long read_counter;
-    GRIProcessThread* reader;
-    QString reader_name;
-} reader_t;
 
 public:
 

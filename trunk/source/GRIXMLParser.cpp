@@ -417,7 +417,7 @@ std::list<AnalysisStructureObject*> GRIXMLParser::readAnalysisStructureXML()
                 }
                 else if(node.nodeName()=="TO")
                 {
-                    temp_struc->To.push_front(temp.firstChild().toText().data());
+             //       temp_struc->To.push_front(temp.firstChild().toText().data());
                 }
                 else if(node.nodeName()=="ISDAQ")
                 {

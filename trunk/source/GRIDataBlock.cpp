@@ -3,7 +3,7 @@
 
 GRIDataBlock::GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* analysis_struct)
 {
-    list<QString>::iterator it;
+    list<ReaderDataObject>::iterator it;
 
     //log << "GRIDataBlock Entry" << endl;
     //log << "Data: " << analysis_struct->data.toStdString().c_str() << endl;
@@ -17,9 +17,12 @@ GRIDataBlock::GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* an
     this->first_packet = 0;
     this->reg = reg;
 
+
     for(it = (analysis_struct->To).begin(); it != (analysis_struct->To).end(); it++) {
         reader_t* new_counter = new reader_t;
-        new_counter->reader_name = *it;
+        ReaderDataObject da = *it;
+        new_counter->reader_name = da.name;
+        new_counter->reader_data = da.buffer;
         new_counter->reader = NULL;
         new_counter->read_counter = 0;
 
@@ -52,7 +55,7 @@ GRIProcessThread* GRIDataBlock::get_writer()
     return writer;
 }
 
-list<GRIDataBlock::reader_t*>* GRIDataBlock::get_reader()
+list<reader_t*>* GRIDataBlock::get_reader()
 {
     return &readers;
 }

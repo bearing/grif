@@ -31,8 +31,7 @@ public:
 
 
 private:
-    void timerEvent()
-    {   GRIDAQAccumulationTimer(); }
+
 
 public:
     QString GetBufferName(){return BufferName;}

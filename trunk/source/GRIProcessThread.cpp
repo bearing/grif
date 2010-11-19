@@ -102,6 +102,7 @@ QString GRIProcessThread::get_xml_path()
 void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
 {
     list<GRIDataBlock*>::iterator data_block_it;
+    list<reader_t*>::iterator reader_it;
     list<data_t*>::iterator data_it;
 
     // Setting up the pointer to the data blocks that this process is writing to
@@ -110,7 +111,7 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
         for(data_block_it = (*data_blocks).begin(); data_block_it != (*data_blocks).end(); data_block_it++) {
             GRIDataBlock* data_block = *data_block_it;
 
-            if(data->name == data_block->get_name()) {
+            if(data->name == data_block->get_name() && this->get_name() == data_block->get_writer_name()) {
                 data->data_block = data_block;
                 break;
             }
@@ -126,19 +127,28 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
         }
     }
 
-
+    bool found = false;
     // Setting up the pointer to the data blocks that this process is reading from
     for(data_it = data_ins.begin(); data_it != data_ins.end(); data_it++) {
         data_t* data = *data_it;
         for(data_block_it = (*data_blocks).begin(); data_block_it != (*data_blocks).end(); data_block_it++) {
             GRIDataBlock* data_block = *data_block_it;
-            if(data->name == data_block->get_name()) {
-                data->data_block = data_block;
-                break;
+
+            for(reader_it = (*data_block->get_reader()).begin(); reader_it != (*data_block->get_reader()).end(); reader_it++){
+                reader_t* reader = *reader_it;
+                cout << reader->reader_name.toStdString().c_str() << "-" <<
+                       this->get_name().toStdString().c_str() << "   " <<
+                       reader->reader_data.toStdString().c_str() << "-" <<
+                       data->name.toStdString().c_str() << endl;
+                if(reader->reader_name == this->get_name() && reader->reader_data == data->name){
+                    data->data_block = data_block;
+                    found = true;
+                }
+
             }
         }
 
-        if(data_block_it == (*data_blocks).end()) {
+        if(!found) {
 
 #ifdef PROCESS_THREAD_DEBUG
             cerr << "! GRIProcessThread::set_link(): Could not find " << data->name.toStdString().c_str() << endl;

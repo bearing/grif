@@ -141,6 +141,7 @@ int GRIBuffer::bufferSize()
 //returns the size of a packet
 unsigned int GRIBuffer::packetSize(unsigned int packetNumber)
 {
+    cout << "QVec: pack " << packetNumber << endl;
     QVector<char> *packet = packetList->at(packetNumber);
     return packet->size();
 }

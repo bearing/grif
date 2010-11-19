@@ -80,31 +80,11 @@ int GRIHist1D::Update(double x[], int numel){
 
     if(this->GetRateMode()){
         // Updating on Rate Differentials...
-
         hist2->Add(hist2,-1);  // Set to zero
         for(int i=0; i<numel; i++)
             hist2->Fill(x[i]);  // Incoming...
-
-        for(int i=1; i<=10; i++)
-            cout << double(hist->GetBinContent(i)) << " ";
-        cout << endl;
-
-        for(int i=1; i<=10; i++)
-            cout << double(hist2->GetBinContent(i)) << " ";
-        cout << endl;
-
         hist2->Add(hist,-1); // Subtract hist
-
-        for(int i=1; i<=10; i++)
-            cout << double(hist2->GetBinContent(i)) << " ";
-        cout << endl;
-
         hist->Add(hist2,this->GetPacketScaleFactor());
-
-        for(int i=1; i<=10; i++)
-            cout << double(hist->GetBinContent(i)) << " ";
-        cout << endl;
-
    }else{
         // Straight update
         for(int i=0; i<numel; i++)

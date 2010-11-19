@@ -12,7 +12,7 @@
 #include "GRIMemoryManager.h"
 #include "GRIUserLoader.h"
 
-#include <QMainWindow>
+ #include <QMainWindow>
 
 //CAN BE UNCOMMENTED WHEN QWT HAS BEEN ADDED TO SVN
 //#include "histplotthread.h"

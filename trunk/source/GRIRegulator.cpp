@@ -80,6 +80,8 @@ void GRIRegulator::start_threads()
 pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
 {
 
+    ReadMutex.lock();
+
     GRIDataBlock* data = find_data(blockName,bufferName);
     int packet_to_read = mm->currentPacketPosition(blockName, bufferName);
 
@@ -90,6 +92,7 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
 
 
         pair<unsigned int, char*> returnVal(0, NULL);
+        ReadMutex.unlock();
         return returnVal;
     }
 
@@ -115,6 +118,7 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
 
         data->load_balancing();
 
+        ReadMutex.unlock();
         return returnVal;
     }
 
@@ -125,6 +129,7 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
 
 
     pair<unsigned int, char*> returnVal(0, NULL);
+    ReadMutex.unlock();
     return returnVal;
 
 
@@ -136,6 +141,7 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
 bool GRIRegulator::writeMemory(QString blockName, QString bufferName, unsigned int size, char dataArray[])
 {
 
+    WriteMutex.lock();
 
     QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
@@ -143,7 +149,7 @@ bool GRIRegulator::writeMemory(QString blockName, QString bufferName, unsigned i
     bool ret_flag;
 
     if(data == NULL) {
-
+        WriteMutex.unlock();
         return NULL;
     }
 
@@ -154,10 +160,11 @@ bool GRIRegulator::writeMemory(QString blockName, QString bufferName, unsigned i
             bufferIsReady.wakeAll();
         }
 
+        WriteMutex.unlock();
         return ret_flag;
     }
 
-
+    WriteMutex.unlock();
     return false;
 }
 
