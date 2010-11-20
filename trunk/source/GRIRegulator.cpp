@@ -240,14 +240,17 @@ int GRIRegulator::GarbageCollection(void* p)
     // deletion of arrays.  This mutex will ensure that deletion is done in a serial
     // manner.
 
+    //cout << "GC" << endl;
     GCMutex.lock();
     bool found = false;
     for(int i=0; i<ReadDataPtrs.size(); i++)
     {
+        //cout << "Check from GC" << endl;
         if(p == ReadDataPtrs[i]){
+            //cout << "Delete from GC" << endl;
             char* c = ReadDataPtrs.takeAt(i);
             delete [] c;
-            //cout << "Delete from GC" << endl;
+
             GCMutex.unlock();
             return 1;
         }
