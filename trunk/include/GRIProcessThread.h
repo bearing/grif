@@ -12,7 +12,7 @@
 
 #include "GRIRegulator.h"
 #include "GRIDataBlock.h"
-#include "GRIHistogrammer.h"
+//#include "GRIHistogrammer.h"
 #include "GRIDefines.h"
 #include "GRIDataDefines.h"
 #include "GRILogMessage.h"
@@ -278,7 +278,7 @@ public:
     QHash<QString, void *> hashTable;
 
 signals:
-    void histUpdate(GRIHistogrammer *hist);
+    //void histUpdate(GRIHistogrammer *hist);
     //void logSignal(QString m);
     //void logSignal(GRILogMessage m);
 };
