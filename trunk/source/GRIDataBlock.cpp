@@ -254,7 +254,7 @@ void GRIDataBlock::display_current_state()
 
     list<reader_t*>::iterator it;
     for(it = readers.begin(); it != readers.end(); it++) {
-        reader_t* new_reader = *it;
+        //reader_t* new_reader = *it;
         //log << "reader: " << new_reader->read_counter << " " << new_reader->reader_name.toStdString().c_str() << endl;
     }
     //Commit//log(GRI//log_VERBOSE);

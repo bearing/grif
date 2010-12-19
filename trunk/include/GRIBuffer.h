@@ -55,7 +55,7 @@ public:
         * \sa addPacket(), readBuffer()
         *
         */
-        bool writeToBuffer(char b,unsigned int packetNumber, int index);
+        bool writeToBuffer(char b,int packetNumber, int index);
 
 
 
@@ -70,7 +70,7 @@ public:
         * \sa writeToBuffer()
         *
         */
-        char readBuffer(unsigned int packetNumber, int index);
+        char readBuffer(int packetNumber, int index);
 
 
 
@@ -80,11 +80,11 @@ public:
         * clearBuffer() empties out the specified packet. Further reads from an empty packet will
         * return an error.
         *
-        * \param packetNumber an unsigned int representing the packet position
+        * \param packetNumber an int representing the packet position
         * \return a void value
         * \sa clear()
         */
-        void clearPacket(unsigned int packetNumber);
+        void clearPacket(int packetNumber);
 
 
         //! a member function
@@ -98,7 +98,7 @@ public:
           * \sa incrementPacketMarker(), currentPacket()
           *
         */
-        void setPacketMarker(unsigned int i);
+        void setPacketMarker(int i);
 
 
         //! a member function
@@ -123,7 +123,7 @@ public:
         * \sa incrementPacketMarker(), setPacketMarker()
         *
         */
-        unsigned int currentPacket();
+        int currentPacket();
 
 
 
@@ -146,11 +146,11 @@ public:
         * packetSize() returns the number of chars within the packet.
         *
         * \param packetNumber is the index of the packet to check the size of
-        * \return an unsigned int representing the number of elements in the packet
+        * \return an int representing the number of elements in the packet
         * \sa bufferSize()
         *
         */
-        unsigned int packetSize(unsigned int packetNumber);
+        int packetSize(int packetNumber);
 
 
 
@@ -163,7 +163,7 @@ public:
           * \sa bufferSize()
           *
         */
-        unsigned int nextPacket();
+        int nextPacket();
 
 
 
@@ -248,7 +248,7 @@ private:
           * a list of packet markers for each thread that has ever accessed the buffer for a read
           *
           */
-        QList<unsigned int> *markerList;
+        QList<int> *markerList;
 
 
 
@@ -258,7 +258,7 @@ private:
           * a list of thread IDs that keeps a running history of threads that have tried to read from the buffer.
           *
           */
-        QList<unsigned int> *threadList;
+        QList<int> *threadList;
 
 
         //! a private variable

@@ -18,22 +18,16 @@ public:
     virtual void ResetAccumBuffs(qint64 t_0)=0;
 
     //These are placeholders for supported data types
-    virtual void Accumulate(int numel, double data[], qint64 timestamps[],bool runflag){} // placeholders
-    virtual void Accumulate(int numel, float data[], qint64 timestamps[],bool runflag){}
-    virtual void Accumulate(int numel, int data[], qint64 timestamps[],bool runflag){}
-    virtual void Accumulate(int numel, qint64 data[], qint64 timestamps[],bool runflag){}
-    virtual void Accumulate(int numel, long data[], qint64 timestamps[],bool runflag){}
-    virtual void Accumulate(int numel, short data[], qint64 timestamps[],bool runflag){}
-    virtual void Accumulate(int numel, char data[], qint64 timestamps[],bool runflag){}
-    virtual void Accumulate(int numel, unsigned char data[], qint64 timestamps[],bool runflag){}
-    virtual void Accumulate(int numel, bool data[], qint64 timestamps[],bool runflag){}
+    void Accumulate(int numel, double data[], qint64 timestamps[],bool runflag){} // placeholders
+    void Accumulate(int numel, float data[], qint64 timestamps[],bool runflag){}
+    void Accumulate(int numel, int data[], qint64 timestamps[],bool runflag){}
+    void Accumulate(int numel, qint64 data[], qint64 timestamps[],bool runflag){}
+    void Accumulate(int numel, long data[], qint64 timestamps[],bool runflag){}
+    void Accumulate(int numel, short data[], qint64 timestamps[],bool runflag){}
+    void Accumulate(int numel, char data[], qint64 timestamps[],bool runflag){}
+    void Accumulate(int numel, unsigned char data[], qint64 timestamps[],bool runflag){}
+    void Accumulate(int numel, bool data[], qint64 timestamps[],bool runflag){}
 
-
-
-private:
-
-
-public:
     QString GetBufferName(){return BufferName;}
     void SetBufferName(QString bname){BufferName = bname;}
     int GetAccumulationTime(){return AccumulationTime;}
@@ -44,14 +38,10 @@ public:
     void SetTicksPerSecond(qint64 ticks){ticksPerSecond = ticks;}
     bool isRunning(){return running;}
     void SetDAQThreadObject(GRIProcessThread* pDT){pDAQ = pDT;}
-    void Initialize(QDateTime tst, qint64 t_0){
-        this->InitializeTime(tst,t_0,ticksPerSecond);
-    }
+    void Initialize(QDateTime tst, qint64 t_0){this->InitializeTime(tst,t_0,ticksPerSecond);}
 
 
-    void InitializeTime(qint64 timestamp)
-    {
-    }
+    void InitializeTime(qint64 timestamp){}
 
     void InitializeTime(QDateTime tst, qint64 timestamp, qint64 ticks)
     {
@@ -68,13 +58,17 @@ public:
 protected:
     QString BufferName;
     QTime t0;
-    qint64 AccumulationTime;  // Accumulation Time in ticks
-    int NAccumBuff;  //Number of buffers
-    int timerID;
+    QTimer *timer;
+
     qint64 ts0;
     qint64 ticksPerSecond;
+    qint64 AccumulationTime;  // Accumulation Time in ticks
+
+    int NAccumBuff;  //Number of buffers
+    int timerID;
+
     bool running;
-    QTimer *timer;
+
     GRIProcessThread* pDAQ;
 };
 

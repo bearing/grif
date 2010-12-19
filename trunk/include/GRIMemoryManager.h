@@ -94,11 +94,11 @@ protected:
         *
         * \param dataBlockName the first argument provides the data block argument
         * \param bufferName the second argument provides the name of the buffer or the data name
-        * \return returns the current index of the packet marker as an unsigned int.
+        * \return returns the current index of the packet marker as an int.
         * \sa lastPacket(), setPacketPosition()
         *
         */
-        unsigned int currentPacketPosition(QString dataBlockName, QString bufferName);
+        int currentPacketPosition(QString dataBlockName, QString bufferName);
 
 
 
@@ -135,7 +135,7 @@ protected:
         * \sa currentPacketPosition(), lastPacket()
         *
         */
-        bool setPacketPosition(QString dataBlockName, QString bufferName, unsigned int packetNumber);
+        bool setPacketPosition(QString dataBlockName, QString bufferName, int packetNumber);
 
 
         //! a member function
@@ -150,8 +150,7 @@ protected:
           * \sa sizeofBuffer()
           *
         */
-        unsigned int sizeofPacket(QString dataBlockName, QString bufferName, unsigned int packetNumber);
-
+        int sizeofPacket(QString dataBlockName, QString bufferName, int packetNumber);
 
         //! a member function
         /*!
@@ -164,7 +163,7 @@ protected:
           * \sa sizeofPacket()
           *
         */
-        unsigned int sizeofBuffer(QString dataBlockName, QString bufferName);
+        int sizeofBuffer(QString dataBlockName, QString bufferName);
 
 
         //! a member funtion
@@ -231,7 +230,7 @@ protected:
         * \return a pointer to the char array that was used to copy data into.
         * \sa readMemory(QString dataBlockName, QString bufferName, char* buffer), writeMemory()
         */
-        char* readMemory(QString dataBlockName, QString bufferName, unsigned int packetNumber, char* buffer);
+        char* readMemory(QString dataBlockName, QString bufferName, int packetNumber, char* buffer);
 
 
 
@@ -247,7 +246,7 @@ protected:
         * \param bufferName the second argument provides the name of the buffer or the data name
         * \param buffer is the third argument which holds a pointer reference to the copy out array
         * \return a pointer to a char array containing the copied out data from the buffer
-        * \sa readMemory(QString dataBlockName, QString bufferName, unsigned int packetNumber, char* buffer)
+        * \sa readMemory(QString dataBlockName, QString bufferName, int packetNumber, char* buffer)
         */
         char* readMemory(QString dataBlockName, QString bufferName, char* buffer);
 
@@ -270,16 +269,16 @@ protected:
         * \param size is the number of elements in dataArray that need to be written to the buffer starting from element 0
         * \param dataArray is the array containing elements that need to be copied to the buffer
         * \return true if the write operation was successful and false otherwise
-        * \sa writeMemory(QString dataBlockName, QString bufferName, unsigned int size, char dataArray[])
+        * \sa writeMemory(QString dataBlockName, QString bufferName, int size, char dataArray[])
         *
         */
-        bool writeMemory(QString dataBlockName, QString bufferName, unsigned int packetNumber, unsigned int size, char dataArray[]);
+        bool writeMemory(QString dataBlockName, QString bufferName, int packetNumber, int size, char dataArray[]);
 
 
 
         //! a member function
         /*!
-          * \overload bool writeMemory(QString dataBlockName, QString bufferName, unsigned int size, char dataArray[]
+          * \overload bool writeMemory(QString dataBlockName, QString bufferName, int size, char dataArray[]
           *
           * overloaded write function. This write function will always write to the last packet position
           * in the buffer. If thread A wrote to packet 3, thread B wrote to packet 4, then thread C should
@@ -290,10 +289,10 @@ protected:
           * \param size is the number of elements in dataArray
           * \param dataArray is the array containing elements to be copied into the buffer
           * \return true if the operation was successful , false otherwise
-          * \sa writeMemory(QString dataBlockName, QString bufferName, unsigned int size, char dataArray[]
+          * \sa writeMemory(QString dataBlockName, QString bufferName, int size, char dataArray[]
           *
         */
-        bool writeMemory(QString dataBlockName, QString bufferName, unsigned int size, char dataArray[]);
+        bool writeMemory(QString dataBlockName, QString bufferName, int size, char dataArray[]);
 
 
         //! a member function
@@ -318,12 +317,12 @@ protected:
           *
           * \param dataBlockName the first argument provides the data block argument
           * \param bufferName the second argument provides the name of the buffer or the data name
-          * \param packetNumber an unsigned int used to identify the packet to be deleted
+          * \param packetNumber an int used to identify the packet to be deleted
           * \return a void value
           * \sa bufferDelete()
           *
           */
-        void deletePacket(QString dataBlockName, QString bufferName, unsigned int packetNumber);
+        void deletePacket(QString dataBlockName, QString bufferName, int packetNumber);
 
 
 private:
@@ -338,17 +337,17 @@ private:
           * \param dataBlockName the first argument provides the data block argument
           * \param bufferName the second argument provides the name of the buffer or the data name
           * \return the index location of the buffer inside the given data block
-          * \sa locateBuffer(QString bufferName, unsigned int blockIdentifier), locateDataBlock(), grabBuffer()
+          * \sa locateBuffer(QString bufferName, int blockIdentifier), locateDataBlock(), grabBuffer()
           *
         */
-        unsigned int locateBuffer(QString dataBlockName, QString bufferName);
+        int locateBuffer(QString dataBlockName, QString bufferName);
 
 
 
         //! a private member function
         /*!
           *
-          * \overload unsigned int locateBuffer(QString bufferName, unsigned int blockIdentifier)
+          * \overload int locateBuffer(QString bufferName, int blockIdentifier)
           * overloaded function that takes in the QString name of the buffer requested and in the index of the
           * block identifier which is equivalent to the return value of locateDataBlock(QString dataBlockName)
           *
@@ -358,7 +357,7 @@ private:
           * \sa locateBuffer(QString dataBlockName, QString bufferName), locateDataBlock(), grabBuffer()
           *
         */
-        unsigned int locateBuffer(QString bufferName, unsigned int blockIdentifier);
+        int locateBuffer(QString bufferName, int blockIdentifier);
 
 
         //! a private member function

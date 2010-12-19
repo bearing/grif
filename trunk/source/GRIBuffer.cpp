@@ -7,8 +7,8 @@ GRIBuffer::GRIBuffer(QReadWriteLock *l)
     busyWrite = false;
     size = 0;
     packetList = new QList< QVector<char>* >();
-    markerList = new QList<unsigned int>();
-    threadList = new QList<unsigned int>();
+    markerList = new QList<int>();
+    threadList = new QList<int>();
     waitQueue = new QWaitCondition();
     lock = l;
 }
@@ -42,7 +42,7 @@ void GRIBuffer::addPacket()
 
 
 //writes to specified packet in buffer
-bool GRIBuffer::writeToBuffer(char b, unsigned int packetNumber, int index)
+bool GRIBuffer::writeToBuffer(char b, int packetNumber, int index)
 {
 
     if (packetNumber < 0 || packetNumber > size) return false;
@@ -77,7 +77,7 @@ bool GRIBuffer::writeToBuffer(char b, unsigned int packetNumber, int index)
 
 
 //returns a single char from the specified position
-char GRIBuffer::readBuffer(unsigned int packetNumber, int index)
+char GRIBuffer::readBuffer(int packetNumber, int index)
 {
     QVector<char> *packet = packetList->at(packetNumber);
     //packetMarker = packetNumber;
@@ -85,7 +85,7 @@ char GRIBuffer::readBuffer(unsigned int packetNumber, int index)
 
 
     //the following code is for testing purposes only
-    unsigned int id = ((GRIProcessThread*) QThread::currentThread())->getID();
+    int id = ((GRIProcessThread*) QThread::currentThread())->getID();
 
 
     int i = threadList->indexOf(id);
@@ -104,7 +104,7 @@ char GRIBuffer::readBuffer(unsigned int packetNumber, int index)
 
 
 //removes one packet from the buffer, and frees the memory associated with that packet
-void GRIBuffer::clearPacket(unsigned int packetNumber)
+void GRIBuffer::clearPacket(int packetNumber)
 {
     QVector<char> *packet = packetList->at(packetNumber);
     packet->clear();
@@ -113,9 +113,9 @@ void GRIBuffer::clearPacket(unsigned int packetNumber)
 
 
 //returns the packet number being read
-unsigned int GRIBuffer::currentPacket()
+int GRIBuffer::currentPacket()
 {
-    unsigned int id = ((GRIProcessThread*) QThread::currentThread())->getID();
+    int id = ((GRIProcessThread*) QThread::currentThread())->getID();
     int i = threadList->indexOf(id);
     if (i != -1) {
         return markerList->at(i);
@@ -139,7 +139,7 @@ int GRIBuffer::bufferSize()
 
 
 //returns the size of a packet
-unsigned int GRIBuffer::packetSize(unsigned int packetNumber)
+int GRIBuffer::packetSize(int packetNumber)
 {
     //cout << "QVec: pack " << packetNumber << endl;
     QVector<char> *packet = packetList->at(packetNumber);
@@ -149,7 +149,7 @@ unsigned int GRIBuffer::packetSize(unsigned int packetNumber)
 
 
 //returns the number of the next packet to be added
-unsigned int GRIBuffer::nextPacket()
+int GRIBuffer::nextPacket()
 {
     return size;
 }
@@ -157,7 +157,7 @@ unsigned int GRIBuffer::nextPacket()
 
 void GRIBuffer::clear()
 {
-    unsigned int i;
+    int i;
     for (i = 0; i< size; i++) {
         QVector<char> *packet = packetList->at(i);
         packet->clear();
@@ -168,9 +168,9 @@ void GRIBuffer::clear()
 
 
 
-void GRIBuffer::setPacketMarker(unsigned int newMarker)
+void GRIBuffer::setPacketMarker(int newMarker)
 {
-    unsigned int id = ((GRIProcessThread*) QThread::currentThread())->getID();
+    int id = ((GRIProcessThread*) QThread::currentThread())->getID();
     int i = threadList->indexOf(id);
     if (i != -1) {
         markerList->replace(i, newMarker);
@@ -186,10 +186,10 @@ void GRIBuffer::setPacketMarker(unsigned int newMarker)
 
 void GRIBuffer::incrementPacketMarker()
 {
-    unsigned int id = ((GRIProcessThread*) QThread::currentThread())->getID();
+    int id = ((GRIProcessThread*) QThread::currentThread())->getID();
     int i = threadList->indexOf(id);
     if (i != -1) {
-        unsigned int newMarker = markerList->at(i);
+        int newMarker = markerList->at(i);
         markerList->replace(i, ++newMarker);
     } else {
         threadList->append(id);

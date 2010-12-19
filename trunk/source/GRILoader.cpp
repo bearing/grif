@@ -97,6 +97,9 @@ list<GRIDataBlock*>* GRILoader::initDataBlocks(list<GRIProcessThread*>* processe
         // load analysis structure into threads & d
         datablocks->push_front(new GRIDataBlock(this->regulator, *analyStructIter));
     }
+
+    return datablocks;
+
 }
 
 

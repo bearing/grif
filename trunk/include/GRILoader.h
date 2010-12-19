@@ -32,7 +32,7 @@ public:
     GRILoader(QString localGRIFPath, GRIRegulator* regulator,QString GRIFLogFilename);
     GRILoader(QString localGRIFPath, GRIRegulator* regulator,QString GRIFLogFilename,int LogLevel);
 
-    ~GRILoader();
+    virtual ~GRILoader();
 
     /*
      * load() will need to be written by user. The user will have to create an object based

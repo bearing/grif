@@ -1,6 +1,6 @@
 #include "GRIProcessThread.h"
 
-unsigned int GRIProcessThread::counter = 0;
+int GRIProcessThread::counter = 0;
 
 GRIProcessThread::GRIProcessThread()
 {
@@ -50,7 +50,7 @@ void GRIProcessThread::set_detail(GRIRegulator *reg, process_details *proc_detai
     this->setObjectName(proc_detail->name);
 }
 
-unsigned int GRIProcessThread::getID()
+int GRIProcessThread::getID()
 {
     return this->thread_id;
 }
@@ -67,7 +67,7 @@ QString GRIProcessThread::get_xml_path()
 }
 
 
-void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
+void GRIProcessThread::set_link(list<GRIDataBlock*>* dataBlocks)
 {
     list<GRIDataBlock*>::iterator data_block_it;
     list<reader_t*>::iterator reader_it;
@@ -76,7 +76,7 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
     // Setting up the pointer to the data blocks that this process is writing to
     for(data_it = data_outs.begin(); data_it != data_outs.end(); data_it++) {
         data_t* data = *data_it;
-        for(data_block_it = (*data_blocks).begin(); data_block_it != (*data_blocks).end(); data_block_it++) {
+        for(data_block_it = (*dataBlocks).begin(); data_block_it != (*dataBlocks).end(); data_block_it++) {
             GRIDataBlock* data_block = *data_block_it;
 
             if(data->name == data_block->get_name() && this->get_name() == data_block->get_writer_name()) {
@@ -85,7 +85,7 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
             }
         }
 
-        if(data_block_it == (*data_blocks).end()) {
+        if(data_block_it == (*dataBlocks).end()) {
 
 #ifdef PROCESS_THREAD_DEBUG
             cerr << "! GRIProcessThread::set_link(): Could not find " << data->name.toStdString().c_str() << endl;
@@ -99,7 +99,7 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
     // Setting up the pointer to the data blocks that this process is reading from
     for(data_it = data_ins.begin(); data_it != data_ins.end(); data_it++) {
         data_t* data = *data_it;
-        for(data_block_it = (*data_blocks).begin(); data_block_it != (*data_blocks).end(); data_block_it++) {
+        for(data_block_it = (*dataBlocks).begin(); data_block_it != (*dataBlocks).end(); data_block_it++) {
             GRIDataBlock* data_block = *data_block_it;
 
             for(reader_it = (*data_block->get_reader()).begin(); reader_it != (*data_block->get_reader()).end(); reader_it++){
@@ -122,7 +122,7 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* data_blocks)
             cerr << "! GRIProcessThread::set_link(): Could not find " << data->name.toStdString().c_str() << endl;
 #endif // PROCESS_THREAD_DEBUG
 
-            assert(false);
+            //assert(false);
         }
     }
 }
@@ -232,19 +232,19 @@ GRIDataBlock* GRIProcessThread::find_data_block(QString data_block_name)
     return NULL; // Can't find the data block
 }
 
-unsigned int GRIProcessThread::currentPacketPosition(QString bufferName){
+int GRIProcessThread::currentPacketPosition(QString bufferName){
     return reg->currentPacketPosition(bufferName);
 }
 
-unsigned int GRIProcessThread::lastPacket(QString bufferName){
+int GRIProcessThread::lastPacket(QString bufferName){
     return reg->lastPacket(bufferName);
 }
 
-unsigned int GRIProcessThread::sizeofPacket(QString bufferName, unsigned int packetNumber){
+int GRIProcessThread::sizeofPacket(QString bufferName, int packetNumber){
     return reg->sizeofPacket(bufferName, packetNumber);
 }
 
-unsigned int GRIProcessThread::sizeofBuffer(QString bufferName){
+int GRIProcessThread::sizeofBuffer(QString bufferName){
     return reg->sizeofBuffer(bufferName);
 }
 

@@ -13,7 +13,7 @@ class GRIParam
 public:
     GRIParam() {   }
 
-    GRIParam(GRIParam* parent, QString nm, QString defaultVal, QString val,
+    GRIParam(QString nm, QString defaultVal, QString val,
                  QString min, QString max, QString units, QString type, QString index)
     {
         this->setInfo(nm, defaultVal, val, min, max, units, type, index);

@@ -153,7 +153,6 @@ void GRIDAQThread::InitializeAccumulators(QDateTime tstart,
     list<GRIDAQAccumNode*>::iterator accum_it;
 
     // Finding the Accumulator in the list
-    bool found = false;
     for(accum_it = accumList.begin(); accum_it != accumList.end(); accum_it++) {
         GRIDAQAccumNode* accum = *accum_it;
             accum->Initialize(tstart,timestamp_0);

@@ -54,12 +54,12 @@ public:
 
     void setMemMgrPtr(GRIMemoryManager *managerPointer);
     /*
-     * init_config() is called to initialize the whole system. It will require the
+     * initConfig() is called to initialize the whole system. It will require the
      * dependencies' structure dictated by list<GRIBufferObject*> & list<GRIProcessThread*>
      * and it will start (but not necessarily run) the thread.
      */
 
-    void init_config(list<GRIDataBlock*>* data_blocks, list<GRIProcessThread*>* processes);
+    void initConfig(list<GRIDataBlock*>* dataBlocks, list<GRIProcessThread*>* processes);
 
 
     /*
@@ -84,7 +84,7 @@ public:
      * readMemory() reads one packet from memory in the location specified
      * by process_name & bufferName
      */
-    pair<unsigned int, char*> readMemory(QString blockName, QString bufferName);
+    pair<int, char*> readMemory(QString blockName, QString bufferName);
 
     /*
      *
@@ -92,7 +92,7 @@ public:
      * by process_name & bufferName
      *
      */
-    bool writeMemory(QString blockName, QString bufferName, unsigned int size, char dataArray[]);
+    bool writeMemory(QString blockName, QString bufferName, int size, char dataArray[]);
 
     /*
      *
@@ -100,7 +100,7 @@ public:
      * packet to be read next unless setPacketPosition() has been called.
      *
      */
-    unsigned int currentPacketPosition(QString bufferName);
+    int currentPacketPosition(QString bufferName);
 
     /*
      *
@@ -108,7 +108,7 @@ public:
      * the buffer size minus one.
      *
      */
-    unsigned int lastPacket(QString bufferName);
+    int lastPacket(QString bufferName);
 
     /*
      *
@@ -120,17 +120,17 @@ public:
      * If the operation is successful, it returns true, otherwise false.
      *
      */
-    bool setPacketPosition(QString bufferName, unsigned int packetNumber);
+    bool setPacketPosition(QString bufferName, int packetNumber);
 
     /*
      * sizeofPacket() returns how big the packet is
      */
-    unsigned int sizeofPacket(QString bufferName, unsigned int packetNumber);
+    int sizeofPacket(QString bufferName, int packetNumber);
 
     /*
      * sizeofBuffer() returns how big the buffer is
      */
-    unsigned int sizeofBuffer(QString bufferName);
+    int sizeofBuffer(QString bufferName);
 
     GRIMemoryManager* GetMemoryManager(){return mm;}
     int GarbageCollection(QList<void*> pList);
@@ -146,10 +146,11 @@ private:
     QMutex GCMutex;
     QMutex WriteMutex;
     QMutex ReadMutex;
+    QMutex mutex;
+    QWaitCondition bufferIsReady;
 
     QList<char*> ReadDataPtrs;
     int GarbageCollection(void* p);
-
 
     /*
      * find_process() returns a pointer to the actual process given the name
@@ -161,15 +162,9 @@ private:
      */
     GRIDataBlock* find_data(QString data_block_name, QString buffer_name);
 
-
-
-    list<GRIDataBlock*>* data_blocks;
+    list<GRIDataBlock*>* dataBlocks;
 
     list<GRIProcessThread*>* processes;
-
-    QMutex mutex;
-
-    QWaitCondition bufferIsReady;
 
 };
 

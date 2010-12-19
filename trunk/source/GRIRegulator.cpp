@@ -31,15 +31,15 @@ void GRIRegulator::setMemMgrPtr(GRIMemoryManager *managerPointer){
     this->mm = managerPointer;
 }
 
-void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
+void GRIRegulator::initConfig(list<GRIDataBlock*>* dataBlocks,
                                list<GRIProcessThread*>* processes)
 {
     list<GRIDataBlock*>::iterator data_it;
     list<GRIProcessThread*>::iterator process_it;
 
-    if(data_blocks == NULL || processes == NULL) {
+    if(dataBlocks == NULL || processes == NULL) {
 #ifdef REGULATOR_DEBUG
-        //log << "! GRIRegulator::init_config(): No processes or data blocks" << endl;
+        //log << "! GRIRegulator::initConfig(): No processes or data blocks" << endl;
         //Commit//log(GRI//log_ERROR);
 #endif // REGULATOR_DEBUG
 
@@ -49,12 +49,12 @@ void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
     for(process_it = (*processes).begin(); process_it != (*processes).end(); process_it++) {
         GRIProcessThread* process = *process_it;
 
-        process->set_link(data_blocks);
+        process->set_link(dataBlocks);
     }
 
     this->processes = processes;
 
-    for(data_it = (*data_blocks).begin(); data_it != (*data_blocks).end(); data_it++) {
+    for(data_it = (*dataBlocks).begin(); data_it != (*dataBlocks).end(); data_it++) {
         GRIDataBlock* data_block = *data_it;
 
         data_block->set_mm(mm);
@@ -63,7 +63,7 @@ void GRIRegulator::init_config(list<GRIDataBlock*>* data_blocks,
 
  //   //log << "Done setting the link" << endl; //Commit//log(//log_VERBOSE);
 
-    this->data_blocks = data_blocks;
+    this->dataBlocks = dataBlocks;
 
 }
 
@@ -77,7 +77,7 @@ void GRIRegulator::start_threads()
     }
 }
 
-pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
+pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
 {
 
     ReadMutex.lock();
@@ -91,7 +91,7 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
        //Commit//log(GRI//log_ERROR);
 
 
-        pair<unsigned int, char*> returnVal(0, NULL);
+        pair<int, char*> returnVal(0, NULL);
         ReadMutex.unlock();
         return returnVal;
     }
@@ -104,13 +104,13 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
 
     if(data->update_reader()) {
 
-        unsigned int length = mm->sizeofPacket(blockName, bufferName,
+        int length = mm->sizeofPacket(blockName, bufferName,
                                                mm->currentPacketPosition(blockName, bufferName));
         //log << "sizeofPacket: " << length << endl;
         //Commit//log(GRI//log_VERBOSE);
         // Note: the new char array must be deleted
         char *c = new char[length];
-        pair<unsigned int, char*> returnVal(length, mm->readMemory(blockName, bufferName, c));
+        pair<int, char*> returnVal(length, mm->readMemory(blockName, bufferName, c));
 
         // Should add char* to garbage collection list for later deletion
         // GarbageCollection requires mutex!!!
@@ -128,7 +128,7 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
     ////Commit//log(//log_ERROR);
 
 
-    pair<unsigned int, char*> returnVal(0, NULL);
+    pair<int, char*> returnVal(0, NULL);
     ReadMutex.unlock();
     return returnVal;
 
@@ -138,7 +138,7 @@ pair<unsigned int, char*> GRIRegulator::readMemory(QString blockName, QString bu
     //cout << "Done Read Memory"  << endl;
 }
 
-bool GRIRegulator::writeMemory(QString blockName, QString bufferName, unsigned int size, char dataArray[])
+bool GRIRegulator::writeMemory(QString blockName, QString bufferName, int size, char dataArray[])
 {
 
     WriteMutex.lock();
@@ -168,35 +168,35 @@ bool GRIRegulator::writeMemory(QString blockName, QString bufferName, unsigned i
     return false;
 }
 
-unsigned int GRIRegulator::currentPacketPosition(QString bufferName)
+int GRIRegulator::currentPacketPosition(QString bufferName)
 {
     QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
     return mm->currentPacketPosition(process_name, bufferName);
 }
 
-unsigned int GRIRegulator::lastPacket(QString bufferName)
+int GRIRegulator::lastPacket(QString bufferName)
 {
     QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
     return mm->lastPacket(process_name, bufferName);
 }
 
-bool GRIRegulator::setPacketPosition(QString bufferName, unsigned int packetNumber)
+bool GRIRegulator::setPacketPosition(QString bufferName, int packetNumber)
 {
     QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
     return mm->setPacketPosition(process_name, bufferName, packetNumber);
 }
 
-unsigned int GRIRegulator::sizeofPacket(QString bufferName, unsigned int packetNumber)
+int GRIRegulator::sizeofPacket(QString bufferName, int packetNumber)
 {
     QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
     return mm->sizeofPacket(process_name, bufferName, packetNumber);
 }
 
-unsigned int GRIRegulator::sizeofBuffer(QString bufferName)
+int GRIRegulator::sizeofBuffer(QString bufferName)
 {
     QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
@@ -221,7 +221,7 @@ GRIDataBlock* GRIRegulator::find_data(QString data_block_name, QString buffer_na
 {
     list<GRIDataBlock*>::iterator it;
 
-    for(it = data_blocks->begin(); it != data_blocks->end(); it++) {
+    for(it = dataBlocks->begin(); it != dataBlocks->end(); it++) {
         GRIDataBlock* data_block = *it;
 
         if(data_block->get_writer_name()==data_block_name && data_block->get_name() == buffer_name) {

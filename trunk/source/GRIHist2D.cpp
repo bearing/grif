@@ -72,6 +72,7 @@ int GRIHist2D::SetBins(int nx, double xmin, double xmax, int ny, double ymin, do
 int GRIHist2D::Clear()
 {
     hist->Clear();
+    return 0;
 }
 
 int GRIHist2D::Update(double x[], double y[], int numel){

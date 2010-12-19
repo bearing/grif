@@ -72,6 +72,7 @@ int GRIHist1D::SetBins(int nx, double xmin, double xmax){
 int GRIHist1D::Clear()
 {
     hist->Clear();
+    return 0;
 }
 
 int GRIHist1D::Update(double x[], int numel){

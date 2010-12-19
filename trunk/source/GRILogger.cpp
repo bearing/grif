@@ -263,8 +263,12 @@ bool GRILogger::writeErrorLogFile(QString output)
 
 bool GRILogger::writeLogFile(GRILogMessage m)
 {
-    if(m.level >= this->LogLevel)
+    if(m.level >= this->LogLevel){
         return this->writeLogFile(m.MsgStr);
+    }
+    else{
+        return false;
+    }
 
 }
 

@@ -76,8 +76,8 @@ int GRIHist3D::SetBins(int nx, double xmin, double xmax, int ny, double ymin, do
 
 int GRIHist3D::Clear()
 {
-
     hist->Reset();
+    return 0;
 }
 
 int GRIHist3D::Update(double x[], double y[], double z[], int numel){
