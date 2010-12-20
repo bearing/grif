@@ -223,6 +223,8 @@ bool GRILogger::writeLogFile(QString output)
 
 bool GRILogger::writeErrorLogFile(string output, int time)
 {
+    time = 0; //reduce compiler warnings
+
     QMutex mutex;
     //prevent multiple threads from writing at the same time
     mutex.lock();

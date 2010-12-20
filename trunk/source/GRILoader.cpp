@@ -88,6 +88,8 @@ list<GRIProcessThread*>* GRILoader::initProcessThreads(list<ProcessDetails*> det
 
 list<GRIDataBlock*>* GRILoader::initDataBlocks(list<GRIProcessThread*>* processes, list<AnalysisStructureObject*> analyStructs)
 {
+    processes = 0; //reduce compiler warnings
+
     list<GRIDataBlock*>* datablocks = new list<GRIDataBlock*>;
     list<AnalysisStructureObject*>::iterator analyStructIter;
 
@@ -330,6 +332,8 @@ void GRILoader::addElementToParam(QXmlStreamReader& xml, GRIParam* param)
 }
 void GRILoader::addChildParams(QXmlStreamReader& xml, GRIParam* head)
 {
+
+    head = 0; //reduce compiler warnings
 
     //debug-------------------------------------------------------
 //    this->pauseProgram(("INSIDE ADD CHILDPARAMS "));

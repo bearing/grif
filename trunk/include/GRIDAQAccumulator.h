@@ -43,6 +43,8 @@ public:
 
     void ResetAccumBuffs(qint64 t_0)
     {
+        t_0 = 0; //reduce compiler warnings
+
         // NOTE: need typename when defining a template iterator...
        typename list<GRIAccumBuff<T>*>::iterator  buff_it;
 

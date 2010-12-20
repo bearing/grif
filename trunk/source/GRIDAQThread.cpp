@@ -150,6 +150,10 @@ void GRIDAQThread::InitializeAccumulators(QDateTime tstart,
                                           int msecPerAccum
                                           )
 {
+
+    ticksPerSecond = 0;
+    NBuff = msecPerAccum = 0;
+
     list<GRIDAQAccumNode*>::iterator accum_it;
 
     // Finding the Accumulator in the list

@@ -18,15 +18,15 @@ public:
     virtual void ResetAccumBuffs(qint64 t_0)=0;
 
     //These are placeholders for supported data types
-    void Accumulate(int numel, double data[], qint64 timestamps[],bool runflag){} // placeholders
-    void Accumulate(int numel, float data[], qint64 timestamps[],bool runflag){}
-    void Accumulate(int numel, int data[], qint64 timestamps[],bool runflag){}
-    void Accumulate(int numel, qint64 data[], qint64 timestamps[],bool runflag){}
-    void Accumulate(int numel, long data[], qint64 timestamps[],bool runflag){}
-    void Accumulate(int numel, short data[], qint64 timestamps[],bool runflag){}
-    void Accumulate(int numel, char data[], qint64 timestamps[],bool runflag){}
-    void Accumulate(int numel, unsigned char data[], qint64 timestamps[],bool runflag){}
-    void Accumulate(int numel, bool data[], qint64 timestamps[],bool runflag){}
+    void Accumulate(int numel, double data[], qint64 timestamps[],bool runflag){numel = 0; data = 0; timestamps = 0; runflag = 0;} // placeholders
+    void Accumulate(int numel, float data[], qint64 timestamps[],bool runflag){numel = 0; data = 0; timestamps = 0; runflag = 0;}
+    void Accumulate(int numel, int data[], qint64 timestamps[],bool runflag){numel = 0; data = 0; timestamps = 0; runflag = 0;}
+    void Accumulate(int numel, qint64 data[], qint64 timestamps[],bool runflag){numel = 0; data = 0; timestamps = 0; runflag = 0;}
+    void Accumulate(int numel, long data[], qint64 timestamps[],bool runflag){numel = 0; data = 0; timestamps = 0; runflag = 0;}
+    void Accumulate(int numel, short data[], qint64 timestamps[],bool runflag){numel = 0; data = 0; timestamps = 0; runflag = 0;}
+    void Accumulate(int numel, char data[], qint64 timestamps[],bool runflag){numel = 0; data = 0; timestamps = 0; runflag = 0;}
+    void Accumulate(int numel, unsigned char data[], qint64 timestamps[],bool runflag){numel = 0; data = 0; timestamps = 0; runflag = 0;}
+    void Accumulate(int numel, bool data[], qint64 timestamps[],bool runflag){numel = 0; data = 0; timestamps = 0; runflag = 0;}
 
     QString GetBufferName(){return BufferName;}
     void SetBufferName(QString bname){BufferName = bname;}
@@ -41,7 +41,7 @@ public:
     void Initialize(QDateTime tst, qint64 t_0){this->InitializeTime(tst,t_0,ticksPerSecond);}
 
 
-    void InitializeTime(qint64 timestamp){}
+    void InitializeTime(qint64 timestamp){timestamp = 0;}
 
     void InitializeTime(QDateTime tst, qint64 timestamp, qint64 ticks)
     {

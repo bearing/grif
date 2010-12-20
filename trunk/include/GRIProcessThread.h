@@ -145,7 +145,7 @@ public:
      */
     void add_data_block(QString data_block, bool is_output);
     // This is overloaded in GRIDAQThread...
-    virtual void registerAccumulator(QString datablock){}
+    virtual void registerAccumulator(QString datablock){datablock = "ReduceCompilerWarnings";}
 
     /*
      * change_priority() decides whether to change the thread's priority or not
@@ -308,6 +308,7 @@ GRIProcessThread::readMemory(QString blockName ,QString bufferName)
 }
 
 template<class T> bool GRIProcessThread::writeMemory(QString blockName, QString bufferName, int size, T dataArray[]){
+    blockName = "ReduceCompilerWarnings"; //do we need blockName for writeMemory()? -Austin
     return reg->writeMemory(this->get_name(), bufferName, size * sizeof(T), (char*) dataArray);
 }
 

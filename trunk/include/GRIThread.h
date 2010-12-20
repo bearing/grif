@@ -21,6 +21,11 @@ class GRIThread : public QThread
       void CommitLog(int level);
       void setObjectName(QString name);
 
+  protected:
+      bool exitThreadFlag;
+      bool sleeping;
+      bool forceQuit;
+
   private:
 
       GRILogMessage LogMsg;

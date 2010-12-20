@@ -476,9 +476,6 @@ void InitializeAccumulators(QDateTime tstart,
                             );
 
 private:
-bool exitThreadFlag;
-bool sleeping;
-bool forceQuit;
 
 list<GRIDAQAccumNode*> accumList;
 

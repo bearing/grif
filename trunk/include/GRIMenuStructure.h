@@ -29,16 +29,20 @@ public:
 
     void addChild(QString name, QString processName)
     {
+        name = processName = "ReduceCompilerWarnings";
+
 //        childNodes->push_back(node);
     }
 
     bool addChild(int index)
     {
+        index = 0; //reduce compiler warnings
           return true;
     }
 
     void addParameterChild(GRIParam* param)
     {
+        param = 0; //reduce compiler warnings
 //        this->addChild(nm,defaultVal, val, "", "", units, type, false, NULL);
     }
 

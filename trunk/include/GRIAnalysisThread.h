@@ -224,18 +224,15 @@ int ClearHistogram(QString HistName);
 int UpdateHistogram(QString HistName, double x[], int numel);
 int UpdateHistogram(QString HistName, double x[], double y[], int numel);
 int UpdateHistogram(QString HistName, double x[], double y[], double z[], int numel);
+
+
 private:
 
 QList<void*> ReadDataPtrs;
 QList<GRIHistogrammer*> HistArray;
-bool exitThreadFlag;
-bool sleeping;
-bool forceQuit;
 
 
 void ReadGarbageCollection();
-
-
 
 };
 
