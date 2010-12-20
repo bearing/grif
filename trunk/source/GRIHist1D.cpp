@@ -37,17 +37,8 @@ GRIHist1D::~GRIHist1D(){
 
 }
 
-
-bool GRIHist1D::isReady(){
-
-    return this->BinSetFlag;
-
-}
-
-void GRIHist1D::SetName(QString n){
-
-    this->HistName = n;
-    hist->SetName(n.toStdString().c_str());
+void GRIHist1D::SetROOTHistName(QString name){
+    hist->SetName(name.toStdString().c_str());
 }
 
 int GRIHist1D::SetBins(int nx, double xBins[]){

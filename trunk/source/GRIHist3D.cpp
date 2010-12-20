@@ -6,6 +6,8 @@ GRIHist3D::GRIHist3D(QString bname, int id){
     this->hist = new TH3D(); // Always to this first
     this->hist2 = new TH3D(); // Used only for rate mode...
 
+    this->dimension = 3;
+
     QString n = "Hist3D";  //Default name
     this->SetName(n);
     this->BlockName = bname;
@@ -38,16 +40,8 @@ GRIHist3D::~GRIHist3D(){
 }
 
 
-bool GRIHist3D::isReady(){
-
-    return this->BinSetFlag;
-
-}
-
-void GRIHist3D::SetName(QString n){
-
-    this->HistName = n;
-    hist->SetName(n.toStdString().c_str());
+void GRIHist3D::SetROOTHistName(QString name){
+    hist->SetName(name.toStdString().c_str());
 }
 
 
@@ -81,8 +75,6 @@ int GRIHist3D::Clear()
 }
 
 int GRIHist3D::Update(double x[], double y[], double z[], int numel){
-
-
 
     if(this->GetRateMode()){
         // Updating on Rate Differentials...

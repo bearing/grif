@@ -37,17 +37,8 @@ GRIHist2D::~GRIHist2D(){
 
 }
 
-
-bool GRIHist2D::isReady(){
-
-    return this->BinSetFlag;
-
-}
-
-void GRIHist2D::SetName(QString n){
-
-    this->HistName = n;
-    hist->SetName(n.toStdString().c_str());
+void GRIHist2D::SetROOTHistName(QString name){
+    hist->SetName(name.toStdString().c_str());
 }
 
 int GRIHist2D::SetBins(int nx, double xBins[],int ny, double yBins[]){

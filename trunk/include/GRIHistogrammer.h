@@ -7,75 +7,73 @@
 #include "GRIObject.h"
 #include <QString>
 
-// base class for multiple types of histogramming classes
+/*
+ * Base class for multiple types of histogramming classes
+ *
+ * This abstract class is implemented in GRIHist1D, GRIHist2D,
+ * and GRIHist3D.
+ *
+ * Note: this class has no associated .cpp file.
+ */
 
 class GRIHistogrammer: public GRIObject
 {
 public:
 
     // checking for readiness ... makes this pure abstract
-     virtual bool isReady() = 0;
      virtual TH1* GetHist() = 0;
-     virtual void SetName(QString n) = 0;
      virtual int Clear() = 0;
 
-
-    // Bin Setting s...NOTE: -1 returns signals no implementation...
-     int SetBins(int nx, double xBins[]) {
-         nx = 0;
-         xBins = 0;
-         return -1;
-     }
-     int SetBins(int nx, double xmin, double xmax){
-         nx = 0;
-         xmin = xmax = 0;
-         return -1;
-     }
-     int SetBins(int nx, double xBins[], int ny, double yBins[]){
-         nx = ny = 0;
-         xBins = yBins = 0;
-         return -1;
-     }
-     int SetBins(int nx, double xmin, double xmax, int ny, double ymin, double ymax){
-         nx = ny = 0;
-         xmin = xmax = ymin = ymax = 0;
-         return -1;
-     }
-     // See comments in GRIHist3D.cpp
-     int SetBins(int nx, double xBins[], int ny, double yBins[], int nz, double zBins[]){
-         nx = ny = nz = 0;
-         xBins = yBins = zBins = 0;
-         return -1;
-     }
-     int SetBins(int nx, double xmin, double xmax, int ny, double ymin, double ymax, int nz, double zmin, double zmax){
-         nx = ny = nz = 0;
-         xmin = xmax = ymin = ymax = zmin = zmax = 0;
-         return -1;
-     }
-
-    //Updating
-     int Update(double x[], int numel){x = 0; numel = 0; return -1;}
-     int Update(double x[], double y[], int numel){x = y = 0; numel = 0; return -1;}
-     int Update(double x[], double y[], double z[], int numel){x = y = z = 0; numel = 0; return -1;}
-
-    //Protected members in inhereted class...
-     virtual QString GetName()=0;
-     virtual QString GetBlockName()=0;
-     virtual int GetID()=0;
-     int GetDimension(){return 1;}
+     virtual int GetID(){return ID;}
+     int GetDimension(){return dimension;}
 
      int openInitializationControl(){return -1;}
-    void SetRateMode(bool tf){rateModeFlag = tf;}
-    bool GetRateMode(){return rateModeFlag;}
-    void SetPacketScaleFactor(double sf){packetScaleFactor = sf;}
-    double GetPacketScaleFactor(){return packetScaleFactor;}
+     void SetRateMode(bool tf){rateModeFlag = tf;}
+     bool GetRateMode(){return rateModeFlag;}
+     void SetPacketScaleFactor(double sf){packetScaleFactor = sf;}
+     double GetPacketScaleFactor(){return packetScaleFactor;}
 
+     QString GetName(){return HistName;}
+     QString GetBlockName(){return BlockName;}
 
-private:
+     bool isReady(){return BinSetFlag;}
+
+     void SetName(QString name){
+         this->HistName = name;
+         this->SetROOTHistName(name);
+     }
+
+     virtual void SetROOTHistName(QString name)=0;
+
+protected:
     bool rateModeFlag;  // if true -> Updates histogram based on dHist*scale ...
     // if false -> Updates histogram directly (i.e. Ncnts total)
     double packetScaleFactor;  // if Rate Mode then 1/Npacket is the normalizing factor
     //  Thus converges to rate over Npacket time
+
+    QString HistName;
+    QString BlockName;
+
+    bool BinSetFlag;
+
+    int dimension; //the dimension of the histogram (1, 2, or 3)
+    int ID; //id number of the histogrammer
+
+
+public:
+
+    /*
+     * The following are all dummy implementations.
+     * They are implemented in GRIHist1D, GRIHist2D, and GRIHist3D
+     *
+     * GRIHist1D overrides the first Update()
+     * GRIHist2D overrides the second Update()
+     * GRIHist3D overrides the third Update()
+     */
+
+     int Update(double x[], int numel){x = 0; numel = 0; return -1;}
+     int Update(double x[], double y[], int numel){x = y = 0; numel = 0; return -1;}
+     int Update(double x[], double y[], double z[], int numel){x = y = z = 0; numel = 0; return -1;}
 
 };
 

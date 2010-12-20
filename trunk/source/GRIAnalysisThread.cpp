@@ -120,7 +120,7 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xBins
 
     // This is one dimensional
     if(this->GetHistogram(HistName) == NULL){
-        GRIHistogrammer* p = new GRIHist1D(this->get_name(),HistArray.size(),HistName);
+        GRIHist1D* p = new GRIHist1D(this->get_name(),HistArray.size(),HistName);
         p->SetBins(nx,xBins);
         HistArray.push_back(p);
         return 0;
@@ -133,7 +133,7 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xBins
 int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin, double xmax){
     // This is one dimensional
     if(this->GetHistogram(HistName) == NULL){
-        GRIHistogrammer* p = new GRIHist1D(this->get_name(),HistArray.size(),HistName);
+        GRIHist1D* p = new GRIHist1D(this->get_name(),HistArray.size(),HistName);
         p->SetBins(nx,xmin,xmax);
         HistArray.push_back(p);
         return 0;
@@ -149,7 +149,7 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xBins
 
     // This is two dimensional
     if(this->GetHistogram(HistName) == NULL){
-        GRIHistogrammer* p = new GRIHist2D(this->get_name(),HistArray.size(),HistName);
+        GRIHist2D* p = new GRIHist2D(this->get_name(),HistArray.size(),HistName);
         p->SetBins(nx,xBins,ny,yBins);
         HistArray.push_back(p);
         return 0;
@@ -162,7 +162,7 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xBins
 int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin, double xmax,int ny, double ymin, double ymax){
     // This is two dimensional
     if(this->GetHistogram(HistName) == NULL){
-        GRIHistogrammer* p = new GRIHist2D(this->get_name(),HistArray.size(),HistName);
+        GRIHist2D* p = new GRIHist2D(this->get_name(),HistArray.size(),HistName);
         p->SetBins(nx,xmin,xmax,ny,ymin,ymax);
         HistArray.push_back(p);
         return 0;
@@ -192,7 +192,7 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin,
 int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin, double xmax, int ny, double ymin, double ymax,int nz, double zmin, double zmax){
     // This is 3 dimensional
     if(this->GetHistogram(HistName) == NULL){
-        GRIHistogrammer* p = new GRIHist3D(this->get_name(),HistArray.size(),HistName);
+        GRIHist3D* p = new GRIHist3D(this->get_name(),HistArray.size(),HistName);
         p->SetBins(nx,xmin,xmax,ny,ymin,ymax,nz,zmin,zmax);
         HistArray.push_back(p);
         return 0;
