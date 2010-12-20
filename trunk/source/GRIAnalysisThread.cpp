@@ -7,6 +7,7 @@ GRIAnalysisThread::GRIAnalysisThread()
     sleeping = false;
     exitThreadFlag = false;
     forceQuit = false;
+    is_daq = false;
 }
 
 GRIAnalysisThread::~GRIAnalysisThread(){

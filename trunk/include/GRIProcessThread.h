@@ -116,6 +116,14 @@ public:
     void set_detail(GRIRegulator* reg, process_details* proc_detail);
 
     /*
+     * Sets the process details for this process thread.  XML file name
+     * is assumed to be name + ".XML".  To determine whether or not this
+     * thread is a daq thread, it uses the is_daq boolean variable, which
+     * is set for GRIDAQThreads and GRIAnalysisThreads upon construction.
+     */
+    void setDefaultDetail(GRIRegulator *reg, QString name);
+
+    /*
      * get_name() returns the name of this process
      */
     QString get_name(){return this->objectName();}
@@ -144,6 +152,16 @@ public:
      * process is writing to or reading from will be dictated by type (OUT or IN).
      */
     void add_data_block(QString data_block, bool is_output);
+
+    /*
+     * Adds data blocks provided in the list of QStrings.  Uses the is_daq variable to determine
+     * whether or not this is an input or output.  GRIDAQThread has is_daq set to true on construction.
+     * GRIAnalysis thread has is_daq set to false on construction.
+     *
+     */
+    void addDataBlocks(list<QString> dataBlockNames);
+
+
     // This is overloaded in GRIDAQThread...
     virtual void registerAccumulator(QString datablock){datablock = "ReduceCompilerWarnings";}
 
@@ -254,14 +272,17 @@ private:
 
     //GRILogMessage LogMsg;
 
+
+
+
 public:
     void setRunFlag(bool tf){RunFlag = tf;}  // This could be moved into protected once integration is completed.
     bool getRunFlag(){return RunFlag;}
     int thread_id; // id of this thread
 
-    static int counter; // to keep track what id needs to be given to a new thread
-
     bool is_daq; // indicates whether this process is a daq or analysis
+
+    static int counter; // to keep track what id needs to be given to a new thread
 
     list<data_t*> data_outs; // list of data blocks this process is writing to
 
@@ -272,8 +293,6 @@ public:
     int num_packets_from_saturation;
     int last_adjustment_to_saturation;
     int last_adjustment_from_saturation;
-
-
 
     QHash<QString, void *> hashTable;
 

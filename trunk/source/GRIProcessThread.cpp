@@ -51,6 +51,12 @@ void GRIProcessThread::set_detail(GRIRegulator *reg, process_details *proc_detai
     this->setObjectName(proc_detail->name);
 }
 
+void GRIProcessThread::setDefaultDetail(GRIRegulator *reg, QString name){
+    this->reg = reg;
+    this->xml_path = name + ".XML";
+    this->setObjectName(name);
+}
+
 int GRIProcessThread::getID()
 {
     return this->thread_id;
@@ -79,14 +85,14 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* dataBlocks)
         data_t* data = *data_it;
         for(data_block_it = (*dataBlocks).begin(); data_block_it != (*dataBlocks).end(); data_block_it++) {
             GRIDataBlock* data_block = *data_block_it;
-            QString dataname = data->name;
+            /*QString dataname = data->name;
             QString dataname2 = data_block->get_name();
             QString thisname = this->get_name();
             QString thisname2 = data_block->get_writer_name();
             int blahblah = 0;
             if(blahblah == 0){
                 int blahblah2 = 0;
-            }
+            } */ //above for testing
             if(data->name == data_block->get_name() && this->get_name() == data_block->get_writer_name()) {
                 data->data_block = data_block;
                 break;
@@ -156,6 +162,16 @@ void GRIProcessThread::add_data_block(QString data_block, bool is_output)
     {
         registerAccumulator(data_block);
     }
+}
+
+void GRIProcessThread::addDataBlocks(list<QString> dataBlockNames){
+    list<QString>::iterator it;
+
+    for(it = dataBlockNames.begin(); it != dataBlockNames.end(); it++){
+        QString name = *it;
+        add_data_block(name, this->is_daq);
+    }
+
 }
 
 bool GRIProcessThread::change_priority(bool is_up)

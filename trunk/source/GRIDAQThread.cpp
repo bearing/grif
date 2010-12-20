@@ -7,6 +7,7 @@ GRIDAQThread::GRIDAQThread()
     sleeping = false;
     exitThreadFlag = true;
     forceQuit = false;
+    is_daq = true;
 }
 
 GRIDAQThread::~GRIDAQThread(){
