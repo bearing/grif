@@ -34,13 +34,13 @@ class GRIAnalysisThread : public GRIProcessThread
 {
 
 public:
-//! A constructor
-GRIAnalysisThread();
-//! A destructor
-~GRIAnalysisThread();
+    //! A constructor
+    GRIAnalysisThread();
+    //! A destructor
+    ~GRIAnalysisThread();
 
 
-/*
+    /*
 The app engineer must create a class inheriting GRIAnalysisThread that implements
 the following methods.  Unlike in our SIS Analysis implementation, the app engineer
 will not implement the while loop controlling data collection (see run() method).
@@ -106,8 +106,8 @@ mydaq->run(); //which calls the user defined methods in a well-defined order.
 
 */
 
-//! A member function for procedures that initialize the Analysis
-/*!
+    //! A member function for procedures that initialize the Analysis
+    /*!
 *
 * initialize() should contain procedures for doing any initial setup necessary
 * for a given data acquisition device.  Simply return ANALYSISTHREAD_SUCCESS if there
@@ -124,21 +124,21 @@ mydaq->run(); //which calls the user defined methods in a well-defined order.
 * \see errorHandling()
 *
 */
-virtual int initialize(){return 0;}
+    virtual int initialize(){return 0;}
 
 
-//! A member function for procedures will be called repeatedly to analyze data
-/*!
+    //! A member function for procedures will be called repeatedly to analyze data
+    /*!
 *
 * Analyze() should contain procedures that reads data and performs analysis then
 * uses PostData to send results to the next analysis block.
 *
 */
-virtual int Analyze() = 0;              //Called repeatedly for each run inside loop
+    virtual int Analyze() = 0;              //Called repeatedly for each run inside loop
 
 
-//! A member function for opening a GUI during DAQ initialization.
-/*!
+    //! A member function for opening a GUI during DAQ initialization.
+    /*!
 *
 * openInitializationControl() should open a GUI for controlling initialization of
 * the DAQ.  Dynamically getting and setting parameters may be done through the
@@ -158,10 +158,10 @@ virtual int Analyze() = 0;              //Called repeatedly for each run inside 
 * \see setParam()
 *
 */
-virtual int openInitializationControl() { return 0; }  //Can override to tell GUI to open.
+    virtual int openInitializationControl() { return 0; }  //Can override to tell GUI to open.
 
-//! A member function for opening a GUI during a DAQ run.
-/*!
+    //! A member function for opening a GUI during a DAQ run.
+    /*!
 *
 * openRunTimeControl() should open a GUI for controlling running of
 * the DAQ.  Dynamically getting and setting parameters may be done through the
@@ -182,57 +182,56 @@ virtual int openInitializationControl() { return 0; }  //Can override to tell GU
 * \see startCollection()
 * \see stopCollection()
 */
-virtual int openRunTimeControl() { return 0; }         //Can override to tell GUI to open.
+    virtual int openRunTimeControl() { return 0; }         //Can override to tell GUI to open.
 
-//!  The run() method.  Called when this thread is started by the regulator.
-void run();
+    //!  The run() method.  Called when this thread is started by the regulator.
+    void run();
 
-//! The errorHandling() method. Reports user generated errors for a DAQThread to standard output.
-void errorHandling(const char * message, int errorCode);
+    //! The errorHandling() method. Reports user generated errors for a DAQThread to standard output.
+    void errorHandling(const char * message, int errorCode);
 
-void forceQuitAnalysis();
-void setExitThreadFlag(bool newExitThreadFlag);
-bool getExitThreadFlag();
+    void forceQuitAnalysis();
+    void setExitThreadFlag(bool newExitThreadFlag);
+    bool getExitThreadFlag();
 
-template <class T> int PostData(int numel, QString buffer_name, T _data[]){
+    template <class T> int PostData(int numel, QString buffer_name, T _data[]){
 
-    return this->writeMemory(this->get_name(),buffer_name,numel,_data);
+        return this->writeMemory(this->get_name(),buffer_name,numel,_data);
 
-}
+    }
 
-template <class T> pair<unsigned int, T*> ReadData(QString block_name, QString buffer_name){
+    template <class T> pair<unsigned int, T*> ReadData(QString block_name, QString buffer_name){
 
-   pair<unsigned int, T*> p = readMemory<T>(block_name, buffer_name);
-   ReadDataPtrs.push_back((void*)p.second);
+        pair<unsigned int, T*> p = readMemory<T>(block_name, buffer_name);
+        ReadDataPtrs.push_back((void*)p.second);
 
-   return p;
+        return p;
 
-}
+    }
 
-GRIHistogrammer* GetHistogram(QString HistName);
-int CreateNewHistogram(QString HistName, int nx, double xBins[]);
-int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax);
-int CreateNewHistogram(QString HistName, int nx, double xBins[],int ny, double yBins[]);
-int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax,int ny, double ymin, double ymax);
-// Not available in my version of Root...but leaving hook for later integration...
-//int CreateNewHistogram(QString HistName, int nx, double xBins[],int ny, double yBins[],int nz, double zBins[]);
-int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax,int ny, double ymin, double ymax,int nz, double zmin, double zmax);
+    GRIHistogrammer* GetHistogram(QString HistName);
+    int CreateNewHistogram(QString HistName, int nx, double xBins[]);
+    int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax);
+    int CreateNewHistogram(QString HistName, int nx, double xBins[],int ny, double yBins[]);
+    int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax,int ny, double ymin, double ymax);
+    // Not available in my version of Root...but leaving hook for later integration...
+    //int CreateNewHistogram(QString HistName, int nx, double xBins[],int ny, double yBins[],int nz, double zBins[]);
+    int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax,int ny, double ymin, double ymax,int nz, double zmin, double zmax);
 
-int SetHistRateMode(QString HistName, bool tf);
-int SetHistPacketScaleFactor(QString HistName, double ScaleFactor);
-int ClearHistogram(QString HistName);
-int UpdateHistogram(QString HistName, double x[], int numel);
-int UpdateHistogram(QString HistName, double x[], double y[], int numel);
-int UpdateHistogram(QString HistName, double x[], double y[], double z[], int numel);
+    int SetHistRateMode(QString HistName, bool tf);
+    int SetHistPacketScaleFactor(QString HistName, double ScaleFactor);
+    int ClearHistogram(QString HistName);
+    int UpdateHistogram(QString HistName, double x[], int numel);
+    int UpdateHistogram(QString HistName, double x[], double y[], int numel);
+    int UpdateHistogram(QString HistName, double x[], double y[], double z[], int numel);
 
 
 private:
 
-QList<void*> ReadDataPtrs;
-QList<GRIHistogrammer*> HistArray;
+    QList<void*> ReadDataPtrs;
+    QList<GRIHistogrammer*> HistArray;
 
-
-void ReadGarbageCollection();
+    void ReadGarbageCollection();
 
 };
 

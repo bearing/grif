@@ -5,7 +5,7 @@
 #include <QDateTime>
 
 template <class T>
-class GRIAccumBuff
+        class GRIAccumBuff
 {
 
 public:
@@ -26,7 +26,7 @@ public:
             if(t[i]>=t1 && t[i]<t2)
             {
                 time.append(t[i]);
-                  data.append(d[i]);
+                data.append(d[i]);
                 //QList::append()
 
                 //QListData::realloc()
@@ -60,8 +60,8 @@ public:
         // The deletion comes after the write statement(s) in GRIDAQAccumulator::Accumulate
         T* a = new T[data.size()];
 
-       // typename QList<T>::iterator data_it;
-       // int ncnt = 0;
+        // typename QList<T>::iterator data_it;
+        // int ncnt = 0;
 
         for(int i=0; i < data.size(); i++)
         {

@@ -25,24 +25,24 @@ class GRIBuffer {
 
 public:
 
-        //! A constructor
-        GRIBuffer(QReadWriteLock *lock);
-        //! A destructor
-        ~GRIBuffer();
+    //! A constructor
+    GRIBuffer(QReadWriteLock *lock);
+    //! A destructor
+    ~GRIBuffer();
 
 
 
-        //! a member function
-        /*!
+    //! a member function
+    /*!
         *
         * addPacket() add's one more packet to the end of the buffer. This will update internal variables.
         *
         */
-        void addPacket();
+    void addPacket();
 
 
-        //! a member function
-        /*!
+    //! a member function
+    /*!
         *
         * writeToBuffer() writes one char into the specified index location of the packet. This operation
         * will automatically create the specified packet if it does not exist yet. Returns
@@ -55,12 +55,12 @@ public:
         * \sa addPacket(), readBuffer()
         *
         */
-        bool writeToBuffer(char b,int packetNumber, int index);
+    bool writeToBuffer(char b,int packetNumber, int index);
 
 
 
-        //! a member function
-        /*!
+    //! a member function
+    /*!
         *
         * readBuffer() returns the specified char at the packet position and the index.
         *
@@ -70,12 +70,12 @@ public:
         * \sa writeToBuffer()
         *
         */
-        char readBuffer(int packetNumber, int index);
+    char readBuffer(int packetNumber, int index);
 
 
 
-        //! a member function
-        /*!
+    //! a member function
+    /*!
         *
         * clearBuffer() empties out the specified packet. Further reads from an empty packet will
         * return an error.
@@ -84,11 +84,11 @@ public:
         * \return a void value
         * \sa clear()
         */
-        void clearPacket(int packetNumber);
+    void clearPacket(int packetNumber);
 
 
-        //! a member function
-        /*!
+    //! a member function
+    /*!
           *
           * setPackerMarker moves the packet marker to the index indicated by i
           * returns true if successful, otherwise false.
@@ -98,11 +98,11 @@ public:
           * \sa incrementPacketMarker(), currentPacket()
           *
         */
-        void setPacketMarker(int i);
+    void setPacketMarker(int i);
 
 
-        //! a member function
-        /*!
+    //! a member function
+    /*!
           *
           * incrementPacketMarker increments the packet marker for a particular thread by one.
           *
@@ -110,12 +110,12 @@ public:
           * \sa setPacketMarker(), currentPacket()
           *
         */
-        void incrementPacketMarker();
+    void incrementPacketMarker();
 
 
 
-        //! a member function
-        /*!
+    //! a member function
+    /*!
         *
         * currentPacket() returns the index position of the packet marker.
         *
@@ -123,12 +123,12 @@ public:
         * \sa incrementPacketMarker(), setPacketMarker()
         *
         */
-        int currentPacket();
+    int currentPacket();
 
 
 
-        //! a member function
-        /*!
+    //! a member function
+    /*!
         *
         * bufferSize() returns the total number of packets within the buffer;
         *
@@ -136,12 +136,12 @@ public:
         * \sa packetSize()
         *
         */
-        int bufferSize();
+    int bufferSize();
 
 
 
-        //! a member function
-        /*!
+    //! a member function
+    /*!
         *
         * packetSize() returns the number of chars within the packet.
         *
@@ -150,12 +150,12 @@ public:
         * \sa bufferSize()
         *
         */
-        int packetSize(int packetNumber);
+    int packetSize(int packetNumber);
 
 
 
-        //! a member function
-        /*!
+    //! a member function
+    /*!
           *
           * returns the index of the next packet to be added to the buffer
           *
@@ -163,12 +163,12 @@ public:
           * \sa bufferSize()
           *
         */
-        int nextPacket();
+    int nextPacket();
 
 
 
-        //! a member function
-        /*!
+    //! a member function
+    /*!
           *
           * removes all instances from the buffer and frees memory
           *
@@ -176,12 +176,12 @@ public:
           * \sa clearPacket()
           *
         */
-        void clear();
+    void clear();
 
 
 
-        //! a member function
-        /*!
+    //! a member function
+    /*!
           *
           * waitOnQueue acts as a condition variable for the buffer. There is exactly one
           * condition variable per buffer because there is exactly one QReadWriteLock per buffer.
@@ -190,12 +190,12 @@ public:
           * \sa wakeAllOnQueue(), wakeOneOnQueue()
           *
         */
-        void waitOnQueue();
+    void waitOnQueue();
 
 
 
-        //! a member function
-        /*!
+    //! a member function
+    /*!
           *
           * wakeAllOnQueue wakes all threads currently sitting on the buffers condition variable.
           *
@@ -203,12 +203,12 @@ public:
           * \sa waitOnQueue(), wakeOneOnQueue()
           *
         */
-        void wakeAllOnQueue();
+    void wakeAllOnQueue();
 
 
 
-        //! a member function
-        /*!
+    //! a member function
+    /*!
           *
           * wakeOneOnQueue wakes exactly one thread from the condition variable.
           *
@@ -216,67 +216,67 @@ public:
           * \sa wakeAllOnQueue(), waitOnQueue()
           *
         */
-        void wakeOneOnQueue();
-        void SetBusyWrite(bool tf){busyWrite = tf;}
-        bool GetBusyWrite(){return busyWrite;}
+    void wakeOneOnQueue();
+    void SetBusyWrite(bool tf){busyWrite = tf;}
+    bool GetBusyWrite(){return busyWrite;}
 
 private:
 
-        bool busyWrite;
+    bool busyWrite;
 
-        //! a private variable
-        /*!
+    //! a private variable
+    /*!
           *
           * variable representing number of packets in the buffer
           *
           */
-        int size;
+    int size;
 
 
-        //! a private variable
-        /*!
+    //! a private variable
+    /*!
           *
           * a list of packets.
           *
           */
-        QList< QVector<char>* > *packetList;
+    QList< QVector<char>* > *packetList;
 
 
-        //! a private variable
-        /*!
+    //! a private variable
+    /*!
           *
           * a list of packet markers for each thread that has ever accessed the buffer for a read
           *
           */
-        QList<int> *markerList;
+    QList<int> *markerList;
 
 
 
-        //! a private variable
-        /*!
+    //! a private variable
+    /*!
           *
           * a list of thread IDs that keeps a running history of threads that have tried to read from the buffer.
           *
           */
-        QList<int> *threadList;
+    QList<int> *threadList;
 
 
-        //! a private variable
-        /*!
+    //! a private variable
+    /*!
           *
           * a condition variable
           *
           */
-        QWaitCondition *waitQueue;
+    QWaitCondition *waitQueue;
 
 
-        //! a private variable
-        /*!
+    //! a private variable
+    /*!
           *
           * a mutex for read write synchronization
           *
           */
-        QReadWriteLock *lock;
+    QReadWriteLock *lock;
 
 
 };

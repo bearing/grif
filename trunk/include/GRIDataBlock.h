@@ -19,7 +19,7 @@ using namespace std;
 
 // Load balancing constant
 #define MAX_THRESHOLD 2 // When the difference in packets with writers from readers is this big
-                        // load balancing will be performed
+// load balancing will be performed
 #define LOAD_BALANCING_FACTOR 0.75 // When to ask thread to adjust their priority
 
 class GRIProcessThread;
@@ -58,13 +58,15 @@ struct reader_t
 class GRIDataBlock: public GRIObject
 {
 
-friend class GRICommandAndControl;
-friend class GRIMemoryManager;
+    friend class GRICommandAndControl;
+    friend class GRIMemoryManager;
 
 
 public:
 
     GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* analysis_struct);
+
+    GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm, QString readerName, QString readerBuffer, QString objectDataName, QString objectFromName);
 
     ~GRIDataBlock();
 
@@ -128,6 +130,8 @@ public:
 #endif //DEBUG
 
 private:
+
+    struct AnalysisStructureObject *obj;
 
     GRIRegulator* reg;
 

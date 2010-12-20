@@ -45,13 +45,11 @@ public:
 
     void InitializeTime(QDateTime tst, qint64 timestamp, qint64 ticks)
     {
-
         this->t0 = tst.time();
         this->ts0 = timestamp;
         this->ticksPerSecond = ticks;
         this->running = true;
         ResetAccumBuffs(timestamp);
-
     }
 
 

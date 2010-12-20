@@ -30,6 +30,45 @@ GRIDataBlock::GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* an
     }
 }
 
+GRIDataBlock::GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm, QString readerName, QString readerBuffer, QString objectDataName, QString objectFromName){
+
+    this->obj = new struct AnalysisStructureObject;
+    ReaderDataObject rdr;
+    rdr.name = readerName;
+    rdr.buffer = readerBuffer;
+    obj->data = objectDataName;
+    obj->From = objectFromName;
+    (obj->To).push_back(rdr);
+    set_mm(mm);
+
+
+    list<ReaderDataObject>::iterator it;
+
+    //log << "GRIDataBlock Entry" << endl;
+    //log << "Data: " << analysis_struct->data.toStdString().c_str() << endl;
+    //log << "From: " << analysis_struct->From.toStdString().c_str() << endl;
+    //Commit//log(GRI//log_VERBOSE);
+
+    this->name = obj->data;
+    this->writer_name = obj->From;
+    this->writer = NULL;
+    this->write_counter = 0;
+    this->first_packet = 0;
+    this->reg = reg;
+
+
+    for(it = (obj->To).begin(); it != (obj->To).end(); it++) {
+        reader_t* new_counter = new reader_t;
+        ReaderDataObject da = *it;
+        new_counter->reader_name = da.name;
+        new_counter->reader_data = da.buffer;
+        new_counter->reader = NULL;
+        new_counter->read_counter = 0;
+
+        readers.push_back(new_counter);
+    }
+}
+
 GRIDataBlock::~GRIDataBlock()
 {
     list<reader_t*>::iterator it;
