@@ -12,7 +12,6 @@
 
 #include "GRIRegulator.h"
 #include "GRIDataBlock.h"
-//#include "GRIHistogrammer.h"
 #include "GRIDefines.h"
 #include "GRIDataDefines.h"
 #include "GRILogMessage.h"
@@ -163,7 +162,7 @@ public:
 
 
     // This is overloaded in GRIDAQThread...
-    virtual void registerAccumulator(QString datablock){datablock = "ReduceCompilerWarnings";}
+    virtual void registerAccumulator(QString datablock){}
 
     /*
      * change_priority() decides whether to change the thread's priority or not
@@ -244,6 +243,8 @@ public:
      */
     int sizeofBuffer(QString bufferName);
 
+    list<QString> dataBlockNames;
+
     /*
      * For debugging purpose; display the important state of the process, ie: who it's writing
      * to, who it's reading from, etc
@@ -253,7 +254,7 @@ public:
 #endif // PROCESS_THREAD_DEBUG
 
 protected:
-    //*********************************TESING***********************************
+    //*********************************TESTING***********************************
     virtual void run();
     bool RunFlag;
     GRIRegulator* reg;
@@ -271,9 +272,6 @@ private:
     QString xml_path;
 
     //GRILogMessage LogMsg;
-
-
-
 
 public:
     void setRunFlag(bool tf){RunFlag = tf;}  // This could be moved into protected once integration is completed.

@@ -459,9 +459,8 @@ template <class T> int PostData(int numel, QString buffer_name, T _data[], qint6
         return 0;
     }
 
-    GRIDAQAccumNode* accum = *accum_it;
+    GRIDAQAccumulator<T>* accum = (GRIDAQAccumulator<T> *)(*accum_it);
     if(numel > 0){
-
         accum->Accumulate(numel, _data,timestamps,this->getRunFlag());
     }
 

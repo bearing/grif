@@ -76,9 +76,12 @@ QString GRIProcessThread::get_xml_path()
 
 void GRIProcessThread::set_link(list<GRIDataBlock*>* dataBlocks)
 {
-    list<GRIDataBlock*>::iterator data_block_it;
-    list<reader_t*>::iterator reader_it;
+    list<GRIDataBlock *>::iterator data_block_it;
+    list<reader_t *>::iterator reader_it;
     list<data_t *>::iterator data_it;
+
+    int x = this->data_outs.size();
+    data_it = data_outs.begin(); //testing -Austin
 
     // Setting up the pointer to the data blocks that this process is writing to
     for(data_it = data_outs.begin(); data_it != data_outs.end(); data_it++) {
@@ -136,7 +139,7 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* dataBlocks)
             cerr << "! GRIProcessThread::set_link(): Could not find " << data->name.toStdString().c_str() << endl;
 #endif // PROCESS_THREAD_DEBUG
 
-            //assert(false);
+            assert(false);
         }
     }
 }

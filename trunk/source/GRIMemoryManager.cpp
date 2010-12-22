@@ -75,7 +75,7 @@ bool GRIMemoryManager::bufferCreate(QString dataBlockName, QString bufferName)
             return false;
         }
 
-       // cout << "Buffer Create" << endl;
+        cout << "Buffer Create" << endl;
         QList<QReadWriteLock *> *locks = lockTable->at(blockIndex);
         QReadWriteLock *lock = new QReadWriteLock();
         locks->append(lock);
@@ -260,7 +260,7 @@ int GRIMemoryManager::locateBuffer(QString bufferName, int blockIndex)
     //log << "locateBuffer: BlockIndex: " << blockIndex << " - " << bufferName.toStdString().c_str() << endl;
     //Commit//log(GRI//log_VERBOSE);
     QList<QString> *bufferNames = nameTable->at(blockIndex);
-//    cout << "Buffer Located " << endl;
+    cout << "Buffer Located " << endl;
     int i;
     int size = bufferNames->size();
     for (i = 0; i < size ; i++) {
@@ -290,7 +290,7 @@ int GRIMemoryManager::locateDataBlock(QString dataBlockName)
 
     for (i = 0; i < size; i++ ) {
         if (blockNameTable->at(i) == dataBlockName) {
-           // cout << "Data Block Found: " << i << endl;
+            cout << "Data Block Found: " << i << endl;
             return i;
         }
     }

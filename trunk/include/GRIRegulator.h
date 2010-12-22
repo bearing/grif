@@ -19,7 +19,6 @@
 #include "GRILogMessage.h"
 #include "GRIObject.h"
 
-
 using namespace std;
 
 class GRILoader;
@@ -60,7 +59,6 @@ public:
      */
 
     void initConfig(list<GRIDataBlock*>* dataBlocks, list<GRIProcessThread*>* processes);
-
 
     /*
      * start_threads() is called just before the whole system starts. It runs all the threads

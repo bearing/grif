@@ -12,7 +12,7 @@
 #include <qxmlstream.h>
 #include "GRIParam.h"
 #include "GRIServer.h"
-#include "GRIRegulator.h"
+//#include "GRIRegulator.h"
 #include "GRIRunManager.h"
 //#include "GRIXMLParser.h"
 #include "GRILoader.h"

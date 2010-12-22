@@ -23,7 +23,7 @@ using namespace std;
 #define LOAD_BALANCING_FACTOR 0.75 // When to ask thread to adjust their priority
 
 class GRIProcessThread;
-class GRIRegulator;
+//class GRIRegulator;
 class GRIMemoryManager;
 
 /*

@@ -37,6 +37,8 @@ void GRIRegulator::initConfig(list<GRIDataBlock*>* dataBlocks,
     list<GRIDataBlock*>::iterator data_it;
     list<GRIProcessThread*>::iterator process_it;
 
+    this->dataBlocks = dataBlocks;
+
     if(dataBlocks == NULL || processes == NULL) {
 #ifdef REGULATOR_DEBUG
         //log << "! GRIRegulator::initConfig(): No processes or data blocks" << endl;
@@ -46,7 +48,7 @@ void GRIRegulator::initConfig(list<GRIDataBlock*>* dataBlocks,
         return;
     }
 
-    for(process_it = (*processes).begin(); process_it != (*processes).end(); process_it++) {
+    for(process_it = processes->begin(); process_it != processes->end(); process_it++) {
         GRIProcessThread* process = *process_it;
 
         process->set_link(dataBlocks);
@@ -54,7 +56,7 @@ void GRIRegulator::initConfig(list<GRIDataBlock*>* dataBlocks,
 
     this->processes = processes;
 
-    for(data_it = (*dataBlocks).begin(); data_it != (*dataBlocks).end(); data_it++) {
+    for(data_it = dataBlocks->begin(); data_it != dataBlocks->end(); data_it++) {
         GRIDataBlock* data_block = *data_it;
 
         data_block->set_mm(mm);
@@ -62,8 +64,6 @@ void GRIRegulator::initConfig(list<GRIDataBlock*>* dataBlocks,
     }
 
  //   //log << "Done setting the link" << endl; //Commit//log(//log_VERBOSE);
-
-    this->dataBlocks = dataBlocks;
 
 }
 
@@ -96,9 +96,10 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
         return returnVal;
     }
 
-    while(mm->lastPacket(blockName, bufferName) < packet_to_read) {
-
+    int curr_packet = mm->lastPacket(blockName, bufferName);
+    while(curr_packet < packet_to_read) {
         bufferIsReady.wait(&mutex);
+        curr_packet = mm->lastPacket(blockName, bufferName);
     }
 
 
@@ -123,8 +124,8 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
     }
 
 
-//    cout << "GRIRegulator::readMemory(): " << blockName.toStdString().c_str() <<
-//            " is not reading from " << data->get_writer_name().toStdString().c_str() << endl;
+    cout << "GRIRegulator::readMemory(): " << blockName.toStdString().c_str() <<
+            " is not reading from " << data->get_writer_name().toStdString().c_str() << endl;
     ////Commit//log(//log_ERROR);
 
 

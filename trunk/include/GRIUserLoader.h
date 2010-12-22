@@ -15,9 +15,12 @@ public:
             GRILoader(localGRIFPath, regulator, GRIFLogFilename){}
     GRIUserLoader(QString localGRIFPath, GRIRegulator* regulator,QString GRIFLogFilename,int LogLevel):
             GRILoader(localGRIFPath,regulator,GRIFLogFilename,LogLevel){}
+    GRIUserLoader(QString localGRIFPath, GRIRegulator *regulator, list<QString> files):
+            GRILoader(localGRIFPath, regulator, files){}
 
     virtual ~GRIUserLoader(){}
     GRIProcessThread* load(QString process_name,QString XMLFile);
+    GRIProcessThread* load(QString process_name);
 
 };
 #endif // GRIUSERLOADER_H

@@ -6,6 +6,7 @@
 #include "GRIObject.h"
 #include "GRIProcessThread.h"
 #include "GRIDAQAccumulator.h"
+#include "GRIAccumBuff.h"
 
 // Abstract Container for GRIDAQAccumulators of different types
 
@@ -18,7 +19,7 @@ public:
     virtual void ResetAccumBuffs(qint64 t_0)=0;
 
     //These are placeholders for supported data types
-    void Accumulate(int numel, double data[], qint64 timestamps[],bool runflag){numel = 0; data = 0; timestamps = 0; runflag = 0;} // placeholders
+    void Accumulate(int numel, double data[], qint64 timestamps[],bool runflag){numel = 0; data = 0; timestamps = 0; runflag = 0; } // placeholders
     void Accumulate(int numel, float data[], qint64 timestamps[],bool runflag){numel = 0; data = 0; timestamps = 0; runflag = 0;}
     void Accumulate(int numel, int data[], qint64 timestamps[],bool runflag){numel = 0; data = 0; timestamps = 0; runflag = 0;}
     void Accumulate(int numel, qint64 data[], qint64 timestamps[],bool runflag){numel = 0; data = 0; timestamps = 0; runflag = 0;}
@@ -68,6 +69,8 @@ protected:
     bool running;
 
     GRIProcessThread* pDAQ;
+
+    list<GRIAccumBuff<double>*> buff;
 };
 
 
