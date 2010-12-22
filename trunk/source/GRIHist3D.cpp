@@ -16,6 +16,8 @@ GRIHist3D::GRIHist3D(QString bname, int id){
     this->SetPacketScaleFactor(1);
     this->BinSetFlag = false;
 
+    this->dimension = 3;
+
 
 }
 
@@ -30,6 +32,9 @@ GRIHist3D::GRIHist3D(QString bname, int id, QString HName){
     this->SetPacketScaleFactor(1);
     this->BinSetFlag = false;
     hist->SetTitle(HName.toStdString().c_str());
+
+    this->dimension = 3;
+
 }
 
 GRIHist3D::~GRIHist3D(){

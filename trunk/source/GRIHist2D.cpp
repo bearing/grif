@@ -14,6 +14,8 @@ GRIHist2D::GRIHist2D(QString bname, int id){
     this->SetPacketScaleFactor(1);
     this->BinSetFlag = false;
 
+    this->dimension = 2;
+
 
 }
 
@@ -28,6 +30,8 @@ GRIHist2D::GRIHist2D(QString bname, int id, QString HName){
     this->SetPacketScaleFactor(1);
     this->BinSetFlag = false;
     hist->SetTitle(HName.toStdString().c_str());
+
+    this->dimension = 2;
 }
 
 GRIHist2D::~GRIHist2D(){
