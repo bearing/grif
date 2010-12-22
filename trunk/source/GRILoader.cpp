@@ -1,13 +1,4 @@
-
 #include "GRILoader.h"
-//#include "SIMDAQThread.h"
-//#include "SIMDAQThread_JAKE_VS.h"
-//#include "SIMAnalysisThread.h"
-
-
-//class SIMDAQThread;
-class SIMDAQThread_JAKE_VS;
-//class SIMAnalysisThread;
 
 GRILoader::GRILoader(QString localGRIFPath, GRIRegulator* regulator)
 {
@@ -43,6 +34,12 @@ GRILoader::GRILoader(QString localGRIFPath, GRIRegulator* regulator,QString GRIF
      CreateLogger(GRIFLogFilename,GRIFLogLevel);  // All logging enabled for framework components at this point.
      ConnectLogger(GRIFLogFilename,regulator);
      ConnectLogger(GRIFLogFilename,regulator->GetMemoryManager());
+}
+
+GRILoader::GRILoader(QString localGRIFPath, GRIRegulator *regulator, list<QString> fileNames){
+    this->fileNames = fileNames;
+    this->localGRIFPath = localGRIFPath;
+    this->regulator = regulator;
 }
 
 GRILoader::~GRILoader()
@@ -134,6 +131,48 @@ list<GRIDataBlock*>* GRILoader::initDataBlocks(list<GRIProcessThread*>* processe
 //    return p;
 //}
 
+GRIRegulatorDetails *GRILoader::initRegulatorDetails(){
+    list<QString>::iterator it;
+    list<GRIProcessThread*>* processes = new list<GRIProcessThread*>;
+    list<GRIDataBlock*>* dataBlocks = new list<GRIDataBlock*>;
+
+    for(it = fileNames.begin(); it != fileNames.end(); it++){
+        QString name = *it; //get name of xml file
+        GRIParser *parser = new GRIParser();
+        parser->parse(this->localGRIFPath + name); //parse xml
+
+        GRIProcessThread* proc= this->load(parser->getClassName()); //load the process thread based on GRIUserLoader implementation
+
+        // safety check if process is null (couldn't find process)
+        if(proc == NULL){
+            cout << "WARNING: could not parse file " << endl << this->localGRIFPath.toStdString() <<  name.toStdString() << endl << "continuing without this file..." << endl;
+            continue;
+        }
+
+        proc->setDefaultDetail(this->regulator, parser->getClassName());
+
+        proc->addDataBlocks(parser->getDataBlockNames());
+
+        QString s1 = parser->getReaderName();
+        QString s2 = parser->getObjectFromName();
+
+        if(parser->getClassName() != parser->getReaderName()){
+            list<QString> dataBlockNames = parser->getDataBlockNames();
+            list<QString>::iterator names_it;
+            for(names_it = dataBlockNames.begin(); names_it != dataBlockNames.end(); names_it++){
+                QString s3 = *names_it;
+                GRIDataBlock *data = new GRIDataBlock(this->regulator, this->regulator->GetMemoryManager(), s1, s3, s3, s2);
+                dataBlocks->push_back(data);
+            }
+        }
+
+        processes->push_back(proc); //push our process onto the list
+
+        delete(parser); //clear the contents of the parser
+    }
+
+    return new GRIRegulatorDetails(processes, dataBlocks); //return the processes and dataBlocks
+}
 
 
 list<GRIParam*>* GRILoader::readNewParamList( list<GRIParam*>* paramList)

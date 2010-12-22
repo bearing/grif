@@ -12,9 +12,10 @@
 #include <QtGui/QMessageBox>
 #include "GRIParam.h"
 #include "GRIProcessThread.h"
-#include "GRIRegulator.h"
 #include "GRILogger.h"
 #include "GRIThread.h"
+#include "GRIParser.h"
+#include "GRIRegulatorDetails.h"
 
 class GRIParamList;
 
@@ -31,6 +32,7 @@ public:
     GRILoader(QString filepath, GRIRegulator* regulator);
     GRILoader(QString localGRIFPath, GRIRegulator* regulator,QString GRIFLogFilename);
     GRILoader(QString localGRIFPath, GRIRegulator* regulator,QString GRIFLogFilename,int LogLevel);
+    GRILoader(QString localGRIFPath, GRIRegulator *regulator, list<QString> fileNames);
 
     virtual ~GRILoader();
 
@@ -49,6 +51,12 @@ public:
 
     list<GRIDataBlock*>* initDataBlocks(list<GRIProcessThread*>* processes, list<AnalysisStructureObject*> analyStructs);
 
+    /*
+     * Initialization of process threads based on the list fileNames
+     * returns pointer to list of GRIProcessThread pointers for the framework
+     */
+    GRIRegulatorDetails *initRegulatorDetails();
+
 
     // used to be in class GRIXMLParser.h
     list<GRIParam*>* readNewParamList(list<GRIParam*>* currentParams);
@@ -60,12 +68,18 @@ public:
 protected:
         virtual GRIProcessThread* load(QString process_name, QString xml_file) = 0;
 
+        virtual GRIProcessThread* load(QString process_name) = 0;
+
 private:
     list<GRILogger*> LogList;
     list<GRIThread*> LogThreadList;
 
     QString localGRIFPath;
     GRIRegulator* regulator;
+
+    list<QString> fileNames;
+
+    GRIParser *parser;
 
     // used to be in class GRIXMLParser.h
 
@@ -74,7 +88,6 @@ private:
     GRIParam* readParameter(QXmlStreamReader& xml, QString paramIndexNumber);
     void addElementToParam(QXmlStreamReader& xml, GRIParam* param);
     void addChildParams(QXmlStreamReader& xml, GRIParam* head);
-
 
 };
 
