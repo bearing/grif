@@ -112,7 +112,7 @@ GRIHistogrammer* GRIAnalysisThread::GetHistogram(QString HistName){
     }
 
     //return the null pointer on failure
-    return p;
+    return NULL;
 
 }
 
