@@ -19,8 +19,6 @@ public:
     {
         qint64 dt = 0;
 
-        bool trigger = false;
-
         for(int i=0; i<numel; i++)
         {
             if(t[i]>=t1 && t[i]<t2)

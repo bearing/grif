@@ -21,7 +21,6 @@ bool GRIParser::parse(QString filePath){
     a = e.attributeNode("objectFromName");
     this->objectFromName = a.value();
 
-
     //run this over each element
     e = root.firstChildElement("DataBlocks");
     int num = e.elementsByTagName("Data").count();

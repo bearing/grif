@@ -1,25 +1,6 @@
-
 #include "GRIHist1D.h"
 
-GRIHist1D::GRIHist1D(QString bname, int id){
-
-    this->hist = new TH1D(); // Always to this first
-    this->hist2 = new TH1D(); // Used only for rate mode...
-
-    QString n = "Hist1D";  //Default name
-    this->SetName(n);
-    this->BlockName = bname;
-    this->ID = id;
-    this->SetRateMode(false);
-    this->SetPacketScaleFactor(1);
-    this->BinSetFlag = false;
-
-    this->dimension = 1;
-
-
-}
-
-GRIHist1D::GRIHist1D(QString bname, int id, QString HName){
+GRIHist1D::GRIHist1D(QString bname, int id, QString HName="Hist1D"){
 
     this->hist = new TH1D();  // Always do this first...
     this->hist2 = new TH1D();  // Used only for rate mode
@@ -29,9 +10,9 @@ GRIHist1D::GRIHist1D(QString bname, int id, QString HName){
     this->SetRateMode(false);
     this->SetPacketScaleFactor(1);
     this->BinSetFlag = false;
-    hist->SetTitle(HName.toStdString().c_str());
-
     this->dimension = 1;
+
+    hist->SetTitle(HName.toStdString().c_str());
 
 }
 

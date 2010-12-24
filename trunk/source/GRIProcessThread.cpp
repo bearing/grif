@@ -80,22 +80,11 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* dataBlocks)
     list<reader_t *>::iterator reader_it;
     list<data_t *>::iterator data_it;
 
-    int x = this->data_outs.size();
-    data_it = data_outs.begin(); //testing -Austin
-
     // Setting up the pointer to the data blocks that this process is writing to
     for(data_it = data_outs.begin(); data_it != data_outs.end(); data_it++) {
         data_t* data = *data_it;
         for(data_block_it = (*dataBlocks).begin(); data_block_it != (*dataBlocks).end(); data_block_it++) {
             GRIDataBlock* data_block = *data_block_it;
-            /*QString dataname = data->name;
-            QString dataname2 = data_block->get_name();
-            QString thisname = this->get_name();
-            QString thisname2 = data_block->get_writer_name();
-            int blahblah = 0;
-            if(blahblah == 0){
-                int blahblah2 = 0;
-            } */ //above for testing
             if(data->name == data_block->get_name() && this->get_name() == data_block->get_writer_name()) {
                 data->data_block = data_block;
                 break;

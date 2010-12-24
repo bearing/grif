@@ -20,6 +20,8 @@ GRIRegulator::GRIRegulator(GRIMemoryManager *ma)
     this->set_name("REG");
     ////logMsg.SetObjectName("REG");
    // //log.setString(&temp,QIODevice::ReadWrite);
+
+    reg_init();
 }
 
 GRIRegulator::~GRIRegulator()

@@ -1,39 +1,17 @@
-
 #include "GRIHist3D.h"
 
-GRIHist3D::GRIHist3D(QString bname, int id){
-
-    this->hist = new TH3D(); // Always to this first
-    this->hist2 = new TH3D(); // Used only for rate mode...
-
-    this->dimension = 3;
-
-    QString n = "Hist3D";  //Default name
-    this->SetName(n);
-    this->BlockName = bname;
-    this->ID = id;
-    this->SetRateMode(false);
-    this->SetPacketScaleFactor(1);
-    this->BinSetFlag = false;
-
-    this->dimension = 3;
-
-
-}
-
-GRIHist3D::GRIHist3D(QString bname, int id, QString HName){
+GRIHist3D::GRIHist3D(QString bname, int id, QString HName="Hist3D"){
 
     this->hist = new TH3D();  // Always do this first...
     this->hist2 = new TH3D();  // Used only for rate mode
     this->SetName(HName);
     this->BlockName = bname;
     this->ID = id;
+    this->dimension = 3;
     this->SetRateMode(false);
     this->SetPacketScaleFactor(1);
     this->BinSetFlag = false;
     hist->SetTitle(HName.toStdString().c_str());
-
-    this->dimension = 3;
 
 }
 

@@ -162,7 +162,7 @@ public:
 
 
     // This is overloaded in GRIDAQThread...
-    virtual void registerAccumulator(QString datablock){}
+    virtual void registerAccumulator(QString datablock){datablock = "ReduceCompilerWarnings";}
 
     /*
      * change_priority() decides whether to change the thread's priority or not

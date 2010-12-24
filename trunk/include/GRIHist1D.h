@@ -7,7 +7,6 @@ class GRIHist1D: public GRIHistogrammer
 {
 
 public:
-    GRIHist1D(QString BlockName, int ID);
     GRIHist1D(QString BlockName, int ID, QString HistName);
     ~GRIHist1D();
 

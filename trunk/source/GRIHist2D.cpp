@@ -1,37 +1,18 @@
-
 #include "GRIHist2D.h"
 
-GRIHist2D::GRIHist2D(QString bname, int id){
-
-    this->hist = new TH2D(); // Always to this first
-    this->hist2 = new TH2D(); // Used only for rate mode...
-
-    QString n = "Hist2D";  //Default name
-    this->SetName(n);
-    this->BlockName = bname;
-    this->ID = id;
-    this->SetRateMode(false);
-    this->SetPacketScaleFactor(1);
-    this->BinSetFlag = false;
-
-    this->dimension = 2;
-
-
-}
-
-GRIHist2D::GRIHist2D(QString bname, int id, QString HName){
+GRIHist2D::GRIHist2D(QString bname, int id, QString HName="Hist2D"){
 
     this->hist = new TH2D();  // Always do this first...
     this->hist2 = new TH2D();  // Used only for rate mode
     this->SetName(HName);
     this->BlockName = bname;
     this->ID = id;
+    this->dimension = 2;
     this->SetRateMode(false);
     this->SetPacketScaleFactor(1);
     this->BinSetFlag = false;
     hist->SetTitle(HName.toStdString().c_str());
 
-    this->dimension = 2;
 }
 
 GRIHist2D::~GRIHist2D(){
