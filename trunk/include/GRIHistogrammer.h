@@ -71,9 +71,9 @@ public:
      * GRIHist3D overrides the third Update()
      */
 
-     int Update(double x[], int numel){x = 0; numel = 0; return -1;}
-     int Update(double x[], double y[], int numel){x = y = 0; numel = 0; return -1;}
-     int Update(double x[], double y[], double z[], int numel){x = y = z = 0; numel = 0; return -1;}
+     virtual int Update(double x[], int numel){x = 0; numel = 0; return -1;}
+     virtual int Update(double x[], double y[], int numel){x = y = 0; numel = 0; return -1;}
+     virtual int Update(double x[], double y[], double z[], int numel){x = y = z = 0; numel = 0; return -1;}
 
 };
 
