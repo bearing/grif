@@ -7,7 +7,7 @@ GRIHist1D::GRIHist1D(QString bname, int id, QString HName="Hist1D"){
     this->SetName(HName);
     this->BlockName = bname;
     this->ID = id;
-    this->SetRateMode(false);
+    this->SetRateMode(0);
     this->SetPacketScaleFactor(1);
     this->BinSetFlag = false;
     this->dimension = 1;
@@ -53,8 +53,6 @@ int GRIHist1D::Clear()
 }
 
 int GRIHist1D::Update(double x[], int numel){
-
-
 
     if(this->GetRateMode()){
         // Updating on Rate Differentials...

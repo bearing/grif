@@ -21,14 +21,16 @@ class GRIHistogrammer: public GRIObject
 public:
 
     // checking for readiness ... makes this pure abstract
-     virtual TH1* GetHist() = 0;
+     virtual TH1* GetHist(){return 0;}
      virtual int Clear() = 0;
 
      virtual int GetID(){return ID;}
      int GetDimension(){return dimension;}
 
      int openInitializationControl(){return -1;}
-     void SetRateMode(bool tf){rateModeFlag = tf;}
+     void SetRateMode(bool tf){
+         rateModeFlag = tf;
+     }
      bool GetRateMode(){return rateModeFlag;}
      void SetPacketScaleFactor(double sf){packetScaleFactor = sf;}
      double GetPacketScaleFactor(){return packetScaleFactor;}

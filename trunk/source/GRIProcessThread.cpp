@@ -18,7 +18,7 @@ GRIProcessThread::GRIProcessThread()
 void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator){
     this->setParent(obj);
     reg = regulator;
-    if(proc_detail != NULL){
+    if(proc_detail != 0){
         this->is_daq = proc_detail->isDaq;
         this->setObjectName(proc_detail->name);
         //this->name = proc_detail->name; done above...
@@ -85,7 +85,11 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* dataBlocks)
         data_t* data = *data_it;
         for(data_block_it = (*dataBlocks).begin(); data_block_it != (*dataBlocks).end(); data_block_it++) {
             GRIDataBlock* data_block = *data_block_it;
-            if(data->name == data_block->get_name() && this->get_name() == data_block->get_writer_name()) {
+            QString data_name = data->name;
+            QString data_block_name = data_block->get_name();
+            QString data_block_writer_name = data_block->get_writer_name();
+            QString proc_name = this->get_name();
+            if(data_name == data_block_name && proc_name == data_block_writer_name) {
                 data->data_block = data_block;
                 break;
             }
@@ -245,7 +249,7 @@ GRIDataBlock* GRIProcessThread::find_data_block(QString data_block_name)
         }
     }
 
-    return NULL; // Can't find the data block
+    return 0; // Can't find the data block
 }
 
 int GRIProcessThread::currentPacketPosition(QString bufferName){

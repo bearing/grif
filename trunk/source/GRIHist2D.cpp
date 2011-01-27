@@ -8,7 +8,7 @@ GRIHist2D::GRIHist2D(QString bname, int id, QString HName="Hist2D"){
     this->BlockName = bname;
     this->ID = id;
     this->dimension = 2;
-    this->SetRateMode(false);
+    this->SetRateMode(0);
     this->SetPacketScaleFactor(1);
     this->BinSetFlag = false;
     hist->SetTitle(HName.toStdString().c_str());

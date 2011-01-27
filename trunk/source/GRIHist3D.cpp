@@ -8,7 +8,7 @@ GRIHist3D::GRIHist3D(QString bname, int id, QString HName="Hist3D"){
     this->BlockName = bname;
     this->ID = id;
     this->dimension = 3;
-    this->SetRateMode(false);
+    this->SetRateMode(0);
     this->SetPacketScaleFactor(1);
     this->BinSetFlag = false;
     hist->SetTitle(HName.toStdString().c_str());

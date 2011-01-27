@@ -101,7 +101,7 @@ void GRIAnalysisThread::ReadGarbageCollection()
 
 GRIHistogrammer* GRIAnalysisThread::GetHistogram(QString HistName){
 
-    GRIHistogrammer* p = NULL;
+    GRIHistogrammer* p = 0;
 
     QList<GRIHistogrammer*>::iterator hist_it;
     for(hist_it=HistArray.begin(); hist_it != HistArray.end(); hist_it++)
@@ -111,8 +111,8 @@ GRIHistogrammer* GRIAnalysisThread::GetHistogram(QString HistName){
             return p;
     }
 
-    //return the null pointer on failure
-    return NULL;
+    //return the 0 pointer on failure
+    return 0;
 
 }
 
@@ -120,7 +120,7 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xBins
 
 
     // This is one dimensional
-    if(this->GetHistogram(HistName) == NULL){
+    if(this->GetHistogram(HistName) == 0){
         GRIHist1D* p = new GRIHist1D(this->get_name(),HistArray.size(),HistName);
         p->SetBins(nx,xBins);
         HistArray.push_back(p);
@@ -133,7 +133,7 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xBins
 
 int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin, double xmax){
     // This is one dimensional
-    if(this->GetHistogram(HistName) == NULL){
+    if(this->GetHistogram(HistName) == 0){
         GRIHist1D* p = new GRIHist1D(this->get_name(),HistArray.size(),HistName);
         p->SetBins(nx,xmin,xmax);
         HistArray.push_back(p);
@@ -149,7 +149,7 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xBins
 
 
     // This is two dimensional
-    if(this->GetHistogram(HistName) == NULL){
+    if(this->GetHistogram(HistName) == 0){
         GRIHist2D* p = new GRIHist2D(this->get_name(),HistArray.size(),HistName);
         p->SetBins(nx,xBins,ny,yBins);
         HistArray.push_back(p);
@@ -162,7 +162,7 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xBins
 
 int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin, double xmax,int ny, double ymin, double ymax){
     // This is two dimensional
-    if(this->GetHistogram(HistName) == NULL){
+    if(this->GetHistogram(HistName) == 0){
         GRIHist2D* p = new GRIHist2D(this->get_name(),HistArray.size(),HistName);
         p->SetBins(nx,xmin,xmax,ny,ymin,ymax);
         HistArray.push_back(p);
@@ -179,7 +179,7 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin,
 
 
 //    // This is 3 dimensional
-//    if(this->GetHistogram(HistName) == NULL){
+//    if(this->GetHistogram(HistName) == 0){
 //        GRIHistogrammer* p = new GRIHist2D(this->get_name(),HistArray.size(),HistName);
 //        p->SetBins(nx,xBins,ny,yBins);
 //        HistArray.push_back(p);
@@ -192,7 +192,7 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin,
 
 int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin, double xmax, int ny, double ymin, double ymax,int nz, double zmin, double zmax){
     // This is 3 dimensional
-    if(this->GetHistogram(HistName) == NULL){
+    if(this->GetHistogram(HistName) == 0){
         GRIHist3D* p = new GRIHist3D(this->get_name(),HistArray.size(),HistName);
         p->SetBins(nx,xmin,xmax,ny,ymin,ymax,nz,zmin,zmax);
         HistArray.push_back(p);
@@ -208,7 +208,7 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin,
 int GRIAnalysisThread::SetHistRateMode(QString HistName, bool tf){
 
     GRIHistogrammer* p;
-    if((p = this->GetHistogram(HistName)) != NULL){
+    if((p = this->GetHistogram(HistName)) != 0){
         p->SetRateMode(tf);
         return 0;
     }
@@ -223,7 +223,7 @@ int GRIAnalysisThread::SetHistRateMode(QString HistName, bool tf){
 int GRIAnalysisThread::SetHistPacketScaleFactor(QString HistName, double ScaleFactor){
 
     GRIHistogrammer* p;
-    if((p = this->GetHistogram(HistName)) != NULL){
+    if((p = this->GetHistogram(HistName)) != 0){
         p->SetPacketScaleFactor(ScaleFactor);
         return 0;
     }
@@ -238,7 +238,7 @@ int GRIAnalysisThread::SetHistPacketScaleFactor(QString HistName, double ScaleFa
 int GRIAnalysisThread::ClearHistogram(QString HistName){
 
     GRIHistogrammer* p;
-    if((p = this->GetHistogram(HistName)) != NULL){
+    if((p = this->GetHistogram(HistName)) != 0){
         p->Clear();
         return 0;
     }
@@ -251,9 +251,11 @@ int GRIAnalysisThread::ClearHistogram(QString HistName){
 int GRIAnalysisThread::UpdateHistogram(QString HistName, double x[], int numel){
 
     GRIHistogrammer* p;
-    if((p = this->GetHistogram(HistName)) != NULL){
-        if(p->GetDimension() == 1)
-            p->Update(x,numel);
+    if((p = this->GetHistogram(HistName)) != 0){
+        if(p->GetDimension() == 1){
+            GRIHist1D *p1 = (GRIHist1D *)p;
+            p1->Update(x,numel);
+        }
         else
         {
             cerr << "!Called Histogram Update with 1D parameters but Hist:" << HistName.toStdString().c_str() <<
@@ -273,7 +275,7 @@ int GRIAnalysisThread::UpdateHistogram(QString HistName, double x[], int numel){
 int GRIAnalysisThread::UpdateHistogram(QString HistName, double x[], double y[], int numel){
 
     GRIHistogrammer* p;
-    if((p = this->GetHistogram(HistName)) != NULL){
+    if((p = this->GetHistogram(HistName)) != 0){
         if(p->GetDimension()==2)
             p->Update(x,y,numel);
         else
@@ -293,7 +295,7 @@ int GRIAnalysisThread::UpdateHistogram(QString HistName, double x[], double y[],
 int GRIAnalysisThread::UpdateHistogram(QString HistName, double x[], double y[], double z[], int numel){
 
     GRIHistogrammer* p;
-    if((p = this->GetHistogram(HistName)) != NULL){
+    if((p = this->GetHistogram(HistName)) != 0){
         if(p->GetDimension() == 3)
             p->Update(x,y,z,numel);
         else

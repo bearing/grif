@@ -43,7 +43,7 @@ public:
     void addParameterChild(GRIParam* param)
     {
         param = 0; //reduce compiler warnings
-//        this->addChild(nm,defaultVal, val, "", "", units, type, false, NULL);
+//        this->addChild(nm,defaultVal, val, "", "", units, type, false, 0);
     }
 
 //    void addSubmenuChild(string nm, string defaultVal, string val, string units, string type, list<GRIParam*>* children)

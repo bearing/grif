@@ -101,7 +101,8 @@ public:
 
                 GRIAccumBuff<T>* b = *buff_it;
                 // Buffer Data and sense the bubble
-                if(BubbleDT = (b->BufferData(numel, timestamps,data)))
+                BubbleDT = (b->BufferData(numel, timestamps,data));
+                if(BubbleDT)
                 {
                     BubbleTrigger = true;
                     // BubbleWriteNum is used when data is missing for accumulation times

@@ -200,9 +200,9 @@ mydaq->run(); //which calls the user defined methods in a well-defined order.
 
     }
 
-    template <class T> pair<unsigned int, T*> ReadData(QString block_name, QString buffer_name){
+    template <class T> pair<int, T*> ReadData(QString block_name, QString buffer_name){
 
-        pair<unsigned int, T*> p = readMemory<T>(block_name, buffer_name);
+        pair<int, T*> p = readMemory<T>(block_name, buffer_name);
         ReadDataPtrs.push_back((void*)p.second);
 
         return p;

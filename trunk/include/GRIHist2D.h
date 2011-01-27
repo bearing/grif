@@ -11,7 +11,7 @@ public:
     ~GRIHist2D();
 
 public:
-    TH1* GetHist(){return (TH1*)hist;}
+    TH1* GetHist(){return hist;}
     void SetROOTHistName(QString name);
     int Clear();
 

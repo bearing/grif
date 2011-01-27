@@ -161,7 +161,7 @@ void GRICommandAndControl::DisplayParameterList()
     for(iter = this->parameterList->begin(); iter!= this->parameterList->end(); iter++)
     {
 
-        if((*iter) != NULL)
+        if((*iter) != 0)
         {
             this->display((*iter)->getDisplay());
         }
@@ -241,12 +241,12 @@ void GRICommandAndControl::timerEvent(QTimerEvent *event)
  {
 
 
-//     this->parameterList = new GRIParamList(NULL, "Main Menu", "", "", "", "", "","", true, NULL);
+//     this->parameterList = new GRIParamList(0, "Main Menu", "", "", "", "", "","", true, 0);
 //
 //     parameterList->addParameterChild("Peak", "2000", "650", "kEV", "double");
 //     parameterList->addParameterChild("Frequency", "0","100", "per Channel per Second", "double" );
 //     parameterList->addParameterChild("Background Percentages", "0", "54", "%", "float");
-//     parameterList->addSubmenuChild("module 1", "0", "0", "0","double", NULL);
+//     parameterList->addSubmenuChild("module 1", "0", "0", "0","double", 0);
 //    (parameterList->childNodes->back())->addParameterChild("Channel 1", "on", "on", "", "bool");
 //    (parameterList->childNodes->back())->addParameterChild("Channel 2", "on", "off", "", "bool");
 
@@ -319,7 +319,7 @@ void GRICommandAndControl::timerEvent(QTimerEvent *event)
 //       {
 //           if( intChoice == totalCount-1)
 //           {
-//               if(tempNode->parent != NULL)
+//               if(tempNode->parent != 0)
 //               {
 //                  tempNode = tempNode->parent;
 //               }

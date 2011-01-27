@@ -453,7 +453,7 @@ template <class T> int PostData(int numel, QString buffer_name, T _data[], qint6
     }
 
     if(!found){
-        cerr << "!Accumulator not found in PostData()"<< endl;
+        cerr << "!Accumulator not found in PostData() when looking for buffer name "<< buffer_name.toStdString() <<  endl;
         log << "Accumulator not found in PostData()" << endl;
         CommitLog(GRILOG_ERROR);
         return 0;

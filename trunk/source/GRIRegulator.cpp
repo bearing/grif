@@ -15,7 +15,7 @@ GRIRegulator::GRIRegulator(GRIMemoryManager *ma)
     mm = ma;
     //temporary //log file until GRI//logMessage Implemented...
     regulator_log = fopen("regulator//logfile.txt","w"); //All these pointer assignments cause bugs later
-    //GRIRegulator(ma, NULL);
+    //GRIRegulator(ma, 0);
 
     this->set_name("REG");
     ////logMsg.SetObjectName("REG");
@@ -232,7 +232,7 @@ GRIDataBlock* GRIRegulator::find_data(QString data_block_name, QString buffer_na
         }
     }
 
-    return NULL;
+    return 0;
 }
 
 

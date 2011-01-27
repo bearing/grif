@@ -23,7 +23,7 @@ GRIHistogrammer::GRIHistogrammer(int dim)
 //}
 
 //void GRIHistogrammer::init_hist(){
-//    //cout << "is this equal to null?" << (this == NULL) << "this is: " << this << endl;
+//    //cout << "is this equal to null?" << (this == 0) << "this is: " << this << endl;
 
 //    this->hist = new TH1D("","",100,0,100);  //SEGFAULTBUG: makes this necessary
 //    this->hist->SetBins(100,1,100);

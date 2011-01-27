@@ -19,8 +19,8 @@ public:
             GRILoader(localGRIFPath, regulator, files){}
 
     virtual ~GRIUserLoader(){}
-    GRIProcessThread* load(QString process_name,QString XMLFile);
-    GRIProcessThread* load(QString process_name);
+    GRIProcessThread *load(QString process_name, QString object_name, QString XMLFile);
+    GRIProcessThread *load(QString process_name, QString object_name);
 
 };
 #endif // GRIUSERLOADER_H
