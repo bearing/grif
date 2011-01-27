@@ -61,7 +61,7 @@ double *SampleGauss(double Mean, double Sigma, int num){
 	for(int i=0; i<num; i++)
 	{
             double rnd = double(rand() % RAND_MAX)/RAND_MAX;
-            N[i]=sqrt(2)*Sigma*erfinv(rnd*2-1) + Mean;
+            N[i]=sqrt(2.0)*Sigma*erfinv(rnd*2-1) + Mean;
 	}
 
 	return N;
@@ -69,5 +69,5 @@ double *SampleGauss(double Mean, double Sigma, int num){
 
 double SampleGauss(double Mean, double Sigma){
         double rnd = double(rand() % RAND_MAX)/RAND_MAX;
-        return (sqrt(2)*Sigma*erfinv(rnd*2-1) + Mean);
+        return (sqrt(2.0)*Sigma*erfinv(rnd*2-1) + Mean);
 }
