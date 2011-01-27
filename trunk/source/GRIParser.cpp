@@ -1,7 +1,7 @@
 #include "GRIParser.h"
 
 
-bool GRIParser::parse(QString filePath){
+/*bool GRIParser::parse(QString filePath){
     QFile f(filePath);
     QDomDocument doc;
     QDomElement root, e;
@@ -34,4 +34,4 @@ bool GRIParser::parse(QString filePath){
     }
 
     return true;
-}
+}*/

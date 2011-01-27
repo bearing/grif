@@ -66,9 +66,9 @@ public:
     int ConnectLogger(QString LogFileName, QObject* sender);
     int CreateLogger(QString fname, int LogLevel);
 protected:
-        virtual GRIProcessThread* load(QString process_name, QString xml_file) = 0;
+        virtual GRIProcessThread* load(QString process_name, QString object_name, QString XMLFile) = 0;
 
-        virtual GRIProcessThread* load(QString process_name) = 0;
+        virtual GRIProcessThread* load(QString process_name, QString object_name) = 0;
 
 private:
     list<GRILogger*> LogList;

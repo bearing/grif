@@ -72,7 +72,7 @@ list<GRIProcessThread*>* GRILoader::initProcessThreads(list<ProcessDetails*> det
 
 
         // necessary function that has to be called, for some reason...
-        p->init(NULL, (*iter), regulator);
+        p->init(0, (*iter), regulator);
 
         // add to list
         processList->push_front(p);
@@ -132,6 +132,27 @@ list<GRIDataBlock*>* GRILoader::initDataBlocks(list<GRIProcessThread*>* processe
 //}
 
 GRIRegulatorDetails *GRILoader::initRegulatorDetails(){
+
+    /*
+     *    A parsed XML file gives us:
+     *    1. list of classes and names that will be used
+     *    2. list of the processes
+     *    3. list of links for each process
+     *
+     */
+
+    /*
+     * Algorithm for initRegulatorDetails()
+     * 1. for each XML file
+     *     2. loop through each object
+     *           3. call load method on each using class and name (GRIUserLoader uses these)
+     *           4. push this process onto the list of processes
+     *               5. loop through each link of the object
+     *                   6. create the data block
+     *                   7. push the data block onto the list of data blocks
+     * 8. return a new GRIRegulatorDetails with the list of processes and the list of data blocks
+     */
+
     list<QString>::iterator it;
     list<GRIProcessThread*>* processes = new list<GRIProcessThread*>;
     list<GRIDataBlock*>* dataBlocks = new list<GRIDataBlock*>;
@@ -141,39 +162,50 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails(){
         GRIParser *parser = new GRIParser();
         parser->parse(this->localGRIFPath + name); //parse xml
 
-        GRIProcessThread* proc= this->load(parser->getClassName()); //load the process thread based on GRIUserLoader implementation
 
-        // safety check if process is null (couldn't find process)
-        if(proc == NULL){
-            cout << "WARNING: could not parse file " << endl << this->localGRIFPath.toStdString() <<  name.toStdString() << endl << "continuing without this file..." << endl;
-            continue;
-        }
+        std::list<struct objectParsingDetails> objectsAndLinks = parser->getObjectsAndLinks();
 
-        proc->setDefaultDetail(this->regulator, parser->getClassName());
+        std::list<struct objectParsingDetails>::iterator obj_details_it;
 
-        proc->addDataBlocks(parser->getDataBlockNames());
+        for(obj_details_it = objectsAndLinks.begin(); obj_details_it != objectsAndLinks.end(); obj_details_it++){
 
-        QString s1 = parser->getReaderName();
-        QString s2 = parser->getObjectFromName();
+            struct objectParsingDetails obj_details = *obj_details_it;
+            QString className = obj_details.className;
+            QString objectName = obj_details.objectName;
 
-        if(parser->getClassName() != parser->getReaderName()){
-            list<QString> dataBlockNames = parser->getDataBlockNames();
-            list<QString>::iterator names_it;
-            for(names_it = dataBlockNames.begin(); names_it != dataBlockNames.end(); names_it++){
-                QString s3 = *names_it;
-                GRIDataBlock *data = new GRIDataBlock(this->regulator, this->regulator->GetMemoryManager(), s1, s3, s3, s2);
-                dataBlocks->push_back(data);
+            GRIProcessThread *proc = this->load(className, objectName);
+
+            if(proc == 0){
+                cout << "WARNING: could not load class " << className.toStdString() << " with object name " << objectName.toStdString() << ", continuing without it..." << endl;
+                continue; //skip this process
             }
+
+            proc->setDefaultDetail(this->regulator, objectName);
+            //add_data_block(name, this->is_daq);
+
+            list<struct linkParsingDetails *>::iterator link_details_it;
+            std::list<struct linkParsingDetails*> *obj_links = obj_details.links;
+
+            for(link_details_it = obj_links->begin(); link_details_it != obj_links->end(); link_details_it++){
+                struct linkParsingDetails *curr_link = *(link_details_it);
+                proc->add_data_block(curr_link->dataBlock, proc->is_daq); //add data block to the process
+                QString writer = curr_link->writer;
+                QString reader = curr_link->reader;
+                QString db_name = curr_link->dataBlock;
+                /* construct a new data block */
+                GRIDataBlock *data = new GRIDataBlock(this->regulator, this->regulator->GetMemoryManager(), reader, db_name, db_name, writer);
+                dataBlocks->push_back(data);
+
+            }
+
+            processes->push_back(proc);
+
         }
-
-        processes->push_back(proc); //push our process onto the list
-
-        delete(parser); //clear the contents of the parser
+        delete(parser);
     }
 
     return new GRIRegulatorDetails(processes, dataBlocks); //return the processes and dataBlocks
 }
-
 
 list<GRIParam*>* GRILoader::readNewParamList( list<GRIParam*>* paramList)
 {
