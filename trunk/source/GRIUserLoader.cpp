@@ -36,24 +36,22 @@ GRIProcessThread *GRIUserLoader::load(QString process_name, QString object_name)
      * object_name  <=> object name
      */
 
-    /* User Entry for process thread loading
-     Example:
-       if(process_name == "daq1") p = new sisdaq();
-       if(process_name == "cal") p = new siscal();
-       if(process_name = "daq2") p = new sisdaq();
-       if(process_name == "ImageDAQ") p = new imdaq();
-     */
-
-    GRIProcessThread* p = NULL;
+    GRIProcessThread* p = 0;
 
     process_name = process_name.toLower();
     object_name = object_name.toLower();
+
+    /*
+     * The following is a full example sequence
+     * Make sure to return the variable p as a null pointer (0)
+     * if process_name and object_name do not match anything. This
+     * is already present at the bottom of this method.
+     *
 
     if(process_name.contains("simdaq") && object_name.contains("1")){
         SIMDAQThread* simdaq1 = new SIMDAQThread(1,0,1000,300);
         simdaq1->addPeak(500,20,100,0);
         simdaq1->addPeak(750,50,100,0);
-        //simdaq1->set_name("SIMDAQ1"); /* this is necessary */
         return simdaq1;
     }
 
@@ -61,18 +59,28 @@ GRIProcessThread *GRIUserLoader::load(QString process_name, QString object_name)
         SIMDAQThread* simdaq2 = new SIMDAQThread(1,0,1000,1000);
         simdaq2->addPeak(400,20,100,0);
         simdaq2->addPeak(600,10,100,0);
-        //simdaq2->set_name("SIMDAQ2"); /* this is necessary */
         return simdaq2;
     }
 
     else if(process_name.contains("simanalysis")){
         SIMAnalysisThread* A1 = new SIMAnalysisThread();
-        //A1->set_name("A1"); /* this is necessary */
         return A1;
     }
 
     else{
         return p;
     }
+
+    */
+
+
+
+
+     /**** YOUR CODE HERE ****/
+
+
+
+
+    return p;
 
 }
