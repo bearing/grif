@@ -160,8 +160,12 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails(){
     for(it = fileNames.begin(); it != fileNames.end(); it++){
         QString name = *it; //get name of xml file
         GRIParser *parser = new GRIParser();
-        parser->parse(this->localGRIFPath + name); //parse xml
-
+        bool success = parser->parse(this->localGRIFPath + name); //parse xml
+        if(!success){
+            cout << "WARNING: Could not successfully parse XML file: " << name.toStdString() << endl;
+            cout << "Skipping that XML file..." << endl;
+            continue;
+        }
 
         std::list<struct objectParsingDetails> objectsAndLinks = parser->getObjectsAndLinks();
 
@@ -176,7 +180,9 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails(){
             GRIProcessThread *proc = this->load(className, objectName);
 
             if(proc == 0){
-                cout << "WARNING: could not load class " << className.toStdString() << " with object name " << objectName.toStdString() << ", continuing without it..." << endl;
+                cout << "WARNING: could not load class " << className.toStdString() <<
+                        " with object name " << objectName.toStdString() <<
+                        ". Please check GRIUserLoader::load(). Continuing without the file..." << endl;
                 continue; //skip this process
             }
 
@@ -201,6 +207,7 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails(){
             processes->push_back(proc);
 
         }
+        cout << "Successfully parsed XML file: " << name.toStdString() << endl;
         delete(parser);
     }
 

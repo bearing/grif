@@ -1,7 +1,7 @@
 SOURCES += GRIProcessThread.cpp\
 GRIAnalysisThread.cpp\
 GRIBuffer.cpp\
-#GRICLI.cpp\
+GRICLI.cpp\
 #GRICalibrate.cpp\
 #GRICalibration.cpp\
 GRIClientSocket.cpp\
@@ -27,4 +27,4 @@ GRIThread.cpp\
     ../../../framework/trunk/source/GRIHist1D.cpp \
     ../../../framework/trunk/source/GRIHist2D.cpp \
     ../../../framework/trunk/source/GRIHist3D.cpp \
-    ../../../framework/trunk/source/GRIParser.cpp
+    ../../../framework/trunk/source/GRIParser.cpp \
