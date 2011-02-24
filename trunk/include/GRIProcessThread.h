@@ -194,13 +194,13 @@ public:
      * getParam() searches the hash table and returns the value of a parameter
      * given the key
      */
-    template <class T> T getParam(QString Key);
+    //template <class T> T getParam(QString Key);
 
 
     /*
      * setParam() searches the hash table and sets the value of a given key
      */
-    template <class T> void setParam(QString Key, T value);
+    //template <class T> void setParam(QString Key, T value);
 
     /*
      * readMemory() reads one packet from memory in the location specified by process_name
@@ -244,6 +244,27 @@ public:
     int sizeofBuffer(QString bufferName);
 
     list<QString> dataBlockNames;
+
+    /*
+     * dummy getParam() to be overidden by code generation
+     */
+    template <class T> T getParam(QString name){ cout << name.toStdString() << endl; return 0;}
+
+    /*
+     * dummy setParam() to be overidden by code generation
+     */
+    template <class T> void setParam(QString name, T value){ cout << name.toStdString() << ": " << value << endl;}
+
+    /*
+     * dummy runAction() to be overidden by code generation
+     */
+    template <class T> void runAction(QString name){ cout << "running: " << name.toStdString() << endl;}
+
+    /*
+     * dummy runAction() to be overidden by code generation
+     */
+    void runAction(QString name){ cout << "Action: " << name.toStdString() << endl;}
+
 
     /*
      * For debugging purpose; display the important state of the process, ie: who it's writing
@@ -300,17 +321,17 @@ signals:
     //void logSignal(GRILogMessage m);
 };
 
-template<class T> void GRIProcessThread::addParam(QString Key, T& value){
-    hashTable.insert(Key, &value);
-}
+//template<class T> void GRIProcessThread::addParam(QString Key, T& value){
+  //  hashTable.insert(Key, &value);
+//}
 
-template<class T> T GRIProcessThread::getParam(QString Key){
-    return *((T *) hashTable.value(Key));
-}
+//template<class T> T GRIProcessThread::getParam(QString Key){
+  //  return *((T *) hashTable.value(Key));
+//}
 
-template<class T> void GRIProcessThread::setParam(QString Key, T value){
-    *((T *) hashTable.value(Key)) = value;
-}
+//template<class T> void GRIProcessThread::setParam(QString Key, T value){
+  //  *((T *) hashTable.value(Key)) = value;
+//}
 
 template<class T> pair<int, T*>
 GRIProcessThread::readMemory(QString blockName ,QString bufferName)

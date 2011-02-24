@@ -91,6 +91,8 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* dataBlocks)
             QString proc_name = this->get_name();
             if(data_name == data_block_name && proc_name == data_block_writer_name) {
                 data->data_block = data_block;
+                cout << "Data block created with name " << data_name.toStdString() <<
+                        " and process " << proc_name.toStdString() << endl;
                 break;
             }
         }
@@ -99,6 +101,7 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* dataBlocks)
 
 #ifdef PROCESS_THREAD_DEBUG
             cerr << "! GRIProcessThread::set_link(): Could not find " << data->name.toStdString().c_str() << endl;
+            cerr << "Please check your XML file setup.  Exiting GRIF..." << endl;
 #endif // PROCESS_THREAD_DEBUG
 
             assert(false);
@@ -114,12 +117,12 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* dataBlocks)
 
             for(reader_it = (*data_block->get_reader()).begin(); reader_it != (*data_block->get_reader()).end(); reader_it++){
                 reader_t* reader = *reader_it;
-                cout << reader->reader_name.toStdString().c_str() << "-" <<
-                       this->get_name().toStdString().c_str() << "   " <<
-                       reader->reader_data.toStdString().c_str() << "-" <<
-                       data->name.toStdString().c_str() << endl;
                 if(reader->reader_name == this->get_name() && reader->reader_data == data->name){
                     data->data_block = data_block;
+                    cout << "Link set " <<
+                           "reader is " << reader->reader_name.toStdString().c_str() <<
+                           " and" <<
+                           "data is " << reader->reader_data.toStdString().c_str() << endl;
                     found = true;
                 }
 
@@ -130,6 +133,7 @@ void GRIProcessThread::set_link(list<GRIDataBlock*>* dataBlocks)
 
 #ifdef PROCESS_THREAD_DEBUG
             cerr << "! GRIProcessThread::set_link(): Could not find " << data->name.toStdString().c_str() << endl;
+            cerr << "Please check your XML file setup.  Exiting GRIF..." << endl;
 #endif // PROCESS_THREAD_DEBUG
 
             assert(false);
