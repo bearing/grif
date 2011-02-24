@@ -1,154 +1,267 @@
-
-#include <qprocess.h>
-#include <iostream>
-#include <stdlib.h>
-#include <stdio.h>
-#include <QMutex>
 #include "GRICLI.h"
 
-using namespace::std;
-
-
-GRICommandLineInterface::GRICommandLineInterface(GRIRunManager* mgr)
-{
-     QThread(NULL);
-     exit = false;
-
-     this->manager = mgr;
+GRICLI::GRICLI(){  
 }
 
+GRICLI::GRICLI(list<GRIProcessThread *> *processes){
+    this->processes = processes;
+}
 
-void GRICommandLineInterface::DisplayWelcomeScreen()
-{
-    this->manager->displayOutput("\n", false);
-    this->manager->displayOutput("******************************************\n", false);
-    this->manager->displayOutput("*                                        *\n", false);
-    this->manager->displayOutput("*   G A M M A - R A Y   I M A G I N G    *\n", false);
-    this->manager->displayOutput("*                                        *\n", false);
-    this->manager->displayOutput("*     VERSION 1.0   22, July 2010        *\n", false);
-    this->manager->displayOutput("*                                        *\n", false);
-    this->manager->displayOutput("*     http://bearing.berkeley.edu        *\n", false);
-    this->manager->displayOutput("*                                        *\n", false);
-    this->manager->displayOutput("******************************************\n\n", false);
+void GRICLI::launch(){
 
-    string space = "";
+  this->CLI_state = MAIN;
+  this->currProc = 0; //set the current process to null
 
-    #if defined(Q_WS_WIN)
-        cout << space << "WINDOWS Operating System : ";
-    #elif defined(Q_WS_QWS)
-        cout << space << "LINUX Operating System : ";
-    #elif defined(Q_WS_MACX)
-    cout << space << "MAC OSX Operating System : ";
-    #elif defined(Q_WS_X11)
-    cout << space << "X11 Operating System : ";
-    #endif
+  /* form the process hash table */
+  list<GRIProcessThread*>::iterator proc_it;
+  for(proc_it = processes->begin(); proc_it != processes->end(); proc_it++)
+    processHash[(*proc_it)->get_name()] = *proc_it;
 
-    #if IS_64_BIT==1
-    cout << space << "64-bit" << endl;
-    #else
-    cout << space << "32-bit" << endl;
-    #endif
+  this->displayMain();
 
-    this->manager->displayOutput("\n\nPress ENTER to begin\n\n", false);
+  //main instruction loop
 
-    cin.ignore(100,'\n');
+  QTextStream stream(stdin);
+    QString instr;
 
-    #if OPERATING_SYSTEM==WINDOWS
-        system("cls");
-    #elif OPERATING_SYSTEM==LINUX
-        system("clear"); //bash shell
-    #elif OPERATING_SYSTEM==MAC
-        system("clear");//bash shell
-    #endif
+  while(true){
+
+    instr = stream.readLine();
+
+    QStringList instr_breakup = instr.split(" ");
+    int n = instr_breakup.length();
+    QString instr_array[n];
+    QList<QString>::iterator instr_it;
+    int i = 0;
+    for(instr_it = instr_breakup.begin(); instr_it != instr_breakup.end(); instr_it++){
+      instr_array[i] = *instr_it;
+      i++;
+    }
+    
+    //check if help
+    if (instr_array[0] == "help"){
+      this->displayHelp();
+      continue;
     }
 
-
-void GRICommandLineInterface::RootMenu()
-{
-    this->manager->displayOutput("\n");
-
-    this->manager->displayOutput("|----------------------------------------------|\n");
-    this->manager->displayOutput("|                  ROOT MENU                   |\n");
-    this->manager->displayOutput("|----------------------------------------------|\n");
-    this->manager->displayOutput("|                                              |\n");
-    this->manager->displayOutput("| --  1  --  Redisplay Choices                 |\n");
-    this->manager->displayOutput("|                                              |\n");
-    this->manager->displayOutput("| --  2  --  Display Process Threads           |\n");
-    this->manager->displayOutput("|                                              |\n");
-    this->manager->displayOutput("| --  3  --  Display Data Blocks               |\n");
-    this->manager->displayOutput("|                                              |\n");
-    this->manager->displayOutput("| --  4  --  Display Parameters                |\n");
-    this->manager->displayOutput("|                                              |\n");
-    this->manager->displayOutput("| --  5  --  Change a Parameter                |\n");
-    this->manager->displayOutput("|                                              |\n");
-    this->manager->displayOutput("| --  6  --  Listen for TCP SOCKET commands    |\n");
-    this->manager->displayOutput("|                                              |\n");
-    this->manager->displayOutput("| --  7  --  Start Data Aquisition             |\n");
-    this->manager->displayOutput("|                                              |\n");
-    this->manager->displayOutput("| --  8  --  Run Example Histogram Widget      |\n");
-    this->manager->displayOutput("|                                              |\n");
-    this->manager->displayOutput("| --  9  --  Reinitialize Program              |\n");
-    this->manager->displayOutput("|                                              |\n");
-    this->manager->displayOutput("| -- 10  --  EXIT                              |\n");
-    this->manager->displayOutput("|                                              |\n");
-    this->manager->displayOutput("|----------------------------------------------|\n");
-}
-
-void GRICommandLineInterface::DisplayGoodbye()
-{
-    #if OPERATING_SYSTEM==WINDOWS
-        system("cls");
-    #elif OPERATING_SYSTEM==LINUX
-        system("clear"); //bash shell
-    #elif OPERATING_SYSTEM==MAC
-        system("clear");//bash shell
-    #endif
-
-    std::cout << std::endl << std::endl;
-    std::cout << std::endl << std::endl;
-    std::cout << std::endl << std::endl;
-    this->manager->displayOutput("                                GOODBYE!!\n\n\n\n\n");
-    std::cout << std::endl << std::endl;   // say goodbye
-    std::cout << std::endl << std::endl << std::endl << std::endl;
-    std::cout << std::endl << std::endl;
-    std::cout << std::endl << std::endl;
-    std::cout << std::endl << std::endl;
-
-}
-
-bool GRICommandLineInterface::goodCommand(QString command)
-{
-//    bool goodInput = false;
-//    //if choice >0 good input is true, else it is false
-//    int choice = atoi(command.c_str());
-//    (choice>0 && choice <= 7)? goodInput = true : this->manager->displayOutput("\nERROR: Bad Command\n");
-//    return goodInput;
-    return true;
-}
-
-
-void GRICommandLineInterface::run()
-{
-
-    string input;
-    cout << " >> ";
-    cin >> input;
-    emit this->ReceivedUserInput(QString::fromStdString(input));
-
-}
-
-void GRICommandLineInterface::displayOutput(list<QString> output)
-{
-    list<QString>::iterator iter;
-
-    for(iter = output.begin(); iter!= output.end(); iter++)
-    {
-        this->displayOutput(*iter);
+    //check if quit
+    if (instr_array[0] == "quit"){
+      break;
+      continue;
     }
 
+    if(CLI_state == MAIN){
+      //check if processes
+      if (instr_array[0] == "processes"){
+	this->displayProcesses();
+	continue;
+      }
+
+      //check if broadcast
+      if (instr_array[0] == "broadcast"){
+	if(instr_array[1] == "set" && n >= 5){
+	  this->broadcastSet(instr_array[2], instr_array[3], instr_array[4]);
+	}
+	else if(instr_array[1] == "get" && n >= 4){
+	  this->broadcastGet(instr_array[2], instr_array[3]);
+	}
+	else if(instr_array[1] == "action" && n >= 3){
+	  this->broadcastAction(instr_array[2]);
+	}
+	else{
+	  cout << "could not process broadcast" << endl;
+	  this->displayHelp();
+	}
+      }
+       
+      //check if process name is in hash table
+      GRIProcessThread *p = this->processHash[instr_array[1]];
+      if(p != 0){
+	currProc = p;
+	CLI_state = PROCESS_TOP;
+	continue;
+      }
+      else{
+        cout << "could not retrieve process: " << instr_array[1].toStdString() << endl;
+      }
+      
+
+    }
+    else if(CLI_state == PROCESS_TOP){
+
+      if(instr_array[0] == "set" && n >= 4){
+	this->broadcastSet(instr_array[1], instr_array[2], instr_array[3]);
+      }
+      else if(instr_array[0] == "get" && n >= 3){
+	this->broadcastGet(instr_array[1], instr_array[2]);
+      }
+      else if(instr_array[0] == "action" && n >= 2){
+	this->broadcastAction(instr_array[1]);
+      }
+      else if (instr_array[0] == "actions"){
+	this->displayActions();
+      }
+      else if(instr_array[0] == "back"){
+	CLI_state = MAIN;
+	continue;
+      }
+      else{
+	cout << "could not parse instruction" << endl;
+	this->displayHelp();
+      }
+
+    } 
+  } //end while loop 
+  this->quit();
 }
-void GRICommandLineInterface::displayOutput(QString output)
-{
-    //put mutex here
-    cout << output.toStdString().c_str();
+
+void GRICLI::quit(){
+
+  cout << "Exiting command line interface " << endl;
+
 }
+
+void GRICLI::displayMain(){
+
+  cout << "  Command line interface       " << endl;
+  cout << "  **********************       " << endl;
+  cout << "  type 'help' for instructions " << endl;
+
+}
+
+void GRICLI::displayHelp(){
+
+  if(CLI_state == MAIN){
+    cout << "  Type 'broadcast set [name] [value] [data type]' to broadcast a set to all processes " << endl;
+    cout << "  Type 'broadcast get [name] [data type]' to broadcast a get to all processes         " << endl;
+    cout << "  Type 'broadcast action [name]' to broadcast an action to all processes              " << endl;
+    cout << "  Type 'processes' for a list of the current processes                                " << endl;
+    cout << "  Type in the name of a process to interact with it                                   " << endl;
+    cout << "  Type 'help' for instructions                                                        " << endl;
+    cout << "  Type 'quit' to exit                                                                 " << endl;
+  }
+  else if(CLI_state == PROCESS_TOP){
+    cout << "  Current process: " << this->currProc->get_name().toStdString() << endl;
+    cout << "  Type 'set [name] [value] [data type]' to set a value          " << endl;
+    cout << "  Type 'get [name] [data type]' to get a value                  " << endl;
+    cout << "  Type 'run [Action Name]' to perform an action                 " << endl;
+    cout << "  Type 'actions' to see a list of actions for the process       " << endl;
+    cout << "  Type 'quit' to exit                                           " << endl;
+  }
+
+}
+
+void GRICLI::displayProcesses(){
+  QList<QString> procs = processHash.uniqueKeys();
+  QList<QString>::iterator procs_it;
+  for(procs_it = procs.begin(); procs_it != procs.end(); procs_it++){
+    QString p_name = *procs_it;
+    cout << p_name.toStdString() << endl;
+  }
+}
+
+void GRICLI::processSet(QString name, QString value, QString dataType){
+
+  dataType = dataType.toLower();
+
+  if(dataType == "double"){
+    double val = value.toDouble();
+    currProc->setParam<double>(name, val);
+  }
+  else if(dataType == "int"){
+    int val = value.toInt();
+    currProc->setParam<int>(name, val);
+  }
+  else if(dataType == "float"){
+     float val = value.toFloat();
+     currProc->setParam<float>(name, val);
+  }
+  else if(dataType == "char"){
+    char val = (char)value.toInt();
+    currProc->setParam<char>(name, val);
+  }
+  else if(dataType == "bool" || dataType == "boolean"){
+    bool val;
+    if(value == "true" || value == "1" || value == "yes")
+        val = true;
+    else
+        val = false;
+    currProc->setParam<bool>(name, val);
+  }
+  else{
+    cout << "Can't parse data type: " << dataType.toStdString() << endl;
+  }
+
+}
+
+void GRICLI::processGet(QString name, QString dataType){
+
+  dataType = dataType.toLower();
+
+  if(dataType == "double"){
+    cout << name.toStdString() << ": " << currProc->getParam<double>(name);
+  }
+  else if(dataType == "int"){
+    cout << name.toStdString() << ": " << currProc->getParam<int>(name);
+  }
+  else if(dataType == "float"){
+    cout << name.toStdString() << ": " << currProc->getParam<float>(name);
+  }
+  else if(dataType == "char"){
+    cout << name.toStdString() << ": " << currProc->getParam<char>(name);
+  }
+  else if(dataType == "bool" || dataType == "boolean"){
+    cout << name.toStdString() << ": " << currProc->getParam<bool>(name);
+  }
+  else{
+    cout << "Can't parse data type: " << dataType.toStdString() << endl;
+  }
+
+}
+
+void GRICLI::processAction(QString name){
+  currProc->runAction(name);
+}
+
+void GRICLI::broadcastSet(QString name, QString value, QString dataType){
+
+  list<GRIProcessThread*>::iterator proc_it;
+  GRIProcessThread *curr = this->currProc; //save state
+  for(proc_it = processes->begin(); proc_it != processes->end(); proc_it++){
+    currProc = *proc_it;
+    this->processSet(name, value, dataType);
+  }
+
+  currProc = curr; //restore state
+}
+void GRICLI::broadcastGet(QString value, QString dataType){
+
+  list<GRIProcessThread*>::iterator proc_it;
+  GRIProcessThread *curr = this->currProc; //save state
+  for(proc_it = processes->begin(); proc_it != processes->end(); proc_it++){
+    currProc = *proc_it;
+    this->processGet(value, dataType);
+  }
+
+  currProc = curr; //restore state
+}
+ 
+void GRICLI::broadcastAction(QString name){
+
+  list<GRIProcessThread*>::iterator proc_it;
+  GRIProcessThread *curr = this->currProc; //save state
+  for(proc_it = processes->begin(); proc_it != processes->end(); proc_it++){
+    currProc = *proc_it;
+    this->processAction(name);
+  }
+
+  currProc = curr; //restore state
+}
+
+void GRICLI::displayActions(){
+
+  //fill this in
+
+
+}
+
