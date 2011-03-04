@@ -261,9 +261,14 @@ public:
     template <class T> void runAction(QString name){ cout << "running: " << name.toStdString() << endl;}
 
     /*
-     * dummy runAction() to be overidden by code generation
+     * dummy runAction() to be overridden by code generation
      */
     void runAction(QString name){ cout << "Action: " << name.toStdString() << endl;}
+
+    /*
+     * dummy setInitialGCGValues() to be overridden by code generation
+     */
+    void setInitialGCGValues(){}
 
 
     /*

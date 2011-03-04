@@ -13,6 +13,8 @@ GRIProcessThread::GRIProcessThread()
 
     thread_id = GRIProcessThread::counter++;
 
+    this->setInitialGCGValues();
+
 }
 
 void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator){
