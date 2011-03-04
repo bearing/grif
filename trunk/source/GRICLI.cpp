@@ -22,7 +22,8 @@ void GRICLI::launch(){
   //main instruction loop
 
   QTextStream stream(stdin);
-    QString instr;
+  QString instr;
+  QString *instr_array;
 
   while(true){
 
@@ -30,7 +31,7 @@ void GRICLI::launch(){
 
     QStringList instr_breakup = instr.split(" ");
     int n = instr_breakup.length();
-    QString instr_array[n];
+    instr_array = new QString[n]; // CHANGE TO NEW AND DELETE (Windows compiler sucks)
     QList<QString>::iterator instr_it;
     int i = 0;
     for(instr_it = instr_breakup.begin(); instr_it != instr_breakup.end(); instr_it++){
@@ -82,7 +83,7 @@ void GRICLI::launch(){
 	continue;
       }
       else{
-        cout << "could not retrieve process: " << instr_array[1].toStdString() << endl;
+        cout << "could not retrieve process: " << instr_array[1].toStdString().c_str() << endl;
       }
       
 
@@ -112,6 +113,7 @@ void GRICLI::launch(){
 
     } 
   } //end while loop 
+  delete(instr_array);
   this->quit();
 }
 
@@ -141,7 +143,7 @@ void GRICLI::displayHelp(){
     cout << "  Type 'quit' to exit                                                                 " << endl;
   }
   else if(CLI_state == PROCESS_TOP){
-    cout << "  Current process: " << this->currProc->get_name().toStdString() << endl;
+    cout << "  Current process: " << this->currProc->get_name().toStdString().c_str() << endl;
     cout << "  Type 'set [name] [value] [data type]' to set a value          " << endl;
     cout << "  Type 'get [name] [data type]' to get a value                  " << endl;
     cout << "  Type 'run [Action Name]' to perform an action                 " << endl;
@@ -156,7 +158,7 @@ void GRICLI::displayProcesses(){
   QList<QString>::iterator procs_it;
   for(procs_it = procs.begin(); procs_it != procs.end(); procs_it++){
     QString p_name = *procs_it;
-    cout << p_name.toStdString() << endl;
+    cout << p_name.toStdString().c_str() << endl;
   }
 }
 
@@ -189,7 +191,7 @@ void GRICLI::processSet(QString name, QString value, QString dataType){
     currProc->setParam<bool>(name, val);
   }
   else{
-    cout << "Can't parse data type: " << dataType.toStdString() << endl;
+    cout << "Can't parse data type: " << dataType.toStdString().c_str() << endl;
   }
 
 }
@@ -199,22 +201,22 @@ void GRICLI::processGet(QString name, QString dataType){
   dataType = dataType.toLower();
 
   if(dataType == "double"){
-    cout << name.toStdString() << ": " << currProc->getParam<double>(name);
+    cout << name.toStdString().c_str() << ": " << currProc->getParam<double>(name);
   }
   else if(dataType == "int"){
-    cout << name.toStdString() << ": " << currProc->getParam<int>(name);
+    cout << name.toStdString().c_str() << ": " << currProc->getParam<int>(name);
   }
   else if(dataType == "float"){
-    cout << name.toStdString() << ": " << currProc->getParam<float>(name);
+    cout << name.toStdString().c_str() << ": " << currProc->getParam<float>(name);
   }
   else if(dataType == "char"){
-    cout << name.toStdString() << ": " << currProc->getParam<char>(name);
+    cout << name.toStdString().c_str() << ": " << currProc->getParam<char>(name);
   }
   else if(dataType == "bool" || dataType == "boolean"){
-    cout << name.toStdString() << ": " << currProc->getParam<bool>(name);
+    cout << name.toStdString().c_str() << ": " << currProc->getParam<bool>(name);
   }
   else{
-    cout << "Can't parse data type: " << dataType.toStdString() << endl;
+    cout << "Can't parse data type: " << dataType.toStdString().c_str() << endl;
   }
 
 }
