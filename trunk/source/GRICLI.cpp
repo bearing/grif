@@ -27,11 +27,15 @@ void GRICLI::launch(){
 
   while(true){
 
+    cout << endl;
+    cout << "GRIF# ";
     instr = stream.readLine();
+    cout << endl;
 
     QStringList instr_breakup = instr.split(" ");
     int n = instr_breakup.length();
-    instr_array = new QString[n]; // CHANGE TO NEW AND DELETE (Windows compiler sucks)
+    // CHANGE TO NEW AND DELETE (Windows compiler sucks).  Why does delete cause NULL pointer exceptions now???
+    instr_array = new QString[n];
     QList<QString>::iterator instr_it;
     int i = 0;
     for(instr_it = instr_breakup.begin(); instr_it != instr_breakup.end(); instr_it++){
@@ -47,8 +51,7 @@ void GRICLI::launch(){
 
     //check if quit
     if (instr_array[0] == "quit"){
-      break;
-      continue;
+      break; // get out of the loop
     }
 
     if(CLI_state == MAIN){
@@ -70,13 +73,13 @@ void GRICLI::launch(){
 	  this->broadcastAction(instr_array[2]);
 	}
 	else{
-	  cout << "could not process broadcast" << endl;
+          cout << "could not parse broadcast" << endl;
 	  this->displayHelp();
 	}
       }
        
       //check if process name is in hash table
-      GRIProcessThread *p = this->processHash[instr_array[1]];
+      GRIProcessThread *p = this->processHash[instr_array[0]];
       if(p != 0){
 	currProc = p;
 	CLI_state = PROCESS_TOP;
@@ -91,13 +94,13 @@ void GRICLI::launch(){
     else if(CLI_state == PROCESS_TOP){
 
       if(instr_array[0] == "set" && n >= 4){
-	this->broadcastSet(instr_array[1], instr_array[2], instr_array[3]);
+        this->processSet(instr_array[1], instr_array[2], instr_array[3]);
       }
       else if(instr_array[0] == "get" && n >= 3){
-	this->broadcastGet(instr_array[1], instr_array[2]);
+        this->processGet(instr_array[1], instr_array[2]);
       }
       else if(instr_array[0] == "action" && n >= 2){
-	this->broadcastAction(instr_array[1]);
+        this->processAction(instr_array[1]);
       }
       else if (instr_array[0] == "actions"){
 	this->displayActions();
@@ -113,18 +116,16 @@ void GRICLI::launch(){
 
     } 
   } //end while loop 
-  delete(instr_array);
   this->quit();
 }
 
 void GRICLI::quit(){
-
   cout << "Exiting command line interface " << endl;
-
 }
 
 void GRICLI::displayMain(){
 
+  cout << endl << endl << endl << endl;
   cout << "  Command line interface       " << endl;
   cout << "  **********************       " << endl;
   cout << "  type 'help' for instructions " << endl;
@@ -148,12 +149,19 @@ void GRICLI::displayHelp(){
     cout << "  Type 'get [name] [data type]' to get a value                  " << endl;
     cout << "  Type 'run [Action Name]' to perform an action                 " << endl;
     cout << "  Type 'actions' to see a list of actions for the process       " << endl;
+    cout << "  Type 'back' to go back to main                                " << endl;
     cout << "  Type 'quit' to exit                                           " << endl;
   }
 
 }
 
 void GRICLI::displayProcesses(){
+
+    if(processHash.size() == 0){
+        cout << "[no processes detected]" << endl;
+        return;
+    }
+
   QList<QString> procs = processHash.uniqueKeys();
   QList<QString>::iterator procs_it;
   for(procs_it = procs.begin(); procs_it != procs.end(); procs_it++){
@@ -262,8 +270,7 @@ void GRICLI::broadcastAction(QString name){
 
 void GRICLI::displayActions(){
 
-  //fill this in
-
+  cout << "[Not implemented yet, still need to do -Austin]" << endl;
 
 }
 
