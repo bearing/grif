@@ -65,16 +65,20 @@ void GRICLI::launch(){
       if (instr_array[0] == "broadcast"){
 	if(instr_array[1] == "set" && n >= 5){
 	  this->broadcastSet(instr_array[2], instr_array[3], instr_array[4]);
+          continue;
 	}
 	else if(instr_array[1] == "get" && n >= 4){
 	  this->broadcastGet(instr_array[2], instr_array[3]);
+          continue;
 	}
 	else if(instr_array[1] == "action" && n >= 3){
 	  this->broadcastAction(instr_array[2]);
+          continue;
 	}
 	else{
           cout << "could not parse broadcast" << endl;
 	  this->displayHelp();
+          continue;
 	}
       }
        
@@ -86,7 +90,8 @@ void GRICLI::launch(){
 	continue;
       }
       else{
-        cout << "could not retrieve process: " << instr_array[1].toStdString().c_str() << endl;
+        cout << "could not retrieve process: " << instr_array[0].toStdString().c_str() << endl;
+        continue;
       }
       
 
@@ -95,15 +100,19 @@ void GRICLI::launch(){
 
       if(instr_array[0] == "set" && n >= 4){
         this->processSet(instr_array[1], instr_array[2], instr_array[3]);
+        continue;
       }
       else if(instr_array[0] == "get" && n >= 3){
         this->processGet(instr_array[1], instr_array[2]);
+        continue;
       }
       else if(instr_array[0] == "action" && n >= 2){
         this->processAction(instr_array[1]);
+        continue;
       }
       else if (instr_array[0] == "actions"){
 	this->displayActions();
+        continue;
       }
       else if(instr_array[0] == "back"){
 	CLI_state = MAIN;
@@ -112,6 +121,7 @@ void GRICLI::launch(){
       else{
 	cout << "could not parse instruction" << endl;
 	this->displayHelp();
+        continue;
       }
 
     } 
