@@ -85,9 +85,12 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
     ReadMutex.lock();
 
     GRIDataBlock* data = find_data(blockName,bufferName);
-    int packet_to_read = mm->currentPacketPosition(blockName, bufferName);
+
 
     if(data == NULL) {
+
+        cerr << "GRIRegulator::readMemory(): Can't find buffer" << blockName.toStdString().c_str() << ":"
+                << bufferName.toStdString().c_str() << endl;
 
         //log << "GRIRegulator::readMemory(): Can't find buffer" << endl;
        //Commit//log(GRI//log_ERROR);
@@ -97,6 +100,8 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
         ReadMutex.unlock();
         return returnVal;
     }
+
+   int packet_to_read = mm->currentPacketPosition(blockName, bufferName);
 
     int curr_packet = mm->lastPacket(blockName, bufferName);
     while(curr_packet < packet_to_read) {
