@@ -5,7 +5,7 @@ using namespace std;
 GRIDAQThread::GRIDAQThread()
 {
     sleeping = false;
-    exitThreadFlag = true;
+    exitThreadFlag = false;
     forceQuit = false;
     is_daq = true;
 }
@@ -58,35 +58,39 @@ void GRIDAQThread::forceQuitDAQ(){
 
 void GRIDAQThread::run()
 {
-    log << "GRIDAQThread run" << endl;
-    CommitLog(GRILOG_MESSAGE);
+    //log << "GRIDAQThread run" << endl;
+    //CommitLog(GRILOG_MESSAGE);
     int error;
 
-    error = openInitializationControl();
-    if (error != DAQTHREAD_SUCCESS) {
-        this->errorHandling("openInitializationControl failed", error);
-    }
+//    error = openInitializationControl();
+//    if (error != DAQTHREAD_SUCCESS) {
+//        this->errorHandling("openInitializationControl failed", error);
+//    }
+
+    cout << "Connecting to DAQ Here ..." << endl;
     error = connectToDAQ();
     if (error != DAQTHREAD_SUCCESS) {
         this->errorHandling("connectToDaq failed", error);
     }
 	
+    cout << "Loading Configuration ..." << endl;
     error = loadConfiguration();
     if (error != DAQTHREAD_SUCCESS){
         this->errorHandling("loadConfiguration() failed", error);
     }
 	
+    cout << "Initializing Acquisition..." << endl;
     error = initialize();
     if(error != DAQTHREAD_SUCCESS) {
         this->errorHandling("initialize() failed", error);
     }
-    while(!this->getRunFlag() && exitThreadFlag){
+    while(!this->getRunFlag() && !exitThreadFlag){
         sleeping = true;
         //TODO:
         //Tell regulator to sleep thread.
     }
 
-    while(exitThreadFlag){
+    while(!exitThreadFlag){
         error = openRunTimeControl();
         if(error != DAQTHREAD_SUCCESS) {
             this->errorHandling("openRunTimeControl() failed", error);
@@ -98,7 +102,7 @@ void GRIDAQThread::run()
         }
 		
 		
-        while(this->getRunFlag() && exitThreadFlag){
+        while(this->getRunFlag() && !exitThreadFlag){
             error = acquireData();
             if (error != DAQTHREAD_SUCCESS){
                 this->errorHandling("acquiData() failed", error);
@@ -117,7 +121,7 @@ void GRIDAQThread::run()
                 this->errorHandling("stopDataAcquisition() failed", error);
             }
         }
-        while(!this->getRunFlag() && exitThreadFlag){
+        while(!this->getRunFlag() && !exitThreadFlag){
             sleeping = true;
             //TODO:
             //Tell regulator to sleep thread.

@@ -36,7 +36,7 @@ void GRIAnalysisThread::forceQuitAnalysis(){
 
 void GRIAnalysisThread::run()
 {
-    cout << "GRIAnalysisThread run" << endl;
+    cout << "Running GRIAnalysisThread..." << endl;
     int error;
 
     error = openInitializationControl();
@@ -56,8 +56,18 @@ void GRIAnalysisThread::run()
 //            this->errorHandling("openRunTimeControl() failed", error);
 //        }
 
+    while(!exitThreadFlag){
 
-        while(!exitThreadFlag){
+
+
+        while(!this->getRunFlag() && !exitThreadFlag){
+            sleeping = true;
+            //TODO:
+            //Tell regulator to sleep thread.
+        }
+
+
+        while(this->getRunFlag() && !exitThreadFlag){
             error = Analyze();
             if (error != ANALYSISTHREAD_SUCCESS){
                 this->errorHandling("Analyze() failed", error);
@@ -68,6 +78,7 @@ void GRIAnalysisThread::run()
         cout << "exiting analysis" << endl;
 
     }
+}
 
 
 

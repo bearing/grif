@@ -106,6 +106,9 @@ char GRIBuffer::readBuffer(int packetNumber, int index)
 //removes one packet from the buffer, and frees the memory associated with that packet
 void GRIBuffer::clearPacket(int packetNumber)
 {
+    if(this->IsNullPacket(packetNumber))
+        this->RemoveNullPacket(packetNumber);
+
     QVector<char> *packet = packetList->at(packetNumber);
     packet->clear();
 }
@@ -116,7 +119,7 @@ void GRIBuffer::clearPacket(int packetNumber)
 int GRIBuffer::currentPacket()
 {
     int id = ((GRIProcessThread*) QThread::currentThread())->getID();
-    int i = threadList->indexOf(id);
+    int i = this->threadList->indexOf(id);
     if (i != -1) {
         return markerList->at(i);
     } else {
@@ -141,6 +144,9 @@ int GRIBuffer::bufferSize()
 //returns the size of a packet
 int GRIBuffer::packetSize(int packetNumber)
 {
+    if(this->IsNullPacket(packetNumber))
+        return 0;
+
     //cout << "QVec: pack " << packetNumber << endl;
     QVector<char> *packet = packetList->at(packetNumber);
     return packet->size();
@@ -216,5 +222,33 @@ void GRIBuffer::wakeAllOnQueue()
 void GRIBuffer::wakeOneOnQueue()
 {
     waitQueue->wakeOne();
+}
+
+bool GRIBuffer::IsNullPacket(int packetNum){
+
+    if(nullPackets.isEmpty())
+            return false;
+
+    if(nullPackets.indexOf(packetNum) == -1)
+            return false;
+    else
+        return true;
+
+}
+
+void GRIBuffer::AddNullPacket(int packetNum){
+    if(!nullPackets.isEmpty())
+        if(nullPackets.indexOf(packetNum) == -1)
+            nullPackets.append(packetNum);
+
+}
+
+void GRIBuffer::RemoveNullPacket(int packetNum){
+
+    if(!nullPackets.isEmpty()){
+        int index = nullPackets.indexOf(packetNum);
+        if(index != -1)
+            nullPackets.removeAt(index);
+    }
 }
 

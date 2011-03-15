@@ -86,7 +86,6 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
 
     GRIDataBlock* data = find_data(blockName,bufferName);
 
-
     if(data == NULL) {
 
         cerr << "GRIRegulator::readMemory(): Can't find buffer" << blockName.toStdString().c_str() << ":"
@@ -101,7 +100,8 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
         return returnVal;
     }
 
-   int packet_to_read = mm->currentPacketPosition(blockName, bufferName);
+    int packet_to_read = mm->currentPacketPosition(blockName, bufferName);
+
 
     int curr_packet = mm->lastPacket(blockName, bufferName);
     while(curr_packet < packet_to_read) {
@@ -117,17 +117,33 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
         //log << "sizeofPacket: " << length << endl;
         //Commit//log(GRI//log_VERBOSE);
         // Note: the new char array must be deleted
-        char *c = new char[length];
-        pair<int, char*> returnVal(length, mm->readMemory(blockName, bufferName, c));
 
-        // Should add char* to garbage collection list for later deletion
-        // GarbageCollection requires mutex!!!
-        GarbageCollection(c);
 
-        data->load_balancing();
 
-        ReadMutex.unlock();
-        return returnVal;
+        if(length == 0)
+        {
+            char *c = new char[1];
+            pair<int, char*> returnVal(length, mm->readMemory(blockName, bufferName, c));
+            // Should add char* to garbage collection list for later deletion
+            // GarbageCollection requires mutex!!!
+            GarbageCollection(c);
+            data->load_balancing();
+            ReadMutex.unlock();
+            return returnVal;
+
+        }else{
+            char *c = new char[length];
+            pair<int, char*> returnVal(length, mm->readMemory(blockName, bufferName, c));
+
+            // Should add char* to garbage collection list for later deletion
+            // GarbageCollection requires mutex!!!
+            GarbageCollection(c);
+
+            data->load_balancing();
+            ReadMutex.unlock();
+            return returnVal;
+        }
+
     }
 
 

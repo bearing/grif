@@ -109,8 +109,8 @@ list<GRIDataBlock*>* GRILoader::initDataBlocks(list<GRIProcessThread*>* processe
 //    // sadly, you can't use strings in c++ switch statements
 //    if(!strcmp(process_name.c_str(),"DAQ_1") )
 //    {
-//        //p = new SIMDAQThread_JAKE_VS();
-//        //p = new SIMDAQThread();
+//        //p = new poopDAQThread_JAKE_VS();
+//        //p = new poopDAQThread();
 
 //        //DEBUG
 //        cout << "LOADING PROCESSTHREAD: "<< process_name.c_str() << " LOADED !\n";

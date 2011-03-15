@@ -260,7 +260,7 @@ int GRIMemoryManager::locateBuffer(QString bufferName, int blockIndex)
     //log << "locateBuffer: BlockIndex: " << blockIndex << " - " << bufferName.toStdString().c_str() << endl;
     //Commit//log(GRI//log_VERBOSE);
     QList<QString> *bufferNames = nameTable->at(blockIndex);
-    cout << "Buffer Located " << endl;
+    //cout << "Buffer Located " << endl;
     int i;
     int size = bufferNames->size();
     for (i = 0; i < size ; i++) {
@@ -290,7 +290,7 @@ int GRIMemoryManager::locateDataBlock(QString dataBlockName)
 
     for (i = 0; i < size; i++ ) {
         if (blockNameTable->at(i) == dataBlockName) {
-            cout << "Data Block Found: " << i << endl;
+            //cout << "Data Block Found: " << i << endl;
             return i;
         }
     }
@@ -385,14 +385,24 @@ bool GRIMemoryManager::writeMemory(QString dataBlockName, QString bufferName, in
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
 
     buf->SetBusyWrite(true);  // This prevents the new packet to be included in the size parameter until fully written to.
-    for (int s = 0; s < size; s++) {
-        if (!(buf->writeToBuffer(dataArray[s], packetNumber, s))) {
+
+    if(size == 0){
+        buf->AddNullPacket(packetNumber);
+        // Still need to write a single char to buffer to maintain packet sequencing...
+        if (!(buf->writeToBuffer(0, packetNumber, 0)))
             return false;
-        }
     }
-    // Want to wait until buffer fully registers inputs
-    while(buf->packetSize(packetNumber) < size)
-    {}
+    else
+    {
+        for (int s = 0; s < size; s++) {
+            if (!(buf->writeToBuffer(dataArray[s], packetNumber, s))) {
+                return false;
+            }
+        }
+        // Want to wait until buffer fully registers inputs
+        while(buf->packetSize(packetNumber) < size)
+        {}
+    }
     buf->SetBusyWrite(false);  // All is well with the new packet so clear the BusyWrite
 
     buf->wakeAllOnQueue();
