@@ -474,6 +474,8 @@ void InitializeAccumulators(QDateTime tstart,
                             int msecPerAccum
                             );
 
+int FlushAccumulators();
+
 private:
 
 list<GRIDAQAccumNode*> accumList;

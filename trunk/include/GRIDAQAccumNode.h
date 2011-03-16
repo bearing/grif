@@ -17,6 +17,7 @@ public:
 
     virtual void GRIDAQAccumulationTimer()=0;
     virtual void ResetAccumBuffs(qint64 t_0)=0;
+    virtual void FlushBuffers() = 0;
 
     //These are placeholders for supported data types
     void Accumulate(int numel, double data[], qint64 timestamps[],bool runflag){numel = 0; data = 0; timestamps = 0; runflag = 0; } // placeholders

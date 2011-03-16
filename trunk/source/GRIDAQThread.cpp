@@ -105,14 +105,14 @@ void GRIDAQThread::run()
         while(this->getRunFlag() && !exitThreadFlag){
             error = acquireData();
             if (error != DAQTHREAD_SUCCESS){
-                this->errorHandling("acquiData() failed", error);
+                this->errorHandling("acquire Data() failed", error);
             }
         }
 
         // Run one more to ensure flush occurred...
-        error = acquireData();
+        error = FlushAccumulators();
         if (error != DAQTHREAD_SUCCESS){
-            this->errorHandling("acquiData() failed", error);
+            this->errorHandling("Flush Accumulators failed", error);
         }
 
         if(!forceQuit){
@@ -166,6 +166,20 @@ void GRIDAQThread::InitializeAccumulators(QDateTime tstart,
         GRIDAQAccumNode* accum = *accum_it;
             accum->Initialize(tstart,timestamp_0);
         }
+
+}
+
+int GRIDAQThread::FlushAccumulators()
+{
+    list<GRIDAQAccumNode*>::iterator accum_it;
+
+    // Finding the Accumulator in the list
+    for(accum_it = accumList.begin(); accum_it != accumList.end(); accum_it++) {
+        GRIDAQAccumNode* accum = *accum_it;
+            accum->FlushBuffers();
+        }
+
+    return 0;
 
 }
 

@@ -114,8 +114,7 @@ public:
 
         }
 
-        bool NewBubble = false;
-        bool NewBubbleSet = false;
+
         if(BubbleTrigger){
 
             for(int i=0; i < BubbleWriteNum; i++){
@@ -125,21 +124,28 @@ public:
                 // 3) Re-buffer the data for the new buffer
                 // 4) Set the new bubble
 
+                int nbuffcnt = 0;
+                bool NewBubble = false;
+                bool NewBubbleSet = false;
+
                 for(buff_it = buff.begin(); buff_it != buff.end(); buff_it++)
                 {
+                    nbuffcnt = nbuffcnt + 1;
 
                     GRIAccumBuff<T>* b = *buff_it;
+                    //cout << "IN: Buffer " << nbuffcnt << ": Bubble: " << b->isBubble() << " Leading Edge: " << b->isLeadingEdge() << endl;
 
                     if(NewBubble) {
                         b->SetBubble(true);
                         NewBubbleSet = true;
+                        NewBubble = false;
                     }
 
                     if(b->isLeadingEdge())
                         b->SetLeadingEdge(false);
 
                     // Check for bubble
-                    if(b->isBubble() && !NewBubble){
+                    if(b->isBubble() && !NewBubbleSet){
 
                         // Write Bubble Accumulator to mm
                         cout << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": " <<
@@ -160,50 +166,59 @@ public:
                         b->SetLeadingEdge(true);
                         b->BufferData(numel, timestamps,data);
                     }
-
+                    //cout << "OUT: Buffer " << nbuffcnt << ": Bubble: " << b->isBubble() << " Leading Edge: " << b->isLeadingEdge() << endl;
                 }
 
                 // If we are at the end of the buffer list and need a new bubble
-                if(NewBubble && !NewBubbleSet){
+                if(!NewBubbleSet){
                     GRIAccumBuff<T>* b2 = buff.front();
                     b2->SetBubble(true);
+                    cout << "Set Buffer 1 bubble to true" << endl;
                 }
+
             }
         }
+    }
 
 
-        if(FlushFlag){
+ void FlushBuffers(){
 
-            bool NewBubble = false;
-            bool NewBubbleSet = false;
+            typename list<GRIAccumBuff<T>*>::iterator  buff_it;
+
+
 
             // Loop over all buffers and write the bubbles out...
             for(int i=0; i<this->NAccumBuff; i++){
-
+                bool NewBubble = false;
+                bool NewBubbleSet = false;
+                cout << "Flushing AccumBuff Iteration " << i << endl;
+                int buffctr = 0;
                 for(buff_it = buff.begin(); buff_it != buff.end(); buff_it++)
                 {
-
+                    buffctr = buffctr + 1;
                     GRIAccumBuff<T>* b = *buff_it;
 
                     if(NewBubble) {
                         b->SetBubble(true);
                         NewBubbleSet = true;
+                        NewBubble = false;
                     }
 
                     if(b->isLeadingEdge())
                         b->SetLeadingEdge(false);
 
                     // Check for bubble
-                    if(b->isBubble() && !NewBubble){
+                    if(b->isBubble() && !NewBubbleSet){
 
                         // Write Bubble Accumulator to mm
-                        cout << "FLUSH: " << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": " <<
+                        cout << "FLUSH (" << buffctr << "): " << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": " <<
                                 this->GetBufferName().toStdString().c_str() << " accumulator writing "  <<
                                 b->GetDataSize() << " events." << endl;
                         T* da = b->DataArray();
 
                         //                     for(int i=0; i<b->GetDataSize(); i++) cout << da[i] << " ";
                         //                     cout << endl;
+
 
                         pDAQ->writeMemory(pDAQ->get_name(),this->GetBufferName(),b->GetDataSize(),da);
                         delete [] da;
@@ -213,25 +228,21 @@ public:
                         b->ResetBuffer(b->GetT1() + this->AccumulationTime*this->NAccumBuff,
                                        b->GetT2() + this->AccumulationTime*this->NAccumBuff);
                         b->SetLeadingEdge(true);
-                        b->BufferData(numel, timestamps,data);
+
                     }
 
                 }
 
                 // If we are at the end of the buffer list and need a new bubble
-                if(NewBubble && !NewBubbleSet){
+                if(!NewBubbleSet){
                     GRIAccumBuff<T>* b2 = buff.front();
                     b2->SetBubble(true);
                 }
             }
-        }
+
+ }
 
 
-
-
-
-
-    }
 
     void GRIDAQAccumulationTimer()
     {
