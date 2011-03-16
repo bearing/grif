@@ -220,7 +220,13 @@ public:
     void SetBusyWrite(bool tf){busyWrite = tf;}
     bool GetBusyWrite(){return busyWrite;}
 
+    bool IsNullPacket(int packetNum);
+    void AddNullPacket(int packetNum);
+    void RemoveNullPacket(int packetNum);
+
 private:
+
+    QList<int> nullPackets;
 
     bool busyWrite;
 
