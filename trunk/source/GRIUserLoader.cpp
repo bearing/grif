@@ -29,33 +29,28 @@ GRIProcessThread* GRIUserLoader::load(QString process_name, QString object_name,
     return p;
 }
 
-GRIProcessThread *GRIUserLoader::load(QString process_name, QString object_name){
+GRIProcessThread *GRIUserLoader::load(QString class_name, QString instance_name){
 
     /*
      * process_name <=> class name
      * object_name  <=> object name
      */
 
-    process_name = process_name.toLower();
-    object_name = object_name.toLower();
+    class_name = class_name.toLower();
+    instance_name = instance_name.toLower();
 
     /*
      * Make sure to return the variable p as a null pointer (0)
      * if process_name and object_name do not match anything. This
      * is already present at the bottom of this method.
-     *
-    /**** YOUR CODE HERE ****/
+     */
 
-    if(process_name.contains("simanalysis")){
-        SIMAnalysisThread* A1 = new SIMAnalysisThread();
-        return A1;
-    }
+    GRIProcessThread *p = 0; //beginning null pointer
+     //run the code gen
 
-    if(process_name.contains("sis3150usb")){
-        SIS3150USB* sisusb = new SIS3150USB();
-        return (GRIProcessThread*)sisusb;
-    }
+    //generated code in GRIUserLoader_aux.txt
+#include "GRIUserLoader_aux.txt"
 
-    return 0;
+    return p;
 
 }
