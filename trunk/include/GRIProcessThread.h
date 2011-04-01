@@ -246,19 +246,34 @@ public:
     list<QString> dataBlockNames;
 
     /*
-     * dummy getParam() to be overidden by code generation
+     * dummy getParam() to be overridden by code generation
      */
     template <class T> T getParam(QString name){ cout << name.toStdString() << endl; return 0;}
 
     /*
-     * dummy setParam() to be overidden by code generation
+     * dummy setParam() to be overridden by code generation
      */
     template <class T> void setParam(QString name, T value){ cout << name.toStdString() << ": " << value << endl;}
 
     /*
-     * dummy runAction() to be overidden by code generation
+     * dummy getStdVecParam() to be overridden by code generation
      */
-    template <class T> void runAction(QString name){ cout << "running: " << name.toStdString() << endl;}
+    template <class T> vector<T> getStdVecParam(QString name){ cout << name.toStdString().c_str() << endl; return 0;}
+
+    /*
+     * dummy getQVecParam() to be overridden by code generation
+     */
+    template <class T> QVector<T> getQVecParam(QString name){ cout << name.toStdString().c_str() << endl; return 0;}
+
+    /*
+     * dummy setStdVecParam() to be overridden by code generation
+     */
+    template <class T> void setStdVecParam(QString name, vector<T> values){ cout << name.toStdString().c_str() << " size: " << values.size() << endl;}
+
+    /*
+     * dummy setQVecParam() to be overidden by code generation
+     */
+    template <class T> void setQVecParam(QString name, QVector<T> values){ cout << name.toStdString().c_str() << " size: " << values.size() << endl;}
 
     /*
      * dummy runAction() to be overridden by code generation
@@ -269,6 +284,11 @@ public:
      * dummy setInitialGCGValues() to be overridden by code generation
      */
     void setInitialGCGValues(){}
+
+    /*
+     * dummy printActions() to be overridden by code generation
+     */
+    void printActions(){}
 
 
     /*
