@@ -2,7 +2,7 @@
 # This is for generating code for the framework file GRIUserLoader.cpp.
 # The generated code goes into the file located at /path/to/auxiliary/file
 #
-# Written by Austin Benson: arbenson @ berkeley, gmail
+# Written by Austin Benson: arbenson @ berkeley
 # Berkeley Applied Research on the Imaging of Neutrons and Gamma-rays
 # Domestic Nuclear Threat Security Initiative
 
@@ -26,7 +26,12 @@ sub wanted{
   push(@xml_files, $File::Find::name) if (/.+\.xml/ or /.+\.XML/);
 }
 
-my $selector = "//GCG process selector code for GRIUserLoader.cpp\n";
+my $selector = "#include \"GRIUserLoaderAux.h\"\n\n";
+
+$selector .= "//GCG process selector code for GRIUserLoader.cpp\n";
+$selector .= "GRIProcessThread *get_new_process(QString class_name, QString instance_name){\n\n";
+$selector .= "\tGRIProcessThread *p = NULL;\n\n";
+
 
 # loop through each XML file in the directory
 foreach $file (@xml_files) {
@@ -37,12 +42,16 @@ foreach $file (@xml_files) {
   # get the class name
   my $class_name = $doc->{Name}[0]->{cname};
 
-  $selector .= "if(process_name.contains(\"$class_name\")){\n";
-  $selector .= "\tp = new $class_name()\n";
-  $selector .= "\treturn p;\n";
-  $selector .= "}\n\n";
+  $selector .= "\tif(class_name.contains(\"$class_name\")){\n";
+  $selector .= "\t\tp = new $class_name();\n";
+  $selector .= "\t\treturn p;\n";
+  $selector .= "\t}\n\n";
 
 }
+
+$selector .= "\treturn p;\n";
+$selector .= "}";
+
 
 open AUXILIARY_FILE, ">", $ARGV[1] or die;
 print AUXILIARY_FILE $selector
