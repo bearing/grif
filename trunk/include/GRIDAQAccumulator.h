@@ -149,8 +149,8 @@ public:
 
                         // Write Bubble Accumulator to mm
                         cout << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": " <<
-                                this->GetBufferName().toStdString().c_str() << " accumulator writing "  <<
-                                b->GetDataSize() << " events." << endl;
+                                this->GetBufferName().toStdString().c_str() << "(" << nbuffcnt << ") accumulator writing "
+                                << b->GetDataSize() << " events. Timestamp = " << (double)timestamps[0]/(double)this->ticksPerSecond << endl;
                         T* da = b->DataArray();
 
                         //                     for(int i=0; i<b->GetDataSize(); i++) cout << da[i] << " ";
@@ -173,7 +173,7 @@ public:
                 if(!NewBubbleSet){
                     GRIAccumBuff<T>* b2 = buff.front();
                     b2->SetBubble(true);
-                    cout << "Set Buffer 1 bubble to true" << endl;
+                    
                 }
 
             }
