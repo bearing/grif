@@ -196,14 +196,25 @@ mydaq->run(); //which calls the user defined methods in a well-defined order.
 
     template <class T> int PostData(int numel, QString buffer_name, T _data[]){
 
+        cout << this->get_name().toStdString().c_str()
+                << "::PostData - "
+                << buffer_name.toStdString().c_str()
+                << endl;
         return this->writeMemory(this->get_name(),buffer_name,numel,_data);
 
     }
 
     template <class T> pair<int, T*> ReadData(QString block_name, QString buffer_name){
 
+
+
         pair<int, T*> p = readMemory<T>(block_name, buffer_name);
         ReadDataPtrs.push_back((void*)p.second);
+        // Adding NULL to p.second after this to ensure garbage collection goes on as planned
+        // NULL packet writes will write a single NULL character to the memory manager
+        // which still needs to be freed normally, but should not be passed back;
+        if(p.first == 0)
+            p.second = NULL;
 
         return p;
 
