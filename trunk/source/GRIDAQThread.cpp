@@ -103,13 +103,14 @@ void GRIDAQThread::run()
 		
 		
         while(this->getRunFlag() && !exitThreadFlag){
+            //cout << "GRIDAQThread-->AcquireData" << endl;
             error = acquireData();
             if (error != DAQTHREAD_SUCCESS){
                 this->errorHandling("acquire Data() failed", error);
             }
         }
 
-        // Run one more to ensure flush occurred...
+        cout << "Running one more to ensure flush occurred..." << endl;
         error = FlushAccumulators();
         if (error != DAQTHREAD_SUCCESS){
             this->errorHandling("Flush Accumulators failed", error);
