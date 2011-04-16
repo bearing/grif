@@ -68,14 +68,16 @@ void GRIAnalysisThread::run()
 
 
         while(this->getRunFlag() && !exitThreadFlag){
+
             error = Analyze();
+
             if (error != ANALYSISTHREAD_SUCCESS){
                 this->errorHandling("Analyze() failed", error);
             }
             ReadGarbageCollection();  // All data read will be freed after each Analyze
         }
 
-        cout << "exiting analysis" << endl;
+        cout << "Exiting Analysis" << endl;
 
     }
 }
@@ -147,6 +149,7 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin,
     if(this->GetHistogram(HistName) == 0){
         GRIHist1D* p = new GRIHist1D(this->get_name(),HistArray.size(),HistName);
         p->SetBins(nx,xmin,xmax);
+        cout << "1D Histogram: " << HistName.toStdString().c_str() << " created with " << p->GetHist()->GetNbinsX() << " bins." << endl;
         HistArray.push_back(p);
         return 0;
     }else{
