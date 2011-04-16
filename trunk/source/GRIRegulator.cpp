@@ -82,7 +82,7 @@ void GRIRegulator::start_threads()
 pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
 {
 
-    ReadMutex.lock();
+   // ReadMutex.lock();
 
     GRIDataBlock* data = find_data(blockName,bufferName);
 
@@ -96,7 +96,7 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
 
 
         pair<int, char*> returnVal(0, NULL);
-        ReadMutex.unlock();
+//        ReadMutex.unlock();
         return returnVal;
     }
 
@@ -104,11 +104,12 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
 
 
     int curr_packet = mm->lastPacket(blockName, bufferName);
+
     while(curr_packet < packet_to_read) {
         bufferIsReady.wait(&mutex);
         curr_packet = mm->lastPacket(blockName, bufferName);
     }
-
+    cout << blockName.toStdString().c_str() << ":"  << bufferName.toStdString().c_str() << " reading packet " << packet_to_read << endl;
 
     if(data->update_reader()) {
 
@@ -128,7 +129,7 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
             // GarbageCollection requires mutex!!!
             GarbageCollection(c);
             data->load_balancing();
-            ReadMutex.unlock();
+//            ReadMutex.unlock();
             return returnVal;
 
         }else{
@@ -140,7 +141,7 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
             GarbageCollection(c);
 
             data->load_balancing();
-            ReadMutex.unlock();
+//            ReadMutex.unlock();
             return returnVal;
         }
 
@@ -153,7 +154,7 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
 
 
     pair<int, char*> returnVal(0, NULL);
-    ReadMutex.unlock();
+//    ReadMutex.unlock();
     return returnVal;
 
 
@@ -165,7 +166,7 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
 bool GRIRegulator::writeMemory(QString blockName, QString bufferName, int size, char dataArray[])
 {
 
-    WriteMutex.lock();
+    //WriteMutex.lock();
 
     QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
@@ -173,7 +174,7 @@ bool GRIRegulator::writeMemory(QString blockName, QString bufferName, int size, 
     bool ret_flag;
 
     if(data == NULL) {
-        WriteMutex.unlock();
+//        WriteMutex.unlock();
         return NULL;
     }
 
@@ -184,11 +185,11 @@ bool GRIRegulator::writeMemory(QString blockName, QString bufferName, int size, 
             bufferIsReady.wakeAll();
         }
 
-        WriteMutex.unlock();
+//        WriteMutex.unlock();
         return ret_flag;
     }
 
-    WriteMutex.unlock();
+//    WriteMutex.unlock();
     return false;
 }
 
