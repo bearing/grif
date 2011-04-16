@@ -342,8 +342,8 @@ char* GRIMemoryManager::readMemory(QString dataBlockName, QString bufferName, in
 
     int packSize = buf->packetSize(packetNumber);
 
-    cout << "(MM) Read: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "-packet " <<
-            packetNumber << " (" << packSize << ")" << endl;
+    //cout << "(MM) Read: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "-packet " <<
+    //        packetNumber << " (" << packSize << ")" << endl;
     //Commit//log(GRI//log_VERBOSE);
 
     for (int i = 0; i < packSize; i++) {
@@ -377,8 +377,8 @@ char* GRIMemoryManager::readMemory(QString dataBlockName, QString bufferName, ch
 bool GRIMemoryManager::writeMemory(QString dataBlockName, QString bufferName, int packetNumber, int size, char dataArray[])
 {
 
-   cout << "(MM) Write: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "-packet " <<
-           packetNumber << " (" << size << ")" << endl;
+   //cout << "(MM) Write: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "-packet " <<
+   //        packetNumber << " (" << size << ")" << endl;
    //Commit//log(GRI//log_VERBOSE);
 
     GRIMemoryManager::bufferWriteLock(dataBlockName, bufferName);
@@ -421,5 +421,6 @@ bool GRIMemoryManager::writeMemory(QString dataBlockName, QString bufferName, in
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     int curPacket = buf->nextPacket();
     //GRIMemoryManager::unlockBuffer(dataBlockName, bufferName);
+    cout << "MM:writeMemory " << dataBlockName.toStdString().c_str() << ":" << bufferName.toStdString().c_str() << " Packet #" << curPacket << endl;
     return GRIMemoryManager::writeMemory(dataBlockName, bufferName, curPacket, size, dataArray);
 }
