@@ -12,8 +12,8 @@ use Data::Dumper;
 
 # Get xml root file path (fed through command line)
 if ( $#ARGV < 1) {
-  print "ERROR: improper format";
-  print "usage: perl GCG_GRIUserLoader.pl /path/to/xml/files /path/to/auxiliary/file";
+  print "ERROR: improper format\n";
+  print "usage: perl GCG_GRIUserLoader.pl /path/to/xml/files /path/to/auxiliary/file\n";
   exit 0;
 }
 

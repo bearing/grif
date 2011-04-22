@@ -46,8 +46,8 @@ use Data::Dumper;
 
 # Get xml root file path (fed through command line)
 if ( $#ARGV < 1) {
-  print "ERROR: improper format";
-  print "usage: perl GCG_GRIUserProcesses.pl /path/to/xml/files /path/to/auxiliary/file";
+  print "ERROR: improper format\n";
+  print "usage: perl GCG_GRIUserProcesses.pl /path/to/xml/files /path/to/auxiliary/file\n";
   exit 0;
 }
 
@@ -85,7 +85,7 @@ foreach $file (@xml_files) {
     #loop over each variable for the C struct
     foreach $var ($datatype->{var}){
       my $curr_type = $var->{type};
-      my $curr_type_name = $var->{vname}
+      my $curr_type_name = $var->{vname};
       $curr_struct = join($curr_struct, "\t", $curr_type, $curr_type_name, ";\n");
     }
 
