@@ -47,7 +47,7 @@ use Data::Dumper;
 # Get xml root file path (fed through command line)
 if ( $#ARGV < 1) {
   print "ERROR: improper format\n";
-  print "usage: perl GCG_GRIUserProcesses.pl /path/to/xml/files /path/to/auxiliary/file\n";
+  print "usage: perl GCG_data.pl /path/to/xml/files /path/to/auxiliary/file\n";
   exit 0;
 }
 
@@ -78,27 +78,25 @@ foreach $file (@xml_files) {
   my $x = XML::Simple->new (ForceArray => 1);
   my $doc = $x->XMLin($file);
 
-  #loop over each data type
-  foreach $datatype ($doc->{DataDefines}->{datat}){
-    my $curr_struct = "struct" . $datatype->{dataname}->{dname} . "{\n";
 
-    #loop over each variable for the C struct
-    foreach $var ($datatype->{var}){
-      my $curr_type = $var->{type};
-      my $curr_type_name = $var->{vname};
-      $curr_struct = join($curr_struct, "\t", $curr_type, $curr_type_name, ";\n");
+  my $num_structs = $doc->{numstructs}[0]->{nums};
+
+  for ($i = 0; $i < $num_structs; $i++){
+    my $num_vars = $doc->{datat}[$i]->{numvars}[0]->{numv};
+    my $curr_struct = "struct " .  $doc->{datat}[$i]->{dataname}[0]->{dname} . "{\n";
+    for ($j = 0; $j < $num_vars; $j++){
+      my $curr_var = $doc->{datat}[$i]->{var}[0]->{vtype}[$j];
+      my $curr_var_print = "\t" . $curr_var->{type} . " " . $curr_var->{vname} . ";\n";
+      $curr_struct = $curr_struct . $curr_var_print;
     }
-
-    #format and append
-    $curr_struct .= "};\n";
-    $includer .= $curr_struct;
-
+    $curr_struct = $curr_struct . "};\n\n";
+    $includer = $includer . $curr_struct;
   }
 
+
 }
-#my $header_name = $doc->{Header}[0]->{hname};
 
-$includer .="\n\n#endif // GRIDATADEFINES_AUX_H\n";
+$includer .= "\n\n#endif // GRIDATADEFINES_AUX_H\n";
 
-open AUXILIARY_FILE, ">", $ARGV[1] or die;
+open AUXILIARY_FILE, ">", $ARGV[1] or die $!;
 print AUXILIARY_FILE $includer
