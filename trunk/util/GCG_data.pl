@@ -1,4 +1,4 @@
-# usage: perl GCG_GRIUserProcesses.pl /path/to/xml/files /path/to/auxiliary/file
+# usage: perl GCG_data.pl /path/to/xml/files /path/to/auxiliary/file
 # This code is for generating the definitions of data types specified by
 # the user.  The GRI class GRIDataDefines.h will include the auxiliary file.
 #
