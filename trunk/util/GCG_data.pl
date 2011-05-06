@@ -78,17 +78,16 @@ foreach $file (@xml_files) {
   my $x = XML::Simple->new (ForceArray => 1);
   my $doc = $x->XMLin($file);
 
+  foreach $datat (@{$doc->{datat}}){
 
-  my $num_structs = $doc->{numstructs}[0]->{nums};
+    my $num_vars = $datat->{numvars}[0]->{numv};
+    my $curr_struct = "struct " .  $datat->{dataname}[0]->{dname} . "{\n";
 
-  for ($i = 0; $i < $num_structs; $i++){
-    my $num_vars = $doc->{datat}[$i]->{numvars}[0]->{numv};
-    my $curr_struct = "struct " .  $doc->{datat}[$i]->{dataname}[0]->{dname} . "{\n";
-    for ($j = 0; $j < $num_vars; $j++){
-      my $curr_var = $doc->{datat}[$i]->{var}[0]->{vtype}[$j];
-      my $curr_var_print = "\t" . $curr_var->{type} . " " . $curr_var->{vname} . ";\n";
-      $curr_struct = $curr_struct . $curr_var_print;
+    foreach $var (@{$datat->{var}[0]->{vtype}}){
+      my $curr_var = "\t" . $var->{type} . " " . $var->{vname} . ";\n";
+      $curr_struct = $curr_struct . $curr_var;
     }
+
     $curr_struct = $curr_struct . "};\n\n";
     $includer = $includer . $curr_struct;
   }
