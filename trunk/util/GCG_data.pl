@@ -24,12 +24,12 @@
 #
 # This will be translated to:
 #
-# struct peak{
+# typedef struct{
 #      double value;
 #      double sigma;
 #      double rate;
 #      int chan;
-# };
+# } peak;
 #
 #  All of the <datat> objects in the XML file should be encapsulated by
 #  the <DataDefines> tag.
@@ -81,14 +81,14 @@ foreach $file (@xml_files) {
   foreach $datat (@{$doc->{datat}}){
 
     my $num_vars = $datat->{numvars}[0]->{numv};
-    my $curr_struct = "struct " .  $datat->{dataname}[0]->{dname} . "{\n";
+    my $curr_struct = "typedef struct {\n";
 
     foreach $var (@{$datat->{var}[0]->{vtype}}){
       my $curr_var = "\t" . $var->{type} . " " . $var->{vname} . ";\n";
       $curr_struct = $curr_struct . $curr_var;
     }
 
-    $curr_struct = $curr_struct . "};\n\n";
+    $curr_struct = $curr_struct . "} " . $datat->{dataname}[0]->{dname} . ";\n\n";
     $includer = $includer . $curr_struct;
   }
 
