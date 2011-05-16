@@ -1,0 +1,31 @@
+<DataDefines>
+    <datat>
+      <dataname dname = "peak" />
+      <var>
+        <vtype type = "double" vname = "value" />
+        <vtype type = "double" vname = "sigma" />
+        <vtype type = "double" vname = "rate" />
+        <vtype type = "int" vname = "chan" />
+      </var>
+    </datat>
+        
+    <datat>
+       <dataname dname = "background" />
+       <var>
+         <vtype type = "double" vname = "rate" />
+         <vtype type = "double" vname = "min" />
+         <vtype type = "double" vname = "max" />
+         <vtype type = "int" vname = "chan" />
+       </var>
+    </datat>
+        
+    <datat>
+       <dataname dname = "dataOutput" />
+       <var>
+         <vtype type = "int" vname = "num" />
+         <vtype type = "int" vname = "chan" />
+         <vtype type = "double" vname = "ADC" />
+         <vtype type = "double" vname = "time" />
+       </var>
+    </datat>
+</DataDefines>
