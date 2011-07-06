@@ -23,7 +23,8 @@ my @xml_files = ();
 find(\&wanted, $xml_file_directory);
 sub wanted{
   #if the file contains .XML or .xml, push on xml_files
-  push(@xml_files, $File::Find::name) if (/.+\.xml/ or /.+\.XML/);
+  #push(@xml_files, $File::Find::name) if (/.+\.xml/ or /.+\.XML/);
+  push(@xml_files, $File::Find::name) if (/\.xml$/ or /.\.XML$/);
 }
 
 my $selector = "#include \"GRIUserLoaderAux.h\"\n\n";
@@ -50,7 +51,7 @@ foreach $file (@xml_files) {
 }
 
 $selector .= "\treturn p;\n";
-$selector .= "}";
+$selector .= "}\n";
 
 
 open AUXILIARY_FILE, ">", $ARGV[1] or die;
