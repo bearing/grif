@@ -1,11 +1,10 @@
 #ifndef GRIHIST2D_H
 #define GRIHIST2D_H
 
+#include "TH2D.h"
 #include "GRIHistogrammer.h"
 
-class GRIHist2D: public GRIHistogrammer
-{
-
+class GRIHist2D: public GRIHistogrammer {
 public:
     GRIHist2D(QString BlockName, int ID, QString HistName);
     ~GRIHist2D();

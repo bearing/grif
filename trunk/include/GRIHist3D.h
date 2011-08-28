@@ -1,11 +1,10 @@
 #ifndef GRIHIST3D_H
 #define GRIHIST3D_H
 
+#include "TH3D.h"
 #include "GRIHistogrammer.h"
 
-class GRIHist3D: public GRIHistogrammer
-{
-
+class GRIHist3D: public GRIHistogrammer {
 public:
     GRIHist3D(QString BlockName, int ID, QString HistName);
     ~GRIHist3D();
@@ -25,6 +24,5 @@ private:
     TH3D* hist;
     TH3D* hist2;
 };
-
 
 #endif // GRIHIST3D_H

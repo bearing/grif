@@ -3,9 +3,7 @@
 
 #include "GRIHistogrammer.h"
 
-class GRIHist1D: public GRIHistogrammer
-{
-
+class GRIHist1D: public GRIHistogrammer {
 public:
     GRIHist1D(QString BlockName, int ID, QString HistName);
     ~GRIHist1D();
@@ -24,7 +22,5 @@ private:
     TH1D* hist;
     TH1D* hist2;
 };
-
-
 
 #endif // GRIHIST1D_H
