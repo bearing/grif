@@ -3,18 +3,17 @@
 // Users need to add all possible process thread headers to GRIUserProcesses.h
 #include "GRIUserProcesses.h"
 
-GRIProcessThread* GRIUserLoader::load(QString process_name, QString object_name, QString XMLFile)
-{
+GRIProcessThread* GRIUserLoader::load(QString process_name, QString object_name,
+                                      QString XMLFile) {
 
     GRIProcessThread* p = NULL;
 
-    if(process_name == "daq1"){
-        if(object_name == "sis"){
+    if (process_name == "daq1") {
+        if (object_name == "sis") {
             //p = new sisdaq();
         }
     }
-    if(XMLFile == "daq1.XML"){
-
+    if (XMLFile == "daq1.XML") {
         //do stuff
     }
 
@@ -52,5 +51,4 @@ GRIProcessThread *GRIUserLoader::load(QString class_name, QString instance_name)
 #include "GRIUserLoader_aux.txt"
 
     return p;
-
 }
