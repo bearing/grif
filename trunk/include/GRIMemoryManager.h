@@ -1,20 +1,12 @@
 #ifndef GRI_MEMORYMANAGER_H
 #define GRI_MEMORYMANAGER_H
 
-#include <string>
 #include <QString>
-#include <QTextStream>
-
 #include <QReadWriteLock>
 #include "GRIBuffer.h"
 #include "GRILogMessage.h"
 
-using namespace std;
-
-using std::string;
-
 class GRIBuffer;
-
 
 //! A memory management class
 /*!
@@ -35,17 +27,15 @@ class GRIBuffer;
 *
 */
 
-
-class GRIMemoryManager : public GRIObject
-{
+class GRIMemoryManager : public GRIObject {
 
     Q_OBJECT
 
-    friend class GRIRegulator;
-    friend class GRICommandAndControl;
-    friend class GRIDataBlock;
+  friend class GRIRegulator;
+  friend class GRICommandAndControl;
+  friend class GRIDataBlock;
 
-public:
+  public:
         //!A constructor
         /*!
           *
@@ -65,7 +55,6 @@ public:
         ~GRIMemoryManager();
 
 protected:
-
         //! A member function for creating buffers
         /*!
         *
@@ -84,8 +73,6 @@ protected:
         */
         bool bufferCreate(QString dataBlockName, QString bufferName);
 
-
-
         //! A member function to return the index of the current thread's packet marker
         /*!
         *
@@ -100,8 +87,6 @@ protected:
         */
         int currentPacketPosition(QString dataBlockName, QString bufferName);
 
-
-
         //! A Member function
         /*!
         *
@@ -115,8 +100,6 @@ protected:
         *
         */
         int lastPacket(QString dataBlockName, QString bufferName);
-
-
 
         //! A member function
         /*!
@@ -136,7 +119,6 @@ protected:
         *
         */
         bool setPacketPosition(QString dataBlockName, QString bufferName, int packetNumber);
-
 
         //! a member function
         /*!
@@ -165,7 +147,6 @@ protected:
         */
         int sizeofBuffer(QString dataBlockName, QString bufferName);
 
-
         //! a member funtion
         /*!
           *
@@ -182,7 +163,6 @@ protected:
           * \sa bufferWriteLock(), unlockBuffer()
         */
         void bufferReadLock(QString dataBlockName, QString bufferName);
-
 
         //! a member function
         /*!
@@ -201,8 +181,6 @@ protected:
         */
         void bufferWriteLock(QString dataBlockName, QString bufferName);
 
-
-
         //! a member function
         /*!
           *
@@ -214,7 +192,6 @@ protected:
           * \sa bufferWriteLock(), bufferReadLock()
         */
         void unlockBuffer(QString dataBlockName, QString bufferName);
-
 
         //! a member function
         /*!
@@ -232,8 +209,6 @@ protected:
         */
         char* readMemory(QString dataBlockName, QString bufferName, int packetNumber, char* buffer);
 
-
-
         //! A member function
         /*!
         *
@@ -249,7 +224,6 @@ protected:
         * \sa readMemory(QString dataBlockName, QString bufferName, int packetNumber, char* buffer)
         */
         char* readMemory(QString dataBlockName, QString bufferName, char* buffer);
-
 
         //! A member function
         /*!
@@ -274,8 +248,6 @@ protected:
         */
         bool writeMemory(QString dataBlockName, QString bufferName, int packetNumber, int size, char dataArray[]);
 
-
-
         //! a member function
         /*!
           * \overload bool writeMemory(QString dataBlockName, QString bufferName, int size, char dataArray[]
@@ -294,7 +266,6 @@ protected:
         */
         bool writeMemory(QString dataBlockName, QString bufferName, int size, char dataArray[]);
 
-
         //! a member function
         /*!
         *
@@ -306,8 +277,6 @@ protected:
         * \sa bufferCreate()
         */
         void bufferDelete(QString dataBlockName, QString bufferName);
-
-
 
         //! a member function
         /*!
@@ -324,10 +293,7 @@ protected:
           */
         void deletePacket(QString dataBlockName, QString bufferName, int packetNumber);
 
-
 private:
-
-
         //! A private member function
         /*!
           *
@@ -341,8 +307,6 @@ private:
           *
         */
         int locateBuffer(QString dataBlockName, QString bufferName);
-
-
 
         //! a private member function
         /*!
@@ -359,7 +323,6 @@ private:
         */
         int locateBuffer(QString bufferName, int blockIdentifier);
 
-
         //! a private member function
         /*!
           *
@@ -371,7 +334,6 @@ private:
           * \sa locateBuffer(), grabBuffer()
         */
         int locateDataBlock(QString dataBlockName);
-
 
         //! a private member function
         /*!
@@ -386,7 +348,6 @@ private:
           *
         */
         GRIBuffer* grabBuffer(QString dataBlockName, QString bufferName);
-
 
         //! a private variable
         /*!
@@ -419,8 +380,6 @@ private:
           *
           */
         QList< QList<QReadWriteLock *>* > *lockTable;
-
-
-
 };
+
 #endif // GRIMEMORYMANAGER_H
