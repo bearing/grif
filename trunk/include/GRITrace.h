@@ -10,30 +10,22 @@
 //
 
 template <class T>
-class GRITrace
-{
+class GRITrace {
+ public:
+  GRITrace() { OffsetTimeData = false; }
+  ~GRITrace() {}
+  void ClearData() {}
+  void AddData(T ydata) {}
+  void AddData(QList<T> ydata) {}
+  void AddData(QList<T> ydata, QList<double> tdata) {}
+  void OffsetTime(bool yn) {this->OffsetTimeData = yn;}
+  QList<QTime> GetTData() {}
+  QList<T> GetYData() {}
 
-public:
-    GRITrace(){OffsetTimeData = false;}
-    ~GRITrace(){}
-    void ClearData(){}
-    void AddData(T ydata){}
-    void AddData(QList<T> ydata){}
-    void AddData(QList<T> ydata, QList<double> tdata){}
-    void OffsetTime(bool yn){this->OffsetTimeData = yn;}
-    QList<QTime> GetTData(){}
-    QList<T> GetYData(){}
-
-private:
-    QList<T> tdata;
-    QList<T> ydata;
-    bool OffsetTimeData;
-
-
-
+ private:
+  QList<T> tdata;
+  QList<T> ydata;
+  bool OffsetTimeData;
 };
-
-
-
 
 #endif // GRITRACE_H

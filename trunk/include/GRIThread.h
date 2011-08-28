@@ -8,32 +8,29 @@
 #include "GRILogMessage.h"
 using namespace std;
 
-class GRIThread : public QThread
-{
+class GRIThread : public QThread {
   Q_OBJECT
 
-   public:
-      GRIThread();
-      ~GRIThread();
-      virtual void run () { exec (); }
+  public:
+  GRIThread();
+  ~GRIThread();
+  virtual void run () { exec (); }
 
-      QTextStream log;
-      void CommitLog(int level);
-      void setObjectName(QString name);
+  QTextStream log;
+  void CommitLog(int level);
+  void setObjectName(QString name);
 
-  protected:
-      bool exitThreadFlag;
-      bool sleeping;
-      bool forceQuit;
+ protected:
+  bool exitThreadFlag;
+  bool sleeping;
+  bool forceQuit;
 
-  private:
+ private:
+  GRILogMessage LogMsg;
+  QString temp;
 
-      GRILogMessage LogMsg;
-      QString temp;
-
-  signals:
-      void logSignal(GRILogMessage m);
-
+ signals:
+  void logSignal(GRILogMessage m);
 };
 
 
