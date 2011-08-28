@@ -12,5 +12,4 @@
 #include "SIMDAQThread.h"
 #include "SIMAnalysisThread.h"
 
-
 #endif // GRIUSERPROCESSES_H
