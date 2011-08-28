@@ -11,8 +11,7 @@
 
 using namespace std;
 
-class GRILogger : public QObject
-{
+class GRILogger : public QObject {
     Q_OBJECT;
 public:
     GRILogger(QString FileName);
@@ -21,7 +20,6 @@ public:
     GRILogger(int level);
     ~GRILogger();
 
-    //    bool operator<< (GRILogger const&x, QString const&y );
     void operator<< (QString const&y );
 
     // May want to create and pass an Error class object
@@ -42,7 +40,6 @@ public:
 
     bool clearLogFile();
     bool clearErrorLogFile();
-
 
     void display(string);
     void display(list<string>);
@@ -65,7 +62,6 @@ private:
     QString logfilepath; //full file path
     int LogLevel;
     QMutex mutex;
-
 };
 
 #endif // GRILOGGER_H
