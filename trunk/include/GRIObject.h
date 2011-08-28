@@ -6,31 +6,24 @@
 #include <QString>
 #include <QObject>
 #include "GRILogMessage.h"
-using namespace std;
 
-class GRIObject:public QObject
-{
+class GRIObject:public QObject {
+  Q_OBJECT
 
-    Q_OBJECT
-
-public:
+  public:
     GRIObject();
     ~GRIObject();
-
 
     QTextStream log;
     void CommitLog(int level);
     void set_name(QString name);
 
-private:
-
+  private:
     GRILogMessage LogMsg;
     QString temp;
 
-signals:
+  signals:
     void logSignal(GRILogMessage m);
-
-
 };
 
 #endif // GRIOBJECT_H
