@@ -24,8 +24,7 @@ class GRILogger;
   * (Note: commands from external GUIs are sent through TCP Sockets.) The Run Manager waits for commands from the mentioned user interfaces and then calls on the appropriate Command And Control method to execute these commands.
   */
 
-class GRIRunManager : public GRIObject
-{
+class GRIRunManager : public GRIObject {
     // The following classes may need access to the protected methods of this class:
     friend class GRICommandAndControl;
     friend class GRICommandLineInterface;
