@@ -1,18 +1,17 @@
 #ifndef GRICLI_H
 #define GRICLI_H
 
-#include "QString"
-#include "iostream"
-#include "GRIProcessThread.h"
 #include "sstream"
+#include "iostream"
+#include "QString"
 #include "QList"
 #include "QStringList"
+#include "GRIProcessThread.h"
 
 enum CLI_state_enum { MAIN, PROCESS_TOP };
 
-class GRICLI{
+class GRICLI {
  public:
-
   GRICLI(); // sets the CLI_state to main, calls displayMain(), forms the hash table
   GRICLI(list<GRIProcessThread*> *processes); //same as above constructor, but pass the processes in
 
