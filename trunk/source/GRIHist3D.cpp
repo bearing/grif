@@ -1,7 +1,6 @@
 #include "GRIHist3D.h"
 
-GRIHist3D::GRIHist3D(QString bname, int id, QString HName="Hist3D"){
-
+GRIHist3D::GRIHist3D(QString bname, int id, QString HName="Hist3D") {
     this->hist = new TH3D();  // Always do this first...
     this->hist2 = new TH3D();  // Used only for rate mode
     this->SetName(HName);
@@ -12,18 +11,14 @@ GRIHist3D::GRIHist3D(QString bname, int id, QString HName="Hist3D"){
     this->SetPacketScaleFactor(1);
     this->BinSetFlag = false;
     hist->SetTitle(HName.toStdString().c_str());
-
 }
 
-GRIHist3D::~GRIHist3D(){
-
+GRIHist3D::~GRIHist3D() {
     delete this->hist;
     delete this->hist2;
-
 }
 
-
-void GRIHist3D::SetROOTHistName(QString name){
+void GRIHist3D::SetROOTHistName(QString name) {
     hist->SetName(name.toStdString().c_str());
 }
 
@@ -41,24 +36,22 @@ void GRIHist3D::SetROOTHistName(QString name){
 
 //}
 
-int GRIHist3D::SetBins(int nx, double xmin, double xmax, int ny, double ymin, double ymax, int nz, double zmin, double zmax){
+int GRIHist3D::SetBins(int nx, double xmin, double xmax, int ny, double ymin,
+                       double ymax, int nz, double zmin, double zmax) {
 
     this->hist->SetBins(nx,xmin,xmax,ny,ymin,ymax,nz,zmin,zmax);
     this->hist2->SetBins(nx,xmin,xmax,ny,ymin,ymax,nz,zmin,zmax);
 
     BinSetFlag = true;
     return 0;
-
 }
 
-int GRIHist3D::Clear()
-{
+int GRIHist3D::Clear() {
     hist->Reset();
     return 0;
 }
 
-int GRIHist3D::Update(double x[], double y[], double z[], int numel){
-
+int GRIHist3D::Update(double x[], double y[], double z[], int numel) {
     if(this->GetRateMode()){
         // Updating on Rate Differentials...
 
@@ -66,22 +59,13 @@ int GRIHist3D::Update(double x[], double y[], double z[], int numel){
         for(int i=0; i<numel; i++)
             hist2->Fill(x[i],y[i],z[i]);  // Incoming...
 
-
         hist2->Add(hist,-1); // Subtract hist
-
-
         hist->Add(hist2,this->GetPacketScaleFactor());
-
-
-   }else{
+   } else {
         // Straight update
         for(int i=0; i<numel; i++)
             hist->Fill(x[i],y[i],z[i]);
     }
 
-
     return 0;
-
 }
-
-
