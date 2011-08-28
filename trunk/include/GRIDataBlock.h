@@ -3,19 +3,16 @@
 
 #define DATA_BLOCK_DEBUG
 
-#include <string>
-#include <QString>
-#include <cstdio>
-#include <list>
-#include <cstdlib>
 #include <cassert>
-
+#include <cstdio>
+#include <cstdlib>
+#include <list>
+#include <string>
+#include <time.h>
+#include <QString>
 #include "GRIProcessThread.h"
 #include "GRIRegulator.h"
 #include "GRIMemoryManager.h"
-#include "time.h"
-
-using namespace std;
 
 // Load balancing constant
 #define MAX_THRESHOLD 2 // When the difference in packets with writers from readers is this big
@@ -41,7 +38,7 @@ struct ReaderDataObject {
 struct AnalysisStructureObject {
   QString data;
   QString From;
-  list<ReaderDataObject> To;
+  std::list<ReaderDataObject> To;
 };
 
 struct reader_t {
@@ -57,7 +54,8 @@ class GRIDataBlock: public GRIObject {
 
 public:
     GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* analysis_struct);
-    GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm, QString readerName, QString readerBuffer, QString objectDataName, QString objectFromName);
+    GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm, QString readerName,
+                 QString readerBuffer, QString objectDataName, QString objectFromName);
     ~GRIDataBlock();
 
     /*
@@ -78,7 +76,7 @@ public:
     /*
      * get_reader() returns the threads that are reading to this data block
      */
-    list<reader_t*>* get_reader();
+    std::list<reader_t*>* get_reader();
 
     /*
      * set_mm() sets the memory manager that is going to be used by this buffer
@@ -89,7 +87,7 @@ public:
      * set_link() sets up the pointers to the processes objects that are directly involved
      * with this buffer (ie: those who will be writing to or reading from this buffer)
      */
-    void set_link(list<GRIProcessThread*>* processes);
+    void set_link(std::list<GRIProcessThread*>* processes);
 
     /*
      * load_balancing() monitors the flow of the packets. If an inbalance is detected
@@ -126,7 +124,7 @@ private:
     QString name; // name of this data block
     GRIProcessThread* writer; // the thread that's writing to this object
     QString writer_name; // name of writer writing to this object
-    list<reader_t*> readers; // list of threads reading from this object
+    std::list<reader_t*> readers; // list of threads reading from this object
     long write_counter; // # of times this buffer is written
     long first_packet; // last packet # deleted + 1
 };

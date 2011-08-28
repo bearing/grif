@@ -16,7 +16,6 @@
 #include "GRIProcessThread.h"
 #include "GRIParser.h"
 
-using namespace std;
 class GRIParamList;
 class GRIRegulator;
 class GRIProcessThread;
@@ -29,7 +28,7 @@ class GRILoader {
     GRILoader(QString localGRIFPath, GRIRegulator* regulator,
               QString GRIFLogFilename, int LogLevel);
     GRILoader(QString localGRIFPath, GRIRegulator *regulator,
-              list<QString> fileNames);
+              std::list<QString> fileNames);
 
     virtual ~GRILoader();
 
@@ -44,9 +43,9 @@ class GRILoader {
      * }
      */
 
-    list<GRIProcessThread*>* initProcessThreads(list<ProcessDetails*> details);
+    std::list<GRIProcessThread*>* initProcessThreads(std::list<ProcessDetails*> details);
 
-    list<GRIDataBlock*>* initDataBlocks(list<GRIProcessThread*>* processes, list<AnalysisStructureObject*> analyStructs);
+    std::list<GRIDataBlock*>* initDataBlocks(std::list<GRIProcessThread*>* processes, std::list<AnalysisStructureObject*> analyStructs);
 
     /*
      * Initialization of process threads based on the list fileNames
@@ -55,9 +54,9 @@ class GRILoader {
     GRIRegulatorDetails *initRegulatorDetails();
 
     // used to be in class GRIXMLParser.h
-    list<GRIParam*>* readNewParamList(list<GRIParam*>* currentParams);
-    list<AnalysisStructureObject*> readAnalysisStructureXML();
-    list<ProcessDetails*> readPathXML();
+    std::list<GRIParam*>* readNewParamList(std::list<GRIParam*>* currentParams);
+    std::list<AnalysisStructureObject*> readAnalysisStructureXML();
+    std::list<ProcessDetails*> readPathXML();
     void setupMenuStructure();
     int ConnectLogger(QString LogFileName, QObject* sender);
     int CreateLogger(QString fname, int LogLevel);
@@ -67,11 +66,11 @@ class GRILoader {
     virtual GRIProcessThread* load(QString process_name, QString object_name) = 0;
 
   private:
-    list<GRILogger*> LogList;
-    list<GRIThread*> LogThreadList;
+    std::list<GRILogger*> LogList;
+    std::list<GRIThread*> LogThreadList;
     QString localGRIFPath;
     GRIRegulator* regulator;
-    list<QString> fileNames;
+    std::list<QString> fileNames;
     GRIParser *parser;
 
     // these are subroutine methods that are used when reading xml files
