@@ -10,10 +10,8 @@
 
 // Abstract Container for GRIDAQAccumulators of different types
 
-class GRIDAQAccumNode: public GRIObject
-{
-
-public:
+class GRIDAQAccumNode: public GRIObject {
+  public:
 
     virtual void GRIDAQAccumulationTimer()=0;
     virtual void ResetAccumBuffs(qint64 t_0)=0;
@@ -42,18 +40,15 @@ public:
     void SetDAQThreadObject(GRIProcessThread* pDT){pDAQ = pDT;}
     void Initialize(QDateTime tst, qint64 t_0){this->InitializeTime(tst,t_0,ticksPerSecond);}
 
+    void InitializeTime(qint64 timestamp) { timestamp = 0; }
 
-    void InitializeTime(qint64 timestamp){timestamp = 0;}
-
-    void InitializeTime(QDateTime tst, qint64 timestamp, qint64 ticks)
-    {
+    void InitializeTime(QDateTime tst, qint64 timestamp, qint64 ticks) {
         this->t0 = tst.time();
         this->ts0 = timestamp;
         this->ticksPerSecond = ticks;
         this->running = true;
         ResetAccumBuffs(timestamp);
     }
-
 
 protected:
     QString BufferName;
@@ -66,13 +61,9 @@ protected:
 
     int NAccumBuff;  //Number of buffers
     int timerID;
-
     bool running;
-
     GRIProcessThread* pDAQ;
-
     list<GRIAccumBuff<double>*> buff;
 };
-
 
 #endif // GRIDAQACCUMNODE_H
