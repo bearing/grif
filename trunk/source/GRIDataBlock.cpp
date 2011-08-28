@@ -1,14 +1,8 @@
 #include "GRIDataBlock.h"
 #include <cassert>
 
-GRIDataBlock::GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* analysis_struct)
-{
+GRIDataBlock::GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* analysis_struct) {
     list<ReaderDataObject>::iterator it;
-
-    //log << "GRIDataBlock Entry" << endl;
-    //log << "Data: " << analysis_struct->data.toStdString().c_str() << endl;
-    //log << "From: " << analysis_struct->From.toStdString().c_str() << endl;
-    //Commit//log(GRI//log_VERBOSE);
 
     this->name = analysis_struct->data;
     this->writer_name = analysis_struct->From;
@@ -16,7 +10,6 @@ GRIDataBlock::GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* an
     this->write_counter = 0;
     this->first_packet = 0;
     this->reg = reg;
-
 
     for(it = (analysis_struct->To).begin(); it != (analysis_struct->To).end(); it++) {
         reader_t* new_counter = new reader_t;
@@ -30,7 +23,8 @@ GRIDataBlock::GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* an
     }
 }
 
-GRIDataBlock::GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm, QString readerName, QString readerBuffer, QString objectDataName, QString objectFromName){
+GRIDataBlock::GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm, QString readerName,
+                           QString readerBuffer, QString objectDataName, QString objectFromName) {
 
     this->obj = new struct AnalysisStructureObject;
     ReaderDataObject *rdr = new struct ReaderDataObject;
@@ -62,43 +56,35 @@ GRIDataBlock::GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm, QString read
     }
 }
 
-GRIDataBlock::~GRIDataBlock()
-{
+GRIDataBlock::~GRIDataBlock() {
     list<reader_t*>::iterator it;
     for (it = readers.begin(); it != readers.end(); it++) {
         delete *it;
     }
-
     writer = NULL;
 }
 
-QString GRIDataBlock::get_name()
-{
+QString GRIDataBlock::get_name() {
     return this->name;
 }
 
-QString GRIDataBlock::get_writer_name()
-{
+QString GRIDataBlock::get_writer_name() {
     return this->writer_name;
 }
 
-GRIProcessThread* GRIDataBlock::get_writer()
-{
+GRIProcessThread* GRIDataBlock::get_writer() {
     return writer;
 }
 
-list<reader_t*>* GRIDataBlock::get_reader()
-{
+list<reader_t*>* GRIDataBlock::get_reader() {
     return &readers;
 }
 
-void GRIDataBlock::set_mm(GRIMemoryManager *mm)
-{
+void GRIDataBlock::set_mm(GRIMemoryManager *mm) {
     this->mm = mm;
 }
 
-void GRIDataBlock::set_link(list<GRIProcessThread*>* processes)
-{
+void GRIDataBlock::set_link(list<GRIProcessThread*>* processes) {
     list<GRIProcessThread*>::iterator process_it;
     list<reader_t*>::iterator reader_it;
 
@@ -151,59 +137,37 @@ void GRIDataBlock::set_link(list<GRIProcessThread*>* processes)
 //#endif
 }
 
-void GRIDataBlock::delete_packet()
-{
+void GRIDataBlock::delete_packet() {
     list<reader_t*>::iterator it;
     int lowest_packet = write_counter;
 
-//#ifdef DATA_BLOCK_DEBUG
-    //log << endl << "** DataBlock::delete_packet()" << endl << endl;
-    //Commit//log(GRI//log_VERBOSE);
-//#endif // DATA_BLOCK_DEBUG
-
-    for(it = readers.begin(); it != readers.end(); it++) {
+    for (it = readers.begin(); it != readers.end(); it++) {
         reader_t* reader = *it;
-        if(reader->read_counter < lowest_packet) {
+        if (reader->read_counter < lowest_packet) {
             lowest_packet = reader->read_counter;
         }
     }
 
 #ifdef DATA_BLOCK_DEBUG
     display_current_state();
-    //log << "lowest_packet: " << lowest_packet << endl;
-    //log << "first_packet: " << first_packet << endl;
-    //Commit//log(GRI//log_VERBOSE);
 #endif // DATA_BLOCK_DEBUG
 
-    if(lowest_packet > first_packet) {
-        for(int i = first_packet; i < lowest_packet; i++) {
+    if (lowest_packet > first_packet) {
+        for (int i = first_packet; i < lowest_packet; i++) {
             mm->deletePacket(this->writer_name, this->name, i);
         }
         first_packet = lowest_packet;
     }
 }
 
-void GRIDataBlock::load_balancing()
-{
+void GRIDataBlock::load_balancing() {
     list<reader_t*>::iterator it;
-
     delete_packet();
 
-    //log << ((GRIProcessThread*)QThread::currentThread())->get_name().toStdString().c_str() <<
-     //       ": Write Counter: " << write_counter << " -- First Packet: " << first_packet << endl;
-    //Commit//log(GRI//log_VERBOSE);
     // not much imbalance in the system
     if((write_counter - first_packet) < MAX_THRESHOLD) {
-        //log << "NO IMBALANCE: Write_Counter: " << write_counter << "- First Packet: " << first_packet << endl;
-        //Commit//log(GRI//log_VERBOSE);
         return;
     }
-
-
-    //log << endl << "** DataBlock::load_balancing()" << endl << endl;
-    //log << "writer_name: " << writer->get_name().toStdString().c_str() << " priority: " << (int)writer->priority() << endl;
-    //Commit//log(GRI//log_VERBOSE);
-
 
     // either decrease priority of writer (if possible) or increase the priority of the reader (if possible)
     if(rand() % 2 && (int)writer->priority() > (int)QThread::IdlePriority) {
@@ -213,26 +177,15 @@ void GRIDataBlock::load_balancing()
         for(it = readers.begin(); it != readers.end(); it++) {
             reader_t* reader = *it;
 
-    //log << "reader_name: " << reader->reader_name.toStdString().c_str() << " priority: " << (int)reader->reader->priority() << endl;
-    //Commit//log(GRI//log_VERBOSE);
-
-
             if((reader->read_counter - first_packet) > LOAD_BALANCING_FACTOR * MAX_THRESHOLD &&
                (int)reader->reader->priority() < (int)QThread::TimeCriticalPriority) {
                 reader->reader->change_priority(true);
-                //fprintf(reg->regulator_//log, "\nelapsed time is: %d ms\n", reg->timer.elapsed());
-                //log << "Changing thread priority for thread " <<
-                //        ((GRIProcessThread*)QThread::currentThread())->get_name().toStdString().c_str() <<
-                //        " to priority " <<
-                //        (int)reader->reader->priority() << endl;
-                //Commit//log(GRI//log_VERBOSE);
             }
         }
     }
 }
 
-bool GRIDataBlock::update_reader()
-{
+bool GRIDataBlock::update_reader() {
     QString curr_thread_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
     list<reader_t*>::iterator it;
@@ -241,46 +194,31 @@ bool GRIDataBlock::update_reader()
         if(!new_reader->reader_name.compare(curr_thread_name)) {
             new_reader->read_counter++;
             new_reader->reader->increment_packet_count();
-
             return true;
         }
     }
 
-
-    //log << "GRIDataBlock::mem_read(): Invalid reader: " << curr_thread_name.toStdString().c_str() << endl;
-    //Commit//log(GRI//log_ERROR);
-
     return false;
 }
 
-bool GRIDataBlock::update_writer()
-{
+bool GRIDataBlock::update_writer() {
     QString curr_thread_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
-   // if(curr_thread_name.compare(this->writer_name)) {
-    if(curr_thread_name != this->writer_name)
-    {
+    if(curr_thread_name != this->writer_name) {
 #ifdef DATA_BLOCK_DEBUG
-        //log << "! GRIDataBlock::mem_write(): " << curr_thread_name.toStdString().c_str() <<
-        //        " is not equal to " << this->writer_name.toStdString().c_str() << " so it is not allowed to write to " << this->name.toStdString().c_str() << endl;
-        //Commit//log(GRI//log_DEBUG);
         assert(false);
-
 #endif
-
         return NULL;
     }
 
     this->write_counter++;
     this->writer->increment_packet_count();
 
-   // load_balancing();
     return true;
 }
 
 #ifdef DATA_BLOCK_DEBUG
-void GRIDataBlock::display_current_state()
-{
+void GRIDataBlock::display_current_state() {
     //log << "** GRIDataBlock::current state" << endl << endl;
     //log << "writer: " << write_counter << " " << writer_name.toStdString().c_str() << endl;
 

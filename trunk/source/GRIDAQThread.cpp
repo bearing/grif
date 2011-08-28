@@ -2,27 +2,14 @@
 
 using namespace std;
 
-GRIDAQThread::GRIDAQThread()
-{
+GRIDAQThread::GRIDAQThread() {
     sleeping = false;
     exitThreadFlag = false;
     forceQuit = false;
     is_daq = true;
 }
 
-GRIDAQThread::~GRIDAQThread(){
-}
-
-
-//void GRIDAQThread::setRunFlag(bool newRunFlag){
-//    this->setRunFlag(newRunFlag);
-//    if(sleeping){
-//        sleeping = false;
-//    //TODO:
-//    //Tell regulator to unsleep thread.
-//    }
-//}
-
+GRIDAQThread::~GRIDAQThread() {}
 
 void GRIDAQThread::setExitThreadFlag(bool newExitThreadFlag){
     if(sleeping){
@@ -55,17 +42,10 @@ void GRIDAQThread::forceQuitDAQ(){
     setExitThreadFlag(false);
 }
 
-
-void GRIDAQThread::run()
-{
+void GRIDAQThread::run() {
     //log << "GRIDAQThread run" << endl;
     //CommitLog(GRILOG_MESSAGE);
     int error;
-
-//    error = openInitializationControl();
-//    if (error != DAQTHREAD_SUCCESS) {
-//        this->errorHandling("openInitializationControl failed", error);
-//    }
 
     cout << "Connecting to DAQ Here ..." << endl;
     error = connectToDAQ();
@@ -75,7 +55,7 @@ void GRIDAQThread::run()
 	
     cout << "Loading Configuration ..." << endl;
     error = loadConfiguration();
-    if (error != DAQTHREAD_SUCCESS){
+    if (error != DAQTHREAD_SUCCESS) {
         this->errorHandling("loadConfiguration() failed", error);
     }
 	
@@ -84,13 +64,13 @@ void GRIDAQThread::run()
     if(error != DAQTHREAD_SUCCESS) {
         this->errorHandling("initialize() failed", error);
     }
-    while(!this->getRunFlag() && !exitThreadFlag){
+    while(!this->getRunFlag() && !exitThreadFlag) {
         sleeping = true;
         //TODO:
         //Tell regulator to sleep thread.
     }
 
-    while(!exitThreadFlag){
+    while(!exitThreadFlag) {
         error = openRunTimeControl();
         if(error != DAQTHREAD_SUCCESS) {
             this->errorHandling("openRunTimeControl() failed", error);
@@ -100,9 +80,8 @@ void GRIDAQThread::run()
         if(error != DAQTHREAD_SUCCESS) {
             this->errorHandling("startDataAcquisition() failed", error);
         }
-		
-		
-        while(this->getRunFlag() && !exitThreadFlag){
+
+        while(this->getRunFlag() && !exitThreadFlag) {
             //cout << "GRIDAQThread-->AcquireData" << endl;
             error = acquireData();
             if (error != DAQTHREAD_SUCCESS){
@@ -116,13 +95,13 @@ void GRIDAQThread::run()
             this->errorHandling("Flush Accumulators failed", error);
         }
 
-        if(!forceQuit){
+        if(!forceQuit) {
             error = stopDataAcquisition();
             if(error != DAQTHREAD_SUCCESS) {
                 this->errorHandling("stopDataAcquisition() failed", error);
             }
         }
-        while(!this->getRunFlag() && !exitThreadFlag){
+        while(!this->getRunFlag() && !exitThreadFlag) {
             sleeping = true;
             //TODO:
             //Tell regulator to sleep thread.
@@ -137,10 +116,7 @@ void GRIDAQThread::run()
     }
 }
 
-
-
-
-void GRIDAQThread::errorHandling(const char * message, int errorCode){
+void GRIDAQThread::errorHandling(const char * message, int errorCode) {
     cerr << "GRIDAQThreadError: Message: " << message << endl;
     cerr << "\tError code = " << errorCode << endl;
     log << "GRIDAQThreadError: Message: " << message << endl;
@@ -148,14 +124,9 @@ void GRIDAQThread::errorHandling(const char * message, int errorCode){
     CommitLog(GRILOG_ERROR);
 }
 
-
-void GRIDAQThread::InitializeAccumulators(QDateTime tstart,
-                                          qint64 timestamp_0,
-                                          qint64 ticksPerSecond,
-                                          int NBuff,
-                                          int msecPerAccum
-                                          )
-{
+void GRIDAQThread::InitializeAccumulators(QDateTime tstart, qint64 timestamp_0,
+                                          qint64 ticksPerSecond, int NBuff,
+                                          int msecPerAccum) {
 
     ticksPerSecond = 0;
     NBuff = msecPerAccum = 0;
@@ -164,24 +135,21 @@ void GRIDAQThread::InitializeAccumulators(QDateTime tstart,
 
     // Finding the Accumulator in the list
     for(accum_it = accumList.begin(); accum_it != accumList.end(); accum_it++) {
-        GRIDAQAccumNode* accum = *accum_it;
-            accum->Initialize(tstart,timestamp_0);
-        }
-
+      GRIDAQAccumNode* accum = *accum_it;
+      accum->Initialize(tstart,timestamp_0);
+    }
 }
 
-int GRIDAQThread::FlushAccumulators()
-{
+int GRIDAQThread::FlushAccumulators() {
     list<GRIDAQAccumNode*>::iterator accum_it;
 
     // Finding the Accumulator in the list
     for(accum_it = accumList.begin(); accum_it != accumList.end(); accum_it++) {
-        GRIDAQAccumNode* accum = *accum_it;
-            accum->FlushBuffers();
-        }
+      GRIDAQAccumNode* accum = *accum_it;
+      accum->FlushBuffers();
+    }
 
     return 0;
-
 }
 
 
