@@ -66,7 +66,6 @@ typedef quint16 uint16_g;
 typedef quint32 uint32_g;
 typedef quint64 uint64_g;
 
-
 enum ENDIAN { LITTLE_END, BIG_END };
 
 #if Q_BYTE_ORDER == Q_LITTLE_ENDIAN
@@ -75,22 +74,13 @@ enum ENDIAN { LITTLE_END, BIG_END };
 #define SYSTEM_ENDIAN BIG_END
 #endif
 
-/*
-   if(SYSTEM_ENDIAN == LITTLE_ENDIAN){
-        //DO LITTLE ENDIAN STUFF
-   }else if (SYSTEM_ENDIAN == BIG_ENDIAN){
-        //DO BIG ENDIAN STUFF
-   }
- */
-
+// TODO(arbenson): Handle any big/little endian stuff
 
 #define CAST_LITERAL_TO_UINT64_G(c) Q_UINT64_C(c)
 // Usage: uint64_g aNumber = CAST_LITERAL_TO_UINT64_G(36028797018963968);
 
-
 #define CAST_LITERAL_TO_INT64_G(c) Q_INT64_C(c)
 // Usage: int64_g aNumber = CAST_LITERAL_TO_INT64_G(36028797018963968);
-
 
 //Alternate way of testing if system is 64 bit.
 //const bool systemIs64Bit = (sizeof(void *) == 8 ? 1 : 0);
@@ -101,7 +91,6 @@ enum ENDIAN { LITTLE_END, BIG_END };
 #define GRILOG_MESSAGE 2
 #define GRILOG_WARNING 3
 #define GRILOG_ERROR 4
-
 
 // For Qt's internally defined globals see http://doc.trolltech.com/4.5/qtglobal.html#details
 // For definitions of macros see qglobal.h
