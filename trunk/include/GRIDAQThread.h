@@ -8,7 +8,6 @@
 #include <QHash>
 #include <QString>
 
-
 #define DAQTHREAD_SUCCESS   0
 
 //Abstract DAQThreadClass
@@ -27,16 +26,12 @@
 *
 * \see GRIProcessThread()
 */
-class GRIDAQThread : public GRIProcessThread
-
-{
-
-public:
-//! A constructor
-GRIDAQThread();
-//! A destructor
-~GRIDAQThread();
-
+class GRIDAQThread : public GRIProcessThread {
+  public:
+    //! A constructor
+    GRIDAQThread();
+    //! A destructor
+    ~GRIDAQThread();
 
 /*
 The app engineer must create a class inheriting GRIDAQThread that implements
@@ -108,27 +103,20 @@ mydaq->addParam(QString Key, T& value);
 
 //Something will later start the daq thread, resulting in:
 mydaq->run(); //which calls the user defined methods in a well-defined order.
-
-
 */
 
-void registerAccumulator(QString buffname)
-{
+void registerAccumulator(QString buffname) {
     GRIDAQAccumNode* p = RegisterDataOutput(buffname);
-    if(p != NULL){
+    if(p != NULL) {
         p->SetDAQThreadObject(this);
         accumList.push_back(p);
-
-    }
-    else
+    } else {
         cerr << "! Accumulation Node " << buffname.toStdString().c_str() <<
                 "not found in RegisterDataOutput." << endl;
-
+    }
 }
 
 virtual GRIDAQAccumNode* RegisterDataOutput(QString outName) = 0;
-
-
 
 //! A member function for procedures that establish a connection to a DAQ
 /*!
@@ -188,7 +176,7 @@ virtual int loadConfiguration() = 0;
 * \see errorHandling()
 *
 */
-virtual int initialize() = 0;               //These three set up the DAQ initially,
+virtual int initialize() = 0;
 
 //! A member function for procedures that start data collection from a DAQ
 /*!
@@ -210,7 +198,7 @@ virtual int initialize() = 0;               //These three set up the DAQ initial
 * \see stopCollection()
 *
 */
-virtual int startDataAcquisition() = 0;     //Called at the beginning each run.
+virtual int startDataAcquisition() = 0;  // Called at the beginning each run.
 
 //! A member function for procedures will be called repeatedly to collect data
 /*!
@@ -249,7 +237,7 @@ virtual int startDataAcquisition() = 0;     //Called at the beginning each run.
 * \see GRIProcessThread()
 *
 */
-virtual int acquireData() = 0;              //Called repeatedly for each run inside loop
+virtual int acquireData() = 0;  // Called repeatedly for each run inside loop
 
 //! A member function for procedures that stop data collection from a DAQ
 /*!
@@ -275,7 +263,7 @@ virtual int acquireData() = 0;              //Called repeatedly for each run ins
 * \see startCollection()
 *
 */
-virtual int stopDataAcquisition() = 0;      //Called at the end of each run.
+virtual int stopDataAcquisition() = 0;  // Called at the end of each run.
 
 
 //! A member function for procedures that do final cleanup and shutdown for a DAQ
@@ -300,8 +288,7 @@ virtual int stopDataAcquisition() = 0;      //Called at the end of each run.
 * \see forceQuitDAQ()
 *
 */
-virtual int terminationRoutines() {return 0;}
-
+virtual int terminationRoutines() { return 0; }
 
 //! A member function for opening a GUI during DAQ initialization.
 /*!
@@ -434,11 +421,7 @@ void setExitThreadFlag(bool newExitThreadFlag);
 bool getExitThreadFlag();
 
 protected:
-
-//bool getRunFlag();                   //the regulator to use as stated above.
-
-
-template <class T> int PostData(int numel, QString buffer_name, T _data[], qint64 timestamps[]){
+template <class T> int PostData(int numel, QString buffer_name, T _data[], qint64 timestamps[]) {
 
     list<GRIDAQAccumNode*>::iterator accum_it;
 
@@ -452,7 +435,7 @@ template <class T> int PostData(int numel, QString buffer_name, T _data[], qint6
         }
     }
 
-    if(!found){
+    if(!found) {
         cerr << "!Accumulator not found in PostData() when looking for buffer name "<< buffer_name.toStdString() <<  endl;
         log << "Accumulator not found in PostData()" << endl;
         CommitLog(GRILOG_ERROR);
@@ -460,10 +443,9 @@ template <class T> int PostData(int numel, QString buffer_name, T _data[], qint6
     }
 
     GRIDAQAccumulator<T>* accum = (GRIDAQAccumulator<T> *)(*accum_it);
-    if(numel > 0){
+    if(numel > 0) {
         accum->Accumulate(numel, _data,timestamps,this->getRunFlag());
     }
-
     return 1;
 }
 
@@ -477,9 +459,7 @@ void InitializeAccumulators(QDateTime tstart,
 int FlushAccumulators();
 
 private:
-
 list<GRIDAQAccumNode*> accumList;
-
 };
 
 #endif // DAQTHREAD_H
