@@ -32,31 +32,27 @@
  *
  */
 
-
-//Begin SIMDAQThread
-struct peak{
+// Begin SIMDAQThread
+struct peak {
     double value;
     double sigma;
     double rate;
     int chan;
 };
 
-struct background{
+struct background {
     double rate;
     double min;
     double max;
     int chan;
 };
 
-struct dataOutput{
+struct dataOutput {
     int num;
     int chan;
     double ADC;
     double time;
 };
-//End SIMDAQThread
-
-
-
+// End SIMDAQThread
 
 #endif // GRIDATADEFINES_H
