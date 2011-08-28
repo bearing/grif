@@ -11,11 +11,10 @@ class GRIParam
 {
 
 public:
-    GRIParam() {   }
+    GRIParam() {}
 
     GRIParam(QString nm, QString defaultVal, QString val,
-                 QString min, QString max, QString units, QString type, QString index)
-    {
+                 QString min, QString max, QString units, QString type, QString index) {
         this->setInfo(nm, defaultVal, val, min, max, units, type, index);
     }
 
@@ -29,8 +28,7 @@ public:
     QString index;
 
     void setInfo(QString nm, QString defaultVal, QString val,
-                 QString min, QString max, QString units, QString type, QString index)
-    {
+                 QString min, QString max, QString units, QString type, QString index) {
         this->name = nm;
         this->defaultValue = defaultVal;
         this->data = val;
@@ -41,8 +39,7 @@ public:
         this->index = index;
     }
 
-    void display()
-    {
+    void display() {
         cout << endl;
         cout << "------------------------------------" << endl;
         cout << " NAME : " << this->name.toStdString().c_str() << endl;
@@ -51,8 +48,7 @@ public:
         cout << "------------------------------------" << endl << endl;
     }
 
-    list<QString> getDisplay()
-    {
+    list<QString> getDisplay() {
         list<QString> output;
 
         output.push_back("\n");
@@ -64,7 +60,6 @@ public:
 
         return output;
     }
-
 };
 
 #endif // GRI_PARAM_H

@@ -1,29 +1,25 @@
 #ifndef GRIPARSER_H
 #define GRIPARSER_H
 
+#include <list>
 #include "qdom.h"
 #include "QString"
-#include "QFile"
 #include "QHash"
-#include "iostream"
-using namespace std;
 
-struct linkParsingDetails{
+struct linkParsingDetails {
     QString writer;
     QString reader;
     QString dataBlock;
 };
 
-struct objectParsingDetails{
+struct objectParsingDetails {
     QString objectName;
     QString className;
     std::list<struct linkParsingDetails*> *links;
 };
 
-class GRIParser{
-
+class GRIParser {
 public:
-
     /*
      * parses the XML file path provided by filePath.  Sets up the
      * objectsAndLinks data structure which contains the details
@@ -41,7 +37,6 @@ public:
 private:
     QHash<QString, struct objectParsingDetails *> objectHash;
     std::list<struct objectParsingDetails> objectsAndLinks;
-
 };
 
 #endif // GRIPARSER_H

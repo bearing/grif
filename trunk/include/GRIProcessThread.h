@@ -3,13 +3,11 @@
 
 #define PROCESS_THREAD_DEBUG
 
+#include <list>
+#include <utility>
+#include <vector>
 #include <QHash>
 #include <QString>
-#include <QThread>
-
-#include <list>
-#include <string>
-
 #include "GRIRegulator.h"
 #include "GRIDataBlock.h"
 #include "GRIDefines.h"
@@ -17,19 +15,13 @@
 #include "GRILogMessage.h"
 #include "GRIThread.h"
 
-#include <queue>
-#include <utility>
-
-using namespace std;
-
 class GRIRegulator;
 class GRIDataBlock;
 
 #define DEFAULT_PACKETS_TO_SATURATION 1
 #define DEFAULT_PACKETS_FROM_SATURATION 1
 
-typedef struct process_details
-{
+typedef struct process_details {
     QString xml_path;
     QString name;
     bool isDaq;
@@ -45,27 +37,15 @@ typedef struct process_details
  * last time this process adjusts its priority away/to saturation. If the latter is
  * greater than the former, priority adjustment will be done
  */
-class GRIProcessThread : public GRIThread
-{
+class GRIProcessThread : public GRIThread {
 
     Q_OBJECT
 
 friend class GRICommandAndControl;
 
 public:
-
     GRIProcessThread();
-
     ~GRIProcessThread();
-
-    // Store the total number of inputs and outputs
-//    int numInOut;
-//    QList<GRIHistogrammer *> histArray;
-
-    /*
-     * init() sets up GRIProcessThread.  Must be called after constructor.
-     */
-
 
     //*******************************************************************
     //Please call init() before using other methods of GRIProcessThread.
@@ -79,29 +59,6 @@ public:
      * getID() returns the id of this process
      */
     int getID();
-
-//    /*
-//     * Set the number of input/output streams for histogrammer
-//     */
-//    void set_numInOut(int n);
-
-//    /*
-//     * Get the number of input/output streams for histogrammer
-//     */
-//    int get_numInOut();
-
-//    /*
-//     * Add to the histograms.  Takes in an array data of size
-//     * size.  streamIndex corresponds to the index of the
-//     * histogram in HistArray
-//     */
-//    void addToHist(double *data, int size);
-
-//    /*
-//     * Add to the histograms.  Takes in a single double for data.
-//     * streamIndex corresponds to the index of the histogram in HistArray.
-//     */
-//    void addToHist(double data);
 
     /*
      * get_type() returns the type of this process (either DAQ or analysis)
@@ -162,7 +119,7 @@ public:
 
 
     // This is overloaded in GRIDAQThread...
-    virtual void registerAccumulator(QString datablock){datablock = "ReduceCompilerWarnings";}
+    virtual void registerAccumulator(QString datablock) { datablock = "ReduceCompilerWarnings"; }
 
     /*
      * change_priority() decides whether to change the thread's priority or not
@@ -182,25 +139,7 @@ public:
      */
     GRIDataBlock* find_data_block(QString data_block_name);
 
-    //void CommitLog(int logLevel=0);
-    //QTextStream* msg;
-    //QTextStream log;
-    //QString temp;
-
     template <class T> void addParam(QString Key, T& value);
-
-
-    /*
-     * getParam() searches the hash table and returns the value of a parameter
-     * given the key
-     */
-    //template <class T> T getParam(QString Key);
-
-
-    /*
-     * setParam() searches the hash table and sets the value of a given key
-     */
-    //template <class T> void setParam(QString Key, T value);
 
     /*
      * readMemory() reads one packet from memory in the location specified by process_name
@@ -258,7 +197,7 @@ public:
     /*
      * dummy getStdVecParam() to be overridden by code generation
      */
-    template <class T> vector<T> getStdVecParam(QString name){ cout << name.toStdString().c_str() << endl; return 0;}
+    template <class T> std::vector<T> getStdVecParam(QString name){ cout << name.toStdString().c_str() << endl; return 0;}
 
     /*
      * dummy getQVecParam() to be overridden by code generation
@@ -268,7 +207,7 @@ public:
     /*
      * dummy setStdVecParam() to be overridden by code generation
      */
-    template <class T> void setStdVecParam(QString name, vector<T> values){ cout << name.toStdString().c_str() << " size: " << values.size() << endl;}
+    template <class T> void setStdVecParam(QString name, std::vector<T> values){ cout << name.toStdString().c_str() << " size: " << values.size() << endl;}
 
     /*
      * dummy setQVecParam() to be overidden by code generation
@@ -278,17 +217,17 @@ public:
     /*
      * dummy runAction() to be overridden by code generation
      */
-    void runAction(QString name){ cout << "Action: " << name.toStdString() << endl;}
+    void runAction(QString name) { cout << "Action: " << name.toStdString() << endl;}
 
     /*
      * dummy setInitialGCGValues() to be overridden by code generation
      */
-    void setInitialGCGValues(){}
+    void setInitialGCGValues() {}
 
     /*
      * dummy printActions() to be overridden by code generation
      */
-    void printActions(){}
+    void printActions() {}
 
 
     /*
@@ -306,30 +245,21 @@ protected:
     GRIRegulator* reg;
 
 private:
-
-    typedef struct data
-    {
+    typedef struct data {
         QString name;
         GRIDataBlock* data_block;
     } data_t;
 
-    //string name;  // name is contained in QObject use name() to return...
-
     QString xml_path;
 
-    //GRILogMessage LogMsg;
-
 public:
-    void setRunFlag(bool tf){RunFlag = tf;}  // This could be moved into protected once integration is completed.
-    bool getRunFlag(){return RunFlag;}
+    void setRunFlag(bool tf) {RunFlag = tf; }  // This could be moved into protected once integration is completed.
+    bool getRunFlag() {return RunFlag; }
     int thread_id; // id of this thread
 
     bool is_daq; // indicates whether this process is a daq or analysis
-
     static int counter; // to keep track what id needs to be given to a new thread
-
     list<data_t*> data_outs; // list of data blocks this process is writing to
-
     list<data_t*> data_ins; // list of data blocks this process is reading from
 
     // Load balancing variables: refer to the description of the class for more details
@@ -339,24 +269,7 @@ public:
     int last_adjustment_from_saturation;
 
     QHash<QString, void *> hashTable;
-
-signals:
-    //void histUpdate(GRIHistogrammer *hist);
-    //void logSignal(QString m);
-    //void logSignal(GRILogMessage m);
 };
-
-//template<class T> void GRIProcessThread::addParam(QString Key, T& value){
-  //  hashTable.insert(Key, &value);
-//}
-
-//template<class T> T GRIProcessThread::getParam(QString Key){
-  //  return *((T *) hashTable.value(Key));
-//}
-
-//template<class T> void GRIProcessThread::setParam(QString Key, T value){
-  //  *((T *) hashTable.value(Key)) = value;
-//}
 
 template<class T> pair<int, T*>
 GRIProcessThread::readMemory(QString blockName ,QString bufferName)
