@@ -1,20 +1,15 @@
 #include "GRIMemoryManager.h"
 
-
-GRIMemoryManager::GRIMemoryManager()
-{
-    blockNameTable = new QList<QString>();  //These pointer assignments lead to later bugs for soem reason
+GRIMemoryManager::GRIMemoryManager() {
+    // TODO(arbenson): These pointer assignments lead to later bugs for some reason
+    blockNameTable = new QList<QString>();
     nameTable = new QList< QList<QString>* >();
     dataBlockTable = new QList< QList<GRIBuffer*>* >();
     lockTable = new QList< QList<QReadWriteLock *>* >();
     this->set_name("MM");
 }
 
-
-
-GRIMemoryManager::~GRIMemoryManager()
-{
-
+GRIMemoryManager::~GRIMemoryManager() {
     int i;
     int s = dataBlockTable->size();
     for (i = 0; i< s; i++ ) {
@@ -32,7 +27,6 @@ GRIMemoryManager::~GRIMemoryManager()
         bufferTable->clear();
         bufferNameTable->clear();
         mutexs->clear();
-
     }
     lockTable->clear();
     blockNameTable->clear();
@@ -44,33 +38,33 @@ GRIMemoryManager::~GRIMemoryManager()
     delete dataBlockTable;
 }
 
-
-
 //creates a new buffer
-bool GRIMemoryManager::bufferCreate(QString dataBlockName, QString bufferName)
-{
+bool GRIMemoryManager::bufferCreate(QString dataBlockName, QString bufferName) {
     int blockIndex = locateDataBlock(dataBlockName);
 
-    if (blockIndex == -1) {                         //if block does not exist yet
-
-        QList<QReadWriteLock *> *locks = new QList<QReadWriteLock *>();  //add lock block
+    // check if block does not exist yet
+    if (blockIndex == -1) {
+        // add lock block
+        QList<QReadWriteLock *> *locks = new QList<QReadWriteLock *>();
         QReadWriteLock *lock = new QReadWriteLock();
         locks->append(lock);
 
-        QList<GRIBuffer*> *bufferTable = new QList<GRIBuffer*>();             //add buffer block
+        // add buffer block
+        QList<GRIBuffer*> *bufferTable = new QList<GRIBuffer*>();
         GRIBuffer *buf = new GRIBuffer(lock);
         bufferTable->append(buf);
 
-        lockTable->append(locks);                                       //adding to tables
+        // add to tables
+        lockTable->append(locks);
         dataBlockTable->append(bufferTable);
         blockNameTable->append(dataBlockName);
 
-        QList<QString> *names = new QList<QString>();                     //adding names to block
+        // add names to block
+        QList<QString> *names = new QList<QString>();
         names->append(bufferName);
         nameTable->append(names);
         return true;
-    } else {                                        //if block exists
-
+    } else {
         if (locateBuffer(bufferName, blockIndex) != -1) {
             return false;
         }
@@ -80,12 +74,9 @@ bool GRIMemoryManager::bufferCreate(QString dataBlockName, QString bufferName)
         QReadWriteLock *lock = new QReadWriteLock();
         locks->append(lock);
 
-
         QList<GRIBuffer*> *bufferTable = dataBlockTable->at(blockIndex);
         GRIBuffer *buf = new GRIBuffer(lock);
         bufferTable->append(buf);
-
-
 
         QList<QString> *names = nameTable->at(blockIndex);
         names->append(bufferName);
@@ -93,14 +84,7 @@ bool GRIMemoryManager::bufferCreate(QString dataBlockName, QString bufferName)
     }
 }
 
-
-
-
-void GRIMemoryManager::bufferDelete(QString dataBlockName, QString bufferName)
-{
-    //log << "Buffer Delete:" << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << endl;
-    //Commit//log(GRI//log_VERBOSE);
-
+void GRIMemoryManager::bufferDelete(QString dataBlockName, QString bufferName) {
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     buf->clear();
     int i = locateBuffer(dataBlockName, bufferName);
@@ -122,72 +106,46 @@ void GRIMemoryManager::bufferDelete(QString dataBlockName, QString bufferName)
     strList->removeAt(i);
 }
 
-
-
-void GRIMemoryManager::deletePacket(QString dataBlockName, QString bufferName, int packetNumber)
-{
-    //log << "Deleting Packet: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "(" << packetNumber << ")" << endl;
-    //Commit//log(GRI//log_VERBOSE);
+void GRIMemoryManager::deletePacket(QString dataBlockName, QString bufferName,
+                                    int packetNumber) {
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     buf->clearPacket(packetNumber);
 }
 
-
 //returns the index of the current packet being read from
-int GRIMemoryManager::currentPacketPosition(QString dataBlockName, QString bufferName)
-{
+int GRIMemoryManager::currentPacketPosition(QString dataBlockName,
+                                            QString bufferName) {
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     return buf->currentPacket();
 }
 
-
-
 //returns the index of the most recently added packet (the last packet in the buffer)
-int GRIMemoryManager::lastPacket(QString dataBlockName, QString bufferName)
-{
+int GRIMemoryManager::lastPacket(QString dataBlockName, QString bufferName) {
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
-
     return buf->bufferSize() == 0 ? -1 : (buf->bufferSize())-1;
 }
 
-
-
-int GRIMemoryManager::sizeofBuffer(QString dataBlockName, QString bufferName)
-{
+int GRIMemoryManager::sizeofBuffer(QString dataBlockName, QString bufferName) {
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     return buf->bufferSize();
 }
 
-
-
-
-int GRIMemoryManager::sizeofPacket(QString dataBlockName, QString bufferName, int packetNumber)
-{
+int GRIMemoryManager::sizeofPacket(QString dataBlockName, QString bufferName,
+                                   int packetNumber) {
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
-    //log << "MM: sizeofPacket: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "pack" << packetNumber
-           // << "(" << buf->packetSize(packetNumber) << ")" << endl;
-    //Commit//log(GRI//log_DEBUG);
-
     return buf->packetSize(packetNumber);
 }
 
-
-
 //sets the packet marker to be the given packetNumber. Subsequent readMemory calls will start
 //from this position.
-bool GRIMemoryManager::setPacketPosition(QString dataBlockName, QString bufferName, int packetNumber)
-{
+bool GRIMemoryManager::setPacketPosition(QString dataBlockName,
+                                         QString bufferName, int packetNumber) {
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     buf->setPacketMarker(packetNumber);
     return true;
 }
 
-
-
-void GRIMemoryManager::bufferReadLock(QString dataBlockName, QString bufferName)
-{
-    //log << "BufferReadLock:" << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << endl;
-    //Commit//log(GRI//log_VERBOSE);
+void GRIMemoryManager::bufferReadLock(QString dataBlockName, QString bufferName) {
     int i = locateDataBlock(dataBlockName);
     int j = locateBuffer(bufferName, i);
     QList<QReadWriteLock *> *locks = lockTable->at(i);
@@ -198,12 +156,7 @@ void GRIMemoryManager::bufferReadLock(QString dataBlockName, QString bufferName)
     }
 }
 
-
-
-void GRIMemoryManager::bufferWriteLock(QString dataBlockName, QString bufferName)
-{
-    //log << "bufferWriteLock: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << endl;
-    //Commit//log(GRI//log_VERBOSE);
+void GRIMemoryManager::bufferWriteLock(QString dataBlockName, QString bufferName) {
     int i = locateDataBlock(dataBlockName);
     int j = locateBuffer(bufferName, i);
     QList<QReadWriteLock *> *locks = lockTable->at(i);
@@ -228,16 +181,11 @@ void GRIMemoryManager::unlockBuffer(QString dataBlockName, QString bufferName)
 
 }
 
-
-
 //returns the index of the given buffer
-int GRIMemoryManager::locateBuffer(QString dataBlockName, QString bufferName)
-{
-
+int GRIMemoryManager::locateBuffer(QString dataBlockName, QString bufferName) {
     cout << "locateBuffer: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << endl;
-    //Commit//log(GRI//log_VERBOSE);
     int blockIndex = locateDataBlock(dataBlockName); 
-   QList<QString> *bufferNames = nameTable->at(blockIndex);
+    QList<QString> *bufferNames = nameTable->at(blockIndex);
     int i;
     int size = bufferNames->size();
     for (i = 0; i < size ; i++) {
@@ -251,16 +199,9 @@ int GRIMemoryManager::locateBuffer(QString dataBlockName, QString bufferName)
     return -1;                                      //should not reach here if buffer exists
 }
 
-
-
 //overloaded method
-int GRIMemoryManager::locateBuffer(QString bufferName, int blockIndex)
-{
-
-    //log << "locateBuffer: BlockIndex: " << blockIndex << " - " << bufferName.toStdString().c_str() << endl;
-    //Commit//log(GRI//log_VERBOSE);
+int GRIMemoryManager::locateBuffer(QString bufferName, int blockIndex) {
     QList<QString> *bufferNames = nameTable->at(blockIndex);
-    //cout << "Buffer Located " << endl;
     int i;
     int size = bufferNames->size();
     for (i = 0; i < size ; i++) {
@@ -270,99 +211,57 @@ int GRIMemoryManager::locateBuffer(QString bufferName, int blockIndex)
         }
     }
 
-    //log << "locateBuffer: BUFFER NOT LOCATED" << endl;
-    //Commit//log(GRI//log_ERROR);
-    return -1;                                      //should not reach here if buffer exists
+    return -1;  //should not reach here if buffer exists
 }
 
-
-
 //returns the index of the given data block in the GRIMemoryManager's tables
-int GRIMemoryManager::locateDataBlock(QString dataBlockName)
-{
-
-    //log  << "locateDataBlock:" << dataBlockName.toStdString().c_str() << endl;
-    //Commit//log(GRI//log_VERBOSE);
-
-    int i;
-
+int GRIMemoryManager::locateDataBlock(QString dataBlockName) {
     int size = blockNameTable->size();
 
-    for (i = 0; i < size; i++ ) {
+    for (int i = 0; i < size; i++ ) {
         if (blockNameTable->at(i) == dataBlockName) {
-            //cout << "Data Block Found: " << i << endl;
             return i;
         }
     }
-
-    //log << "locateDataBlock: DataBlock NOT LOCATED" << endl;
-    //Commit//log(GRI//log_ERROR);
-    return -1;                                      //should not reach here if buffer block exists
+    return -1;  //should not reach here if buffer block exists
 }
 
-
-
 //returns a pointer a to the buffer requested
-GRIBuffer* GRIMemoryManager::grabBuffer(QString dataBlockName, QString bufferName)
-{
-
+GRIBuffer* GRIMemoryManager::grabBuffer(QString dataBlockName, QString bufferName) {
     int blockIndex = locateDataBlock(dataBlockName);
-    //log << "grabBuffer:blockIndex -> " << blockIndex << endl;
-    //Commit//log(GRI//log_VERBOSE);
 
     if (blockIndex == -1) return 0;
     QList<GRIBuffer*> *bufferTable = dataBlockTable->at(blockIndex);
     int bufferIndex = locateBuffer(bufferName, blockIndex);
- //   cout << "bufferIndex: " << bufferIndex << endl;
+
     if (bufferIndex == -1) return 0;
     GRIBuffer *buf = bufferTable->at(bufferIndex);
- //   cout << "Buffer Grabbed" << endl;
     return buf;
 }
 
-
-
 //returns a copy of the packet requested
-char* GRIMemoryManager::readMemory(QString dataBlockName, QString bufferName, int packetNumber, char* buffer)
-{
-
+char* GRIMemoryManager::readMemory(QString dataBlockName, QString bufferName,
+                                   int packetNumber, char* buffer) {
     GRIMemoryManager::bufferReadLock(dataBlockName, bufferName);
-   // cout << "(MM) Read: Lock Buffer: " << qstrdup(qPrintable(dataBlockName)) << "-" << qstrdup(qPrintable(bufferName)) << endl;
-
-
-
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     if (packetNumber >= buf->bufferSize()) {
         buf->waitOnQueue();
     }
 
- //   cout << "MM: Buffer Grabbed...Reading" << endl;
-
-    //if buf = 0, should throw exception HERE
-
     int packSize = buf->packetSize(packetNumber);
-
-    //cout << "(MM) Read: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "-packet " <<
-    //        packetNumber << " (" << packSize << ")" << endl;
-    //Commit//log(GRI//log_VERBOSE);
 
     for (int i = 0; i < packSize; i++) {
         *(buffer+i) = buf->readBuffer(packetNumber,i);
     }
 
     buf->incrementPacketMarker();
-
     GRIMemoryManager::unlockBuffer(dataBlockName, bufferName);
-
     return buffer;
-
 }
 
-
-
 //returns a copy of the packet requested
-char* GRIMemoryManager::readMemory(QString dataBlockName, QString bufferName, char* buffer)
-{
+char* GRIMemoryManager::readMemory(QString dataBlockName, QString bufferName,
+                                   char* buffer) {
     //GRIMemoryManager::bufferReadLock(dataBlockName, bufferName);
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     int packetNumber = buf->currentPacket();
@@ -371,52 +270,41 @@ char* GRIMemoryManager::readMemory(QString dataBlockName, QString bufferName, ch
     return GRIMemoryManager::readMemory(dataBlockName, bufferName, packetNumber, buffer);
 }
 
-
-
 //writes into the packet specified
-bool GRIMemoryManager::writeMemory(QString dataBlockName, QString bufferName, int packetNumber, int size, char dataArray[])
-{
-
-   //cout << "(MM) Write: " << dataBlockName.toStdString().c_str() << "-" << bufferName.toStdString().c_str() << "-packet " <<
-   //        packetNumber << " (" << size << ")" << endl;
-   //Commit//log(GRI//log_VERBOSE);
-
+bool GRIMemoryManager::writeMemory(QString dataBlockName, QString bufferName,
+                                   int packetNumber, int size,
+                                   char dataArray[]) {
     GRIMemoryManager::bufferWriteLock(dataBlockName, bufferName);
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
 
     buf->SetBusyWrite(true);  // This prevents the new packet to be included in the size parameter until fully written to.
 
-    if(size == 0){
+    if (size == 0) {
         buf->AddNullPacket(packetNumber);
         // Still need to write a single char to buffer to maintain packet sequencing...
         if (!(buf->writeToBuffer(0, packetNumber, 0)))
             return false;
-    }
-    else
-    {
+    } else {
         for (int s = 0; s < size; s++) {
             if (!(buf->writeToBuffer(dataArray[s], packetNumber, s))) {
                 return false;
             }
         }
         // Want to wait until buffer fully registers inputs
-        while(buf->packetSize(packetNumber) < size)
-        {}
+        while(buf->packetSize(packetNumber) < size) {
+          // busy wait
+        }
     }
-    buf->SetBusyWrite(false);  // All is well with the new packet so clear the BusyWrite
 
+    buf->SetBusyWrite(false);  // All is well with the new packet so clear the BusyWrite
     buf->wakeAllOnQueue();
     GRIMemoryManager::unlockBuffer(dataBlockName,bufferName);
-
-
     return true;
 }
 
-
-
 //overloaded method
-bool GRIMemoryManager::writeMemory(QString dataBlockName, QString bufferName, int size, char dataArray[])
-{
+bool GRIMemoryManager::writeMemory(QString dataBlockName, QString bufferName,
+                                   int size, char dataArray[]) {
     //GRIMemoryManager::bufferWriteLock(dataBlockName, bufferName);
     GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
     int curPacket = buf->nextPacket();
