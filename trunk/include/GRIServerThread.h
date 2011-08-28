@@ -15,7 +15,6 @@ public:
     ~GRIServerThread();
     GRIServer *server;
 
-
 protected:
     void run();
 

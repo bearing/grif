@@ -9,11 +9,11 @@ using namespace std;
 class GRIClientSocket;
 class GRIRunManager;
 
-class GRIServer : public QTcpServer
-{
+class GRIServer : public QTcpServer {
     friend class GRIRunManager;
     friend class GRIServerThread;
     Q_OBJECT
+
 public:
     GRIServer();
     ~GRIServer();
