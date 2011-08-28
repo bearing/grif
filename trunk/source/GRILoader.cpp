@@ -34,7 +34,7 @@ GRILoader::GRILoader(QString localGRIFPath, GRIRegulator* regulator,QString GRIF
      ConnectLogger(GRIFLogFilename,regulator->GetMemoryManager());
 }
 
-GRILoader::GRILoader(QString localGRIFPath, GRIRegulator *regulator, list<QString> fileNames) {
+GRILoader::GRILoader(QString localGRIFPath, GRIRegulator *regulator, std::list<QString> fileNames) {
     this->fileNames = fileNames;
     this->localGRIFPath = localGRIFPath;
     this->regulator = regulator;
@@ -42,11 +42,11 @@ GRILoader::GRILoader(QString localGRIFPath, GRIRegulator *regulator, list<QStrin
 
 GRILoader::~GRILoader() {}
 
-list<GRIProcessThread*>* GRILoader::initProcessThreads(list<ProcessDetails*> details) {
+std::list<GRIProcessThread*>* GRILoader::initProcessThreads(std::list<ProcessDetails*> details) {
     // create a process thread list
-    list<GRIProcessThread*>* processList = new list<GRIProcessThread*>;
+    std::list<GRIProcessThread*>* processList = new std::list<GRIProcessThread*>;
 
-    list<ProcessDetails*>::iterator iter;
+    std::list<ProcessDetails*>::iterator iter;
 
     // create a process thread variable
     GRIProcessThread* p;
@@ -72,12 +72,12 @@ list<GRIProcessThread*>* GRILoader::initProcessThreads(list<ProcessDetails*> det
 }
 
 
-list<GRIDataBlock*>* GRILoader::initDataBlocks(list<GRIProcessThread*>* processes,
-                                               list<AnalysisStructureObject*> analyStructs) {
+std::list<GRIDataBlock*>* GRILoader::initDataBlocks(std::list<GRIProcessThread*>* processes,
+                                               std::list<AnalysisStructureObject*> analyStructs) {
     processes = 0; //reduce compiler warnings
 
-    list<GRIDataBlock*>* datablocks = new list<GRIDataBlock*>;
-    list<AnalysisStructureObject*>::iterator analyStructIter;
+    std::list<GRIDataBlock*>* datablocks = new std::list<GRIDataBlock*>;
+    std::list<AnalysisStructureObject*>::iterator analyStructIter;
 
     // create data blocks out of the analysis structure data
     for(analyStructIter=analyStructs.begin(); analyStructIter!=analyStructs.end(); analyStructIter++) {
@@ -109,9 +109,9 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails() {
      * 8. return a new GRIRegulatorDetails with the list of processes and the list of data blocks
      */
 
-    list<QString>::iterator it;
-    list<GRIProcessThread*>* processes = new list<GRIProcessThread*>;
-    list<GRIDataBlock*>* dataBlocks = new list<GRIDataBlock*>;
+    std::list<QString>::iterator it;
+    std::list<GRIProcessThread*>* processes = new std::list<GRIProcessThread*>;
+    std::list<GRIDataBlock*>* dataBlocks = new std::list<GRIDataBlock*>;
 
     for(it = fileNames.begin(); it != fileNames.end(); it++) {
         QString name = *it; //get name of xml file
@@ -145,7 +145,7 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails() {
 
             proc->setDefaultDetail(this->regulator, objectName);
 
-            list<struct linkParsingDetails *>::iterator link_details_it;
+            std::list<struct linkParsingDetails *>::iterator link_details_it;
             std::list<struct linkParsingDetails*> *obj_links = obj_details.links;
 
             for(link_details_it = obj_links->begin(); link_details_it != obj_links->end(); link_details_it++) {
@@ -169,7 +169,7 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails() {
     return new GRIRegulatorDetails(processes, dataBlocks); //return the processes and dataBlocks
 }
 
-list<GRIParam*>* GRILoader::readNewParamList( list<GRIParam*>* paramList)
+std::list<GRIParam*>* GRILoader::readNewParamList(std::list<GRIParam*>* paramList)
 {
     QFile file("../../../framework/trunk/lib/runtime_params.xml" );
     if (!file.open(QIODevice::ReadOnly)) {
@@ -304,7 +304,7 @@ void GRILoader::addChildParams(QXmlStreamReader& xml, GRIParam* head) {
 }
 
 std::list<ProcessDetails*> GRILoader::readPathXML() {
-  list<ProcessDetails*> locPathVector;
+  std::list<ProcessDetails*> locPathVector;
 
   ProcessDetails daq_info[200];
   ProcessDetails ana_info[200];
@@ -446,7 +446,7 @@ std::list<AnalysisStructureObject*> GRILoader::readAnalysisStructureXML() {
 }
 
 int GRILoader::ConnectLogger(QString fname, QObject* sender) {
-    list<GRILogger*>::iterator logIter;
+    std::list<GRILogger*>::iterator logIter;
     bool found = false;
 
     // create data blocks out of the analysis structure data
@@ -467,7 +467,7 @@ int GRILoader::ConnectLogger(QString fname, QObject* sender) {
 }
 
 int GRILoader::CreateLogger(QString fname, int LogLevel) {
-    list<GRILogger*>::iterator logIter;
+    std::list<GRILogger*>::iterator logIter;
     bool found = false;
 
     for(logIter=this->LogList.begin(); logIter!=this->LogList.end(); logIter++) {
