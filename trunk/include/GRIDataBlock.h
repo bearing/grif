@@ -33,41 +33,31 @@ class GRIMemoryManager;
  * thread reading from it.
  */
 
-struct ReaderDataObject
-{
-    QString name;
-    QString buffer;
+struct ReaderDataObject {
+  QString name;
+  QString buffer;
 };
 
-struct AnalysisStructureObject
-{
-    QString data;
-    QString From;
-    list<ReaderDataObject> To;
-
+struct AnalysisStructureObject {
+  QString data;
+  QString From;
+  list<ReaderDataObject> To;
 };
 
-struct reader_t
-{
-    long read_counter;
-    GRIProcessThread* reader;
-    QString reader_name;
-    QString reader_data;
+struct reader_t {
+  long read_counter;
+  GRIProcessThread* reader;
+  QString reader_name;
+  QString reader_data;
 };
 
-class GRIDataBlock: public GRIObject
-{
-
+class GRIDataBlock: public GRIObject {
     friend class GRICommandAndControl;
     friend class GRIMemoryManager;
 
-
 public:
-
     GRIDataBlock(GRIRegulator* reg, struct AnalysisStructureObject* analysis_struct);
-
     GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm, QString readerName, QString readerBuffer, QString objectDataName, QString objectFromName);
-
     ~GRIDataBlock();
 
     /*
@@ -130,23 +120,14 @@ public:
 #endif //DEBUG
 
 private:
-
     struct AnalysisStructureObject *obj;
-
     GRIRegulator* reg;
-
     GRIMemoryManager* mm;
-
     QString name; // name of this data block
-
     GRIProcessThread* writer; // the thread that's writing to this object
-
     QString writer_name; // name of writer writing to this object
-
     list<reader_t*> readers; // list of threads reading from this object
-    
     long write_counter; // # of times this buffer is written
-
     long first_packet; // last packet # deleted + 1
 };
 
