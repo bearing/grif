@@ -4,8 +4,7 @@
 
 using namespace std;
 
-GRIClientSocket::GRIClientSocket(QObject *parent, int id, GRIRunManager* mgr) : QTcpSocket(parent)
-{
+GRIClientSocket::GRIClientSocket(QObject *parent, int id, GRIRunManager* mgr) : QTcpSocket(parent) {
     this->manager = mgr;
     this->id = id;
     connect(this, SIGNAL(readyRead()), this, SLOT(readClient()));
@@ -13,23 +12,18 @@ GRIClientSocket::GRIClientSocket(QObject *parent, int id, GRIRunManager* mgr) : 
     connect(this, SIGNAL(disconnected()), this, SLOT(disconnectionMessage()));
     nextBlockSize = 0;
     this->message = " ";
-
-//    cout << "\nsocket created!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
 }
-GRIClientSocket::~GRIClientSocket()
-{
+
+GRIClientSocket::~GRIClientSocket() {
     this->disconnect();
     this->close();
 }
 
-void GRIClientSocket::disconnectionMessage()
-{
+void GRIClientSocket::disconnectionMessage() {
     cout << "\nConnection with " << id << " has been closed." << endl;
 }
 
-
-string GRIClientSocket::getInputWithSpaces()
-{
+string GRIClientSocket::getInputWithSpaces() {
     std::string message;
 
     char c[510];
@@ -56,10 +50,7 @@ string GRIClientSocket::getInputWithSpaces()
 
 }
 
-void GRIClientSocket::readClient()
-{
-//    cout << "READING CLIENT!!!!!!";
-
+void GRIClientSocket::readClient() {
     QDataStream in(this);
     in.setVersion(QDataStream::Qt_4_3);
 
@@ -86,8 +77,7 @@ void GRIClientSocket::readClient()
     this->nextBlockSize = 0;
 }
 
-void GRIClientSocket::sendData(list<string> output)
-{
+void GRIClientSocket::sendData(list<string> output) {
     string oneLineOutput = "";
 
     list<string>::iterator iter;
@@ -112,21 +102,19 @@ void GRIClientSocket::sendData(string messageback)
     write(block);
 
     this->nextBlockSize = 0;
-
 }
 
-void GRIClientSocket::sendError()
-{
-        this->message = "UNRECOGNIZED COMMAND";
+void GRIClientSocket::sendError() {
+    this->message = "UNRECOGNIZED COMMAND";
 
-        QByteArray block;
-        QDataStream out(&block, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_4_6);
-        out << quint16(0) << this->message;
-        out.device()->seek(0);
-        out << quint16(block.size()- sizeof(quint16));
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_4_6);
+    out << quint16(0) << this->message;
+    out.device()->seek(0);
+    out << quint16(block.size()- sizeof(quint16));
 
-        write(block);
+    write(block);
 
-        this->nextBlockSize = 0;
+    this->nextBlockSize = 0;
 }

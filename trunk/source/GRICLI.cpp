@@ -1,14 +1,12 @@
 #include "GRICLI.h"
 
-GRICLI::GRICLI(){  
-}
+GRICLI::GRICLI() {}
 
-GRICLI::GRICLI(list<GRIProcessThread *> *processes){
+GRICLI::GRICLI(list<GRIProcessThread *> *processes) {
     this->processes = processes;
 }
 
-void GRICLI::launch(){
-
+void GRICLI::launch() {
   this->CLI_state = MAIN;
   this->currProc = 0; //set the current process to null
 
@@ -25,7 +23,7 @@ void GRICLI::launch(){
   QString instr;
   QString *instr_array;
 
-  while(true){
+  while(true) {
 
     cout << endl;
     cout << "GRIF# ";
