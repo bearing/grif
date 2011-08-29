@@ -4,12 +4,9 @@
 #include "GRILoader.h"
 #include "GRIRegulator.h"
 
-using namespace std;
-
 void GRIRegulator::reg_init() {
   regulator_log = fopen("regulator//logfile.txt","w");
 }
-
 
 GRIRegulator::GRIRegulator(GRIMemoryManager *ma) {
   mm = ma;
@@ -76,7 +73,7 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
     curr_packet = mm->lastPacket(blockName, bufferName);
   }
 
-  cout << blockName.toStdString().c_str() << ":"  << bufferName.toStdString().c_str() << " reading packet " << packet_to_read << endl;
+  std::cout << blockName.toStdString().c_str() << ":"  << bufferName.toStdString().c_str() << " reading packet " << packet_to_read << endl;
 
   if (data->update_reader()) {
     int length = mm->sizeofPacket(blockName, bufferName,
@@ -101,10 +98,9 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
       data->load_balancing();
       return returnVal;
     }
-
   }
 
-  cout << "GRIRegulator::readMemory(): " << blockName.toStdString().c_str() <<
+  std::cout << "GRIRegulator::readMemory(): " << blockName.toStdString().c_str() <<
     " is not reading from " << data->get_writer_name().toStdString().c_str() << endl;
 
   pair<int, char*> returnVal(0, NULL);
