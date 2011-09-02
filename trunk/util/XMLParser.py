@@ -7,6 +7,12 @@ from xml.etree.ElementTree import ElementTree
 
 '''
 GRIF Code Generation
+
+These are utility classes used by the GCG_*.py scripts.
+
+written by Austin Benson: arbenson @ berkeley
+Berkeley Applied Research on the Imaging of Neutrons and Gamma-rays
+Domestic Nuclear Threat Security Initiative
 '''
 
 '''
@@ -29,7 +35,7 @@ class XMLParser:
     for dirent in dirents:
       if not os.path.isdir(dirent):
         if str(dirent).find('.xml') != -1 or str(dirent).find('.XML') != -1:
-          self.files.append(self.dir + '/' + str(dirent))
+          self.files.append('{0}/{1}'.format(self.dir, str(dirent)))
 
 
   def ParseFile(self, path):
@@ -44,8 +50,9 @@ class XMLParser:
 
 
   def PrintToFile(self, path):
-    f = open(self.out, 'w')
-    f.write(self.prefix + self.gen + self.suffix)
+    if self.out:
+      f = open(self.out, 'w')
+      f.write(self.prefix + self.gen + self.suffix)
 
 
 '''
@@ -59,7 +66,7 @@ class GRIUserProcessesParser(XMLParser):
     # get the header name
     header = tree.find('Header')
     name = header.attrib['hname']
-    self.gen += '#include \"' + name + '\"\n'
+    self.gen += '#include \"{0}\"\n'.format(name)
 
 
 '''
@@ -71,8 +78,8 @@ class GRIUserLoaderParser(XMLParser):
     tree.parse(path)
     name = tree.find('Name')
     classname = name.attrib['cname']
-    self.gen += '  if (class_name.contains(\"' + classname + '\")) {\n'
-    self.gen += '    p = new ' + classname + '();\n'
+    self.gen += '  if (class_name.contains(\"{0}\")) {1}\n'.format(classname, '{')
+    self.gen += '    p = new {0}();\n'.format(classname)
     self.gen += '    return p;\n  }\n\n'
 
 
@@ -98,3 +105,121 @@ class DataParser(XMLParser):
       struct += '} ' + name + ';\n\n'
       self.gen += struct
 
+
+'''
+ClassParser does the code generation for skeleton files
+'''
+class ClassParser(XMLParser):
+  def SetSkelDir(self, path):
+    self.skeldir = path
+
+
+  def ParseFile(self, path):
+    param_list = '// GCG param list\n'
+    get_param = '\n// GCG param getters\n' + 'template <class T> T getParam(QString name) {\n'
+    get_param_vec = '\n// GCG param getters (vector)\n' + 'template <class T> vector<T> getStdVecParam(QString name) {\n'
+    get_param_qvec = '\n// GCG param getters (QVector)\n' + 'template <class T> QVector<T> getQVecParam(QString name) {\n'
+    
+    set_param = '\n// GCG param setters\n' + 'template <class T> void setParam(QString name, T value) {\n'
+    set_param_vec = '\n// GCG param setters (vector)\n' + 'template <class T> void setStdVecParam(QString name, vector<T> value) {\n'
+    set_param_qvec = '\n// GCG param setters (QVector)\n' + 'template <class T> void setQVecParam(QString name, QVector<T> value) {\n'
+    
+    action_list = '\n// GCG action list\n' + '// PLEASE IMPLEMENT IN A SOURCE FILE. If code gen runs again, the implementation may be overwritten!\n'
+    action_choice = '\n// GCG action chocie\nvoid runAction(QString name) {\n  if (false) { /*dummy holder for code generation*/ }\n'
+    set_default_vals = '\n// GCG default value sets\n' + 'void setInitialGCGValues() {\n'
+
+    print_actions = '\n//GCG print actions (for GRICLI)\nvoid printActions() {\n'
+
+    tree = ElementTree()
+    tree.parse(path)
+
+    params = tree.find('RunTimeParams').findall('Param')
+    for param in params:
+      pname = param.attrib['pname']
+      dtype = param.attrib['type']
+      param_list += 'private {0} {1};\n'.format(dtype, pname)
+
+      get = '  if (name == \"{1}\") {0} return this->{1}; {2}\n'.format('{', pname, '}')
+      set = '  if (name == \"{1}\") {0} this->{1} = value; {2}\n'.format('{', pname, '}')
+
+      if dtype.find('QVector') != -1 and dtype.find('<') != -1:
+        get_param_qvec += get
+        set_param_qvec += set
+      elif dtype.find('vector') != -1 and dtype.find('<') != -1:
+        get_param_vec += get
+        set_param_vec += set
+      else:
+        get_param += get;
+        set_param += set;
+
+      if 'default' in param.attrib:
+        set_default_vals += '  {0} = {1};\n'.format(pname, param.attrib['default'])
+
+    end = '}\n'
+    get_param += end
+    get_param_vec += end
+    get_param_qvec += end
+    set_param += end
+    set_param_vec += end
+    set_param_qvec += end
+    set_default_vals += end
+
+    actions = tree.find('RunTimeActions').findall('Action')
+    for action in actions:
+      aname = action.attrib['method']
+      action_list += 'void {0}();\n'.format(aname)
+      action_choice += '  else if (name == \"{1}\") {0} {1}(); {2}\n'.format('{', aname, '}')
+      print_actions += '  cout << \"{0}()\" << endl;\n'.format(aname)
+
+    action_choice += '  else { std::cout << \"could not parse action\" }\n}\n'
+    print_actions += '}\n'
+
+    fname = tree.find('Auxiliary').attrib['apath']
+    auxfile = open(fname, 'w')
+
+    auxfile.write(param_list)
+    auxfile.write(get_param)
+    auxfile.write(get_param_qvec)
+    auxfile.write(get_param_vec)
+    auxfile.write(set_param)
+    auxfile.write(set_param_qvec)
+    auxfile.write(set_param_vec)
+    auxfile.write(set_default_vals)
+    auxfile.write(action_list)
+    auxfile.write(action_choice)
+    auxfile.write(print_actions)
+
+    if not self.skeldir:
+      print 'No skeleton directory set.  Not creating a generic class'
+      return
+
+    skeldir = tree.find('Skeleton').attrib['spath']
+    skelname = tree.find('Header').attrib['hname']
+    skeldst = '{0}/{1}'.format(skeldir, skelname)
+    classname = tree.find('Name').attrib['cname']
+    isdaq = tree.find('Name').attrib['isdaq']
+
+    replace = 'my_grif_daq'
+    skelfile = '{0}/{1}'.format(self.skeldir, 'GRIDAQThreadGeneric.h')
+
+    if isdaq.find('false') != -1 or isdaq.find('no') != -1 or isdaq.find('0') != -1:
+      replace = 'my_grif_analysis'
+      skelfile = '{0}/{1}'.format(self.skeldir, 'GRIAnalysisThreadGeneric.h')
+
+    print 'Using skeleton file {0} to create {1}\n'.format(skelfile, skeldst)
+
+    grifdef = 'GRIF CODE GENERATION\n#define GRIF_CG'
+    auxname = tree.find('Auxiliary').attrib['hname']
+    grifincl = 'GRIF CODE GENERATION\n #include \"{0}\"'.format(auxname)
+
+    # String replacement
+    input = open(skelfile, 'r')
+    output = open(skeldst, 'w')
+    for line in input:
+      line = line.replace(replace, classname)
+      line = line.replace('GCG_DEF', grifdef)
+      line = line.replace('GCG_INCLUDE', grifincl)
+      output.write(line)
+
+    input.close()
+    output.close()
