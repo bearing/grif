@@ -1,16 +1,16 @@
 <?xml version='1.0'?>
 <Class>
     <Name cname = "SIMDAQThread" isdaq = "true" />
-    <Auxiliary apath = "/Users/benson/Desktop/GCG_test/GCG_daq_aux.h" />
+    <Auxiliary apath = "./XML/GCG_daq_aux.h" hname = "GCG_daq_aux.h"/>
     <Header hname = "SIMDAQThread.h" />
-    <Skeleton spath = "/Users/benson/Desktop/GCG_test" />
+    <Skeleton spath = "./XML" />
     <RunTimeParams>
         <Param pname = "e1" type = "double" default = "10.5" />
         <Param pname = "ind" type = "int" default = "2" />
-        <Param pname = "e1_vec" type = "vector &lt; double &gt;" />
-        <Param pname = "ind_vec" type = "vector &lt; int &gt;" />
-        <Param pname = "e1_qvec" type = "QVector &lt; double &gt;" />
-        <Param pname = "ind_qvec" type = "QVector &lt; int &gt;"  />
+        <Param pname = "e1_vec" type = "vector &lt;double&gt;" />
+        <Param pname = "ind_vec" type = "vector &lt;int&gt;" />
+        <Param pname = "e1_qvec" type = "QVector &lt;double&gt;" />
+        <Param pname = "ind_qvec" type = "QVector &lt;int&gt;"  />
     </RunTimeParams>
     <RunTimeActions>
         <Action method = "DynamicAddPeak" />
