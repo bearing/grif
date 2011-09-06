@@ -19,9 +19,9 @@ Domestic Nuclear Threat Security Initiative
 XMLParser is the base class for the GRIF XML parsing.
 '''
 class XMLParser:
-  def __init__(self, prefix, suffix, dir, out):
-    self.prefix = prefix
-    self.suffix = suffix
+  def __init__(self, dir, out):
+    self.prefix = ''
+    self.suffix = ''
     self.gen = ''
     self.out = out
     self.dir = dir
@@ -60,6 +60,21 @@ GRIUserProcessesParser is for generating the necessary #include statements for
 GRIUserProcceses.h.
 '''
 class GRIUserProcessesParser(XMLParser):
+  def __init__(self, dir, out):
+    self.prefix = '#ifndef GRIUSERPROCESSES_H\n'
+    self.prefix += '#define GRIUSERPROCESSES_H\n'
+    self.prefix += '\n/*\n'
+    self.prefix += 'This file includes all of the necessary user header files\n'
+    self.prefix += 'The data in this file was generated with GCG_GRIUserProccesses.pl,\n'
+    self.prefix += 'which can be found in grif/framework/util\n'
+    self.prefix += '*/\n\n\n'
+    self.prefix += '//Code-generated includes (harvested from XML files => Header tag)\n'
+    self.suffix = '\n\n#endif // GRIUSERPROCESSES_H\n'
+    self.gen = ''
+    self.out = out
+    self.dir = dir
+    self.files = []
+
   def ParseFile(self, path):
     tree = ElementTree()
     tree.parse(path)
@@ -73,6 +88,17 @@ class GRIUserProcessesParser(XMLParser):
 GRIUserLoader is for generating code for the framework file GRIUserLoader.cpp.
 '''
 class GRIUserLoaderParser(XMLParser):
+  def __init__(self, dir, out):
+    self.prefix = '#include \"GRIUserLoaderAux.h\"\n\n'
+    self.prefix += '//GCG process prefix code for GRIUserLoader.cpp\n'
+    self.prefix += 'GRIProcessThread *get_new_process(QString class_name, QString instance_name){\n\n'
+    self.prefix += '\tGRIProcessThread *p = NULL;\n\n'
+    self.suffix = '\treturn p;\n}\n';
+    self.gen = ''
+    self.out = out
+    self.dir = dir
+    self.files = []
+
   def ParseFile(self, path):
     tree = ElementTree()
     tree.parse(path)
@@ -88,6 +114,21 @@ DataParser is for generating the definitions of data types specified by
 the user. The GRI class GRIDataDefines.h will include the auxiliary file.
 '''
 class DataParser(XMLParser):
+  def __init__(self, dir, out):
+    self.prefix = '#ifndef GRIDATDEFINES_AUX_H\n'
+    self.prefix += '#define GRIDATADEFINES_AUX_H\n'
+    self.prefix += '\n/*\n'
+    self.prefix += 'This file includes all of the user-defined data types\n'
+    self.prefix += 'The data in this file was generated with GCG_data.py,\n'
+    self.prefix += 'which can be found in grif/framework/util\n'
+    self.prefix += '*/\n\n\n'
+    self.prefix += '//Code-generated data types\n'
+    self.suffix = '\n\n#endif // GRIDATADEFINES_AUX_H\n'
+    self.gen = ''
+    self.out = out
+    self.dir = dir
+    self.files = []
+
   def ParseFile(self, path):
     tree = ElementTree()
     tree.parse(path)
