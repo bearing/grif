@@ -45,11 +45,12 @@ Domestic Nuclear Threat Security Initiative
 '''
 
 import XMLParser
+import sys
 
 if len(sys.argv) < 3:
   print 'usage: python GCG_main.py /path/to/xml/files /path/to/grif/skeletons'
   exit()
 
-parser = ClassParser(sys.argv[1], None)
+parser = XMLParser.ClassParser(sys.argv[1], None)
 parser.SetSkelDir(sys.argv[2])
 parser.Parse()

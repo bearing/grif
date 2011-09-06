@@ -12,11 +12,11 @@ Domestic Nuclear Threat Security Initiative
 '''
 
 import XMLParser
-import os
+import sys
 
 if len(sys.argv) < 3:
   print 'usage: python GCG_GRIUserLoader.py /path/to/xml/files /path/to/auxiliary/file'
   exit()
   
-parser = GRIUserLoaderParser(sys.argv[1], sys.argv[2])
+parser = XMLParser.GRIUserLoaderParser(sys.argv[1], sys.argv[2])
 parser.Parse()

@@ -43,13 +43,12 @@ Berkeley Applied Research on the Imaging of Neutrons and Gamma-rays
 Domestic Nuclear Threat Security Initiative
 '''
 
-
 import XMLParser
-
+import sys
 
 if len(sys.argv) < 3:
   print 'usage: python GCG_data.py /path/to/xml/files /path/to/auxiliary/file'
   exit()
 
-parser = DataParser(sys.argv[1], sys.argv[2])
+parser = XMLParser.DataParser(sys.argv[1], sys.argv[2])
 parser.Parse()

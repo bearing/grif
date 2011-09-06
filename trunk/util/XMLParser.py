@@ -90,10 +90,10 @@ GRIUserLoader is for generating code for the framework file GRIUserLoader.cpp.
 class GRIUserLoaderParser(XMLParser):
   def __init__(self, dir, out):
     self.prefix = '#include \"GRIUserLoaderAux.h\"\n\n'
-    self.prefix += '//GCG process prefix code for GRIUserLoader.cpp\n'
-    self.prefix += 'GRIProcessThread *get_new_process(QString class_name, QString instance_name){\n\n'
-    self.prefix += '\tGRIProcessThread *p = NULL;\n\n'
-    self.suffix = '\treturn p;\n}\n';
+    self.prefix += '// GCG process prefix code for GRIUserLoader.cpp\n'
+    self.prefix += 'GRIProcessThread *get_new_process(QString class_name, QString instance_name) {\n'
+    self.prefix += '  GRIProcessThread *p = NULL;\n\n'
+    self.suffix = '  return p;\n}\n';
     self.gen = ''
     self.out = out
     self.dir = dir
