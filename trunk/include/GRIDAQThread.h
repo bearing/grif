@@ -112,7 +112,7 @@ void registerAccumulator(QString buffname) {
         accumList.push_back(p);
     } else {
         cerr << "! Accumulation Node " << buffname.toStdString().c_str() <<
-                "not found in RegisterDataOutput." << endl;
+                " not found in RegisterDataOutput." << endl;
     }
 }
 
