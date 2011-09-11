@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <Class>
-    <Name cname = "SIMDAQThread" isdaq = "true" />
+    <Info cname = "SIMDAQThread" isdaq = "true" />
     <Auxiliary apath = "./XML/GCG_daq_aux.h" hname = "GCG_daq_aux.h"/>
     <Header hname = "SIMDAQThread.h" />
     <Skeleton spath = "./XML" />
