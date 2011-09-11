@@ -28,14 +28,24 @@ class XMLParser:
     self.files = []
 
 
+  def DirentFormatCheck(self, dirent):
+      if not (dirent.find('.xml') != -1 or dirent.find('.XML') != -1):
+        return False
+      if not (dirent.find('#') == -1 and dirent.find('~') == -1):
+        return False
+      return True
+
+
   def ParseDirectory(self, path):
     # Check each file in the directory. If the file ends in .xml or .XML, add
     # it to the list of files
     dirents = os.listdir(self.dir)
     for dirent in dirents:
       if not os.path.isdir(dirent):
-        if str(dirent).find('.xml') != -1 or str(dirent).find('.XML') != -1:
-          self.files.append('{0}/{1}'.format(self.dir, str(dirent)))
+        entry = str(dirent)
+        if self.DirentFormatCheck(entry):
+          print 'Found file: {0}'.format(entry)
+          self.files.append('{0}/{1}'.format(self.dir, entry))
 
 
   def ParseFile(self, path):
@@ -61,27 +71,32 @@ GRIUserProcceses.h.
 '''
 class GRIUserProcessesParser(XMLParser):
   def __init__(self, dir, out):
-    self.prefix = '#ifndef GRIUSERPROCESSES_H\n'
-    self.prefix += '#define GRIUSERPROCESSES_H\n'
+    self.prefix = '#ifndef GRIUSERPROCESSES_AUX_H\n'
+    self.prefix += '#define GRIUSERPROCESSES_AUX_H\n'
     self.prefix += '\n/*\n'
     self.prefix += 'This file includes all of the necessary user header files\n'
     self.prefix += 'The data in this file was generated with GCG_GRIUserProccesses.pl,\n'
     self.prefix += 'which can be found in grif/framework/util\n'
     self.prefix += '*/\n\n\n'
     self.prefix += '//Code-generated includes (harvested from XML files => Header tag)\n'
-    self.suffix = '\n\n#endif // GRIUSERPROCESSES_H\n'
+    self.suffix = '\n\n#endif // GRIUSERPROCESSES_AUX_H\n'
     self.gen = ''
     self.out = out
     self.dir = dir
     self.files = []
+    self.headers = []
 
   def ParseFile(self, path):
     tree = ElementTree()
     tree.parse(path)
     # get the header name
     header = tree.find('Header')
+    if header is None:
+      return
     name = header.attrib['hname']
-    self.gen += '#include \"{0}\"\n'.format(name)
+    if not name in self.headers:
+      self.headers.append(name)
+      self.gen += '#include \"{0}\"\n'.format(name)
 
 
 '''
@@ -89,21 +104,33 @@ GRIUserLoader is for generating code for the framework file GRIUserLoader.cpp.
 '''
 class GRIUserLoaderParser(XMLParser):
   def __init__(self, dir, out):
+    '''
     self.prefix = '#include \"GRIUserLoaderAux.h\"\n\n'
     self.prefix += '// GCG process prefix code for GRIUserLoader.cpp\n'
     self.prefix += 'GRIProcessThread *get_new_process(QString class_name, QString instance_name) {\n'
     self.prefix += '  GRIProcessThread *p = NULL;\n\n'
-    self.suffix = '  return p;\n}\n';
+    self.suffix = '  return p;\n}\n'
+    '''
+    self.prefix = ''
+    self.suffix = ''
     self.gen = ''
     self.out = out
     self.dir = dir
     self.files = []
+    self.classes = []
 
   def ParseFile(self, path):
     tree = ElementTree()
     tree.parse(path)
-    name = tree.find('Name')
+    name = tree.find('Info')
+    if name is None:
+      return
     classname = name.attrib['cname']
+    if classname is None:
+      return
+    if classname in self.classes:
+      return
+    self.classes.append(classname)
     self.gen += '  if (class_name.contains(\"{0}\")) {1}\n'.format(classname, '{')
     self.gen += '    p = new {0}();\n'.format(classname)
     self.gen += '    return p;\n  }\n\n'
@@ -117,13 +144,13 @@ class DataParser(XMLParser):
   def __init__(self, dir, out):
     self.prefix = '#ifndef GRIDATDEFINES_AUX_H\n'
     self.prefix += '#define GRIDATADEFINES_AUX_H\n'
-    self.prefix += '\n/*\n'
-    self.prefix += 'This file includes all of the user-defined data types\n'
-    self.prefix += 'The data in this file was generated with GCG_data.py,\n'
-    self.prefix += 'which can be found in grif/framework/util\n'
-    self.prefix += '*/\n\n\n'
+    self.prefix += '\n'
+    self.prefix += '// This file includes all of the user-defined data types\n'
+    self.prefix += '// The data in this file was generated with GCG_data.py,\n'
+    self.prefix += '// which can be found in grif/framework/util\n'
+    self.prefix += '\n'
     self.prefix += '//Code-generated data types\n'
-    self.suffix = '\n\n#endif // GRIDATADEFINES_AUX_H\n'
+    self.suffix = '#endif // GRIDATADEFINES_AUX_H\n'
     self.gen = ''
     self.out = out
     self.dir = dir
@@ -133,6 +160,8 @@ class DataParser(XMLParser):
     tree = ElementTree()
     tree.parse(path)
     datatypes = tree.findall('datat')
+    if datatypes is None:
+      return
     for dtype in datatypes:
       struct = 'typedef struct {\n'
       vars = dtype.find('var').findall('vtype')
@@ -174,7 +203,10 @@ class ClassParser(XMLParser):
     tree = ElementTree()
     tree.parse(path)
 
-    params = tree.find('RunTimeParams').findall('Param')
+    rtps = tree.find('RunTimeParams')
+    params = []
+    if not rtps is None:
+      params = rtps.findall('Param')
     for param in params:
       pname = param.attrib['pname']
       dtype = param.attrib['type']
@@ -205,7 +237,10 @@ class ClassParser(XMLParser):
     set_param_qvec += end
     set_default_vals += end
 
-    actions = tree.find('RunTimeActions').findall('Action')
+    rtas = tree.find('RunTimeActions')
+    actions = []
+    if not rtas is None:
+      actions = rtas.findall('Action')
     for action in actions:
       aname = action.attrib['method']
       action_list += 'void {0}();\n'.format(aname)
@@ -215,30 +250,39 @@ class ClassParser(XMLParser):
     action_choice += '  else { std::cout << \"could not parse action\" }\n}\n'
     print_actions += '}\n'
 
-    fname = tree.find('Auxiliary').attrib['apath']
-    auxfile = open(fname, 'w')
-
-    auxfile.write(param_list)
-    auxfile.write(get_param)
-    auxfile.write(get_param_qvec)
-    auxfile.write(get_param_vec)
-    auxfile.write(set_param)
-    auxfile.write(set_param_qvec)
-    auxfile.write(set_param_vec)
-    auxfile.write(set_default_vals)
-    auxfile.write(action_list)
-    auxfile.write(action_choice)
-    auxfile.write(print_actions)
+    auxiliary = tree.find('Auxiliary')
+    if not auxiliary is None:
+      fname = auxiliary.attrib['apath']
+      auxfile = open(fname, 'w')
+      auxfile.write(param_list)
+      auxfile.write(get_param)
+      auxfile.write(get_param_qvec)
+      auxfile.write(get_param_vec)
+      auxfile.write(set_param)
+      auxfile.write(set_param_qvec)
+      auxfile.write(set_param_vec)
+      auxfile.write(set_default_vals)
+      auxfile.write(action_list)
+      auxfile.write(action_choice)
+      auxfile.write(print_actions)
 
     if not self.skeldir:
       print 'No skeleton directory set.  Not creating a generic class'
       return
 
-    skeldir = tree.find('Skeleton').attrib['spath']
-    skelname = tree.find('Header').attrib['hname']
+    skeleton = tree.find('Skeleton')
+    if skeleton is None:
+      return
+    skeldir = skeleton.attrib['spath']
+
+    header = tree.find('Header')
+    if header is None:
+      return
+    skelname = header.attrib['hname']
+
     skeldst = '{0}/{1}'.format(skeldir, skelname)
-    classname = tree.find('Name').attrib['cname']
-    isdaq = tree.find('Name').attrib['isdaq']
+    classname = tree.find('Info').attrib['cname']
+    isdaq = tree.find('Info').attrib['isdaq']
 
     replace = 'my_grif_daq'
     skelfile = '{0}/{1}'.format(self.skeldir, 'GRIDAQThreadGeneric.h')
@@ -250,7 +294,7 @@ class ClassParser(XMLParser):
     print 'Using skeleton file {0} to create {1}\n'.format(skelfile, skeldst)
 
     grifdef = 'GRIF CODE GENERATION\n#define GRIF_CG'
-    auxname = tree.find('Auxiliary').attrib['hname']
+    auxname = tree.find('Header').attrib['hname']
     grifincl = 'GRIF CODE GENERATION\n #include \"{0}\"'.format(auxname)
 
     # String replacement
