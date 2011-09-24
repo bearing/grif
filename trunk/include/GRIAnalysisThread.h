@@ -1,19 +1,16 @@
 #ifndef GRIAnalysisThread_H
 #define GRIAnalysisThread_H
 
+#include <iostream>
+#include <QHash>
+#include <QString>
 #include "GRIProcessThread.h"
 #include "GRIHistogrammer.h"
 #include "GRIHist1D.h"
 #include "GRIHist2D.h"
 #include "GRIHist3D.h"
-#include <iostream>
-#include <QHash>
-#include <QString>
-
 
 #define ANALYSISTHREAD_SUCCESS   0
-
-//Abstract AnalysisThreadClass
 
 //! A GRIAnalysisThread class
 /*!
@@ -29,9 +26,7 @@
 *
 * \see GRIProcessThread()
 */
-class GRIAnalysisThread : public GRIProcessThread
-
-{
+class GRIAnalysisThread : public GRIProcessThread {
     Q_OBJECT
 
 public:
@@ -125,18 +120,16 @@ mydaq->run(); //which calls the user defined methods in a well-defined order.
 * \see errorHandling()
 *
 */
-    virtual int initialize(){return 0;}
-
+    virtual int initialize() { return 0; }
 
     //! A member function for procedures will be called repeatedly to analyze data
     /*!
 *
 * Analyze() should contain procedures that reads data and performs analysis then
-* uses PostData to send results to the next analysis block.
-*
+* uses PostData to send results to the next analysis block. This is called repreatedly
+* for each run inside loop.
 */
-    virtual int Analyze() = 0;              //Called repeatedly for each run inside loop
-
+    virtual int Analyze() = 0;
 
     //! A member function for opening a GUI during DAQ initialization.
     /*!
@@ -150,6 +143,7 @@ mydaq->run(); //which calls the user defined methods in a well-defined order.
 * This method is guaranteed to be called once immediately after this DAQThread
 * runs. It is called before any other methods in GRIDAQThread (except
 * openInitializationControl()).  It is not called for each startCollection().
+* This can be overriden to tell the GUI to open.
 *
 * \return an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
 * code of your choosing upon failure.  The error will be reported using the
@@ -159,7 +153,7 @@ mydaq->run(); //which calls the user defined methods in a well-defined order.
 * \see setParam()
 *
 */
-    virtual int openInitializationControl() { return 0; }  //Can override to tell GUI to open.
+    virtual int openInitializationControl() { return 0; }
 
     //! A member function for opening a GUI during a DAQ run.
     /*!
@@ -167,7 +161,7 @@ mydaq->run(); //which calls the user defined methods in a well-defined order.
 * openRunTimeControl() should open a GUI for controlling running of
 * the DAQ.  Dynamically getting and setting parameters may be done through the
 * getParam() and setParam() methods in GRIProcessThread().  Implementation of this
-* method is optional.
+* method is optional. This can be overridden to tell the GUI to open.
 *
 * invariants:
 * This method is guaranteed to be called once immediately after startCollection()
@@ -183,7 +177,7 @@ mydaq->run(); //which calls the user defined methods in a well-defined order.
 * \see startCollection()
 * \see stopCollection()
 */
-    virtual int openRunTimeControl() { return 0; }         //Can override to tell GUI to open.
+    virtual int openRunTimeControl() { return 0; }
 
     //!  The run() method.  Called when this thread is started by the regulator.
     void run();
@@ -195,22 +189,17 @@ mydaq->run(); //which calls the user defined methods in a well-defined order.
     void setExitThreadFlag(bool newExitThreadFlag);
     bool getExitThreadFlag();
 
-    template <class T> int PostData(int numel, QString buffer_name, T _data[]){
-
+    template <class T> int PostData(int numel, QString buffer_name, T _data[]) {
         cout << this->get_name().toStdString().c_str()
                 << "::PostData - "
                 << buffer_name.toStdString().c_str()
                 << endl;
         return this->writeMemory(this->get_name(),buffer_name,numel,_data);
-
     }
 
-    template <class T> pair<int, T*> ReadData(QString block_name, QString buffer_name){
-
-
-
+    template <class T> pair<int, T*> ReadData(QString block_name, QString buffer_name) {
         pair<int, T*> p = readMemory<T>(block_name, buffer_name);
-        ReadDataPtrs.push_back((void*)p.second);
+        read_data_ptrs_.push_back((void*)p.second);
         // Adding NULL to p.second after this to ensure garbage collection goes on as planned
         // NULL packet writes will write a single NULL character to the memory manager
         // which still needs to be freed normally, but should not be passed back;
@@ -218,17 +207,20 @@ mydaq->run(); //which calls the user defined methods in a well-defined order.
             p.second = NULL;
 
         return p;
-
     }
 
     GRIHistogrammer* GetHistogram(QString HistName);
     int CreateNewHistogram(QString HistName, int nx, double xBins[]);
     int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax);
-    int CreateNewHistogram(QString HistName, int nx, double xBins[],int ny, double yBins[]);
-    int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax,int ny, double ymin, double ymax);
-    // Not available in my version of Root...but leaving hook for later integration...
-    //int CreateNewHistogram(QString HistName, int nx, double xBins[],int ny, double yBins[],int nz, double zBins[]);
-    int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax,int ny, double ymin, double ymax,int nz, double zmin, double zmax);
+    int CreateNewHistogram(QString HistName, int nx, double xBins[],int ny,
+                           double yBins[]);
+    int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax,
+                           int ny, double ymin, double ymax);
+    // TODOD(arbenson): make this work with current root version
+    // int CreateNewHistogram(QString HistName, int nx, double xBins[],int ny,
+    //                       double yBins[],int nz, double zBins[]);
+    int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax,
+                           int ny, double ymin, double ymax,int nz, double zmin, double zmax);
 
     int SetHistRateMode(QString HistName, bool tf);
     int SetHistPacketScaleFactor(QString HistName, double ScaleFactor);
@@ -238,7 +230,7 @@ mydaq->run(); //which calls the user defined methods in a well-defined order.
     int UpdateHistogram(QString HistName, double x[], double y[], double z[], int numel);
 
     QList<QString> GetHistogramList();
-    QList<GRIHistogrammer*> GetHistogramPList() { return HistArray; }
+    QList<GRIHistogrammer*> GetHistogramPList() { return hist_array_; }
 
 signals:
     void SendHistogram(GRIHistogrammer* hist);
@@ -247,12 +239,9 @@ public slots:
     void GetHistogramSlot(QString HistName) { emit SendHistogram(this->GetHistogram(HistName)); }
 
 private:
-
-    QList<void*> ReadDataPtrs;
-    QList<GRIHistogrammer*> HistArray;
+    QList<void*> read_data_ptrs_;
+    QList<GRIHistogrammer*> hist_array_;
     void ReadGarbageCollection();
-
 };
-
 
 #endif // GRIAnalysisThread_H
