@@ -1,16 +1,14 @@
 #ifndef GRIDAQTHREAD_H
 #define GRIDAQTHREAD_H
 
-#include "GRIProcessThread.h"
-#include "GRIDAQAccumulator.h"
-#include "GRIDAQAccumNode.h"
 #include <iostream>
 #include <QHash>
 #include <QString>
+#include "GRIProcessThread.h"
+#include "GRIDAQAccumulator.h"
+#include "GRIDAQAccumNode.h"
 
 #define DAQTHREAD_SUCCESS   0
-
-//Abstract DAQThreadClass
 
 //! A GRIDAQThread class
 /*!
