@@ -3,10 +3,9 @@
 
 #include <QString>
 #include <QTimer>
+#include "GRIAccumBuff.h"
 #include "GRIObject.h"
 #include "GRIProcessThread.h"
-#include "GRIDAQAccumulator.h"
-#include "GRIAccumBuff.h"
 
 // Abstract Container for GRIDAQAccumulators of different types
 
