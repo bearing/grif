@@ -1,284 +1,248 @@
+#include "iostream"
+#include "QList"
+#include "QStringList"
 #include "GRICLI.h"
 
-GRICLI::GRICLI() {}
-
-GRICLI::GRICLI(list<GRIProcessThread *> *processes) {
-    this->processes = processes;
+GRICLI::GRICLI(std::list<GRIProcessThread *> *processes) {
+  processes_ = processes;
 }
 
-void GRICLI::launch() {
-  this->CLI_state = MAIN;
-  this->currProc = 0; //set the current process to null
+void GRICLI::Launch() {
+  cli_state_ = MAIN;
+  curr_proc_ = 0; //set the current process to null
 
-  /* form the process hash table */
-  list<GRIProcessThread*>::iterator proc_it;
-  for(proc_it = processes->begin(); proc_it != processes->end(); proc_it++)
-    processHash[(*proc_it)->get_name()] = *proc_it;
+  // form the process hash table
+  std::list<GRIProcessThread*>::iterator proc_it;
+  for (proc_it = processes_->begin(); proc_it != processes_->end(); proc_it++)
+    process_hash_[(*proc_it)->get_name()] = *proc_it;
 
-  this->displayMain();
-
-  //main instruction loop
+  DisplayMain();
 
   QTextStream stream(stdin);
   QString instr;
   QString *instr_array;
 
-  while(true) {
-
-    cout << endl;
-    cout << "GRIF# ";
+  // main instruction loop
+  while (true) {
+    std::cout << endl;
+    std::cout << "GRIF# ";
     instr = stream.readLine();
-    cout << endl;
+    std::cout << endl;
 
     QStringList instr_breakup = instr.split(" ");
     int n = instr_breakup.length();
-    // CHANGE TO NEW AND DELETE (Windows compiler sucks).  Why does delete cause NULL pointer exceptions now???
+    // TODO(arbenson): use new and delete for Windows compiler
     instr_array = new QString[n];
     QList<QString>::iterator instr_it;
     int i = 0;
-    for(instr_it = instr_breakup.begin(); instr_it != instr_breakup.end(); instr_it++){
+    for (instr_it = instr_breakup.begin(); instr_it != instr_breakup.end();
+	 ++instr_it) {
       instr_array[i] = *instr_it;
-      i++;
+      ++i;
     }
     
     //check if help
-    if (instr_array[0] == "help"){
-      this->displayHelp();
+    if (instr_array[0] == "help") {
+      DisplayHelp();
       continue;
     }
 
     //check if quit
-    if (instr_array[0] == "quit"){
+    if (instr_array[0] == "quit") {
       break; // get out of the loop
     }
 
-    if(CLI_state == MAIN){
+    if (cli_state_ == MAIN) {
       //check if processes
-      if (instr_array[0] == "processes"){
-	this->displayProcesses();
+      if (instr_array[0] == "processes") {
+	DisplayProcesses();
 	continue;
       }
 
       //check if broadcast
-      if (instr_array[0] == "broadcast"){
-	if(instr_array[1] == "set" && n >= 5){
-	  this->broadcastSet(instr_array[2], instr_array[3], instr_array[4]);
+      if (instr_array[0] == "broadcast") {
+	if (instr_array[1] == "set" && n >= 5) {
+	  BroadcastSet(instr_array[2], instr_array[3], instr_array[4]);
           continue;
-	}
-	else if(instr_array[1] == "get" && n >= 4){
-	  this->broadcastGet(instr_array[2], instr_array[3]);
+	} else if (instr_array[1] == "get" && n >= 4) {
+	  BroadcastGet(instr_array[2], instr_array[3]);
           continue;
-	}
-	else if(instr_array[1] == "action" && n >= 3){
-	  this->broadcastAction(instr_array[2]);
+	} else if (instr_array[1] == "action" && n >= 3) {
+	  BroadcastAction(instr_array[2]);
           continue;
-	}
-	else{
-          cout << "could not parse broadcast" << endl;
-	  this->displayHelp();
+	} else {
+          std::cout << "could not parse broadcast" << endl;
+	  DisplayHelp();
           continue;
 	}
       }
-       
+
       //check if process name is in hash table
-      GRIProcessThread *p = this->processHash[instr_array[0]];
-      if(p != 0){
-	currProc = p;
-	CLI_state = PROCESS_TOP;
+      GRIProcessThread *p = process_hash_[instr_array[0]];
+      if (p != 0) {
+	curr_proc_ = p;
+	cli_state_ = PROCESS_TOP;
 	continue;
-      }
-      else{
-        cout << "could not retrieve process: " << instr_array[0].toStdString().c_str() << endl;
+      } else {
+        std::cout << "could not retrieve process: " << instr_array[0].toStdString().c_str() << endl;
         continue;
       }
-      
-
-    }
-    else if(CLI_state == PROCESS_TOP){
-
-      if(instr_array[0] == "set" && n >= 4){
-        this->processSet(instr_array[1], instr_array[2], instr_array[3]);
+    } else if (cli_state_ == PROCESS_TOP) {
+      if (instr_array[0] == "set" && n >= 4) {
+        ProcessSet(instr_array[1], instr_array[2], instr_array[3]);
         continue;
-      }
-      else if(instr_array[0] == "get" && n >= 3){
-        this->processGet(instr_array[1], instr_array[2]);
+      } else if (instr_array[0] == "get" && n >= 3) {
+        ProcessGet(instr_array[1], instr_array[2]);
         continue;
-      }
-      else if(instr_array[0] == "action" && n >= 2){
-        this->processAction(instr_array[1]);
+      } else if (instr_array[0] == "action" && n >= 2) {
+        ProcessAction(instr_array[1]);
         continue;
-      }
-      else if (instr_array[0] == "actions"){
-	this->displayActions();
+      } else if (instr_array[0] == "actions") {
+	DisplayActions();
         continue;
-      }
-      else if(instr_array[0] == "back"){
-	CLI_state = MAIN;
+      } else if (instr_array[0] == "back") {
+	cli_state_ = MAIN;
 	continue;
-      }
-      else{
-	cout << "could not parse instruction" << endl;
-	this->displayHelp();
+      } else {
+	std::cout << "could not parse instruction" << endl;
+	DisplayHelp();
         continue;
       }
-
     } 
   } //end while loop 
-  this->quit();
+  Quit();
 }
 
-void GRICLI::quit(){
-  cout << "Exiting command line interface " << endl;
+void GRICLI::Quit() {
+  std::cout << "Exiting command line interface " << endl;
 }
 
-void GRICLI::displayMain(){
-
-  cout << endl << endl << endl << endl;
-  cout << "  Command line interface       " << endl;
-  cout << "  **********************       " << endl;
-  cout << "  type 'help' for instructions " << endl;
-
+void GRICLI::DisplayMain() {
+  std::cout << endl << endl << endl << endl;
+  std::cout << "  Command line interface       " << endl;
+  std::cout << "  **********************       " << endl;
+  std::cout << "  type 'help' for instructions " << endl;
 }
 
-void GRICLI::displayHelp(){
-
-  if(CLI_state == MAIN){
-    cout << "  Type 'broadcast set [name] [value] [data type]' to broadcast a set to all processes " << endl;
-    cout << "  Type 'broadcast get [name] [data type]' to broadcast a get to all processes         " << endl;
-    cout << "  Type 'broadcast action [name]' to broadcast an action to all processes              " << endl;
-    cout << "  Type 'processes' for a list of the current processes                                " << endl;
-    cout << "  Type in the name of a process to interact with it                                   " << endl;
-    cout << "  Type 'help' for instructions                                                        " << endl;
-    cout << "  Type 'quit' to exit                                                                 " << endl;
+void GRICLI::DisplayHelp() {
+  if (cli_state_ == MAIN) {
+    std::cout << "  Type 'broadcast set [name] [value] [data type]' to broadcast a set to all processes " << endl;
+    std::cout << "  Type 'broadcast get [name] [data type]' to broadcast a get to all processes         " << endl;
+    std::cout << "  Type 'broadcast action [name]' to broadcast an action to all processes              " << endl;
+    std::cout << "  Type 'processes' for a list of the current processes                                " << endl;
+    std::cout << "  Type in the name of a process to interact with it                                   " << endl;
+    std::cout << "  Type 'help' for instructions                                                        " << endl;
+    std::cout << "  Type 'quit' to exit                                                                 " << endl;
   }
-  else if(CLI_state == PROCESS_TOP){
-    cout << "  Current process: " << this->currProc->get_name().toStdString().c_str() << endl;
-    cout << "  Type 'set [name] [value] [data type]' to set a value          " << endl;
-    cout << "  Type 'get [name] [data type]' to get a value                  " << endl;
-    cout << "  Type 'run [Action Name]' to perform an action                 " << endl;
-    cout << "  Type 'actions' to see a list of actions for the process       " << endl;
-    cout << "  Type 'back' to go back to main                                " << endl;
-    cout << "  Type 'quit' to exit                                           " << endl;
+  else if (cli_state_ == PROCESS_TOP) {
+    std::cout << "  Current process: " << curr_proc_->get_name().toStdString().c_str() << endl;
+    std::cout << "  Type 'set [name] [value] [data type]' to set a value          " << endl;
+    std::cout << "  Type 'get [name] [data type]' to get a value                  " << endl;
+    std::cout << "  Type 'run [Action Name]' to perform an action                 " << endl;
+    std::cout << "  Type 'actions' to see a list of actions for the process       " << endl;
+    std::cout << "  Type 'back' to go back to main                                " << endl;
+    std::cout << "  Type 'quit' to exit                                           " << endl;
   }
-
 }
 
-void GRICLI::displayProcesses(){
+void GRICLI::DisplayProcesses() {
+  if (process_hash_.size() == 0) {
+    std::cout << "[no processes detected]" << endl;
+    return;
+  }
 
-    if(processHash.size() == 0){
-        cout << "[no processes detected]" << endl;
-        return;
-    }
-
-  QList<QString> procs = processHash.uniqueKeys();
+  QList<QString> procs = process_hash_.uniqueKeys();
   QList<QString>::iterator procs_it;
-  for(procs_it = procs.begin(); procs_it != procs.end(); procs_it++){
+  for (procs_it = procs.begin(); procs_it != procs.end(); procs_it++) {
     QString p_name = *procs_it;
-    cout << p_name.toStdString().c_str() << endl;
+    std::cout << p_name.toStdString().c_str() << endl;
   }
 }
 
-void GRICLI::processSet(QString name, QString value, QString dataType){
-
+void GRICLI::ProcessSet(QString name, QString value, QString dataType) {
   dataType = dataType.toLower();
 
-  if(dataType == "double"){
+  if (dataType == "double") {
     double val = value.toDouble();
-    currProc->setParam<double>(name, val);
-  }
-  else if(dataType == "int"){
+    curr_proc_->setParam<double>(name, val);
+  } else if (dataType == "int") {
     int val = value.toInt();
-    currProc->setParam<int>(name, val);
-  }
-  else if(dataType == "float"){
-     float val = value.toFloat();
-     currProc->setParam<float>(name, val);
-  }
-  else if(dataType == "char"){
+    curr_proc_->setParam<int>(name, val);
+  } else if (dataType == "float") {
+    float val = value.toFloat();
+    curr_proc_->setParam<float>(name, val);
+  } else if (dataType == "char") {
     char val = (char)value.toInt();
-    currProc->setParam<char>(name, val);
-  }
-  else if(dataType == "bool" || dataType == "boolean"){
+    curr_proc_->setParam<char>(name, val);
+  } else if (dataType == "bool" || dataType == "boolean") {
     bool val;
-    if(value == "true" || value == "1" || value == "yes")
-        val = true;
-    else
-        val = false;
-    currProc->setParam<bool>(name, val);
+    if (value == "true" || value == "1" || value == "yes") {
+      val = true;
+    } else {
+      val = false;
+    }
+    curr_proc_->setParam<bool>(name, val);
+  } else {
+    std::cout << "Can't parse data type: " << dataType.toStdString().c_str() << endl;
   }
-  else{
-    cout << "Can't parse data type: " << dataType.toStdString().c_str() << endl;
-  }
-
 }
 
-void GRICLI::processGet(QString name, QString dataType){
-
+void GRICLI::ProcessGet(QString name, QString dataType) {
   dataType = dataType.toLower();
 
-  if(dataType == "double"){
-    cout << name.toStdString().c_str() << ": " << currProc->getParam<double>(name);
+  if (dataType == "double") {
+    std::cout << name.toStdString().c_str() << ": " << curr_proc_->getParam<double>(name);
+  } else if (dataType == "int") {
+    std::cout << name.toStdString().c_str() << ": " << curr_proc_->getParam<int>(name);
+  } else if (dataType == "float") {
+    std::cout << name.toStdString().c_str() << ": " << curr_proc_->getParam<float>(name);
+  } else if (dataType == "char") {
+    std::cout << name.toStdString().c_str() << ": " << curr_proc_->getParam<char>(name);
+  } else if (dataType == "bool" || dataType == "boolean") {
+    std::cout << name.toStdString().c_str() << ": " << curr_proc_->getParam<bool>(name);
+  } else {
+    std::cout << "Can't parse data type: " << dataType.toStdString().c_str() << endl;
   }
-  else if(dataType == "int"){
-    cout << name.toStdString().c_str() << ": " << currProc->getParam<int>(name);
-  }
-  else if(dataType == "float"){
-    cout << name.toStdString().c_str() << ": " << currProc->getParam<float>(name);
-  }
-  else if(dataType == "char"){
-    cout << name.toStdString().c_str() << ": " << currProc->getParam<char>(name);
-  }
-  else if(dataType == "bool" || dataType == "boolean"){
-    cout << name.toStdString().c_str() << ": " << currProc->getParam<bool>(name);
-  }
-  else{
-    cout << "Can't parse data type: " << dataType.toStdString().c_str() << endl;
-  }
-
 }
 
-void GRICLI::processAction(QString name){
-  currProc->runAction(name);
+void GRICLI::ProcessAction(QString name) {
+  curr_proc_->runAction(name);
 }
 
-void GRICLI::broadcastSet(QString name, QString value, QString dataType){
-
-  list<GRIProcessThread*>::iterator proc_it;
-  GRIProcessThread *curr = this->currProc; //save state
-  for(proc_it = processes->begin(); proc_it != processes->end(); proc_it++){
-    currProc = *proc_it;
-    this->processSet(name, value, dataType);
+void GRICLI::BroadcastSet(QString name, QString value, QString dataType) {
+  std::list<GRIProcessThread*>::iterator proc_it;
+  GRIProcessThread *curr = curr_proc_; //save state
+  for (proc_it = processes_->begin(); proc_it != processes_->end(); proc_it++) {
+    curr_proc_ = *proc_it;
+    ProcessSet(name, value, dataType);
   }
 
-  currProc = curr; //restore state
+  curr_proc_ = curr; //restore state
 }
-void GRICLI::broadcastGet(QString value, QString dataType){
-
-  list<GRIProcessThread*>::iterator proc_it;
-  GRIProcessThread *curr = this->currProc; //save state
-  for(proc_it = processes->begin(); proc_it != processes->end(); proc_it++){
-    currProc = *proc_it;
-    this->processGet(value, dataType);
+void GRICLI::BroadcastGet(QString value, QString dataType) {
+  std::list<GRIProcessThread*>::iterator proc_it;
+  GRIProcessThread *curr = curr_proc_; //save state
+  for (proc_it = processes_->begin(); proc_it != processes_->end(); proc_it++) {
+    curr_proc_ = *proc_it;
+    ProcessGet(value, dataType);
   }
 
-  currProc = curr; //restore state
+  curr_proc_ = curr; //restore state
 }
  
-void GRICLI::broadcastAction(QString name){
-
-  list<GRIProcessThread*>::iterator proc_it;
-  GRIProcessThread *curr = this->currProc; //save state
-  for(proc_it = processes->begin(); proc_it != processes->end(); proc_it++){
-    currProc = *proc_it;
-    this->processAction(name);
+void GRICLI::BroadcastAction(QString name) {
+  std::list<GRIProcessThread*>::iterator proc_it;
+  GRIProcessThread *curr = curr_proc_; //save state
+  for (proc_it = processes_->begin(); proc_it != processes_->end(); proc_it++) {
+    curr_proc_ = *proc_it;
+    ProcessAction(name);
   }
 
-  currProc = curr; //restore state
+  curr_proc_ = curr; //restore state
 }
 
-void GRICLI::displayActions(){
-
-  cout << "[Not implemented yet, still need to do -Austin]" << endl;
-
+void GRICLI::DisplayActions() {
+  // TODO(arbenson): implement this
+  std::cout << "[Not implemented yet, still need to do -Austin]" << endl;
 }
 

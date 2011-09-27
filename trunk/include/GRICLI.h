@@ -1,53 +1,51 @@
 #ifndef GRICLI_H
 #define GRICLI_H
 
-#include "sstream"
-#include "iostream"
+#include "list"
 #include "QString"
-#include "QList"
-#include "QStringList"
 #include "GRIProcessThread.h"
 
 enum CLI_state_enum { MAIN, PROCESS_TOP };
 
 class GRICLI {
  public:
-  GRICLI(); // sets the CLI_state to main, calls displayMain(), forms the hash table
-  GRICLI(list<GRIProcessThread*> *processes); //same as above constructor, but pass the processes in
+  GRICLI() {}
+  // start from a given set of GRI processes
+  GRICLI(list<GRIProcessThread*> *processes); 
 
-  void setProcessList(list<GRIProcessThread*> *procs){this->processes = procs;} //set the process list
+  //set the process list
+  void set_processes(list<GRIProcessThread*> *processes) {
+    processes_ = processes;
+  }
 
-  void launch(); //launch the command line interface
-  void quit(); //exit the command line interface
+  void Launch();
+  void Quit();
 
  private:
+  // All of these methods will be called internally
+  // You only need to call the launch() method to start
+  // and the quit() method to exit
+  void DisplayMain();
+  void DisplayHelp();
+  void DisplayProcesses();
+  void DisplayActions();
 
-  /* -all of these methods will be called internally
-   * -you only need to call the launch() method to start
-   *  and the quit() method to exit
-   */
-
-  void displayMain(); //main page -- starting state
-  void displayHelp(); //help page
-  void displayProcesses(); //list the processes
-
-  void displayActions(); //actions
-
-  //methods that parse input to do sets, gets, and actions
-  void processSet(QString name, QString value, QString dataType);
-  void processGet(QString name, QString dataType);
-  void processAction(QString name);
+  // methods that parse input to do sets, gets, and actions
+  void ProcessSet(QString name, QString value, QString dataType);
+  void ProcessGet(QString name, QString dataType);
+  void ProcessAction(QString name);
   
-  //broadcast versions of the sets, gets, and actions
-  void broadcastSet(QString name, QString value, QString dataType);
-  void broadcastGet(QString value, QString dataType);
-  void broadcastAction(QString name);
+  // broadcast versions of the sets, gets, and actions
+  void BroadcastSet(QString name, QString value, QString dataType);
+  void BroadcastGet(QString value, QString dataType);
+  void BroadcastAction(QString name);
 
-  GRIProcessThread *currProc; //the current process for sets, gets, actions
-  list<GRIProcessThread*> *processes; //the list of processes, same as what gets passed to the regulator
-  QHash<QString, GRIProcessThread*> processHash; //to get processes from the command line arguments
-  enum CLI_state_enum CLI_state;
+  //the current process for sets, gets, actions
+  GRIProcessThread *curr_proc_;
 
+  std::list<GRIProcessThread*> *processes_;
+  QHash<QString, GRIProcessThread*> process_hash_;
+  enum CLI_state_enum cli_state_;
 };
 
 #endif // GRICLI_H
