@@ -32,6 +32,7 @@
  *
  */
 
+// TODO(arbenson): These should be removed.  This class will rely on code generation.
 // Begin SIMDAQThread
 struct peak {
     double value;
@@ -54,5 +55,9 @@ struct dataOutput {
     double time;
 };
 // End SIMDAQThread
+
+#ifdef GRIF_CODE_GENERATION
+#include "GCG/GRIDataDefines_aux.h"
+#endif GRIF_CODE_GENERATION
 
 #endif // GRIDATADEFINES_H

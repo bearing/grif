@@ -62,7 +62,6 @@ class GRILoader {
     int CreateLogger(QString fname, int LogLevel);
 
   protected:
-    virtual GRIProcessThread* load(QString process_name, QString object_name, QString XMLFile) = 0;
     virtual GRIProcessThread* load(QString process_name, QString object_name) = 0;
 
   private:
