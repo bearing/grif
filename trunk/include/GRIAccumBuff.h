@@ -1,5 +1,5 @@
-#ifndef GRIACCUMBUFF_H
-#define GRIACCUMBUFF_H
+#ifndef FRAMEWORK_TRUNK_INCLUDE_GRIACCUMBUFF_H_
+#define FRAMEWORK_TRUNK_INCLUDE_GRIACCUMBUFF_H_
 
 #include <QDateTime>
 #include <QVector>
@@ -16,14 +16,14 @@ class GRIAccumBuff {
 
   qint64 BufferData(int numel, qint64 t[], T d[]) {
     qint64 dt = 0;
-    for (int i=0; i<numel; i++) {
-      if (t[i]>=t1 && t[i]<t2) {
-	time.append(t[i]);
-	data.append(d[i]);
+    for (int i = 0; i < numel; i++) {
+      if (t[i] >= t1 && t[i] < t2) {
+        time.append(t[i]);
+        data.append(d[i]);
       }
       // trigger on times greater than leading edge buffer
       if (t[i] >= t2 && LeadingEdge) {
-	if (t[i]-t2 > dt) dt = t[i]-t2;  // time greater than leading edge
+        if (t[i]-t2 > dt) dt = t[i]-t2;  // time greater than leading edge
       }
     }
     return dt;
@@ -43,10 +43,11 @@ class GRIAccumBuff {
 
   T* DataArray() {
     // Note the array is passed back and copied to the MM
-    // The deletion comes after the write statement(s) in GRIDAQAccumulator::Accumulate
+    // The deletion comes after the write statement(s) in
+    // GRIDAQAccumulator::Accumulate
     T* a = new T[data.size()];
 
-    for(int i=0; i < data.size(); i++) {
+    for (int i = 0; i < data.size(); i++) {
       a[i] = data[i];
     }
     return a;
@@ -60,10 +61,10 @@ class GRIAccumBuff {
  private:
   QList<T> data;  // list mode data
   QList<qint64> time;  // list mode times
-  qint64 t1,t2;  // Timestamp boundaries of this buffer
+  qint64 t1, t2;  // Timestamp boundaries of this buffer
   bool bubble;  // Last buffer in times
   bool LeadingEdge;  // First Buffer in times
   T* dArray;
 };
 
-#endif // GRIACCUMBUFF_H
+#endif  // GRIACCUMBUFF_H
