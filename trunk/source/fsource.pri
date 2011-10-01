@@ -9,6 +9,7 @@ GRIClientSocket.cpp\
 GRIDAQThread.cpp\
 GRIDataBlock.cpp\
 #GRIDiagnostics.cpp\
+GRIHistogrammer.cpp\
 #GRIHistDraw.cpp\
 GRILoader.cpp\
 GRILogger.cpp\
@@ -26,7 +27,6 @@ GRIObject.cpp\
 GRIThread.cpp\
     ../../../framework/trunk/source/GRIHist1D.cpp \
     ../../../framework/trunk/source/GRIHist2D.cpp \
-    ../../../framework/trunk/source/GRIHist3D.cpp \
     ../../../framework/trunk/source/GRIParser.cpp \
     ../../../framework/trunk/source/GRIProcList.cpp
 

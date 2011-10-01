@@ -1,52 +1,28 @@
-//Header
 #include "GRIHistogrammer.h"
 
-//General
-#include <iostream>
-#include <string>
-#include <vector>
-using namespace std;
-
-GRIHistogrammer::GRIHistogrammer(int dim)
-{
-    //Default Binning (100 bins, 0-2500 range)
-    if(dim == 1){
-        hist = new TH1D();
-        hist->set
-
+GRIHistogrammer::GRIHistogrammer() {
+    hist_ = NULL;
+    rate_hist_ = NULL;
 }
 
-//GRIHistogrammer::GRIHistogrammer(int nbins, int xlow, int xhigh)
-//{
-//    hist = new TH1D("","",100,0,100);  //SEGFAULTBUG is preventing these from working
-//    hist->SetBins(100,1,100);
-//}
-
-//void GRIHistogrammer::init_hist(){
-//    //cout << "is this equal to null?" << (this == 0) << "this is: " << this << endl;
-
-//    this->hist = new TH1D("","",100,0,100);  //SEGFAULTBUG: makes this necessary
-//    this->hist->SetBins(100,1,100);
-
-//}
-
-GRIHistogrammer::~GRIHistogrammer()
-        
-{
-    delete(hist);
+GRIHistogrammer::~GRIHistogrammer() {
+  if (hist_) delete hist_;
+  if (rate_hist_) delete rate_hist_;
 }
 
-int GRIHistogrammer::openInitializationControl(){
-        return 0;
+
+int GRIHistogrammer::Clear() {
+    hist_->Reset();
+    return 0;
 }
 
-void GRIHistogrammer::fill(double data){
-//    hist->Fill(data);
+void GRIHistogrammer::Init(QString BlockName, int id, QString HistName) {
+    set_hist_name(HistName);
+    hist_->SetTitle(HistName.toStdString().c_str());
+    block_name_ = BlockName;
+    id_ = id;
+    
+    set_rate_mode(0);
+    set_packet_scale_factor(1);
+    is_ready_ = false;
 }
-
-void GRIHistogrammer::fill(double *data, unsigned int numOfElmts){
-    for(int i = 0; i < numOfElmts; i++){
-//        hist->Fill(data[i]);
-    }
-}
-
