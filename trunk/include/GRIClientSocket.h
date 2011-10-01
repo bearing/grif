@@ -1,9 +1,9 @@
-#ifndef GRI_CLIENTSOCKET_H
-#define GRI_CLIENTSOCKET_H
+#ifndef FRAMEWORK_TRUNK_INCLUDE_GRICLIENTSOCKET_H_
+#define FRAMEWORK_TRUNK_INCLUDE_GRICLIENTSOCKET_H_
 
-#include <string>
 #include <QtNetwork/qtcpsocket.h>
-#include "GRIRunManager.h"
+#include <string>
+#include "./GRIRunManager.h"
 
 class GRIRunManager;
 
@@ -13,19 +13,19 @@ class GRIClientSocket : public QTcpSocket {
     friend class GRIServerThread;
     Q_OBJECT
 
-public:
+  public:
     GRIClientSocket(QObject *parent = 0, int count = 0, GRIRunManager* = 0);
     ~GRIClientSocket();
     std::string getInputWithSpaces();
 
-signals:
+  signals:
     void incomingCommand(QString command);
 
-private slots:
+  private slots:
     void readClient();
     void disconnectionMessage();
 
-protected:
+  protected:
     void sendData(list<string> output);
     void sendData(string output);
     void sendError();
@@ -36,4 +36,4 @@ protected:
     GRIRunManager *manager;
 };
 
-#endif // CLIENTSOCKET_H
+#endif  // FRAMEWORK_TRUNK_INCLUDE_GRICLIENTSOCKET_H_

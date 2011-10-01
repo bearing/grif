@@ -1,16 +1,15 @@
-#ifndef GRI_BUFFER_H
-#define GRI_BUFFER_H
+#ifndef FRAMEWORK_TRUNK_INCLUDE_GRIBUFFER_H_
+#define FRAMEWORK_TRUNK_INCLUDE_GRIBUFFER_H_
 
 #include <QList>
 #include <QVector>
 #include <QWaitCondition>
 #include <QReadWriteLock>
 #include <QThread>
-#include "GRIProcessThread.h"
+#include "./GRIProcessThread.h"
 
 //! class used as a data structure for storing member
-/*!
- *
+/*
  * the buffer class is an abstraction of the buffer abstract data type. buffer objects will be and should ONLY be stored by
  * the memoryManager. It is not a versatile abstract data type. The buffer class comes implemented with a number of functions
  * that allow read/write access. It also keeps internal state for keeping track of file access and growth.
@@ -19,15 +18,13 @@
 class GRIBuffer {
  public:
   //! A constructor
-  GRIBuffer(QReadWriteLock *lock);
+  explicit GRIBuffer(QReadWriteLock *lock);
   //! A destructor
   ~GRIBuffer();
 
   //! a member function
-  /*!
-   *
+  /*
    * addPacket() add's one more packet to the end of the buffer. This will update internal variables.
-   *
    */
   void addPacket();
 
@@ -45,7 +42,7 @@ class GRIBuffer {
    * \sa addPacket(), readBuffer()
    *
    */
-  bool writeToBuffer(char b,int packetNumber, int index);
+  bool writeToBuffer(char b, int packetNumber, int index);
 
   //! a member function
   /*!
@@ -185,8 +182,8 @@ class GRIBuffer {
    *
    */
   void wakeOneOnQueue();
-  void SetBusyWrite(bool tf){busyWrite = tf;}
-  bool GetBusyWrite(){return busyWrite;}
+  void SetBusyWrite(bool tf) {busyWrite = tf;}
+  bool GetBusyWrite() {return busyWrite;}
 
   bool IsNullPacket(int packetNum);
   void AddNullPacket(int packetNum);
@@ -245,4 +242,4 @@ class GRIBuffer {
   QReadWriteLock *lock;
 };
 
-#endif // GRIBUFFER_H
+#endif  // FRAMEWORK_TRUNK_INCLUDE_GRIBUFFER_H_

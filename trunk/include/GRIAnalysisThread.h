@@ -4,11 +4,11 @@
 #include <QHash>
 #include <QString>
 #include <iostream>
-#include "GRIProcessThread.h"
-#include "GRIHistogrammer.h"
-#include "GRIHist1D.h"
-#include "GRIHist2D.h"
-#include "GRIHist3D.h"
+#include "./GRIProcessThread.h"
+#include "./GRIHistogrammer.h"
+#include "./GRIHist1D.h"
+#include "./GRIHist2D.h"
+#include "./GRIHist3D.h"
 
 #define ANALYSISTHREAD_SUCCESS   0
 
@@ -187,13 +187,17 @@ mydaq->run(); //which calls the user defined methods in a well-defined order.
                 << "::PostData - "
                 << buffer_name.toStdString().c_str()
                  << endl;
-         return this->writeMemory(this->get_name(), buffer_name,numel, _data);
+         return this->writeMemory(this->get_name(), buffer_name, numel, _data);
     }
 
     template <class T> pair<int, T*> ReadData(QString block_name,
                                               QString buffer_name) {
         pair<int, T*> p = readMemory<T>(block_name, buffer_name);
+
+        // TODO(arbenson): change (void*)p.second to
+        // reinterperet_cast<void*>(p.second)
         read_data_ptrs_.push_back((void*)p.second);
+
         // Adding NULL to p.second after this to ensure garbage collection
         // goes on as planned
         // NULL packet writes will write a single NULL character to the
@@ -213,7 +217,7 @@ mydaq->run(); //which calls the user defined methods in a well-defined order.
                            double yBins[]);
     int CreateNewHistogram(QString HistName, int nx, double xmin, double xmax,
                            int ny, double ymin, double ymax);
-    // TODOD(arbenson):  make this work with current root version
+    // TODO(arbenson):  make this work with current root version
     // int CreateNewHistogram(QString HistName, int nx, double xBins[],int ny,
     //                       double yBins[],int nz, double zBins[]);
     int CreateNewHistogram(QString HistName, int nx, double xmin,

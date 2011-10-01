@@ -67,4 +67,4 @@ class GRIAccumBuff {
   T* dArray;
 };
 
-#endif  // GRIACCUMBUFF_H
+#endif  // FRAMEWORK_TRUNK_INCLUDE_GRIACCUMBUFF_H_
