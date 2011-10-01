@@ -4,11 +4,8 @@
 #include <QHash>
 #include <QString>
 #include <iostream>
-#include "./GRIProcessThread.h"
-#include "./GRIHistogrammer.h"
-#include "./GRIHist1D.h"
-#include "./GRIHist2D.h"
-#include "./GRIHist3D.h"
+#include "GRIProcessThread.h"
+#include "GRIHistogrammer.h"
 
 #define ANALYSISTHREAD_SUCCESS   0
 
