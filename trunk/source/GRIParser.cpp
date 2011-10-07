@@ -1,47 +1,50 @@
 #include "iostream"
+#include "qdom.h"
 #include "QFile"
 #include "GRIParser.h"
 
-using namespace std;
-
-bool GRIParser::parse(QString filePath) {
-    QFile f(filePath);
+bool GRIParser::Parse(QString FilePath) {
+    QFile f(FilePath);
     if (!f.exists()) {
-        cout << "ERROR: Could not find file: " << filePath.toStdString() << endl;
+        std::cout << "ERROR: Could not find file: " << FilePath.toStdString()
+                   << std::endl;
         return false;
     }
     QDomDocument doc;
     if (!doc.setContent(&f)) {
-        cout << "ERROR: Could not interpret file " << filePath.toStdString() << " as an xml file" << endl;
+        std::cout << "ERROR: Could not interpret file " << FilePath.toStdString()
+                  << " as an xml file" << std::endl;
         return false;
     }
 
-    cout << "Interpretation of file " << filePath.toStdString() << ":" << endl;
-    cout << doc.toString().toStdString() << endl;
+    std::cout << "Interpretation of file " << FilePath.toStdString() << ":" << std::endl;
+    std::cout << doc.toString().toStdString() << std::endl;
 
     QDomElement root = doc.documentElement();
 
     QDomElement elem = root.firstChildElement("Objects");
     if(elem.isNull()) {
-        cout << "ERROR: Could not find the Objects tag. Please check your XML formatting." << endl;
+        std::cout << "ERROR: Could not find the Objects tag. Please check your XML formatting."
+                  << std::endl;
         return false;
     }
     int num = elem.elementsByTagName("object").count();
     if (num == 0) {
-        cout << "WARNING: file " << filePath.toStdString() << " has no objects declared." << endl;
+        std::cout << "WARNING: file " << FilePath.toStdString()
+                  << " has no objects declared." << std::endl;
     }
     elem = elem.firstChildElement("object");
 
-    /* read the objects, constructing objectHash as we go along */
+    /* read the objects, constructing object_hash_ as we go along */
     for (int i = 0; i < num; i++) {
         QDomAttr name = elem.attributeNode("name");
         if (name.value().isNull()) {
-            cout << "No object name found for an object.  Skipping that object..." << endl;
+            std::cout << "No object name found for an object.  Skipping that object..." << std::endl;
             continue;
         }
         QDomAttr c = elem.attributeNode("class");
         if (c.value().isNull()) {
-            cout << "No class name found for an object.  Skipping that object..." << endl;
+            std::cout << "No class name found for an object.  Skipping that object..." << std::endl;
             continue;
         }
         struct objectParsingDetails *opd = new struct objectParsingDetails;
@@ -49,8 +52,8 @@ bool GRIParser::parse(QString filePath) {
 
         opd->objectName = name.value();
         opd->className = c.value();
-        objectHash[opd->objectName] = opd; //add to hash table
-        objectsAndLinks.push_back(*opd);
+        object_hash_[opd->objectName] = opd; //add to hash table
+        objs_and_links_.push_back(*opd);
 
         elem = elem.nextSiblingElement("object");
     }
@@ -58,29 +61,29 @@ bool GRIParser::parse(QString filePath) {
     /* read the links */
     QDomElement e = root.firstChildElement("Links");
     if (e.isNull()) {
-        cout << "ERROR: Could not find the Links tag. Please check your XML formatting." << endl;
+        std::cout << "ERROR: Could not find the Links tag. Please check your XML formatting." << std::endl;
         return false;
     }
     num = e.elementsByTagName("link").count();
     if (num == 0) {
-        cout << "WARNING: file " << filePath.toStdString() << " has no links declared." << endl;
+        std::cout << "WARNING: file " << FilePath.toStdString() << " has no links declared." << std::endl;
     }
     e = e.firstChildElement("link");
 
     for (int i = 0; i < num; i++) {
         QDomAttr w = e.attributeNode("writer");
         if (w.value().isNull()) {
-            cout << "No writer found for a link.  Skipping that link..." << endl;
+            std::cout << "No writer found for a link.  Skipping that link..." << std::endl;
             continue;
         }
         QDomAttr r = e.attributeNode("reader");
         if (r.value().isNull()) {
-            cout << "No reader found for a link.  Skipping that link..." << endl;
+            std::cout << "No reader found for a link.  Skipping that link..." << std::endl;
             continue;
         }
         QDomAttr data = e.attributeNode("data");
         if (data.value().isNull()) {
-            cout << "No data found for a link.  Skipping that link..." << endl;
+            std::cout << "No data found for a link.  Skipping that link..." << std::endl;
             continue;
         }
 
@@ -89,7 +92,7 @@ bool GRIParser::parse(QString filePath) {
         lpd->reader = r.value();
         lpd->dataBlock = data.value();
 
-        struct objectParsingDetails *opd2 = objectHash[lpd->writer];
+        struct objectParsingDetails *opd2 = object_hash_[lpd->writer];
         if (opd2 != 0) {
             opd2->links->push_back(lpd);
         }
@@ -99,4 +102,3 @@ bool GRIParser::parse(QString filePath) {
 
     return true;
 }
-

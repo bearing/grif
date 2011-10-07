@@ -116,14 +116,14 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails() {
     for(it = fileNames.begin(); it != fileNames.end(); it++) {
         QString name = *it; //get name of xml file
         GRIParser *parser = new GRIParser();
-        bool success = parser->parse(this->localGRIFPath + name); //parse xml
+        bool success = parser->Parse(this->localGRIFPath + name); //parse xml
         if(!success) {
             cout << "WARNING: Could not successfully parse XML file: " << name.toStdString().c_str() << endl;
             cout << "Skipping that XML file..." << endl;
             continue;
         }
 
-        std::list<struct objectParsingDetails> objectsAndLinks = parser->getObjectsAndLinks();
+        std::list<struct objectParsingDetails> objectsAndLinks = parser->get_objs_and_links();
 
         std::list<struct objectParsingDetails>::iterator obj_details_it;
 

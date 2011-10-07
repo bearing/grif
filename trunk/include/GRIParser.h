@@ -2,7 +2,6 @@
 #define GRIPARSER_H
 
 #include <list>
-#include "qdom.h"
 #include "QString"
 #include "QHash"
 
@@ -29,14 +28,16 @@ public:
      * parse() returns true if the parsing was successful and
      * false otherwise
      */
-    bool parse(QString filePath);
+    bool Parse(QString FilePath);
 
     /* returns the objects and links necessary for initRegulatorDetails() */
-    std::list<struct objectParsingDetails> getObjectsAndLinks(){return objectsAndLinks;}
+    std::list<struct objectParsingDetails> get_objs_and_links() {
+      return objs_and_links_;
+    }
 
 private:
-    QHash<QString, struct objectParsingDetails *> objectHash;
-    std::list<struct objectParsingDetails> objectsAndLinks;
+    QHash<QString, struct objectParsingDetails *> object_hash_;
+    std::list<struct objectParsingDetails> objs_and_links_;
 };
 
 #endif // GRIPARSER_H

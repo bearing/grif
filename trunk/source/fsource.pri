@@ -4,7 +4,6 @@ GRIBuffer.cpp \
 GRICLI.cpp \
 #GRICalibrate.cpp \
 #GRICalibration.cpp \
-#GRIClientSocket.cpp \
 GRIDAQThread.cpp \
 GRIDataBlock.cpp \
 GRIHistogrammer.cpp \
@@ -18,8 +17,8 @@ GRILogMessage.cpp \
 GRIUserLoader.cpp \
 GRIObject.cpp \
 GRIThread.cpp \
-    ../../../framework/trunk/source/GRIHist1D.cpp \
-    ../../../framework/trunk/source/GRIHist2D.cpp \
-    ../../../framework/trunk/source/GRIParser.cpp \
-    ../../../framework/trunk/source/GRIProcList.cpp
+GRIHist1D.cpp \
+GRIHist2D.cpp \
+GRIParser.cpp \
+GRIProcList.cpp
 
