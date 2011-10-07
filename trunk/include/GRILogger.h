@@ -6,7 +6,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QMutex>
-#include "GRIRunManager.h"
 #include "GRILogMessage.h"
 
 using namespace std;
