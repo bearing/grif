@@ -92,6 +92,33 @@ enum ENDIAN { LITTLE_END, BIG_END };
 #define GRILOG_WARNING 3
 #define GRILOG_ERROR 4
 
+enum COMMAND_TYPE {
+  SET = 0,
+  GET,
+  RUN_ACTION
+};
+
+enum DATA_TYPE {
+  BOOL = 0,
+  CHAR,
+  INT,
+  FLOAT,
+  DOUBLE
+};
+
+struct ProcessCommand {
+  COMMAND_TYPE command_type;
+  DATA_TYPE data_type;
+  union data {
+    bool bool_val;
+    char char_val;
+    int int_val;
+    float float_val;
+    double double_val;
+  } data;
+  QString key;
+};
+
 // For Qt's internally defined globals see http://doc.trolltech.com/4.5/qtglobal.html#details
 // For definitions of macros see qglobal.h
 

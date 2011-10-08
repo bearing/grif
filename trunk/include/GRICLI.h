@@ -3,6 +3,7 @@
 
 #include "list"
 #include "QString"
+#include "GRIDefines.h"
 #include "GRIProcessThread.h"
 
 enum CLI_state_enum { MAIN, PROCESS_TOP };
@@ -34,11 +35,11 @@ class GRICLI {
   void ProcessSet(QString name, QString value, QString dataType);
   void ProcessGet(QString name, QString dataType);
   void ProcessAction(QString name);
-  
-  // broadcast versions of the sets, gets, and actions
-  void BroadcastSet(QString name, QString value, QString dataType);
-  void BroadcastGet(QString value, QString dataType);
-  void BroadcastAction(QString name);
+
+  void HandleMain(QString *instr_array, int n);
+  void HandleProcessTop(QString *instr_array, int n);
+
+  void Init();
 
   //the current process for sets, gets, actions
   GRIProcessThread *curr_proc_;

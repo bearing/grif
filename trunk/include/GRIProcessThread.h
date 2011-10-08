@@ -7,7 +7,9 @@
 #include <utility>
 #include <vector>
 #include <QHash>
+#include <QMutex>
 #include <QString>
+#include <QQueue>
 #include "GRIRegulator.h"
 #include "GRIDataBlock.h"
 #include "GRIDefines.h"
@@ -185,16 +187,6 @@ public:
     list<QString> dataBlockNames;
 
     /*
-     * dummy getParam() to be overridden by code generation
-     */
-    template <class T> T getParam(QString name){ cout << name.toStdString() << endl; return 0;}
-
-    /*
-     * dummy setParam() to be overridden by code generation
-     */
-    template <class T> void setParam(QString name, T value){ cout << name.toStdString() << ": " << value << endl;}
-
-    /*
      * dummy getStdVecParam() to be overridden by code generation
      */
     template <class T> std::vector<T> getStdVecParam(QString name){ cout << name.toStdString().c_str() << endl; return 0;}
@@ -214,10 +206,7 @@ public:
      */
     template <class T> void setQVecParam(QString name, QVector<T> values){ cout << name.toStdString().c_str() << " size: " << values.size() << endl;}
 
-    /*
-     * dummy runAction() to be overridden by code generation
-     */
-    void runAction(QString name) { cout << "Action: " << name.toStdString() << endl;}
+
 
     /*
      * dummy setInitialGCGValues() to be overridden by code generation
@@ -229,6 +218,11 @@ public:
      */
     void printActions() {}
 
+    // Handle gets/sets/runactions from the CLI
+    void EnqueueDynamicCommand(ProcessCommand *pc);
+
+    template <class T> void DynamicSetParam(QString name, T value) { cout << name.toStdString() << ": " << value << endl; }
+    virtual void DynamicRunAction(QString name) { cout << "Action: " << name.toStdString() << endl;}
 
     /*
      * For debugging purpose; display the important state of the process, ie: who it's writing
@@ -240,9 +234,10 @@ public:
 
 protected:
     //*********************************TESTING***********************************
-    virtual void run();
+    virtual void run() {}
     bool RunFlag;
     GRIRegulator* reg;
+    void FlushBuffer();
 
 private:
     typedef struct data {
@@ -251,6 +246,11 @@ private:
     } data_t;
 
     QString xml_path;
+
+    QQueue<ProcessCommand *> cmd_buffer_;
+    mutable QMutex cmd_buffer_lock_;
+
+    void HandleDynamicCommand(ProcessCommand *pc);
 
 public:
     void setRunFlag(bool tf) {RunFlag = tf; }  // This could be moved into protected once integration is completed.
@@ -272,18 +272,18 @@ public:
 };
 
 template<class T> pair<int, T*>
-GRIProcessThread::readMemory(QString blockName ,QString bufferName)
-{
+GRIProcessThread::readMemory(QString blockName ,QString bufferName) {
     // Recasting here must de-couple char array and the T array to allow for proper
     // memory de-allocation via the delete method.
-
     pair<int, char *> refPair = reg->readMemory(blockName, bufferName);
 
     pair<int, T*> castPair(refPair.first / sizeof(T), (T*) refPair.second);
     return castPair;
 }
 
-template<class T> bool GRIProcessThread::writeMemory(QString blockName, QString bufferName, int size, T dataArray[]){
+template<class T> bool GRIProcessThread::writeMemory(QString blockName,
+						     QString bufferName,
+						     int size, T dataArray[]) {
     blockName = "ReduceCompilerWarnings"; //do we need blockName for writeMemory()? -Austin
     return reg->writeMemory(this->get_name(), bufferName, size * sizeof(T), (char*) dataArray);
 }
