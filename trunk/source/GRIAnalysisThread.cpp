@@ -55,6 +55,8 @@ void GRIAnalysisThread::run() {
             if (error != ANALYSISTHREAD_SUCCESS) {
                 this->errorHandling("Analyze() failed", error);
             }
+	    // Flush the dynamic command buffer
+	    FlushBuffer();
             // All data read will be freed after each Analyze
             ReadGarbageCollection();
         }

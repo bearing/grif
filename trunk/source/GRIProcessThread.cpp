@@ -1,4 +1,6 @@
 #include "GRIProcessThread.h"
+#include <QMutexLocker>
+
 using namespace std;
 
 int GRIProcessThread::counter = 0;
@@ -272,8 +274,38 @@ void GRIProcessThread::display_current_state()
     }  
     CommitLog(GRILOG_DEBUG);
 }
-
-// virtual
-void GRIProcessThread::run() {}
-
 #endif // PROCESS_THREAD_DEBUG
+
+void GRIProcessThread::EnqueueDynamicCommand(ProcessCommand *pc) {
+  QMutexLocker locker(&cmd_buffer_lock_);
+  if (pc) cmd_buffer_.enqueue(pc);
+}
+
+void GRIProcessThread::HandleDynamicCommand(ProcessCommand *pc) {
+  if (!pc) return;
+  switch (pc->command_type) {
+    case RUN_ACTION:
+      DynamicRunAction(pc->key);
+    case SET:
+      switch (pc->data_type) {
+        case BOOL:
+          DynamicSetParam<bool>(pc->key, pc->data.bool_val);
+        case CHAR:
+          DynamicSetParam<char>(pc->key, pc->data.char_val);
+        case INT:
+          DynamicSetParam<int>(pc->key, pc->data.int_val);
+        case FLOAT:
+          DynamicSetParam<float>(pc->key, pc->data.float_val);
+        case DOUBLE:
+          DynamicSetParam<double>(pc->key, pc->data.double_val);
+      }
+  }
+  delete pc;
+}
+
+void GRIProcessThread::FlushBuffer() {
+  QMutexLocker locker(&cmd_buffer_lock_);
+  while (!cmd_buffer_.isEmpty()) {
+    HandleDynamicCommand(cmd_buffer_.dequeue());
+  }
+}

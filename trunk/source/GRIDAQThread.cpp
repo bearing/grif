@@ -82,6 +82,8 @@ void GRIDAQThread::run() {
       if (error != DAQTHREAD_SUCCESS) {
 	this->errorHandling("acquire Data() failed", error);
       }
+      // flush the dynamic command buffer
+      FlushBuffer();
     }
 
     std::cout << "Running one more to ensure flush occurred..." << endl;
