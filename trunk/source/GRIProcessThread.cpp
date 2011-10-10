@@ -299,8 +299,30 @@ void GRIProcessThread::HandleDynamicCommand(ProcessCommand *pc) {
         case DOUBLE:
           DynamicSetParam<double>(pc->key, pc->data.double_val);
       }
+    case GET:
+      HandleGetRequest(pc);
   }
   delete pc;
+}
+
+void GRIProcessThread::HandleGetRequest(ProcessCommand *pc) {
+  ProcessCommand *out_pc = new ProcessCommand;
+  out_pc->key = pc->key;
+  out_pc->data_type = pc->data_type;
+  out_pc->command_type = pc->command_type;
+  switch (pc->data_type) {
+  case BOOL:
+    out_pc->data.bool_val = DynamicGetParam<bool>(pc->key);
+  case CHAR:
+    out_pc->data.char_val = DynamicGetParam<char>(pc->key);
+  case INT:
+    out_pc->data.int_val = DynamicGetParam<int>(pc->key);
+  case FLOAT:
+    out_pc->data.float_val = DynamicGetParam<float>(pc->key);
+  case DOUBLE:
+    out_pc->data.double_val =DynamicGetParam<double>(pc->key);
+  }
+  emit GetProcessed(out_pc);
 }
 
 void GRIProcessThread::FlushBuffer() {

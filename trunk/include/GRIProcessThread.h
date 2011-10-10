@@ -186,27 +186,6 @@ public:
 
     list<QString> dataBlockNames;
 
-    /*
-     * dummy getStdVecParam() to be overridden by code generation
-     */
-    template <class T> std::vector<T> getStdVecParam(QString name){ cout << name.toStdString().c_str() << endl; return 0;}
-
-    /*
-     * dummy getQVecParam() to be overridden by code generation
-     */
-    template <class T> QVector<T> getQVecParam(QString name){ cout << name.toStdString().c_str() << endl; return 0;}
-
-    /*
-     * dummy setStdVecParam() to be overridden by code generation
-     */
-    template <class T> void setStdVecParam(QString name, std::vector<T> values){ cout << name.toStdString().c_str() << " size: " << values.size() << endl;}
-
-    /*
-     * dummy setQVecParam() to be overidden by code generation
-     */
-    template <class T> void setQVecParam(QString name, QVector<T> values){ cout << name.toStdString().c_str() << " size: " << values.size() << endl;}
-
-
 
     /*
      * dummy setInitialGCGValues() to be overridden by code generation
@@ -221,8 +200,16 @@ public:
     // Handle gets/sets/runactions from the CLI
     void EnqueueDynamicCommand(ProcessCommand *pc);
 
-    template <class T> void DynamicSetParam(QString name, T value) { cout << name.toStdString() << ": " << value << endl; }
-    virtual void DynamicRunAction(QString name) { cout << "Action: " << name.toStdString() << endl;}
+    template <class T> void DynamicSetParam(QString name, T value) {
+        cout << "SET: " << name.toStdString() << ": " << value << endl;
+    }
+    template <class T> T DynamicGetParam(QString name) {
+        cout << "GET: " << name.toStdString() << ": " << endl;
+        return 0;
+    }
+    virtual void DynamicRunAction(QString name) {
+        cout << "Action: " << name.toStdString() << endl;
+    }
 
     /*
      * For debugging purpose; display the important state of the process, ie: who it's writing
@@ -231,6 +218,9 @@ public:
 #ifdef PROCESS_THREAD_DEBUG
     void display_current_state();
 #endif // PROCESS_THREAD_DEBUG
+
+ signals:
+    void GetProcessed(ProcessCommand *pc);
 
 protected:
     //*********************************TESTING***********************************
@@ -251,6 +241,7 @@ private:
     mutable QMutex cmd_buffer_lock_;
 
     void HandleDynamicCommand(ProcessCommand *pc);
+    void HandleGetRequest(ProcessCommand *pc);
 
 public:
     void setRunFlag(bool tf) {RunFlag = tf; }  // This could be moved into protected once integration is completed.
