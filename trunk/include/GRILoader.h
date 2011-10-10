@@ -45,7 +45,8 @@ class GRILoader {
 
     std::list<GRIProcessThread*>* initProcessThreads(std::list<ProcessDetails*> details);
 
-    std::list<GRIDataBlock*>* initDataBlocks(std::list<GRIProcessThread*>* processes, std::list<AnalysisStructureObject*> analyStructs);
+    std::list<GRIDataBlock*>* initDataBlocks(std::list<GRIProcessThread*>* processes,
+                                             std::list<AnalysisStructureObject*> analyStructs);
 
     /*
      * Initialization of process threads based on the list fileNames
