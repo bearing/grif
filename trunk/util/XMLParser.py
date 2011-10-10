@@ -104,34 +104,35 @@ GRIUserLoader is for generating code for the framework file GRIUserLoader.cpp.
 '''
 class GRIUserLoaderParser(XMLParser):
   def __init__(self, dir, out):
-    '''
-    self.prefix = '#include \"GRIUserLoaderAux.h\"\n\n'
-    self.prefix += '// GCG process prefix code for GRIUserLoader.cpp\n'
-    self.prefix += 'GRIProcessThread *get_new_process(QString class_name, QString instance_name) {\n'
-    self.prefix += '  GRIProcessThread *p = NULL;\n\n'
-    self.suffix = '  return p;\n}\n'
-    '''
     self.prefix = ''
     self.suffix = ''
     self.gen = ''
     self.out = out
     self.dir = dir
     self.files = []
-    self.classes = []
+    self.objs = []
 
   def ParseFile(self, path):
     tree = ElementTree()
     tree.parse(path)
-    name = tree.find('Info')
+    info = tree.find('Info')
+    if info is None:
+      return
+    classname = info.attrib['cname']
+
+    name = tree.find('Name')
     if name is None:
       return
-    classname = name.attrib['cname']
-    if classname is None:
+    objname = name.attrib['name']
+
+    if classname is None or objname is None:
       return
-    if classname in self.classes:
+
+    if objname in self.objs:
       return
-    self.classes.append(classname)
-    self.gen += '  if (class_name.contains(\"{0}\")) {1}\n'.format(classname, '{')
+
+    self.objs.append(objname)
+    self.gen += '  if (object_name == \"{0}\") {1}\n'.format(objname, '{')
     self.gen += '    p = new {0}();\n'.format(classname)
     self.gen += '    return p;\n  }\n\n'
 
