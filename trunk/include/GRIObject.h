@@ -7,12 +7,12 @@
 #include <QObject>
 #include "GRILogMessage.h"
 
-class GRIObject:public QObject {
+class GRIObject : public QObject {
   Q_OBJECT
 
   public:
     GRIObject();
-    ~GRIObject();
+    virtual ~GRIObject();
 
     QTextStream log;
     void CommitLog(int level);
