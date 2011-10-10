@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 '''
-usage: python GCG_GRIUserLoader.pl /path/to/xml/files /path/to/auxiliary/file
+usage: python GCG_GRIUserLoader.py /path/to/xml/files /path/to/auxiliary/file
 
 This is for generating code for the framework file GRIUserLoader.cpp.
 The generated code goes into the file located at /path/to/auxiliary/file
