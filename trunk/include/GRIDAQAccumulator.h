@@ -1,26 +1,22 @@
 #ifndef GRIDAQACCUMULATOR_H
 #define GRIDAQACCUMULATOR_H
 
-#include "GRIObject.h"
 #include "GRIAccumBuff.h"
 #include "GRIDAQAccumNode.h"
 #include <QString>
-#include <QDateTime>
-#include <QVector>
-#include <QTimerEvent>
 
 template <class T>
 class GRIDAQAccumulator : public GRIDAQAccumNode {
   public:
     GRIDAQAccumulator(QString  bname, qint64 ticks, int NBuff, int AccumMsec) {
-      this->BufferName = bname;
-      this->ticksPerSecond = ticks;
-      this->NAccumBuff = NBuff;
-      this->AccumulationTime = AccumMsec*1E-3*ticks;  //Accumulation Time in ticks
+      BufferName = bname;
+      ticksPerSecond = ticks;
+      NAccumBuff = NBuff;
+      AccumulationTime = AccumMsec*1E-3*ticks;  //Accumulation Time in ticks
 
       for (int i=0; i < NBuff; i++) {
         GRIAccumBuff<T>* b = new GRIAccumBuff<T>();
-        buff.push_back(b);
+        buff_.push_back(b);
       }
     }
 
@@ -36,23 +32,23 @@ class GRIDAQAccumulator : public GRIDAQAccumNode {
         int buffcnt = 0;
         qint64 t1_,t2_;
 
-        for (buff_it = buff.begin(); buff_it != buff.end(); buff_it++) {
-            t1_ = this->ts0 + buffcnt*this->AccumulationTime;
-            t2_ = t1_ + this->AccumulationTime;
+        for (buff_it = buff_.begin(); buff_it != buff_.end(); buff_it++) {
+            t1_ = ts0 + buffcnt*AccumulationTime;
+            t2_ = t1_ + AccumulationTime;
             GRIAccumBuff<T>* b = *buff_it;
             b->ResetBuffer(t1_,t2_);
 
             // First buffer in list is on the bubble
             if(buffcnt == 0)
-                b->SetBubble(true);
+                b->set_bubble(true);
             else
-                b->SetBubble(false);
+                b->set_bubble(false);
 
             // Last buffer in list is leading Edge
-            if(buffcnt == this->NAccumBuff-1)
-                b->SetLeadingEdge(true);
+            if(buffcnt == NAccumBuff-1)
+                b->set_leading_edge(true);
             else
-                b->SetLeadingEdge(false);
+                b->set_leading_edge(false);
 
             buffcnt+=1;
         }
@@ -72,14 +68,14 @@ class GRIDAQAccumulator : public GRIDAQAccumNode {
         qint64 BubbleDT = 0;
 
         if(!FlushFlag) {
-            for (buff_it = buff.begin(); buff_it != buff.end(); buff_it++) {
+            for (buff_it = buff_.begin(); buff_it != buff_.end(); buff_it++) {
                 GRIAccumBuff<T>* b = *buff_it;
                 // Buffer Data and sense the bubble
                 BubbleDT = (b->BufferData(numel, timestamps,data));
                 if (BubbleDT) {
                     BubbleTrigger = true;
                     // TODO(arbenson): BubbleWriteNum is used when data is missing for accumulation times
-                    BubbleWriteNum = (int)((BubbleDT)/this->AccumulationTime + 1);
+                    BubbleWriteNum = (int)((BubbleDT)/AccumulationTime + 1);
                 }
             }
         }
@@ -96,44 +92,44 @@ class GRIDAQAccumulator : public GRIDAQAccumNode {
                 bool NewBubble = false;
                 bool NewBubbleSet = false;
 
-                for(buff_it = buff.begin(); buff_it != buff.end(); buff_it++) {
+                for(buff_it = buff_.begin(); buff_it != buff_.end(); buff_it++) {
                     nbuffcnt = nbuffcnt + 1;
                     GRIAccumBuff<T>* b = *buff_it;
-                    //cout << "IN: Buffer " << nbuffcnt << ": Bubble: " << b->isBubble() << " Leading Edge: " << b->isLeadingEdge() << endl;
+                    //cout << "IN: Buffer " << nbuffcnt << ": Bubble: " << b->get_bubble() << " Leading Edge: " << b->get_leading_edge() << endl;
 
                     if (NewBubble) {
-                        b->SetBubble(true);
+                        b->set_bubble(true);
                         NewBubbleSet = true;
                         NewBubble = false;
                     }
 
-                    if (b->isLeadingEdge())
-                      b->SetLeadingEdge(false);
+                    if (b->get_leading_edge())
+                      b->set_leading_edge(false);
 
                     // Check for bubble
-                    if (b->isBubble() && !NewBubbleSet) {
+                    if (b->get_bubble() && !NewBubbleSet) {
                         // Write Bubble Accumulator to mm
                         cout << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": " <<
-                                this->GetBufferName().toStdString().c_str() << "(" << nbuffcnt << ") accumulator writing "
-                                << b->GetDataSize() << " events. Timestamp = " << (double)timestamps[0]/(double)this->ticksPerSecond << endl;
+                                GetBufferName().toStdString().c_str() << "(" << nbuffcnt << ") accumulator writing "
+                                << b->GetDataSize() << " events. Timestamp = " << (double)timestamps[0]/(double)ticksPerSecond << endl;
                         T* da = b->DataArray();
 
-                        pDAQ->writeMemory(pDAQ->get_name(),this->GetBufferName(),b->GetDataSize(),da);
+                        pDAQ->writeMemory(pDAQ->get_name(),GetBufferName(),b->GetDataSize(),da);
                         delete [] da;
 
                         NewBubble = true;  // Sets up next buffer to be the bubble
-                        b->SetBubble(false);
-                        b->ResetBuffer(b->GetT1() + this->AccumulationTime*this->NAccumBuff,
-                                       b->GetT2() + this->AccumulationTime*this->NAccumBuff);
-                        b->SetLeadingEdge(true);
+                        b->set_bubble(false);
+                        b->ResetBuffer(b->get_t1() + AccumulationTime*NAccumBuff,
+                                       b->get_t2() + AccumulationTime*NAccumBuff);
+                        b->set_leading_edge(true);
                         b->BufferData(numel, timestamps,data);
                     }
                 }
 
                 // If we are at the end of the buffer list and need a new bubble
                 if (!NewBubbleSet) {
-                    GRIAccumBuff<T>* b2 = buff.front();
-                    b2->SetBubble(true);   
+                    GRIAccumBuff<T>* b2 = buff_.front();
+                    b2->set_bubble(true);   
                 }
             }
         }
@@ -144,58 +140,54 @@ class GRIDAQAccumulator : public GRIDAQAccumNode {
             typename list<GRIAccumBuff<T>*>::iterator  buff_it;
 
             // Loop over all buffers and write the bubbles out...
-            for (int i=0; i<this->NAccumBuff; i++) {
+            for (int i=0; i<NAccumBuff; i++) {
                 bool NewBubble = false;
                 bool NewBubbleSet = false;
                 cout << "Flushing AccumBuff Iteration " << i << endl;
                 int buffctr = 0;
-                for (buff_it = buff.begin(); buff_it != buff.end(); buff_it++) {
+                for (buff_it = buff_.begin(); buff_it != buff_.end(); buff_it++) {
                     buffctr = buffctr + 1;
                     GRIAccumBuff<T>* b = *buff_it;
 
                     if (NewBubble) {
-                        b->SetBubble(true);
+                        b->set_bubble(true);
                         NewBubbleSet = true;
                         NewBubble = false;
                     }
 
-                    if(b->isLeadingEdge())
-                        b->SetLeadingEdge(false);
+                    if(b->get_leading_edge())
+                        b->set_leading_edge(false);
 
                     // Check for bubble
-                    if (b->isBubble() && !NewBubbleSet) {
+                    if (b->get_bubble() && !NewBubbleSet) {
                         // Write Bubble Accumulator to mm
-                        cout << "FLUSH (" << buffctr << "): " << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": " <<
-                                this->GetBufferName().toStdString().c_str() << " accumulator writing "  <<
-                                b->GetDataSize() << " events." << endl;
+                        cout << "FLUSH (" << buffctr << "): " 
+                             << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": " 
+                             << GetBufferName().toStdString().c_str() << " accumulator writing "  
+			     << b->GetDataSize() << " events." << endl;
                         T* da = b->DataArray();
 
-                        pDAQ->writeMemory(pDAQ->get_name(),this->GetBufferName(),b->GetDataSize(),da);
+                        pDAQ->writeMemory(pDAQ->get_name(),GetBufferName(),b->GetDataSize(),da);
                         delete [] da;
 
                         NewBubble = true;  // Sets up next buffer to be the bubble
-                        b->SetBubble(false);
-                        b->ResetBuffer(b->GetT1() + this->AccumulationTime*this->NAccumBuff,
-                                       b->GetT2() + this->AccumulationTime*this->NAccumBuff);
-                        b->SetLeadingEdge(true);
+                        b->set_bubble(false);
+                        b->ResetBuffer(b->get_t1() + AccumulationTime*NAccumBuff,
+                                       b->get_t2() + AccumulationTime*NAccumBuff);
+                        b->set_leading_edge(true);
                     }
                 }
 
                 // If we are at the end of the buffer list and need a new bubble
                 if (!NewBubbleSet) {
-                    GRIAccumBuff<T>* b2 = buff.front();
-                    b2->SetBubble(true);
+                    GRIAccumBuff<T>* b2 = buff_.front();
+                    b2->set_bubble(true);
                 }
             }
      }
 
-    // TODO(arbenson): Are we calling this anywhere?
-    void GRIDAQAccumulationTimer() {
-        // Callback function for timer event
-    }
-
 private:
-    list<GRIAccumBuff<T>*> buff;
+    list<GRIAccumBuff<T>*> buff_;
 };
 
 

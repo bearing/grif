@@ -12,7 +12,7 @@
 class GRIDAQAccumNode: public GRIObject {
  public:
 
-  virtual void GRIDAQAccumulationTimer() = 0;
+  virtual void GRIDAQAccumulationTimer() {}
   virtual void ResetAccumBuffs(qint64 t_0) = 0;
   virtual void FlushBuffers() = 0;
 
@@ -88,10 +88,14 @@ class GRIDAQAccumNode: public GRIObject {
 
   qint64 ts0;
   qint64 ticksPerSecond;
-  qint64 AccumulationTime;  // Accumulation Time in ticks
 
-  int NAccumBuff;  //Number of buffers
-  int timerID;
+  // Accumulation Time in ticks
+  qint64 AccumulationTime;
+
+  // Number of buffers
+  int NAccumBuff;
+
+  int timer_id_;
   bool running;
   GRIProcessThread* pDAQ;
   list<GRIAccumBuff<double>*> buff;
