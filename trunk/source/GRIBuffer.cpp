@@ -60,7 +60,7 @@ char GRIBuffer::readBuffer(int packetNumber, int index) {
   QVector<char> *packet = packetList->at(packetNumber);
 
   //the following code is for testing purposes only
-  int id = ((GRIProcessThread*) QThread::currentThread())->getID();
+  int id = ((GRIProcessThread*) QThread::currentThread())->get_thread_id();
 
   int i = threadList->indexOf(id);
   if (i != -1) {
@@ -86,7 +86,7 @@ void GRIBuffer::clearPacket(int packetNumber) {
 
 //returns the packet number being read
 int GRIBuffer::currentPacket() {
-  int id = ((GRIProcessThread*) QThread::currentThread())->getID();
+  int id = ((GRIProcessThread*) QThread::currentThread())->get_thread_id();
   int i = this->threadList->indexOf(id);
   if (i != -1) {
     return markerList->at(i);
@@ -129,7 +129,7 @@ void GRIBuffer::clear() {
 }
 
 void GRIBuffer::setPacketMarker(int newMarker) {
-  int id = ((GRIProcessThread*) QThread::currentThread())->getID();
+  int id = ((GRIProcessThread*) QThread::currentThread())->get_thread_id();
   int i = threadList->indexOf(id);
   if (i != -1) {
     markerList->replace(i, newMarker);
@@ -141,7 +141,7 @@ void GRIBuffer::setPacketMarker(int newMarker) {
 }
 
 void GRIBuffer::incrementPacketMarker() {
-  int id = ((GRIProcessThread*) QThread::currentThread())->getID();
+  int id = ((GRIProcessThread*) QThread::currentThread())->get_thread_id();
   int i = threadList->indexOf(id);
   if (i != -1) {
     int newMarker = markerList->at(i);

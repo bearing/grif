@@ -34,7 +34,7 @@ void GRIRegulator::initConfig(std::list<GRIDataBlock*>* dataBlocks,
 
   for(process_it = processes->begin(); process_it != processes->end(); process_it++) {
     GRIProcessThread* process = *process_it;
-    process->set_link(dataBlocks);
+    process->SetLink(dataBlocks);
   }
 
   this->processes = processes;

@@ -143,7 +143,7 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails() {
                 continue; //skip this process
             }
 
-            proc->setDefaultDetail(this->regulator, objectName);
+            proc->SetDefaultDetail(this->regulator, objectName);
 
             std::list<struct linkParsingDetails *>::iterator link_details_it;
             std::list<struct linkParsingDetails*> *obj_links = obj_details.links;
@@ -151,7 +151,7 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails() {
             for(link_details_it = obj_links->begin(); link_details_it != obj_links->end(); link_details_it++) {
                 struct linkParsingDetails *curr_link = *(link_details_it);
                 // add data block to the process
-                proc->add_data_block(curr_link->dataBlock, curr_link->writer==proc->name());
+                proc->AddDataBlock(curr_link->dataBlock, curr_link->writer==proc->name());
                 QString writer = curr_link->writer;
                 QString reader = curr_link->reader;
                 QString db_name = curr_link->dataBlock;

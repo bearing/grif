@@ -157,14 +157,14 @@ void GRIDataBlock::load_balancing() {
   // Either decrease priority of writer (if possible) or increase the priority
   // of the reader (if possible)
   if(rand() % 2 && (int)writer_->priority() > (int)QThread::IdlePriority) {
-    this->writer_->change_priority(false);
+    this->writer_->ChangePriority(false);
   } else {
     for (it = readers_.begin(); it != readers_.end(); it++) {
       reader_t* reader = *it;
 
       if ((reader->read_counter - first_packet_) > LOAD_BALANCING_FACTOR * MAX_THRESHOLD &&
 	 (int)reader->reader->priority() < (int)QThread::TimeCriticalPriority) {
-	reader->reader->change_priority(true);
+        reader->reader->ChangePriority(true);
       }
     }
   }
@@ -178,7 +178,7 @@ bool GRIDataBlock::update_reader() {
     reader_t* new_reader = *it;
     if(!new_reader->reader_name.compare(curr_thread_name)) {
       new_reader->read_counter++;
-      new_reader->reader->increment_packet_count();
+      new_reader->reader->IncrementPacketCount();
       return true;
     }
   }
@@ -197,7 +197,7 @@ bool GRIDataBlock::update_writer() {
   }
 
   ++write_counter_;
-  writer_->increment_packet_count();
+  writer_->IncrementPacketCount();
 
   return true;
 }

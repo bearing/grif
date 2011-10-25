@@ -1,41 +1,29 @@
 #include "GRIDAQThread.h"
 
 GRIDAQThread::GRIDAQThread() {
-  sleeping = false;
-  exitThreadFlag = false;
-  forceQuit = false;
-  is_daq = true;
+  set_sleeping(false);
+  set_exit_thread_flag(false);
+  set_force_quit(false);
+  set_is_daq(true);
 }
 
 GRIDAQThread::~GRIDAQThread() {}
 
-void GRIDAQThread::setExitThreadFlag(bool newExitThreadFlag) {
-  if (sleeping) {
-    sleeping = false;
-    // TODO (arbenson): tell regulator to unsleep thread.
-  }
-  exitThreadFlag = newExitThreadFlag;
-}
-
-bool GRIDAQThread::getExitThreadFlag() {
-  return exitThreadFlag;
-}
-
 void GRIDAQThread::startCollection() {
-  setRunFlag(true);
+  set_run_flag(true);
 }
 
 void GRIDAQThread::stopCollection() {
-  setRunFlag(false);
+  set_run_flag(false);
 }
 
 void GRIDAQThread::quitDAQ() {
-  setExitThreadFlag(false);
+  set_exit_thread_flag(false);
 }
 
 void GRIDAQThread::forceQuitDAQ() {
-  forceQuit = true;
-  setExitThreadFlag(false);
+  set_force_quit(true);
+  set_exit_thread_flag(false);
 }
 
 void GRIDAQThread::run() {
@@ -46,41 +34,41 @@ void GRIDAQThread::run() {
   std::cout << "Connecting to DAQ Here ..." << endl;
   error = connectToDAQ();
   if (error != DAQTHREAD_SUCCESS) {
-    this->errorHandling("connectToDaq failed", error);
+    errorHandling("connectToDaq failed", error);
   }
 	
   std::cout << "Loading Configuration ..." << endl;
   error = loadConfiguration();
   if (error != DAQTHREAD_SUCCESS) {
-    this->errorHandling("loadConfiguration() failed", error);
+    errorHandling("loadConfiguration() failed", error);
   }
 	
   std::cout << "Initializing Acquisition..." << endl;
   error = initialize();
   if (error != DAQTHREAD_SUCCESS) {
-    this->errorHandling("initialize() failed", error);
+    errorHandling("initialize() failed", error);
   }
-  while (!this->getRunFlag() && !exitThreadFlag) {
-    sleeping = true;
+  while (!get_run_flag() && !get_exit_thread_flag()) {
+      set_sleeping(true);
     // TODO(arbenson): tell regulator to sleep thread.
   }
 
-  while (!exitThreadFlag) {
+  while (!get_exit_thread_flag()) {
     error = openRunTimeControl();
     if (error != DAQTHREAD_SUCCESS) {
-      this->errorHandling("openRunTimeControl() failed", error);
+      errorHandling("openRunTimeControl() failed", error);
     }
 		
     error = startDataAcquisition();
     if (error != DAQTHREAD_SUCCESS) {
-      this->errorHandling("startDataAcquisition() failed", error);
+      errorHandling("startDataAcquisition() failed", error);
     }
 
-    while (this->getRunFlag() && !exitThreadFlag) {
+    while (get_run_flag() && !get_exit_thread_flag()) {
       // std::cout << "GRIDAQThread-->AcquireData" << endl;
       error = acquireData();
       if (error != DAQTHREAD_SUCCESS) {
-	this->errorHandling("acquire Data() failed", error);
+	errorHandling("acquire Data() failed", error);
       }
       // flush the dynamic command buffer
       FlushBuffer();
@@ -89,25 +77,25 @@ void GRIDAQThread::run() {
     std::cout << "Running one more to ensure flush occurred..." << endl;
     error = FlushAccumulators();
     if (error != DAQTHREAD_SUCCESS) {
-      this->errorHandling("Flush Accumulators failed", error);
+      errorHandling("Flush Accumulators failed", error);
     }
 
-    if (!forceQuit) {
+    if (!get_force_quit()) {
       error = stopDataAcquisition();
       if (error != DAQTHREAD_SUCCESS) {
-	this->errorHandling("stopDataAcquisition() failed", error);
+        errorHandling("stopDataAcquisition() failed", error);
       }
     }
-    while (!this->getRunFlag() && !exitThreadFlag) {
-      sleeping = true;
+    while (!get_run_flag() && !get_exit_thread_flag()) {
+      set_sleeping(true);
       // TODO(arbenson): tell regulator to sleep thread.
     }
   }
 
-  if (!forceQuit) {
+  if (!get_force_quit()) {
     error = terminationRoutines();
     if (error != DAQTHREAD_SUCCESS) {
-      this->errorHandling("terminationRoutines() failed", error);
+      errorHandling("terminationRoutines() failed", error);
     }
   }
 }

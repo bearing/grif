@@ -1,15 +1,9 @@
 #include "GRIThread.h"
 
-GRIThread::GRIThread() {
-     log.setString(&temp,QIODevice::ReadWrite);
-}
-
-GRIThread::~GRIThread() {}
-
 void GRIThread::CommitLog(int level) {
-    if(LogMsg.IsLevelEnabled(level)) {
-        if(LogMsg.SetMessageTime(log.readAll(),level)) {
-            logSignal(LogMsg);
+    if(log_msg_.IsLevelEnabled(level)) {
+        if(log_msg_.SetMessageTime(log.readAll(),level)) {
+            logSignal(log_msg_);
         }
     } else {
         log.flush();
@@ -17,7 +11,6 @@ void GRIThread::CommitLog(int level) {
 }
 
 void GRIThread::setObjectName(QString n){
-    //this->setObjectName(n);
-    this->setName(n.toStdString().c_str());  //This should set the QObject name property
-    LogMsg.SetObjectName(n);
+    setName(n.toStdString().c_str());  //This should set the QObject name property
+    log_msg_.SetObjectName(n);
 }
