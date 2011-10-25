@@ -24,84 +24,65 @@
  *
  * \see GRIProcessThread()
  */
+
+/*
+  The app engineer must create a class inheriting GRIDAQThread that implements
+  the following methods.  Unlike in our SIS DAQ implementation, the app engineer
+  will not implement the while loop controlling data collection (see run() method).
+
+  This class might look something like this:
+
+  class MyDAQ : public GRIDAQThread
+  {
+  public:
+  myDAQ() {do stuff}
+  ~myDAQ() {do stuff}
+  virtual int connectToDAQ(){
+  //Talk to hardware
+  }
+
+  virtual int initalize(){
+  //Initialize DAQ hardware
+  }
+
+  virtual int loadConfiguration(){
+  //Configure DAQ hardware or something
+  }
+
+  virtual int startDataAcquisition(){
+  //Do routines that must run immediately
+  //before data collection.
+  }
+
+  virtual int acquireData(){
+  //Do routine that actually collects data
+  //with the expectation that acquireData()
+  //will be run in a loop (as shown in run()).
+  //Use the methods inherited from GRIProcessThread
+  //to write data to memory through the regulator.
+
+  }
+
+  virtual int stopDataAcquisition(){
+  //Do routines that must run immediately
+  //after data collection.
+  }
+
+  virtual int terminationRoutines(){
+  //Do things that turn off DAQ
+  }
+
+  //getParam and setParam for runtime getting and setting of parameters
+  //in classes inheriting GRIDAQThread should use the getParam and setParam
+  //functions inherited from GRIProcessThread
+  }
+*/
+
+
 class GRIDAQThread : public GRIProcessThread {
  public:
-  //! A constructor
   GRIDAQThread();
-  //! A destructor
   ~GRIDAQThread();
-
-  /*
-    The app engineer must create a class inheriting GRIDAQThread that implements
-    the following methods.  Unlike in our SIS DAQ implementation, the app engineer
-    will not implement the while loop controlling data collection (see run() method).
-
-    This class might look something like this:
-
-    class MyDAQ : public GRIDAQThread
-    {
-    public:
-    myDAQ() {do stuff}
-    ~myDAQ() {do stuff}
-    virtual int connectToDAQ(){
-    //Talk to hardware
-    }
-
-    virtual int initalize(){
-    //Initialize DAQ hardware
-    }
-
-    virtual int loadConfiguration(){
-    //Configure DAQ hardware or something
-    }
-
-    virtual int startDataAcquisition(){
-    //Do routines that must run immediately
-    //before data collection.
-    }
-
-    virtual int acquireData(){
-    //Do routine that actually collects data
-    //with the expectation that acquireData()
-    //will be run in a loop (as shown in run()).
-    //Use the methods inherited from GRIProcessThread
-    //to write data to memory through the regulator.
-
-    }
-
-    virtual int stopDataAcquisition(){
-    //Do routines that must run immediately
-    //after data collection.
-    }
-
-    virtual int terminationRoutines(){
-    //Do things that turn off DAQ
-    }
-
-    //getParam and setParam for runtime getting and setting of parameters
-    //in classes inheriting GRIDAQThread should use the getParam and setParam
-    //functions inherited from GRIProcessThread
-    }
-
-
-    Setting up and running this class would look something like this.
-
-    //In loader:
-    MyDAQ * mydaq = new myDAQ();
-    //initialize
-    mydaq->init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator);
-    //add a bunch of parameters so we can do gets and sets later
-    mydaq->addParam(QString Key, T& value);
-    mydaq->addParam(QString Key, T& value);
-    mydaq->addParam(QString Key, T& value);  //These will be user defined
-    mydaq->addParam(QString Key, T& value);
-    mydaq->addParam(QString Key, T& value);
-    mydaq->addParam(QString Key, T& value);
-
-
-    //Something will later start the daq thread, resulting in:
-    mydaq->run(); //which calls the user defined methods in a well-defined order.
-  */
 
   void registerAccumulator(QString buffname) {
     GRIDAQAccumNode* p = RegisterDataOutput(buffname);
@@ -116,8 +97,7 @@ class GRIDAQThread : public GRIProcessThread {
 
   virtual GRIDAQAccumNode* RegisterDataOutput(QString outName) = 0;
 
-  //! A member function for procedures that establish a connection to a DAQ
-  /*!
+  /* A member function for procedures that establish a connection to a DAQ
    *
    * connectToDAQ() should contain procedures for setting up a connection to a
    * given data acquisition device.  Simply return DAQTHREAD_SUCCESS if there
@@ -128,16 +108,14 @@ class GRIDAQThread : public GRIProcessThread {
    * starts.  It is called before any other methods in GRIDAQThread (except
    * openInitializationControl()).  It is not called for each startCollection().
    *
-   * \return an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
+   * returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
    * code of your choosing upon failure.  The error will be reported using the
    * errorHandling() method.
-   * \see errorHandling()
    *
    */
   virtual int connectToDAQ() = 0;
 
-  //! A member function for procedures that load an initial configuration onto a DAQ
-  /*!
+  /* A member function for procedures that load an initial configuration onto a DAQ
    *
    * loadConfiguration() should contain procedures for loading a configuration onto
    * a given data acquisition device.  Simply return DAQTHREAD_SUCCESS if there
@@ -148,16 +126,14 @@ class GRIDAQThread : public GRIProcessThread {
    * starts.  It is called immediately after connectToDAQ().  It is not called for
    * each startCollection().
    *
-   * \return an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
+   * returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
    * code of your choosing upon failure.  The error will be reported using the
    * errorHandling() method.
-   * \see errorHandling()
    *
    */
   virtual int loadConfiguration() = 0;
 
-  //! A member function for procedures that initialize a DAQ
-  /*!
+  /* A member function for procedures that initialize a DAQ
    *
    * initialize() should contain procedures for doing any initial setup necessary
    * for a given data acquisition device.  Simply return DAQTHREAD_SUCCESS if there
@@ -168,16 +144,14 @@ class GRIDAQThread : public GRIProcessThread {
    * starts.  It is called immediately after loadConfiguration().  It is not called for
    * each startCollection().
    *
-   * \return an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
+   * returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
    * code of your choosing upon failure.  The error will be reported using the
    * errorHandling() method.
-   * \see errorHandling()
    *
    */
   virtual int initialize() = 0;
 
-  //! A member function for procedures that start data collection from a DAQ
-  /*!
+  /* A member function for procedures that start data collection from a DAQ
    *
    * startDataAcquisition() should contain procedures initiating the data acquisition
    * process for a given data acquisition device. Simply return DAQTHREAD_SUCCESS if
@@ -188,18 +162,14 @@ class GRIDAQThread : public GRIProcessThread {
    * is called.  Every time data collection is stopped using stopCollection() and
    * restarted using startCollection() again, this method will be called again.
    *
-   * \return an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
+   * returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
    * code of your choosing upon failure.  The error will be reported using the
    * errorHandling() method.
-   * \see errorHandling()
-   * \see startCollection()
-   * \see stopCollection()
    *
    */
-  virtual int startDataAcquisition() = 0;  // Called at the beginning each run.
+  virtual int startDataAcquisition() = 0;
 
-  //! A member function for procedures will be called repeatedly to collect data
-  /*!
+  /* A member function for procedures will be called repeatedly to collect data
    *
    * acquireData() should contain procedures that collect data from a DAQ and write
    * it to the GRIMemoryManager using the writeMemory() and readMemory() methods
@@ -220,25 +190,14 @@ class GRIDAQThread : public GRIProcessThread {
    * startDataAcquisition() is called until stopCollection(), quitDAQ(), or
    * forceQuitDAQ() is called.
    *
-   * \return an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
+   * returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
    * code of your choosing upon failure.  The error will be reported using the
    * errorHandling() method.
-   * \see errorHandling()
-   * \see startCollection()
-   * \see stopCollection()
-   * \see quitDAQ()
-   * \see forceQuitDAQ()
-   * \see writeMemory()
-   * \see readMemory()
-   * \see getParam()
-   * \see setParam()
-   * \see GRIProcessThread()
    *
    */
-  virtual int acquireData() = 0;  // Called repeatedly for each run inside loop
+  virtual int acquireData() = 0;
 
-  //! A member function for procedures that stop data collection from a DAQ
-  /*!
+  /* A member function for procedures that stop data collection from a DAQ
    *
    * stopDataAcquisition() should contain procedures ending the data acquisition
    * process for a given data acquisition device. Simply return DAQTHREAD_SUCCESS if
@@ -253,19 +212,14 @@ class GRIDAQThread : public GRIProcessThread {
    * will not be called.  However, if quitDAQ() is called, stopDataAcquisition() will
    * be called.
    *
-   * \return an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
+   * returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
    * code of your choosing upon failure.  The error will be reported using the
    * errorHandling() method.
-   * \see errorHandling()
-   * \see stopCollection()
-   * \see startCollection()
-   *
    */
-  virtual int stopDataAcquisition() = 0;  // Called at the end of each run.
+  virtual int stopDataAcquisition() = 0;
 
 
-  //! A member function for procedures that do final cleanup and shutdown for a DAQ
-  /*!
+  /* A member function for procedures that do final cleanup and shutdown for a DAQ
    *
    * terminationRoutines() should contain procedures for cleaning up, shutting down,
    * and turning off a DAQ.  This method will be called only when the quitDAQ() method
@@ -278,18 +232,13 @@ class GRIDAQThread : public GRIProcessThread {
    * before this method.  forceQuitDAQ(), however, does not call this method before
    * allowing the DAQThread to terminate.
    *
-   * \return an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
+   * returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
    * code of your choosing upon failure.  The error will be reported using the
    * errorHandling() method.
-   * \see errorHandling()
-   * \see quitDAQ()
-   * \see forceQuitDAQ()
-   *
    */
   virtual int terminationRoutines() { return 0; }
 
-  //! A member function for opening a GUI during DAQ initialization.
-  /*!
+  /* A member function for opening a GUI during DAQ initialization.
    *
    * openInitializationControl() should open a GUI for controlling initialization of
    * the DAQ.  Dynamically getting and setting parameters may be done through the
@@ -301,18 +250,13 @@ class GRIDAQThread : public GRIProcessThread {
    * runs. It is called before any other methods in GRIDAQThread (except
    * openInitializationControl()).  It is not called for each startCollection().
    *
-   * \return an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
+   * returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
    * code of your choosing upon failure.  The error will be reported using the
    * errorHandling() method.
-   * \see errorHandling()
-   * \see getParam()
-   * \see setParam()
-   *
    */
   virtual int openInitializationControl() { return 0; }  //Can override to tell GUI to open.
 
-  //! A member function for opening a GUI during a DAQ run.
-  /*!
+  /* A member function for opening a GUI during a DAQ run.
    *
    * openRunTimeControl() should open a GUI for controlling running of
    * the DAQ.  Dynamically getting and setting parameters may be done through the
@@ -325,25 +269,19 @@ class GRIDAQThread : public GRIProcessThread {
    * collection is stopped and restarted using stopCollection(), and startCollection().
    * openRunTimeControl() can override to tell GUI to open.
    *
-   * \return an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
+   * returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
    * code of your choosing upon failure.  The error will be reported using the
    * errorHandling() method.
-   * \see errorHandling()
-   * \see getParam()
-   * \see setParam()
-   * \see startCollection()
-   * \see stopCollection()
    */
   virtual int openRunTimeControl() { return 0; }
 
-  //!  The run() method.  Called when this thread is started by the regulator.
+  // run() is called when this thread is started by the regulator.
   void run();
 
-  //! The errorHandling() method. Reports user generated errors for a DAQThread to standard output.
+  // Reports user generated errors for a DAQThread to standard output.
   void errorHandling(const char * message, int errorCode);
 
-  //! A member function for starting a DAQ run.
-  /*!
+  /* A member function for starting a DAQ run.
    *
    * startCollection() can be called to begin collection of data from a DAQ.  Calling
    * this method repeatedly results in undefined behavior.  This method may be called
@@ -357,14 +295,10 @@ class GRIDAQThread : public GRIProcessThread {
    *
    * invariants:
    * This method must be called to start the data acquisition loop.
-   *
-   * \see errorHandling()
-   * \see stopCollection()
    */
   void startCollection();
 
-  //! A member function for stopping a DAQ run.
-  /*!
+  /* A member function for stopping a DAQ run.
    *
    * stopCollection() can be called to end collection of data from a DAQ.  Calling
    * this method repeatedly results in undefined behavior.  startCollection() may be called
@@ -379,8 +313,7 @@ class GRIDAQThread : public GRIProcessThread {
    */
   void stopCollection();
 
-  //! A member function for stopping any data collection and nicely terminating the thread.
-  /*!
+  /* A member function for stopping any data collection and nicely terminating the thread.
    *
    * quitDAQ() can be called to end collection of data from a DAQ and nicely terminating the
    * thread.  "Nicely" means that the stopDataAcquisition() and terminationRoutines() methods
@@ -389,16 +322,10 @@ class GRIDAQThread : public GRIProcessThread {
    * invariants:
    * This method may be called to stop the data acquisition loop and terminate the thread, or
    * simply just to terminate the thread.
-   *
-   * \see errorHandling()
-   * \see stopDataAcquisition()
-   * \see terminationRoutines()
-   * \see forceQuitDAQ()
    */
   void quitDAQ();
 
-  //! A member function for stopping any data collection and rapidly terminating the thread.
-  /*!
+  /* A member function for stopping any data collection and rapidly terminating the thread.
    *
    * forceQuitDAQ() can be called to end collection of data from a DAQ and terminate the
    * thread.  THIS SHOULD ONLY BE USED TO TERMINATE THE THREAD IN EMERGENCIES.  This method
@@ -408,16 +335,8 @@ class GRIDAQThread : public GRIProcessThread {
    * invariants:
    * This method may be called to stop the data acquisition loop and terminate the thread, or
    * simply just to terminate the thread.
-   *
-   * \see errorHandling()
-   * \see stopDataAcquisition()
-   * \see terminationRoutines()
-   * \see quitDAQ()
    */
   void forceQuitDAQ();
-
-  void setExitThreadFlag(bool newExitThreadFlag);
-  bool getExitThreadFlag();
 
  protected:
   template <class T> int PostData(int numel, QString buffer_name, T _data[], 
@@ -445,7 +364,7 @@ class GRIDAQThread : public GRIProcessThread {
 
     GRIDAQAccumulator<T>* accum = (GRIDAQAccumulator<T> *)(*accum_it);
     if (numel > 0) {
-      accum->Accumulate(numel, _data,timestamps,this->getRunFlag());
+      accum->Accumulate(numel, _data,timestamps,this->get_run_flag());
     }
     return 1;
   }

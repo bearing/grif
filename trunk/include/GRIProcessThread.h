@@ -4,12 +4,9 @@
 #define PROCESS_THREAD_DEBUG
 
 #include <list>
-#include <utility>
-#include <vector>
-#include <QHash>
 #include <QMutex>
-#include <QString>
 #include <QQueue>
+#include <QString>
 #include "GRIRegulator.h"
 #include "GRIDataBlock.h"
 #include "GRIDefines.h"
@@ -29,173 +26,87 @@ typedef struct process_details {
     bool isDaq;
 } ProcessDetails;
 
-/*
- * GRIProcessThread class is a common interface for DAQ thread & analysis thread.
- *
- * Load balancing is being partially done in here (ie: the actual changing of thread's
- * priority). It is done by having two sets of variables. One is # of packets before we
- * are allowed to adjust the priority of this process away/to saturation. Saturation
- * being defined as time-critical priority or idle priority. The other one is when is the
- * last time this process adjusts its priority away/to saturation. If the latter is
- * greater than the former, priority adjustment will be done
- */
+// GRIProcessThread class is a common interface for DAQ thread and analysis
+// thread.
+//
+// Load balancing is being partially done in here (ie: the actual changing of
+// thread's priority). It is done by having two sets of variables. One is the
+// number of packets before we are allowed to adjust the priority of this 
+// process away/to saturation. Saturation isg defined as the time-critical 
+// priority or idle priority. The other one is when is the last time this 
+// process adjusts its priority away/to saturation. If the latter is greater 
+// than the former, priority adjustment will be done.
 class GRIProcessThread : public GRIThread {
 
     Q_OBJECT
-
-friend class GRICommandAndControl;
 
 public:
     GRIProcessThread();
     ~GRIProcessThread();
 
-    //*******************************************************************
-    //Please call init() before using other methods of GRIProcessThread.
-    //The reason for init() is to avoid a large constructor in the derived
-    //class that must pass down arguments to each parent class constructor.
-    //Ugly ugly ugly.  Thus, we have init().
-    //*******************************************************************
-
     void init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator);
-    /*
-     * getID() returns the id of this process
-     */
-    int getID();
 
-    /*
-     * get_type() returns the type of this process (either DAQ or analysis)
-     */
-    bool get_type();
+    // TODO(arbenson): should this be removed?
+    // PLEASE USE INIT() INSTEAD
+    void SetDetail(GRIRegulator* reg, process_details* proc_detail);
 
-    /*
-     * set_detail() sets i
-     */
-    //PLEASE USE INIT() INSTEAD
-    void set_detail(GRIRegulator* reg, process_details* proc_detail);
+    // Sets the process details for this process thread.  XML file name
+    // is assumed to be name + ".XML".  To determine whether or not this
+    // thread is a daq thread, it uses the is_daq boolean variable, which
+    // is set for GRIDAQThreads and GRIAnalysisThreads upon construction.
+    void SetDefaultDetail(GRIRegulator *reg, QString name);
 
-    /*
-     * Sets the process details for this process thread.  XML file name
-     * is assumed to be name + ".XML".  To determine whether or not this
-     * thread is a daq thread, it uses the is_daq boolean variable, which
-     * is set for GRIDAQThreads and GRIAnalysisThreads upon construction.
-     */
-    void setDefaultDetail(GRIRegulator *reg, QString name);
+    // set_link() sets up the pointers to the processes objects that are directly involved
+    // with this process (ie: those who will be writtten to or read by this process
+    void SetLink(list<GRIDataBlock*>* dataBlocks);
 
-    /*
-     * get_name() returns the name of this process
-     */
-    QString get_name(){return this->objectName();}
-    void set_name(QString s){this->setObjectName(s);}
+    // adds a data block that this process is going to use. Whether it's a buffer that this
+    // process is writing to or reading from will be dictated by type (OUT or IN).
+    void AddDataBlock(QString data_block, bool is_output);
 
-    /*
-     * get_xml_path() returns the path to the xml file of this process
-     */
-    QString get_xml_path();
-
-    /*
-     * set_load_balancing_vars() allows the user to customize the number of packets need to be
-     * written/read before this thread's priority could be adjusted again
-     */
-    void set_load_balancing_vars(int num_packets_to_saturation,
-                                 int num_packets_from_saturation);
-
-    /*
-     * set_link() sets up the pointers to the processes objects that are directly involved
-     * with this process (ie: those who will be writtten to or read by this process
-     */
-    void set_link(list<GRIDataBlock*>* dataBlocks);
-
-    /*
-     * adds a data block that this process is going to use. Whether it's a buffer that this
-     * process is writing to or reading from will be dictated by type (OUT or IN).
-     */
-    void add_data_block(QString data_block, bool is_output);
-
-    /*
-     * Adds data blocks provided in the list of QStrings.  Uses the is_daq variable to determine
-     * whether or not this is an input or output.  GRIDAQThread has is_daq set to true on construction.
-     * GRIAnalysis thread has is_daq set to false on construction.
-     *
-     */
-    void addDataBlocks(list<QString> dataBlockNames);
-
+    // Adds data blocks provided in the list of QStrings.  Uses the is_daq variable to determine
+    // whether or not this is an input or output.  GRIDAQThread has is_daq set to true on construction.
+    // GRIAnalysis thread has is_daq set to false on construction.
+    void AddDataBlocks(list<QString> dataBlockNames);
 
     // This is overloaded in GRIDAQThread...
-    virtual void registerAccumulator(QString datablock) { datablock = "ReduceCompilerWarnings"; }
+    virtual void RegisterAccumulator(QString datablock) { datablock = "ReduceCompilerWarnings"; }
 
-    /*
-     * change_priority() decides whether to change the thread's priority or not
-     */
-    bool change_priority(bool is_up);
+    // change_priority() decides whether to change the thread's priority or not
+    bool ChangePriority(bool is_up);
 
-    /*
-     * increment_packet_count() is being called everytime a packet is being read/written
-     * by this process. It will increment the load balancing variables, ie:
-     * last_adjustment_to_saturation & last_adjustment_from_saturation;
-     */
-    void increment_packet_count();
+    // increment_packet_count() is being called everytime a packet is being read/written
+    // by this process. It will increment the load balancing variables, ie:
+    // last_adjustment_to_saturation & last_adjustment_from_saturation;
+    void IncrementPacketCount();
 
-    /*
-     * find_data_block() finds a data block that this process is possibly writing to/
-     * reading from. It will return NULL when it could not find the data block.
-     */
-    GRIDataBlock* find_data_block(QString data_block_name);
+    // find_data_block() finds a data block that this process is possibly writing to/
+    // reading from. It will return NULL when it could not find the data block.
+    GRIDataBlock* FindDataBlock(QString data_block_name);
 
-    template <class T> void addParam(QString Key, T& value);
-
-    /*
-     * readMemory() reads one packet from memory in the location specified by process_name
-     * & bufferName. Essentially abstracts regulator's readMemory() by templating it.
-     */
+     // readMemory() reads one packet from memory in the location specified by process_name
+     // and bufferName. Essentially abstracts regulator's readMemory() by templating it.
      template<class T> pair<int, T*> readMemory(QString blockName, QString bufferName);
 
-    /*
-     * writeMemory() writes a data given in the char array to the location specified.
-     * by process_name & bufferName. Also abstracts regulator's readMemory() by
-     * templating it.
-     */
+    // writeMemory() writes a data given in the char array to the location specified.
+    // by process_name & bufferName. Also abstracts regulator's readMemory() by
+    // templating it.
     template <class T> bool writeMemory(QString blockName, QString bufferName, int size, T dataArray[]);
 
-    /*
-     *
-     * currentPacketPosition() returns the current index of the packet marker. This is in most cases the last
-     * packet to be read next unless setPacketPosition() has been called.
-     *
-     */
-    int currentPacketPosition(QString bufferName);
+    // CurrentPacketPosition() returns the current index of the packet marker.
+    // This is in most cases the last packet to be read next unless 
+    // setPacketPosition() has been called.
+    int CurrentPacketPosition(QString bufferName);
 
-    /*
-     *
-     * lastPacket() returns the index of the last packet in the specified buffer. This is equivalent to
-     * the buffer size minus one.
-     *
-     */
-    int lastPacket(QString bufferName);
+    // LastPacket() returns the index of the last packet in the specified
+    // buffer. This is equivalent to the buffer size minus one.
+    int LastPacket(QString bufferName);
 
+    // SizeOfPacket() computes the size of a specific packet in a specific buffer
+    int SizeOfPacket(QString bufferName, int packetNumber);
 
-    /*
-     * sizeOfPacket() computes the size of a specific packet in a specific buffer
-     */
-    int sizeofPacket(QString bufferName, int packetNumber);
-
-
-    /*
-     * sizeOfBuffer() computes the total size of a specific buffer
-     */
-    int sizeofBuffer(QString bufferName);
-
-    list<QString> dataBlockNames;
-
-
-    /*
-     * dummy setInitialGCGValues() to be overridden by code generation
-     */
-    void setInitialGCGValues() {}
-
-    /*
-     * dummy printActions() to be overridden by code generation
-     */
-    void printActions() {}
+    // SizeOfBuffer() computes the total size of a specific buffer
+    int SizeOfBuffer(QString bufferName);
 
     // Handle gets/sets/runactions from the CLI
     void EnqueueDynamicCommand(ProcessCommand *pc);
@@ -211,10 +122,35 @@ public:
         cout << "Action: " << name.toStdString() << endl;
     }
 
-    /*
-     * For debugging purpose; display the important state of the process, ie: who it's writing
-     * to, who it's reading from, etc
-     */
+
+    // to keep track what id needs to be given to a new thread
+    static int counter;
+
+
+    void set_run_flag(bool run_flag) { run_flag_ = run_flag; }  
+    bool get_run_flag() { return run_flag_; }
+    int get_thread_id() { return thread_id_; }
+    int get_num_packets_to_sat() { return num_packets_to_sat_; }
+    int get_num_packets_from_sat() { return num_packets_from_sat_; }
+    int get_last_adjustment_to_sat() { return last_adjustment_to_sat_; }
+    int get_last_adjustment_from_sat() { return last_adjustment_from_sat_; }
+    bool get_is_daq() { return is_daq_; }
+    void set_is_daq(bool is_daq) { is_daq_ = is_daq; }
+    QString get_xml_path() { return xml_path_; }
+
+    // get_name() returns the name of this process
+    QString get_name(){ return objectName(); }
+    void set_name(const QString& s){ setObjectName(s); }
+
+    // set_load_balancing_vars() allows the user to customize the number of
+    // packets need to be written/read before this thread's priority could be
+    //  adjusted again.
+    void set_load_balancing_vars(int num_packets_to_saturation,
+                                 int num_packets_from_saturation);
+
+
+    // For debugging purpose; display the important state of the process, 
+    // ie: who it's writing to, who it's reading from, etc
 #ifdef PROCESS_THREAD_DEBUG
     void display_current_state();
 #endif // PROCESS_THREAD_DEBUG
@@ -223,9 +159,7 @@ public:
     void GetProcessed(ProcessCommand *pc);
 
 protected:
-    //*********************************TESTING***********************************
     virtual void run() {}
-    bool RunFlag;
     GRIRegulator* reg;
     void FlushBuffer();
 
@@ -235,7 +169,9 @@ private:
         GRIDataBlock* data_block;
     } data_t;
 
-    QString xml_path;
+    QString xml_path_;
+
+    std::list<QString> data_block_names_;
 
     QQueue<ProcessCommand *> cmd_buffer_;
     mutable QMutex cmd_buffer_lock_;
@@ -243,23 +179,19 @@ private:
     void HandleDynamicCommand(ProcessCommand *pc);
     void HandleGetRequest(ProcessCommand *pc);
 
-public:
-    void setRunFlag(bool tf) {RunFlag = tf; }  // This could be moved into protected once integration is completed.
-    bool getRunFlag() {return RunFlag; }
-    int thread_id; // id of this thread
-
-    bool is_daq; // indicates whether this process is a daq or analysis
-    static int counter; // to keep track what id needs to be given to a new thread
-    list<data_t*> data_outs; // list of data blocks this process is writing to
-    list<data_t*> data_ins; // list of data blocks this process is reading from
+    // list of data blocks this process is writing to
+    std::list<data_t*> data_outs_;
+    // list of data blocks this process is reading from
+    std::list<data_t*> data_ins_;
 
     // Load balancing variables: refer to the description of the class for more details
-    int num_packets_to_saturation;
-    int num_packets_from_saturation;
-    int last_adjustment_to_saturation;
-    int last_adjustment_from_saturation;
-
-    QHash<QString, void *> hashTable;
+    int num_packets_to_sat_;
+    int num_packets_from_sat_;
+    int last_adjustment_to_sat_;
+    int last_adjustment_from_sat_;
+    bool run_flag_;
+    bool is_daq_;
+    int thread_id_;
 };
 
 template<class T> pair<int, T*>
@@ -273,10 +205,12 @@ GRIProcessThread::readMemory(QString blockName ,QString bufferName) {
 }
 
 template<class T> bool GRIProcessThread::writeMemory(QString blockName,
-						     QString bufferName,
-						     int size, T dataArray[]) {
-    blockName = "ReduceCompilerWarnings"; //do we need blockName for writeMemory()? -Austin
-    return reg->writeMemory(this->get_name(), bufferName, size * sizeof(T), (char*) dataArray);
+                                                     QString bufferName,
+                                                     int size, T dataArray[]) {
+  // TODO(arbenson): do we need blockName for writeMemory()?
+  blockName = "ReduceCompilerWarnings";
+  return reg->writeMemory(this->get_name(), bufferName, size * sizeof(T),
+                          (char*) dataArray);
 }
 
 #endif // GRIPROCESSTHREAD_H
