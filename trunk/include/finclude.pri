@@ -1,7 +1,7 @@
 HEADERS += GRIProcessThread.h \
 GRIAnalysisThread.h \
 GRIBuffer.h \
-GRICLI.h \
+#GRICLI.h \
 #GRICalibrate.h \
 #GRICalibration.h \
 GRIDAQThread.h \
