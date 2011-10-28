@@ -90,8 +90,9 @@ class GRIDAQThread : public GRIProcessThread {
       p->set_p_DAQ(this);
       accum_list_.push_back(p);
     } else {
-      cerr << "! Accumulation Node " << buffname.toStdString().c_str() <<
-	" not found in RegisterDataOutput." << endl;
+      std::cerr << "! Accumulation Node "
+                << buffname.toStdString().c_str()
+                << " not found in RegisterDataOutput." << std::endl;
     }
   }
 
@@ -342,7 +343,7 @@ class GRIDAQThread : public GRIProcessThread {
   template <class T> int PostData(int numel, QString buffer_name, T _data[], 
                                   qint64 timestamps[]) {
 
-    list<GRIDAQAccumNode*>::iterator accum_it;
+    std::list<GRIDAQAccumNode*>::iterator accum_it;
 
     // Finding the Accumulator in the list
     bool found = false;
@@ -356,8 +357,9 @@ class GRIDAQThread : public GRIProcessThread {
     }
 
     if (!found) {
-      cerr << "!Accumulator not found in PostData() when looking for buffer name "<< buffer_name.toStdString() <<  endl;
-      log << "Accumulator not found in PostData()" << endl;
+      std::cerr << "!Accumulator not found in PostData() when looking for buffer name "
+                << buffer_name.toStdString() << std::endl;
+      //log << "Accumulator not found in PostData()" << std::endl;
       CommitLog(GRILOG_ERROR);
       return 0;
     }
@@ -376,7 +378,7 @@ class GRIDAQThread : public GRIProcessThread {
   int FlushAccumulators();
 
  private:
-  list<GRIDAQAccumNode*> accum_list_;
+  std::list<GRIDAQAccumNode*> accum_list_;
 };
 
 #endif // DAQTHREAD_H

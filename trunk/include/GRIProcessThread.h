@@ -58,7 +58,7 @@ public:
 
     // set_link() sets up the pointers to the processes objects that are directly involved
     // with this process (ie: those who will be writtten to or read by this process
-    void SetLink(list<GRIDataBlock*>* dataBlocks);
+    void SetLink(std::list<GRIDataBlock*>* dataBlocks);
 
     // adds a data block that this process is going to use. Whether it's a buffer that this
     // process is writing to or reading from will be dictated by type (OUT or IN).
@@ -67,7 +67,7 @@ public:
     // Adds data blocks provided in the list of QStrings.  Uses the is_daq variable to determine
     // whether or not this is an input or output.  GRIDAQThread has is_daq set to true on construction.
     // GRIAnalysis thread has is_daq set to false on construction.
-    void AddDataBlocks(list<QString> dataBlockNames);
+    void AddDataBlocks(std::list<QString> dataBlockNames);
 
     // This is overloaded in GRIDAQThread...
     virtual void RegisterAccumulator(QString datablock) { datablock = "ReduceCompilerWarnings"; }
@@ -86,7 +86,7 @@ public:
 
      // readMemory() reads one packet from memory in the location specified by process_name
      // and bufferName. Essentially abstracts regulator's readMemory() by templating it.
-     template<class T> pair<int, T*> readMemory(QString blockName, QString bufferName);
+     template<class T> std::pair<int, T*> readMemory(QString blockName, QString bufferName);
 
     // writeMemory() writes a data given in the char array to the location specified.
     // by process_name & bufferName. Also abstracts regulator's readMemory() by
@@ -112,14 +112,14 @@ public:
     void EnqueueDynamicCommand(ProcessCommand *pc);
 
     template <class T> void DynamicSetParam(QString name, T value) {
-        cout << "SET: " << name.toStdString() << ": " << value << endl;
+        std::cout << "SET: " << name.toStdString() << ": " << value << std::endl;
     }
     template <class T> T DynamicGetParam(QString name) {
-        cout << "GET: " << name.toStdString() << ": " << endl;
+        std::cout << "GET: " << name.toStdString() << ": " << std::endl;
         return 0;
     }
     virtual void DynamicRunAction(QString name) {
-        cout << "Action: " << name.toStdString() << endl;
+        std::cout << "Action: " << name.toStdString() << std::endl;
     }
 
 
@@ -194,13 +194,13 @@ private:
     int thread_id_;
 };
 
-template<class T> pair<int, T*>
+template<class T> std::pair<int, T*>
 GRIProcessThread::readMemory(QString blockName ,QString bufferName) {
     // Recasting here must de-couple char array and the T array to allow for proper
     // memory de-allocation via the delete method.
-    pair<int, char *> refPair = reg->readMemory(blockName, bufferName);
+    std::pair<int, char *> refPair = reg->readMemory(blockName, bufferName);
 
-    pair<int, T*> castPair(refPair.first / sizeof(T), (T*) refPair.second);
+    std::pair<int, T*> castPair(refPair.first / sizeof(T), (T*) refPair.second);
     return castPair;
 }
 
