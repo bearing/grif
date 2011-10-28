@@ -71,7 +71,7 @@ char GRIBuffer::readBuffer(int packetNumber, int index) {
   }
 
   if(index > packet->size()-1)
-    cerr << "! Sensed Index Out of Range" << endl;
+    std::cerr << "! Sensed Index Out of Range" << std::endl;
   return packet->at(index);
 }
 

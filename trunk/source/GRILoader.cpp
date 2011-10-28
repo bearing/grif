@@ -38,8 +38,9 @@ RegDetails GRILoader::initRegulatorDetails() {
     GRIParser parser;
     bool success = parser.Parse(local_grif_path_ + name);
     if(!success) {
-      cout << "WARNING: Could not successfully parse XML file: " << name.toStdString().c_str() << endl;
-      cout << "Skipping that XML file..." << endl;
+      std::cout << "WARNING: Could not successfully parse XML file: "
+                << name.toStdString().c_str() << std::endl;
+      std::cout << "Skipping that XML file..." << std::endl;
       continue;
     }
 
@@ -57,10 +58,13 @@ RegDetails GRILoader::initRegulatorDetails() {
       GRIProcessThread *proc = load(className, objectName);
 
       if(proc == 0) {
-	cout << "WARNING: could not load class " << className.toStdString().c_str() <<
-	  " with object name " << objectName.toStdString().c_str() <<
-	  ". Please check GRIUserLoader::load(). Continuing without the file..." << endl;
-	continue; //skip this process
+        std::cout << "WARNING: could not load class "
+                  << className.toStdString().c_str()
+                  << " with object name " << objectName.toStdString().c_str()
+                  << ". Please check GRIUserLoader::load(). Continuing without the file..."
+                  << std::endl;
+        // skip this process
+        continue;
       }
 
       proc->SetDefaultDetail(regulator_, objectName);
@@ -83,7 +87,8 @@ RegDetails GRILoader::initRegulatorDetails() {
       }
       processes->push_back(proc);
     }
-    cout << "Successfully parsed XML file: " << name.toStdString().c_str() << endl;
+    std::cout << "Successfully parsed XML file: " << name.toStdString().c_str()
+              << std::endl;
   }
   // return the processes and dataBlocks
   RegDetails details;

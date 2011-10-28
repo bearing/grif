@@ -85,8 +85,8 @@ void GRIDataBlock::set_link(std::list<GRIProcessThread*>* processes) {
   if(process_it == (*processes).end()) {
 
 #ifdef DATA_BLOCK_DEBUG
-    cerr << "! GRIDataBlock::set_link(): Can't find pointer to the writer, ie: " <<
-      writer_name_.toStdString().c_str() << endl;
+    std::cerr << "! GRIDataBlock::set_link(): Can't find pointer to the writer, ie: "
+              << writer_name_.toStdString().c_str() << std::endl;
 #endif // DATA_BLOCK_DEBUG
 
     assert(false); // Writer SHOULD exist
@@ -109,8 +109,8 @@ void GRIDataBlock::set_link(std::list<GRIProcessThread*>* processes) {
     if(process_it == (*processes).end()) {
 
 #ifdef DATA_BLOCK_DEBUG
-      cerr << "! GRIDataBlock::set_link(): Can't find pointer to the reader: " <<
-	reader->reader_name.toStdString().c_str() << endl;
+      std::cerr << "! GRIDataBlock::set_link(): Can't find pointer to the reader: "
+                << reader->reader_name.toStdString().c_str() << std::endl;
 #endif // DATA_BLOCK_DEBUG
 
       assert(false);
