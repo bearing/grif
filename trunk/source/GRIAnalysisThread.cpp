@@ -33,7 +33,7 @@ void GRIAnalysisThread::forceQuitAnalysis() {
 }
 
 void GRIAnalysisThread::run() {
-    cout << "Running GRIAnalysisThread..." << endl;
+    std::cout << "Running GRIAnalysisThread..." << std::endl;
     int error;
     error = openInitializationControl();
     if (error != ANALYSISTHREAD_SUCCESS) {
@@ -58,15 +58,15 @@ void GRIAnalysisThread::run() {
             // All data read will be freed after each Analyze
             ReadGarbageCollection();
         }
-        cout << "Exiting Analysis" << endl;
+        std::cout << "Exiting Analysis" << std::endl;
     }
 }
 
 void GRIAnalysisThread::errorHandling(const char * message, int errorCode) {
-    cerr << "GRIAnalysisThreadError: Message: " << message << endl;
-    cerr << "\tError code = " << errorCode << endl;
-    log << "GRIAnalysisThreadError: Message: " << message << endl;
-    log << "\tError code = " << errorCode << endl;
+    std::cerr << "GRIAnalysisThreadError: Message: " << message << std::endl;
+    std::cerr << "\tError code = " << errorCode << std::endl;
+    //log << "GRIAnalysisThreadError: Message: " << message << std::endl;
+    //log << "\tError code = " << errorCode << std::endl;
     CommitLog(GRILOG_ERROR);
 }
 
@@ -77,7 +77,7 @@ void GRIAnalysisThread::ReadGarbageCollection() {
     if (nFree == read_data_ptrs_.size()) {
         read_data_ptrs_.clear();
     } else {
-        cerr << "! Garbage Collection Free Count not correct";
+        std::cerr << "! Garbage Collection Free Count not correct";
     }
 }
 
@@ -101,8 +101,8 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xBins
         hist_array_.push_back(p);
         return 0;
     } else {
-        cerr << "!Histogrammer: "  << HistName.toStdString().c_str()
-             << " already present" << endl;
+        std::cerr << "!Histogrammer: "  << HistName.toStdString().c_str()
+                  << " already present" << std::endl;
         return -1;
     }
 }
@@ -113,11 +113,13 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin,
     if (GetHistogram(HistName) == 0) {
         GRIHist1D* p = new GRIHist1D(get_name(),hist_array_.size(),HistName);
         p->SetBins(nx,xmin,xmax);
-        cout << "1D Histogram: " << HistName.toStdString().c_str() << " created with " << p->get_hist()->GetNbinsX() << " bins." << endl;
+        std::cout << "1D Histogram: " << HistName.toStdString().c_str()
+                  << " created with " << p->get_hist()->GetNbinsX() << " bins." << std::endl;
         hist_array_.push_back(p);
         return 0;
     } else {
-        cerr << "!Histogrammer: "  << HistName.toStdString().c_str() << " already present" << endl;
+        std::cerr << "!Histogrammer: "  << HistName.toStdString().c_str()
+                  << " already present" << std::endl;
         return -1;
     }
 }
@@ -131,7 +133,8 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx,
         hist_array_.push_back(p);
         return 0;
     } else {
-        cerr << "!Histogrammer: "  << HistName.toStdString().c_str() << " already present" << endl;
+        std::cerr << "!Histogrammer: "  << HistName.toStdString().c_str()
+                  << " already present" << std::endl;
         return -1;
     }
 }
@@ -145,7 +148,8 @@ int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xmin,
         hist_array_.push_back(p);
         return 0;
     } else {
-        cerr << "!Histogrammer: "  << HistName.toStdString().c_str() << " already present" << endl;
+        std::cerr << "!Histogrammer: "  << HistName.toStdString().c_str()
+                  << " already present" << std::endl;
         return -1;
     }
 }
@@ -170,7 +174,8 @@ int GRIAnalysisThread::SetHistRateMode(QString HistName, bool tf) {
         return 0;
     }
     else{
-        cerr << "!Histogrammer: "  << HistName.toStdString().c_str() << " is not in current list." << endl;
+        std::cerr << "!Histogrammer: "  << HistName.toStdString().c_str()
+                  << " is not in current list." << std::endl;
         return -1;
     }
 }
@@ -181,7 +186,8 @@ int GRIAnalysisThread::SetHistPacketScaleFactor(QString HistName, double ScaleFa
         p->set_packet_scale_factor(ScaleFactor);
         return 0;
     } else {
-        cerr << "!Histogrammer: "  << HistName.toStdString().c_str() << " is not in current list." << endl;
+        std::cerr << "!Histogrammer: "  << HistName.toStdString().c_str()
+                  << " is not in current list." << std::endl;
         return -1;
     }
 }
@@ -192,7 +198,8 @@ int GRIAnalysisThread::ClearHistogram(QString HistName) {
         p->Clear();
         return 0;
     } else {
-        cerr << "!Histogrammer: "  << HistName.toStdString().c_str() << " is not in current list." << endl;
+        std::cerr << "!Histogrammer: "  << HistName.toStdString().c_str()
+                  << " is not in current list." << std::endl;
         return -1;
     }
 }
@@ -204,13 +211,15 @@ int GRIAnalysisThread::UpdateHistogram(QString HistName, double x[], int numel) 
             GRIHist1D *p1 = (GRIHist1D *)p;
             p1->Update(x,numel);
         } else {
-            cerr << "!Called Histogram Update with 1D parameters but Hist:" << HistName.toStdString().c_str() <<
-                    " is " << p->get_dimension() << "D" << endl;
+            std::cerr << "!Called Histogram Update with 1D parameters but Hist:"
+                      << HistName.toStdString().c_str()
+                      << " is " << p->get_dimension() << "D" << std::endl;
             return -1;
         }
         return 0;
     } else {
-        cerr << "!Histogrammer: "  << HistName.toStdString().c_str() << " is not in current list." << endl;
+        std::cerr << "!Histogrammer: "  << HistName.toStdString().c_str()
+                  << " is not in current list." << std::endl;
         return -1;
     }
 }
@@ -222,14 +231,15 @@ int GRIAnalysisThread::UpdateHistogram(QString HistName, double x[],
         if (p->get_dimension()==2) {
             p->Update(x,y,numel);
         } else {
-            cerr << "!Called Histogram Update with 2D parameters but Hist:" << HistName.toStdString().c_str() <<
-                    " is " << p->get_dimension() << "D" << endl;
+            std::cerr << "!Called Histogram Update with 2D parameters but Hist:"
+                      << HistName.toStdString().c_str()
+                      << " is " << p->get_dimension() << "D" << std::endl;
             return -1;
         }
         return 0;
-    } else{
-        cerr << "!Histogrammer: "  << HistName.toStdString().c_str()
-             << " is not in current list." << endl;
+    } else {
+        std::cerr << "!Histogrammer: "  << HistName.toStdString().c_str()
+                  << " is not in current list." << std::endl;
         return -1;
     }
 }
@@ -241,15 +251,15 @@ int GRIAnalysisThread::UpdateHistogram(QString HistName, double x[],
         if (p->get_dimension() == 3) {
             p->Update(x,y,z,numel);
         } else {
-            cerr << "!Called Histogram Update with 3D parameters but Hist:"
-                 << HistName.toStdString().c_str()
-                 << " is " << p->get_dimension() << "D" << endl;
+            std::cerr << "!Called Histogram Update with 3D parameters but Hist:"
+                      << HistName.toStdString().c_str()
+                      << " is " << p->get_dimension() << "D" << std::endl;
             return -1;
         }
         return 0;
     } else {
-        cerr << "!Histogrammer: "  << HistName.toStdString().c_str()
-             << " is not in current list." << endl;
+        std::cerr << "!Histogrammer: "  << HistName.toStdString().c_str()
+             << " is not in current list." << std::endl;
         return -1;
     }
 }

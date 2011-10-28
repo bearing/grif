@@ -164,9 +164,9 @@ class GRIAnalysisThread : public GRIProcessThread {
     return this->writeMemory(this->get_name(), buffer_name, numel, _data);
   }
 
-  template <class T> pair<int, T*> ReadData(QString block_name,
+  template <class T> std::pair<int, T*> ReadData(QString block_name,
 					    QString buffer_name) {
-    pair<int, T*> p = readMemory<T>(block_name, buffer_name);
+    std::pair<int, T*> p = readMemory<T>(block_name, buffer_name);
 
     // TODO(arbenson): change (void*)p.second to
     // reinterperet_cast<void*>(p.second)
