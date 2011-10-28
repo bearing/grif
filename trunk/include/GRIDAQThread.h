@@ -87,7 +87,7 @@ class GRIDAQThread : public GRIProcessThread {
   void registerAccumulator(QString buffname) {
     GRIDAQAccumNode* p = RegisterDataOutput(buffname);
     if(p != NULL) {
-      p->SetDAQThreadObject(this);
+      p->set_p_DAQ(this);
       accum_list_.push_back(p);
     } else {
       cerr << "! Accumulation Node " << buffname.toStdString().c_str() <<
@@ -349,7 +349,7 @@ class GRIDAQThread : public GRIProcessThread {
     for (accum_it = accum_list_.begin(); accum_it != accum_list_.end(); 
          ++accum_it) {
       GRIDAQAccumNode* accum = *accum_it;
-      if (accum->GetBufferName() == buffer_name) {
+      if (accum->get_buffer_name() == buffer_name) {
 	found = true;
 	break;
       }

@@ -2,103 +2,104 @@
 #define GRIDAQACCUMNODE_H
 
 #include <QString>
-#include <QTimer>
+#include <QTime>
 #include "GRIAccumBuff.h"
 #include "GRIObject.h"
 #include "GRIProcessThread.h"
 
 // Abstract Container for GRIDAQAccumulators of different types
-
 class GRIDAQAccumNode: public GRIObject {
  public:
-
-  virtual void GRIDAQAccumulationTimer() {}
-  virtual void ResetAccumBuffs(qint64 t_0) = 0;
+  virtual void ResetAccumBuffs() = 0;
   virtual void FlushBuffers() = 0;
 
   // These are placeholders for supported data types
   // TODO(arbenson): do we really need these placeholders?
-  void Accumulate(int numel, double data[], qint64 timestamps[],
-		  bool runflag) {
+  virtual void Accumulate(int numel, double data[], qint64 timestamps[],
+                          bool runflag) {
     numel = 0; data = 0; timestamps = 0; runflag = 0;
   }
-  void Accumulate(int numel, float data[], qint64 timestamps[],
-		  bool runflag) {
+  virtual void Accumulate(int numel, float data[], qint64 timestamps[],
+                          bool runflag) {
     numel = 0; data = 0; timestamps = 0; runflag = 0;
   }
-  void Accumulate(int numel, int data[], qint64 timestamps[], bool runflag) {
+  virtual void Accumulate(int numel, int data[], qint64 timestamps[],
+                          bool runflag) {
     numel = 0; data = 0; timestamps = 0; runflag = 0;
   }
-  void Accumulate(int numel, qint64 data[], qint64 timestamps[],
-		  bool runflag) {
+  virtual void Accumulate(int numel, qint64 data[], qint64 timestamps[],
+                          bool runflag) {
     numel = 0; data = 0; timestamps = 0; runflag = 0;
   }
-  void Accumulate(int numel, long data[], qint64 timestamps[], bool runflag) {
+  virtual void Accumulate(int numel, long data[], qint64 timestamps[],
+                          bool runflag) {
     numel = 0; data = 0; timestamps = 0; runflag = 0;
   }
-  void Accumulate(int numel, short data[], qint64 timestamps[],
-		  bool runflag) {
+  virtual void Accumulate(int numel, short data[], qint64 timestamps[],
+                          bool runflag) {
     numel = 0; data = 0; timestamps = 0; runflag = 0;
   }
-  void Accumulate(int numel, char data[], qint64 timestamps[], bool runflag) {
+  virtual void Accumulate(int numel, char data[], qint64 timestamps[],
+                          bool runflag) {
     numel = 0; data = 0; timestamps = 0; runflag = 0;
   }
-  void Accumulate(int numel, unsigned char data[], qint64 timestamps[],
-		  bool runflag) {
+  virtual void Accumulate(int numel, unsigned char data[], qint64 timestamps[],
+                          bool runflag) {
     numel = 0; data = 0; timestamps = 0; runflag = 0;
   }
-  void Accumulate(int numel, bool data[], qint64 timestamps[], bool runflag) {
+  virtual void Accumulate(int numel, bool data[], qint64 timestamps[],
+                          bool runflag) {
     numel = 0; data = 0; timestamps = 0; runflag = 0;
   }
-
-  QString GetBufferName() { return BufferName; }
-  void SetBufferName(QString bname) { BufferName = bname; }
-
-  int GetAccumulationTime() { return AccumulationTime; }
-  void SetAccumulationTime(int t) { AccumulationTime = t; }
-
-  int GetNAccumBuff() { return NAccumBuff; }
-  void SetNAccumBuff(int n) { NAccumBuff = n; }
-
-  qint64 GetTicksPerSecond() { return ticksPerSecond; }
-  void SetTicksPerSecond(qint64 ticks) { ticksPerSecond = ticks; }
-
-  void SetDAQThreadObject(GRIProcessThread* pDT) { pDAQ = pDT; }
-
-  bool isRunning() { return running; }
 
   void Initialize(QDateTime tst, qint64 t_0) { 
-    this->InitializeTime(tst,t_0,ticksPerSecond);
+    InitializeTime(tst,t_0,ticks_per_sec_);
   }
 
   void InitializeTime(qint64 timestamp) { timestamp = 0; }
 
   void InitializeTime(QDateTime tst, qint64 timestamp, qint64 ticks) {
-    this->t0 = tst.time();
-    this->ts0 = timestamp;
-    this->ticksPerSecond = ticks;
-    this->running = true;
-    ResetAccumBuffs(timestamp);
+    t0_ = tst.time();
+    ts0_ = timestamp;
+    ticks_per_sec_ = ticks;
+    is_running_ = true;
+    ResetAccumBuffs();
   }
 
- protected:
-  QString BufferName;
-  QTime t0;
-  QTimer *timer;
+  QString get_buffer_name() { return buffer_name_; }
+  void set_buffer_name(const QString& buffer_name) {
+    buffer_name_ = buffer_name; 
+  }
 
-  qint64 ts0;
-  qint64 ticksPerSecond;
+  qint64 get_accum_time() { return accum_time_; }
+  void set_accum_time(qint64 accum_time) { accum_time_ = accum_time; }
 
-  // Accumulation Time in ticks
-  qint64 AccumulationTime;
+  int get_num_accum_buff() { return num_accum_buff_; }
+  void set_num_accum_buff(int num_accum_buff) {
+    num_accum_buff_ = num_accum_buff;
+  }
 
-  // Number of buffers
-  int NAccumBuff;
+  qint64 get_ticks_per_sec() { return ticks_per_sec_; }
+  void set_ticks_per_sec(qint64 ticks_per_sec) {
+    ticks_per_sec_ = ticks_per_sec;
+  }
 
-  int timer_id_;
-  bool running;
-  GRIProcessThread* pDAQ;
-  list<GRIAccumBuff<double>*> buff;
+  GRIProcessThread *get_p_DAQ() { return p_DAQ_; }
+  void set_p_DAQ(GRIProcessThread *p_DAQ) { p_DAQ_ = p_DAQ; }
+
+  QTime get_t0() { return t0_; }
+  qint64 get_ts0() { return ts0_; }
+  bool get_is_running() { return is_running_; }
+
+ private:
+  QString buffer_name_;
+  qint64 accum_time_;
+  qint64 ticks_per_sec_;
+  int num_accum_buff_;
+  QTime t0_;
+  qint64 ts0_;
+  bool is_running_;
+  GRIProcessThread* p_DAQ_;
 };
 
 #endif // GRIDAQACCUMNODE_H
