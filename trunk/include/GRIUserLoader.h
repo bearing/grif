@@ -7,12 +7,6 @@
 
 class GRIUserLoader : public GRILoader {
  public:
- GRIUserLoader(QString filepath, GRIRegulator* regulator):
-  GRILoader(filepath,regulator) {}
- GRIUserLoader(QString localGRIFPath, GRIRegulator* regulator,QString GRIFLogFilename):
-  GRILoader(localGRIFPath, regulator, GRIFLogFilename) {}
- GRIUserLoader(QString localGRIFPath, GRIRegulator* regulator,QString GRIFLogFilename,int LogLevel):
-  GRILoader(localGRIFPath,regulator,GRIFLogFilename,LogLevel) {}
  GRIUserLoader(QString localGRIFPath, GRIRegulator *regulator, list<QString> files):
   GRILoader(localGRIFPath, regulator, files) {}
 

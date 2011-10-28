@@ -1,96 +1,10 @@
 #include "GRILoader.h"
 
-GRILoader::GRILoader(QString localGRIFPath, GRIRegulator* regulator) {
-  this->localGRIFPath = localGRIFPath;
-  this->regulator = regulator;
-  // Needed for connections since GRILogMessage is not derived QObject
-  qRegisterMetaType<GRILogMessage>("GRILogMessage");
-
-  // Need to create loggers for the framework here
-  // All logging enabled for framework components at this point.
-  CreateLogger("GRIFLog.txt",0);
-  ConnectLogger("GRIFLog.txt",regulator);
-  ConnectLogger("GRIFLog.txt",regulator->GetMemoryManager());
-}
-
-GRILoader::GRILoader(QString localGRIFPath, GRIRegulator* regulator,QString GRIFLogFilename) {
-  this->localGRIFPath = localGRIFPath;
-  this->regulator = regulator;
-  // Needed for connections since GRILogMessage is not derived QObject
-  qRegisterMetaType<GRILogMessage>("GRILogMessage");
-
-  // Need to create loggers for the framework here
-  CreateLogger(GRIFLogFilename,0);  // All logging enabled for framework components at this point.
-  ConnectLogger(GRIFLogFilename,regulator);
-  ConnectLogger(GRIFLogFilename,regulator->GetMemoryManager());
-}
-
-GRILoader::GRILoader(QString localGRIFPath, GRIRegulator* regulator,QString GRIFLogFilename,
-                     int GRIFLogLevel) {
-  this->localGRIFPath = localGRIFPath;
-  this->regulator = regulator;
-  // Needed for connections since GRILogMessage is not derived QObject
-  qRegisterMetaType<GRILogMessage>("GRILogMessage");
-
-  // Need to create loggers for the framework here
-  // All logging enabled for framework components at this point.
-  CreateLogger(GRIFLogFilename,GRIFLogLevel);
-  ConnectLogger(GRIFLogFilename,regulator);
-  ConnectLogger(GRIFLogFilename,regulator->GetMemoryManager());
-}
-
-GRILoader::GRILoader(QString localGRIFPath, GRIRegulator *regulator, std::list<QString> fileNames) {
-  this->fileNames = fileNames;
-  this->localGRIFPath = localGRIFPath;
-  this->regulator = regulator;
-}
-
-GRILoader::~GRILoader() {}
-
-std::list<GRIProcessThread*>* GRILoader::initProcessThreads(std::list<ProcessDetails*> details) {
-  // create a process thread list
-  std::list<GRIProcessThread*>* processList = new std::list<GRIProcessThread*>;
-
-  std::list<ProcessDetails*>::iterator iter;
-
-  // create a process thread variable
-  GRIProcessThread* p;
-
-  // for however many process threads there are
-  for(iter = details.begin(); iter != details.end(); iter++) {
-    ProcessDetails* pd = *iter;
-    QString name = pd->name;
-    QString xml = pd->xml_path;
-
-    // load the process thread
-    p = load(name,xml);
-
-    // necessary function that has to be called, for some reason...
-    p->init(0, (*iter), regulator);
-
-    // add to list
-    processList->push_front(p);
-  }
-
-  // return list
-  return processList;
-}
-
-
-std::list<GRIDataBlock*>* GRILoader::initDataBlocks(std::list<GRIProcessThread*>* processes,
-						    std::list<AnalysisStructureObject*> analyStructs) {
-  processes = 0; //reduce compiler warnings
-
-  std::list<GRIDataBlock*>* datablocks = new std::list<GRIDataBlock*>;
-  std::list<AnalysisStructureObject*>::iterator analyStructIter;
-
-  // create data blocks out of the analysis structure data
-  for(analyStructIter=analyStructs.begin(); analyStructIter!=analyStructs.end(); analyStructIter++) {
-    // load analysis structure into threads & d
-    datablocks->push_front(new GRIDataBlock(this->regulator, *analyStructIter));
-  }
-
-  return datablocks;
+GRILoader::GRILoader(QString localGRIFPath, GRIRegulator *regulator,
+                     std::list<QString> fileNames) {
+  file_names_ = fileNames;
+  local_grif_path_ = localGRIFPath;
+  regulator_ = regulator;
 }
 
 GRIRegulatorDetails *GRILoader::initRegulatorDetails() {
@@ -118,17 +32,18 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails() {
   std::list<GRIProcessThread*>* processes = new std::list<GRIProcessThread*>;
   std::list<GRIDataBlock*>* dataBlocks = new std::list<GRIDataBlock*>;
 
-  for(it = fileNames.begin(); it != fileNames.end(); it++) {
-    QString name = *it; //get name of xml file
-    GRIParser *parser = new GRIParser();
-    bool success = parser->Parse(this->localGRIFPath + name); //parse xml
+  for(it = file_names_.begin(); it != file_names_.end(); it++) {
+    // get name of xml file
+    QString name = *it;
+    GRIParser parser;
+    bool success = parser.Parse(local_grif_path_ + name);
     if(!success) {
       cout << "WARNING: Could not successfully parse XML file: " << name.toStdString().c_str() << endl;
       cout << "Skipping that XML file..." << endl;
       continue;
     }
 
-    std::list<struct objectParsingDetails> objectsAndLinks = parser->get_objs_and_links();
+    std::list<struct objectParsingDetails> objectsAndLinks = parser.get_objs_and_links();
 
     std::list<struct objectParsingDetails>::iterator obj_details_it;
 
@@ -139,7 +54,7 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails() {
       QString className = obj_details.className;
       QString objectName = obj_details.objectName;
 
-      GRIProcessThread *proc = this->load(className, objectName);
+      GRIProcessThread *proc = load(className, objectName);
 
       if(proc == 0) {
 	cout << "WARNING: could not load class " << className.toStdString().c_str() <<
@@ -148,7 +63,7 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails() {
 	continue; //skip this process
       }
 
-      proc->SetDefaultDetail(this->regulator, objectName);
+      proc->SetDefaultDetail(regulator_, objectName);
 
       std::list<struct linkParsingDetails *>::iterator link_details_it;
       std::list<struct linkParsingDetails*> *obj_links = obj_details.links;
@@ -161,7 +76,7 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails() {
 	QString reader = curr_link->reader;
 	QString db_name = curr_link->dataBlock;
 	/* construct a new data block */
-	GRIDataBlock *data = new GRIDataBlock(this->regulator, this->regulator->GetMemoryManager(),
+	GRIDataBlock *data = new GRIDataBlock(regulator_, regulator_->GetMemoryManager(),
 					      reader, db_name, db_name, writer);
 	dataBlocks->push_back(data);
 
@@ -169,330 +84,7 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails() {
       processes->push_back(proc);
     }
     cout << "Successfully parsed XML file: " << name.toStdString().c_str() << endl;
-    delete(parser);
   }
-  return new GRIRegulatorDetails(processes, dataBlocks); //return the processes and dataBlocks
-}
-
-std::list<GRIParam*>* GRILoader::readNewParamList(std::list<GRIParam*>* paramList)
-{
-  QFile file("../../../framework/trunk/lib/runtime_params134659.xml" );
-  if (!file.open(QIODevice::ReadOnly)) {
-    cout<<"Fail to Open RUNTIME PARAMS  File!"<<endl;
-  }
-
-  QXmlStreamReader xml(&file);
-
-  while(!xml.atEnd() && !xml.hasError()) {
-    /* Read next element.*/
-    QXmlStreamReader::TokenType token = xml.readNext();
-    /* If token is just StartDocument, we'll go to next.*/
-    if(token == QXmlStreamReader::StartDocument) {
-      continue;
-    }
-    /* If token is StartElement, we'll see if we can read it.*/
-    if(token == QXmlStreamReader::StartElement) {
-      /* If it's named PARAMETER_LIST, we'll go to the next.*/
-      if(xml.name() == "PARAMETER_LIST") {
-	continue;
-      }
-      /* If it's named parameter, we'll dig the information from there.*/
-      if(xml.name() == "PARAMETER") {
-	QVariant size = (unsigned int) paramList->size();
-	paramList->push_back(this->readParameter(xml, size.toString()));
-      }
-    }
-
-  }
-
-  xml.clear();
-  return paramList;
-}
-GRIParam* GRILoader::readParameter(QXmlStreamReader& xml, QString paramIndex) {
-  GRIParam* param = new GRIParam();
-  param->index = paramIndex;
-
-  /* Let's check that we're really getting a parameter. */
-  if(xml.tokenType() != QXmlStreamReader::StartElement &&
-     xml.name() == "PARAMETER") {
-    return param;
-  }
-
-  /* Next element... */
-  xml.readNext();
-
-  /*
-   * We're going to loop over the things because the order might change.
-   * We'll continue the loop until we hit an EndElement named parameter.
-   */
-  while(!(xml.tokenType() == QXmlStreamReader::EndElement &&
-	  xml.name() == "PARAMETER")) {
-    if(xml.tokenType() == QXmlStreamReader::StartElement) {
-      /* We've found name. */
-      if(xml.name() == "NAME") {
-	this->addElementToParam(xml, param);
-      }
-      /* We've found DEFAULT VALUE. */
-      if(xml.name() == "DEFAULT") {
-	this->addElementToParam(xml, param);
-      }
-      /* We've found DATA. */
-      if(xml.name() == "DATA") {
-	this->addElementToParam(xml, param);
-      }
-      /* We've found MIN VALUE. */
-      if(xml.name() == "MIN") {
-	this->addElementToParam(xml, param);
-      }
-      /* We've found MAX VALUE. */
-      if(xml.name() == "MAX") {
-	this->addElementToParam(xml, param);
-      }
-      /* We've found UNITS. */
-      if(xml.name() == "UNITS") {
-	this->addElementToParam(xml, param);
-      }
-      /* We've found DATA TYPE. */
-      if(xml.name() == "DATA_TYPE") {
-	this->addElementToParam(xml, param);
-      }
-    }
-    /* ...and next... */
-    xml.readNext();
-  }
-
-  return param;
-}
-
-void GRILoader::addElementToParam(QXmlStreamReader& xml, GRIParam* param) {
-  /* We need a start element, like <foo> */
-  if(xml.tokenType() != QXmlStreamReader::StartElement) {
-    return;
-  }
-  /* Let's read the name... */
-  QString elementName = xml.name().toString();
-  /* ...go to the next. */
-  xml.readNext();
-
-  QString text = xml.text().toString();
-
-  if(elementName == "NAME") {
-    param->name = text;
-  } else if(elementName == "DEFAULT") {
-    param->defaultValue = text;
-  } else if(elementName == "DATA") {
-    param->data = text;
-  } else if(elementName == "MIN") {
-    param->min = text;
-  } else if(elementName == "MAX") {
-    param->max = text;
-  } else if(elementName == "UNITS") {
-    param->units = text;
-  } else if(elementName == "DATA_TYPE") {
-    param->data_type = text;
-  } else {
-    cout << "Unknown Element..." << endl;
-  }
-}
-
-// TODO(arbenson): Is this function used for anything anymore?
-void GRILoader::addChildParams(QXmlStreamReader& xml, GRIParam* head) {
-  head = 0; //reduce compiler warnings
-
-  /* ...go to the next. */
-  xml.readNext();
-
-  /* If it's named parameter, we'll dig the information from there.*/
-  while(xml.name() == "PARAMETER") {
-    xml.readNextStartElement();
-  }
-}
-
-std::list<ProcessDetails*> GRILoader::readPathXML() {
-  std::list<ProcessDetails*> locPathVector;
-
-  ProcessDetails daq_info[200];
-  ProcessDetails ana_info[200];
-
-  int daq_index = 0;
-  int ana_index = 0;
-  int no_of_file = 0;
-
-  QDomDocument doc("CONFIG_FILE_PATH");
-  QFile file("../../../framework/trunk/lib/file_paths.xml");
-
-  if(!file.open(QIODevice::ReadOnly)) {
-    cout<<"Fail to Open FILEPATH File!"<<endl;
-  }
-  if(!doc.setContent(&file)) {
-    file.close();
-    cout<<"Fail to set file content!"<<endl;
-  }
-  file.close();
-  QDomElement root = doc.documentElement();
-
-  if (root.tagName()!="CONFIG_FILE_PATH") {
-    cout<<"Not right file!"<<endl;
-  }
-
-  QDomNode n = root.firstChild();
-
-  while(!n.isNull()) {
-    if(n.nodeName()=="DAQ_INFO") {
-      QDomElement temp = n.toElement();
-      QDomNode temp_node = temp.firstChild();
-      while(!temp_node.isNull()) {
-        if(temp_node.nodeName()=="FILE") {
-          QDomElement info_node = temp_node.toElement();
-          daq_info[daq_index].name = info_node.attribute("name", "");
-        } else if( temp_node.nodeName()=="LOCATION") {
-          QDomElement info_node = temp_node.toElement();
-          daq_info[daq_index].xml_path = info_node.attribute("path", "");
-        }
-        temp_node = temp_node.nextSibling();
-      }
-      ++daq_index;
-    } else {
-      QDomElement temp = n.toElement();
-      QDomNode temp_node = temp.firstChild();
-      while(!temp_node.isNull()) {
-        if(temp_node.nodeName()=="FILE") {
-          QDomElement info_node = temp_node.toElement();
-          ana_info[ana_index].name = info_node.attribute("name", "");
-        }
-        else if( temp_node.nodeName()=="LOCATION") {
-          QDomElement info_node = temp_node.toElement();
-          ana_info[ana_index].xml_path = info_node.attribute("path", "");
-        }
-        temp_node = temp_node.nextSibling();
-      }
-      ++ana_index;
-    }
-
-    n = n.nextSibling();
-  }
-
-  no_of_file = daq_index + ana_index;
-
-  for(int j = 0; j<daq_index; j++) {
-    ProcessDetails *temp = new ProcessDetails;
-    temp->isDaq = true;
-    temp->name = daq_info[j].name;
-    temp->xml_path = daq_info[j].xml_path;
-
-    locPathVector.push_back(temp);
-  }
-  for(int k = 0; k<ana_index; k++) {
-    ProcessDetails *temp = new ProcessDetails;
-    temp->isDaq = false;
-    temp->name = ana_info[k].name;
-    temp->xml_path = ana_info[k].xml_path;
-
-    locPathVector.push_back(temp);
-  }
-
-  return locPathVector;
-}
-
-std::list<AnalysisStructureObject*> GRILoader::readAnalysisStructureXML() {
-  AnalysisStructureObject *temp_struc;
-  std::list<AnalysisStructureObject*> list;
-
-  int struc_index = 0;
-  int No_DAQ_depen;
-  int No_ANA_depen;
-  int i = 0;
-
-  QDomDocument doc("DATA_ANALYSIS_STRUCTURE");
-
-  QFile file("../../../framework/trunk/lib/struc_config.xml");
-  if (!file.open(QIODevice::ReadOnly)) {
-    cout<<"Fail to Open Analysis Structure File!"<<endl;
-  }
-  if (!doc.setContent(&file)) {
-    file.close();
-    cout<<"Fail to set file content!"<<endl;
-  }
-  file.close();
-
-  QDomElement root = doc.documentElement();
-  if(root.tagName()!="DATA_ANALYSIS_STRUCTURE") {
-    cout<<"Wrong File Read!"<<endl;
-  }
-
-  QDomNode n = root.firstChild();
-
-  while(!n.isNull()) {
-    QDomElement e = n.toElement();
-    QDomNode node = e.firstChild();
-    No_DAQ_depen = 0;
-    No_ANA_depen = 0;
-    temp_struc = new AnalysisStructureObject;
-
-    while(!node.isNull()) {
-      QDomElement temp = node.toElement();
-      if (node.nodeName()=="DATA") {
-	temp_struc->data = temp.firstChild().toText().data();
-      } else if (node.nodeName()=="FROM") {
-	temp_struc->From = temp.firstChild().toText().data();
-      } else if (node.nodeName()=="TO") {
-	//temp_struc->To.push_front(temp.firstChild().toText().data());
-      } else if (node.nodeName()=="ISDAQ") {
-	//                    temp_struc->isdaq = temp.firstChild().toText().data().toUInt();
-      }
-      node = node.nextSibling();
-    }
-    list.push_front(temp_struc);
-    struc_index++;
-    i++;
-    n = n.nextSibling();
-  }
-  return list;
-}
-
-int GRILoader::ConnectLogger(QString fname, QObject* sender) {
-  std::list<GRILogger*>::iterator logIter;
-  bool found = false;
-
-  // create data blocks out of the analysis structure data
-  for (logIter=this->LogList.begin(); logIter!=this->LogList.end(); logIter++) {
-    GRILogger *gl = *logIter;
-    if (fname == gl->GetLogFileName()) {
-      found=true;
-      QObject::connect(sender, SIGNAL(logSignal(GRILogMessage)), gl, SLOT(writeLogFile(GRILogMessage)));
-    }
-  }
-
-  if (!found) {
-    cout << "WARNING: Logger " << fname.toStdString().c_str() << " was not found" << endl;
-    return 0;
-  }
-
-  return 1;
-}
-
-int GRILoader::CreateLogger(QString fname, int LogLevel) {
-  std::list<GRILogger*>::iterator logIter;
-  bool found = false;
-
-  for(logIter=this->LogList.begin(); logIter!=this->LogList.end(); logIter++) {
-    GRILogger *gl = *logIter;
-    if(fname == gl->GetLogFileName()) {
-      found=true;
-    }
-  }
-
-  if(!found) {
-    GRILogger *gl = new GRILogger(fname,LogLevel);
-    GRIThread *th = new GRIThread();
-
-    gl->moveToThread(th);
-    th->start();
-
-    LogList.push_back(gl);
-    LogThreadList.push_back(th);
-    return 1;
-  }
-
-  return 0;
+  //return the processes and dataBlocks
+  return new GRIRegulatorDetails(processes, dataBlocks);
 }
