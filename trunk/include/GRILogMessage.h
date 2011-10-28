@@ -1,14 +1,13 @@
 #ifndef GRILOGMESSAGE_H
 #define GRILOGMESSAGE_H
 
+#include <iostream>
+#include <stdlib.h>
+#include <QDateTime>
+#include <QFile>
+#include <QMutex>
 #include <QString>
 #include <QTextStream>
-#include <stdlib.h>
-#include <QFile>
-#include <QTextStream>
-#include <QMutex>
-#include <QDateTime>
-#include <iostream>
 
 using namespace std;
 
@@ -17,17 +16,21 @@ public:
     GRILogMessage();
     ~GRILogMessage();
 
-    bool SetMessageTime(QString s, int level=0);
-    void SetObjectName(QString s) { ObjectName = s; }
+    bool SetMessageTime(QString s, int level = 0);
+    void SetObjectName(QString s) {
+        object_name_ = s;
+    }
     bool IsLevelEnabled(int level);
     bool IsLevelEnabled();
-    QString GetObjectName() { return ObjectName; }
+    QString GetObjectName() {
+        return object_name_;
+    }
     int level;
     QString DateTime;
     QString MsgStr;
 
 private:
-    QString ObjectName;
+    QString object_name_;
     void SetTimeString();
 };
 

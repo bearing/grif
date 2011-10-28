@@ -1,11 +1,11 @@
 #ifndef GRILOGGER_H
 #define GRILOGGER_H
 
-#include <QString>
 #include <stdlib.h>
 #include <QFile>
-#include <QTextStream>
 #include <QMutex>
+#include <QString>
+#include <QTextStream>
 #include "GRILogMessage.h"
 
 using namespace std;
@@ -19,9 +19,9 @@ public:
     GRILogger(int level);
     ~GRILogger();
 
-    void operator<< (QString const&y );
+    void operator << (QString const&y );
 
-    // May want to create and pass an Error class object
+    // TODO(arbenson): May want to create and pass an Error class object
     // that contains all important descriptions
     bool writeErrorLogFile(string ErrorDescription, int time);
     bool writeErrorLogFile(string ErrorDescription);
@@ -33,7 +33,6 @@ public:
     bool writeLogFile(QString output, int time);
     bool writeLogFile(string output, int time);
     bool writeLogFile(list<string> output, int time);
-    //bool writeLogFile(QString output);
     bool writeLogFile(string output);
     bool writeLogFile(list<string> output);
 
@@ -43,10 +42,18 @@ public:
     void display(string);
     void display(list<string>);
 
-    QString GetLogFileName(){return filename;}
-    QString GetLogFilePath(){return GRIFProjectFilePath;}
-    void SetLogLevel(int l){LogLevel = l;}
-    int GetLogLevel(){return LogLevel;}
+    QString GetLogFileName() {
+        return filename_;
+    }
+    QString GetLogFilePath() {
+        return grif_project_file_path_;
+    }
+    void SetLogLevel(int l) {
+        log_level_ = l;
+    }
+    int GetLogLevel() {
+        return log_level_;
+    }
 
 signals:
     void output(string);
@@ -55,12 +62,13 @@ signals:
 public slots:
     bool writeLogFile(QString msg);
     bool writeLogFile(GRILogMessage msg);
+
 private:
-    QString GRIFProjectFilePath;  //Just the filepath (imported by GRIFPROJECTPATH)
-    QString filename;  // Just the filename
-    QString logfilepath; //full file path
-    int LogLevel;
-    QMutex mutex;
+    QString grif_project_file_path_;  //Just the filepath (imported by GRIFPROJECTPATH)
+    QString filename_;  // Just the filename
+    QString logfilepath_; //full file path
+    int log_level_;
+    QMutex mutex_;
 };
 
 #endif // GRILOGGER_H
