@@ -7,7 +7,7 @@
 
 class GRIUserLoader : public GRILoader {
  public:
- GRIUserLoader(QString localGRIFPath, GRIRegulator *regulator, list<QString> files):
+ GRIUserLoader(QString localGRIFPath, GRIRegulator *regulator, std::list<QString> files):
   GRILoader(localGRIFPath, regulator, files) {}
 
   virtual ~GRIUserLoader() {}

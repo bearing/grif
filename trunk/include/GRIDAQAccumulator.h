@@ -25,7 +25,7 @@ class GRIDAQAccumulator : public GRIDAQAccumNode {
 
   void ResetAccumBuffs() {
     // NOTE: need typename when defining a template iterator...
-    typename list<GRIAccumBuff<T>*>::iterator  buff_it;
+    typename std::list<GRIAccumBuff<T>*>::iterator  buff_it;
 
     // reset all times in the order of the buffers
     int buffcnt = 0;
@@ -58,7 +58,7 @@ class GRIDAQAccumulator : public GRIDAQAccumNode {
     // Use bubble member to determine who is next...
 
     // NOTE: need typename when defining a template iterator...
-    typename list<GRIAccumBuff<T>*>::iterator  buff_it;
+    typename std::list<GRIAccumBuff<T>*>::iterator  buff_it;
 
     bool FlushFlag = !runflag;
 
@@ -108,9 +108,11 @@ class GRIDAQAccumulator : public GRIDAQAccumNode {
 	  // Check for bubble
 	  if (b->get_bubble() && !NewBubbleSet) {
 	    // Write Bubble Accumulator to mm
-	    cout << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": " <<
-	      get_buffer_name().toStdString().c_str() << "(" << nbuffcnt << ") accumulator writing "
-		 << b->GetDataSize() << " events. Timestamp = " << (double)timestamps[0]/(double)get_ticks_per_sec() << endl;
+            std::cout << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str()
+                      << ": " << get_buffer_name().toStdString().c_str()
+                      << "(" << nbuffcnt << ") accumulator writing "
+                      << b->GetDataSize() << " events. Timestamp = "
+                      << (double)timestamps[0]/(double)get_ticks_per_sec() << std::endl;
 	    T* da = b->DataArray();
 
 	    get_p_DAQ()->writeMemory(get_p_DAQ()->get_name(),get_buffer_name(),b->GetDataSize(),da);
@@ -136,13 +138,13 @@ class GRIDAQAccumulator : public GRIDAQAccumNode {
 
 
   void FlushBuffers() {
-    typename list<GRIAccumBuff<T>*>::iterator  buff_it;
+    typename std::list<GRIAccumBuff<T>*>::iterator  buff_it;
 
     // Loop over all buffers and write the bubbles out...
     for (int i=0; i<get_num_accum_buff(); i++) {
       bool NewBubble = false;
       bool NewBubbleSet = false;
-      cout << "Flushing AccumBuff Iteration " << i << endl;
+      std::cout << "Flushing AccumBuff Iteration " << i << std::endl;
       int buffctr = 0;
       for (buff_it = buff_.begin(); buff_it != buff_.end(); buff_it++) {
 	buffctr = buffctr + 1;
@@ -160,10 +162,10 @@ class GRIDAQAccumulator : public GRIDAQAccumNode {
 	// Check for bubble
 	if (b->get_bubble() && !NewBubbleSet) {
 	  // Write Bubble Accumulator to mm
-	  cout << "FLUSH (" << buffctr << "): " 
-	       << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": " 
-	       << get_buffer_name().toStdString().c_str() << " accumulator writing "  
-	       << b->GetDataSize() << " events." << endl;
+          std::cout << "FLUSH (" << buffctr << "): "
+                    << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": "
+                    << get_buffer_name().toStdString().c_str() << " accumulator writing "
+                    << b->GetDataSize() << " events." << std::endl;
 	  T* da = b->DataArray();
 
 	  get_p_DAQ()->writeMemory(get_p_DAQ()->get_name(),get_buffer_name(),b->GetDataSize(),da);
@@ -186,7 +188,7 @@ class GRIDAQAccumulator : public GRIDAQAccumNode {
   }
 
  private:
-  list<GRIAccumBuff<T>*> buff_;
+  std::list<GRIAccumBuff<T>*> buff_;
 };
 
 
