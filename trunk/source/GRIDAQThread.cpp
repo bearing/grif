@@ -27,23 +27,23 @@ void GRIDAQThread::forceQuitDAQ() {
 }
 
 void GRIDAQThread::run() {
-  //log << "GRIDAQThread run" << endl;
+  //log << "GRIDAQThread run" << std::endl;
   //CommitLog(GRILOG_MESSAGE);
   int error;
 
-  std::cout << "Connecting to DAQ Here ..." << endl;
+  std::cout << "Connecting to DAQ Here ..." << std::endl;
   error = connectToDAQ();
   if (error != DAQTHREAD_SUCCESS) {
     errorHandling("connectToDaq failed", error);
   }
 	
-  std::cout << "Loading Configuration ..." << endl;
+  std::cout << "Loading Configuration ..." << std::endl;
   error = loadConfiguration();
   if (error != DAQTHREAD_SUCCESS) {
     errorHandling("loadConfiguration() failed", error);
   }
 	
-  std::cout << "Initializing Acquisition..." << endl;
+  std::cout << "Initializing Acquisition..." << std::endl;
   error = initialize();
   if (error != DAQTHREAD_SUCCESS) {
     errorHandling("initialize() failed", error);
@@ -65,7 +65,7 @@ void GRIDAQThread::run() {
     }
 
     while (get_run_flag() && !get_exit_thread_flag()) {
-      // std::cout << "GRIDAQThread-->AcquireData" << endl;
+      // std::cout << "GRIDAQThread-->AcquireData" << std::endl;
       error = acquireData();
       if (error != DAQTHREAD_SUCCESS) {
 	errorHandling("acquire Data() failed", error);
@@ -74,7 +74,7 @@ void GRIDAQThread::run() {
       FlushBuffer();
     }
 
-    std::cout << "Running one more to ensure flush occurred..." << endl;
+    std::cout << "Running one more to ensure flush occurred..." << std::endl;
     error = FlushAccumulators();
     if (error != DAQTHREAD_SUCCESS) {
       errorHandling("Flush Accumulators failed", error);
@@ -101,10 +101,10 @@ void GRIDAQThread::run() {
 }
 
 void GRIDAQThread::errorHandling(const char * message, int errorCode) {
-  std::cerr << "GRIDAQThreadError: Message: " << message << endl;
-  std::cerr << "\tError code = " << errorCode << endl;
-  log << "GRIDAQThreadError: Message: " << message << endl;
-  log << "\tError code = " << errorCode << endl;
+  std::cerr << "GRIDAQThreadError: Message: " << message << std::endl;
+  std::cerr << "\tError code = " << errorCode << std::endl;
+  //log << "GRIDAQThreadError: Message: " << message << std::endl;
+  //log << "\tError code = " << errorCode << std::endl;
   CommitLog(GRILOG_ERROR);
 }
 
@@ -114,7 +114,7 @@ void GRIDAQThread::InitializeAccumulators(QDateTime tstart, qint64 timestamp_0,
   ticksPerSecond = 0;
   NBuff = msecPerAccum = 0;
 
-  list<GRIDAQAccumNode*>::iterator accum_it;
+  std::list<GRIDAQAccumNode*>::iterator accum_it;
 
   // Finding the Accumulator in the list
   for (accum_it = accum_list_.begin(); accum_it != accum_list_.end();
@@ -125,7 +125,7 @@ void GRIDAQThread::InitializeAccumulators(QDateTime tstart, qint64 timestamp_0,
 }
 
 int GRIDAQThread::FlushAccumulators() {
-  list<GRIDAQAccumNode*>::iterator accum_it;
+  std::list<GRIDAQAccumNode*>::iterator accum_it;
 
   // Finding the Accumulator in the list
   for (accum_it = accum_list_.begin(); accum_it != accum_list_.end(); 

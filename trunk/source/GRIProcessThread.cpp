@@ -24,7 +24,7 @@ void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegula
 }
 
 GRIProcessThread::~GRIProcessThread() {
-    list<data_t*>::iterator it;
+    std::list<data_t*>::iterator it;
     for (it = data_ins_.begin(); it != data_ins_.end(); ++it) {
        delete *it;
     }
@@ -47,10 +47,10 @@ void GRIProcessThread::SetDefaultDetail(GRIRegulator *reg, QString name) {
     setObjectName(name);
 }
 
-void GRIProcessThread::SetLink(list<GRIDataBlock*>* dataBlocks) {
-    list<GRIDataBlock *>::iterator data_block_it;
-    list<reader_t *>::iterator reader_it;
-    list<data_t *>::iterator data_it;
+void GRIProcessThread::SetLink(std::list<GRIDataBlock*>* dataBlocks) {
+    std::list<GRIDataBlock *>::iterator data_block_it;
+    std::list<reader_t *>::iterator reader_it;
+    std::list<data_t *>::iterator data_it;
 
     // Setting up the pointer to the data blocks that this process is writing to
     for (data_it = data_outs_.begin(); data_it != data_outs_.end(); ++data_it) {
@@ -64,8 +64,8 @@ void GRIProcessThread::SetLink(list<GRIDataBlock*>* dataBlocks) {
             QString proc_name = get_name();
             if (data_name == data_block_name && proc_name == data_block_writer_name) {
                 data->data_block = data_block;
-                cout << "Data block created with name " << data_name.toStdString() <<
-                        " and process " << proc_name.toStdString() << endl;
+                std::cout << "Data block created with name " << data_name.toStdString()
+                          << " and process " << proc_name.toStdString() << std::endl;
                 break;
             }
         }
@@ -73,8 +73,10 @@ void GRIProcessThread::SetLink(list<GRIDataBlock*>* dataBlocks) {
         if (data_block_it == (*dataBlocks).end()) {
 
 #ifdef PROCESS_THREAD_DEBUG
-            cerr << "! GRIProcessThread::set_link(): Could not find " << data->name.toStdString().c_str() << endl;
-            cerr << "Please check your XML file setup.  Exiting GRIF..." << endl;
+            std::cerr << "! GRIProcessThread::set_link(): Could not find "
+                      << data->name.toStdString().c_str() << std::endl;
+            std::cerr << "Please check your XML file setup.  Exiting GRIF..."
+                      << std::endl;
 #endif // PROCESS_THREAD_DEBUG
 
             assert(false);
@@ -95,10 +97,10 @@ void GRIProcessThread::SetLink(list<GRIDataBlock*>* dataBlocks) {
                 if (reader->reader_name == get_name() &&
                     reader->reader_data == data->name) {
                     data->data_block = data_block;
-                    cout << "Link set " <<
-                           "reader is " << reader->reader_name.toStdString().c_str() <<
-                           " and" <<
-                           "data is " << reader->reader_data.toStdString().c_str() << endl;
+                    std::cout << "Link set "
+                              << "reader is " << reader->reader_name.toStdString().c_str()
+                              << " and data is "
+                              << reader->reader_data.toStdString().c_str() << std::endl;
                     found = true;
                 }
             }
@@ -107,8 +109,10 @@ void GRIProcessThread::SetLink(list<GRIDataBlock*>* dataBlocks) {
         if (!found) {
 
 #ifdef PROCESS_THREAD_DEBUG
-            cerr << "! GRIProcessThread::set_link(): Could not find " << data->name.toStdString().c_str() << endl;
-            cerr << "Please check your XML file setup.  Exiting GRIF..." << endl;
+            std::cerr << "! GRIProcessThread::set_link(): Could not find "
+                      << data->name.toStdString().c_str() << std::endl;
+            std::cerr << "Please check your XML file setup.  Exiting GRIF..."
+                      << std::endl;
 #endif // PROCESS_THREAD_DEBUG
 
             assert(false);
@@ -134,8 +138,8 @@ void GRIProcessThread::AddDataBlock(QString data_block, bool is_output) {
     }
 }
 
-void GRIProcessThread::AddDataBlocks(list<QString> dataBlockNames) {
-    list<QString>::iterator it;
+void GRIProcessThread::AddDataBlocks(std::list<QString> dataBlockNames) {
+    std::list<QString>::iterator it;
 
     for (it = dataBlockNames.begin(); it != dataBlockNames.end(); it++) {
         QString name = *it;
@@ -195,7 +199,7 @@ void GRIProcessThread::IncrementPacketCount() {
 }
 
 GRIDataBlock* GRIProcessThread::FindDataBlock(QString data_block_name) {
-    list<data_t*>::iterator data_it;
+    std::list<data_t*>::iterator data_it;
 
     // Finding the data block in the list of buffers this process is writing to
     for (data_it = data_outs_.begin(); data_it != data_outs_.end(); ++data_it) {
@@ -235,7 +239,7 @@ int GRIProcessThread::SizeOfBuffer(QString bufferName) {
 
 #ifdef PROCESS_THREAD_DEBUG
 void GRIProcessThread::display_current_state() {
-    list<data_t*>::iterator it;
+    std::list<data_t*>::iterator it;
 
     log << endl << "** GRIProcessThread::current_state" << endl;
     log << "process name: " << get_name() << " id: " << thread_id_
