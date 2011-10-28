@@ -3,57 +3,57 @@
 #include <QResource>
 
 GRILogger::GRILogger(QString FileName) {
-    GRIFProjectFilePath = getenv("GRIFPROJECTDIR");
+    grif_project_file_path_ = getenv("GRIFPROJECTDIR");
 
-    if (GRIFProjectFilePath.length() == 0) {
+    if (grif_project_file_path_.length() == 0) {
         cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!" << endl;
     } else {
-        filename = FileName;
+        filename_ = FileName;
         // TODO(arbenson): handle windows paths differently
-        logfilepath = GRIFProjectFilePath + "/log/" + FileName;
+        logfilepath_ = grif_project_file_path_ + "/log/" + filename_;
         clearLogFile();
-        LogLevel = 2;
+        log_level_ = 2;
     }
 }
 
 
 GRILogger::GRILogger(QString FileName, int level) {
-    GRIFProjectFilePath = getenv("GRIFPROJECTDIR");
+    grif_project_file_path_ = getenv("GRIFPROJECTDIR");
 
-    if (GRIFProjectFilePath.length() == 0) {
+    if (grif_project_file_path_.length() == 0) {
         cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!" << endl;
     } else {
-        filename = FileName;
+        filename_ = FileName;
         // TODO(arbenson): handle windows paths differently
-        logfilepath = GRIFProjectFilePath + "/log/" + FileName;
+        logfilepath_ = grif_project_file_path_ + "/log/" + filename_;
         clearLogFile();
-        LogLevel = level;
+        log_level_ = level;
     }
 }
 
 GRILogger::GRILogger() {
-    GRIFProjectFilePath = getenv("GRIFPROJECTDIR");
-    if(GRIFProjectFilePath.length() == 0){
+    grif_project_file_path_ = getenv("GRIFPROJECTDIR");
+    if (grif_project_file_path_.length() == 0){
         cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!" << endl;
     } else {
-        filename = "runlog.txt";
+        filename_ = "runlog.txt";
         // TODO(arbenson): handle windows paths differently
-        logfilepath = GRIFProjectFilePath + "/log/" + filename;
+        logfilepath_ = grif_project_file_path_ + "/log/" + filename_;
         clearLogFile();
-        LogLevel = 2;
+        log_level_ = 2;
     }
 }
 
 GRILogger::GRILogger(int level) {
-    GRIFProjectFilePath = getenv("GRIFPROJECTDIR");
-    if(GRIFProjectFilePath.length() == 0) {
+    grif_project_file_path_ = getenv("GRIFPROJECTDIR");
+    if (grif_project_file_path_.length() == 0) {
         cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!" << endl;
     } else {
-        filename = "runlog.txt";
+        filename_ = "runlog.txt";
         // TODO(arbenson): handle windows paths differently
-        logfilepath = GRIFProjectFilePath + "/log/" + filename;
+        logfilepath_ = grif_project_file_path_ + "/log/" + filename_;
         clearLogFile();
-        LogLevel = level;
+        log_level_ = level;
     }
 }
 
@@ -65,15 +65,15 @@ void GRILogger::operator <<(QString const&y ) {
 
 
 bool GRILogger::clearLogFile() {
-    QFile f(logfilepath);
+    QFile f(logfilepath_);
 
     if (!f.open( QIODevice::WriteOnly | QIODevice::Truncate)) {
-        if(!f.open(QIODevice::WriteOnly)) {
+        if (!f.open(QIODevice::WriteOnly)) {
             cout << "Failure to open log file\n";
             return 0;
         }
     }
-    cout << "Successful Log File Opening: " << logfilepath.toStdString().c_str() << endl;
+    cout << "Successful Log File Opening: " << logfilepath_.toStdString().c_str() << endl;
 
     f.close();
     this->writeLogFile((QString)"GRI Framework Log V1.0\n\n");
@@ -81,7 +81,7 @@ bool GRILogger::clearLogFile() {
 }
 
 bool GRILogger::clearErrorLogFile() {
-    QFile f(this->GRIFProjectFilePath + "/log/errorlogfile.txt");
+    QFile f(this->grif_project_file_path_ + "/log/errorlogfile.txt");
     if (!f.open( QIODevice::WriteOnly | QIODevice::Truncate)) {
       cout << "Failed to locate errorlogfile.txt.\n";
       return 0;
@@ -94,7 +94,7 @@ bool GRILogger::clearErrorLogFile() {
 
 bool GRILogger::writeLogFile(list<string>d, int time) {
     list<string>::iterator iter;
-    for(iter = d.begin(); iter!= d.end(); iter++) {
+    for (iter = d.begin(); iter!= d.end(); iter++) {
         this->writeLogFile((*iter), time);
     }
     return 1;
@@ -106,13 +106,13 @@ bool GRILogger::writeLogFile(list<string>d) {
 
 bool GRILogger::writeLogFile(string output, int time) {
     //prevent multiple threads from writing at the same time
-    mutex.lock();
+    mutex_.lock();
 
-    if(time == 0) {
+    if (time == 0) {
         time = -1;
     }
 
-    QFile f(logfilepath);
+    QFile f(logfilepath_);
 
     if (!f.open( QIODevice::WriteOnly | QIODevice::Append )) {
       cout << "Failed to locate logfile.txt.\n";
@@ -125,7 +125,7 @@ bool GRILogger::writeLogFile(string output, int time) {
     f.close();
 
     //unlock
-    mutex.unlock();
+    mutex_.unlock();
     return 1;
 }
 
@@ -148,7 +148,7 @@ bool GRILogger::writeErrorLogFile(string output, int time) {
     //prevent multiple threads from writing at the same time
     mutex.lock();
 
-    QFile f(this->GRIFProjectFilePath + "/log/errorlogfile.txt");
+    QFile f(this->grif_project_file_path_ + "/log/errorlogfile.txt");
 
     if (!f.open( QIODevice::WriteOnly | QIODevice::Append )) {
       cout << "Failed to locate errorlogfile.txt.\n";
@@ -178,7 +178,7 @@ bool GRILogger::writeErrorLogFile(QString output) {
 }
 
 bool GRILogger::writeLogFile(GRILogMessage m) {
-    if(m.level >= this->LogLevel){
+    if (m.level >= this->log_level_) {
         return this->writeLogFile(m.MsgStr);
     } else {
         return false;
@@ -187,7 +187,7 @@ bool GRILogger::writeLogFile(GRILogMessage m) {
 
 bool GRILogger::writeErrorLogFile(list<string>d, int time) {
     list<string>::iterator iter;
-    for(iter = d.begin(); iter!= d.end(); iter++) {
+    for (iter = d.begin(); iter!= d.end(); iter++) {
         this->writeErrorLogFile(*iter, time);
     }
     return 1;
