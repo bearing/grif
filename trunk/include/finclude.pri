@@ -26,6 +26,5 @@ GRIDAQAccumNode.h \
 GRIHist1D.h \
 GRIHist2D.h \
 GRIParser.h \
-GRIRegulatorDetails.h \
 GRIProcList.h
 

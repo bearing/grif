@@ -7,7 +7,7 @@ GRILoader::GRILoader(QString localGRIFPath, GRIRegulator *regulator,
   regulator_ = regulator;
 }
 
-GRIRegulatorDetails *GRILoader::initRegulatorDetails() {
+RegDetails GRILoader::initRegulatorDetails() {
   /*
    *    A parsed XML file gives us:
    *    1. list of classes and names that will be used
@@ -85,6 +85,9 @@ GRIRegulatorDetails *GRILoader::initRegulatorDetails() {
     }
     cout << "Successfully parsed XML file: " << name.toStdString().c_str() << endl;
   }
-  //return the processes and dataBlocks
-  return new GRIRegulatorDetails(processes, dataBlocks);
+  // return the processes and dataBlocks
+  RegDetails details;
+  details.processes = processes;
+  details.data = dataBlocks;
+  return details;
 }

@@ -3,13 +3,11 @@
 
 #include <QString>
 #include <QFile>
-#include "GRIProcessThread.h"
-#include "GRILogger.h"
-#include "GRIThread.h"
-#include "GRIRegulatorDetails.h"
-#include "GRIRegulator.h"
-#include "GRIProcessThread.h"
+#include "GRIDefines.h"
 #include "GRIParser.h"
+#include "GRIProcessThread.h"
+#include "GRIThread.h"
+#include "GRIRegulator.h"
 
 class GRIRegulator;
 class GRIProcessThread;
@@ -23,7 +21,7 @@ class GRILoader {
 
   // Initialization of process threads based on the list fileNames
   // returns pointer to list of GRIProcessThread pointers for the framework
-  GRIRegulatorDetails *initRegulatorDetails();
+  RegDetails initRegulatorDetails();
 
  protected:
   virtual GRIProcessThread* load(QString process_name, QString object_name) = 0;
