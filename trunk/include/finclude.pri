@@ -14,7 +14,6 @@ GRILogger.h \
 GRILoader.h \
 GRIMath.h \
 GRIMemoryManager.h \
-GRIParam.h \
 GRIRegulator.h \
 GRILogMessage.h \
 GRIUserLoader.h \
