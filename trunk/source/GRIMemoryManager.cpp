@@ -69,7 +69,7 @@ bool GRIMemoryManager::bufferCreate(QString dataBlockName, QString bufferName) {
       return false;
     }
 
-    cout << "Buffer Create" << endl;
+    std::cout << "Buffer Create" << std::endl;
     QList<QReadWriteLock *> *locks = lockTable->at(blockIndex);
     QReadWriteLock *lock = new QReadWriteLock();
     locks->append(lock);
@@ -179,8 +179,8 @@ void GRIMemoryManager::unlockBuffer(QString dataBlockName, QString bufferName) {
 
 //returns the index of the given buffer
 int GRIMemoryManager::locateBuffer(QString dataBlockName, QString bufferName) {
-  cout << "locateBuffer: " << dataBlockName.toStdString().c_str() 
-       << "-" << bufferName.toStdString().c_str() << endl;
+  std::cout << "locateBuffer: " << dataBlockName.toStdString().c_str()
+            << "-" << bufferName.toStdString().c_str() << std::endl;
   int blockIndex = locateDataBlock(dataBlockName); 
   QList<QString> *bufferNames = nameTable->at(blockIndex);
   int size = bufferNames->size();
@@ -302,6 +302,8 @@ bool GRIMemoryManager::writeMemory(QString dataBlockName, QString bufferName,
   GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
   int curPacket = buf->nextPacket();
   //GRIMemoryManager::unlockBuffer(dataBlockName, bufferName);
-  cout << "MM:writeMemory " << dataBlockName.toStdString().c_str() << ":" << bufferName.toStdString().c_str() << " Packet #" << curPacket << endl;
+  std::cout << "MM:writeMemory " << dataBlockName.toStdString().c_str() << ":"
+            << bufferName.toStdString().c_str() << " Packet #" << curPacket
+            << std::endl;
   return GRIMemoryManager::writeMemory(dataBlockName, bufferName, curPacket, size, dataArray);
 }
