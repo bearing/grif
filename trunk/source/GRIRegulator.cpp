@@ -55,13 +55,14 @@ void GRIRegulator::start_threads() {
   }
 }
 
-pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName) {
+std::pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName) {
   GRIDataBlock* data = find_data(blockName,bufferName);
   if (data == NULL) {
-    cerr << "GRIRegulator::readMemory(): Can't find buffer" << blockName.toStdString().c_str() << ":"
-	 << bufferName.toStdString().c_str() << endl;
+    std::cerr << "GRIRegulator::readMemory(): Can't find buffer"
+              << blockName.toStdString().c_str() << ":"
+              << bufferName.toStdString().c_str() << std::endl;
 
-    pair<int, char*> returnVal(0, NULL);
+    std::pair<int, char*> returnVal(0, NULL);
     return returnVal;
   }
 
@@ -73,7 +74,9 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
     curr_packet = mm->lastPacket(blockName, bufferName);
   }
 
-  std::cout << blockName.toStdString().c_str() << ":"  << bufferName.toStdString().c_str() << " reading packet " << packet_to_read << endl;
+  std::cout << blockName.toStdString().c_str() << ":"
+            << bufferName.toStdString().c_str() << " reading packet "
+            << packet_to_read << std::endl;
 
   if (data->update_reader()) {
     int length = mm->sizeofPacket(blockName, bufferName,
@@ -81,7 +84,7 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
 
     if (length == 0) {
       char *c = new char[1];
-      pair<int, char*> returnVal(length, mm->readMemory(blockName, bufferName, c));
+      std::pair<int, char*> returnVal(length, mm->readMemory(blockName, bufferName, c));
       // Should add char* to garbage collection list for later deletion
       // GarbageCollection requires mutex!!!
       GarbageCollection(c);
@@ -89,7 +92,7 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
       return returnVal;
     } else {
       char *c = new char[length];
-      pair<int, char*> returnVal(length, mm->readMemory(blockName, bufferName, c));
+      std::pair<int, char*> returnVal(length, mm->readMemory(blockName, bufferName, c));
 
       // Should add char* to garbage collection list for later deletion
       // GarbageCollection requires mutex!!!
@@ -100,10 +103,11 @@ pair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName)
     }
   }
 
-  std::cout << "GRIRegulator::readMemory(): " << blockName.toStdString().c_str() <<
-    " is not reading from " << data->get_writer_name().toStdString().c_str() << endl;
+  std::cout << "GRIRegulator::readMemory(): " << blockName.toStdString().c_str()
+            << " is not reading from "
+            << data->get_writer_name().toStdString().c_str() << std::endl;
 
-  pair<int, char*> returnVal(0, NULL);
+  std::pair<int, char*> returnVal(0, NULL);
   return returnVal;
 }
 

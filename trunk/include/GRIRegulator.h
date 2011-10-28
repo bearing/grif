@@ -66,7 +66,7 @@ class GRIRegulator: public GRIObject {
    * readMemory() reads one packet from memory in the location specified
    * by process_name & bufferName
    */
-  pair<int, char*> readMemory(QString blockName, QString bufferName);
+  std::pair<int, char*> readMemory(QString blockName, QString bufferName);
 
   /*
    *
