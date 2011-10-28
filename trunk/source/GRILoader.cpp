@@ -80,7 +80,7 @@ RegDetails GRILoader::initRegulatorDetails() {
 	QString reader = curr_link->reader;
 	QString db_name = curr_link->dataBlock;
 	/* construct a new data block */
-	GRIDataBlock *data = new GRIDataBlock(regulator_, regulator_->GetMemoryManager(),
+        GRIDataBlock *data = new GRIDataBlock(regulator_, regulator_->get_mem_mngr(),
 					      reader, db_name, db_name, writer);
 	dataBlocks->push_back(data);
 

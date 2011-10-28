@@ -1,3 +1,4 @@
+#include <assert.h>
 #include "GRIProcessThread.h"
 #include <QMutexLocker>
 
