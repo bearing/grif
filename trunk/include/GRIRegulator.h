@@ -5,9 +5,7 @@
 
 #include <list>
 #include <iostream>
-#include <cassert>
 #include <utility>
-#include <QTime>
 #include <QMutex>
 #include <QString>
 #include <QWaitCondition>
@@ -18,7 +16,6 @@ class GRILoader;
 class GRIDataBlock;
 class GRIProcessThread;
 class GRIMemoryManager;
-class GRILogger;
 
 class GRIRegulator: public GRIObject {
   friend class GRICommandAndControl;
@@ -26,15 +23,8 @@ class GRIRegulator: public GRIObject {
   friend class GRIProcessThread;
 
  public:
-  void reg_init();
-  GRIRegulator(GRIMemoryManager* ma);
+  explicit GRIRegulator(GRIMemoryManager* ma);
   ~GRIRegulator();
-
-  FILE *regulator_log;
-  GRILogger *logger;
-  QTime timer;
-
-  void setMemMgrPtr(GRIMemoryManager *managerPointer);
 
   /*
    * initConfig() is called to initialize the whole system. It will require the
@@ -114,34 +104,29 @@ class GRIRegulator: public GRIObject {
    */
   int sizeofBuffer(QString bufferName);
 
-  GRIMemoryManager* GetMemoryManager(){return mm;}
   int GarbageCollection(QList<void*> pList);
 
- protected:
-  GRIMemoryManager* mm;
+  GRIMemoryManager *get_mem_mngr() { return mem_mngr_; }
+  void set_mem_mngr(GRIMemoryManager *mem_mngr) { mem_mngr_ = mem_mngr; }
 
  private:
-  QMutex GCMutex;
-  QMutex WriteMutex;
-  QMutex ReadMutex;
-  QMutex mutex;
-  QWaitCondition bufferIsReady;
+  GRIMemoryManager* mem_mngr_;
+  QMutex gc_mutex_;
+  QMutex mutex_;
+  QWaitCondition buffer_ready_;
+  QTime timer_;
+  std::list<GRIDataBlock*>* data_blocks_;
+  std::list<GRIProcessThread*>* processes_;
+  QList<char*> read_data_ptrs_;
 
-  QList<char*> ReadDataPtrs;
   int GarbageCollection(void* p);
 
-  /*
-   * find_process() returns a pointer to the actual process given the name
-   */
+  // find_process() returns a pointer to the actual process given the name
   GRIProcessThread* find_process(QString process_name);
 
-  /*
-   * find_data() returns a pointer to the actual data block given the name
-   */
+  // find_data() returns a pointer to the actual data block given the name
   GRIDataBlock* find_data(QString data_block_name, QString buffer_name);
 
-  std::list<GRIDataBlock*>* dataBlocks;
-  std::list<GRIProcessThread*>* processes;
 };
 
 #endif // GRIREGULATOR_H
