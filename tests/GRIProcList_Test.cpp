@@ -9,9 +9,7 @@ class GRIProcList_Test : public QObject {
   private slots:
     void insertsType();
     void deletesType();
-    void retrievesSets();
-    void retrievesGets();
-    void retrievesRunActions();
+    void retrievesLists();
 
   private:
     GRIProcList* procList_;
@@ -57,14 +55,32 @@ void GRIProcList_Test::deletesType() {
     QVERIFY2((*procList_).deleteType(*ps, *(new QString("fake list")), *(new QString("hello"))) == -1,
              "Valid proc but with random list, should return 0");
 }
-void GRIProcList_Test::retrievesSets() {
-    //Fill in with actual tests
-}
-void GRIProcList_Test::retrievesGets() {
-    //Fill in with actual tests
-}
-void GRIProcList_Test::retrievesRunActions() {
-    //Fill in with actual tests
+void GRIProcList_Test::retrievesLists() {
+    QString* ps = new QString("retrieval");
+    QString* values = new QString[20];
+    static const char alphanum[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    int* dups = new int[3];
+    for (int i = 0; i < 20; i++) {
+        values[i] = alphanum[std::rand() % (sizeof(alphanum) - 1)];
+        QString type;
+        switch (i % 3) {
+        case 0:
+            type = GRIProcList::SETS;
+            break;
+        case 1:
+            type = GRIProcList::GETS;
+            break;
+        case 2:
+            type = GRIProcList::RUN_ACTIONS;
+        }
+        int ret = (*procList_).insertType(*ps, type, values[i]);
+        if ( ret == 0) {
+            dups[i % 3]++;
+        }
+    }
+    QVERIFY(((QList<QString>) (*procList_).retrieveSets(*ps)).size() == 7 - dups[0]);
+    QVERIFY(((QList<QString>) (*procList_).retrieveGets(*ps)).size() == 7 - dups[1]);
+    QVERIFY(((QList<QString>) (*procList_).retrieveRunActions(*ps)).size() == 6 - dups[2]);
 }
 QTEST_MAIN(GRIProcList_Test)
 #include "GRIProcList_Test.moc"
