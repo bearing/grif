@@ -5,6 +5,7 @@
 #include <QList>
 #include <QHash>
 #include "GRIProcessThread.h"
+
 /*
  * Manages a DAQ process list and provides methods to
  * modify each Processes local state during runtime.
@@ -16,17 +17,22 @@ struct process {
     QList<QString> run_actions_;
 };
 
-static const QString SETS = "sets";
-static const QString GETS = "gets";
-static const QString RUN_ACTIONS = "runactions";
+
 
 class GRIProcList {
+
   public:
+    static const QString SETS;
+    static const QString GETS;
+    static const QString RUN_ACTIONS;
+
     /*
      * A new GRIProcList instantiated with the procList.
-     * \param procList the process list this manages
+     * \param procList the process list this manage
      */
-    GRIProcList(QList<GRIProcessThread>*);
+    GRIProcList();
+    //GRIProcList(QList<GRIProcessThread>*);
+
 
     /*
      * Inserts a type into the the specified process thread's blah blah blah,
@@ -71,6 +77,10 @@ class GRIProcList {
     /* Retrueves the List associated with this process name. */
     QList<QString>* retrieveList(QString, QString);
 };
+
+const QString GRIProcList::SETS = "sets";
+const QString GRIProcList::GETS = "gets";
+const QString GRIProcList::RUN_ACTIONS = "runactions";
 
 #endif  // FRAMEWORK_TRUNK_INCLUDE_GRIPROCLIST_H_
 

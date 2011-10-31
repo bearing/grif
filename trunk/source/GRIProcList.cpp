@@ -1,13 +1,21 @@
 #include "GRIProcList.h"
 
 //Public
+GRIProcList::GRIProcList() {
+
+}
+/*
+GRIProcList::GRIProcList(QList<GRIProcessThread> *) {
+
+}
+*/
 
 int GRIProcList::insertType(QString procName, QString type, QString value) {
     process* proc = process_map_.value(procName);
 
-    if (proc == 0) {
-        process newproc;
-        proc = &newproc;
+    if (proc == NULL) {
+        process* newproc = new process();
+        proc = newproc;
         process_map_.insert(procName, proc);
     }
     QList<QString>* typeList = getTypeList(proc, type);
@@ -63,8 +71,10 @@ QList<QString>* GRIProcList::getTypeList(process* proc, QString type) {
 
 QList<QString>* GRIProcList::retrieveList(QString procName, QString list) {
     process* proc = process_map_.value(procName);
-    if (proc != 0) {
+
+    if (proc != NULL) {
         return getTypeList(proc, list);
     }
     return new QList<QString>();
 }
+
