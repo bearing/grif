@@ -1,6 +1,6 @@
 #include <assert.h>
-#include "GRIProcessThread.h"
 #include <QMutexLocker>
+#include "GRIProcessThread.h"
 
 int GRIProcessThread::counter = 0;
 
