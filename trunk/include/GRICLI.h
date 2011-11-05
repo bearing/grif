@@ -1,6 +1,7 @@
 #ifndef GRICLI_H
 #define GRICLI_H
 
+#include <QHash>
 #include <QList>
 #include <QMutex>
 #include <QString>
@@ -12,7 +13,7 @@ typedef QList<ProcessCommand *> CLI_MACRO;
 
 class GRICLI : public QObject {
  public:
-  explicit GRICLI(list<GRIProcessThread*> *processes);
+  explicit GRICLI(QList<GRIProcessThread*> *processes);
   virtual ~GRICLI() {}
 
   void Launch();

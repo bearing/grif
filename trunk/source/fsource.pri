@@ -1,7 +1,7 @@
 SOURCES += GRIProcessThread.cpp \
 GRIAnalysisThread.cpp \
 GRIBuffer.cpp \
-#GRICLI.cpp \
+GRICLI.cpp \
 #GRICalibrate.cpp \
 #GRICalibration.cpp \
 GRIDAQThread.cpp \

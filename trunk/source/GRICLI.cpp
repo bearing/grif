@@ -1,6 +1,6 @@
 #include "iostream"
-#include "QList"
-#include "QStringList"
+#include <QList>
+#include <QStringList>
 #include "GRICLI.h"
 
 GRICLI::GRICLI(QList<GRIProcessThread *> *processes) {
@@ -230,7 +230,7 @@ void GRICLI::HandleMacroDef(const QString& instr) {
     std::cout << "No commands detected in the macro definition" << std::endl;
     std::cout << "Format is: macrodef [macroname]; macro1 ; macro 2; ..." << std::endl;
   }
-  macro_hash_[macro_name] = macro;
+  //macro_hash_[macro_name] = macro;
 }
 
 void GRICLI::HandleMacroExecution(QString *instr_array, int n) {
