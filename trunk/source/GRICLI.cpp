@@ -184,9 +184,9 @@ void GRICLI::HandleProcessTop(QString *instr_array, int n) {
     ProcessSet(instr_array[1], instr_array[2], instr_array[3]);
   } else if (instr_array[0] == "get" && n >= 3) {
     ProcessGet(instr_array[1], instr_array[2]);
-  } else if (instr_array[0] == "action" && n >= 2) {
+  } else if (instr_array[0] == "run" && n >= 2) {
     ProcessAction(instr_array[1]);
-  } else if (instr_array[0] == "actions" && n >= 1) {
+  } else if (instr_array[0] == "run" && n >= 1) {
     DisplayActions();
   } else if (instr_array[0] == "back" && n >= 1) {
     cli_state_ = MAIN;
@@ -210,17 +210,17 @@ void GRICLI::HandleMacroDef(const QString& instr) {
   ++it;
   for (; it != macro_breakup.end(); ++it) {
     QStringList cmd_breakup = it->split(" ", QString::SkipEmptyParts);
-    QList<QString>::iterator it;
-
+    int num_args = cmd_breakup.length();
     ProcessCommand *pc = NULL;
-    if (cmd_breakup[0] == "set" && n >= 4) {
+    if (cmd_breakup[0] == "set" && num_args >= 4) {
       pc = CreateSetCommand(cmd_breakup[1], cmd_breakup[2], cmd_breakup[3]);
-    } else if (cmd_breakup[0] == "get" && n >= 3) {
+    } else if (cmd_breakup[0] == "get" && num_args >= 3) {
       pc = CreateGetCommand(cmd_breakup[1], cmd_breakup[2]);
-    } else if (cmd_breakup[0] == "action" && n >= 2) {
+    } else if (cmd_breakup[0] == "run" && num_args >= 2) {
       pc = CreateRunActionCommand(cmd_breakup[1]);
     } else {
-      std::cout << "could not parse macro instruction" << std::endl;
+      std::cout << "could not parse macro instruction: "
+                << it->toStdString().c_str() << std::endl;
     }
 
     macro.push_back(pc);
@@ -230,7 +230,7 @@ void GRICLI::HandleMacroDef(const QString& instr) {
     std::cout << "No commands detected in the macro definition" << std::endl;
     std::cout << "Format is: macrodef [macroname]; macro1 ; macro 2; ..." << std::endl;
   }
-  //macro_hash_[macro_name] = macro;
+  macro_hash_[macro_name] = macro;
 }
 
 void GRICLI::HandleMacroExecution(QString *instr_array, int n) {
@@ -238,8 +238,15 @@ void GRICLI::HandleMacroExecution(QString *instr_array, int n) {
     std::cout << "Format is macro [macroname1] [macroname2] [macroname3]" << std::endl;
   }
   for (int i = 1; i < n; ++i) {
+    if (!macro_hash_.contains(instr_array[i])){
+        std::cout << "Could not find macro: "
+                  << instr_array[i].toStdString().c_str() << std::endl;
+        continue;
+    }
     CLI_MACRO macro = macro_hash_[instr_array[i]];
     CLI_MACRO::iterator it;
+    std::cout << "Executing macro: "
+              << instr_array[i].toStdString().c_str() << std::endl;
     for (it = macro.begin(); it != macro.end(); ++it) {
       curr_proc_->EnqueueDynamicCommand(*it);
     }
@@ -247,7 +254,9 @@ void GRICLI::HandleMacroExecution(QString *instr_array, int n) {
 }
 
 ProcessCommand *GRICLI::CreateGetCommand(const QString& name,
-					 const QString& dataType) {
+                                          const QString& dataType) {
+  std::cout << "Creating a get command: " << name.toStdString().c_str()
+            << " " << dataType.toStdString().c_str() << std::endl;
   ProcessCommand *pc = new ProcessCommand;
   pc->command_type = GET;
   pc->key = name;
@@ -268,8 +277,11 @@ ProcessCommand *GRICLI::CreateGetCommand(const QString& name,
 }
 
 ProcessCommand *GRICLI::CreateSetCommand(const QString& name,
-					 const QString& value,
-					 const QString& dataType) {
+                                          const QString& value,
+                                          const QString& dataType) {
+  std::cout << "Creating a set command: " << name.toStdString().c_str()
+            << " " << value.toStdString().c_str() << " "
+            << dataType.toStdString().c_str() << std::endl;
   ProcessCommand *pc = new ProcessCommand;
   pc->command_type = SET;
   pc->key = name;
@@ -306,6 +318,8 @@ ProcessCommand *GRICLI::CreateSetCommand(const QString& name,
 }
 
 ProcessCommand *GRICLI::CreateRunActionCommand(const QString& name) {
+  std::cout << "Creating a run action command: " << name.toStdString().c_str()
+            << std::endl;
   ProcessCommand *pc = new ProcessCommand;
   pc->command_type = RUN_ACTION;
   pc->key = name;

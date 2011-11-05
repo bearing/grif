@@ -4,6 +4,7 @@
 #include <QHash>
 #include <QList>
 #include <QMutex>
+#include <QObject>
 #include <QString>
 #include "GRIDefines.h"
 #include "GRIProcessThread.h"
@@ -11,7 +12,7 @@
 enum CLI_state_enum { MAIN, PROCESS_TOP };
 typedef QList<ProcessCommand *> CLI_MACRO;
 
-class GRICLI : public QObject {
+class GRICLI : public QObject{
  public:
   explicit GRICLI(QList<GRIProcessThread*> *processes);
   virtual ~GRICLI() {}
@@ -23,6 +24,9 @@ class GRICLI : public QObject {
   void ReceiveProcessGet(ProcessCommand *pc);
 
  private:
+
+      Q_OBJECT
+
   // All of these methods will be called internally
   // You only need to call the launch() method to start
   // and the quit() method to exit
