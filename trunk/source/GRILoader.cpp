@@ -1,7 +1,7 @@
 #include "GRILoader.h"
 
 GRILoader::GRILoader(QString localGRIFPath, GRIRegulator *regulator,
-                     std::list<QString> fileNames) {
+                     QList<QString> fileNames) {
   file_names_ = fileNames;
   local_grif_path_ = localGRIFPath;
   regulator_ = regulator;
@@ -28,9 +28,9 @@ RegDetails GRILoader::initRegulatorDetails() {
    * 8. return a new GRIRegulatorDetails with the list of processes and the list of data blocks
    */
 
-  std::list<QString>::iterator it;
-  std::list<GRIProcessThread*>* processes = new std::list<GRIProcessThread*>;
-  std::list<GRIDataBlock*>* dataBlocks = new std::list<GRIDataBlock*>;
+  QList<QString>::iterator it;
+  QList<GRIProcessThread*>* processes = new QList<GRIProcessThread*>;
+  QList<GRIDataBlock*>* dataBlocks = new QList<GRIDataBlock*>;
 
   for(it = file_names_.begin(); it != file_names_.end(); it++) {
     // get name of xml file
@@ -44,9 +44,9 @@ RegDetails GRILoader::initRegulatorDetails() {
       continue;
     }
 
-    std::list<struct objectParsingDetails> objectsAndLinks = parser.get_objs_and_links();
+    QList<struct objectParsingDetails> objectsAndLinks = parser.get_objs_and_links();
 
-    std::list<struct objectParsingDetails>::iterator obj_details_it;
+    QList<struct objectParsingDetails>::iterator obj_details_it;
 
     for(obj_details_it = objectsAndLinks.begin(); obj_details_it != objectsAndLinks.end();
 	obj_details_it++) {
@@ -69,8 +69,8 @@ RegDetails GRILoader::initRegulatorDetails() {
 
       proc->SetDefaultDetail(regulator_, objectName);
 
-      std::list<struct linkParsingDetails *>::iterator link_details_it;
-      std::list<struct linkParsingDetails*> *obj_links = obj_details.links;
+      QList<struct linkParsingDetails *>::iterator link_details_it;
+      QList<struct linkParsingDetails*> *obj_links = obj_details.links;
 
       for(link_details_it = obj_links->begin(); link_details_it != obj_links->end(); link_details_it++) {
 	struct linkParsingDetails *curr_link = *(link_details_it);

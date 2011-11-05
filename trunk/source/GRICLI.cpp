@@ -3,14 +3,14 @@
 #include "QStringList"
 #include "GRICLI.h"
 
-GRICLI::GRICLI(std::list<GRIProcessThread *> *processes) {
+GRICLI::GRICLI(QList<GRIProcessThread *> *processes) {
   processes_ = processes;
   Init();
 }
 
 void GRICLI::Init() {
   // form the process hash table
-  std::list<GRIProcessThread*>::iterator proc_it;
+  QList<GRIProcessThread*>::iterator proc_it;
   for (proc_it = processes_->begin(); proc_it != processes_->end(); ++proc_it) {
     process_hash_[(*proc_it)->get_name()] = *proc_it;
     QObject::connect(*proc_it, SIGNAL(GetProcessed(ProcessCommand *)),

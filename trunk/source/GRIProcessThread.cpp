@@ -25,7 +25,7 @@ void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegula
 }
 
 GRIProcessThread::~GRIProcessThread() {
-    std::list<data_t*>::iterator it;
+    QList<data_t*>::iterator it;
     for (it = data_ins_.begin(); it != data_ins_.end(); ++it) {
        delete *it;
     }
@@ -48,10 +48,10 @@ void GRIProcessThread::SetDefaultDetail(GRIRegulator *reg, QString name) {
     setObjectName(name);
 }
 
-void GRIProcessThread::SetLink(std::list<GRIDataBlock*>* dataBlocks) {
-    std::list<GRIDataBlock *>::iterator data_block_it;
-    std::list<reader_t *>::iterator reader_it;
-    std::list<data_t *>::iterator data_it;
+void GRIProcessThread::SetLink(QList<GRIDataBlock*>* dataBlocks) {
+    QList<GRIDataBlock *>::iterator data_block_it;
+    QList<reader_t *>::iterator reader_it;
+    QList<data_t *>::iterator data_it;
 
     // Setting up the pointer to the data blocks that this process is writing to
     for (data_it = data_outs_.begin(); data_it != data_outs_.end(); ++data_it) {
@@ -139,8 +139,8 @@ void GRIProcessThread::AddDataBlock(QString data_block, bool is_output) {
     }
 }
 
-void GRIProcessThread::AddDataBlocks(std::list<QString> dataBlockNames) {
-    std::list<QString>::iterator it;
+void GRIProcessThread::AddDataBlocks(QList<QString> dataBlockNames) {
+    QList<QString>::iterator it;
 
     for (it = dataBlockNames.begin(); it != dataBlockNames.end(); it++) {
         QString name = *it;
@@ -200,7 +200,7 @@ void GRIProcessThread::IncrementPacketCount() {
 }
 
 GRIDataBlock* GRIProcessThread::FindDataBlock(QString data_block_name) {
-    std::list<data_t*>::iterator data_it;
+    QList<data_t*>::iterator data_it;
 
     // Finding the data block in the list of buffers this process is writing to
     for (data_it = data_outs_.begin(); data_it != data_outs_.end(); ++data_it) {
@@ -240,7 +240,7 @@ int GRIProcessThread::SizeOfBuffer(QString bufferName) {
 
 #ifdef PROCESS_THREAD_DEBUG
 void GRIProcessThread::display_current_state() {
-    std::list<data_t*>::iterator it;
+    QList<data_t*>::iterator it;
 
     log << endl << "** GRIProcessThread::current_state" << endl;
     log << "process name: " << get_name() << " id: " << thread_id_

@@ -114,7 +114,7 @@ void GRIDAQThread::InitializeAccumulators(QDateTime tstart, qint64 timestamp_0,
   ticksPerSecond = 0;
   NBuff = msecPerAccum = 0;
 
-  std::list<GRIDAQAccumNode*>::iterator accum_it;
+  QList<GRIDAQAccumNode*>::iterator accum_it;
 
   // Finding the Accumulator in the list
   for (accum_it = accum_list_.begin(); accum_it != accum_list_.end();
@@ -125,7 +125,7 @@ void GRIDAQThread::InitializeAccumulators(QDateTime tstart, qint64 timestamp_0,
 }
 
 int GRIDAQThread::FlushAccumulators() {
-  std::list<GRIDAQAccumNode*>::iterator accum_it;
+  QList<GRIDAQAccumNode*>::iterator accum_it;
 
   // Finding the Accumulator in the list
   for (accum_it = accum_list_.begin(); accum_it != accum_list_.end(); 

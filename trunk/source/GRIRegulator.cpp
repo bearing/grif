@@ -12,10 +12,10 @@ GRIRegulator::GRIRegulator(GRIMemoryManager *mm) {
 
 GRIRegulator::~GRIRegulator() {}
 
-void GRIRegulator::initConfig(std::list<GRIDataBlock*>* dataBlocks,
-                              std::list<GRIProcessThread*>* processes) {
-  std::list<GRIDataBlock*>::iterator data_it;
-  std::list<GRIProcessThread*>::iterator process_it;
+void GRIRegulator::initConfig(QList<GRIDataBlock*>* dataBlocks,
+                              QList<GRIProcessThread*>* processes) {
+  QList<GRIDataBlock*>::iterator data_it;
+  QList<GRIProcessThread*>::iterator process_it;
 
   data_blocks_ = dataBlocks;
 
@@ -39,7 +39,7 @@ void GRIRegulator::initConfig(std::list<GRIDataBlock*>* dataBlocks,
 
 void GRIRegulator::start_threads() {
   timer_.start();
-  std::list<GRIProcessThread*>::iterator it;
+  QList<GRIProcessThread*>::iterator it;
   for(it = (*processes_).begin(); it != (*processes_).end(); it++) {
     GRIProcessThread* process = *it;
     process->start(QThread::NormalPriority);
@@ -148,7 +148,7 @@ int GRIRegulator::sizeofBuffer(QString bufferName) {
 }
 
 GRIProcessThread* GRIRegulator::find_process(QString process_name) {
-  std::list<GRIProcessThread*>::iterator it;
+  QList<GRIProcessThread*>::iterator it;
   for(it = processes_->begin(); it != processes_->end(); it++) {
     GRIProcessThread* process = *it;
     if(!(process->get_name()==process_name)) {
@@ -159,7 +159,7 @@ GRIProcessThread* GRIRegulator::find_process(QString process_name) {
 }
 
 GRIDataBlock* GRIRegulator::find_data(QString data_block_name, QString buffer_name) {
-  std::list<GRIDataBlock*>::iterator it;
+  QList<GRIDataBlock*>::iterator it;
 
   for(it = data_blocks_->begin(); it != data_blocks_->end(); it++) {
     GRIDataBlock* data_block = *it;

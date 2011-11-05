@@ -4,7 +4,7 @@
 
 GRIDataBlock::GRIDataBlock(GRIRegulator* reg,
                            struct AnalysisStructureObject* analysis_struct) {
-  std::list<ReaderDataObject>::iterator it;
+  QList<ReaderDataObject>::iterator it;
 
   name_ = analysis_struct->data;
   writer_name_ = analysis_struct->From;
@@ -38,7 +38,7 @@ GRIDataBlock::GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm,
   (obj_->To).push_back(*rdr);
   set_mm(mm);
 
-  std::list<ReaderDataObject>::iterator it;
+  QList<ReaderDataObject>::iterator it;
 
   name_ = obj_->data;
   writer_name_ = obj_->From;
@@ -60,16 +60,16 @@ GRIDataBlock::GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm,
 }
 
 GRIDataBlock::~GRIDataBlock() {
-  std::list<reader_t*>::iterator it;
+  QList<reader_t*>::iterator it;
   for (it = readers_.begin(); it != readers_.end(); it++) {
     delete *it;
   }
   writer_ = NULL;
 }
 
-void GRIDataBlock::set_link(std::list<GRIProcessThread*>* processes) {
-  std::list<GRIProcessThread*>::iterator process_it;
-  std::list<reader_t*>::iterator reader_it;
+void GRIDataBlock::set_link(QList<GRIProcessThread*>* processes) {
+  QList<GRIProcessThread*>::iterator process_it;
+  QList<reader_t*>::iterator reader_it;
 
   // Finding the pointer to the writer of this data block
   for (process_it = (*processes).begin(); process_it != (*processes).end();
@@ -123,7 +123,7 @@ void GRIDataBlock::set_link(std::list<GRIProcessThread*>* processes) {
 }
 
 void GRIDataBlock::delete_packet() {
-  std::list<reader_t*>::iterator it;
+  QList<reader_t*>::iterator it;
   int lowest_packet = write_counter_;
 
   for (it = readers_.begin(); it != readers_.end(); it++) {
@@ -146,7 +146,7 @@ void GRIDataBlock::delete_packet() {
 }
 
 void GRIDataBlock::load_balancing() {
-  std::list<reader_t*>::iterator it;
+  QList<reader_t*>::iterator it;
   delete_packet();
 
   // not much imbalance in the system
@@ -173,7 +173,7 @@ void GRIDataBlock::load_balancing() {
 bool GRIDataBlock::update_reader() {
   QString curr_thread_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
-  std::list<reader_t*>::iterator it;
+  QList<reader_t*>::iterator it;
   for(it = readers_.begin(); it != readers_.end(); it++) {
     reader_t* new_reader = *it;
     if(!new_reader->reader_name.compare(curr_thread_name)) {
@@ -207,7 +207,7 @@ void GRIDataBlock::display_current_state() {
   //log << "** GRIDataBlock::current state" << endl << endl;
   //log << "writer: " << write_counter_ << " " << writer_name.toStdString().c_str() << endl;
 
-  std::list<reader_t*>::iterator it;
+  QList<reader_t*>::iterator it;
   for (it = readers_.begin(); it != readers_.end(); it++) {
     //reader_t* new_reader = *it;
     //log << "reader: " << new_reader->read_counter << " " << new_reader->reader_name.toStdString().c_str() << endl;

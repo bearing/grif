@@ -48,7 +48,7 @@ bool GRIParser::Parse(QString FilePath) {
             continue;
         }
         struct objectParsingDetails *opd = new struct objectParsingDetails;
-        opd->links = new std::list<struct linkParsingDetails*>;
+        opd->links = new QList<struct linkParsingDetails*>;
 
         opd->objectName = name.value();
         opd->className = c.value();
