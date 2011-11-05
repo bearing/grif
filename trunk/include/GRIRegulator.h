@@ -3,9 +3,9 @@
 
 #define REGULATOR_DEBUG
 
-#include <list>
 #include <iostream>
 #include <utility>
+#include <QList>
 #include <QMutex>
 #include <QString>
 #include <QWaitCondition>
@@ -31,8 +31,8 @@ class GRIRegulator: public GRIObject {
    * dependencies' structure dictated by list<GRIBufferObject*> & list<GRIProcessThread*>
    * and it will start (but not necessarily run) the thread.
    */
-  void initConfig(std::list<GRIDataBlock*>* dataBlocks,
-                  std::list<GRIProcessThread*>* processes);
+  void initConfig(QList<GRIDataBlock*>* dataBlocks,
+                  QList<GRIProcessThread*>* processes);
 
   /*
    * start_threads() is called just before the whole system starts. It runs all the threads
@@ -115,8 +115,8 @@ class GRIRegulator: public GRIObject {
   QMutex mutex_;
   QWaitCondition buffer_ready_;
   QTime timer_;
-  std::list<GRIDataBlock*>* data_blocks_;
-  std::list<GRIProcessThread*>* processes_;
+  QList<GRIDataBlock*>* data_blocks_;
+  QList<GRIProcessThread*>* processes_;
   QList<char*> read_data_ptrs_;
 
   int GarbageCollection(void* p);
@@ -126,7 +126,6 @@ class GRIRegulator: public GRIObject {
 
   // find_data() returns a pointer to the actual data block given the name
   GRIDataBlock* find_data(QString data_block_name, QString buffer_name);
-
 };
 
 #endif // GRIREGULATOR_H

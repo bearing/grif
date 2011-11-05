@@ -1,14 +1,14 @@
 #ifndef GRICLI_H
 #define GRICLI_H
 
-#include "list"
-#include "QMutex"
-#include "QString"
+#include <QList>
+#include <QMutex>
+#include <QString>
 #include "GRIDefines.h"
 #include "GRIProcessThread.h"
 
 enum CLI_state_enum { MAIN, PROCESS_TOP };
-typedef std::list<ProcessCommand *> CLI_MACRO;
+typedef QList<ProcessCommand *> CLI_MACRO;
 
 class GRICLI : public QObject {
  public:
@@ -52,7 +52,7 @@ class GRICLI : public QObject {
   // the current process for sets, gets, actions
   GRIProcessThread *curr_proc_;
 
-  std::list<GRIProcessThread*> *processes_;
+  QList<GRIProcessThread*> *processes_;
   QHash<QString, GRIProcessThread*> process_hash_;
   QHash<QString, CLI_MACRO> macro_hash_;
   enum CLI_state_enum cli_state_;

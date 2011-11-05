@@ -1,8 +1,9 @@
 #ifndef GRILOADER_H
 #define GRILOADER_H
 
-#include <QString>
+#include <QList>
 #include <QFile>
+#include <QString>
 #include "GRIDefines.h"
 #include "GRIParser.h"
 #include "GRIProcessThread.h"
@@ -15,7 +16,7 @@ class GRIProcessThread;
 class GRILoader {
  public:
   GRILoader(QString localGRIFPath, GRIRegulator *regulator,
-	    std::list<QString> fileNames);
+	    QList<QString> fileNames);
 
   virtual ~GRILoader() {}
 
@@ -29,7 +30,7 @@ class GRILoader {
  private:
   QString local_grif_path_;
   GRIRegulator* regulator_;
-  std::list<QString> file_names_;
+  QList<QString> file_names_;
 };
 
 #endif // GRILOADER_H

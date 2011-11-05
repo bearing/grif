@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <QFile>
+#include <QList>
 #include <QMutex>
 #include <QString>
 #include <QTextStream>
@@ -25,20 +26,20 @@ class GRILogger : public QObject {
   bool writeErrorLogFile(std::string ErrorDescription);
   bool writeErrorLogFile(QString ErrorDescription, int time);
   bool writeErrorLogFile(QString ErrorDescription);
-  bool writeErrorLogFile(std::list<std::string> ErrorDescriptions, int time);
-  bool writeErrorLogFile(std::list<std::string> ErrorDescriptions);
+  bool writeErrorLogFile(QList<std::string> ErrorDescriptions, int time);
+  bool writeErrorLogFile(QList<std::string> ErrorDescriptions);
 
   bool writeLogFile(QString output, int time);
   bool writeLogFile(std::string output, int time);
-  bool writeLogFile(std::list<std::string> output, int time);
+  bool writeLogFile(QList<std::string> output, int time);
   bool writeLogFile(std::string output);
-  bool writeLogFile(std::list<std::string> output);
+  bool writeLogFile(QList<std::string> output);
 
   bool clearLogFile();
   bool clearErrorLogFile();
 
   void display(std::string);
-  void display(std::list<std::string>);
+  void display(QList<std::string>);
 
   QString GetLogFileName() {
     return filename_;
@@ -55,7 +56,7 @@ class GRILogger : public QObject {
 
  signals:
   void output(std::string);
-  void output(std::list<std::string>);
+  void output(QList<std::string>);
 
   public slots:
   bool writeLogFile(QString msg);

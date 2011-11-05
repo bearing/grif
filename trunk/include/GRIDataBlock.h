@@ -5,7 +5,7 @@
 
 #include <cstdio>
 #include <cstdlib>
-#include <list>
+#include <QList>
 #include <QString>
 #include "GRIProcessThread.h"
 #include "GRIMemoryManager.h"
@@ -34,7 +34,7 @@ struct ReaderDataObject {
 struct AnalysisStructureObject {
   QString data;
   QString From;
-  std::list<ReaderDataObject> To;
+  QList<ReaderDataObject> To;
 };
 
 struct reader_t {
@@ -76,7 +76,7 @@ class GRIDataBlock: public GRIObject {
   /*
    * get_reader() returns the threads that are reading to this data block
    */
-  std::list<reader_t*>* get_reader() { return &readers_; }
+  QList<reader_t*>* get_reader() { return &readers_; }
 
   /*
    * set_mm() sets the memory manager that is going to be used by this buffer
@@ -87,7 +87,7 @@ class GRIDataBlock: public GRIObject {
    * set_link() sets up the pointers to the processes objects that are directly involved
    * with this buffer (ie: those who will be writing to or reading from this buffer)
    */
-  void set_link(std::list<GRIProcessThread*>* processes);
+  void set_link(QList<GRIProcessThread*>* processes);
 
   /*
    * load_balancing() monitors the flow of the packets. If an inbalance is detected
@@ -124,7 +124,7 @@ class GRIDataBlock: public GRIObject {
   QString name_; // name of this data block
   GRIProcessThread* writer_; // the thread that's writing to this object
   QString writer_name_; // name of writer writing to this object
-  std::list<reader_t*> readers_; // list of threads reading from this object
+  QList<reader_t*> readers_; // list of threads reading from this object
   long write_counter_; // # of times this buffer is written
   long first_packet_; // last packet # deleted + 1
 };

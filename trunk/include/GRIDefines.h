@@ -123,8 +123,8 @@ class GRIProcessThread;
 class GRIDataBlock;
 
 struct RegDetails {
-  std::list<GRIProcessThread*> *processes;
-  std::list<GRIDataBlock*> *data;
+  QList<GRIProcessThread*> *processes;
+  QList<GRIDataBlock*> *data;
 };
 
 // For Qt's internally defined globals see http://doc.trolltech.com/4.5/qtglobal.html#details

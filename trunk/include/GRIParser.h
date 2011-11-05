@@ -1,9 +1,9 @@
 #ifndef GRIPARSER_H
 #define GRIPARSER_H
 
-#include <list>
-#include "QString"
-#include "QHash"
+#include <QHash>
+#include <QList>
+#include <QString>
 
 struct linkParsingDetails {
     QString writer;
@@ -14,7 +14,7 @@ struct linkParsingDetails {
 struct objectParsingDetails {
     QString objectName;
     QString className;
-    std::list<struct linkParsingDetails*> *links;
+    QList<struct linkParsingDetails*> *links;
 };
 
 class GRIParser {
@@ -31,13 +31,13 @@ public:
     bool Parse(QString FilePath);
 
     /* returns the objects and links necessary for initRegulatorDetails() */
-    std::list<struct objectParsingDetails> get_objs_and_links() {
+    QList<struct objectParsingDetails> get_objs_and_links() {
       return objs_and_links_;
     }
 
 private:
     QHash<QString, struct objectParsingDetails *> object_hash_;
-    std::list<struct objectParsingDetails> objs_and_links_;
+    QList<struct objectParsingDetails> objs_and_links_;
 };
 
 #endif // GRIPARSER_H

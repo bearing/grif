@@ -25,7 +25,7 @@ class GRIDAQAccumulator : public GRIDAQAccumNode {
 
   void ResetAccumBuffs() {
     // NOTE: need typename when defining a template iterator...
-    typename std::list<GRIAccumBuff<T>*>::iterator  buff_it;
+    typename QList<GRIAccumBuff<T>*>::iterator  buff_it;
 
     // reset all times in the order of the buffers
     int buffcnt = 0;
@@ -58,7 +58,7 @@ class GRIDAQAccumulator : public GRIDAQAccumNode {
     // Use bubble member to determine who is next...
 
     // NOTE: need typename when defining a template iterator...
-    typename std::list<GRIAccumBuff<T>*>::iterator  buff_it;
+    typename QList<GRIAccumBuff<T>*>::iterator  buff_it;
 
     bool FlushFlag = !runflag;
 
@@ -138,7 +138,7 @@ class GRIDAQAccumulator : public GRIDAQAccumNode {
 
 
   void FlushBuffers() {
-    typename std::list<GRIAccumBuff<T>*>::iterator  buff_it;
+    typename QList<GRIAccumBuff<T>*>::iterator  buff_it;
 
     // Loop over all buffers and write the bubbles out...
     for (int i=0; i<get_num_accum_buff(); i++) {
@@ -188,7 +188,7 @@ class GRIDAQAccumulator : public GRIDAQAccumNode {
   }
 
  private:
-  std::list<GRIAccumBuff<T>*> buff_;
+  QList<GRIAccumBuff<T>*> buff_;
 };
 
 

@@ -58,7 +58,7 @@ public:
 
     // set_link() sets up the pointers to the processes objects that are directly involved
     // with this process (ie: those who will be writtten to or read by this process
-    void SetLink(std::list<GRIDataBlock*>* dataBlocks);
+    void SetLink(QList<GRIDataBlock*>* dataBlocks);
 
     // adds a data block that this process is going to use. Whether it's a buffer that this
     // process is writing to or reading from will be dictated by type (OUT or IN).
@@ -67,7 +67,7 @@ public:
     // Adds data blocks provided in the list of QStrings.  Uses the is_daq variable to determine
     // whether or not this is an input or output.  GRIDAQThread has is_daq set to true on construction.
     // GRIAnalysis thread has is_daq set to false on construction.
-    void AddDataBlocks(std::list<QString> dataBlockNames);
+    void AddDataBlocks(QList<QString> dataBlockNames);
 
     // This is overloaded in GRIDAQThread...
     virtual void RegisterAccumulator(QString datablock) { datablock = "ReduceCompilerWarnings"; }
@@ -171,7 +171,7 @@ private:
 
     QString xml_path_;
 
-    std::list<QString> data_block_names_;
+    QList<QString> data_block_names_;
 
     QQueue<ProcessCommand *> cmd_buffer_;
     mutable QMutex cmd_buffer_lock_;
@@ -180,9 +180,9 @@ private:
     void HandleGetRequest(ProcessCommand *pc);
 
     // list of data blocks this process is writing to
-    std::list<data_t*> data_outs_;
+    QList<data_t*> data_outs_;
     // list of data blocks this process is reading from
-    std::list<data_t*> data_ins_;
+    QList<data_t*> data_ins_;
 
     // Load balancing variables: refer to the description of the class for more details
     int num_packets_to_sat_;

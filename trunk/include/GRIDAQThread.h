@@ -2,6 +2,7 @@
 #define GRIDAQTHREAD_H
 
 #include <iostream>
+#include <QList>
 #include <QHash>
 #include <QString>
 #include "GRIDAQAccumNode.h"
@@ -343,7 +344,7 @@ class GRIDAQThread : public GRIProcessThread {
   template <class T> int PostData(int numel, QString buffer_name, T _data[], 
                                   qint64 timestamps[]) {
 
-    std::list<GRIDAQAccumNode*>::iterator accum_it;
+    QList<GRIDAQAccumNode*>::iterator accum_it;
 
     // Finding the Accumulator in the list
     bool found = false;
@@ -378,7 +379,7 @@ class GRIDAQThread : public GRIProcessThread {
   int FlushAccumulators();
 
  private:
-  std::list<GRIDAQAccumNode*> accum_list_;
+  QList<GRIDAQAccumNode*> accum_list_;
 };
 
 #endif // DAQTHREAD_H
