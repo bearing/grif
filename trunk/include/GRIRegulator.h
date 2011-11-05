@@ -7,6 +7,7 @@
 #include <utility>
 #include <QList>
 #include <QMutex>
+#include <QPair>
 #include <QString>
 #include <QWaitCondition>
 #include "GRILogMessage.h"
@@ -56,7 +57,7 @@ class GRIRegulator: public GRIObject {
    * readMemory() reads one packet from memory in the location specified
    * by process_name & bufferName
    */
-  std::pair<int, char*> readMemory(QString blockName, QString bufferName);
+  QPair<int, char*> readMemory(QString blockName, QString bufferName);
 
   /*
    *

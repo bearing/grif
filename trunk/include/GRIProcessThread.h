@@ -3,9 +3,10 @@
 
 #define PROCESS_THREAD_DEBUG
 
-#include <list>
+#include <QList>
 #include <QMutex>
 #include <QQueue>
+#include <QPair>
 #include <QString>
 #include "GRIRegulator.h"
 #include "GRIDataBlock.h"
@@ -86,7 +87,7 @@ public:
 
      // readMemory() reads one packet from memory in the location specified by process_name
      // and bufferName. Essentially abstracts regulator's readMemory() by templating it.
-     template<class T> std::pair<int, T*> readMemory(QString blockName, QString bufferName);
+     template<class T> QPair<int, T*> readMemory(QString blockName, QString bufferName);
 
     // writeMemory() writes a data given in the char array to the location specified.
     // by process_name & bufferName. Also abstracts regulator's readMemory() by
@@ -194,13 +195,13 @@ private:
     int thread_id_;
 };
 
-template<class T> std::pair<int, T*>
+template<class T> QPair<int, T*>
 GRIProcessThread::readMemory(QString blockName ,QString bufferName) {
     // Recasting here must de-couple char array and the T array to allow for proper
     // memory de-allocation via the delete method.
-    std::pair<int, char *> refPair = reg->readMemory(blockName, bufferName);
+    QPair<int, char *> refPair = reg->readMemory(blockName, bufferName);
 
-    std::pair<int, T*> castPair(refPair.first / sizeof(T), (T*) refPair.second);
+    QPair<int, T*> castPair(refPair.first / sizeof(T), (T*) refPair.second);
     return castPair;
 }
 

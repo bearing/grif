@@ -1,9 +1,10 @@
 #ifndef FRAMEWORK_TRUNK_INCLUDE_GRIANALYSISTHREAD_H_
 #define FRAMEWORK_TRUNK_INCLUDE_GRIANALYSISTHREAD_H_
 
-#include <QHash>
-#include <QString>
 #include <iostream>
+#include <QHash>
+#include <QPair>
+#include <QString>
 #include "GRIProcessThread.h"
 #include "GRIHistogrammer.h"
 
@@ -164,9 +165,9 @@ class GRIAnalysisThread : public GRIProcessThread {
     return this->writeMemory(this->get_name(), buffer_name, numel, _data);
   }
 
-  template <class T> std::pair<int, T*> ReadData(QString block_name,
+  template <class T> QPair<int, T*> ReadData(QString block_name,
 					    QString buffer_name) {
-    std::pair<int, T*> p = readMemory<T>(block_name, buffer_name);
+    QPair<int, T*> p = readMemory<T>(block_name, buffer_name);
 
     // TODO(arbenson): change (void*)p.second to
     // reinterperet_cast<void*>(p.second)
