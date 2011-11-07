@@ -179,7 +179,7 @@ bool GRILogger::writeErrorLogFile(std::string output, int time) {
   */
 }
 
-static bool writeToLogFile(QString output, int time, QMutex *mutex, QFile *f) {
+bool GRILogger::writeToLogFile(QString output, int time, QMutex *mutex, QFile *f) {
     time = 0;
 
     mutex->lock();
