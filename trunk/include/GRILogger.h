@@ -22,6 +22,7 @@ class GRILogger : public QObject {
 
   // TODO(arbenson): May want to create and pass an Error class object
   // that contains all important descriptions
+  // Should we support standard strings in writing logs?
   bool writeErrorLogFile(std::string ErrorDescription, int time);
   bool writeErrorLogFile(std::string ErrorDescription);
   bool writeErrorLogFile(QString ErrorDescription, int time);
@@ -68,6 +69,8 @@ class GRILogger : public QObject {
   QString logfilepath_; //full file path
   int log_level_;
   QMutex mutex_;
+
+  static bool writeToLogFile(QString, int, QMutex*, QFile*);
 };
 
 #endif // GRILOGGER_H

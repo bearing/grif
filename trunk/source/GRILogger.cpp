@@ -74,7 +74,7 @@ bool GRILogger::clearLogFile() {
   if (!f.open( QIODevice::WriteOnly | QIODevice::Truncate)) {
     if (!f.open(QIODevice::WriteOnly)) {
       std::cout << "Failure to open log file\n";
-      return 0;
+      return false;
     }
   }
   std::cout << "Successful Log File Opening: " 
@@ -82,7 +82,7 @@ bool GRILogger::clearLogFile() {
 
   f.close();
   writeLogFile((QString)"GRI Framework Log V1.0\n\n");
-  return 1;
+  return true;
 }
 
 bool GRILogger::clearErrorLogFile() {
@@ -116,8 +116,10 @@ bool GRILogger::writeLogFile(std::string output, int time) {
   if (time == 0) {
     time = -1;
   }
-
-  QFile f(logfilepath_);
+  return writeToLogFile(*new QString(output.c_str()), time, &mutex_,
+                        new QFile(logfilepath_));
+  /*
+    QFile f(logfilepath_);
 
   if (!f.open( QIODevice::WriteOnly | QIODevice::Append )) {
     std::cout << "Failed to locate logfile.txt.\n";
@@ -132,6 +134,7 @@ bool GRILogger::writeLogFile(std::string output, int time) {
   //unlock
   mutex_.unlock();
   return 1;
+  */
 }
 
 bool GRILogger::writeLogFile(std::string output) {
@@ -150,6 +153,11 @@ bool GRILogger::writeErrorLogFile(std::string output, int time) {
   time = 0; //reduce compiler warnings
 
   QMutex mutex;
+
+  return writeToLogFile(*new QString(output.c_str()), time, &mutex,
+                        new QFile(grif_project_file_path_ + "/log/errorlogfile.txt"));
+
+  /*
   //prevent multiple threads from writing at the same time
   mutex.lock();
 
@@ -168,6 +176,26 @@ bool GRILogger::writeErrorLogFile(std::string output, int time) {
   //unlock
   mutex.unlock();
   return 1;
+  */
+}
+
+static bool writeToLogFile(QString output, int time, QMutex *mutex, QFile *f) {
+    time = 0;
+
+    mutex->lock();
+
+    if (!f->open( QIODevice::WriteOnly | QIODevice::Append )) {
+        std::cout << "failed to locate " << f->fileName().toStdString() << std::endl;
+        return 0;
+    }
+
+    QTextStream ts(f);
+    ts << output.toStdString().c_str();
+
+    f->close();
+
+    mutex->unlock();
+    return 1;
 }
 
 bool GRILogger::writeErrorLogFile(std::string output) {

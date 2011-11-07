@@ -1,5 +1,7 @@
 #include "GRILogMessage.h"
 #include <QDateTime>
+#include "stdlib.h"
+#include "stdio.h"
 
 GRILogMessage::GRILogMessage() {
   level = 0;
@@ -12,14 +14,14 @@ bool GRILogMessage::SetMessageTime(QString s, int l) {
   SetTimeString();
   if (l == 0) {
     MsgStr = DateTime + " (" + object_name_ + ") " + ": DEBUG - " + s;
-  } else if(l == 3) {
-    MsgStr = DateTime + " (" + object_name_ + ") " + ": WARNING - " + s;
-  } else if(l == 4) {
-    MsgStr = DateTime + " (" + object_name_ + ") " + ": ERROR - " + s;
-  } else if(l == 1) {  // VERBOSE
-    MsgStr = DateTime + " (" + object_name_ + ") " + ": " + s;
+  } else if (l == 1) {  // VERBOSE
+      MsgStr = DateTime + " (" + object_name_ + ") " + ": " + s;
   } else if (l == 2) { // MSG
-    MsgStr = DateTime + " (" + object_name_ + ") " + ": " + s;
+      MsgStr = DateTime + " (" + object_name_ + ") " + ": " + s;
+  } else if (l == 3) {
+    MsgStr = DateTime + " (" + object_name_ + ") " + ": WARNING - " + s;
+  } else if (l == 4) {
+    MsgStr = DateTime + " (" + object_name_ + ") " + ": ERROR - " + s;
   } else {
     return 0;
   }
