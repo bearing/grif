@@ -1,12 +1,20 @@
 #include <QString>
+#include <QObject>
 #include <QtTest>
+#include "QtTestUtil.h"
 #include "GRIProcList.cpp"
+
 
 class GRIProcList_Test : public QObject {
   Q_OBJECT
   public:
     GRIProcList_Test();
   private slots:
+    void initTestCase() {
+    }
+
+    void cleanupTestCase() {
+    }
     void insertsType();
     void deletesType();
     void retrievesLists();
@@ -82,5 +90,5 @@ void GRIProcList_Test::retrievesLists() {
     QVERIFY(((QList<QString>) (*procList_).retrieveGets(*ps)).size() == 7 - dups[1]);
     QVERIFY(((QList<QString>) (*procList_).retrieveRunActions(*ps)).size() == 6 - dups[2]);
 }
-QTEST_MAIN(GRIProcList_Test)
+QTTESTUTIL_REGISTER_TEST(GRIProcList_Test);
 #include "GRIProcList_Test.moc"
