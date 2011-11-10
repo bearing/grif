@@ -73,7 +73,7 @@ void GRIAnalysisThread::errorHandling(const char * message, int errorCode) {
 void GRIAnalysisThread::ReadGarbageCollection() {
     // TODO(arbenson): Need to run GRIRegulator Garbage Collection for each pointer.
     //cout << "Analysis Thread Garbage Collection" << endl;
-    int nFree = reg->GarbageCollection(read_data_ptrs_);
+    int nFree = get_reg()->GarbageCollection(read_data_ptrs_);
     if (nFree == read_data_ptrs_.size()) {
         read_data_ptrs_.clear();
     } else {
