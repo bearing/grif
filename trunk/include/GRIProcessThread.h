@@ -59,7 +59,7 @@ public:
 
     // set_link() sets up the pointers to the processes objects that are directly involved
     // with this process (ie: those who will be writtten to or read by this process
-    void SetLink(QList<GRIDataBlock*>* dataBlocks);
+    void SetLink(QLinkedList<GRIDataBlock*> *dataBlocks);
 
     // adds a data block that this process is going to use. Whether it's a buffer that this
     // process is writing to or reading from will be dictated by type (OUT or IN).
@@ -137,6 +137,8 @@ public:
     int get_last_adjustment_from_sat() { return last_adjustment_from_sat_; }
     bool get_is_daq() { return is_daq_; }
     void set_is_daq(bool is_daq) { is_daq_ = is_daq; }
+    GRIRegulator *get_reg() { return reg_; }
+    void set_reg(GRIRegulator *reg) { reg_ = reg; }
     QString get_xml_path() { return xml_path_; }
 
     // get_name() returns the name of this process
@@ -160,8 +162,8 @@ public:
     void GetProcessed(ProcessCommand *pc);
 
 protected:
+    // TODO(arbenson): should these be protected?
     virtual void run() {}
-    GRIRegulator* reg;
     void FlushBuffer();
 
 private:
@@ -193,13 +195,14 @@ private:
     bool run_flag_;
     bool is_daq_;
     int thread_id_;
+    GRIRegulator* reg_;
 };
 
 template<class T> QPair<int, T*>
 GRIProcessThread::readMemory(QString blockName ,QString bufferName) {
     // Recasting here must de-couple char array and the T array to allow for proper
     // memory de-allocation via the delete method.
-    QPair<int, char *> refPair = reg->readMemory(blockName, bufferName);
+    QPair<int, char *> refPair = get_reg()->readMemory(blockName, bufferName);
 
     QPair<int, T*> castPair(refPair.first / sizeof(T), (T*) refPair.second);
     return castPair;
@@ -209,8 +212,7 @@ template<class T> bool GRIProcessThread::writeMemory(QString blockName,
                                                      QString bufferName,
                                                      int size, T dataArray[]) {
   // TODO(arbenson): do we need blockName for writeMemory()?
-  blockName = "ReduceCompilerWarnings";
-  return reg->writeMemory(this->get_name(), bufferName, size * sizeof(T),
+  return get_reg()->writeMemory(this->get_name(), bufferName, size * sizeof(T),
                           (char*) dataArray);
 }
 
