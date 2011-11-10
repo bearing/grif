@@ -122,11 +122,6 @@ struct ProcessCommand {
 class GRIProcessThread;
 class GRIDataBlock;
 
-struct RegDetails {
-  QList<GRIProcessThread*> *processes;
-  QList<GRIDataBlock*> *data;
-};
-
 // For Qt's internally defined globals see http://doc.trolltech.com/4.5/qtglobal.html#details
 // For definitions of macros see qglobal.h
 
