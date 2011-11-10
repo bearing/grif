@@ -67,8 +67,8 @@ GRIDataBlock::~GRIDataBlock() {
   writer_ = NULL;
 }
 
-void GRIDataBlock::set_link(QList<GRIProcessThread*>* processes) {
-  QList<GRIProcessThread*>::iterator process_it;
+void GRIDataBlock::set_link(QLinkedList<GRIProcessThread*>* processes) {
+  QLinkedList<GRIProcessThread*>::iterator process_it;
   QList<reader_t*>::iterator reader_it;
 
   // Finding the pointer to the writer of this data block
@@ -116,10 +116,6 @@ void GRIDataBlock::set_link(QList<GRIProcessThread*>* processes) {
       assert(false);
     }
   }
-  //#ifdef DATA_BLOCK_DEBUG
-  //log << "** DataBlock.cpp: Done setting the reader & writers link" << endl;
-  //Commit//log(GRI//log_VERBOSE);
-  //#endif
 }
 
 void GRIDataBlock::delete_packet() {
@@ -132,10 +128,6 @@ void GRIDataBlock::delete_packet() {
       lowest_packet = reader->read_counter;
     }
   }
-
-#ifdef DATA_BLOCK_DEBUG
-  display_current_state();
-#endif // DATA_BLOCK_DEBUG
 
   if (lowest_packet > first_packet_) {
     for (int i = first_packet_; i < lowest_packet; i++) {
@@ -201,17 +193,3 @@ bool GRIDataBlock::update_writer() {
 
   return true;
 }
-
-#ifdef DATA_BLOCK_DEBUG
-void GRIDataBlock::display_current_state() {
-  //log << "** GRIDataBlock::current state" << endl << endl;
-  //log << "writer: " << write_counter_ << " " << writer_name.toStdString().c_str() << endl;
-
-  QList<reader_t*>::iterator it;
-  for (it = readers_.begin(); it != readers_.end(); it++) {
-    //reader_t* new_reader = *it;
-    //log << "reader: " << new_reader->read_counter << " " << new_reader->reader_name.toStdString().c_str() << endl;
-  }
-  //Commit//log(GRI//log_VERBOSE);
-}
-#endif //DATA_BLOCK_DEBUG

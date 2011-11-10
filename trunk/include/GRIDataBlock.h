@@ -87,7 +87,7 @@ class GRIDataBlock: public GRIObject {
    * set_link() sets up the pointers to the processes objects that are directly involved
    * with this buffer (ie: those who will be writing to or reading from this buffer)
    */
-  void set_link(QList<GRIProcessThread*>* processes);
+  void set_link(QLinkedList<GRIProcessThread*>* processes);
 
   /*
    * load_balancing() monitors the flow of the packets. If an inbalance is detected
@@ -112,10 +112,6 @@ class GRIDataBlock: public GRIObject {
    * delete_packet() decides whether some spaces could be freed by deleting packets
    */
   void delete_packet();
-
-#ifdef DATA_BLOCK_DEBUG
-  void display_current_state();
-#endif //DEBUG
 
  private:
   struct AnalysisStructureObject *obj_;
