@@ -8,40 +8,39 @@
 GRIRegulator::GRIRegulator(GRIMemoryManager *mm) {
   mem_mngr_ = mm;
   set_name("REG");
+  data_blocks_ = new QLinkedList<GRIDataBlock*>;
+  processes_ = new QLinkedList<GRIProcessThread*>;
 }
 
 GRIRegulator::~GRIRegulator() {}
 
-void GRIRegulator::initConfig(QList<GRIDataBlock*>* dataBlocks,
-                              QList<GRIProcessThread*>* processes) {
-  QList<GRIDataBlock*>::iterator data_it;
-  QList<GRIProcessThread*>::iterator process_it;
+void GRIRegulator::initConfig() {
 
-  data_blocks_ = dataBlocks;
+  QLinkedList<GRIProcessThread*>::iterator process_it;
+  QLinkedList<GRIDataBlock*>::iterator data_it;
 
-  if(dataBlocks == NULL || processes == NULL) {
-    return;
-  }
+  for(process_it = processes_->begin(); process_it != processes_->end();
+      ++process_it) {
 
-  for(process_it = processes->begin(); process_it != processes->end(); process_it++) {
     GRIProcessThread* process = *process_it;
-    process->SetLink(dataBlocks);
+    //process->set_reg(this);
+    process->SetLink(data_blocks_);
   }
 
-  processes_ = processes;
-
-  for(data_it = dataBlocks->begin(); data_it != dataBlocks->end(); data_it++) {
+  for(data_it = data_blocks_->begin(); data_it != data_blocks_->end();
+      ++data_it) {
     GRIDataBlock* data_block = *data_it;
     data_block->set_mm(mem_mngr_);
-    data_block->set_link(processes);
+    data_block->set_link(processes_);
   }
 }
 
 void GRIRegulator::start_threads() {
   timer_.start();
-  QList<GRIProcessThread*>::iterator it;
-  for(it = (*processes_).begin(); it != (*processes_).end(); it++) {
+  QLinkedList<GRIProcessThread*>::iterator it;
+  for(it = processes_->begin(); it != processes_->end(); it++) {
     GRIProcessThread* process = *it;
+    process->set_run_flag(true);
     process->start(QThread::NormalPriority);
   }
 }
@@ -148,7 +147,7 @@ int GRIRegulator::sizeofBuffer(QString bufferName) {
 }
 
 GRIProcessThread* GRIRegulator::find_process(QString process_name) {
-  QList<GRIProcessThread*>::iterator it;
+  QLinkedList<GRIProcessThread*>::iterator it;
   for(it = processes_->begin(); it != processes_->end(); it++) {
     GRIProcessThread* process = *it;
     if(!(process->get_name()==process_name)) {
@@ -159,9 +158,9 @@ GRIProcessThread* GRIRegulator::find_process(QString process_name) {
 }
 
 GRIDataBlock* GRIRegulator::find_data(QString data_block_name, QString buffer_name) {
-  QList<GRIDataBlock*>::iterator it;
-
-  for(it = data_blocks_->begin(); it != data_blocks_->end(); it++) {
+  QLinkedList<GRIDataBlock*>::iterator it;
+  //return 0;
+  for(it = data_blocks_->begin(); it != data_blocks_->end(); ++it) {
     GRIDataBlock* data_block = *it;
 
     if(data_block->get_writer_name()==data_block_name &&
@@ -203,4 +202,18 @@ int GRIRegulator::GarbageCollection(QList<void*> pList) {
     n += GarbageCollection(pList[i]);
   }
   return n;
+}
+
+void GRIRegulator::Start() {
+  initConfig();
+  start_threads();
+}
+
+void GRIRegulator::Stop() {
+    QLinkedList<GRIProcessThread*>::iterator it;
+    for (it = processes_->begin(); it != processes_->end(); ++it) {
+        GRIProcessThread *p = *it;
+        p->set_run_flag(false);
+        p->set_exit_thread_flag(true);
+    }
 }

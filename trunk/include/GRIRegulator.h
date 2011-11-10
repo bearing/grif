@@ -5,10 +5,12 @@
 
 #include <iostream>
 #include <utility>
-#include <QList>
+#include <QLinkedList>
+#include <QLinkedList>
 #include <QMutex>
 #include <QPair>
 #include <QString>
+#include <QVector>
 #include <QWaitCondition>
 #include "GRILogMessage.h"
 #include "GRIObject.h"
@@ -27,18 +29,9 @@ class GRIRegulator: public GRIObject {
   explicit GRIRegulator(GRIMemoryManager* ma);
   ~GRIRegulator();
 
-  /*
-   * initConfig() is called to initialize the whole system. It will require the
-   * dependencies' structure dictated by list<GRIBufferObject*> & list<GRIProcessThread*>
-   * and it will start (but not necessarily run) the thread.
-   */
-  void initConfig(QList<GRIDataBlock*>* dataBlocks,
-                  QList<GRIProcessThread*>* processes);
 
-  /*
-   * start_threads() is called just before the whole system starts. It runs all the threads
-   */
-  void start_threads();
+  // initConfig() is called to initialize the whole system. .
+  void initConfig();
 
   /*
    *
@@ -110,14 +103,24 @@ class GRIRegulator: public GRIObject {
   GRIMemoryManager *get_mem_mngr() { return mem_mngr_; }
   void set_mem_mngr(GRIMemoryManager *mem_mngr) { mem_mngr_ = mem_mngr; }
 
+  void AddDataBlock(GRIDataBlock *data) { data_blocks_->push_back(data); }
+
+  void AddProcess(GRIProcessThread *proc) { processes_->push_back(proc); }
+
+  QLinkedList<GRIProcessThread*> * get_processes() { return processes_; }
+
+  void Start();
+
+  void Stop();
+
  private:
   GRIMemoryManager* mem_mngr_;
   QMutex gc_mutex_;
   QMutex mutex_;
   QWaitCondition buffer_ready_;
   QTime timer_;
-  QList<GRIDataBlock*>* data_blocks_;
-  QList<GRIProcessThread*>* processes_;
+  QLinkedList<GRIDataBlock*> *data_blocks_;
+  QLinkedList<GRIProcessThread*> *processes_;
   QList<char*> read_data_ptrs_;
 
   int GarbageCollection(void* p);
@@ -127,6 +130,9 @@ class GRIRegulator: public GRIObject {
 
   // find_data() returns a pointer to the actual data block given the name
   GRIDataBlock* find_data(QString data_block_name, QString buffer_name);
+
+  // start_threads() is called just before the whole system starts. It runs all the threads
+  void start_threads();
 };
 
 #endif // GRIREGULATOR_H
