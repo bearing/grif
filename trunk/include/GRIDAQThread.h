@@ -55,7 +55,7 @@
   //before data collection.
   }
 
-  virtual int acquireData(){
+  virtual int acquireData(int n){
   //Do routine that actually collects data
   //with the expectation that acquireData()
   //will be run in a loop (as shown in run()).
@@ -85,7 +85,7 @@ class GRIDAQThread : public GRIProcessThread {
   GRIDAQThread();
   ~GRIDAQThread();
 
-  void registerAccumulator(QString buffname) {
+  void RegisterAccumulator(QString buffname) {
     GRIDAQAccumNode* p = RegisterDataOutput(buffname);
     if(p != NULL) {
       p->set_p_DAQ(this);
@@ -197,7 +197,7 @@ class GRIDAQThread : public GRIProcessThread {
    * errorHandling() method.
    *
    */
-  virtual int acquireData() = 0;
+  virtual int acquireData(int n) = 0;
 
   /* A member function for procedures that stop data collection from a DAQ
    *

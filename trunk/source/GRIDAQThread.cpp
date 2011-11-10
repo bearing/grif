@@ -65,13 +65,14 @@ void GRIDAQThread::run() {
     }
 
     while (get_run_flag() && !get_exit_thread_flag()) {
-      // std::cout << "GRIDAQThread-->AcquireData" << std::endl;
-      error = acquireData();
+      int n = 0;
+      error = acquireData(n);
       if (error != DAQTHREAD_SUCCESS) {
 	errorHandling("acquire Data() failed", error);
       }
       // flush the dynamic command buffer
       FlushBuffer();
+      ++n;
     }
 
     std::cout << "Running one more to ensure flush occurred..." << std::endl;
