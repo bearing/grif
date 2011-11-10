@@ -7,7 +7,7 @@ GRILoader::GRILoader(QString localGRIFPath, GRIRegulator *regulator,
   regulator_ = regulator;
 }
 
-RegDetails GRILoader::initRegulatorDetails() {
+void GRILoader::initRegulatorDetails() {
   /*
    *    A parsed XML file gives us:
    *    1. list of classes and names that will be used
@@ -29,8 +29,6 @@ RegDetails GRILoader::initRegulatorDetails() {
    */
 
   QList<QString>::iterator it;
-  QList<GRIProcessThread*>* processes = new QList<GRIProcessThread*>;
-  QList<GRIDataBlock*>* dataBlocks = new QList<GRIDataBlock*>;
 
   for(it = file_names_.begin(); it != file_names_.end(); it++) {
     // get name of xml file
@@ -81,18 +79,12 @@ RegDetails GRILoader::initRegulatorDetails() {
 	QString db_name = curr_link->dataBlock;
 	/* construct a new data block */
         GRIDataBlock *data = new GRIDataBlock(regulator_, regulator_->get_mem_mngr(),
-					      reader, db_name, db_name, writer);
-	dataBlocks->push_back(data);
-
+                                              reader, db_name, db_name, writer);
+        regulator_->AddDataBlock(data);
       }
-      processes->push_back(proc);
+      regulator_->AddProcess(proc);
     }
     std::cout << "Successfully parsed XML file: " << name.toStdString().c_str()
               << std::endl;
   }
-  // return the processes and dataBlocks
-  RegDetails details;
-  details.processes = processes;
-  details.data = dataBlocks;
-  return details;
 }
