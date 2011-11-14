@@ -33,7 +33,7 @@ typedef struct process_details {
 // Load balancing is being partially done in here (ie: the actual changing of
 // thread's priority). It is done by having two sets of variables. One is the
 // number of packets before we are allowed to adjust the priority of this 
-// process away/to saturation. Saturation isg defined as the time-critical 
+// process away/to saturation. Saturation is defined as the time-critical 
 // priority or idle priority. The other one is when is the last time this 
 // process adjusts its priority away/to saturation. If the latter is greater 
 // than the former, priority adjustment will be done.
