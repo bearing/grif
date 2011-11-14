@@ -35,3 +35,10 @@ GRIF assumes the following libraries:
 * Dan Chivers (chivers@berkeley.edu)
 * Mark Bandstra (bandstra@berkeley.edu)
 * Austin Benson (arbenson@berkeley.edu)
+
+## TODO
+
+* Get simulator running correctly (arbenson)
+* Formalized unit tests (amidvidy)
+* Put QtUtilTest in with test directory (amidvidy)
+* GRILogger back up to date (baugarten)
