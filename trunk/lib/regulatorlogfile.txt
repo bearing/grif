@@ -1,1 +1,0 @@
-# Regulator Logger for Testing
