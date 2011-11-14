@@ -42,3 +42,6 @@ GRIF assumes the following libraries:
 * Formalized unit tests (amidvidy)
 * Put QtUtilTest in with test directory (amidvidy)
 * GRILogger back up to date (baugarten)
+* Install script (amidvidy)
+* Put licensing stuff into each file (anyone)
+* Client/server (arbenson)
