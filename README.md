@@ -37,5 +37,7 @@ GRIF assumes the following libraries:
 * Austin Benson (arbenson@berkeley.edu)
 
 University of California, Berkeley
+
 Domestic Nuclear Threat Security Initiative [DoNuTS](http://donuts.berkeley.edu)
+
 Berkeley Applied Research on the Imaging of Neutrons and Gamma-rays [Bearing](http://bearing.berkeley.edu)
