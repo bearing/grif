@@ -74,8 +74,6 @@ enum ENDIAN { LITTLE_END, BIG_END };
 #define SYSTEM_ENDIAN BIG_END
 #endif
 
-// TODO(arbenson): Handle any big/little endian stuff
-
 #define CAST_LITERAL_TO_UINT64_G(c) Q_UINT64_C(c)
 // Usage: uint64_g aNumber = CAST_LITERAL_TO_UINT64_G(36028797018963968);
 
