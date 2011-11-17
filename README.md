@@ -40,7 +40,6 @@ GRIF assumes the following libraries:
 
 * Get simulator running correctly (arbenson)
 * Formalized unit tests (amidvidy)
-* Put QtUtilTest in with test directory (amidvidy)
 * GRILogger back up to date (baugarten)
 * Install script (amidvidy)
 * Put licensing stuff into each file (anyone)
