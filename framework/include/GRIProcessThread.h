@@ -211,9 +211,8 @@ GRIProcessThread::readMemory(QString blockName ,QString bufferName) {
 template<class T> bool GRIProcessThread::writeMemory(QString blockName,
                                                      QString bufferName,
                                                      int size, T dataArray[]) {
-  // TODO(arbenson): do we need blockName for writeMemory()?
-  return get_reg()->writeMemory(this->get_name(), bufferName, size * sizeof(T),
-                          (char*) dataArray);
+  return get_reg()->writeMemory(blockName, bufferName, size * sizeof(T),
+                                (char*) dataArray);
 }
 
 #endif // GRIPROCESSTHREAD_H
