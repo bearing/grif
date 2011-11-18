@@ -10,7 +10,7 @@ GRILogger::GRILogger(QString FileName) {
 	      << std::endl;
   } else {
     filename_ = FileName;
-    // TODO(arbenson): handle windows paths differently
+    // TODO(baugarten): handle windows paths differently
     logfilepath_ = grif_project_file_path_ + "/log/" + filename_;
     clearLogFile();
     log_level_ = 2;
@@ -26,7 +26,7 @@ GRILogger::GRILogger(QString FileName, int level) {
 	      << std::endl;
   } else {
     filename_ = FileName;
-    // TODO(arbenson): handle windows paths differently
+    // TODO(baugarten): handle windows paths differently
     logfilepath_ = grif_project_file_path_ + "/log/" + filename_;
     clearLogFile();
     log_level_ = level;
@@ -40,7 +40,7 @@ GRILogger::GRILogger() {
 	      << std::endl;
   } else {
     filename_ = "runlog.txt";
-    // TODO(arbenson): handle windows paths differently
+    // TODO(baugarten): handle windows paths differently
     logfilepath_ = grif_project_file_path_ + "/log/" + filename_;
     clearLogFile();
     log_level_ = 2;
@@ -54,7 +54,7 @@ GRILogger::GRILogger(int level) {
 	      << std::endl;
   } else {
     filename_ = "runlog.txt";
-    // TODO(arbenson): handle windows paths differently
+    // TODO(baugarten): handle windows paths differently
     logfilepath_ = grif_project_file_path_ + "/log/" + filename_;
     clearLogFile();
     log_level_ = level;
