@@ -17,18 +17,6 @@ GRIAnalysisThread::~GRIAnalysisThread() {
     }
 }
 
-void GRIAnalysisThread::setExitThreadFlag(bool newExitThreadFlag) {
-    if (get_sleeping()) {
-        set_sleeping(false);
-        // TODO(arbenson): Tell regulator to unsleep thread.
-    }
-    set_exit_thread_flag(newExitThreadFlag);
-}
-
-bool GRIAnalysisThread::getExitThreadFlag() {
-    return get_exit_thread_flag();
-}
-
 void GRIAnalysisThread::forceQuitAnalysis() {
     set_force_quit(true);
     setExitThreadFlag(true);
@@ -73,8 +61,6 @@ void GRIAnalysisThread::errorHandling(const char * message, int errorCode) {
 }
 
 void GRIAnalysisThread::ReadGarbageCollection() {
-    // TODO(arbenson): Need to run GRIRegulator Garbage Collection for each pointer.
-    //cout << "Analysis Thread Garbage Collection" << endl;
     int nFree = get_reg()->GarbageCollection(read_data_ptrs_);
     if (nFree == read_data_ptrs_.size()) {
         read_data_ptrs_.clear();
