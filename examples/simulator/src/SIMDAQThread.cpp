@@ -2,9 +2,6 @@
 #include <iostream>
 #include <QDateTime>
 
-
-using namespace std;
-
 SIMDAQThread::SIMDAQThread(int num, double min, double max, double rate) {
     init_ready = true;
     // SIMDAQThread Constructor should setup each channel with the same background limits and rate.
@@ -48,8 +45,8 @@ int SIMDAQThread::removePeak(int index) {
     return 0;
 }
 
-GRIDAQAccumNode* SIMDAQThread::RegisterDataOutput(QString outName) {
-    GRIDAQAccumNode* p = NULL;
+GRIDAQBaseAccumNode* SIMDAQThread::RegisterDataOutput(QString outName) {
+    GRIDAQBaseAccumNode* p = NULL;
     if (outName == "ADCOutput") {
         p = new GRIDAQAccumulator<double>(outName,1e8,5,250);
     } else if (outName == "CHAN") {

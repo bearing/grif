@@ -5,8 +5,8 @@
 #include <QList>
 #include <QHash>
 #include <QString>
-#include "GRIDAQAccumNode.h"
 #include "GRIDAQAccumulator.h"
+#include "GRIDAQBaseAccumNode.h"
 #include "GRIProcessThread.h"
 
 #define DAQTHREAD_SUCCESS   0
@@ -86,7 +86,7 @@ class GRIDAQThread : public GRIProcessThread {
   ~GRIDAQThread();
 
   void RegisterAccumulator(QString buffname) {
-    GRIDAQAccumNode* p = RegisterDataOutput(buffname);
+    GRIDAQBaseAccumNode* p = RegisterDataOutput(buffname);
     if(p != NULL) {
       p->set_p_DAQ(this);
       accum_list_.push_back(p);
@@ -97,7 +97,7 @@ class GRIDAQThread : public GRIProcessThread {
     }
   }
 
-  virtual GRIDAQAccumNode* RegisterDataOutput(QString outName) = 0;
+  virtual GRIDAQBaseAccumNode* RegisterDataOutput(QString outName) = 0;
 
   /* A member function for procedures that establish a connection to a DAQ
    *
@@ -344,7 +344,7 @@ class GRIDAQThread : public GRIProcessThread {
   template <class T> int PostData(int numel, QString buffer_name, T _data[], 
                                   qint64 timestamps[]) {
 
-    QList<GRIDAQAccumNode*>::iterator accum_it;
+    QList<GRIDAQBaseAccumNode*>::iterator accum_it;
 
     // Finding the Accumulator in the list
     bool found = false;
@@ -379,7 +379,7 @@ class GRIDAQThread : public GRIProcessThread {
   int FlushAccumulators();
 
  private:
-  QList<GRIDAQAccumNode*> accum_list_;
+  QList<GRIDAQBaseAccumNode*> accum_list_;
 };
 
 #endif // DAQTHREAD_H
