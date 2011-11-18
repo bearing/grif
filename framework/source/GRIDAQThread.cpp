@@ -1,6 +1,6 @@
 #include "GRIDAQThread.h"
 
-const int SLEEP_TIME = 2;
+const int DAQ_SLEEP_TIME = 2;
 
 GRIDAQThread::GRIDAQThread() {
   set_sleeping(false);
@@ -52,7 +52,7 @@ void GRIDAQThread::run() {
   }
   while (!get_run_flag() && !get_exit_thread_flag()) {
       set_sleeping(true);
-      sleep(SLEEP_TIME);
+      sleep(DAQ_SLEEP_TIME);
   }
 
   while (!get_exit_thread_flag()) {
@@ -91,7 +91,7 @@ void GRIDAQThread::run() {
     }
     while (!get_run_flag() && !get_exit_thread_flag()) {
       set_sleeping(true);
-      sleep(SLEEP_TIME);
+      sleep(DAQ_SLEEP_TIME);
     }
   }
 
