@@ -1,5 +1,7 @@
 #include "GRIDAQThread.h"
 
+const int SLEEP_TIME = 2;
+
 GRIDAQThread::GRIDAQThread() {
   set_sleeping(false);
   set_exit_thread_flag(false);
@@ -50,7 +52,7 @@ void GRIDAQThread::run() {
   }
   while (!get_run_flag() && !get_exit_thread_flag()) {
       set_sleeping(true);
-    // TODO(arbenson): tell regulator to sleep thread.
+      sleep(SLEEP_TIME);
   }
 
   while (!get_exit_thread_flag()) {
@@ -89,7 +91,7 @@ void GRIDAQThread::run() {
     }
     while (!get_run_flag() && !get_exit_thread_flag()) {
       set_sleeping(true);
-      // TODO(arbenson): tell regulator to sleep thread.
+      sleep(SLEEP_TIME);
     }
   }
 
