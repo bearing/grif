@@ -4,6 +4,7 @@
 #define PROCESS_THREAD_DEBUG
 
 #include <QList>
+#include <QHash>
 #include <QMutex>
 #include <QQueue>
 #include <QPair>
@@ -167,6 +168,7 @@ protected:
     void FlushBuffer();
 
 private:
+    //deprecated
     typedef struct data {
         QString name;
         GRIDataBlock* data_block;
@@ -182,10 +184,10 @@ private:
     void HandleDynamicCommand(ProcessCommand *pc);
     void HandleGetRequest(ProcessCommand *pc);
 
-    // list of data blocks this process is writing to
-    QList<data_t*> data_outs_;
-    // list of data blocks this process is reading from
-    QList<data_t*> data_ins_;
+    // data blocks this process is writing to
+    QHash<QString, GRIDataBlock*> data_out_;
+    // data blocks this process is reading from
+    QHash<QString, GRIDataBlock*> data_in_;
 
     // Load balancing variables: refer to the description of the class for more details
     int num_packets_to_sat_;
