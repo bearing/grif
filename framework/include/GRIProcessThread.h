@@ -162,7 +162,6 @@ public:
     void GetProcessed(ProcessCommand *pc);
 
 protected:
-    // TODO(arbenson): should these be protected?
     virtual void run() {}
     void FlushBuffer();
 
