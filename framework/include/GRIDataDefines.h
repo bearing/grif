@@ -34,6 +34,6 @@
 
 #ifdef GRIF_CODE_GENERATION
 #include "GCG/GRIDataDefines_aux.h"
-#endif GRIF_CODE_GENERATION
+#endif // GRIF_CODE_GENERATION
 
 #endif // GRIDATADEFINES_H
