@@ -19,7 +19,7 @@ GRIAnalysisThread::~GRIAnalysisThread() {
 
 void GRIAnalysisThread::forceQuitAnalysis() {
     set_force_quit(true);
-    setExitThreadFlag(true);
+    set_exit_thread_flag(true);
 }
 
 void GRIAnalysisThread::run() {
