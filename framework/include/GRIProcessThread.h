@@ -47,10 +47,6 @@ public:
 
     void init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator);
 
-    // TODO(arbenson): should this be removed?
-    // PLEASE USE INIT() INSTEAD
-    void SetDetail(GRIRegulator* reg, process_details* proc_detail);
-
     // Sets the process details for this process thread.  XML file name
     // is assumed to be name + ".XML".  To determine whether or not this
     // thread is a daq thread, it uses the is_daq boolean variable, which

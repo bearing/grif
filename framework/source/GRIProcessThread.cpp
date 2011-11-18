@@ -35,13 +35,6 @@ GRIProcessThread::~GRIProcessThread() {
     }
 }
 
-void GRIProcessThread::SetDetail(GRIRegulator *reg, process_details *proc_detail) {
-    set_reg(reg);
-    is_daq_ = proc_detail->isDaq;
-    xml_path_ = proc_detail->xml_path;
-    setObjectName(proc_detail->name);
-}
-
 void GRIProcessThread::SetDefaultDetail(GRIRegulator *reg, QString name) {
     set_reg(reg);
     xml_path_ = name + ".XML";
