@@ -1,5 +1,5 @@
-#include "GRILogger_Test.cpp"
-#include "GRIProcList_Test.cpp"
+//#include "GRILogger_Test.cpp"
+//#include "GRIProcList_Test.cpp"
 #include "QtTestUtil.h"
 #include "TestRegistry.cpp"
 
@@ -13,10 +13,12 @@
   */
 int main(int argc, char *argv[])
 {
+    /*
     GRILogger_Test tst;
     GRIProcList_Test tst2;
 
     QTest::qExec(&tst, argc, argv);
     QTest::qExec(&tst2, argc, argv);
+    */
     return 0;
 }
