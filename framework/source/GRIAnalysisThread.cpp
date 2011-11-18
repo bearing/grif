@@ -2,6 +2,8 @@
 #include "GRIHist1D.h"
 #include "GRIHist2D.h"
 
+const int ANALYSIS_SLEEP_TIME = 2;
+
 GRIAnalysisThread::GRIAnalysisThread() {
     set_sleeping(false);
     set_exit_thread_flag(false);
@@ -46,7 +48,7 @@ void GRIAnalysisThread::run() {
     while (!get_exit_thread_flag()) {
         while (!get_run_flag() && !get_exit_thread_flag()) {
             set_sleeping(true);
-            // TODO(arbenson): Tell regulator to sleep thread.
+            sleep(ANALYSIS_SLEEP_TIME);
         }
         while (get_run_flag() && !get_exit_thread_flag()) {
             error = Analyze();
