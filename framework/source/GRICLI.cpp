@@ -26,7 +26,6 @@ void GRICLI::Launch() {
 
   QTextStream stream(stdin);
   QString instr;
-  QString *instr_array;
 
   // main instruction loop
   while (true) {
@@ -37,8 +36,7 @@ void GRICLI::Launch() {
 
     QStringList instr_breakup = instr.split(" ", QString::SkipEmptyParts);
     int n = instr_breakup.length();
-    // TODO(arbenson): use new and delete for Windows compiler
-    instr_array = new QString[n];
+    QString instr_array[n];
     QList<QString>::iterator instr_it;
     int i = 0;
     for (instr_it = instr_breakup.begin(); instr_it != instr_breakup.end();
