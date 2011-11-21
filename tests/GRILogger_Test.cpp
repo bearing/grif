@@ -1,12 +1,12 @@
 #include <QtTest>
 #include <QObject>
 #include "QtTestUtil.h"
-#include "GRILogger.cpp"
+#include "GRILogger.h"
 
 class GRILogger_Test : public QObject {
     Q_OBJECT
     public:
-        //GRILogger_Test();
+       GRILogger_Test();
     private slots:
         void initTestCase() {
         }
@@ -19,12 +19,12 @@ class GRILogger_Test : public QObject {
         void logMessage();
 
     private:
-        //GRILogger* logger;
+        GRILogger* logger;
 };
 
-/*GRILogger_Test::GRILogger_Test() {
+GRILogger_Test::GRILogger_Test() {
     //logger= QString("test.txt");
-}*/
+}
 
 void GRILogger_Test::writeToFile() {
 
@@ -39,5 +39,6 @@ void GRILogger_Test::logError() {
 void GRILogger_Test::logMessage() {
 
 }
+
 QTTESTUTIL_REGISTER_TEST(GRILogger_Test);
 #include "GRILogger_Test.moc"

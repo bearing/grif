@@ -31,9 +31,11 @@ LIBS += -L$$ROOTSYS/lib -lCore -lHist
 include(../framework/include/finclude.pri)
 include(../framework/source/fsource.pri)
 
-SOURCES += GRIProcList_Test.cpp \
+SOURCES += main.cpp \
     GRILogger_Test.cpp \
-    main.cpp
+    GRIProcList_Test.cpp
+
+
 
 GRIFDIR=/home/ben/Documents/grif
 GRIFPROJECTDIR=$$GRIFDIR/examples/simulator
