@@ -20,7 +20,7 @@ class GRILogger : public QObject {
 
   void operator << (QString const&y );
 
-  // TODO(arbenson): May want to create and pass an Error class object
+  // TODO(baugarten): May want to create and pass an Error class object
   // that contains all important descriptions
   // Should we support standard strings in writing logs?
   bool writeErrorLogFile(std::string ErrorDescription, int time);

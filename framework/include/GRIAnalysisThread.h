@@ -154,8 +154,6 @@ class GRIAnalysisThread : public GRIProcessThread {
   void errorHandling(const char * message, int errorCode);
 
   void forceQuitAnalysis();
-  void setExitThreadFlag(bool newExitThreadFlag);
-  bool getExitThreadFlag();
 
   template <class T> int PostData(int numel, QString buffer_name, T _data[]) {
     std::cout << this->get_name().toStdString().c_str()
