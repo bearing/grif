@@ -3,17 +3,17 @@
 
 #define PROCESS_THREAD_DEBUG
 
-#include <QList>
 #include <QHash>
+#include <QList>
 #include <QMutex>
-#include <QQueue>
 #include <QPair>
+#include <QQueue>
 #include <QString>
-#include "GRIRegulator.h"
 #include "GRIDataBlock.h"
-#include "GRIDefines.h"
 #include "GRIDataDefines.h"
+#include "GRIDefines.h"
 #include "GRILogMessage.h"
+#include "GRIRegulator.h"
 #include "GRIThread.h"
 
 class GRIRegulator;

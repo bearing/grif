@@ -8,7 +8,7 @@
 #include <QList>
 #include <QString>
 #include "GRIProcessThread.h"
-#include "GRIMemoryManager.h"
+//#include "GRIMemoryManager.h"
 #include "GRIRegulator.h"
 
 // Load balancing constant

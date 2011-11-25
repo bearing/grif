@@ -13,7 +13,7 @@ GRIProcessThread::GRIProcessThread() {
 
     thread_id_ = GRIProcessThread::counter++;
 }
-//TODO(amidvidy): Possibly remove references to obj. Not sure what this is actually for
+// TODO(amidvidy): Possibly remove references to obj. Not sure what this is actually for
 void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator) {
     setParent(obj);
     set_reg(regulator);
@@ -63,20 +63,9 @@ void GRIProcessThread::SetLink(QLinkedList<GRIDataBlock*>* dataBlocks) {
       if (proc_name == data_block_writer_name && data_out_.contains(data_block_name)) {
         data_out_.insert(data_block_name, data_block);
         std::cout << "Data block created with name " << data_block_name.toStdString()
-                  << " and process " << proc_name.toStdString() << std::endl;
+                  << " and process " << proc_name.toStdString().c_str() << std::endl;
       }
     }
-
-    if (db_it == dataBlocks->end()) {
-#ifdef PROCESS_THREAD_DEBUG
-           // std::cerr << "! GRIProcessThread::set_link(): Could not find "
-           //           << data->name.toStdString().c_str() << std::endl;
-           // std::cerr << "Please check your XML file setup.  Exiting GRIF..."
-           //           << std::endl;
-  #endif // PROCESS_THREAD_DEBUG
-            assert(false);
-    }
-    bool found = false;
     // Setting up the pointer to the data blocks that this process is reading from
     for (db_it = dataBlocks->begin(); db_it != dataBlocks->end(); ++db_it) {
       GRIDataBlock* data_block = *db_it;
@@ -90,22 +79,9 @@ void GRIProcessThread::SetLink(QLinkedList<GRIDataBlock*>* dataBlocks) {
                       << "reader is " << reader->reader_name.toStdString().c_str()
                       << " and data is "
                       << reader->reader_data.toStdString().c_str() << std::endl;
-            found = true;
         }
       }
     }
-
-    if (!found) {
-
-#ifdef PROCESS_THREAD_DEBUG
-            // std::cerr << "! GRIProcessThread::set_link(): Could not find "
-            //          << data->name.toStdString().c_str() << std::endl;
-            // std::cerr << "Please check your XML file setup.  Exiting GRIF..."
-            //         << std::endl;
-#endif // PROCESS_THREAD_DEBUG
-
-            assert(false);
-        }
 }
 void GRIProcessThread::set_load_balancing_vars(int num_packets_to_sat,
                                                int num_packets_from_sat) {
@@ -115,10 +91,14 @@ void GRIProcessThread::set_load_balancing_vars(int num_packets_to_sat,
 
 void GRIProcessThread::AddDataBlock(QString data_block, bool is_output) {
     //make sure only one data block/thread
-    GRIDataBlock* new_data;
-    is_output ? data_out_.insert(data_block, new_data) : data_in_.insert(data_block, new_data);
-    if(is_output && is_daq_) {
+    GRIDataBlock* data;
+    if (is_output) {
+      data_out_.insert(data_block, data);
+      if (is_daq_) {
         RegisterAccumulator(data_block);
+      }
+    } else {
+      data_in_.insert(data_block, data);
     }
 }
 
