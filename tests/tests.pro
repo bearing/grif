@@ -7,18 +7,13 @@ CONFIG += qtestlib
 TEMPLATE = app
 CONFIG += moc
 DEPENDPATH += .
-DEPENDPATH +=    ../trunk/include
-DEPENDPATH +=    ../trunk/source
+DEPENDPATH +=    ../framework/include
+DEPENDPATH +=    ../framework/source
 
-INCLUDEPATH += .
-INCLUDEPATH +=   ../trunk/include
-INCLUDEPATH +=   ../trunk/source
-
-
-#    ../../..trunk/include \
-#   ../../trunk/include \
-#    ../../../trunk/include \
-#    ../../trunk/include \
+INCLUDEPATH += . \
+    ../framework/include \
+    ../framework/source \
+    ../tests/QtTestUtil
 
 #root headers
 ROOTDIR = /home/ben/Downloads/root
@@ -32,5 +27,15 @@ LIBS += $$ROOTSYSLIB/libMathCore.so
 LIBS += -L/$$ROOTSYSLIB
 LIBS += -L$$ROOTSYS/lib -lCore -lHist
 # Input
-SOURCES += GRIProcList_Test.cpp
 
+include(../framework/include/finclude.pri)
+include(../framework/source/fsource.pri)
+
+SOURCES += main.cpp \
+    GRILogger_Test.cpp \
+    GRIProcList_Test.cpp
+
+
+
+GRIFDIR=/home/ben/Documents/grif
+GRIFPROJECTDIR=$$GRIFDIR/examples/simulator

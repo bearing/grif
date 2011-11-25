@@ -12,6 +12,6 @@
 #ifdef GRIF_CODE_GENERATION
 // This file will be code genned with
 #include "GCG/GRIUserProcesses_aux.h"
-#endif GRIF_CODE_GENERATION
+#endif // GRIF_CODE_GENERATION
 
 #endif // GRIUSERPROCESSES_H

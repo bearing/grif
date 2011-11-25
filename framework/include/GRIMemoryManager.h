@@ -344,16 +344,16 @@ class GRIMemoryManager : public GRIObject {
   GRIBuffer* grabBuffer(QString dataBlockName, QString bufferName);
 
   // A list of lists containing buffers. Used as a table in the memory manager.
-  QList< QList<GRIBuffer*>* > *data_block_table_;
+  QList< QList<GRIBuffer*>* > data_block_table_;
 
   // A table for finding data blocks by referencing their QString names
-  QList<QString> *block_name_table_;
+  QList<QString> block_name_table_;
 
   // A list of lists containing the names of buffers. This table should be matched up with dataBlockTable so that names and buffers have the same indexes
-  QList< QList<QString>* > *name_table_;
+  QList< QList<QString>* > name_table_;
 
   // A list of lists containing QReadWriteLock objects. Similar to nameTable, the indexes of locks should match up with its associated buffers.
-  QList< QList<QReadWriteLock *>* > *lock_table_;
+  QList< QList<QReadWriteLock *>* > lock_table_;
 };
 
 #endif // GRIMEMORYMANAGER_H

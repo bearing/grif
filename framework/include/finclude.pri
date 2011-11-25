@@ -23,6 +23,7 @@ GRIThread.h \
 GRIDAQAccumulator.h \
 GRIAccumBuff.h \
 GRIDAQAccumNode.h \
+GRIDAQBaseAccumNode.h \
 GRIHist1D.h \
 GRIHist2D.h \
 GRIParser.h \

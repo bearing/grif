@@ -1,5 +1,7 @@
 #include "GRIDAQThread.h"
 
+const int DAQ_SLEEP_TIME = 2;
+
 GRIDAQThread::GRIDAQThread() {
   set_sleeping(false);
   set_exit_thread_flag(false);
@@ -50,7 +52,7 @@ void GRIDAQThread::run() {
   }
   while (!get_run_flag() && !get_exit_thread_flag()) {
       set_sleeping(true);
-    // TODO(arbenson): tell regulator to sleep thread.
+      sleep(DAQ_SLEEP_TIME);
   }
 
   while (!get_exit_thread_flag()) {
@@ -89,7 +91,7 @@ void GRIDAQThread::run() {
     }
     while (!get_run_flag() && !get_exit_thread_flag()) {
       set_sleeping(true);
-      // TODO(arbenson): tell regulator to sleep thread.
+      sleep(DAQ_SLEEP_TIME);
     }
   }
 
@@ -115,7 +117,7 @@ void GRIDAQThread::InitializeAccumulators(QDateTime tstart, qint64 timestamp_0,
   ticksPerSecond = 0;
   NBuff = msecPerAccum = 0;
 
-  QList<GRIDAQAccumNode*>::iterator accum_it;
+  QList<GRIDAQBaseAccumNode*>::iterator accum_it;
 
   // Finding the Accumulator in the list
   for (accum_it = accum_list_.begin(); accum_it != accum_list_.end();
@@ -126,7 +128,7 @@ void GRIDAQThread::InitializeAccumulators(QDateTime tstart, qint64 timestamp_0,
 }
 
 int GRIDAQThread::FlushAccumulators() {
-  QList<GRIDAQAccumNode*>::iterator accum_it;
+  QList<GRIDAQBaseAccumNode*>::iterator accum_it;
 
   // Finding the Accumulator in the list
   for (accum_it = accum_list_.begin(); accum_it != accum_list_.end(); 

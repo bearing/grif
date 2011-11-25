@@ -22,7 +22,6 @@ class GRIThread : public QThread {
   void set_exit_thread_flag(bool exit_thread_flag) {
    if (sleeping_) {
       sleeping_ = false;
-      // TODO (arbenson): tell regulator to unsleep thread.
     }
     exit_thread_flag_ = exit_thread_flag;
   }

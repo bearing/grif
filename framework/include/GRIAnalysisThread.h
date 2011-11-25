@@ -154,8 +154,6 @@ class GRIAnalysisThread : public GRIProcessThread {
   void errorHandling(const char * message, int errorCode);
 
   void forceQuitAnalysis();
-  void setExitThreadFlag(bool newExitThreadFlag);
-  bool getExitThreadFlag();
 
   template <class T> int PostData(int numel, QString buffer_name, T _data[]) {
     std::cout << this->get_name().toStdString().c_str()
@@ -169,16 +167,12 @@ class GRIAnalysisThread : public GRIProcessThread {
 					    QString buffer_name) {
     QPair<int, T*> p = readMemory<T>(block_name, buffer_name);
 
-    // TODO(arbenson): change (void*)p.second to
-    // reinterperet_cast<void*>(p.second)
-    read_data_ptrs_.push_back((void*)p.second);
+    read_data_ptrs_.push_back(reinterpret_cast<void*>(p.second));
 
     // Adding NULL to p.second after this to ensure garbage collection
-    // goes on as planned
-    // NULL packet writes will write a single NULL character to the
-    // memory manager
-    // which still needs to be freed normally, but should not be passed
-    // back;
+    // goes on as planned. NULL packet writes will write a single NULL
+    // character to the memory manager which still needsa to be freed 
+    // normally, but should not be passed back
     if (p.first == 0) {
       p.second = NULL;
     }

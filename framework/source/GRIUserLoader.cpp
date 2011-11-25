@@ -13,7 +13,7 @@ GRIProcessThread *GRIUserLoader::load(QString class_name, QString object_name) {
   #ifdef GRIF_CODE_GENERATION
   // generated code in GRIUserLoader_aux.h
   #include "GCG/GRIUserLoader_aux.h"
-  #endif GRIF_CODE_GENERATION
+  #endif // GRIF_CODE_GENERATION
 
   return p;
 }

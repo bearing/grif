@@ -14,57 +14,38 @@ class GRIDAQAccumNode: public GRIObject {
   virtual void FlushBuffers() = 0;
 
   // These are placeholders for supported data types
-  // TODO(arbenson): do we really need these placeholders?
   virtual void Accumulate(int numel, double data[], qint64 timestamps[],
-                          bool runflag) {
-    numel = 0; data = 0; timestamps = 0; runflag = 0;
-  }
+                          bool runflag) = 0;
+
   virtual void Accumulate(int numel, float data[], qint64 timestamps[],
-                          bool runflag) {
-    numel = 0; data = 0; timestamps = 0; runflag = 0;
-  }
+                          bool runflag) = 0;
+
   virtual void Accumulate(int numel, int data[], qint64 timestamps[],
-                          bool runflag) {
-    numel = 0; data = 0; timestamps = 0; runflag = 0;
-  }
+                          bool runflag) = 0;
+
   virtual void Accumulate(int numel, qint64 data[], qint64 timestamps[],
-                          bool runflag) {
-    numel = 0; data = 0; timestamps = 0; runflag = 0;
-  }
+                          bool runflag) = 0;
+
   virtual void Accumulate(int numel, long data[], qint64 timestamps[],
-                          bool runflag) {
-    numel = 0; data = 0; timestamps = 0; runflag = 0;
-  }
+                          bool runflag) = 0;
+
   virtual void Accumulate(int numel, short data[], qint64 timestamps[],
-                          bool runflag) {
-    numel = 0; data = 0; timestamps = 0; runflag = 0;
-  }
+                          bool runflag) = 0;
+
   virtual void Accumulate(int numel, char data[], qint64 timestamps[],
-                          bool runflag) {
-    numel = 0; data = 0; timestamps = 0; runflag = 0;
-  }
+                          bool runflag) = 0;
+
   virtual void Accumulate(int numel, unsigned char data[], qint64 timestamps[],
-                          bool runflag) {
-    numel = 0; data = 0; timestamps = 0; runflag = 0;
-  }
+                          bool runflag) = 0;
+
   virtual void Accumulate(int numel, bool data[], qint64 timestamps[],
-                          bool runflag) {
-    numel = 0; data = 0; timestamps = 0; runflag = 0;
-  }
+                          bool runflag) = 0;
 
-  void Initialize(QDateTime tst, qint64 t_0) { 
-    InitializeTime(tst,t_0,ticks_per_sec_);
-  }
+  virtual void Initialize(QDateTime tst, qint64 t_0) = 0;
 
-  void InitializeTime(qint64 timestamp) { timestamp = 0; }
+  virtual void InitializeTime(qint64 timestamp) = 0;
 
-  void InitializeTime(QDateTime tst, qint64 timestamp, qint64 ticks) {
-    t0_ = tst.time();
-    ts0_ = timestamp;
-    ticks_per_sec_ = ticks;
-    is_running_ = true;
-    ResetAccumBuffs();
-  }
+  virtual void InitializeTime(QDateTime tst, qint64 timestamp, qint64 ticks) = 0;
 
   QString get_buffer_name() { return buffer_name_; }
   void set_buffer_name(const QString& buffer_name) {
@@ -88,8 +69,13 @@ class GRIDAQAccumNode: public GRIObject {
   void set_p_DAQ(GRIProcessThread *p_DAQ) { p_DAQ_ = p_DAQ; }
 
   QTime get_t0() { return t0_; }
+  void set_t0(QTime t0) { t0_ = t0; }
+
   qint64 get_ts0() { return ts0_; }
+  void set_ts0(qint64 ts0) { ts0_ = ts0; }
+
   bool get_is_running() { return is_running_; }
+  void set_is_running(bool is_running) { is_running_ = is_running; }
 
  private:
   QString buffer_name_;
