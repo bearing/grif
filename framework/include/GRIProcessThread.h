@@ -138,10 +138,6 @@ public:
     void set_reg(GRIRegulator *reg) { reg_ = reg; }
     QString get_xml_path() { return xml_path_; }
 
-    // get_name() returns the name of this process
-    QString get_name(){ return objectName(); }
-    void set_name(const QString& s){ setObjectName(s); }
-
     // set_load_balancing_vars() allows the user to customize the number of
     // packets need to be written/read before this thread's priority could be
     //  adjusted again.

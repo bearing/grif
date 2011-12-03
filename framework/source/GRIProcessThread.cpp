@@ -19,7 +19,7 @@ void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegula
     set_reg(regulator);
     if (proc_detail != 0) {
         is_daq_ = proc_detail->isDaq;
-        setObjectName(proc_detail->name);
+        set_name(proc_detail->name);
         xml_path_ = proc_detail->xml_path;
     }
 }
@@ -39,7 +39,7 @@ GRIProcessThread::~GRIProcessThread() {
 void GRIProcessThread::SetDefaultDetail(GRIRegulator *reg, QString name) {
     set_reg(reg);
     xml_path_ = name + ".XML";
-    setObjectName(name);
+    set_name(name);
 }
 
 void GRIProcessThread::SetLink(QLinkedList<GRIDataBlock*>* dataBlocks) {
