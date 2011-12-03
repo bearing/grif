@@ -37,7 +37,7 @@ GRIF assumes the following libraries:
 * Austin Benson (arbenson@berkeley.edu)
 
 ## TODO
-
+* Remove QT3 dependencies (arbenson)
 * Get simulator running correctly (arbenson)
 * Formalized unit tests (amidvidy)
 * GRILogger back up to date (baugarten)
