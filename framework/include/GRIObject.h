@@ -16,7 +16,7 @@ class GRIObject : public QObject {
 
     QTextStream log;
     void CommitLog(int level);
-    void set_name(QString name);
+    void set_name(const QString& name);
 
   private:
     GRILogMessage LogMsg;
