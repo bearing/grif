@@ -1,8 +1,0 @@
-The folders are as follows:
-
-doc 		- general documentation about the project
-source 		- source files (*.cpp) for the project
-include 	- header files (*.h) and include files (*.pri) for the project
-lib 		- configuration (*.ini) files
-xml 		- xml files for the project
-				
