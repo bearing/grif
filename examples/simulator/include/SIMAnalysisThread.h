@@ -5,28 +5,26 @@
 #include "QFile"
 
 class SIMAnalysisThread : public GRIAnalysisThread {
+ public:
+  SIMAnalysisThread();
+  ~SIMAnalysisThread();
 
-public:
-     SIMAnalysisThread();
-    ~SIMAnalysisThread();
+  int Analyze();
 
-    int Analyze();
-
-private:
-    int OpenOutputFile();
-    int ClearOutputFile();
-    int WriteToOutputFile(int nread, int Ch[], double ADC[], qint64 timestamps[], int N);
-    int WriteToOutputFile(GRIHistogrammer* pH);
-    int nread_;
-    QMutex mutex_;
-    QTextStream ts_;
-    QTextStream ts2_;
-    QString fname_;
-    QString fname2_;
-    QFile* fp_;
-    QFile* fp2_;
-    bool file_open_;
-    bool first_write_;
+ private:
+  bool OpenOutputFile();
+  int ClearOutputFile();
+  int WriteToOutputFile(int nread, int Ch[], double ADC[], qint64 timestamps[], int N);
+  int WriteToOutputFile(GRIHistogrammer* pH);
+  int nread_;
+  QTextStream ts_;
+  QTextStream ts2_;
+  QString fname_;
+  QString fname2_;
+  QFile* fp_;
+  QFile* fp2_;
+  bool file_open_;
+  bool first_write_;
 };
 
 #endif // SIMANALYSISTHREAD_H
