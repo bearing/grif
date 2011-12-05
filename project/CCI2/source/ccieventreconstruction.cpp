@@ -10,7 +10,7 @@ int CCIEventReconstruction::Analyze(){
 
     SISdata* rawdataArray;
     int nEvents;
-    pair<unsigned int, SISdata*> pData = ReadData<SISdata>("CCIDataSorter","sorteddata");
+    QPair<int, SISdata*> pData = ReadData<SISdata>("CCIDataSorter","sorteddata");
     nEvents = pData.first;
     rawdataArray = pData.second;
     SISdata* xevents = new SISdata[nEvents];

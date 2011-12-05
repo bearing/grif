@@ -9,7 +9,7 @@ int CCIdatasplitter::Analyze(){
 
     SISdata* rawdataArray;
     int nEvents;
-    pair<unsigned int, SISdata*> pData = ReadData<SISdata>("SIS3150CCI2","SISRawData3");
+    QPair<int, SISdata*> pData = ReadData<SISdata>("SIS3150CCI2","SISRawData3");
     nEvents = pData.first;
     rawdataArray = pData.second;
     SISdata* D1 = new SISdata[nEvents];

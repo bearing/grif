@@ -9,31 +9,31 @@ NetAnalysisThread::NetAnalysisThread()
 {
 }
 
-int NetAnalysisThread::initialize(int nchan){
+int NetAnalysisThread::initialize(){
 
-
+    int nchan = 152;
     // create an ADC histogram for each channel
-        int nhist = 0;
-        for (int i = 0; i< nchan;i++){
-            QString histname = "CCI2 ADC " + QString::number(i);
-            if (this->CreateNewHistogram(histname,600,0.0,2000000)==0)
-            {
-                nhist++;
-                this->SetHistRateMode(histname,false);
-            }
-
+    int nhist = 0;
+    for (int i = 0; i< nchan;i++){
+        QString histname = "CCI2 ADC " + QString::number(i);
+        if (this->CreateNewHistogram(histname,600,0.0,2000000)==0)
+        {
+            nhist++;
+            this->SetHistRateMode(histname,false);
         }
 
+    }
 
-            QString histname = "CCI2";
-            cout << "SIMMCAnalysisThread::initialize: Creating histogram " << (string)histname << endl;
-            if (this->CreateNewHistogram(histname,1000,0.0,1000000.0,152,56,209)==0)
-            {
-                nhist++;
-                this->SetHistRateMode(histname,false);
-            }
 
-        cout << "SIMMCAnalysisThread: Number of histograms created: " << nhist << endl;
+        QString histname = "CCI2";
+        std::cout << "SIMMCAnalysisThread::initialize: Creating histogram " << endl;
+        if (this->CreateNewHistogram(histname,1000,0.0,1000000.0,152,56,209)==0)
+        {
+            nhist++;
+            this->SetHistRateMode(histname,false);
+        }
+
+    std::cout << "SIMMCAnalysisThread: Number of histograms created: " << nhist << endl;
 /*
     this->ss = new TServerSocket(6295,kTRUE);
     cout << "waiting for socket:" << endl;
@@ -48,7 +48,7 @@ int NetAnalysisThread::Analyze(){
 
     SISdata* rawdataArray;
     int nEvents;
-    pair<unsigned int, SISdata*> pData = ReadData<SISdata>("SIS3150CCI2","SISRawData2");
+    QPair<int, SISdata*> pData = ReadData<SISdata>("SIS3150CCI2","SISRawData2");
     nEvents = pData.first;
     rawdataArray = pData.second;
 

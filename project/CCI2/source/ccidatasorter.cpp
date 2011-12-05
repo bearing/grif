@@ -9,7 +9,7 @@ CCIdatasorter::CCIdatasorter()
 int CCIdatasorter::Analyze(){
     SISdata* rawdataArray;//, sorteddata;
     int nEvents;
-    pair<unsigned int, SISdata*> pData = ReadData<SISdata>("CCI2DataSplitter","D1");
+    QPair<int, SISdata*> pData = ReadData<SISdata>("CCI2DataSplitter","D1");
     nEvents = pData.first;
     rawdataArray = pData.second;
     //sorteddata = new SISdata[nEvents];

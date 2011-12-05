@@ -18,6 +18,7 @@ class CCI2Run{
      int stoprun();
      void* usbptr;
  private:
+     GRIRegulator *reg;
      SIS3150CCI2 *sisdaq;
      HDF5Analysis *MCA;
      NetAnalysisThread *NETA;

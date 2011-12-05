@@ -12,8 +12,8 @@
 
 int SIS3150CCI2::sisVME_ErrorHandling (unsigned int prot_error, unsigned int vme_addr, const char *err_messages)
 {
-    cout << "ERROR: prot_error=" << prot_error << ", vme_addr=0x" << hex << vme_addr << dec << endl;
-    cout << "\t\tMessage: " << err_messages << endl;
+    std::cout << "ERROR: prot_error=" << prot_error << ", vme_addr=0x" << hex << vme_addr << dec << endl;
+    std::cout << "\t\tMessage: " << err_messages << endl;
 
     return 0;
 } // end function sisVME_ErrorHandling ()
@@ -21,7 +21,7 @@ int SIS3150CCI2::sisVME_ErrorHandling (unsigned int prot_error, unsigned int vme
 
 int SIS3150CCI2::write_system_messages (char *system_messages, int write_datetime)
 {
-    cout << system_messages << endl;
+    std::cout << system_messages << endl;
     return 0;
 } // end function sisVME_ErrorHandling ()
 
@@ -33,7 +33,7 @@ int SIS3150CCI2::write_system_messages (char *system_messages, int write_datetim
 
 int SIS3150CCI2::sis_AnyErrorHandling (char *err_messages)
 {
-    cout << err_messages << endl;
+    std::cout << err_messages << endl;
     return 0;
 } // end function sisVME_ErrorHandling ()
 
@@ -66,7 +66,7 @@ void SIS3150CCI2::InitLibraries(void){
       directory (I think).
       */
     QString libraryPath = QString(SISUSB_PATH) + QString("sisusb/lib/libsis3150.so");
-    cout << "SIS3150 Library: " << libraryPath.toStdString().c_str() << endl;
+    std::cout << "SIS3150 Library: " << libraryPath.toStdString().c_str() << endl;
 
 #elif (OPERATING_SYSTEM == DARWIN)
 #error Sorry, mac is not supported yet.
@@ -106,7 +106,7 @@ void SIS3150CCI2::InitLibraries(void){
             ///////////Loading Libraries///////////////
             ///////////////////////////////////////////
 
-    cout << "Loading " << libraryPath.toStdString().c_str() << ":\n" << (sis3150lib.load() ? "\tsuccess" : "\tfailure") << "\n\n";
+    std::cout << "Loading " << libraryPath.toStdString().c_str() << ":\n" << (sis3150lib.load() ? "\tsuccess" : "\tfailure") << "\n\n";
 
 
 } // end InitLibraries()

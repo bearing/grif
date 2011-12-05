@@ -2,7 +2,7 @@
 # Compact Compton Imaging System #
 #############################################
 
-QT       += core network qt3support xml
+QT       += core network xml qt3support
 QT       += gui
 
 TARGET = CCI2
@@ -11,24 +11,24 @@ TEMPLATE = app
 FORMS += mainwindow.ui \
     source/runwindow.ui
 
-include(../../../framework/trunk/source/fsource.pri)
-include(../../../framework/trunk/include/finclude.pri)
-include(../../../application/daq/sis3150usb2.0/sis3150.pri)
-include(../../../application/gui/grihistwidget/trunk/grihistwidget.pri)
+include(../../framework/source/fsource.pri)
+include(../../framework/include/finclude.pri)
+include(../../modules/daq/sis3150usb2.0/sis3150.pri)
+#include(../../modules/gui/grihistwidget/trunk/grihistwidget.pri)
 
-DEPENDPATH += source include ../../../application/analysis/sishdf5
+DEPENDPATH += source include ../../modules/analysis/sishdf5
 
 INCLUDEPATH += include\
     source\
-    ../../../project/cameron/CCI2/include \
-    ../../../application/analysis/sishdf5
+    ../../project/cameron/CCI2/include \
+    ../../modules/analysis/sishdf5
 
 HEADERS += \
-    ../../../application/analysis/sishdf5/HDF5Analysis.h \
+    ../../modules/analysis/sishdf5/HDF5Analysis.h \
     GRIUserProcesses.h \
     netanalysisthread.h \
     CCI2Run.h \
-    mainwindow.h \
+    #mainwindow.h \
     runwindow.h \
     /usr/include/H5Cpp.h \
     source/ccidatasplitter.h \
@@ -43,7 +43,7 @@ SOURCES += \
     HDF5Analysis.cpp \
     GRIUserLoader.cpp \
     netanalysisthread.cpp \
-    mainwindow.cpp \
+    #mainwindow.cpp \
     runwindow.cpp \
     source/ccidatasplitter.cpp \
     source/ccidatasorter.cpp \

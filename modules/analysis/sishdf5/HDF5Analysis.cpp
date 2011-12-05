@@ -11,7 +11,7 @@ HDF5Analysis::HDF5Analysis()
 
 
 
-int HDF5Analysis::initialize(double intTime, int nbins)
+int HDF5Analysis::initialize()
 {
     //HDF5 Stuff*******************************************************************************************************************************
     raw_data_length = 256;
@@ -90,7 +90,7 @@ int HDF5Analysis::Analyze()
     //int nChan = 80;
     int nEvents;
 
-    pair<unsigned int, SISdata*> pData = ReadData<SISdata>("SIS3150CCI2","SISRawData1");
+    QPair<int, SISdata*> pData = ReadData<SISdata>("SIS3150CCI2","SISRawData1");
     nEvents = pData.first;
     rawdataarray = pData.second;
 

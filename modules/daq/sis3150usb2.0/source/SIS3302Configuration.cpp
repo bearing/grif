@@ -1534,7 +1534,7 @@ int SIS3150CCI2::CopyModuleAddressesToTable (void)
 
                 if((data_rd  & 0xffffffff) < 0x33021407) { // check Mod ID and Major Version
                     gl_uint_system_status =  SYSTEM_STATUS_MODULES_NOT_READY ;
-                    cout << "module #: " << QString::number(i).toStdString() << " with old firmware has been disabled" << endl;
+                    std::cout << "module #: " << QString::number(i).toStdString() << " with old firmware has been disabled" << endl;
                     gl_uint_ModEnableConf[i] = 0;
                 }else{
                     no_of_enabled_modules++;
@@ -1547,7 +1547,7 @@ int SIS3150CCI2::CopyModuleAddressesToTable (void)
     } /* for loop */
 
     /* if no module is disabled then */
-    cout << "Number of enabled modules: " << no_of_enabled_modules << endl;
+    std::cout << "Number of enabled modules: " << no_of_enabled_modules << endl;
     if (no_of_enabled_modules == 0)   gl_uint_system_status =  SYSTEM_STATUS_MODULES_NOT_READY ;
 
     return 0;

@@ -37,7 +37,7 @@ public:
     //~HDF5Analysis();
 
     int Analyze();
-    int initialize(double intTime, int nbins);
+    int initialize();
     void writetree();
 private:
     GRILogMessage m_logMsg;

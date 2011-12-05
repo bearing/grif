@@ -1,3 +1,9 @@
+DEPENDPATH += \
+../../framework/include
+
+INCLUDEPATH += ../../../ . \
+../../framework/include
+
 HEADERS += GRIProcessThread.h \
 GRIAnalysisThread.h \
 GRIBuffer.h \
@@ -17,7 +23,7 @@ GRIMemoryManager.h \
 GRIRegulator.h \
 GRILogMessage.h \
 GRIUserLoader.h \
-GRIUserProcesses.h \
+#GRIUserProcesses.h \
 GRIObject.h \
 GRIThread.h \
 GRIDAQAccumulator.h \
@@ -27,4 +33,5 @@ GRIHist1D.h \
 GRIHist2D.h \
 GRIParser.h \
 GRIProcList.h
+
 

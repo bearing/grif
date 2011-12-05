@@ -122,7 +122,7 @@ public:
       */
     int stopDataAcquisition();
 
-    int acquireData();
+    int acquireData(int n);
 
     GRIDAQAccumNode* RegisterDataOutput(QString outName);
 
@@ -542,7 +542,7 @@ private:
 
    unsigned int det[200];
    int ndetectors;
-   ofstream outfile;
+   std::ofstream outfile;
    int firstrun;
 
 

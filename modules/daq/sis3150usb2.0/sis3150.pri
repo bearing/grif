@@ -1,6 +1,6 @@
-INCLUDEPATH += ../../../application/daq/sis3150usb2.0/include
-DEPENDPATH += ../../../application/daq/sis3150usb2.0/include \
-              ../../../application/daq/sis3150usb2.0/source
+INCLUDEPATH += ../../modules/daq/sis3150usb2.0/include
+DEPENDPATH += ../../modules/daq/sis3150usb2.0/include \
+              ../../modules/daq/sis3150usb2.0/source
 SOURCES += \
    SIS3150CCI2.cpp \
    VMECalls.cpp \

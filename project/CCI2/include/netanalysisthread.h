@@ -15,7 +15,7 @@ public:
     NetAnalysisThread();
     ~NetAnalysisThread();
     int Analyze();
-    int initialize(int nchan);
+    int initialize();
 private:
 
     TServerSocket *ss;

@@ -101,7 +101,7 @@ public:
       This is the main acquisition function it is called repeatadly by the thread while the run flag is true.
       */
 
-    int acquireData();
+    int acquireData(int n);
 
     GRIDAQAccumNode* RegisterDataOutput(QString outName);
     /*

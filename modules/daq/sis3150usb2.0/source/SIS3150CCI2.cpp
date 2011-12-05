@@ -105,6 +105,7 @@ int SIS3150CCI2::connectToDAQ(){
         }
     }
     gl_uint_system_status = SYSTEM_STATUS_MODULES_NOT_READY  ;
+    setfiltervalues(300,50,0);
 
 
 
@@ -123,15 +124,7 @@ int SIS3150CCI2::loadConfiguration(){
     //cout << "SIS3150CCI2::loadConfiguration" << endl;
     int tempErr ;
     char gl_char_FileNameConf[MAX_FILENAME_LENGTH];
-
-    //QDir configDir(QDir::current());
-    //configDir.cdUp();
-    //configDir.cd(QString("lib"));
-    //QString completePath = ("C:/SIS/sis3302_gamma_system_1411_20/sis3302_gamma_gui_config_UCBGe2011_06_30.ini"); // QString(configDir.absolutePath()).append("/MVRDS/lib/sis3302_MVRDS.ini");
-    QString completePath = ("/home/cameron/grif/application/daq/sis3150usb/trunk/lib/sis3302_gamma_gui_config_9_1_11.ini");
-    //QString completePath = ("C:/grif/application/daq/sis3150usb/trunk/lib/sis3302_gamma_gui_config_9_1_11.ini");
-
-
+    QString completePath = ("/home/cameron/grif/modules/daq/sis3150usb2.0/sis3302_gamma_gui_config_9_1_11.ini");
     cout << completePath.toStdString().c_str() << endl;
 
     strcpy(gl_char_FileNameConf, completePath.toStdString().c_str());
@@ -421,7 +414,7 @@ int SIS3150CCI2::stopDataAcquisition(){
 }
 
 
-int SIS3150CCI2::acquireData(){
+int SIS3150CCI2::acquireData(int n){
 
 
     //cout << "aquireData" << endl;
