@@ -37,9 +37,8 @@ GRIF assumes the following libraries:
 * Austin Benson (arbenson@berkeley.edu)
 
 ## TODO
-* Get simulator running correctly (arbenson)
 * Formalized unit tests (amidvidy)
 * GRILogger back up to date (baugarten)
 * Install script (amidvidy)
-* Put licensing stuff into each file (anyone)
+* Put licensing stuff into each file (arbenson)
 * Client/server (arbenson)
