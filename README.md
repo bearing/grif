@@ -37,6 +37,7 @@ GRIF assumes the following libraries:
 * Austin Benson (arbenson@berkeley.edu)
 
 ## TODO
+* Documentation (amidvidy)
 * Formalized unit tests (amidvidy)
 * GRILogger back up to date (baugarten)
 * Install script (amidvidy)
