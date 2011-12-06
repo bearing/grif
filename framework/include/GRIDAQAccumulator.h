@@ -102,8 +102,9 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
 	    NewBubble = false;
 	  }
 
-	  if (b->get_leading_edge())
+          if (b->get_leading_edge()) {
 	    b->set_leading_edge(false);
+          }
 
 	  // Check for bubble
 	  if (b->get_bubble() && !NewBubbleSet) {
