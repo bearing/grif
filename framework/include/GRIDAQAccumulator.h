@@ -2,11 +2,11 @@
 #define GRIDAQACCUMULATOR_H
 
 #include "GRIAccumBuff.h"
-#include "GRIDAQAccumNode.h"
+#include "GRIDAQBaseAccumNode.h"
 #include <QString>
 
 template <class T>
-class GRIDAQAccumulator : public GRIDAQAccumNode {
+class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
  public:
   GRIDAQAccumulator(QString  bname, qint64 ticks, int NBuff, int AccumMsec) {
     set_buffer_name(bname);

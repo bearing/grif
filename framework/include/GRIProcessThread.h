@@ -3,16 +3,17 @@
 
 #define PROCESS_THREAD_DEBUG
 
+#include <QHash>
 #include <QList>
 #include <QMutex>
-#include <QQueue>
 #include <QPair>
+#include <QQueue>
 #include <QString>
-#include "GRIRegulator.h"
 #include "GRIDataBlock.h"
-#include "GRIDefines.h"
 #include "GRIDataDefines.h"
+#include "GRIDefines.h"
 #include "GRILogMessage.h"
+#include "GRIRegulator.h"
 #include "GRIThread.h"
 
 class GRIRegulator;
@@ -46,10 +47,6 @@ public:
     ~GRIProcessThread();
 
     void init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator);
-
-    // TODO(arbenson): should this be removed?
-    // PLEASE USE INIT() INSTEAD
-    void SetDetail(GRIRegulator* reg, process_details* proc_detail);
 
     // Sets the process details for this process thread.  XML file name
     // is assumed to be name + ".XML".  To determine whether or not this
@@ -141,10 +138,6 @@ public:
     void set_reg(GRIRegulator *reg) { reg_ = reg; }
     QString get_xml_path() { return xml_path_; }
 
-    // get_name() returns the name of this process
-    QString get_name(){ return objectName(); }
-    void set_name(const QString& s){ setObjectName(s); }
-
     // set_load_balancing_vars() allows the user to customize the number of
     // packets need to be written/read before this thread's priority could be
     //  adjusted again.
@@ -162,11 +155,11 @@ public:
     void GetProcessed(ProcessCommand *pc);
 
 protected:
-    // TODO(arbenson): should these be protected?
     virtual void run() {}
     void FlushBuffer();
 
 private:
+    //deprecated
     typedef struct data {
         QString name;
         GRIDataBlock* data_block;
@@ -182,10 +175,10 @@ private:
     void HandleDynamicCommand(ProcessCommand *pc);
     void HandleGetRequest(ProcessCommand *pc);
 
-    // list of data blocks this process is writing to
-    QList<data_t*> data_outs_;
-    // list of data blocks this process is reading from
-    QList<data_t*> data_ins_;
+    // data blocks this process is writing to
+    QHash<QString, GRIDataBlock*> data_out_;
+    // data blocks this process is reading from
+    QHash<QString, GRIDataBlock*> data_in_;
 
     // Load balancing variables: refer to the description of the class for more details
     int num_packets_to_sat_;
@@ -211,9 +204,8 @@ GRIProcessThread::readMemory(QString blockName ,QString bufferName) {
 template<class T> bool GRIProcessThread::writeMemory(QString blockName,
                                                      QString bufferName,
                                                      int size, T dataArray[]) {
-  // TODO(arbenson): do we need blockName for writeMemory()?
-  return get_reg()->writeMemory(this->get_name(), bufferName, size * sizeof(T),
-                          (char*) dataArray);
+  return get_reg()->writeMemory(blockName, bufferName, size * sizeof(T),
+                                (char*) dataArray);
 }
 
 #endif // GRIPROCESSTHREAD_H

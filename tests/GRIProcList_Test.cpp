@@ -2,7 +2,7 @@
 #include <QObject>
 #include <QtTest>
 #include "QtTestUtil.h"
-#include "GRIProcList.cpp"
+#include "GRIProcList.h"
 
 
 class GRIProcList_Test : public QObject {
@@ -68,6 +68,9 @@ void GRIProcList_Test::retrievesLists() {
     QString* values = new QString[20];
     static const char alphanum[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     int* dups = new int[3];
+    dups[0] = 0;
+    dups[1] = 0;
+    dups[2] = 0;
     for (int i = 0; i < 20; i++) {
         values[i] = alphanum[std::rand() % (sizeof(alphanum) - 1)];
         QString type;

@@ -1,6 +1,7 @@
 #include <cassert>
 #include <time.h>
 #include "GRIDataBlock.h"
+#include "GRIMemoryManager.h"
 
 GRIDataBlock::GRIDataBlock(GRIRegulator* reg,
                            struct AnalysisStructureObject* analysis_struct) {

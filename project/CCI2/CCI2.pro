@@ -2,7 +2,7 @@
 # Compact Compton Imaging System #
 #############################################
 
-QT       += core network xml qt3support
+QT       += core network xml
 QT       += gui
 
 TARGET = CCI2

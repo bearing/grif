@@ -6,7 +6,7 @@
 
 #include <QCoreApplication>
 
-#include "QtTestUtil/TestRegistry.h"
+#include "TestRegistry.h"
 
 /**
  * Runs all tests registered with the QtTestUtil registry.

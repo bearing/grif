@@ -6,10 +6,10 @@
 #include "time.h"
 #include "vector"
 #include "QVector"
+#include "GRIDAQBaseAccumNode.h"
 #include "GRIDAQThread.h"
 #include "GRIDataDefines.h"
 #include "GRIDAQAccumulator.h"
-#include "GRIDAQAccumNode.h"
 #include "GRIMath.h"
 
 class SIMDAQThread : public GRIDAQThread{
@@ -39,7 +39,7 @@ class SIMDAQThread : public GRIDAQThread{
   QList<background*> bkg;
   QVector<dataOutput> simData;
 
-  GRIDAQAccumNode* RegisterDataOutput(QString outName);
+  GRIDAQBaseAccumNode* RegisterDataOutput(QString outName);
 
   // No DAQ to connect to
   int connectToDAQ() {

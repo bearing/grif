@@ -1,4 +1,4 @@
-QT       += core network qt3support xml
+QT       += core network xml
 QT       -= gui
 
 # Change this variable to whatever your project name is

@@ -124,7 +124,7 @@ public:
 
     int acquireData(int n);
 
-    GRIDAQAccumNode* RegisterDataOutput(QString outName);
+    GRIDAQBaseAccumNode* RegisterDataOutput(QString outName);
 
     void setfiltervalues(unsigned int peaking, unsigned int gap, unsigned int decimation);
     void setfiltervalues(unsigned int peaking, unsigned int gap, unsigned int decimation, void* usbptr);

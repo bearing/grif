@@ -175,9 +175,9 @@ int SIS3150CCI2::initialize(){
 }
 
 
-GRIDAQAccumNode* SIS3150CCI2::RegisterDataOutput(QString outName)
+GRIDAQBaseAccumNode* SIS3150CCI2::RegisterDataOutput(QString outName)
 {
-    GRIDAQAccumNode* p = NULL;
+    GRIDAQBaseAccumNode* p = NULL;
 
     if(outName == "SISRawData1") p = new GRIDAQAccumulator<SISdata>(outName,1e8,2.5,250);
     if(outName == "SISRawData2") p = new GRIDAQAccumulator<SISdata>(outName,1e8,2.5,250);

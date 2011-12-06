@@ -9,8 +9,3 @@ void GRIThread::CommitLog(int level) {
         log.flush();
     }
 }
-
-void GRIThread::setObjectName(QString n){
-    setName(n.toStdString().c_str());  //This should set the QObject name property
-    log_msg_.SetObjectName(n);
-}
