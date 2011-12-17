@@ -218,23 +218,28 @@ void GRIProcessThread::HandleDynamicCommand(ProcessCommand *pc) {
     case RUN_ACTION:
       DynamicRunAction(pc->key);
     case SET:
-      switch (pc->data_type) {
-        case BOOL:
-          DynamicSetParam<bool>(pc->key, pc->data.bool_val);
-        case CHAR:
-          DynamicSetParam<char>(pc->key, pc->data.char_val);
-        case INT:
-          DynamicSetParam<int>(pc->key, pc->data.int_val);
-        case FLOAT:
-          DynamicSetParam<float>(pc->key, pc->data.float_val);
-        case DOUBLE:
-          DynamicSetParam<double>(pc->key, pc->data.double_val);
-      }
+      HandleSetRequest(pc);
     case GET:
       HandleGetRequest(pc);
   }
   delete pc;
 }
+
+void GRIProcessThread::HandleSetRequest(ProcessCommand *pc) {
+  switch (pc->data_type) {
+  case BOOL:
+    DynamicSetBool(pc->key, pc->data.bool_val);
+  case CHAR:
+    DynamicSetChar(pc->key, pc->data.char_val);
+  case INT:
+    DynamicSetInt(pc->key, pc->data.int_val);
+  case FLOAT:
+   DynamicSetFloat(pc->key, pc->data.float_val);
+  case DOUBLE:
+    DynamicSetDouble(pc->key, pc->data.double_val);
+  }
+}
+
 
 void GRIProcessThread::HandleGetRequest(ProcessCommand *pc) {
   ProcessCommand *out_pc = new ProcessCommand;
@@ -243,15 +248,15 @@ void GRIProcessThread::HandleGetRequest(ProcessCommand *pc) {
   out_pc->command_type = pc->command_type;
   switch (pc->data_type) {
   case BOOL:
-    out_pc->data.bool_val = DynamicGetParam<bool>(pc->key);
+    out_pc->data.bool_val = DynamicGetBool(pc->key);
   case CHAR:
-    out_pc->data.char_val = DynamicGetParam<char>(pc->key);
+    out_pc->data.char_val = DynamicGetChar(pc->key);
   case INT:
-    out_pc->data.int_val = DynamicGetParam<int>(pc->key);
+    out_pc->data.int_val = DynamicGetInt(pc->key);
   case FLOAT:
-    out_pc->data.float_val = DynamicGetParam<float>(pc->key);
+    out_pc->data.float_val = DynamicGetFloat(pc->key);
   case DOUBLE:
-    out_pc->data.double_val =DynamicGetParam<double>(pc->key);
+    out_pc->data.double_val = DynamicGetDouble(pc->key);
   }
   emit GetProcessed(out_pc);
 }
