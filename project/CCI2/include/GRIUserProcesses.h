@@ -15,6 +15,6 @@
 #include "netanalysisthread.h"
 #include "ccidatasplitter.h"
 #include "ccidatasorter.h"
-#include "ccieventreconstruction.h"
+//#include "ccieventreconstruction.h"
 
 #endif // GRIUSERPROCESSES_H

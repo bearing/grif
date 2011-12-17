@@ -32,8 +32,7 @@ HEADERS += \
     runwindow.h \
     /usr/include/H5Cpp.h \
     source/ccidatasplitter.h \
-    source/ccidatasorter.h \
-    source/ccieventreconstruction.h
+    source/ccidatasorter.h
 
 
 # Source file and headers
@@ -46,8 +45,7 @@ SOURCES += \
     #mainwindow.cpp \
     runwindow.cpp \
     source/ccidatasplitter.cpp \
-    source/ccidatasorter.cpp \
-    source/ccieventreconstruction.cpp
+    source/ccidatasorter.cpp
 
 DEFINES += SISUSB_PATH=\\\"/opt/\\\"
 
@@ -70,7 +68,7 @@ win32:LIBS += -L$$ROOTSYSLIB -llibMatrix -llibPhysics -llibTree #-llibpthread -l
 win32:LIBS += -L$$ROOTSYSLIB -llibMathCore -llibThread  -llibGui -llibGpad -llibSpectrum
 
 #HDF5 libraries
-unix: LIBS += -L/usr/lib -lhdf5_cpp
+unix: LIBS += -L/usr/lib -lhdf5_cpp -lhdf5
 
 win32: DEFINES += HDF5CPP_USEDLL
 win32: LIBS += -LC:/HDF5/lib -lhdf5_cppdll -lhdf5dll

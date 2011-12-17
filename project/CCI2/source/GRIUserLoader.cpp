@@ -44,15 +44,11 @@ GRIProcessThread *GRIUserLoader::load(QString process_name, QString object_name)
         return CCIDS;
     }
 
-    if(object_name.contains("sorter")){
+    if(object_name.contains("sort")){
         CCIdatasorter* CCIDS = new CCIdatasorter();
         return CCIDS;
     }
 
-    if(object_name.contains("event")){
-        CCIEventReconstruction* CCIEvent = new CCIEventReconstruction();
-        return CCIEvent;
-   }
 
 
 /*

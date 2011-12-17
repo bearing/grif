@@ -6,12 +6,14 @@
         <object name= "MCA"  class = "MCAnalysis"> </object>
 	    <object name= "NETA" class = "NetAnalysis"> </object>
 	    <object name= "SPLIT" class = "CCIdatasplitter"> </object>
+	    <object name= "SORT" class = "CCIdatasorter"> </object>
 	</Objects>
 
 	<Links>
         <link writer = "SIS3150CCI2"   reader = "MCA"  data = "SISRawData1"> </link>
 		<link writer = "SIS3150CCI2"   reader = "NETA" data = "SISRawData2"> </link>
 		<link writer = "SIS3150CCI2"   reader = "SPLIT" data = "SISRawData3"> </link>
+		<link writer = "SPLIT"   reader = "SORT" data = "D1"> </link>
 	</Links>
     
 </app>

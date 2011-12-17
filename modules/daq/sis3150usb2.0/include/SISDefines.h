@@ -19,6 +19,8 @@ struct SISdata {
     unsigned short rawdata[256];
     unsigned int adcid;
     unsigned int energy;
+    double tfifty;
+    double dt;
     bool neighborplus;
     bool neighborminus;
     bool pileup;

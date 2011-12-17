@@ -6,7 +6,7 @@
 #include "SIS3150CCI2.h"
 #include "ccidatasplitter.h"
 #include "ccidatasorter.h"
-#include "ccieventreconstruction.h"
+//#include "ccieventreconstruction.h"
 
 //#include "ladybug_daq.h"
 //#include "ladybug_analysis.h"
@@ -24,7 +24,7 @@ class CCI2Run{
      NetAnalysisThread *NETA;
      CCIdatasplitter *CCIDsplit;
      CCIdatasorter *CCIdsorter;
-     CCIEventReconstruction *CCIeventrecon;
+     //CCIEventReconstruction *CCIeventrecon;
 
      //Ladybug_DAQ *ladybugdaq;
      //LadybugAnalysisThread *ladybuganalysis;
