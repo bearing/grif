@@ -295,7 +295,7 @@ class ClassParser(XMLParser):
     print 'Using skeleton file {0} to create {1}\n'.format(skelfile, skeldst)
 
     grifdef = 'GRIF CODE GENERATION\n#define GRIF_CG'
-    auxname = tree.find('Header').attrib['hname']
+    auxname = tree.find('Auxiliary').attrib['hname']
     grifincl = 'GRIF CODE GENERATION\n #include \"{0}\"'.format(auxname)
 
     # String replacement
