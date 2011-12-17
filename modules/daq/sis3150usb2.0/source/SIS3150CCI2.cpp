@@ -150,24 +150,6 @@ int SIS3150CCI2::loadConfiguration(){
     return 0;
 }
 
-void SIS3150CCI2::setfiltervalues(unsigned int peaking, unsigned int gap, unsigned int decimation){
-    gl_uint_FirEnergyLength = peaking;
-    gl_uint_FirEnergyGap = gap;
-    gl_uint_FirDecimationMode = decimation;
-
-
-}
-
-
-void SIS3150CCI2::setfiltervalues(unsigned int peaking, unsigned int gap, unsigned int decimation, void* usbptr){
-    gl_uint_FirEnergyLength = peaking;
-    gl_uint_FirEnergyGap = gap;
-    gl_uint_FirDecimationMode = decimation;
-    gl_USBDevice = usbptr;
-    firstrun= 0;
-    cout << "second run" << endl;
-
-}
 
 int SIS3150CCI2::initialize(){
     gl_uint_RunCheckWrDataToFileFlag = WRITE_DATA_TO_FILE; // can let the user choose this
@@ -188,6 +170,10 @@ GRIDAQAccumNode* SIS3150CCI2::RegisterDataOutput(QString outName)
 int SIS3150CCI2::startDataAcquisition(){
 
     cout << "SIS3150CCI2::startDataAcquisition" << endl;
+    
+    gl_uint_FirEnergyLength = this->shapingtime;
+    //gl_uint_FirEnergyGap = gap;
+    //gl_uint_FirDecimationMode = decimation;
 
     unsigned int i;
     int run_index, error ;
@@ -647,6 +633,11 @@ int SIS3150CCI2::WriteParseBuffer (ULONG* memory_data_array, unsigned int nof_wr
     delete [] unpackeddata;
 
     return 0;
+}
+
+void SIS3150CCI2::Reconfigure(){
+    stopDataAcquisition();
+    startDataAcquisition();    
 }
 
 
