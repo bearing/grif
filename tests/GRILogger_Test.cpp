@@ -20,10 +20,13 @@ class GRILogger_Test : public QObject {
 
     private:
         GRILogger* logger;
+        QFile* logFile;
+
 };
 
 GRILogger_Test::GRILogger_Test() {
-    //logger= QString("test.txt");
+    logger= new GRILogger("test.txt");
+    logFile = new QFile(logger->GetLogFilePath());
 }
 
 void GRILogger_Test::writeToFile() {

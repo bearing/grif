@@ -78,9 +78,6 @@ class GRIProcList {
     QList<QString>* retrieveList(QString, QString);
 };
 
-const QString GRIProcList::SETS = "sets";
-const QString GRIProcList::GETS = "gets";
-const QString GRIProcList::RUN_ACTIONS = "runactions";
 
 #endif  // FRAMEWORK_TRUNK_INCLUDE_GRIPROCLIST_H_
 
