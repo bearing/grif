@@ -36,7 +36,8 @@ void GRICLI2::on_runcmd_clicked()
     QString instr;
 
     instr  = ui->lineEdit->text();
-
+    ui->plainTextEdit->appendPlainText("Command: " + instr);
+    ui->lineEdit->clear();
     QStringList instr_breakup = instr.split(" ", QString::SkipEmptyParts);
     int n = instr_breakup.length();
     QString instr_array[n];

@@ -100,6 +100,8 @@ public:
     int acquireData(int n);
 
     GRIDAQBaseAccumNode* RegisterDataOutput(QString outName);
+
+    void DynamicRunAction(QString name);
     /*
       setfiltervalues()
       function to set trapezoidal filter peaking and gap times. To be replaced by macros and online configuration routines.

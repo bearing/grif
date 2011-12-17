@@ -641,5 +641,10 @@ void SIS3150CCI2::Reconfigure(){
     //startDataAcquisition();
 }
 
+void SIS3150CCI2::DynamicRunAction(QString name){
+    if (name.contains("Reconfigure")){
+        Reconfigure();
+    }
+}
 
 /************************************************************************************************************/
