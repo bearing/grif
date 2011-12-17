@@ -24,10 +24,8 @@ GRIHist1D.cpp \
 GRIHist2D.cpp \
 GRIParser.cpp \
 GRIProcList.cpp \
-    ../../framework/source/gricli2.cpp
+gricli2.cpp
 
-HEADERS += \
-    ../../framework/source/gricli2.h
 
 FORMS += \
     ../../framework/source/gricli2.ui

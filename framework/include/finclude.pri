@@ -33,6 +33,7 @@ GRIDAQBaseAccumNode.h \
 GRIHist1D.h \
 GRIHist2D.h \
 GRIParser.h \
-GRIProcList.h
+GRIProcList.h \
+gricli2.h
 
 

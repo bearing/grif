@@ -9,7 +9,7 @@ SOURCES += \
 HEADERS += \
     SISDefines.h \
     SIS3150CCI2.h \
-    GCG_daq_auh.h
+    GCG_daq_aux.h
 
 
     #../../../application/daq/sis3150usb2.0/source/

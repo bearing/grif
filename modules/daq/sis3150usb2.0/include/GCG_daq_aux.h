@@ -1,7 +1,8 @@
 #include <vector>
 // GCG param list
-private: int shapingtime;
-
+private:
+    int shapingtime;
+public:
 // GCG param getters
 template <class T> T getParam(QString name) {
   if (name == "shapingtime") { return this->shapingtime; }

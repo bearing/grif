@@ -27,6 +27,8 @@ void GRICLI2::Init() {
   cli_state_ = MAIN;
   //set the current process to null
   curr_proc_ = 0;
+
+  DisplayMain();
 }
 
 void GRICLI2::on_runcmd_clicked()

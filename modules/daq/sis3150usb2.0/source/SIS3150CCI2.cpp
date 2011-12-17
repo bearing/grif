@@ -636,8 +636,9 @@ int SIS3150CCI2::WriteParseBuffer (ULONG* memory_data_array, unsigned int nof_wr
 }
 
 void SIS3150CCI2::Reconfigure(){
-    stopDataAcquisition();
-    startDataAcquisition();    
+    std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+    //stopDataAcquisition();
+    //startDataAcquisition();
 }
 
 
