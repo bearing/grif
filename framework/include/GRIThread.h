@@ -17,7 +17,6 @@ class GRIThread : public QThread {
 
   QTextStream log;
   void CommitLog(int level);
-  void setObjectName(QString name);
 
   void set_exit_thread_flag(bool exit_thread_flag) {
    if (sleeping_) {
@@ -30,6 +29,9 @@ class GRIThread : public QThread {
   bool get_force_quit() { return force_quit_; }
   void set_sleeping(bool sleeping) { sleeping_ = sleeping; }
   bool get_sleeping() { return sleeping_; }
+  void set_name(const QString& name) { setObjectName(name); }
+  QString get_name() { return objectName(); }
+
 
  private:
   GRILogMessage log_msg_;

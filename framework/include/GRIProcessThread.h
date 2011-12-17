@@ -109,15 +109,70 @@ public:
     // Handle gets/sets/runactions from the CLI
     void EnqueueDynamicCommand(ProcessCommand *pc);
 
-    template <class T> void DynamicSetParam(QString name, T value) {
+    virtual void DynamicSetBool(const QString& name, bool value) {
+      DynamicSetMsg(name, value);
+    }
+
+    virtual void DynamicSetChar(const QString& name, char value) {
+      DynamicSetMsg(name, value);
+    }
+
+    virtual void DynamicSetInt(const QString& name, int value) {
+      DynamicSetMsg(name, value);
+    }
+
+    virtual void DynamicSetFloat(const QString& name, float value) {
+      DynamicSetMsg(name, value);
+    }
+
+    virtual void DynamicSetDouble(const QString& name, double value) {
+      DynamicSetMsg(name, value);
+    }
+
+    template <class T> void DynamicSetMsg(const QString& name, T value) {
         std::cout << "SET: " << name.toStdString() << ": " << value << std::endl;
+        std::cout << "This is a do-nothing implementation."
+                  << "  Please override the DynamicSet methods in your own class."
+                  << std::endl;
     }
-    template <class T> T DynamicGetParam(QString name) {
-        std::cout << "GET: " << name.toStdString() << ": " << std::endl;
-        return 0;
+
+    virtual bool DynamicGetBool(const QString& name) {
+      DynamicGetMsg(name);
+      return 0;
     }
+
+    virtual char DynamicGetChar(const QString& name) {
+      DynamicGetMsg(name);
+      return 0;
+    }
+
+    virtual int DynamicGetInt(const QString& name) {
+      DynamicGetMsg(name);
+      return 0;
+    }
+
+    virtual float DynamicGetFloat(const QString& name) {
+      DynamicGetMsg(name);
+      return 0;
+    }
+
+    virtual double DynamicGetDouble(const QString& name) {
+      DynamicGetMsg(name);
+      return 0;
+    }
+
+    void DynamicGetMsg(const QString& name) {
+        std::cout << "GET: " << name.toStdString() << std::endl;
+        std::cout << "This is a do-nothing implementation."
+                  << "  Please override the DynamicGet methods in your own class."
+                  << std::endl;
+    }
+
     virtual void DynamicRunAction(QString name) {
         std::cout << "Action: " << name.toStdString() << std::endl;
+        std::cout << "This is a do-nothing implementation."
+                  << "  Please override DynamicRunAction() in your own class."
+                  << std::endl;
     }
 
 
@@ -137,10 +192,6 @@ public:
     GRIRegulator *get_reg() { return reg_; }
     void set_reg(GRIRegulator *reg) { reg_ = reg; }
     QString get_xml_path() { return xml_path_; }
-
-    // get_name() returns the name of this process
-    QString get_name(){ return objectName(); }
-    void set_name(const QString& s){ setObjectName(s); }
 
     // set_load_balancing_vars() allows the user to customize the number of
     // packets need to be written/read before this thread's priority could be
@@ -177,6 +228,7 @@ private:
     mutable QMutex cmd_buffer_lock_;
 
     void HandleDynamicCommand(ProcessCommand *pc);
+    void HandleSetRequest(ProcessCommand *pc);
     void HandleGetRequest(ProcessCommand *pc);
 
     // data blocks this process is writing to

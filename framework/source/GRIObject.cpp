@@ -15,7 +15,7 @@ void GRIObject::CommitLog(int level) {
     }
 }
 
-void GRIObject::set_name(QString n) {
-    this->setObjectName(n);  //This should set the QObject name property
-    LogMsg.SetObjectName(n);
+void GRIObject::set_name(const QString& name) {
+    setObjectName(name);  //This should set the QObject name property
+    LogMsg.SetObjectName(name);
 }
