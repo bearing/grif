@@ -17,13 +17,7 @@
 #include "Rtypes.h"
 
 
-// framework
-
-#define COMPILE_WITH_FRAMEWORK
-
-#ifdef COMPILE_WITH_FRAMEWORK
-#include "GRIMemoryManager.h"
-#endif
+#include "GCG_daq_aux.h"
 
 #include "GRIDefines.h"
 #include "GRIDAQThread.h"
