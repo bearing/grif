@@ -33,6 +33,9 @@ SOURCES += \
 ROOTDIR = /Users/benson/Desktop/root_x86_64
 INCLUDEPATH += $$ROOTDIR/include
 
+BOOSTDIR = /Users/benson/Desktop/grif/external
+INCLUDEPATH += $$BOOSTDIR
+
 ROOTSYSLIB += $$ROOTDIR/lib
 INCLUDEPATH += $$ROOTSYSLIB
 LIBS += -L/$$ROOTSYSLIB -lCore -lHist
