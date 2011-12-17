@@ -14,7 +14,7 @@ typedef QList<ProcessCommand *> CLI_MACRO;
 
 class GRICLI : public QObject{
  public:
-  explicit GRICLI(QList<GRIProcessThread*> *processes);
+  explicit GRICLI(QLinkedList<GRIProcessThread*> *processes);
   virtual ~GRICLI() {}
 
   void Launch();
@@ -57,7 +57,7 @@ class GRICLI : public QObject{
   // the current process for sets, gets, actions
   GRIProcessThread *curr_proc_;
 
-  QList<GRIProcessThread*> *processes_;
+  QLinkedList<GRIProcessThread*> *processes_;
   QHash<QString, GRIProcessThread*> process_hash_;
   QHash<QString, CLI_MACRO> macro_hash_;
   enum CLI_state_enum cli_state_;

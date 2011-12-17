@@ -23,5 +23,12 @@ GRIThread.cpp \
 GRIHist1D.cpp \
 GRIHist2D.cpp \
 GRIParser.cpp \
-GRIProcList.cpp
+GRIProcList.cpp \
+    ../../framework/source/gricli2.cpp
+
+HEADERS += \
+    ../../framework/source/gricli2.h
+
+FORMS += \
+    ../../framework/source/gricli2.ui
 

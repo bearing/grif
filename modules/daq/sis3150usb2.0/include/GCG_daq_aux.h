@@ -1,5 +1,6 @@
+#include <vector>
 // GCG param list
-private int shapingtime;
+private: int shapingtime;
 
 // GCG param getters
 template <class T> T getParam(QString name) {
@@ -11,7 +12,7 @@ template <class T> QVector<T> getQVecParam(QString name) {
 }
 
 // GCG param getters (vector)
-template <class T> vector<T> getStdVecParam(QString name) {
+template <class T> std::vector<T> getStdVecParam(QString name) {
 }
 
 // GCG param setters
@@ -24,7 +25,7 @@ template <class T> void setQVecParam(QString name, QVector<T> value) {
 }
 
 // GCG param setters (vector)
-template <class T> void setStdVecParam(QString name, vector<T> value) {
+template <class T> void setStdVecParam(QString name, std::vector<T> value) {
 }
 
 // GCG default value sets
@@ -40,10 +41,10 @@ void Reconfigure();
 void runAction(QString name) {
   if (false) { /*dummy holder for code generation*/ }
   else if (name == "Reconfigure") { Reconfigure(); }
-  else { std::cout << "could not parse action" }
+  else { std::cout << "could not parse action"; }
 }
 
 //GCG print actions (for GRICLI)
 void printActions() {
-  cout << "Reconfigure()" << endl;
+  std::cout << "Reconfigure()" << endl;
 }

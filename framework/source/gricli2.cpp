@@ -1,14 +1,22 @@
-#include "iostream"
-#include <QList>
-#include <QStringList>
-#include "GRICLI.h"
+#include "gricli2.h"
+#include "ui_gricli2.h"
 
-GRICLI::GRICLI(QLinkedList<GRIProcessThread *> *processes) {
-  processes_ = processes;
-  Init();
+GRICLI2::GRICLI2(QWidget *parent,QLinkedList<GRIProcessThread*> *processes) :
+    QDialog(parent),
+    ui(new Ui::GRICLI2)
+{
+    ui->setupUi(this);
+    processes_ = processes;
+    Init();
+
 }
 
-void GRICLI::Init() {
+GRICLI2::~GRICLI2()
+{
+    delete ui;
+}
+
+void GRICLI2::Init() {
   // form the process hash table
   QLinkedList<GRIProcessThread*>::iterator proc_it;
   for (proc_it = processes_->begin(); proc_it != processes_->end(); ++proc_it) {
@@ -21,18 +29,11 @@ void GRICLI::Init() {
   curr_proc_ = 0;
 }
 
-void GRICLI::Launch() {
-  DisplayMain();
+void GRICLI2::on_runcmd_clicked()
+{
+    QString instr;
 
-  QTextStream stream(stdin);
-  QString instr;
-
-  // main instruction loop
-  while (true) {
-    std::cout << std::endl;
-    std::cout << "GRIF# ";
-    instr = stream.readLine();
-    std::cout << std::endl;
+    instr  = ui->lineEdit->text();
 
     QStringList instr_breakup = instr.split(" ", QString::SkipEmptyParts);
     int n = instr_breakup.length();
@@ -40,17 +41,16 @@ void GRICLI::Launch() {
     QList<QString>::iterator instr_it;
     int i = 0;
     for (instr_it = instr_breakup.begin(); instr_it != instr_breakup.end();
-	 ++instr_it) {
+     ++instr_it) {
       instr_array[i] = *instr_it;
       ++i;
     }
-    
+
     //check if help
     if (instr_array[0] == "help") {
       DisplayHelp();
-      continue;
     } else if (instr_array[0] == "quit") {
-      break; // get out of the loop
+      return; // get out of the loop
     } else if (instr_array[0] == "macrodef") {
       HandleMacroDef(instr);
     } else if (instr_array[0] == "macro") {
@@ -62,67 +62,65 @@ void GRICLI::Launch() {
         HandleProcessTop(instr_array, n);
       }
     }
-  } //end while loop 
-
-  Quit();
 }
 
-void GRICLI::Quit() {
-  std::cout << "Exiting command line interface " << std::endl;
+
+void GRICLI2::Quit() {
+  ui->plainTextEdit->appendPlainText("Exiting command line interface ");
 }
 
-void GRICLI::ReceiveProcessGet(ProcessCommand *pc) {
+void GRICLI2::ReceiveProcessGet(ProcessCommand *pc) {
   QMutexLocker locker(&get_lock_);
   if (!pc) return;
   if (!(pc->command_type == GET)) return;
   switch (pc->data_type) {
     case BOOL:
-      std::cout << "GET (" << pc->key.toStdString().c_str() << "): "
-		<< pc->data.bool_val << std::endl;
+      ui->plainTextEdit->appendPlainText( "GET (" + QString( pc->key.toStdString().c_str()) + "): "
+        + QString( pc->data.bool_val ));
     case CHAR:
-      std::cout << "GET (" << pc->key.toStdString().c_str() << "): "
-		<< pc->data.char_val << std::endl;
+      ui->plainTextEdit->appendPlainText( "GET (" + QString( pc->key.toStdString().c_str()) + "): "
+        + QString( pc->data.char_val ));
     case INT:
-      std::cout << "GET (" << pc->key.toStdString().c_str() << "): "
-		<< pc->data.int_val << std::endl;
+      ui->plainTextEdit->appendPlainText( "GET (" + QString( pc->key.toStdString().c_str()) + "): "
+        + QString( pc->data.int_val ));
     case FLOAT:
-      std::cout << "GET (" << pc->key.toStdString().c_str() << "): "
-		<< pc->data.float_val << std::endl;
+      ui->plainTextEdit->appendPlainText( "GET (" + QString( pc->key.toStdString().c_str()) + "): "
+        + QString::number( pc->data.float_val ));
     case DOUBLE:
-      std::cout << "GET (" << pc->key.toStdString().c_str() << "): "
-		<< pc->data.double_val << std::endl;
+      ui->plainTextEdit->appendPlainText( "GET (" + QString( pc->key.toStdString().c_str()) + "): "
+        + QString::number( pc->data.double_val ));
   }
   delete pc;
 }
 
-void GRICLI::DisplayMain() {
-  std::cout << std::endl << std::endl << std::endl << std::endl;
-  std::cout << "  Command line interface       " << std::endl;
-  std::cout << "  **********************       " << std::endl;
-  std::cout << "  type 'help' for instructions " << std::endl;
+void GRICLI2::DisplayMain() {
+  //ui->plainTextEdit->appendPlainText( std::endl << std::endl << std::endl );
+  ui->plainTextEdit->appendPlainText( "  Command line interface       " );
+  ui->plainTextEdit->appendPlainText( "  **********************       " );
+  ui->plainTextEdit->appendPlainText( "  type 'help' for instructions " );
 }
 
-void GRICLI::DisplayHelp() {
+void GRICLI2::DisplayHelp() {
   if (cli_state_ == MAIN) {
-    std::cout << "  Type 'processes' for a list of the current processes                                " << std::endl;
-    std::cout << "  Type in the name of a process to interact with it                                   " << std::endl;
-    std::cout << "  Type 'help' for instructions                                                        " << std::endl;
-    std::cout << "  Type 'quit' to exit                                                                 " << std::endl;
+    ui->plainTextEdit->appendPlainText( "  Type 'processes' for a list of the current processes                                " );
+    ui->plainTextEdit->appendPlainText( "  Type in the name of a process to interact with it                                   " );
+    ui->plainTextEdit->appendPlainText( "  Type 'help' for instructions                                                        " );
+    ui->plainTextEdit->appendPlainText( "  Type 'quit' to exit                                                                 " );
   }
   else if (cli_state_ == PROCESS_TOP) {
-    std::cout << "  Current process: " << curr_proc_->get_name().toStdString().c_str() << std::endl;
-    std::cout << "  Type 'set [name] [value] [data type]' to set a value          " << std::endl;
-    std::cout << "  Type 'get [name] [data type]' to get a value                  " << std::endl;
-    std::cout << "  Type 'run [ActionName]' to perform an action                 " << std::endl;
-    std::cout << "  Type 'actions' to see a list of actions for the process       " << std::endl;
-    std::cout << "  Type 'back' to go back to main                                " << std::endl;
-    std::cout << "  Type 'quit' to exit                                           " << std::endl;
+      ui->plainTextEdit->appendPlainText( "  Current process: " +QString(curr_proc_->get_name().toStdString().c_str())  );
+    ui->plainTextEdit->appendPlainText( "  Type 'set [name] [value] [data type]' to set a value          " );
+    ui->plainTextEdit->appendPlainText( "  Type 'get [name] [data type]' to get a value                  " );
+    ui->plainTextEdit->appendPlainText( "  Type 'run [ActionName]' to perform an action                 " );
+    ui->plainTextEdit->appendPlainText( "  Type 'actions' to see a list of actions for the process       " );
+    ui->plainTextEdit->appendPlainText( "  Type 'back' to go back to main                                " );
+    ui->plainTextEdit->appendPlainText( "  Type 'quit' to exit                                           " );
   }
 }
 
-void GRICLI::DisplayProcesses() {
+void GRICLI2::DisplayProcesses() {
   if (process_hash_.size() == 0) {
-    std::cout << "[no processes detected]" << std::endl;
+    ui->plainTextEdit->appendPlainText( "[no processes detected]" );
     return;
   }
 
@@ -130,35 +128,35 @@ void GRICLI::DisplayProcesses() {
   QList<QString>::iterator procs_it;
   for (procs_it = procs.begin(); procs_it != procs.end(); procs_it++) {
     QString p_name = *procs_it;
-    std::cout << p_name.toStdString().c_str() << std::endl;
+    ui->plainTextEdit->appendPlainText( p_name.toStdString().c_str() );
   }
 }
 
-void GRICLI::ProcessSet(const QString& name, const QString& value,
+void GRICLI2::ProcessSet(const QString& name, const QString& value,
                         const QString& dataType) {
   ProcessCommand *pc = CreateSetCommand(name, value, dataType);
   curr_proc_->EnqueueDynamicCommand(pc);
 }
 
-void GRICLI::ProcessGet(const QString& name, const QString& dataType) {
+void GRICLI2::ProcessGet(const QString& name, const QString& dataType) {
   ProcessCommand *pc = CreateGetCommand(name, dataType);
   curr_proc_->EnqueueDynamicCommand(pc);
 }
 
-void GRICLI::ProcessAction(const QString& name) {
+void GRICLI2::ProcessAction(const QString& name) {
   ProcessCommand *pc = CreateRunActionCommand(name);
   curr_proc_->EnqueueDynamicCommand(pc);
 }
 
-void GRICLI::DisplayActions() {
+void GRICLI2::DisplayActions() {
   // TODO(arbenson): implement this
-  std::cout << "[Not implemented yet, still need to do -Austin]" << std::endl;
+  ui->plainTextEdit->appendPlainText( "[Not implemented yet, still need to do -Austin]" );
 }
 
-void GRICLI::HandleMain(QString *instr_array, int n) {
+void GRICLI2::HandleMain(QString *instr_array, int n) {
   // check if processes call
   if (n < 1) {
-      std::cout << "could not parse instructon" << std::endl;
+      ui->plainTextEdit->appendPlainText( "could not parse instructon" );
       return;
   }
   if (instr_array[0] == "processes") {
@@ -172,12 +170,12 @@ void GRICLI::HandleMain(QString *instr_array, int n) {
     curr_proc_ = p;
     cli_state_ = PROCESS_TOP;
   } else {
-    std::cout << "could not retrieve process: "
-              << instr_array[0].toStdString().c_str() << std::endl;
+    ui->plainTextEdit->appendPlainText( "could not retrieve process: "
+              + QString(instr_array[0].toStdString().c_str()) );
   }
 }
 
-void GRICLI::HandleProcessTop(QString *instr_array, int n) {
+void GRICLI2::HandleProcessTop(QString *instr_array, int n) {
   if (instr_array[0] == "set" && n >= 4) {
     ProcessSet(instr_array[1], instr_array[2], instr_array[3]);
   } else if (instr_array[0] == "get" && n >= 3) {
@@ -191,18 +189,18 @@ void GRICLI::HandleProcessTop(QString *instr_array, int n) {
     }else if (instr_array[0] == "back" && n >= 1) {
     cli_state_ = MAIN;
   } else {
-    std::cout << "could not parse instruction" << std::endl;
+    ui->plainTextEdit->appendPlainText( "could not parse instruction" );
     DisplayHelp();
   }
 }
 
-void GRICLI::HandleMacroDef(const QString& instr) {
+void GRICLI2::HandleMacroDef(const QString& instr) {
   QStringList macro_breakup = instr.split(";", QString::SkipEmptyParts);
   QList<QString>::iterator it = macro_breakup.begin();
   QStringList macro_def = it->split(" ", QString::SkipEmptyParts);
   int n = macro_def.length();
   if (n != 2) {
-    std::cout << "Format is: macrodef [macroname]; command1; command2; ..." << std::endl;
+    ui->plainTextEdit->appendPlainText( "Format is: macrodef [macroname]; command1; command2; ..." );
     return;
   }
   QString macro_name = macro_def[1];
@@ -219,44 +217,44 @@ void GRICLI::HandleMacroDef(const QString& instr) {
     } else if (cmd_breakup[0] == "run" && num_args >= 2) {
       pc = CreateRunActionCommand(cmd_breakup[1]);
     } else {
-      std::cout << "could not parse macro instruction: "
-                << it->toStdString().c_str() << std::endl;
+      ui->plainTextEdit->appendPlainText( "could not parse macro instruction: " +
+                                          QString( it->toStdString().c_str()) );
     }
 
     macro.push_back(pc);
   }
-  
+
   if (macro.size() == 0) {
-    std::cout << "No commands detected in the macro definition" << std::endl;
-    std::cout << "Format is: macrodef [macroname]; macro1 ; macro 2; ..." << std::endl;
+    ui->plainTextEdit->appendPlainText( "No commands detected in the macro definition" );
+    ui->plainTextEdit->appendPlainText( "Format is: macrodef [macroname]; macro1 ; macro 2; ..." );
   }
   macro_hash_[macro_name] = macro;
 }
 
-void GRICLI::HandleMacroExecution(QString *instr_array, int n) {
+void GRICLI2::HandleMacroExecution(QString *instr_array, int n) {
   if (n < 2) {
-    std::cout << "Format is macro [macroname1] [macroname2] [macroname3]" << std::endl;
+    ui->plainTextEdit->appendPlainText( "Format is macro [macroname1] [macroname2] [macroname3]" );
   }
   for (int i = 1; i < n; ++i) {
     if (!macro_hash_.contains(instr_array[i])){
-        std::cout << "Could not find macro: "
-                  << instr_array[i].toStdString().c_str() << std::endl;
+        ui->plainTextEdit->appendPlainText( "Could not find macro: "
+                                            +QString( instr_array[i].toStdString().c_str()) );
         continue;
     }
     CLI_MACRO macro = macro_hash_[instr_array[i]];
     CLI_MACRO::iterator it;
-    std::cout << "Executing macro: "
-              << instr_array[i].toStdString().c_str() << std::endl;
+    ui->plainTextEdit->appendPlainText( "Executing macro: "
+                                        + QString( instr_array[i].toStdString().c_str()) );
     for (it = macro.begin(); it != macro.end(); ++it) {
       curr_proc_->EnqueueDynamicCommand(*it);
     }
   }
 }
 
-ProcessCommand *GRICLI::CreateGetCommand(const QString& name,
+ProcessCommand *GRICLI2::CreateGetCommand(const QString& name,
                                           const QString& dataType) {
-  std::cout << "Creating a get command: " << name.toStdString().c_str()
-            << " " << dataType.toStdString().c_str() << std::endl;
+  ui->plainTextEdit->appendPlainText( "Creating a get command: " + QString( name.toStdString().c_str())
+            +  QString(" ") + QString( dataType.toStdString().c_str() ));
   ProcessCommand *pc = new ProcessCommand;
   pc->command_type = GET;
   pc->key = name;
@@ -271,21 +269,21 @@ ProcessCommand *GRICLI::CreateGetCommand(const QString& name,
   } else if (dataType == "bool" || dataType == "boolean") {
     pc->data_type = BOOL;
   } else {
-    std::cout << "Can't parse data type: " << dataType.toStdString().c_str() << std::endl;
+    ui->plainTextEdit->appendPlainText( "Can't parse data type: " + QString( dataType.toStdString().c_str()) );
   }
   return pc;
 }
 
-ProcessCommand *GRICLI::CreateSetCommand(const QString& name,
+ProcessCommand *GRICLI2::CreateSetCommand(const QString& name,
                                           const QString& value,
                                           const QString& dataType) {
-  std::cout << "Creating a set command: " << name.toStdString().c_str()
-            << " " << value.toStdString().c_str() << " "
-            << dataType.toStdString().c_str() << std::endl;
+  ui->plainTextEdit->appendPlainText( "Creating a set command: " + QString( name.toStdString().c_str())
+            +" " + QString( value.toStdString().c_str()) +" "
+            + QString( dataType.toStdString().c_str() ));
   ProcessCommand *pc = new ProcessCommand;
   pc->command_type = SET;
   pc->key = name;
-  
+
   if (dataType == "double") {
     pc->data_type = DOUBLE;
     double val = value.toDouble();
@@ -312,14 +310,14 @@ ProcessCommand *GRICLI::CreateSetCommand(const QString& name,
     }
     pc->data.bool_val = val;
   } else {
-    std::cout << "Can't parse data type: " << dataType.toStdString().c_str() << std::endl;
+    ui->plainTextEdit->appendPlainText( "Can't parse data type: " + QString( dataType.toStdString().c_str() ));
   }
   return pc;
 }
 
-ProcessCommand *GRICLI::CreateRunActionCommand(const QString& name) {
-  std::cout << "Creating a run action command: " << name.toStdString().c_str()
-            << std::endl;
+ProcessCommand *GRICLI2::CreateRunActionCommand(const QString& name) {
+  ui->plainTextEdit->appendPlainText( "Creating a run action command: " + QString( name.toStdString().c_str())
+            );
   ProcessCommand *pc = new ProcessCommand;
   pc->command_type = RUN_ACTION;
   pc->key = name;

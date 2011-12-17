@@ -106,11 +106,11 @@ int SIS3150CCI2::ReadConfiguration (char *path_file)
         fclose(used_file);
         return FILE_ACCESS_NOT_OK;
     }
-unsigned int temp_uint;
+//unsigned int temp_uint;
     fscanf(used_file,"%s\n",gl_char_FileName_sis3150_9300_TSLoaderFile);	      // g
-    fscanf(used_file,"%8x \n",&temp_uint);   //gl_uint_FirEnergyLength
-    fscanf(used_file,"%8x \n",&temp_uint);   //gl_uint_FirEnergyGap
-    fscanf(used_file,"%8x \n",&temp_uint);   //gl_uint_FirDecimationMode
+    fscanf(used_file,"%8x \n",&gl_uint_FirEnergyLength);   //gl_uint_FirEnergyLength
+    fscanf(used_file,"%8x \n",&gl_uint_FirEnergyGap);   //gl_uint_FirEnergyGap
+    fscanf(used_file,"%8x \n",&gl_uint_FirDecimationMode);   //gl_uint_FirDecimationMode
     fscanf(used_file,"%8x \n",&gl_uint_FirMwShapingLength);   //
     fscanf(used_file,"%8x \n",&gl_uint_RawSampleStart_Index);   //
     fscanf(used_file,"%8x \n",&gl_uint_RawSampleLength);   //

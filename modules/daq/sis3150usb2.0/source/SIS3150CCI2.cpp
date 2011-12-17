@@ -105,7 +105,7 @@ int SIS3150CCI2::connectToDAQ(){
         }
     }
     gl_uint_system_status = SYSTEM_STATUS_MODULES_NOT_READY  ;
-    setfiltervalues(300,50,0);
+    //setfiltervalues(300,50,0);
 
 
 

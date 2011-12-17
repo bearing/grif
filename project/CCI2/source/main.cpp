@@ -24,30 +24,4 @@ int main(int argc, char *argv[])
     app.exec();
 
 
-/*
-  int state = 0;
-  while(1){
-    if (state == 0){ 
-      getline(cin,input);
-      stringstream staten(input);
-      if (staten >> state){
-          cout << "next state: " << state << endl;
-      }
-    }
-    
-    if (state == 1){
-        cout << "starting run" << endl;
-
-    
-      state = 0;
-    }
-    
-    if (state != 0 and state != 1)
-    {
-     break; 
-    }
-  }
-    
-    */
-
 }

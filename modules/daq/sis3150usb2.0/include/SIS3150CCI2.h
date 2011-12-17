@@ -17,7 +17,7 @@
 #include "Rtypes.h"
 
 
-#include "GCG_daq_aux.h"
+
 
 #include "GRIDefines.h"
 #include "GRIDAQThread.h"
@@ -44,6 +44,8 @@
 
 class SIS3150CCI2 : public GRIDAQThread
 {
+
+#include "GCG_daq_aux.h"
 
 public:
 

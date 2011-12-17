@@ -40,10 +40,10 @@ int CCIdatasplitter::Analyze(){
 
 
 
-    PostData(detector1.size(),"D1",D1);
+    //PostData(detector1.size(),"D1",D1);
     //PostData(m,"D2",D2);
 
-    //delete [] D1;
+    delete [] D1;
     //delete [] D2;
 
     return 0;

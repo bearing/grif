@@ -6,6 +6,7 @@
 #include "GRIProcessThread.h"
 #include "GRIRegulator.h"
 #include "GRIUserLoader.h"
+#include "GRICLI.h"
 #include "CCI2Run.h"
 
 //#include "mainwindow.h"
@@ -20,8 +21,11 @@ CCI2Run::CCI2Run(int peaking, int gap, int decimation, void* usbptr){
     QString rootXMLPath = "/home/cameron/grif/project/CCI2/xml/";
     GRILoader *loader = new GRIUserLoader(rootXMLPath, reg, files);
     loader->initRegulatorDetails();
+    GRICLI *cli = new GRICLI(reg->get_processes());
+
     std::cout << "starting run" << endl;
     reg->Start();
+    cli->Launch();
 
  }
 
