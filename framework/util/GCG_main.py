@@ -52,7 +52,6 @@ if len(sys.argv) < 3:
   exit()
 
 aux_only = False
-print len(sys.argv)
 if len(sys.argv) > 3:
   aux_only = True
 parser = XMLParser.ClassParser(sys.argv[1], None)
