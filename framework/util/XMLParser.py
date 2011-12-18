@@ -188,15 +188,15 @@ class ClassParser(XMLParser):
   def ParseFile(self, path):
     param_list = '// GCG param list\n'
     get_param = '\n// GCG param getters\n' + 'template <class T> T getParam(QString name) {\n'
-    get_param_vec = '\n// GCG param getters (vector)\n' + 'template <class T> vector<T> getStdVecParam(QString name) {\n'
+    get_param_vec = '\n// GCG param getters (vector)\n' + 'template <class T> std::vector<T> getStdVecParam(QString name) {\n'
     get_param_qvec = '\n// GCG param getters (QVector)\n' + 'template <class T> QVector<T> getQVecParam(QString name) {\n'
     
     set_param = '\n// GCG param setters\n' + 'template <class T> void setParam(QString name, T value) {\n'
-    set_param_vec = '\n// GCG param setters (vector)\n' + 'template <class T> void setStdVecParam(QString name, vector<T> value) {\n'
+    set_param_vec = '\n// GCG param setters (vector)\n' + 'template <class T> void setStdVecParam(QString name, std::vector<T> value) {\n'
     set_param_qvec = '\n// GCG param setters (QVector)\n' + 'template <class T> void setQVecParam(QString name, QVector<T> value) {\n'
     
     action_list = '\n// GCG action list\n' + '// PLEASE IMPLEMENT IN A SOURCE FILE. If code gen runs again, the implementation may be overwritten!\n'
-    action_choice = '\n// GCG action chocie\nvoid runAction(QString name) {\n  if (false) { /*dummy holder for code generation*/ }\n'
+    action_choice = '\n// GCG action chocie\nvoid DynamicRunAction(const QString& name) {\n  if (false) { /*dummy holder for code generation*/ }\n'
     set_default_vals = '\n// GCG default value sets\n' + 'void setInitialGCGValues() {\n'
 
     print_actions = '\n//GCG print actions (for GRICLI)\nvoid printActions() {\n'
@@ -246,9 +246,9 @@ class ClassParser(XMLParser):
       aname = action.attrib['method']
       action_list += 'void {0}();\n'.format(aname)
       action_choice += '  else if (name == \"{1}\") {0} {1}(); {2}\n'.format('{', aname, '}')
-      print_actions += '  cout << \"{0}()\" << endl;\n'.format(aname)
+      print_actions += '  std::cout << \"{0}()\" << std::endl;\n'.format(aname)
 
-    action_choice += '  else { std::cout << \"could not parse action\" }\n}\n'
+    action_choice += '  else { std::cout << \"could not parse action\" << std::endl; }\n}\n'
     print_actions += '}\n'
 
     auxiliary = tree.find('Auxiliary')
