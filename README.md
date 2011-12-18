@@ -42,4 +42,4 @@ GRIF assumes the following libraries:
 * GRILogger back up to date (baugarten)
 * Install script (amidvidy)
 * Put licensing stuff into each file (arbenson)
-* Client/server (arbenson)
+* Client/server (everybody)
