@@ -184,6 +184,8 @@ class ClassParser(XMLParser):
   def SetSkelDir(self, path):
     self.skeldir = path
 
+  def SetAuxOnly(self, aux_only):
+    self.aux_only = aux_only
 
   def ParseFile(self, path):
     param_list = '\n// GCG param list\n private:\n'
@@ -302,6 +304,10 @@ class ClassParser(XMLParser):
 
     if not self.skeldir:
       print 'No skeleton directory set.  Not creating a generic class'
+      return
+
+    if self.aux_only:
+      print 'Not creating a skeleton file, aux file has been updated.'
       return
 
     skeleton = tree.find('Skeleton')

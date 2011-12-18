@@ -48,9 +48,14 @@ import XMLParser
 import sys
 
 if len(sys.argv) < 3:
-  print 'usage: python GCG_main.py /path/to/xml/files /path/to/grif/skeletons'
+  print 'usage: python GCG_main.py /path/to/xml/files /path/to/grif/skeletons [aux_only]'
   exit()
 
+aux_only = False
+print len(sys.argv)
+if len(sys.argv) > 3:
+  aux_only = True
 parser = XMLParser.ClassParser(sys.argv[1], None)
 parser.SetSkelDir(sys.argv[2])
+parser.SetAuxOnly(aux_only)
 parser.Parse()
