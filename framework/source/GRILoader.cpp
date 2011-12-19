@@ -1,4 +1,13 @@
 #include "GRILoader.h"
+#include <utility>
+#include <boost/graph/adjacency_list.hpp>
+#include <boost/graph/depth_first_search.hpp>
+#include <boost/graph/graph_traits.hpp>
+#include <boost/graph/visitors.hpp>
+
+namespace boost {
+  typedef adjacency_list<vecS, vecS, bidirectionalS, property<vertex_color_t, default_color_type> > Graph;
+}
 
 GRILoader::GRILoader(QString localGRIFPath, GRIRegulator *regulator,
                      QList<QString> fileNames) {
@@ -87,4 +96,29 @@ void GRILoader::initRegulatorDetails() {
     std::cout << "Successfully parsed XML file: " << name.toStdString().c_str()
               << std::endl;
   }
+  DetectCycles();
+}
+
+namespace boost {
+  struct cycle_detector : public dfs_visitor<> {
+    cycle_detector(bool& has_cycle)
+      : has_cycle_(has_cycle) { }
+
+    template <class Edge, class Graph>
+    void back_edge(Edge, Graph&) { has_cycle_ = true; }
+  protected:
+    bool& has_cycle_;
+  };
+}
+
+void GRILoader::DetectCycles() {
+    edges_.push_back(Edge(0, 1));
+    std::cout << "detect cycles" << std::endl;
+     std::cout << "g" << std::endl;
+  boost::Graph g(&edges_[0], &edges_[0] + sizeof(Edge), 2);
+  bool has_cycle = false;
+  boost::cycle_detector c(has_cycle);
+  std::cout << "dfs" << std::endl;
+  boost::depth_first_search(g, visitor(c));
+  std::cout << "has cycle: " << has_cycle << std::endl;
 }

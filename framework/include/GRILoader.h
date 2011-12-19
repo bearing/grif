@@ -13,6 +13,8 @@
 class GRIRegulator;
 class GRIProcessThread;
 
+typedef std::pair<int, int> Edge;
+
 class GRILoader {
  public:
   GRILoader(QString localGRIFPath, GRIRegulator *regulator,
@@ -28,9 +30,12 @@ class GRILoader {
   virtual GRIProcessThread* load(QString process_name, QString object_name) = 0;
 
  private:
+  void DetectCycles();
+
   QString local_grif_path_;
   GRIRegulator* regulator_;
   QList<QString> file_names_;
+  QList<Edge> edges_;
 };
 
 #endif // GRILOADER_H
