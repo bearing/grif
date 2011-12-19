@@ -48,5 +48,5 @@ GRIFPROJECTDIR=$$GRIFDIR/project/austin/FallTest
 # run code generation
 system(cd $$GRIFPROJECTDIR; ./setup.py)
 
-QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1
+QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
