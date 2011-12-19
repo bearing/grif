@@ -10,16 +10,7 @@ memory for data.  Use the PostData() and ReadData() API calls from GRIDAQThread 
 to move data around the system.
 
 GRIF uses XML for determining data dependences between DAQ and analysis units in the system.  XML can
-also be used to provide non-standard data types to the GRIF system.  For example, if you want to pass
-structs looking like:
-
-struct {
-  double energy;
-  double timestamp;
-}
-
-then you can provide the appropriate XML file for GRIF to handle these types of objects.  GRIF uses
-a suite of python scripts for code generation.
+also be used to provide non-standard data types to the GRIF system.
 
 For example applications, see the grif/trunk/examples directory.
 
