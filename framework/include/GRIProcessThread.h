@@ -168,7 +168,7 @@ public:
                   << std::endl;
     }
 
-    virtual void DynamicRunAction(QString name) {
+    virtual void DynamicRunAction(const QString& name) {
         std::cout << "Action: " << name.toStdString() << std::endl;
         std::cout << "This is a do-nothing implementation."
                   << "  Please override DynamicRunAction() in your own class."

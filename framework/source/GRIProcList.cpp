@@ -1,14 +1,14 @@
 #include "GRIProcList.h"
 
+
+const QString GRIProcList::SETS("sets");
+const QString GRIProcList::GETS("gets");
+const QString GRIProcList::RUN_ACTIONS("runactions");
+
 //Public
 GRIProcList::GRIProcList() {
 
 }
-/*
-GRIProcList::GRIProcList(QList<GRIProcessThread> *) {
-
-}
-*/
 
 int GRIProcList::insertType(QString procName, QString type, QString value) {
     process* proc = process_map_.value(procName);

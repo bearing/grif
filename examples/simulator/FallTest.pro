@@ -30,7 +30,7 @@ SOURCES += \
     ./src/SIMDAQThread.cpp
 
 # root headers
-ROOTDIR = /Users/benson/Desktop/root_x86_64
+ROOTDIR = /home/ben/Downloads/root
 INCLUDEPATH += $$ROOTDIR/include
 
 BOOSTDIR = /Users/benson/Desktop/grif/external
@@ -38,15 +38,23 @@ INCLUDEPATH += $$BOOSTDIR
 
 ROOTSYSLIB += $$ROOTDIR/lib
 INCLUDEPATH += $$ROOTSYSLIB
-LIBS += -L/$$ROOTSYSLIB -lCore -lHist
+LIBS += $$ROOTSYSLIB/libCint.so
+LIBS += $$ROOTSYSLIB/libMatrix.so
+LIBS += $$ROOTSYSLIB/libMathCore.so
+LIBS += -L/$$ROOTSYSLIB
+LIBS += -L$$ROOTSYS/lib -lCore -lHist
 
 # Master environment variable
 # ****YOU MUST SET THIS VARIABLE****
-GRIFDIR=/Users/benson/Desktop/grif
-GRIFPROJECTDIR=$$GRIFDIR/project/austin/FallTest
+GRIFDIR=/home/ben/Documents/grif
+GRIFPROJECTDIR=$$GRIFDIR/examples/simulator
 
 # run code generation
-system(cd $$GRIFPROJECTDIR; ./setup.py)
+macx|unix {
+    system(cd $$GRIFPROJECTDIR; ./setup.py)
+}
+win32 {
+    system(cd $$GRIFPROJECTDIR; python setup.py)
+}
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
-

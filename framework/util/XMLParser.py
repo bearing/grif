@@ -184,20 +184,35 @@ class ClassParser(XMLParser):
   def SetSkelDir(self, path):
     self.skeldir = path
 
+  def SetAuxOnly(self, aux_only):
+    self.aux_only = aux_only
 
   def ParseFile(self, path):
-    param_list = '// GCG param list\n'
-    get_param = '\n// GCG param getters\n' + 'template <class T> T getParam(QString name) {\n'
-    get_param_vec = '\n// GCG param getters (vector)\n' + 'template <class T> vector<T> getStdVecParam(QString name) {\n'
-    get_param_qvec = '\n// GCG param getters (QVector)\n' + 'template <class T> QVector<T> getQVecParam(QString name) {\n'
+    param_list = '\n// GCG param list\n private:\n'
+    get_param = '\n// Dynamic Gets\n'
+    get_bool = 'bool DynamicGetBool(const QString& name) {\n'
+    get_char = 'char DynamicGetChar(const QString& name) {\n'
+    get_int = 'int DynamicGetInt(const QString& name) {\n'
+    get_float = 'float DynamicGetFloat(const QString& name) {\n'
+    get_double = 'double DynamicGetDouble(const QString& name) {\n'
     
-    set_param = '\n// GCG param setters\n' + 'template <class T> void setParam(QString name, T value) {\n'
-    set_param_vec = '\n// GCG param setters (vector)\n' + 'template <class T> void setStdVecParam(QString name, vector<T> value) {\n'
-    set_param_qvec = '\n// GCG param setters (QVector)\n' + 'template <class T> void setQVecParam(QString name, QVector<T> value) {\n'
+    set_param = '\n// Dyanimc Sets\n'
+    set_bool = 'void DynamicSetBool(const QString& name, bool value) {\n'
+    set_char = 'void DynamicSetChar(const QString& name, char value) {\n'
+    set_int = 'void DynamicSetInt(const QString& name, int value) {\n'
+    set_float = 'void DynamicSetFloat(const QString& name, float value) {\n'
+    set_double = 'void DynamicSetDouble(const QString& name, double value) {\n'
     
-    action_list = '\n// GCG action list\n' + '// PLEASE IMPLEMENT IN A SOURCE FILE. If code gen runs again, the implementation may be overwritten!\n'
-    action_choice = '\n// GCG action chocie\nvoid runAction(QString name) {\n  if (false) { /*dummy holder for code generation*/ }\n'
-    set_default_vals = '\n// GCG default value sets\n' + 'void setInitialGCGValues() {\n'
+    action_list = '\n// Dynamic Run Actions\n' 
+    action_list += '// PLEASE IMPLEMENT IN A SOURCE FILE. '
+    action_list += 'If code gen runs again, the implementation '
+    action_list += 'may be overwritten!\n'
+    action_choice = '\n// GCG action chocie\n'
+    action_choice += 'void DynamicRunAction(const QString& name) '
+    action_choice += '{\n  if (false) '
+    action_choice += '{ /*dummy holder for code generation*/ }\n'
+    set_default_vals = '\n// GCG default value sets\n'
+    set_default_vals += 'void setInitialGCGValues() {\n'
 
     print_actions = '\n//GCG print actions (for GRICLI)\nvoid printActions() {\n'
 
@@ -211,31 +226,47 @@ class ClassParser(XMLParser):
     for param in params:
       pname = param.attrib['pname']
       dtype = param.attrib['type']
-      param_list += 'private {0} {1};\n'.format(dtype, pname)
+      param_list += '  {0} {1};\n'.format(dtype, pname)
 
-      get = '  if (name == \"{1}\") {0} return this->{1}; {2}\n'.format('{', pname, '}')
-      set = '  if (name == \"{1}\") {0} this->{1} = value; {2}\n'.format('{', pname, '}')
+      get = '  if (name == \"{1}\") {0} return {1}; {2}\n'.format('{', pname, '}')
+      set = '  if (name == \"{1}\") {0} {1} = value; {2}\n'.format('{', pname, '}')
 
-      if dtype.find('QVector') != -1 and dtype.find('<') != -1:
-        get_param_qvec += get
-        set_param_qvec += set
-      elif dtype.find('vector') != -1 and dtype.find('<') != -1:
-        get_param_vec += get
-        set_param_vec += set
+      if dtype == 'bool':
+        get_bool += get
+        set_bool += set
+      elif dtype == 'char':
+        get_char += get
+        set_char += set
+      elif dtype == 'int':
+        get_int += get
+        set_int += set
+      elif dtype == 'float':
+        get_float += get
+        set_float += set
+      elif dtype == 'double':
+        get_double += get
+        set_double += set
       else:
-        get_param += get;
-        set_param += set;
+        warning = 'WARNING: Could not parse data type {0}.'.format(dtype)
+        warning += ' Skipping variable {0}.'.format(pname)
+        print warning
+        print 'Acceptable data types are bool, char, int, float, and double\n'
 
       if 'default' in param.attrib:
         set_default_vals += '  {0} = {1};\n'.format(pname, param.attrib['default'])
 
+    ret = '  return 0;\n'
     end = '}\n'
-    get_param += end
-    get_param_vec += end
-    get_param_qvec += end
-    set_param += end
-    set_param_vec += end
-    set_param_qvec += end
+    get_bool += ret + end
+    get_char += ret + end
+    get_int += ret + end
+    get_float += ret + end
+    get_double += ret + end
+    set_bool += end
+    set_char += end
+    set_int += end
+    set_float += end
+    set_double += end
     set_default_vals += end
 
     rtas = tree.find('RunTimeActions')
@@ -246,29 +277,37 @@ class ClassParser(XMLParser):
       aname = action.attrib['method']
       action_list += 'void {0}();\n'.format(aname)
       action_choice += '  else if (name == \"{1}\") {0} {1}(); {2}\n'.format('{', aname, '}')
-      print_actions += '  cout << \"{0}()\" << endl;\n'.format(aname)
+      print_actions += '  std::cout << \"{0}()\" << std::endl;\n'.format(aname)
 
-    action_choice += '  else { std::cout << \"could not parse action\" }\n}\n'
+    action_choice += '  else { std::cout << \"could not parse action\" << std::endl; }\n}\n'
     print_actions += '}\n'
 
     auxiliary = tree.find('Auxiliary')
     if not auxiliary is None:
       fname = auxiliary.attrib['apath']
       auxfile = open(fname, 'w')
-      auxfile.write(param_list)
-      auxfile.write(get_param)
-      auxfile.write(get_param_qvec)
-      auxfile.write(get_param_vec)
-      auxfile.write(set_param)
-      auxfile.write(set_param_qvec)
-      auxfile.write(set_param_vec)
+      auxfile.write(get_bool)
+      auxfile.write(get_char)
+      auxfile.write(get_int)
+      auxfile.write(get_double)
+      auxfile.write(get_float)
+      auxfile.write(set_bool)
+      auxfile.write(set_char)
+      auxfile.write(set_int)
+      auxfile.write(set_double)
+      auxfile.write(set_float)
       auxfile.write(set_default_vals)
       auxfile.write(action_list)
       auxfile.write(action_choice)
       auxfile.write(print_actions)
+      auxfile.write(param_list)
 
     if not self.skeldir:
       print 'No skeleton directory set.  Not creating a generic class'
+      return
+
+    if self.aux_only:
+      print 'Not creating a skeleton file, aux file has been updated.'
       return
 
     skeleton = tree.find('Skeleton')
@@ -295,7 +334,7 @@ class ClassParser(XMLParser):
     print 'Using skeleton file {0} to create {1}\n'.format(skelfile, skeldst)
 
     grifdef = 'GRIF CODE GENERATION\n#define GRIF_CG'
-    auxname = tree.find('Header').attrib['hname']
+    auxname = tree.find('Auxiliary').attrib['hname']
     grifincl = 'GRIF CODE GENERATION\n #include \"{0}\"'.format(auxname)
 
     # String replacement

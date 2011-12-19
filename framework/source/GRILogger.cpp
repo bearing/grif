@@ -156,27 +156,6 @@ bool GRILogger::writeErrorLogFile(std::string output, int time) {
 
   return writeToLogFile(*new QString(output.c_str()), time, &mutex,
                         new QFile(grif_project_file_path_ + "/log/errorlogfile.txt"));
-
-  /*
-  //prevent multiple threads from writing at the same time
-  mutex.lock();
-
-  QFile f(grif_project_file_path_ + "/log/errorlogfile.txt");
-
-  if (!f.open( QIODevice::WriteOnly | QIODevice::Append )) {
-    std::cout << "Failed to locate errorlogfile.txt.\n";
-    return 0;
-  }
-
-  QTextStream ts( &f );
-  ts << output.c_str();
-
-  f.close();
-
-  //unlock
-  mutex.unlock();
-  return 1;
-  */
 }
 
 bool GRILogger::writeToLogFile(QString output, int time, QMutex *mutex, QFile *f) {
