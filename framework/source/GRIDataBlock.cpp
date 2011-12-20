@@ -13,6 +13,7 @@ GRIDataBlock::GRIDataBlock(GRIRegulator* reg,
   write_counter_ = 0;
   first_packet_ = 0;
   reg_ = reg;
+  is_enabled_ = true;
 
   for(it = (analysis_struct->To).begin(); it != (analysis_struct->To).end(); it++) {
     reader_t* new_counter = new reader_t;
@@ -47,6 +48,7 @@ GRIDataBlock::GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm,
   write_counter_ = 0;
   first_packet_ = 0;
   reg_ = reg;
+  is_enabled_ = true;
 
   for (it = (obj_->To).begin(); it != (obj_->To).end(); it++) {
     reader_t* new_counter = new reader_t;
