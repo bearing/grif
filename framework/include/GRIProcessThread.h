@@ -109,6 +109,16 @@ public:
     // Handle gets/sets/runactions from the CLI
     void EnqueueDynamicCommand(ProcessCommand *pc);
 
+    // EnableDataBlock() enables the data block corresponding to the given
+    // block name and buffer name.  When a data block is enable, data is able
+    // to pass through the block.  By default, each data block is enabled.
+    int EnableDataBlock(const QString& BlockName, const QString& BufferName);
+
+    // DisableDataBlock() disables the data block corresponding to the given
+    // block name and buffer name.  When a data block is disabled, data is not
+    // able to pass through the block.
+    int DisableDataBlock(const QString& BlockName, const QString& BufferName);
+
     virtual void DynamicSetBool(const QString& name, bool value) {
       DynamicSetMsg(name, value);
     }
