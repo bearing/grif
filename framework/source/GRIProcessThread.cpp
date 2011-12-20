@@ -85,7 +85,7 @@ void GRIProcessThread::set_load_balancing_vars(int num_packets_to_sat,
 
 void GRIProcessThread::AddDataBlock(QString data_block, bool is_output) {
     //make sure only one data block/thread
-    GRIDataBlock* data;
+    GRIDataBlock *data = NULL;
     if (is_output) {
       data_out_.insert(data_block, data);
       if (is_daq_) {
