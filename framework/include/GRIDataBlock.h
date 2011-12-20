@@ -48,9 +48,6 @@ class GRIDataBlock: public GRIObject {
   friend class GRIMemoryManager;
 
  public:
-  GRIDataBlock(GRIRegulator* reg, 
-	       struct AnalysisStructureObject* analysis_struct);
-
   GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm, QString readerName,
 	       QString readerBuffer, QString objectDataName, 
 	       QString objectFromName);
