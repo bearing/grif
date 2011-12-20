@@ -15,7 +15,6 @@ GRIRegulator::GRIRegulator(GRIMemoryManager *mm) {
 GRIRegulator::~GRIRegulator() {}
 
 void GRIRegulator::initConfig() {
-
   QLinkedList<GRIProcessThread*>::iterator process_it;
   QLinkedList<GRIDataBlock*>::iterator data_it;
 
