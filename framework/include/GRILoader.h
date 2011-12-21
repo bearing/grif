@@ -18,8 +18,7 @@ typedef std::pair<int, int> Edge;
 
 class GRILoader {
  public:
-  GRILoader(QString localGRIFPath, GRIRegulator *regulator,
-	    QList<QString> fileNames);
+  GRILoader(GRIRegulator *regulator, QList<QString> fileNames);
 
   virtual ~GRILoader() {}
 

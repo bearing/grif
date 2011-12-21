@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include <QtGui/QApplication>
 #include <QtCore/QCoreApplication>
 #include <QtGui/QtGui>
@@ -21,14 +23,11 @@ int main(int argc, char* argv[]) {
   GRIRegulator *reg = new GRIRegulator(mm);
 
   // create the list of files to use, this will be user-dependent
-  // (will be code-genned later)
   QList<QString> files;
-  files.push_back("APP.XML");
-  // the following is necessary to set
-  QString rootXMLPath = "/Users/benson/Desktop/grif/examples/simulator/XML/app/";
+  files.push_back("/Users/benson/Desktop/grif/examples/simulator/XML/app/APP.XML");
 
   // the following will be included for all programs
-  GRILoader *loader = new GRIUserLoader(rootXMLPath, reg, files);
+  GRILoader *loader = new GRIUserLoader(reg, files);
   loader->initRegulatorDetails();
   reg->Start();
   sleep(5);

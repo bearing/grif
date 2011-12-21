@@ -10,10 +10,8 @@ typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::bidirectionalS,
                               boost::property<boost::vertex_color_t,
                               boost::default_color_type> > Graph;
 
-GRILoader::GRILoader(QString localGRIFPath, GRIRegulator *regulator,
-                     QList<QString> fileNames) {
+GRILoader::GRILoader(GRIRegulator *regulator, QList<QString> fileNames) {
   file_names_ = fileNames;
-  local_grif_path_ = localGRIFPath;
   regulator_ = regulator;
 }
 
@@ -40,7 +38,7 @@ void GRILoader::initRegulatorDetails() {
     // get name of xml file
     QString name = *it;
     GRIParser parser;
-    bool success = parser.Parse(local_grif_path_ + name);
+    bool success = parser.Parse(name);
     if(!success) {
       std::cout << "WARNING: Could not successfully parse XML file: "
                 << name.toStdString().c_str() << std::endl;
