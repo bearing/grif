@@ -2,7 +2,7 @@ QT       += core network xml
 QT       -= gui
 
 # Change this variable to whatever your project name is
-TARGET = FallTesting
+TARGET = FallTest
 
 TEMPLATE = app
 
@@ -29,8 +29,13 @@ SOURCES += \
     ./src/SIMAnalysisThread.cpp \
     ./src/SIMDAQThread.cpp
 
+# GRIFDIR is the head directory of GRIF on your machine
+# ***You must set GRIFDIR as an environment variable***
+GRIFDIR=$$(PWD)/../..
+
+ROOTDIR=/Users/benson/Desktop/root_x86_64
+
 # root headers
-ROOTDIR = /home/ben/Downloads/root
 INCLUDEPATH += $$ROOTDIR/include
 
 ROOTSYSLIB += $$ROOTDIR/lib
@@ -41,10 +46,8 @@ LIBS += $$ROOTSYSLIB/libMathCore.so
 LIBS += -L/$$ROOTSYSLIB
 LIBS += -L$$ROOTSYS/lib -lCore -lHist
 
-# Master environment variable
-# ****YOU MUST SET THIS VARIABLE****
-GRIFDIR=/home/ben/Documents/grif
-GRIFPROJECTDIR=$$GRIFDIR/examples/simulator
+EXTDIR = $$GRIFDIR/external
+INCLUDEPATH += EXTDIR
 
 # run code generation
 macx|unix {
@@ -54,4 +57,4 @@ win32 {
     system(cd $$GRIFPROJECTDIR; python setup.py)
 }
 
-QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1
+QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
