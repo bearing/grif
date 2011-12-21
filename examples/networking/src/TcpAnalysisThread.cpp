@@ -1,15 +1,12 @@
 #include "TcpAnalysisThread.h"
+#include <QHostAddress>
 
 const int DEFAULT_PORT = 8080;
 
 TcpAnalysisThread::TcpAnalysisThread() {
-  connectToHost(host, DEFAULT_PORT);
+  connectToHost(QHostAddress::LocalHost, DEFAULT_PORT);
   waitForConnected(-1);
   std::cout << "TcpAnalysisThread connected" << std::endl;
-}
-
-TcpAnalysisThread::TcpAnalysisThread(const QString& host, quint16 port) {
-  connectToHost(host, port);
 }
 
 int TcpAnalysisThread::Analyze() {
@@ -23,4 +20,5 @@ int TcpAnalysisThread::Analyze() {
   }
   char data[bytes_to_read];
   readData(data, bytes_to_read);
+  return 0;
 }

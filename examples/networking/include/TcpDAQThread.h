@@ -3,10 +3,11 @@
 
 #include "GRIDAQThread.h"
 #include "GRIServer.h"
+#include <QTcpSocket>
 
-class TcpDAQThread : public GRIDAQThread {
+class TcpDAQThread : public QTcpSocket, public GRIDAQThread {
  public:
-  TcpDAQThread(quint16 port) : port_(port) {}
+  TcpDAQThread() : port_(8080) {}
   ~TcpDAQThread() {}
 
   int acquireData(int n);

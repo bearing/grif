@@ -1,6 +1,6 @@
 #include "TcpDAQThread.h"
 
-int acquireData(int n) {
+int TcpDAQThread::acquireData(int n) {
   sleep(1);
   int size = 10;
   int data[size];
@@ -8,6 +8,7 @@ int acquireData(int n) {
     data[i] = i;
   }
   writeData((const char *)data, sizeof(data));
+  return 0;
 }
 
 int TcpDAQThread::connectToDAQ() {
@@ -20,8 +21,9 @@ int TcpDAQThread::connectToDAQ() {
   return 0;
 }
 
-int stopDataAcquisition() {
+int TcpDAQThread::stopDataAcquisition() {
   flush();
   close();
+  return 0;
 }
 

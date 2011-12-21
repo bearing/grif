@@ -2,12 +2,12 @@
 #define TCP_ANALYSIS_THREAD_H
 
 #include "GRIAnalysisThread.h"
+#include <QTcpSocket>
 
-class TcpAnalysisThread : public GRIAnalysisThread {
+class TcpAnalysisThread : public QTcpSocket, public GRIAnalysisThread {
  public:
   TcpAnalysisThread();
-  TcpAnalysisThread(const QString& host, quint16 port);
-  ~TcpAnalysisThread();
+  ~TcpAnalysisThread() {}
 
   int Analyze();
 };
