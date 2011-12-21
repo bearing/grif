@@ -1,5 +1,13 @@
 #include "TcpAnalysisThread.h"
 
+const int DEFAULT_PORT = 8080;
+
+TcpAnalysisThread::TcpAnalysisThread() {
+  connectToHost(host, DEFAULT_PORT);
+  waitForConnected(-1);
+  std::cout << "TcpAnalysisThread connected" << std::endl;
+}
+
 TcpAnalysisThread::TcpAnalysisThread(const QString& host, quint16 port) {
   connectToHost(host, port);
 }

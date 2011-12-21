@@ -15,6 +15,8 @@ int TcpDAQThread::connectToDAQ() {
   server_.Init();
   QHostAddress addr = server_.serverAddress();
   connectToHost(addr, port_);
+  waitForConnected(-1);
+  std::cout << "TcpDAQThread connected" << std::endl;
   return 0;
 }
 
