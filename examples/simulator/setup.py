@@ -16,11 +16,11 @@ data_xml = os.path.abspath("./XML/data")
 classes_xml = os.path.abspath("./XML/classes")
 
 data_aux = os.path.join(grif_root,
-                        "include/GCG/GRIDataDefines_aux.h")
+                        "framework/include/GCG/GRIDataDefines_aux.h")
 loader_aux = os.path.join(grif_root,
-                          "include/GCG/GRIUserLoader_aux.h")
+                          "framework/include/GCG/GRIUserLoader_aux.h")
 procs_aux = os.path.join(grif_root,
-                         "include/GCG/GRIUserProcesses_aux.h")
+                         "framework/include/GCG/GRIUserProcesses_aux.h")
 
 print "-"*20
 print "Data XML file directory: {0}".format(data_xml)
