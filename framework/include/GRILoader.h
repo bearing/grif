@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QFile>
+#include <QHash>
 #include <QString>
 #include "GRIDefines.h"
 #include "GRIParser.h"
@@ -31,11 +32,13 @@ class GRILoader {
 
  private:
   void DetectCycles();
+  void UpdateGraph(const QString& reader, const QString& writer);
 
   QString local_grif_path_;
   GRIRegulator* regulator_;
   QList<QString> file_names_;
   QList<Edge> edges_;
+  QHash<QString, int> node_index_;
 };
 
 #endif // GRILOADER_H
