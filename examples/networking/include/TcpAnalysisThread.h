@@ -5,6 +5,7 @@
 
 class TcpAnalysisThread : public GRIAnalysisThread {
  public:
+  TcpAnalysisThread();
   TcpAnalysisThread(const QString& host, quint16 port);
   ~TcpAnalysisThread();
 
