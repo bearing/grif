@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<class>
+  <Name name = "TcpDAQ" />
+  <Header hname = "TcpDAQThread.h" />
+  <Info cname = "TcpDAQThread" isdaq = "true" />
+</class>
