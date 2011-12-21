@@ -15,7 +15,6 @@ GRIRegulator::GRIRegulator(GRIMemoryManager *mm) {
 GRIRegulator::~GRIRegulator() {}
 
 void GRIRegulator::initConfig() {
-
   QLinkedList<GRIProcessThread*>::iterator process_it;
   QLinkedList<GRIDataBlock*>::iterator data_it;
 
@@ -48,10 +47,18 @@ void GRIRegulator::start_threads() {
 QPair<int, char*> GRIRegulator::readMemory(QString blockName, QString bufferName) {
   GRIDataBlock* data = find_data(blockName,bufferName);
   if (data == NULL) {
-    std::cerr << "GRIRegulator::readMemory(): Can't find buffer"
+    std::cerr << "GRIRegulator::readMemory(): Can't find buffer "
               << blockName.toStdString().c_str() << ":"
               << bufferName.toStdString().c_str() << std::endl;
-
+    
+    QPair<int, char*> returnVal(0, NULL);
+    return returnVal;
+  }
+  
+  if (!data->get_is_enabled()) {
+    std::cerr << "GRIRegulator::readMemory(): The buffer is disabled: "
+              << blockName.toStdString().c_str() << ":"
+              << bufferName.toStdString().c_str() << std::endl;
     QPair<int, char*> returnVal(0, NULL);
     return returnVal;
   }
@@ -108,7 +115,14 @@ bool GRIRegulator::writeMemory(QString blockName, QString bufferName, int size, 
   bool ret_flag;
 
   if (data == NULL) {
-    return NULL;
+    return false;
+  }
+
+  if (!data->get_is_enabled()) {
+    std::cerr << "GRIRegulator::writeMemory(): The buffer is disabled: "
+              << blockName.toStdString().c_str() << ":"
+              << bufferName.toStdString().c_str() << std::endl;
+    return false;
   }
 
   if (data->update_writer()) {
@@ -159,7 +173,6 @@ GRIProcessThread* GRIRegulator::find_process(QString process_name) {
 
 GRIDataBlock* GRIRegulator::find_data(QString data_block_name, QString buffer_name) {
   QLinkedList<GRIDataBlock*>::iterator it;
-  //return 0;
   for(it = data_blocks_->begin(); it != data_blocks_->end(); ++it) {
     GRIDataBlock* data_block = *it;
 

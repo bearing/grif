@@ -2,7 +2,7 @@ QT       += core network xml
 QT       -= gui
 
 # Change this variable to whatever your project name is
-TARGET = FallTest
+TARGET = networking
 
 TEMPLATE = app
 
@@ -22,12 +22,12 @@ include(../../framework/include/finclude.pri)
 
 # Your application files
 HEADERS += \
-    ./include/SIMAnalysisThread.h \
-    ./include/SIMDAQThread.h
+    ./include/TcpAnalysisThread.h \
+    ./include/TcpDAQThread.h
 SOURCES += \
     ./src/main.cpp \
-    ./src/SIMAnalysisThread.cpp \
-    ./src/SIMDAQThread.cpp
+    ./src/TcpAnalysisThread.cpp \
+    ./src/TcpDAQThread.cpp
 
 # GRIFDIR is the head directory of GRIF on your machine
 # ***You must set GRIFDIR as an environment variable***
@@ -37,9 +37,6 @@ ROOTDIR=/Users/benson/Desktop/root_x86_64
 
 # root headers
 INCLUDEPATH += $$ROOTDIR/include
-
-BOOSTDIR = /Users/benson/Desktop/grif/external
-INCLUDEPATH += $$BOOSTDIR
 
 ROOTSYSLIB += $$ROOTDIR/lib
 INCLUDEPATH += $$ROOTSYSLIB

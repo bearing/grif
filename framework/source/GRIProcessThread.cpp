@@ -13,6 +13,7 @@ GRIProcessThread::GRIProcessThread() {
 
     thread_id_ = GRIProcessThread::counter++;
 }
+
 // TODO(amidvidy): Possibly remove references to obj. Not sure what this is actually for
 void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator) {
     setParent(obj);
@@ -84,7 +85,7 @@ void GRIProcessThread::set_load_balancing_vars(int num_packets_to_sat,
 
 void GRIProcessThread::AddDataBlock(QString data_block, bool is_output) {
     //make sure only one data block/thread
-    GRIDataBlock* data;
+    GRIDataBlock *data = NULL;
     if (is_output) {
       data_out_.insert(data_block, data);
       if (is_daq_) {
@@ -207,6 +208,26 @@ void GRIProcessThread::display_current_state() {
 }
 #endif // PROCESS_THREAD_DEBUG
 
+int GRIProcessThread::EnableDataBlock(const QString& BlockName,
+                                      const QString& BufferName) {
+  GRIDataBlock *data = get_reg()->find_data(BlockName, BufferName);
+  if (!data) {
+    return -1;
+  }
+  data->set_is_enabled(true);
+  return 0;
+}
+
+int GRIProcessThread::DisableDataBlock(const QString& BlockName,
+                                       const QString& BufferName) {
+  GRIDataBlock *data = get_reg()->find_data(BlockName, BufferName);
+  if (!data) {
+    return -1;
+  }
+  data->set_is_enabled(false);
+  return 0;
+}
+
 void GRIProcessThread::EnqueueDynamicCommand(ProcessCommand *pc) {
   QMutexLocker locker(&cmd_buffer_lock_);
   if (pc) cmd_buffer_.enqueue(pc);
@@ -267,3 +288,5 @@ void GRIProcessThread::FlushBuffer() {
     HandleDynamicCommand(cmd_buffer_.dequeue());
   }
 }
+
+

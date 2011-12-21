@@ -57,10 +57,13 @@ GRIDAQBaseAccumNode* SIMDAQThread::RegisterDataOutput(QString outName) {
 }
 
 int SIMDAQThread::acquireData(int n) {
-  msleep(50); //Sleep for 50ms
+  Q_UNUSED(n);
+  msleep(50);
   QDateTime currentTime = QDateTime::currentDateTime();
-  qint64 deltaT = prev_time_.time().msecsTo(currentTime.time())*1E5;  // in 10ns ticks
-  qint64 t1 = start_time_.time().msecsTo(currentTime.time())*1E5;  // in 10ns ticks
+  // 10ns ticks
+  qint64 deltaT = prev_time_.time().msecsTo(currentTime.time())*1E5;
+  // 10ns ticks
+  qint64 t1 = start_time_.time().msecsTo(currentTime.time())*1E5;
   prev_time_ = currentTime;
   // First get the number of counts received
   int ncnt = 0;
