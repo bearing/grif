@@ -1,4 +1,5 @@
 #include "GRILoader.h"
+#include "GRIParser.h"
 #include <utility>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/depth_first_search.hpp>
@@ -8,15 +9,13 @@
 
 typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::bidirectionalS,
                               boost::property<boost::vertex_color_t,
-                              boost::default_color_type> > Graph;
+					      boost::default_color_type> > Graph;
 
-GRILoader::GRILoader(GRIRegulator *regulator, QList<QString> fileNames) {
-  file_names_ = fileNames;
+GRILoader::GRILoader(GRIRegulator *regulator) {
   regulator_ = regulator;
 }
 
 void GRILoader::initRegulatorDetails() {
-  //
   // A parsed XML file gives us:
   // 1. list of classes and names that will be used
   // 2. list of the processes
@@ -32,67 +31,67 @@ void GRILoader::initRegulatorDetails() {
   //                   7. push the data block onto the list of data blocks
   //
 
-  QList<QString>::iterator it;
+  // default XML location (gets replaced by code generation below)
+  QString app_file = "APP.XML";
 
-  for(it = file_names_.begin(); it != file_names_.end(); ++it) {
-    // get name of xml file
-    QString name = *it;
-    GRIParser parser;
-    bool success = parser.Parse(name);
-    if(!success) {
-      std::cout << "WARNING: Could not successfully parse XML file: "
-                << name.toStdString().c_str() << std::endl;
-      std::cout << "Skipping that XML file..." << std::endl;
+#ifdef GRIF_CODE_GENERATION
+#include "../include/GCG/GRILoader_aux.h"
+#endif
+
+  GRIParser parser;
+  bool success = parser.Parse(app_file);
+  if(!success) {
+    std::cout << "ERROR: Could not successfully parse XML file: "
+              << app_file.toStdString().c_str() << std::endl;
+    exit(-1);
+  }
+
+  QList<struct objectParsingDetails> objectsAndLinks = parser.get_objs_and_links();
+
+  QList<struct objectParsingDetails>::iterator obj_details_it;
+
+  for(obj_details_it = objectsAndLinks.begin(); obj_details_it != objectsAndLinks.end();
+      obj_details_it++) {
+
+    struct objectParsingDetails obj_details = *obj_details_it;
+    QString className = obj_details.className;
+    QString objectName = obj_details.objectName;
+
+    GRIProcessThread *proc = load(className, objectName);
+
+    if (proc == 0) {
+      std::cout << "WARNING: could not load class "
+		<< className.toStdString().c_str()
+		<< " with object name " << objectName.toStdString().c_str()
+		<< ". Please check GRIUserLoader::load(). Continuing without the file..."
+		<< std::endl;
+      // skip this process
       continue;
     }
 
-    QList<struct objectParsingDetails> objectsAndLinks = parser.get_objs_and_links();
+    proc->SetDefaultDetail(regulator_, objectName);
 
-    QList<struct objectParsingDetails>::iterator obj_details_it;
+    QList<struct linkParsingDetails *>::iterator link_details_it;
+    QList<struct linkParsingDetails*> *obj_links = obj_details.links;
 
-    for(obj_details_it = objectsAndLinks.begin(); obj_details_it != objectsAndLinks.end();
-	obj_details_it++) {
-
-      struct objectParsingDetails obj_details = *obj_details_it;
-      QString className = obj_details.className;
-      QString objectName = obj_details.objectName;
-
-      GRIProcessThread *proc = load(className, objectName);
-
-      if (proc == 0) {
-        std::cout << "WARNING: could not load class "
-                  << className.toStdString().c_str()
-                  << " with object name " << objectName.toStdString().c_str()
-                  << ". Please check GRIUserLoader::load(). Continuing without the file..."
-                  << std::endl;
-        // skip this process
-        continue;
-      }
-
-      proc->SetDefaultDetail(regulator_, objectName);
-
-      QList<struct linkParsingDetails *>::iterator link_details_it;
-      QList<struct linkParsingDetails*> *obj_links = obj_details.links;
-
-      for(link_details_it = obj_links->begin(); link_details_it != obj_links->end();
-          ++link_details_it) {
-        struct linkParsingDetails *curr_link = *(link_details_it);
-        // add data block to the process
-        proc->AddDataBlock(curr_link->dataBlock, curr_link->writer==proc->get_name());
-	QString writer = curr_link->writer;
-	QString reader = curr_link->reader;
-	QString db_name = curr_link->dataBlock;
-	// construct a new data block
-        GRIDataBlock *data = new GRIDataBlock(regulator_, regulator_->get_mem_mngr(),
-                                              reader, db_name, db_name, writer);
-        regulator_->AddDataBlock(data);
-        UpdateGraph(reader, writer);
-      }
-      regulator_->AddProcess(proc);
+    for(link_details_it = obj_links->begin(); link_details_it != obj_links->end();
+	++link_details_it) {
+      struct linkParsingDetails *curr_link = *(link_details_it);
+      // add data block to the process
+      proc->AddDataBlock(curr_link->dataBlock, curr_link->writer==proc->get_name());
+      QString writer = curr_link->writer;
+      QString reader = curr_link->reader;
+      QString db_name = curr_link->dataBlock;
+      // construct a new data block
+      GRIDataBlock *data = new GRIDataBlock(regulator_, regulator_->get_mem_mngr(),
+					    reader, db_name, db_name, writer);
+      regulator_->AddDataBlock(data);
+      UpdateGraph(reader, writer);
     }
-    std::cout << "Successfully parsed XML file: " << name.toStdString().c_str()
-              << std::endl;
+    regulator_->AddProcess(proc);
   }
+  std::cout << "Successfully parsed XML file: " << app_file.toStdString().c_str()
+	    << std::endl;
   DetectCycles();
 }
 

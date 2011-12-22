@@ -8,8 +8,8 @@
 
 class GRIUserLoader : public GRILoader {
  public:
- GRIUserLoader(GRIRegulator *regulator, QList<QString> files):
-  GRILoader(regulator, files) {}
+ explicit GRIUserLoader(GRIRegulator *regulator):
+  GRILoader(regulator) {}
 
   virtual ~GRIUserLoader() {}
   GRIProcessThread *load(QString process_name, QString object_name);

@@ -18,7 +18,7 @@ typedef std::pair<int, int> Edge;
 
 class GRILoader {
  public:
-  GRILoader(GRIRegulator *regulator, QList<QString> fileNames);
+  explicit GRILoader(GRIRegulator *regulator);
 
   virtual ~GRILoader() {}
 
@@ -35,7 +35,6 @@ class GRILoader {
 
   QString local_grif_path_;
   GRIRegulator* regulator_;
-  QList<QString> file_names_;
   QList<Edge> edges_;
   QHash<QString, int> node_index_;
 };
