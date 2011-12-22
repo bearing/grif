@@ -22,12 +22,8 @@ int main(int argc, char* argv[]) {
   GRIMemoryManager *mm = new GRIMemoryManager();
   GRIRegulator *reg = new GRIRegulator(mm);
 
-  // create the list of files to use, this will be user-dependent
-  QList<QString> files;
-  files.push_back("/Users/benson/Desktop/grif/examples/simulator/XML/app/APP.XML");
-
   // the following will be included for all programs
-  GRILoader *loader = new GRIUserLoader(reg, files);
+  GRILoader *loader = new GRIUserLoader(reg);
   loader->initRegulatorDetails();
   reg->Start();
   sleep(5);
