@@ -29,30 +29,13 @@ SOURCES += \
     ./src/SIMAnalysisThread.cpp \
     ./src/SIMDAQThread.cpp
 
-# GRIFDIR is the head directory of GRIF on your machine
-# ***You must set GRIFDIR as an environment variable***
-GRIFDIR=$$(PWD)/../..
+QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
-ROOTDIR=/Users/benson/Desktop/root_x86_64
-
-# root headers
-INCLUDEPATH += $$ROOTDIR/include
-
-BOOSTDIR = /Users/benson/Desktop/grif/external
-INCLUDEPATH += $$BOOSTDIR
-
-ROOTSYSLIB += $$ROOTDIR/lib
-INCLUDEPATH += $$ROOTSYSLIB
-LIBS += $$ROOTSYSLIB/libCint.so
-LIBS += $$ROOTSYSLIB/libMatrix.so
-LIBS += $$ROOTSYSLIB/libMathCore.so
-LIBS += -L/$$ROOTSYSLIB
-LIBS += -L$$ROOTSYS/lib -lCore -lHist
-
-EXTDIR = $$GRIFDIR/external
-INCLUDEPATH += EXTDIR
+# Top directory of GRIF on your machine
+GRIFDIR=$$(GRIF)
 
 # run code generation
+GRIFPROJECTDIR = $$GRIFDIR/examples/simulator
 macx|unix {
     system(cd $$GRIFPROJECTDIR; ./setup.py)
 }
@@ -60,4 +43,18 @@ win32 {
     system(cd $$GRIFPROJECTDIR; python setup.py)
 }
 
-QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
+# External libraries
+INCLUDEPATH += $$GRIFDIR/external
+
+# ROOT headers
+ROOTDIR=$$(ROOT)
+INCLUDEPATH += $$ROOTDIR/include
+
+# ROOT libraries
+ROOTSYSLIB += $$ROOTDIR/lib
+INCLUDEPATH += $$ROOTSYSLIB
+LIBS += $$ROOTSYSLIB/libCint.so
+LIBS += $$ROOTSYSLIB/libMatrix.so
+LIBS += $$ROOTSYSLIB/libMathCore.so
+LIBS += -L$$ROOTSYSLIB
+LIBS += -L$$ROOTSYS/lib -lCore -lHist
