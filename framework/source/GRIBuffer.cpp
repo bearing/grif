@@ -155,12 +155,7 @@ bool GRIBuffer::IsNullPacket(int packetNum) {
   if(null_packets_.isEmpty()) {
     return false;
   }
-
-  if(null_packets_.indexOf(packetNum) == -1) {
-    return false;
-  } else {
-    return true;
-  }
+  return !(null_packets_.indexOf(packetNum) == -1);
 }
 
 void GRIBuffer::AddNullPacket(int packetNum) {
