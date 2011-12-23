@@ -1,52 +1,46 @@
 #include "GRIBuffer.h"
 
-GRIBuffer::GRIBuffer(QReadWriteLock *l) {
-  busyWrite = false;
-  size = 0;
-  packetList = new QList< QVector<char>* >();
-  markerList = new QList<int>();
-  threadList = new QList<int>();
-  waitQueue = new QWaitCondition();
-  lock = l;
+GRIBuffer::GRIBuffer(QReadWriteLock *lock) {
+  busy_write_ = false;
+  size_ = 0;
+  lock_ = lock;
 }
 
 GRIBuffer::~GRIBuffer() {
-  this->clear();
-  delete packetList;
-  markerList->clear();
-  threadList->clear();
-  delete waitQueue;
-  delete markerList;
-  delete threadList;
+  clear();
+  marker_list_.clear();
+  thread_list_.clear();
 }
 
-//may not need this method
 void GRIBuffer::addPacket() {
   QVector<char> *packet = new QVector<char>();
-  packetList->append(packet);
-  size++;
+  packet_list_.append(packet);
+  ++size_;
 }
 
-//writes to specified packet in buffer
 bool GRIBuffer::writeToBuffer(char b, int packetNumber, int index) {
-  if (packetNumber < 0 || packetNumber > size) return false;
-  if (packetNumber == size) {
+  if (packetNumber < 0 || packetNumber > size_) {
+    return false;
+  }
+  if (packetNumber == size_) {
     QVector<char> *packet = new QVector<char>();
-    if (index < 0 || index > packet->size()) return false;
+    if (index < 0 || index > packet->size()) {
+      return false;
+    }
     if (index == packet->size()) {
-      //packet->insert(index, b);
       packet->append(b);
     } else {
       packet->replace(index, b);
     }
-    packetList->append(packet);
-    size++;
+    packet_list_.append(packet);
+    size_++;
     return true;
   } else {
-    QVector<char> *packet = packetList->at(packetNumber);
-    if (index < 0 || index > packet->size()) return false;
+    QVector<char> *packet = packet_list_.at(packetNumber);
+    if (index < 0 || index > packet->size()) {
+      return false;
+    }
     if (index == packet->size()) {
-      //packet->insert(index, b);
       packet->append(b);
     } else {
       packet->replace(index, b);
@@ -55,122 +49,114 @@ bool GRIBuffer::writeToBuffer(char b, int packetNumber, int index) {
   }
 }
 
-//returns a single char from the specified position
 char GRIBuffer::readBuffer(int packetNumber, int index) {
-  QVector<char> *packet = packetList->at(packetNumber);
+  QVector<char> *packet = packet_list_.at(packetNumber);
 
   //the following code is for testing purposes only
   int id = ((GRIProcessThread*) QThread::currentThread())->get_thread_id();
 
-  int i = threadList->indexOf(id);
+  int i = thread_list_.indexOf(id);
   if (i != -1) {
-    markerList->replace(i, packetNumber);
+    marker_list_.replace(i, packetNumber);
   } else {
-    threadList->append(id);
-    markerList->append(packetNumber);
+    thread_list_.append(id);
+    marker_list_.append(packetNumber);
   }
 
-  if(index > packet->size()-1)
+  if(index > packet->size()-1) {
     std::cerr << "! Sensed Index Out of Range" << std::endl;
+  }
   return packet->at(index);
 }
 
-//removes one packet from the buffer, and frees the memory associated with that packet
 void GRIBuffer::clearPacket(int packetNumber) {
-  if(this->IsNullPacket(packetNumber))
-    this->RemoveNullPacket(packetNumber);
-
-  QVector<char> *packet = packetList->at(packetNumber);
+  if(IsNullPacket(packetNumber)) {
+    RemoveNullPacket(packetNumber);
+  }
+  QVector<char> *packet = packet_list_.at(packetNumber);
   packet->clear();
 }
 
-//returns the packet number being read
 int GRIBuffer::currentPacket() {
   int id = ((GRIProcessThread*) QThread::currentThread())->get_thread_id();
-  int i = this->threadList->indexOf(id);
+  int i = thread_list_.indexOf(id);
   if (i != -1) {
-    return markerList->at(i);
+    return marker_list_.at(i);
   } else {
     return 0;
   }
 }
 
-//returns the total number of packets
 int GRIBuffer::bufferSize() {
-  if (busyWrite) {
-    return (size-1);  // Return only completed packets}
+  if (busy_write_) {
+    // Return only completed packets
+    return (size_-1);
   } else {
-    return size;
+    return size_;
   }
 }
 
-//returns the size of a packet
 int GRIBuffer::packetSize(int packetNumber) {
-  if(this->IsNullPacket(packetNumber))
+  if(IsNullPacket(packetNumber)) {
     return 0;
-
-  //std::cout << "QVec: pack " << packetNumber << endl;
-  QVector<char> *packet = packetList->at(packetNumber);
+  }
+  QVector<char> *packet = packet_list_.at(packetNumber);
   return packet->size();
 }
 
-//returns the number of the next packet to be added
 int GRIBuffer::nextPacket() {
-  return size;
+  return size_;
 }
 
 void GRIBuffer::clear() {
-  int i;
-  for (i = 0; i< size; i++) {
-    QVector<char> *packet = packetList->at(i);
+  for (int i = 0; i< size_; ++i) {
+    QVector<char> *packet = packet_list_.at(i);
     packet->clear();
   }
-  packetList->clear();
+  packet_list_.clear();
 }
 
 void GRIBuffer::setPacketMarker(int newMarker) {
   int id = ((GRIProcessThread*) QThread::currentThread())->get_thread_id();
-  int i = threadList->indexOf(id);
+  int i = thread_list_.indexOf(id);
   if (i != -1) {
-    markerList->replace(i, newMarker);
+    marker_list_.replace(i, newMarker);
   } else {
-    threadList->append(id);
-    markerList->append(newMarker);
+    thread_list_.append(id);
+    marker_list_.append(newMarker);
   }
-
 }
 
 void GRIBuffer::incrementPacketMarker() {
   int id = ((GRIProcessThread*) QThread::currentThread())->get_thread_id();
-  int i = threadList->indexOf(id);
+  int i = thread_list_.indexOf(id);
   if (i != -1) {
-    int newMarker = markerList->at(i);
-    markerList->replace(i, ++newMarker);
+    int newMarker = marker_list_.at(i);
+    marker_list_.replace(i, ++newMarker);
   } else {
-    threadList->append(id);
-    markerList->append(1);
+    thread_list_.append(id);
+    marker_list_.append(1);
   }
-
 }
 
 void GRIBuffer::waitOnQueue() {
-  waitQueue->wait(lock);
+  wait_queue_.wait(lock_);
 }
 
 void GRIBuffer::wakeAllOnQueue() {
-  waitQueue->wakeAll();
+  wait_queue_.wakeAll();
 }
 
 void GRIBuffer::wakeOneOnQueue() {
-  waitQueue->wakeOne();
+  wait_queue_.wakeOne();
 }
 
 bool GRIBuffer::IsNullPacket(int packetNum) {
-  if(nullPackets.isEmpty()) {
+  if(null_packets_.isEmpty()) {
     return false;
   }
 
-  if(nullPackets.indexOf(packetNum) == -1) {
+  if(null_packets_.indexOf(packetNum) == -1) {
     return false;
   } else {
     return true;
@@ -178,15 +164,16 @@ bool GRIBuffer::IsNullPacket(int packetNum) {
 }
 
 void GRIBuffer::AddNullPacket(int packetNum) {
-  if (!nullPackets.isEmpty())
-    if (nullPackets.indexOf(packetNum) == -1)
-      nullPackets.append(packetNum);
+  if (!null_packets_.isEmpty() && null_packets_.indexOf(packetNum) == -1) {
+      null_packets_.append(packetNum);
+  }
 }
 
-void GRIBuffer::RemoveNullPacket(int packetNum){
-  if (!nullPackets.isEmpty()) {
-    int index = nullPackets.indexOf(packetNum);
-    if (index != -1)
-      nullPackets.removeAt(index);
+void GRIBuffer::RemoveNullPacket(int packetNum) {
+  if (!null_packets_.isEmpty()) {
+    int index = null_packets_.indexOf(packetNum);
+    if (index != -1) {
+      null_packets_.removeAt(index);
+    }
   }
 }

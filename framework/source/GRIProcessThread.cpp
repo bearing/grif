@@ -152,8 +152,8 @@ bool GRIProcessThread::ChangePriority(bool is_up) {
 }
 
 void GRIProcessThread::IncrementPacketCount() {
-    ++last_adjustment_to_sat_;
-    ++last_adjustment_from_sat_;
+  ++last_adjustment_to_sat_;
+  ++last_adjustment_from_sat_;
 }
 
 GRIDataBlock* GRIProcessThread::FindDataBlock(QString data_block_name) {
@@ -167,22 +167,6 @@ GRIDataBlock* GRIProcessThread::FindDataBlock(QString data_block_name) {
       // Can't find the data block
       return 0;
     }
-}
-
-int GRIProcessThread::CurrentPacketPosition(QString bufferName) {
-    return get_reg()->currentPacketPosition(bufferName);
-}
-
-int GRIProcessThread::LastPacket(QString bufferName) {
-    return get_reg()->lastPacket(bufferName);
-}
-
-int GRIProcessThread::SizeOfPacket(QString bufferName, int packetNumber) {
-    return get_reg()->sizeofPacket(bufferName, packetNumber);
-}
-
-int GRIProcessThread::SizeOfBuffer(QString bufferName) {
-    return get_reg()->sizeofBuffer(bufferName);
 }
 
 #ifdef PROCESS_THREAD_DEBUG
