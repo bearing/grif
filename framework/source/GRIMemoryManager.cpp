@@ -258,7 +258,7 @@ bool GRIMemoryManager::writeMemory(const QString& dataBlockName,
 
   // This prevents the new packet to be included in the size parameter until
   // fully written to.
-  buf->SetBusyWrite(true);  
+  buf->set_busy_write(true);
 
   if (size == 0) {
     buf->AddNullPacket(packetNumber);
@@ -278,7 +278,7 @@ bool GRIMemoryManager::writeMemory(const QString& dataBlockName,
   }
 
   // All is well with the new packet so clear the BusyWrite
-  buf->SetBusyWrite(false);
+  buf->set_busy_write(false);
   buf->wakeAllOnQueue();
   GRIMemoryManager::unlockBuffer(dataBlockName,bufferName);
   return true;
