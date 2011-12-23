@@ -6,7 +6,7 @@
 #include <QWaitCondition>
 #include <QReadWriteLock>
 #include <QThread>
-#include "./GRIProcessThread.h"
+#include "GRIProcessThread.h"
 
 //! class used as a data structure for storing member
 /*
