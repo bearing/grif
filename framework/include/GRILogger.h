@@ -23,18 +23,18 @@ class GRILogger : public QObject {
   // TODO(baugarten): May want to create and pass an Error class object
   // that contains all important descriptions
   // Should we support standard strings in writing logs?
-  bool writeErrorLogFile(std::string ErrorDescription, int time);
-  bool writeErrorLogFile(std::string ErrorDescription);
+
   bool writeErrorLogFile(QString ErrorDescription, int time);
   bool writeErrorLogFile(QString ErrorDescription);
-  bool writeErrorLogFile(QList<std::string> ErrorDescriptions, int time);
-  bool writeErrorLogFile(QList<std::string> ErrorDescriptions);
+
+  bool writeErrorLogFile(QList<QString> ErrorDescriptions, int time);
+  bool writeErrorLogFile(QList<QString> ErrorDescriptions);
 
   bool writeLogFile(QString output, int time);
-  bool writeLogFile(std::string output, int time);
-  bool writeLogFile(QList<std::string> output, int time);
-  bool writeLogFile(std::string output);
-  bool writeLogFile(QList<std::string> output);
+  bool writeLogFile(QString output);
+
+  bool writeLogFile(QList<QString> output, int time);
+  bool writeLogFile(QList<QString> output);
 
   bool clearLogFile();
   bool clearErrorLogFile();
@@ -60,7 +60,6 @@ class GRILogger : public QObject {
   void output(QList<std::string>);
 
   public slots:
-  bool writeLogFile(QString msg);
   bool writeLogFile(GRILogMessage msg);
 
  private:

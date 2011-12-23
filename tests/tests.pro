@@ -39,3 +39,10 @@ SOURCES += main.cpp \
 
 GRIFDIR=/home/ben/Documents/grif
 GRIFPROJECTDIR=$$GRIFDIR/examples/simulator
+
+# External libraries
+INCLUDEPATH += $$GRIFDIR/external
+
+DEFINES += GRIFPROJECTDIR=\"\\\"/home/ben/Documents/grif\\\"\"
+#DEFINES += projDir_aux(projDir)='$${LITERAL_HASH}projDir'
+#DEFINES += projDir=projDir_aux(GRIFPROJECTDIR)
