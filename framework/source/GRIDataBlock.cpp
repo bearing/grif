@@ -3,33 +3,9 @@
 #include "GRIDataBlock.h"
 #include "GRIMemoryManager.h"
 
-GRIDataBlock::GRIDataBlock(GRIRegulator* reg,
-                           struct AnalysisStructureObject* analysis_struct) {
-  QList<ReaderDataObject>::iterator it;
-
-  name_ = analysis_struct->data;
-  writer_name_ = analysis_struct->From;
-  writer_ = NULL;
-  write_counter_ = 0;
-  first_packet_ = 0;
-  reg_ = reg;
-
-  for(it = (analysis_struct->To).begin(); it != (analysis_struct->To).end(); it++) {
-    reader_t* new_counter = new reader_t;
-    ReaderDataObject da = *it;
-    new_counter->reader_name = da.name;
-    new_counter->reader_data = da.buffer;
-    new_counter->reader = NULL;
-    new_counter->read_counter = 0;
-
-    readers_.push_back(new_counter);
-  }
-}
-
 GRIDataBlock::GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm, 
 			   QString readerName, QString readerBuffer,
 			   QString objectDataName, QString objectFromName) {
-
   obj_ = new struct AnalysisStructureObject;
   ReaderDataObject *rdr = new struct ReaderDataObject;
   rdr->name = readerName;
@@ -47,6 +23,7 @@ GRIDataBlock::GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm,
   write_counter_ = 0;
   first_packet_ = 0;
   reg_ = reg;
+  is_enabled_ = true;
 
   for (it = (obj_->To).begin(); it != (obj_->To).end(); it++) {
     reader_t* new_counter = new reader_t;

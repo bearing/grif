@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<class>
+  <Name name = "TcpAnalysis" />
+  <Header hname = "TcpAnalysisThread.h" />
+  <Info cname = "TcpAnalysisThread" isdaq = "false" />
+</class>

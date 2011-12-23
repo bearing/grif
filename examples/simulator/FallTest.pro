@@ -2,7 +2,7 @@ QT       += core network xml
 QT       -= gui
 
 # Change this variable to whatever your project name is
-TARGET = FallTesting
+TARGET = FallTest
 
 TEMPLATE = app
 
@@ -29,24 +29,13 @@ SOURCES += \
     ./src/SIMAnalysisThread.cpp \
     ./src/SIMDAQThread.cpp
 
-# root headers
-ROOTDIR = /home/ben/Downloads/root
-INCLUDEPATH += $$ROOTDIR/include
+QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
-ROOTSYSLIB += $$ROOTDIR/lib
-INCLUDEPATH += $$ROOTSYSLIB
-LIBS += $$ROOTSYSLIB/libCint.so
-LIBS += $$ROOTSYSLIB/libMatrix.so
-LIBS += $$ROOTSYSLIB/libMathCore.so
-LIBS += -L/$$ROOTSYSLIB
-LIBS += -L$$ROOTSYS/lib -lCore -lHist
-
-# Master environment variable
-# ****YOU MUST SET THIS VARIABLE****
-GRIFDIR=/home/ben/Documents/grif
-GRIFPROJECTDIR=$$GRIFDIR/examples/simulator
+# Top directory of GRIF on your machine
+GRIFDIR=$$(GRIF)
 
 # run code generation
+GRIFPROJECTDIR = $$GRIFDIR/examples/simulator
 macx|unix {
     system(cd $$GRIFPROJECTDIR; ./setup.py)
 }
@@ -57,3 +46,20 @@ win32 {
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1
 
 DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}
+
+# External libraries
+INCLUDEPATH += $$GRIFDIR/external
+
+# ROOT headers
+ROOTDIR=$$(ROOT)
+INCLUDEPATH += $$ROOTDIR/include
+
+# ROOT libraries
+ROOTSYSLIB += $$ROOTDIR/lib
+INCLUDEPATH += $$ROOTSYSLIB
+LIBS += $$ROOTSYSLIB/libCint.so
+LIBS += $$ROOTSYSLIB/libMatrix.so
+LIBS += $$ROOTSYSLIB/libMathCore.so
+LIBS += -L$$ROOTSYSLIB
+LIBS += -L$$ROOTSYS/lib -lCore -lHist
+

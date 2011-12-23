@@ -10,7 +10,7 @@
 #include "GRIDataDefines.h"
 #include "GRIDAQThread.h"
 
-class SIMDAQThread : public GRIDAQThread{
+class SIMDAQThread : public GRIDAQThread {
  public:
   SIMDAQThread(int num=1, double min=0, double max=65535, double rate=1);
   ~SIMDAQThread();

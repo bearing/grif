@@ -1,0 +1,1 @@
+app_file = "/Users/benson/Desktop/grif/examples/simulator/XML/app/APP.XML";
