@@ -43,6 +43,10 @@ win32 {
     system(cd $$GRIFPROJECTDIR; python setup.py)
 }
 
+QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1
+
+DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}
+
 # External libraries
 INCLUDEPATH += $$GRIFDIR/external
 
@@ -58,3 +62,4 @@ LIBS += $$ROOTSYSLIB/libMatrix.so
 LIBS += $$ROOTSYSLIB/libMathCore.so
 LIBS += -L$$ROOTSYSLIB
 LIBS += -L$$ROOTSYS/lib -lCore -lHist
+

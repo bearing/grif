@@ -3,8 +3,7 @@
 #include <QResource>
 
 GRILogger::GRILogger(QString FileName) {
-  grif_project_file_path_ = getenv("GRIFPROJECTDIR");
-
+  grif_project_file_path_ = GRIFPROJECTDIR;
   if (grif_project_file_path_.length() == 0) {
     std::cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!"
 	      << std::endl;
@@ -19,7 +18,7 @@ GRILogger::GRILogger(QString FileName) {
 
 
 GRILogger::GRILogger(QString FileName, int level) {
-  grif_project_file_path_ = getenv("GRIFPROJECTDIR");
+  grif_project_file_path_ = GRIFPROJECTDIR;
 
   if (grif_project_file_path_.length() == 0) {
     std::cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!"
@@ -34,8 +33,8 @@ GRILogger::GRILogger(QString FileName, int level) {
 }
 
 GRILogger::GRILogger() {
-  grif_project_file_path_ = getenv("GRIFPROJECTDIR");
-  if (grif_project_file_path_.length() == 0){
+  grif_project_file_path_ = GRIFPROJECTDIR;
+  if (grif_project_file_path_.length() == 0) {
     std::cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!"
 	      << std::endl;
   } else {
@@ -48,7 +47,7 @@ GRILogger::GRILogger() {
 }
 
 GRILogger::GRILogger(int level) {
-  grif_project_file_path_ = getenv("GRIFPROJECTDIR");
+  grif_project_file_path_ = GRIFPROJECTDIR;
   if (grif_project_file_path_.length() == 0) {
     std::cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!"
 	      << std::endl;
@@ -77,8 +76,6 @@ bool GRILogger::clearLogFile() {
       return false;
     }
   }
-  std::cout << "Successful Log File Opening: " 
-	    << logfilepath_.toStdString().c_str() << std::endl;
 
   f.close();
   writeLogFile((QString)"GRI Framework Log V1.0\n\n");
@@ -97,92 +94,55 @@ bool GRILogger::clearErrorLogFile() {
 }
 
 
-bool GRILogger::writeLogFile(QList<std::string>d, int time) {
-  QList<std::string>::iterator iter;
+bool GRILogger::writeLogFile(QList<QString>d, int time) {
+  QList<QString>::iterator iter;
   for (iter = d.begin(); iter!= d.end(); iter++) {
     writeLogFile((*iter), time);
   }
   return 1;
 }
 
-bool GRILogger::writeLogFile(QList<std::string>d) {
+bool GRILogger::writeLogFile(QList<QString>d) {
   return writeLogFile(d, 0);
 }
 
-bool GRILogger::writeLogFile(std::string output, int time) {
-  //prevent multiple threads from writing at the same time
-  mutex_.lock();
-
+bool GRILogger::writeLogFile(QString output, int time) {
   if (time == 0) {
     time = -1;
   }
-  return writeToLogFile(*new QString(output.c_str()), time, &mutex_,
+  return writeToLogFile(output, time, &mutex_,
                         new QFile(logfilepath_));
-  /*
-    QFile f(logfilepath_);
-
-  if (!f.open( QIODevice::WriteOnly | QIODevice::Append )) {
-    std::cout << "Failed to locate logfile.txt.\n";
-    return 0;
-  }
-
-  QTextStream ts( &f );
-  ts << output.c_str();
-
-  f.close();
-
-  //unlock
-  mutex_.unlock();
-  return 1;
-  */
-}
-
-bool GRILogger::writeLogFile(std::string output) {
-  return writeLogFile(output, 0);
-}
-
-bool GRILogger::writeLogFile(QString output, int time) {
-  return writeLogFile(output.toStdString(), time);
 }
 
 bool GRILogger::writeLogFile(QString output) {
-  return writeLogFile(output.toStdString(), 0);
+  return writeLogFile(output, 0);
 }
 
-bool GRILogger::writeErrorLogFile(std::string output, int time) {
-  time = 0; //reduce compiler warnings
-
+bool GRILogger::writeErrorLogFile(QString output, int time) {
   QMutex mutex;
 
-  return writeToLogFile(*new QString(output.c_str()), time, &mutex,
+  return writeToLogFile(output, time, &mutex,
                         new QFile(grif_project_file_path_ + "/log/errorlogfile.txt"));
 }
 
 bool GRILogger::writeToLogFile(QString output, int time, QMutex *mutex, QFile *f) {
     time = 0;
 
-    mutex->lock();
+    QMutexLocker qml (mutex);
 
-    if (!f->open( QIODevice::WriteOnly | QIODevice::Append )) {
+    if (!f->open(QIODevice::Append | QIODevice::Text | QIODevice::ReadWrite)) {
         std::cout << "failed to locate " << f->fileName().toStdString() << std::endl;
         return 0;
     }
 
     QTextStream ts(f);
-    ts << output.toStdString().c_str();
 
+    ts << output;
+    ts << "\n";
     f->close();
 
     mutex->unlock();
     return 1;
-}
-
-bool GRILogger::writeErrorLogFile(std::string output) {
-  return writeErrorLogFile(output, 0);
-}
-
-bool GRILogger::writeErrorLogFile(QString output, int time) {
-  return writeErrorLogFile(output.toStdString(), time);
 }
 
 bool GRILogger::writeErrorLogFile(QString output) {
@@ -197,15 +157,15 @@ bool GRILogger::writeLogFile(GRILogMessage m) {
   }
 }
 
-bool GRILogger::writeErrorLogFile(QList<std::string>d, int time) {
-  QList<std::string>::iterator iter;
+bool GRILogger::writeErrorLogFile(QList<QString>d, int time) {
+  QList<QString>::iterator iter;
   for (iter = d.begin(); iter!= d.end(); iter++) {
     writeErrorLogFile(*iter, time);
   }
   return 1;
 }
 
-bool GRILogger::writeErrorLogFile(QList<std::string>d) {
+bool GRILogger::writeErrorLogFile(QList<QString>d) {
   return writeErrorLogFile(d, 0);
 }
 
