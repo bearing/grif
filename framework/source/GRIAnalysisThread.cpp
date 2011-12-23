@@ -77,8 +77,8 @@ GRIHistogrammer* GRIAnalysisThread::GetHistogram(QString HistName) {
         if(p->get_hist_name() == HistName)
             return p;
     }
-    //return the 0 pointer on failure
-    return 0;
+    // NULL pointer on failure
+    return NULL;
 }
 
 int GRIAnalysisThread::CreateNewHistogram(QString HistName, int nx, double xBins[]) {

@@ -109,7 +109,10 @@ int GRIMemoryManager::currentPacketPosition(const QString& dataBlockName,
 int GRIMemoryManager::lastPacket(const QString& dataBlockName,
                                  const QString& bufferName) {
   GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
-  return buf->bufferSize() == 0 ? -1 : (buf->bufferSize())-1;
+  if (buf->bufferSize() == 0) {
+    return -1;
+  }
+  return buf->bufferSize() - 1;
 }
 
 int GRIMemoryManager::sizeofBuffer(const QString& dataBlockName,
@@ -172,7 +175,7 @@ int GRIMemoryManager::locateBuffer(const QString& dataBlockName,
   int blockIndex = locateDataBlock(dataBlockName); 
   QList<QString> *bufferNames = name_table_.at(blockIndex);
   int size = bufferNames->size();
-  for (int i = 0; i < size ; i++) {
+  for (int i = 0; i < size; ++i) {
     if (bufferNames->at(i) == bufferName) {
       return i;
     }
@@ -184,7 +187,7 @@ int GRIMemoryManager::locateBuffer(const QString& dataBlockName,
 int GRIMemoryManager::locateBuffer(const QString& bufferName, int blockIndex) {
   QList<QString> *bufferNames = name_table_.at(blockIndex);
   int size = bufferNames->size();
-  for (int i = 0; i < size ; i++) {
+  for (int i = 0; i < size ; ++i) {
     if (bufferNames->at(i) == bufferName) {
       // cout << "new buffername set" << endl;
       return i;
@@ -197,7 +200,7 @@ int GRIMemoryManager::locateBuffer(const QString& bufferName, int blockIndex) {
 int GRIMemoryManager::locateDataBlock(const QString& dataBlockName) {
   int size = block_name_table_.size();
 
-  for (int i = 0; i < size; i++ ) {
+  for (int i = 0; i < size; ++i) {
     if (block_name_table_.at(i) == dataBlockName) {
       return i;
     }
@@ -210,11 +213,15 @@ GRIBuffer* GRIMemoryManager::grabBuffer(const QString& dataBlockName,
                                         const QString& bufferName) {
   int blockIndex = locateDataBlock(dataBlockName);
 
-  if (blockIndex == -1) return 0;
+  if (blockIndex == -1) {
+    return 0;
+  }
   QList<GRIBuffer*> *bufferTable = data_block_table_.at(blockIndex);
   int bufferIndex = locateBuffer(bufferName, blockIndex);
 
-  if (bufferIndex == -1) return 0;
+  if (bufferIndex == -1) {
+    return 0;
+  }
   GRIBuffer *buf = bufferTable->at(bufferIndex);
   return buf;
 }
@@ -230,8 +237,8 @@ char* GRIMemoryManager::readMemory(const QString& dataBlockName,
 
   int packSize = buf->packetSize(packetNumber);
 
-  for (int i = 0; i < packSize; i++) {
-    *(buffer+i) = buf->readBuffer(packetNumber,i);
+  for (int i = 0; i < packSize; ++i) {
+    *(buffer + i) = buf->readBuffer(packetNumber,i);
   }
 
   buf->incrementPacketMarker();
@@ -263,10 +270,11 @@ bool GRIMemoryManager::writeMemory(const QString& dataBlockName,
   if (size == 0) {
     buf->AddNullPacket(packetNumber);
     // Still need to write a single char to buffer to maintain packet sequencing...
-    if (!(buf->writeToBuffer(0, packetNumber, 0)))
+    if (!(buf->writeToBuffer(0, packetNumber, 0))) {
       return false;
+    }
   } else {
-    for (int s = 0; s < size; s++) {
+    for (int s = 0; s < size; ++s) {
       if (!(buf->writeToBuffer(dataArray[s], packetNumber, s))) {
 	return false;
       }

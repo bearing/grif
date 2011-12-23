@@ -18,7 +18,7 @@ void GRICLI::Init() {
   }
   cli_state_ = MAIN;
   //set the current process to null
-  curr_proc_ = 0;
+  curr_proc_ = NULL;
 }
 
 void GRICLI::Launch() {

@@ -22,7 +22,8 @@ class GRIAccumBuff {
       }
       // trigger on times greater than leading edge buffer
       if (t[i] >= t2_ && leading_edge_) {
-        if (t[i]-t2_ > dt) dt = t[i]-t2_;  // time greater than leading edge
+        // time greater than leading edge
+        if (t[i]-t2_ > dt) dt = t[i]-t2_;
       }
     }
     return dt;

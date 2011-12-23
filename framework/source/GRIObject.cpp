@@ -8,8 +8,9 @@ GRIObject::~GRIObject() {}
 
 void GRIObject::CommitLog(int level) {
     if(LogMsg.IsLevelEnabled(level)) {
-        if(LogMsg.SetMessageTime(log.readAll(),level))
+        if(LogMsg.SetMessageTime(log.readAll(),level)) {
             logSignal(LogMsg);
+        }
     } else {
         log.flush();
     }

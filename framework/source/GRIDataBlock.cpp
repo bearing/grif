@@ -25,7 +25,7 @@ GRIDataBlock::GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm,
   reg_ = reg;
   is_enabled_ = true;
 
-  for (it = (obj_->To).begin(); it != (obj_->To).end(); it++) {
+  for (it = (obj_->To).begin(); it != (obj_->To).end(); ++it) {
     reader_t* new_counter = new reader_t;
     ReaderDataObject da = *it;
     new_counter->reader_name = da.name;
@@ -51,7 +51,7 @@ void GRIDataBlock::set_link(QLinkedList<GRIProcessThread*>* processes) {
 
   // Finding the pointer to the writer of this data block
   for (process_it = (*processes).begin(); process_it != (*processes).end();
-       process_it++) {
+       ++process_it) {
     GRIProcessThread* process = *process_it;
     if (writer_name_ == process->get_name()) {
       this->writer_ = process;
@@ -67,14 +67,14 @@ void GRIDataBlock::set_link(QLinkedList<GRIProcessThread*>* processes) {
               << writer_name_.toStdString().c_str() << std::endl;
 #endif // DATA_BLOCK_DEBUG
 
-    assert(false); // Writer SHOULD exist
+    assert(false);  // Writer SHOULD exist
   }
 
   // Finding the pointers to the readers_ of this data block
-  for(reader_it = readers_.begin(); reader_it != readers_.end(); reader_it++) {
+  for(reader_it = readers_.begin(); reader_it != readers_.end(); ++reader_it) {
     reader_t* reader = *reader_it;
     for(process_it = (*processes).begin(); process_it != (*processes).end();
-	process_it++) {
+        ++process_it) {
       GRIProcessThread* process = *process_it;
 
       if (reader->reader_name == process->get_name()) {
@@ -100,7 +100,7 @@ void GRIDataBlock::delete_packet() {
   QList<reader_t*>::iterator it;
   int lowest_packet = write_counter_;
 
-  for (it = readers_.begin(); it != readers_.end(); it++) {
+  for (it = readers_.begin(); it != readers_.end(); ++it) {
     reader_t* reader = *it;
     if (reader->read_counter < lowest_packet) {
       lowest_packet = reader->read_counter;
@@ -108,7 +108,7 @@ void GRIDataBlock::delete_packet() {
   }
 
   if (lowest_packet > first_packet_) {
-    for (int i = first_packet_; i < lowest_packet; i++) {
+    for (int i = first_packet_; i < lowest_packet; ++i) {
       mm_->deletePacket(writer_name_, this->name_, i);
     }
     first_packet_ = lowest_packet;
@@ -144,7 +144,7 @@ bool GRIDataBlock::update_reader() {
   QString curr_thread_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
   QList<reader_t*>::iterator it;
-  for(it = readers_.begin(); it != readers_.end(); it++) {
+  for(it = readers_.begin(); it != readers_.end(); ++it) {
     reader_t* new_reader = *it;
     if(!new_reader->reader_name.compare(curr_thread_name)) {
       new_reader->read_counter++;

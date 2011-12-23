@@ -9,7 +9,7 @@
 
 typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::bidirectionalS,
                               boost::property<boost::vertex_color_t,
-					      boost::default_color_type> > Graph;
+                                              boost::default_color_type> > Graph;
 
 GRILoader::GRILoader(GRIRegulator *regulator) {
   regulator_ = regulator;

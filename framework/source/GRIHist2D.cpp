@@ -1,7 +1,7 @@
 #include "GRIHist2D.h"
 
 GRIHist2D::GRIHist2D(QString BlockName, int ID, QString HistName) {
-  hist_ = new TH2D();  // Always do this first...
+  hist_ = new TH2D();
   rate_hist_ = new TH2D();  // Used only for rate mode
   dimension_ = 2;
   Init(BlockName, ID, HistName);
