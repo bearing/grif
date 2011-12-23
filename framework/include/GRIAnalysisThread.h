@@ -5,8 +5,8 @@
 #include <QHash>
 #include <QPair>
 #include <QString>
-#include "GRIProcessThread.h"
 #include "GRIHistogrammer.h"
+#include "GRIProcessThread.h"
 
 #define ANALYSISTHREAD_SUCCESS   0
 
