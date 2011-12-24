@@ -12,6 +12,7 @@ GRILogger::GRILogger(QString FileName) {
     // TODO(baugarten): handle windows paths differently
     logfilepath_ = grif_project_file_path_ + "/log/" + filename_;
     clearLogFile();
+    clearErrorLogFile();
     log_level_ = 2;
   }
 }
@@ -28,6 +29,7 @@ GRILogger::GRILogger(QString FileName, int level) {
     // TODO(baugarten): handle windows paths differently
     logfilepath_ = grif_project_file_path_ + "/log/" + filename_;
     clearLogFile();
+    clearErrorLogFile();
     log_level_ = level;
   }
 }
@@ -42,6 +44,7 @@ GRILogger::GRILogger() {
     // TODO(baugarten): handle windows paths differently
     logfilepath_ = grif_project_file_path_ + "/log/" + filename_;
     clearLogFile();
+    clearErrorLogFile();
     log_level_ = 2;
   }
 }
@@ -56,6 +59,7 @@ GRILogger::GRILogger(int level) {
     // TODO(baugarten): handle windows paths differently
     logfilepath_ = grif_project_file_path_ + "/log/" + filename_;
     clearLogFile();
+    clearErrorLogFile();
     log_level_ = level;
   }
 }
@@ -90,6 +94,7 @@ bool GRILogger::clearErrorLogFile() {
   }
 
   f.close();
+  writeErrorLogFile((QString)"GRI Framework Error Log v1.0\n\n");
   return 1;
 }
 

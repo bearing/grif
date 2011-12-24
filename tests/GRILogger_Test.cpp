@@ -16,7 +16,6 @@ class GRILogger_Test : public QObject {
         void writeToFile();
         void clearLogFile();
         void logError();
-        void logMessage();
 
     private:
         GRILogger* logger;
@@ -38,21 +37,42 @@ void GRILogger_Test::writeToFile() {
     }
     QTextStream qts(logFile);
     QVERIFY(equal(&qts, QString("GRI Framework Log V1.0\n\n\nTest\n")));
-    equal(&qts, QString("kasldhasd"));
-    //logger->writeLogFile()
+    QVERIFY(!equal(&qts, QString("kasldhasd")));
+    logger->writeLogFile(QString("another test with spaces"));
+    QVERIFY(equal(&qts, QString("GRI Framework Log V1.0\n\n\nTest\nanother test with spaces\n")));
+    logFile->close();
 }
 void GRILogger_Test::clearLogFile() {
-
+    logger->writeLogFile("Hey");
+    logger->writeLogFile("This is an error message");
+    logger->clearLogFile();
+    if (!logFile->open(QIODevice::Text | QIODevice::ReadWrite)) {
+            QFAIL("Can't open log file");
+    }
+    QTextStream qts(logFile);
+    QVERIFY(equal(&qts, QString("GRI Framework Log V1.0\n\n\n")));
 }
 
 void GRILogger_Test::logError() {
+    logger->writeErrorLogFile(QString("Test"));
+    logger->writeErrorLogFile(QString("another test with spaces"));
 
-}
-void GRILogger_Test::logMessage() {
-
+    QFile* errorFile = new QFile(QString(logger->GetLogFilePath() + "/log/errorlogfile.txt"));
+    QTextStream qts (errorFile);
+    if (!errorFile->open(QIODevice::Text | QIODevice::ReadWrite)) {
+        QFAIL("can't open error log file");
+    }
+    QVERIFY(equal(&qts, QString("GRI Framework Error Log v1.0\n\n\nTest\nanother test with spaces\n")));
+    QList<QString>* list = new QList<QString>();
+    list->append(QString("Hey"));
+    list->append(QString("hoya test"));
+    logger->writeErrorLogFile(*list);
+    QVERIFY(equal(&qts,
+                  QString("GRI Framework Error Log v1.0\n\n\nTest\nanother test with spaces\nHey\nhoya test\n")));
 }
 
 bool GRILogger_Test::equal(QTextStream* qts, QString qs) {
+    qts->seek(0);
     return qs.compare(qts->readAll()) == 0;
 }
 
