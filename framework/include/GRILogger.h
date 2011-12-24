@@ -5,20 +5,18 @@
 #include <QFile>
 #include <QList>
 #include <QMutex>
+#include <QProcessEnvironment>
 #include <QString>
 #include <QTextStream>
 #include "GRILogMessage.h"
 
 class GRILogger : public QObject {
-  Q_OBJECT;
- public:
-  GRILogger(QString FileName);
-  GRILogger();
-  GRILogger(QString FileName,int level);
-  GRILogger(int level);
-  ~GRILogger();
 
-  void operator << (QString const&y );
+  Q_OBJECT
+
+ public:
+  explicit GRILogger(QString FileName);
+  ~GRILogger();
 
   // TODO(baugarten): May want to create and pass an Error class object
   // that contains all important descriptions
@@ -68,6 +66,7 @@ class GRILogger : public QObject {
   QString logfilepath_; //full file path
   int log_level_;
   QMutex mutex_;
+  QProcessEnvironment proc_environ_;
 
   static bool writeToLogFile(QString, int, QMutex*, QFile*);
 };

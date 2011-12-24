@@ -9,9 +9,8 @@
 template <class T>
 class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
  public:
-  GRIDAQAccumulator(QString  bname, qint64 ticks, int NBuff, int AccumMsec) {
-    logger_ ("accumulator_log.txt");
-
+  GRIDAQAccumulator(QString  bname, qint64 ticks, int NBuff, int AccumMsec)
+    : logger_("accumulator_log.txt") {
     set_buffer_name(bname);
     set_ticks_per_sec(ticks);
     set_num_accum_buff(NBuff);
@@ -112,21 +111,16 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
 	  // Check for bubble
 	  if (b->get_bubble() && !NewBubbleSet) {
 	    // Write Bubble Accumulator to mm
-
-              /*std::cout << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str()
-                      << ": " << get_buffer_name().toStdString().c_str()
-                      << "(" << nbuffcnt << ") accumulator writing "
-                      << b->GetDataSize() << " events. Timestamp = "
-                      << (double)timestamps[0]/(double)get_ticks_per_sec() << std::endl;
-             */
-            std::stringstream ss;
-            ss << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str()
-               << ": " << get_buffer_name().toStdString().c_str()
-               << "(" << nbuffcnt << ") accumulator writing "
-               << b->GetDataSize() << " events. Timestamp = "
-               << (double)timestamps[0]/(double)get_ticks_per_sec();
-            std::cout << ss << std::endl;
-            logger_.writeLogFile(QString(ss));
+            // TODO(arbenson): logger needs a smoother interface
+            QString str;
+            QTextStream qts(&str);
+            qts << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str()
+                << ": " << get_buffer_name().toStdString().c_str()
+                << "(" << nbuffcnt << ") accumulator writing "
+                << b->GetDataSize() << " events. Timestamp = "
+                << (double)timestamps[0]/(double)get_ticks_per_sec()
+                << "\n";
+            logger_.writeLogFile(str);
 
 	    T* da = b->DataArray();
 
@@ -179,14 +173,14 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
 	// Check for bubble
 	if (b->get_bubble() && !NewBubbleSet) {
 	  // Write Bubble Accumulator to mm
-
-          std::stringstream ss;
-          ss << "FLUSH (" << buffctr << "): "
-             << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": "
-             << get_buffer_name().toStdString().c_str() << " accumulator writing "
-             << b->GetDataSize() << " events.";
-          std::cout << ss << std::endl;
-          logger_.writeLogFile(QString(ss));
+          // TODO(arbenson): logger needs to have a smoother interface
+          QString str;
+          QTextStream qts(&str);
+          qts << "FLUSH (" << buffctr << "): "
+              << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": "
+              << get_buffer_name().toStdString().c_str() << " accumulator writing "
+              << b->GetDataSize() << " events\n.";
+          logger_.writeLogFile(str);
 
 	  T* da = b->DataArray();
 

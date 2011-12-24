@@ -1,1 +1,1 @@
-app_file = "/home/ben/Documents/grif/examples/simulator/XML/app/APP.XML";
+app_file = "/Users/benson/Desktop/grif/examples/simulator/XML/app/APP.XML";
