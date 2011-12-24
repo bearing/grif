@@ -14,7 +14,7 @@ user_loader = os.path.join(grif_root,
 user_procs = os.path.join(grif_root,
                           "util/GCG_GRIUserProcesses.py")
 
-data_xml = os.path.abspath("./XML/data")
+data_xml = os.path.abspath("./XML/data/data.XML")
 classes_xml = os.path.abspath("./XML/classes")
 loader_xml = os.path.abspath("./XML/app/APP.XML")
 
