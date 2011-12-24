@@ -56,8 +56,7 @@ class GRIMemoryManager : public GRIObject {
   // within each dataBlock, each bufferName must be unique.
   //
   // dataBlockName provides the data block argument
-  // bufferName provides the name of the buffer or the data
-  //           name
+  // bufferName provides the name of the buffer or the data name
   // 
   // returns a boolean which is true if the buffer creation was successful,
   // false if not

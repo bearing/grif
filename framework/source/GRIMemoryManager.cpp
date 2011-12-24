@@ -141,7 +141,6 @@ void GRIMemoryManager::bufferReadLock(const QString& dataBlockName,
   int j = locateBuffer(bufferName, i);
   QList<QReadWriteLock *> *locks = lock_table_.at(i);
   QReadWriteLock *lock = locks->at(j);
-  //lock->lockForRead();
   while (!lock->tryLockForRead(50)) {
     QThread::currentThread()->wait(50);
   }
@@ -153,7 +152,6 @@ void GRIMemoryManager::bufferWriteLock(const QString& dataBlockName,
   int j = locateBuffer(bufferName, i);
   QList<QReadWriteLock *> *locks = lock_table_.at(i);
   QReadWriteLock *lock = locks->at(j);
-  //lock->lockForWrite();
   while (!lock->tryLockForWrite(50)) {
     QThread::currentThread()->wait(50);
   }
@@ -189,7 +187,6 @@ int GRIMemoryManager::locateBuffer(const QString& bufferName, int blockIndex) {
   int size = bufferNames->size();
   for (int i = 0; i < size ; ++i) {
     if (bufferNames->at(i) == bufferName) {
-      // cout << "new buffername set" << endl;
       return i;
     }
   }
@@ -249,12 +246,10 @@ char* GRIMemoryManager::readMemory(const QString& dataBlockName,
 char* GRIMemoryManager::readMemory(const QString& dataBlockName,
                                    const QString& bufferName,
                                    char* buffer) {
-  //GRIMemoryManager::bufferReadLock(dataBlockName, bufferName);
   GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
   int packetNumber = buf->currentPacket();
-  //buf->incrementPacketMarker();
-  //GRIMemoryManager::unlockBuffer(dataBlockName, bufferName);
-  return GRIMemoryManager::readMemory(dataBlockName, bufferName, packetNumber, buffer);
+  return GRIMemoryManager::readMemory(dataBlockName, bufferName, packetNumber,
+                                      buffer);
 }
 
 bool GRIMemoryManager::writeMemory(const QString& dataBlockName,
@@ -295,10 +290,8 @@ bool GRIMemoryManager::writeMemory(const QString& dataBlockName,
 bool GRIMemoryManager::writeMemory(const QString& dataBlockName,
                                    const QString& bufferName, int size,
                                    char dataArray[]) {
-  //GRIMemoryManager::bufferWriteLock(dataBlockName, bufferName);
   GRIBuffer *buf = grabBuffer(dataBlockName, bufferName);
   int curPacket = buf->nextPacket();
-  //GRIMemoryManager::unlockBuffer(dataBlockName, bufferName);
   std::cout << "MM:writeMemory " << dataBlockName.toStdString().c_str() << ":"
             << bufferName.toStdString().c_str() << " Packet #" << curPacket
             << std::endl;
