@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 '''
-usage: python GCG_main.py /path/to/xml/files /path/to/grif/skeletons
+usage: python GCG_main.py /path/to/class/xml/files /path/to/grif/skeletons [aux_only]
 
 This is a basic XML-reading code generation tool for GRIF
 
@@ -48,7 +48,7 @@ import XMLParser
 import sys
 
 if len(sys.argv) < 3:
-  print 'usage: python GCG_main.py /path/to/xml/files /path/to/grif/skeletons [aux_only]'
+  print 'usage: python GCG_main.py /path/to/class/xml/files /path/to/grif/skeletons [aux_only]'
   exit()
 
 aux_only = False

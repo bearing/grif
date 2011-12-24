@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 '''
-usage: python GCG_data.py /path/to/xml/files /path/to/auxiliary/file
+usage: python GCG_data.py /path/to/data/xml/file /path/to/auxiliary/file
 
 This code is for generating the definitions of data types specified by
 the user.  The GRI class GRIDataDefines.h will include the auxiliary file.
@@ -47,7 +47,7 @@ import XMLParser
 import sys
 
 if len(sys.argv) < 3:
-  print 'usage: python GCG_data.py /path/to/xml/files /path/to/auxiliary/file'
+  print 'usage: python GCG_data.py /path/to/data/xml/file /path/to/auxiliary/file'
   exit()
 
 parser = XMLParser.DataParser(sys.argv[1], sys.argv[2])

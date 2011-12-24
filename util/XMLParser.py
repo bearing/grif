@@ -27,14 +27,12 @@ class XMLParser:
     self.dir = dir
     self.files = []
 
-
   def DirentFormatCheck(self, dirent):
       if not (dirent.find('.xml') != -1 or dirent.find('.XML') != -1):
         return False
       if not (dirent.find('#') == -1 and dirent.find('~') == -1):
         return False
       return True
-
 
   def ParseDirectory(self, path):
     # Check each file in the directory. If the file ends in .xml or .XML, add
@@ -47,10 +45,8 @@ class XMLParser:
           print 'Found file: {0}'.format(entry)
           self.files.append('{0}/{1}'.format(self.dir, entry))
 
-
   def ParseFile(self, path):
     pass
-
 
   def Parse(self):
     self.ParseDirectory(self.dir)
@@ -142,7 +138,7 @@ DataParser is for generating the definitions of data types specified by
 the user. The GRI class GRIDataDefines.h will include the auxiliary file.
 '''
 class DataParser(XMLParser):
-  def __init__(self, dir, out):
+  def __init__(self, file, out):
     self.prefix = '#ifndef GRIDATDEFINES_AUX_H\n'
     self.prefix += '#define GRIDATADEFINES_AUX_H\n'
     self.prefix += '\n'
@@ -154,8 +150,11 @@ class DataParser(XMLParser):
     self.suffix = '#endif // GRIDATADEFINES_AUX_H\n'
     self.gen = ''
     self.out = out
-    self.dir = dir
-    self.files = []
+    self.file = str(file)
+
+  def Parse(self):
+    self.ParseFile(self.file)
+    self.PrintToFile(self.out)
 
   def ParseFile(self, path):
     tree = ElementTree()

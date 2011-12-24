@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 '''
-usage: python GCG_GRIUserProcesses.py /path/to/xml/files /path/to/auxiliary/file
+usage: python GCG_GRIUserProcesses.py /path/to/class/xml/files /path/to/auxiliary/file
 This code is for generating the necessary #include statements for 
 GRIUserProcceses.h.
 The generated code goes into the file located at /path/to/auxiliary/file,
@@ -16,7 +16,7 @@ import XMLParser
 import sys
 
 if len(sys.argv) < 3:
-  print 'usage: python GCG_GRIUserProcesses.py /path/to/xml/files /path/to/auxiliary/file'
+  print 'usage: python GCG_GRIUserProcesses.py /path/to/class/xml/files /path/to/auxiliary/file'
   exit()
 
 parser = XMLParser.GRIUserProcessesParser(sys.argv[1], sys.argv[2])
