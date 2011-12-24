@@ -33,29 +33,29 @@
 
   This class might look something like this:
 
-  class MyDAQ : public GRIDAQThread
-  {
+  class MyDAQ : public GRIDAQThread {
   public:
-  myDAQ() {do stuff}
-  ~myDAQ() {do stuff}
-  virtual int connectToDAQ(){
+  myDAQ() { do stuff }
+  ~myDAQ() { do stuff }
+
+  virtual int connectToDAQ() {
   //Talk to hardware
   }
 
-  virtual int initalize(){
+  virtual int initalize() {
   //Initialize DAQ hardware
   }
 
-  virtual int loadConfiguration(){
-  //Configure DAQ hardware or something
+  virtual int loadConfiguration() {
+  //Configure DAQ hardware
   }
 
-  virtual int startDataAcquisition(){
+  virtual int startDataAcquisition() {
   //Do routines that must run immediately
   //before data collection.
   }
 
-  virtual int acquireData(int n){
+  virtual int acquireData(int n) {
   //Do routine that actually collects data
   //with the expectation that acquireData()
   //will be run in a loop (as shown in run()).
@@ -64,18 +64,14 @@
 
   }
 
-  virtual int stopDataAcquisition(){
+  virtual int stopDataAcquisition() {
   //Do routines that must run immediately
   //after data collection.
   }
 
-  virtual int terminationRoutines(){
+  virtual int terminationRoutines() {
   //Do things that turn off DAQ
   }
-
-  //getParam and setParam for runtime getting and setting of parameters
-  //in classes inheriting GRIDAQThread should use the getParam and setParam
-  //functions inherited from GRIProcessThread
   }
 */
 
