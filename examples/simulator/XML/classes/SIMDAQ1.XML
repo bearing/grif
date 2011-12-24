@@ -7,7 +7,6 @@
     <Param name = "e1" type = "double" />
     <Param name = "ind" type = "int" />
   </RunTimeParams>
-  <ProcessDetails readerName = "A1" objectFromName = "SIMDAQ" />
   <DataBlocks> 
     <Data block = "ADCOutput" /> 
     <Data block = "CHAN" /> 

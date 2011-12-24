@@ -3,7 +3,6 @@
   <Name name = "A1" />
   <Header hname = "SIMAnalysisThread.h" />
   <Info cname = "SIMAnalysisThread" isdaq = "false" />
-  <ProcessDetails readerName = "A1" objectFromName = "" />
   <DataBlocks> 
     <Data block = "ADCOutput" /> 
     <Data block = "CHAN" /> 
