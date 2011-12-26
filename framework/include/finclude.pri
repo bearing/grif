@@ -2,13 +2,10 @@ HEADERS += GRIProcessThread.h \
 GRIAnalysisThread.h \
 GRIBuffer.h \
 GRICLI.h \
-#GRICalibrate.h \
-#GRICalibration.h \
 GRIDAQThread.h \
 GRIDataBlock.h \
 GRIDataDefines.h \
 GRIDefines.h \
-#GRIHistDraw.h \
 GRIHistogrammer.h \
 GRILogger.h \
 GRILoader.h \

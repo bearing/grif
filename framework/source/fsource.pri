@@ -2,12 +2,9 @@ SOURCES += GRIProcessThread.cpp \
 GRIAnalysisThread.cpp \
 GRIBuffer.cpp \
 GRICLI.cpp \
-#GRICalibrate.cpp \
-#GRICalibration.cpp \
 GRIDAQThread.cpp \
 GRIDataBlock.cpp \
 GRIHistogrammer.cpp \
-#GRIHistDraw.cpp \
 GRILoader.cpp \
 GRILogger.cpp \
 GRIMath.cpp \
