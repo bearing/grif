@@ -1,5 +1,5 @@
-#ifndef SIMANALYSISTHREAD_H
-#define SIMANALYSISTHREAD_H
+#ifndef GRIF_EXAMPLES_SIMULATOR_SIMANALYSISTHREAD_H_
+#define GRIF_EXAMPLES_SIMULATOR_SIMANALYSISTHREAD_H_
 
 #include "GRIAnalysisThread.h"
 #include "QFile"
@@ -27,4 +27,4 @@ class SIMAnalysisThread : public GRIAnalysisThread {
   bool first_write_;
 };
 
-#endif // SIMANALYSISTHREAD_H
+#endif  // GRIF_EXAMPLES_SIMULATOR_SIMANALYSISTHREAD_H_

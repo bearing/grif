@@ -1,5 +1,5 @@
-#ifndef SIMDAQTHREAD_H
-#define SIMDAQTHREAD_H
+#ifndef GRIF_EXAMPLES_SIMULATOR_SIMDAQTHREAD_H_
+#define GRIF_EXAMPLES_SIMULATOR_SIMDAQTHREAD_H_
 
 #include <cstdlib>
 #include <math.h>
@@ -55,4 +55,4 @@ class SIMDAQThread : public GRIDAQThread {
   QVector<time_t> times_;
 };
 
-#endif // SIMDAQTHREAD_H
+#endif  // GRIF_EXAMPLES_SIMULATOR_SIMDAQTHREAD_H_
