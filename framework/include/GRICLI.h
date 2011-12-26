@@ -1,5 +1,5 @@
-#ifndef GRICLI_H
-#define GRICLI_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRICLI_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRICLI_H_
 
 #include <QHash>
 #include <QList>
@@ -64,4 +64,4 @@ class GRICLI : public QObject{
   mutable QMutex get_lock_;
 };
 
-#endif // GRICLI_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRICLI_H_

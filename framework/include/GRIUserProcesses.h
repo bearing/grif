@@ -1,5 +1,5 @@
-#ifndef GRIUSERPROCESSES_H
-#define GRIUSERPROCESSES_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIUSERPROCESSES_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIUSERPROCESSES_H_
 
 // Users will include header files for their derived GRIDAQThread and
 // GRIAnalyisThread classes here.  This file will be included in the
@@ -14,4 +14,4 @@
 #include "GCG/GRIUserProcesses_aux.h"
 #endif // GRIF_CODE_GENERATION
 
-#endif // GRIUSERPROCESSES_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIUSERPROCESSES_H_

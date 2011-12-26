@@ -1,5 +1,5 @@
-#ifndef GRIHISTOGRAMMER_H
-#define GRIHISTOGRAMMER_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIHISTOGRAMMER_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIHISTOGRAMMER_H_
 
 #include <QString>
 #include "TH1.h"
@@ -79,4 +79,4 @@ class GRIHistogrammer: public GRIObject {
   TH1 *rate_hist_;
 };
 
-#endif // GRIHISTOGRAMMER_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIHISTOGRAMMER_H_

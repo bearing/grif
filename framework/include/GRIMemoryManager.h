@@ -1,5 +1,5 @@
-#ifndef GRI_MEMORYMANAGER_H
-#define GRI_MEMORYMANAGER_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIMEMORYMANAGER_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIMEMORYMANAGER_H_
 
 #include <QString>
 #include <QReadWriteLock>
@@ -317,4 +317,4 @@ class GRIMemoryManager : public GRIObject {
   QList< QList<QReadWriteLock *>* > lock_table_;
 };
 
-#endif  // GRIMEMORYMANAGER_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIMEMORYMANAGER_H_

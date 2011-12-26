@@ -1,5 +1,5 @@
-#ifndef GRIDEFINES_H
-#define GRIDEFINES_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIDEFINES_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIDEFINES_H_
 #include <QtGlobal>
 
 //Constants and macros for GRI framework (wrap Qt constants/macros).
@@ -123,4 +123,4 @@ class GRIDataBlock;
 // For Qt's internally defined globals see http://doc.trolltech.com/4.5/qtglobal.html#details
 // For definitions of macros see qglobal.h
 
-#endif // GRIDEFINES_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIDEFINES_H_

@@ -1,5 +1,5 @@
-#ifndef GRILOADER_H
-#define GRILOADER_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRILOADER_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRILOADER_H_
 
 #include <QList>
 #include <QFile>
@@ -39,4 +39,4 @@ class GRILoader {
   QHash<QString, int> node_index_;
 };
 
-#endif // GRILOADER_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRILOADER_H_

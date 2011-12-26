@@ -1,10 +1,8 @@
-#ifndef GRIUSERLOADER_H
-#define GRIUSERLOADER_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIUSERLOADER_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIUSERLOADER_H_
 
-#include <QList>
 #include <QString>
 #include "GRILoader.h"
-#include "GRIProcessThread.h"
 
 class GRIUserLoader : public GRILoader {
  public:
@@ -15,4 +13,4 @@ class GRIUserLoader : public GRILoader {
   GRIProcessThread *load(QString process_name, QString object_name);
 };
 
-#endif // GRIUSERLOADER_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIUSERLOADER_H_

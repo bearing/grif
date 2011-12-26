@@ -1,5 +1,5 @@
-#ifndef GRI_PROCESSTHREAD_H
-#define GRI_PROCESSTHREAD_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIPROCESSTHREAD_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIPROCESSTHREAD_H_
 
 #define PROCESS_THREAD_DEBUG
 
@@ -256,4 +256,4 @@ template<class T> bool GRIProcessThread::writeMemory(QString blockName,
                                 (char*) dataArray);
 }
 
-#endif // GRIPROCESSTHREAD_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIPROCESSTHREAD_H_

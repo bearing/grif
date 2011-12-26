@@ -1,5 +1,5 @@
-#ifndef GRIPARSER_H
-#define GRIPARSER_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIPARSER_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIPARSER_H_
 
 #include <QHash>
 #include <QList>
@@ -40,4 +40,4 @@ private:
     QList<struct objectParsingDetails> objs_and_links_;
 };
 
-#endif // GRIPARSER_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIPARSER_H_

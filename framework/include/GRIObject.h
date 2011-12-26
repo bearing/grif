@@ -1,5 +1,5 @@
-#ifndef GRIOBJECT_H
-#define GRIOBJECT_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIOBJECT_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIOBJECT_H_
 
 #include <QTime>
 #include <QTextStream>
@@ -26,4 +26,4 @@ class GRIObject : public QObject {
     void logSignal(GRILogMessage m);
 };
 
-#endif // GRIOBJECT_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIOBJECT_H_

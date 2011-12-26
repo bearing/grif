@@ -1,5 +1,5 @@
-#ifndef GRILOGMESSAGE_H
-#define GRILOGMESSAGE_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRILOGMESSAGE_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRILOGMESSAGE_H_
 
 #include <iostream>
 #include <QString>
@@ -27,6 +27,4 @@ class GRILogMessage {
   void SetTimeString();
 };
 
-
-
-#endif // GRILOGMESSAGE_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRILOGMESSAGE_H_

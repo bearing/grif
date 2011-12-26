@@ -1,5 +1,5 @@
-#ifndef GRIDATABLOCK_H
-#define GRIDATABLOCK_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIDATABLOCK_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIDATABLOCK_H_
 
 #define DATA_BLOCK_DEBUG
 
@@ -119,4 +119,4 @@ class GRIDataBlock: public GRIObject {
   bool is_enabled_;
 };
 
-#endif // GRIDATAOBJECT_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIDATABLOCK_H_

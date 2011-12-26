@@ -1,5 +1,5 @@
-#ifndef GRIHIST2D_H
-#define GRIHIST2D_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIHIST2D_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIHIST2D_H_
 
 #include "TH2D.h"
 #include "GRIHistogrammer.h"
@@ -15,4 +15,4 @@ class GRIHist2D: public GRIHistogrammer {
   int Update(double x[], double y[], int numel);
 };
 
-#endif // GRIHIST2D_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIHIST2D_H_

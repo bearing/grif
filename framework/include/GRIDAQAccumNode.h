@@ -1,5 +1,5 @@
-#ifndef GRIDAQACCUMNODE_H
-#define GRIDAQACCUMNODE_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIDAQACCUMNODE_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIDAQACCUMNODE_H_
 
 #include <QString>
 #include <QTime>
@@ -88,4 +88,4 @@ class GRIDAQAccumNode: public GRIObject {
   GRIProcessThread* p_DAQ_;
 };
 
-#endif // GRIDAQACCUMNODE_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIDAQACCUMNODE_H_

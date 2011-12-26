@@ -1,5 +1,5 @@
-#ifndef GRI_REGULATOR_H
-#define GRI_REGULATOR_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIREGULATOR_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIREGULATOR_H_
 
 #define REGULATOR_DEBUG
 
@@ -111,4 +111,4 @@ class GRIRegulator: public GRIObject {
   void start_threads();
 };
 
-#endif  // GRIREGULATOR_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIREGULATOR_H

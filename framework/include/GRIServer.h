@@ -1,5 +1,5 @@
-#ifndef GRISERVER_H
-#define GRISERVER_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRISERVER_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRISERVER_H_
 
 #include <QTcpServer>
 
@@ -16,4 +16,4 @@ class GRIServer : public QTcpServer {
   quint16 port_;
 };
 
-#endif  // GRISERVER_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRI_SERVER_H_

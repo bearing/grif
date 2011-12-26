@@ -1,5 +1,5 @@
-#ifndef GRIDATADEFINES_H
-#define GRIDATADEFINES_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIDATADEFINES_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIDATADEFINES_H_
 /*
  * This file is for defining the data structures that you need for an application
  * Please define all data structures that are posted to memory in this file.
@@ -34,6 +34,6 @@
 
 #ifdef GRIF_CODE_GENERATION
 #include "GCG/GRIDataDefines_aux.h"
-#endif // GRIF_CODE_GENERATION
+#endif  // GRIF_CODE_GENERATION
 
-#endif // GRIDATADEFINES_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIDATADEFINES_H_

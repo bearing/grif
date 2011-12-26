@@ -1,5 +1,5 @@
-#ifndef INCLUDE_GRIACCUMBUFF_H_
-#define INCLUDE_GRIACCUMBUFF_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIACCUMBUFF_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIACCUMBUFF_H_
 
 #include <QList>
 
@@ -67,4 +67,4 @@ class GRIAccumBuff {
   bool leading_edge_;  // First Buffer in times
 };
 
-#endif  // INCLUDE_GRIACCUMBUFF_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIACCUMBUFF_H_

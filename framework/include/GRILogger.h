@@ -1,5 +1,5 @@
-#ifndef GRILOGGER_H
-#define GRILOGGER_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRILOGGER_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRILOGGER_H_
 
 #include <stdlib.h>
 #include <QFile>
@@ -71,4 +71,4 @@ class GRILogger : public QObject {
   static bool writeToLogFile(QString, int, QMutex*, QFile*);
 };
 
-#endif // GRILOGGER_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRILOGGER_H_

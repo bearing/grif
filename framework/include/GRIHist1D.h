@@ -1,5 +1,5 @@
-#ifndef GRIHIST1D_H
-#define GRIHIST1D_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIHIST1D_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIHIST1D_H_
 
 #include "GRIHistogrammer.h"
 
@@ -14,4 +14,4 @@ class GRIHist1D: public GRIHistogrammer {
   int Update(double x[], int numel);
 };
 
-#endif // GRIHIST1D_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIHIST1D_H_

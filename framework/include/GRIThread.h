@@ -1,5 +1,5 @@
-#ifndef GRITHREAD_H
-#define GRITHREAD_H
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRITHREAD_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRITHREAD_H_
 
 #include <QTime>
 #include <QTextStream>
@@ -43,4 +43,4 @@ class GRIThread : public QThread {
   void logSignal(GRILogMessage m);
 };
 
-#endif // GRITHREAD_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRITHREAD_H_
