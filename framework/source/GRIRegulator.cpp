@@ -44,7 +44,6 @@ void GRIRegulator::InitConfig() {
       ++process_it) {
 
     GRIProcessThread* process = *process_it;
-    //process->set_reg(this);
     process->SetLink(data_blocks_);
   }
 
@@ -58,7 +57,7 @@ void GRIRegulator::InitConfig() {
 void GRIRegulator::StartThreads() {
   timer_.start();
   QLinkedList<GRIProcessThread*>::iterator it;
-  for(it = processes_->begin(); it != processes_->end(); it++) {
+  for(it = processes_->begin(); it != processes_->end(); ++it) {
     GRIProcessThread* process = *it;
     process->set_run_flag(true);
     process->start(QThread::NormalPriority);
@@ -190,9 +189,9 @@ int GRIRegulator::SizeofBuffer(const QString& bufferName) {
 
 GRIProcessThread* GRIRegulator::FindProcess(const QString& process_name) {
   QLinkedList<GRIProcessThread*>::iterator it;
-  for(it = processes_->begin(); it != processes_->end(); it++) {
+  for(it = processes_->begin(); it != processes_->end(); ++it) {
     GRIProcessThread* process = *it;
-    if(!(process->get_name()==process_name)) {
+    if(!(process->get_name() == process_name)) {
       return process;
     }
   }
@@ -220,9 +219,9 @@ int GRIRegulator::GarbageCollection(void* p) {
   // deletion of arrays.  This mutex will ensure that deletion is done in a serial
   // manner.
 
-  gc_mutex_.lock();
+  QMutexLocker locker(&gc_mutex_);
   bool found = false;
-  for(int i=0; i<read_data_ptrs_.size(); i++) {
+  for(int i = 0; i < read_data_ptrs_.size(); ++i) {
     if (p == read_data_ptrs_[i]) {
       char* c = read_data_ptrs_.takeAt(i);
       delete [] c;
@@ -234,13 +233,13 @@ int GRIRegulator::GarbageCollection(void* p) {
   if (!found) {
     read_data_ptrs_.push_back((char*)p);
   }
-  gc_mutex_.unlock();
+
   return 0;
 }
 
 int GRIRegulator::GarbageCollection(QList<void*> pList) {
   int n = 0;
-  for (int i=0; i<pList.size(); i++) {
+  for (int i = 0; i < pList.size(); ++i) {
     n += GarbageCollection(pList[i]);
   }
   return n;

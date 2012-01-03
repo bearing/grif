@@ -41,7 +41,7 @@ void GRIProcessThread::Init(QObject* obj, ProcessDetails* proc_detail,
                             GRIRegulator *regulator) {
   setParent(obj);
   set_reg(regulator);
-  if (proc_detail != 0) {
+  if (proc_detail) {
     is_daq_ = proc_detail->isDaq;
     set_name(proc_detail->name);
     xml_path_ = proc_detail->xml_path;
@@ -120,13 +120,11 @@ void GRIProcessThread::AddDataBlock(QString data_block, bool is_output) {
 }
 
 void GRIProcessThread::AddDataBlocks(QList<QString> dataBlockNames) {
-  QList<QString>::iterator it;
-
-  for (it = dataBlockNames.begin(); it != dataBlockNames.end(); it++) {
+  for (QList<QString>::iterator it = dataBlockNames.begin();
+       it != dataBlockNames.end(); ++it) {
     QString name = *it;
     AddDataBlock(name, is_daq_);
   }
-
 }
 
 bool GRIProcessThread::ChangePriority(bool is_up) {
