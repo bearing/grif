@@ -20,8 +20,8 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRI_DAQ_THREAD_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRI_DAQ_THREAD_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIDAQTHREAD_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIDAQTHREAD_H_
 
 #include <iostream>
 #include <QList>
@@ -384,4 +384,4 @@ template <class T> int GRIDAQThread::PostData(int numel, QString buffer_name,
   return 1;
 }
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRI_DAQ_THREAD_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIDAQTHREAD_H_
