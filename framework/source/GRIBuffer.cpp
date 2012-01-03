@@ -55,7 +55,7 @@ bool GRIBuffer::WriteToBuffer(char b, int packetNumber, int index) {
       packet->replace(index, b);
     }
     packet_list_.append(packet);
-    size_++;
+    ++size_;
     return true;
   } else {
     QVector<char> *packet = packet_list_.at(packetNumber);

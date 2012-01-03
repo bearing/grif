@@ -115,11 +115,9 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
 	bool NewBubble = false;
 	bool NewBubbleSet = false;
 
-	for(buff_it = buff_.begin(); buff_it != buff_.end(); buff_it++) {
+	for(buff_it = buff_.begin(); buff_it != buff_.end(); ++buff_it) {
 	  nbuffcnt = nbuffcnt + 1;
 	  GRIAccumBuff<T>* b = *buff_it;
-	  //cout << "IN: Buffer " << nbuffcnt << ": Bubble: " << b->get_bubble() << " Leading Edge: " << b->get_leading_edge() << endl;
-
 	  if (NewBubble) {
 	    b->set_bubble(true);
 	    NewBubbleSet = true;
@@ -167,20 +165,19 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
     }
   }
 
-
   void FlushBuffers() {
     typename QList<GRIAccumBuff<T>*>::iterator  buff_it;
 
     // Loop over all buffers and write the bubbles out...
-    for (int i=0; i<get_num_accum_buff(); i++) {
+    for (int i = 0; i < get_num_accum_buff(); ++i) {
       bool NewBubble = false;
       bool NewBubbleSet = false;
       std::cout << "Flushing AccumBuff Iteration " << i << std::endl;
       logger_.WriteLogFile((QString) "Flushing AccumBuff Iteration " + i);
 
       int buffctr = 0;
-      for (buff_it = buff_.begin(); buff_it != buff_.end(); buff_it++) {
-	buffctr = buffctr + 1;
+      for (buff_it = buff_.begin(); buff_it != buff_.end(); ++buff_it) {
+        ++buffctr;
 	GRIAccumBuff<T>* b = *buff_it;
 
 	if (NewBubble) {
@@ -229,6 +226,5 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
   QList<GRIAccumBuff<T>*> buff_;
   GRILogger logger_;
 };
-
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_GRIDAQACCUMULATOR_H_
