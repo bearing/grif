@@ -72,7 +72,7 @@ void GRILoader::InitRegulatorDetails() {
   QList<struct objectParsingDetails>::iterator obj_details_it;
 
   for(obj_details_it = objectsAndLinks.begin(); obj_details_it != objectsAndLinks.end();
-      obj_details_it++) {
+      ++obj_details_it) {
 
     struct objectParsingDetails obj_details = *obj_details_it;
     QString className = obj_details.className;
@@ -80,7 +80,7 @@ void GRILoader::InitRegulatorDetails() {
 
     GRIProcessThread *proc = Load(className, objectName);
 
-    if (proc == 0) {
+    if (!proc) {
       std::cout << "WARNING: could not load class "
 		<< className.toStdString().c_str()
 		<< " with object name " << objectName.toStdString().c_str()

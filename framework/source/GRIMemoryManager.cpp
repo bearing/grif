@@ -30,7 +30,7 @@ GRIMemoryManager::~GRIMemoryManager() {
     QList<QReadWriteLock*> *mutexs = lock_table_.at(i);
     int bIndex;
     int bSize = bufferTable->size();
-    for (bIndex =0; bIndex < bSize; bIndex++) {
+    for (bIndex = 0; bIndex < bSize; ++bIndex) {
       GRIBuffer *buf = bufferTable->at(bIndex);
       buf->Clear();
       QReadWriteLock *lock = mutexs->at(bIndex);
@@ -200,8 +200,8 @@ int GRIMemoryManager::LocateBuffer(const QString& dataBlockName,
       return i;
     }
   }
-
-  return -1;  // should not reach here if buffer exists
+  // should not reach here if buffer exists
+  return -1;
 }
 
 int GRIMemoryManager::LocateBuffer(const QString& bufferName, int blockIndex) {

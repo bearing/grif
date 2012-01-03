@@ -71,14 +71,13 @@ bool GRILogger::ClearErrorLogFile() {
 
 
 bool GRILogger::WriteLogFile(QList<QString>d, int time) {
-  QList<QString>::iterator iter;
-  for (iter = d.begin(); iter!= d.end(); iter++) {
+  for (QList<QString>::iterator iter = d.begin(); iter!= d.end(); ++iter) {
     WriteLogFile((*iter), time);
   }
   return 1;
 }
 
-bool GRILogger::WriteLogFile(QList<QString>d) {
+bool GRILogger::WriteLogFile(QList<QString> d) {
   return WriteLogFile(d, 0);
 }
 
@@ -132,15 +131,14 @@ bool GRILogger::WriteLogFile(GRILogMessage m) {
   }
 }
 
-bool GRILogger::WriteErrorLogFile(QList<QString>d, int time) {
-  QList<QString>::iterator iter;
-  for (iter = d.begin(); iter!= d.end(); iter++) {
+bool GRILogger::WriteErrorLogFile(QList<QString> d, int time) {
+  for (QList<QString>::iterator iter = d.begin(); iter!= d.end(); ++iter) {
     WriteErrorLogFile(*iter, time);
   }
   return 1;
 }
 
-bool GRILogger::WriteErrorLogFile(QList<QString>d) {
+bool GRILogger::WriteErrorLogFile(QList<QString> d) {
   return WriteErrorLogFile(d, 0);
 }
 
@@ -151,5 +149,3 @@ void GRILogger::Display(std::string a) {
 void GRILogger::Display(QList<std::string> a) {
   emit Output(a);
 }
-
-

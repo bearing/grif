@@ -26,8 +26,8 @@
 #include "GRIMemoryManager.h"
 
 GRIDataBlock::GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm, 
-			   QString readerName, QString readerBuffer,
-			   QString objectDataName, QString objectFromName) {
+                           QString readerName, QString readerBuffer,
+                           QString objectDataName, QString objectFromName) {
   obj_ = new struct AnalysisStructureObject;
   ReaderDataObject *rdr = new struct ReaderDataObject;
   rdr->name = readerName;
@@ -61,7 +61,7 @@ GRIDataBlock::GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm,
 
 GRIDataBlock::~GRIDataBlock() {
   QList<reader_t*>::iterator it;
-  for (it = readers_.begin(); it != readers_.end(); it++) {
+  for (it = readers_.begin(); it != readers_.end(); ++it) {
     delete *it;
   }
   writer_ = NULL;

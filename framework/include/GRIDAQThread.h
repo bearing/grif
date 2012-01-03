@@ -93,7 +93,7 @@
 class GRIDAQThread : public GRIProcessThread {
  public:
   GRIDAQThread();
-  ~GRIDAQThread();
+  ~GRIDAQThread() {}
 
   void RegisterAccumulator(QString buffname) {
     GRIDAQBaseAccumNode* p = RegisterDataOutput(buffname);

@@ -31,8 +31,6 @@ GRIDAQThread::GRIDAQThread() {
   set_is_daq(true);
 }
 
-GRIDAQThread::~GRIDAQThread() {}
-
 void GRIDAQThread::StartCollection() {
   set_run_flag(true);
 }
