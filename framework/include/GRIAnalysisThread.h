@@ -206,9 +206,10 @@ class GRIAnalysisThread : public GRIProcessThread {
   }
 
  private:
+  void ReadGarbageCollection();
+
   QList<void*> read_data_ptrs_;
   QList<GRIHistogrammer*> hist_array_;
-  void ReadGarbageCollection();
   GRILogger logger_;
 };
 
@@ -218,7 +219,7 @@ template <class T> int GRIAnalysisThread::PostData(int numel,
 	    << "::PostData - "
 	    << buffer_name.toStdString().c_str()
 	    << endl;
-  return writeMemory(get_name(), buffer_name, numel, data);
+  return WriteMemory(get_name(), buffer_name, numel, data);
 }
 
 template <class T> QPair<int, T*> GRIAnalysisThread::ReadData(QString block_name,

@@ -55,7 +55,6 @@ class GRILoader {
   void DetectCycles();
   void UpdateGraph(const QString& reader, const QString& writer);
 
-  QString local_grif_path_;
   GRIRegulator* regulator_;
   QList<Edge> edges_;
   QHash<QString, int> node_index_;
