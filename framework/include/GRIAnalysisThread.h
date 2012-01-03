@@ -28,6 +28,7 @@
 #include <QPair>
 #include <QString>
 #include "GRIHistogrammer.h"
+#include "GRILogger.h"
 #include "GRIProcessThread.h"
 
 #define ANALYSISTHREAD_SUCCESS   0
@@ -208,6 +209,7 @@ class GRIAnalysisThread : public GRIProcessThread {
   QList<void*> read_data_ptrs_;
   QList<GRIHistogrammer*> hist_array_;
   void ReadGarbageCollection();
+  GRILogger logger_;
 };
 
 template <class T> int GRIAnalysisThread::PostData(int numel,
