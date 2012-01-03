@@ -68,7 +68,7 @@ int HDF5Analysis::Analyze()
     //int nChan = 80;
     int nEvents;
 
-    pair<unsigned int, velodynepointcloud_t*> pData = ReadData<velodynepointcloud_t>("velodyneanalysis","PointCloud");
+    QPair<int, velodynepointcloud_t*> pData = ReadData<velodynepointcloud_t>("velodyneanalysis","pointcloud");
     nEvents = pData.first;
     rawdataarray = pData.second;
 

@@ -40,7 +40,7 @@ public:
     void writetree();
 private:
     GRILogMessage m_logMsg;
-    GRILogger *m_logger;
+    //GRILogger *m_logger;
     QString CallSign;
 
     struct edt_t {

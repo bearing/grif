@@ -40,7 +40,7 @@ int velodyneanalysis::initialize(){
         sinrotangle[i] = sin(((double)i)/100.0*PI/180.0);
         cosrotangle[i] = cos(((double)i)/100.0*PI/180.0);
     }
-    cout << i << endl;
+    std::cout << i << endl;
     return 0;
 
 }
@@ -50,7 +50,7 @@ int velodyneanalysis::Analyze(){
 
     int nEvents;
 
-    pair<unsigned int, velodynedatablock_t*> pData = ReadData<velodynedatablock_t>("VelodyneDAQ","HDLRAW");
+    QPair<int, velodynedatablock_t*> pData = ReadData<velodynedatablock_t>("VelodyneDAQ","HDLRAW");
     nEvents = pData.first;
     unsigned int npoints = nEvents*12*32;
     //cout << npoints << endl;
@@ -89,7 +89,7 @@ int velodyneanalysis::Analyze(){
     }
     //Post Data to be further processed or saved if data packet contains data
     if(pointn >0){
-        PostData(npoints,QString("PointCloud"),processeddata);
+        PostData(npoints,QString("pointcloud"),processeddata);
     }
     //delete [] qTS;
     delete [] processeddata;//delete processeddata to prevent memory leak DON'T DELETE RAWDATAARRAY! this is done by the memory manager.

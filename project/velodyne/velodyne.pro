@@ -2,7 +2,7 @@
 # Compact Compton Imaging System #
 #############################################
 
-QT       += core network qt3support xml
+QT       += core network xml
 QT       += gui
 
 TARGET =  velodyne
@@ -10,19 +10,19 @@ CONFIG   += console
 TEMPLATE = app
 FORMS +=
 
-include(../../../framework/trunk/source/fsource.pri)
-include(../../../framework/trunk/include/finclude.pri)
+include(../../framework/source/fsource.pri)
+include(../../framework/include/finclude.pri)
 include(vtkinclude.pri)
 #include(../../../application/daq/sis3150usb2.0/sis3150.pri)
 #include(../../../application/gui/grihistwidget/trunk/grihistwidget.pri)
 
 DEPENDPATH += source include . \
-    ../../../application/daq/velodynehdl32 \
-    ../../../application/analysis/velodyne
+    ../../modules/daq/velodynehdl32 \
+    ../../modules/analysis/velodyne
 
 
-INCLUDEPATH += include ../../../application/daq/velodynehdl32 \
-                ../../../application/analysis/velodyne \
+INCLUDEPATH += include ../../modules/daq/velodynehdl32 \
+                ../../modules/analysis/velodyne \
                 /usr/include/pcl-1.2 \
                 /usr/include/eigen3 \
                 /usr/include/flann
@@ -72,7 +72,7 @@ unix:LIBS += -lpcl_common -lpcl_io -lpcl_visualization -lpcl_features -lpcl_filt
 
 
 #HDF5 libraries
-unix: LIBS += -L/usr/lib -lhdf5_cpp
+unix: LIBS += -L/usr/lib -lhdf5_cpp -lhdf5
 
 unix: LIBS += -lpcap
 

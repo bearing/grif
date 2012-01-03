@@ -28,13 +28,13 @@ public:
 
       VelodyneDAQ();
 
-      int acquireData();
+      int acquireData(int n);
       int connectToDAQ();
       int initialize();
       int loadConfiguration();
       int startDataAcquisition();     //Called at the beginning each run.
       int stopDataAcquisition();      //Called at the end of each run.
-      GRIDAQAccumNode* RegisterDataOutput(QString outName); //figure this out
+      GRIDAQBaseAccumNode* RegisterDataOutput(QString outName); //figure this out
 
       /******************************************************************/
 

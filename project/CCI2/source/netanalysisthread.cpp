@@ -3,6 +3,9 @@
 #include "TSocket.h"
 #include "TMessage.h"
 #include "TH1.h"
+#include "TCanvas.h"
+#include "TApplication.h"
+#include "TSystem.h"
 #include "SISDefines.h"
 
 NetAnalysisThread::NetAnalysisThread()
@@ -10,7 +13,6 @@ NetAnalysisThread::NetAnalysisThread()
 }
 
 int NetAnalysisThread::initialize(){
-
     int nchan = 152;
     // create an ADC histogram for each channel
     int nhist = 0;
@@ -34,11 +36,18 @@ int NetAnalysisThread::initialize(){
         }
 
     std::cout << "SIMMCAnalysisThread: Number of histograms created: " << nhist << endl;
+
+    //TH1 *h;
+    //GRIHistogrammer *p = this->GetHistogram(histname);
+    //h = p->get_hist();
+    //h->DrawCopy();
+
 /*
     this->ss = new TServerSocket(6295,kTRUE);
     cout << "waiting for socket:" << endl;
     this->socket = ss->Accept();
     cout << "connected:" << endl;
+
   */  return 0;
 
 }
@@ -69,7 +78,6 @@ int NetAnalysisThread::Analyze(){
 
     histname = "CCI2";
     this->UpdateHistogram(histname,ADCv,Det,nEvents);
-
 
 
 /*

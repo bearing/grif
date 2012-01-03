@@ -8,7 +8,7 @@ VelodyneDAQ::VelodyneDAQ(){
 
 }
 
-int VelodyneDAQ::acquireData(){
+int VelodyneDAQ::acquireData(int n){
     struct pcap_pkthdr header;
     const u_char *packet;
 
@@ -127,9 +127,9 @@ int VelodyneDAQ::stopDataAcquisition(){
   
 }
 
-GRIDAQAccumNode* VelodyneDAQ::RegisterDataOutput(QString outName){
+GRIDAQBaseAccumNode* VelodyneDAQ::RegisterDataOutput(QString outName){
 
-  GRIDAQAccumNode* p = NULL; //feel free to delete after implementation
+  GRIDAQBaseAccumNode* p = NULL; //feel free to delete after implementation
   if(outName == "HDLRAW") p = new GRIDAQAccumulator<velodynedatablock_t>(outName,1e8,2,250);
   return p; //feel free to delete after implementation
 }
