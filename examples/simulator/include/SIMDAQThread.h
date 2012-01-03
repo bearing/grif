@@ -37,24 +37,24 @@ class SIMDAQThread : public GRIDAQThread {
   SIMDAQThread(int num=1, double min=0, double max=65535, double rate=1);
   ~SIMDAQThread();
 
-  int acquireData(int n);
+  int AcquireData(int n);
 
   GRIDAQBaseAccumNode *RegisterDataOutput(QString outName);
 
   // No DAQ to connect to
-  int connectToDAQ() { return 0; }
+  int ConnectToDAQ() { return 0; }
 
   // not needed now
-  int initialize() { return 0; }
+  int Initialize() { return 0; }
 
   // not needed now
-  int loadConfiguration() { return 0; }
+  int LoadConfiguration() { return 0; }
 
   //Called at the beginning each run.
-  int startDataAcquisition();
+  int StartDataAcquisition();
 
   //not needed now, called at the end of each run.
-  int stopDataAcquisition() { return 0; }
+  int StopDataAcquisition() { return 0; }
 
   int addPeak(double value, double sigma, double rate, int chan);
   int removePeak(int index);

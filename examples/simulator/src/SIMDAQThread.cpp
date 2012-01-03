@@ -78,7 +78,7 @@ GRIDAQBaseAccumNode* SIMDAQThread::RegisterDataOutput(QString outName) {
   return p;
 }
 
-int SIMDAQThread::acquireData(int n) {
+int SIMDAQThread::AcquireData(int n) {
   Q_UNUSED(n);
   msleep(50);
   QDateTime currentTime = QDateTime::currentDateTime();
@@ -148,7 +148,7 @@ int SIMDAQThread::acquireData(int n) {
   return 0;
 }
 
-int SIMDAQThread::startDataAcquisition() {
+int SIMDAQThread::StartDataAcquisition() {
   start_time_ = QDateTime::currentDateTime();
   prev_time_ = start_time_;
   InitializeAccumulators(start_time_,0,1e8,4,250);
