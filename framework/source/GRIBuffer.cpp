@@ -29,18 +29,18 @@ GRIBuffer::GRIBuffer(QReadWriteLock *lock) {
 }
 
 GRIBuffer::~GRIBuffer() {
-  clear();
+  Clear();
   marker_list_.clear();
   thread_list_.clear();
 }
 
-void GRIBuffer::addPacket() {
+void GRIBuffer::AddPacket() {
   QVector<char> *packet = new QVector<char>();
   packet_list_.append(packet);
   ++size_;
 }
 
-bool GRIBuffer::writeToBuffer(char b, int packetNumber, int index) {
+bool GRIBuffer::WriteToBuffer(char b, int packetNumber, int index) {
   if (packetNumber < 0 || packetNumber > size_) {
     return false;
   }
@@ -71,7 +71,7 @@ bool GRIBuffer::writeToBuffer(char b, int packetNumber, int index) {
   }
 }
 
-char GRIBuffer::readBuffer(int packetNumber, int index) {
+char GRIBuffer::ReadBuffer(int packetNumber, int index) {
   QVector<char> *packet = packet_list_.at(packetNumber);
 
   //the following code is for testing purposes only
@@ -91,7 +91,7 @@ char GRIBuffer::readBuffer(int packetNumber, int index) {
   return packet->at(index);
 }
 
-void GRIBuffer::clearPacket(int packetNumber) {
+void GRIBuffer::ClearPacket(int packetNumber) {
   if(IsNullPacket(packetNumber)) {
     RemoveNullPacket(packetNumber);
   }
@@ -99,7 +99,7 @@ void GRIBuffer::clearPacket(int packetNumber) {
   packet->clear();
 }
 
-int GRIBuffer::currentPacket() {
+int GRIBuffer::CurrentPacket() {
   int id = ((GRIProcessThread*) QThread::currentThread())->get_thread_id();
   int i = thread_list_.indexOf(id);
   if (i != -1) {
@@ -109,7 +109,7 @@ int GRIBuffer::currentPacket() {
   }
 }
 
-int GRIBuffer::bufferSize() {
+int GRIBuffer::BufferSize() {
   if (busy_write_) {
     // Return only completed packets
     return (size_-1);
@@ -118,7 +118,7 @@ int GRIBuffer::bufferSize() {
   }
 }
 
-int GRIBuffer::packetSize(int packetNumber) {
+int GRIBuffer::PacketSize(int packetNumber) {
   if(IsNullPacket(packetNumber)) {
     return 0;
   }
@@ -126,11 +126,11 @@ int GRIBuffer::packetSize(int packetNumber) {
   return packet->size();
 }
 
-int GRIBuffer::nextPacket() {
+int GRIBuffer::NextPacket() {
   return size_;
 }
 
-void GRIBuffer::clear() {
+void GRIBuffer::Clear() {
   for (int i = 0; i< size_; ++i) {
     QVector<char> *packet = packet_list_.at(i);
     packet->clear();
@@ -138,7 +138,7 @@ void GRIBuffer::clear() {
   packet_list_.clear();
 }
 
-void GRIBuffer::setPacketMarker(int newMarker) {
+void GRIBuffer::SetPacketMarker(int newMarker) {
   int id = ((GRIProcessThread*) QThread::currentThread())->get_thread_id();
   int i = thread_list_.indexOf(id);
   if (i != -1) {
@@ -149,7 +149,7 @@ void GRIBuffer::setPacketMarker(int newMarker) {
   }
 }
 
-void GRIBuffer::incrementPacketMarker() {
+void GRIBuffer::IncrementPacketMarker() {
   int id = ((GRIProcessThread*) QThread::currentThread())->get_thread_id();
   int i = thread_list_.indexOf(id);
   if (i != -1) {
@@ -161,15 +161,15 @@ void GRIBuffer::incrementPacketMarker() {
   }
 }
 
-void GRIBuffer::waitOnQueue() {
+void GRIBuffer::WaitOnQueue() {
   wait_queue_.wait(lock_);
 }
 
-void GRIBuffer::wakeAllOnQueue() {
+void GRIBuffer::WakeAllOnQueue() {
   wait_queue_.wakeAll();
 }
 
-void GRIBuffer::wakeOneOnQueue() {
+void GRIBuffer::WakeOneOnQueue() {
   wait_queue_.wakeOne();
 }
 

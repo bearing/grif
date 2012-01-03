@@ -39,7 +39,7 @@ GRIAnalysisThread::~GRIAnalysisThread() {
     }
 }
 
-void GRIAnalysisThread::forceQuitAnalysis() {
+void GRIAnalysisThread::ForceQuitAnalysis() {
     set_force_quit(true);
     set_exit_thread_flag(true);
 }
@@ -47,13 +47,13 @@ void GRIAnalysisThread::forceQuitAnalysis() {
 void GRIAnalysisThread::run() {
     std::cout << "Running GRIAnalysisThread..." << std::endl;
     int error;
-    error = openInitializationControl();
+    error = OpenInitializationControl();
     if (error != ANALYSISTHREAD_SUCCESS) {
-        errorHandling("openInitializationControl failed", error);
+      ErrorHandling("OpenInitializationControl() failed", error);
     }
-    error = initialize();
+    error = Initialize();
     if (error != ANALYSISTHREAD_SUCCESS) {
-        errorHandling("initialize() failed", error);
+        ErrorHandling("Initialize() failed", error);
     }
     while (!get_exit_thread_flag()) {
         while (!get_run_flag() && !get_exit_thread_flag()) {
@@ -63,7 +63,7 @@ void GRIAnalysisThread::run() {
         while (get_run_flag() && !get_exit_thread_flag()) {
             error = Analyze();
             if (error != ANALYSISTHREAD_SUCCESS) {
-                errorHandling("Analyze() failed", error);
+                ErrorHandling("Analyze() failed", error);
             }
 	    // Flush the dynamic command buffer
 	    FlushBuffer();
@@ -74,7 +74,7 @@ void GRIAnalysisThread::run() {
     }
 }
 
-void GRIAnalysisThread::errorHandling(const char * message, int errorCode) {
+void GRIAnalysisThread::ErrorHandling(const char * message, int errorCode) {
     std::cerr << "GRIAnalysisThreadError: Message: " << message << std::endl;
     std::cerr << "\tError code = " << errorCode << std::endl;
     //log << "GRIAnalysisThreadError: Message: " << message << std::endl;

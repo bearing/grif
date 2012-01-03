@@ -35,7 +35,7 @@ GRIDataBlock::GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm,
   obj_->data = objectDataName;
   obj_->From = objectFromName;
   (obj_->To).push_back(*rdr);
-  set_mm(mm);
+  mm_ = mm;
 
   QList<ReaderDataObject>::iterator it;
 
@@ -67,7 +67,7 @@ GRIDataBlock::~GRIDataBlock() {
   writer_ = NULL;
 }
 
-void GRIDataBlock::set_link(QLinkedList<GRIProcessThread*>* processes) {
+void GRIDataBlock::SetLink(QLinkedList<GRIProcessThread*>* processes) {
   QLinkedList<GRIProcessThread*>::iterator process_it;
   QList<reader_t*>::iterator reader_it;
 
@@ -77,7 +77,7 @@ void GRIDataBlock::set_link(QLinkedList<GRIProcessThread*>* processes) {
     GRIProcessThread* process = *process_it;
     if (writer_name_ == process->get_name()) {
       this->writer_ = process;
-      mm_->bufferCreate(writer_name_, this->name_);
+      mm_->BufferCreate(writer_name_, this->name_);
       break;
     }
   }
@@ -85,7 +85,7 @@ void GRIDataBlock::set_link(QLinkedList<GRIProcessThread*>* processes) {
   if(process_it == (*processes).end()) {
 
 #ifdef DATA_BLOCK_DEBUG
-    std::cerr << "! GRIDataBlock::set_link(): Can't find pointer to the writer, ie: "
+    std::cerr << "! GRIDataBlock::SetLink(): Can't find pointer to the writer, ie: "
               << writer_name_.toStdString().c_str() << std::endl;
 #endif // DATA_BLOCK_DEBUG
 
@@ -109,7 +109,7 @@ void GRIDataBlock::set_link(QLinkedList<GRIProcessThread*>* processes) {
     if(process_it == (*processes).end()) {
 
 #ifdef DATA_BLOCK_DEBUG
-      std::cerr << "! GRIDataBlock::set_link(): Can't find pointer to the reader: "
+      std::cerr << "! GRIDataBlock::SetLink(): Can't find pointer to the reader: "
                 << reader->reader_name.toStdString().c_str() << std::endl;
 #endif // DATA_BLOCK_DEBUG
 
@@ -118,7 +118,7 @@ void GRIDataBlock::set_link(QLinkedList<GRIProcessThread*>* processes) {
   }
 }
 
-void GRIDataBlock::delete_packet() {
+void GRIDataBlock::DeletePacket() {
   QList<reader_t*>::iterator it;
   int lowest_packet = write_counter_;
 
@@ -131,15 +131,15 @@ void GRIDataBlock::delete_packet() {
 
   if (lowest_packet > first_packet_) {
     for (int i = first_packet_; i < lowest_packet; ++i) {
-      mm_->deletePacket(writer_name_, this->name_, i);
+      mm_->DeletePacket(writer_name_, this->name_, i);
     }
     first_packet_ = lowest_packet;
   }
 }
 
-void GRIDataBlock::load_balancing() {
+void GRIDataBlock::LoadBalancing() {
   QList<reader_t*>::iterator it;
-  delete_packet();
+  DeletePacket();
 
   // not much imbalance in the system
   if ((write_counter_ - first_packet_) < MAX_THRESHOLD) {
@@ -162,7 +162,7 @@ void GRIDataBlock::load_balancing() {
   }
 }
 
-bool GRIDataBlock::update_reader() {
+bool GRIDataBlock::UpdateReader() {
   QString curr_thread_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
   QList<reader_t*>::iterator it;
@@ -178,7 +178,7 @@ bool GRIDataBlock::update_reader() {
   return false;
 }
 
-bool GRIDataBlock::update_writer() {
+bool GRIDataBlock::UpdateWriter() {
   QString curr_thread_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
   if (curr_thread_name != writer_name_) {
