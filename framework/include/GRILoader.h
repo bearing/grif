@@ -46,10 +46,10 @@ class GRILoader {
 
   // Initialization of process threads based on the list fileNames
   // returns pointer to list of GRIProcessThread pointers for the framework
-  void initRegulatorDetails();
+  void InitRegulatorDetails();
 
  protected:
-  virtual GRIProcessThread* load(QString process_name, QString object_name) = 0;
+  virtual GRIProcessThread* Load(QString process_name, QString object_name) = 0;
 
  private:
   void DetectCycles();

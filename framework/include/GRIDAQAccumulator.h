@@ -142,11 +142,11 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
                 << b->GetDataSize() << " events. Timestamp = "
                 << (double)timestamps[0]/(double)get_ticks_per_sec()
                 << "\n";
-            logger_.writeLogFile(str);
+            logger_.WriteLogFile(str);
 
 	    T* da = b->DataArray();
 
-	    get_p_DAQ()->writeMemory(get_p_DAQ()->get_name(),get_buffer_name(),b->GetDataSize(),da);
+            get_p_DAQ()->WriteMemory(get_p_DAQ()->get_name(),get_buffer_name(),b->GetDataSize(),da);
 	    delete [] da;
 
 	    NewBubble = true;  // Sets up next buffer to be the bubble
@@ -176,7 +176,7 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
       bool NewBubble = false;
       bool NewBubbleSet = false;
       std::cout << "Flushing AccumBuff Iteration " << i << std::endl;
-      logger_.writeLogFile((QString) "Flushing AccumBuff Iteration " + i);
+      logger_.WriteLogFile((QString) "Flushing AccumBuff Iteration " + i);
 
       int buffctr = 0;
       for (buff_it = buff_.begin(); buff_it != buff_.end(); buff_it++) {
@@ -202,17 +202,17 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
               << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": "
               << get_buffer_name().toStdString().c_str() << " accumulator writing "
               << b->GetDataSize() << " events\n.";
-          logger_.writeLogFile(str);
+          logger_.WriteLogFile(str);
 
 	  T* da = b->DataArray();
 
-	  get_p_DAQ()->writeMemory(get_p_DAQ()->get_name(),get_buffer_name(),b->GetDataSize(),da);
+          get_p_DAQ()->WriteMemory(get_p_DAQ()->get_name(),get_buffer_name(),b->GetDataSize(),da);
 	  delete [] da;
 
 	  NewBubble = true;  // Sets up next buffer to be the bubble
 	  b->set_bubble(false);
 	  b->ResetBuffer(b->get_t1() + get_accum_time()*get_num_accum_buff(),
-			 b->get_t2() + get_accum_time()*get_num_accum_buff());
+                         b->get_t2() + get_accum_time()*get_num_accum_buff());
 	  b->set_leading_edge(true);
 	}
       }

@@ -42,9 +42,9 @@ class GRIBuffer {
   explicit GRIBuffer(QReadWriteLock *lock);
   ~GRIBuffer();
 
-  // addPacket() adds one more packet to the end of the buffer. This will
+  // AddPacket() adds one more packet to the end of the buffer. This will
   // update internal variables.
-  void addPacket();
+  void AddPacket();
 
   // writeToBuffer() writes one char into the specified index location of the
   // packet. This operation will automatically create the specified packet if it
@@ -55,81 +55,83 @@ class GRIBuffer {
   // index is the index to which b is to be written to inside the packet
   // returns true if the operation was successfu, false otherwise
   // see addPacket(), readBuffer()
-  bool writeToBuffer(char b, int packetNumber, int index);
+  bool WriteToBuffer(char b, int packetNumber, int index);
 
-  // readBuffer() returns the specified char at the packet position and the index.
+  // ReadBuffer() returns the specified char at the packet position and the
+  // index.
   //
   // packetNumber is the specified packet to be written to
   // index is the location to read from
   // returns the char at the specified index location
-  // see writeToBuffer()
-  char readBuffer(int packetNumber, int index);
+  // see WriteToBuffer()
+  char ReadBuffer(int packetNumber, int index);
 
-  // clearBuffer() empties out the specified packet. Further reads from an empty
+  // ClearBuffer() empties out the specified packet. Further reads from an empty
   // packet will return an error.
   //
   // packetNumber is an int representing the packet position
-  // see clear()
-  void clearPacket(int packetNumber);
+  // see Clear()
+  void ClearPacket(int packetNumber);
 
-  // setPackerMarker moves the packet marker to the index indicated by i
+  // setPackerMarker() moves the packet marker to the index indicated by i
   // i is the index to which the packet marker should be set
   // returns true if successful, otherwise false.
-  // see incrementPacketMarker(), currentPacket()
-  void setPacketMarker(int i);
+  // see IncrementPacketMarker(), CurrentPacket()
+  void SetPacketMarker(int i);
 
-  // incrementPacketMarker increments the packet marker for a particular thread by one.
+  // IncrementPacketMarker() increments the packet marker for a particular thread
+  // by one.
   //
-  // see setPacketMarker(), currentPacket()
-  void incrementPacketMarker();
+  // see SetPacketMarker(), CurrentPacket()
+  void IncrementPacketMarker();
 
-  // currentPacket() returns the index position of the packet marker.
+  // CurrentPacket() returns the index position of the packet marker.
   //
   // returns the index of the packet marker for the current thread
-  // see incrementPacketMarker(), setPacketMarker()
-  int currentPacket();
+  // see IncrementPacketMarker(), SetPacketMarker()
+  int CurrentPacket();
 
-  // bufferSize() returns the total number of packets within the buffer;
+  // BufferSize() returns the total number of packets within the buffer;
   //
   // returns the size of the buffer by number of packets
-  // see packetSize()
-  int bufferSize();
+  // see PacketSize()
+  int BufferSize();
 
-  // packetSize() returns the number of chars within the packet.
+  // PacketSize() returns the number of chars within the packet.
   //
   // packetNumber is the index of the packet to check the size of
   // returns an int representing the number of elements in the packet
-  // see bufferSize()
-  int packetSize(int packetNumber);
+  // see BufferSize()
+  int PacketSize(int packetNumber);
 
   // get the index of the next packet to be added to the buffer
   //
   // returns the index of the next packet
-  // see bufferSize()
-  int nextPacket();
+  // see BufferSize()
+  int NextPacket();
 
   // removes all instances from the buffer and frees memory
   //
-  // see clearPacket()
-  void clear();
+  // see ClearPacket()
+  void Clear();
 
-  // waitOnQueue acts as a condition variable for the buffer. There is exactly
+  // WaitOnQueue() acts as a condition variable for the buffer. There is exactly
   // one condition variable per buffer because there is exactly one
   // QReadWriteLock per buffer.
   //
-  // see wakeAllOnQueue(), wakeOneOnQueue()
-  void waitOnQueue();
+  // see WakeAllOnQueue(), WakeOneOnQueue()
+  void WaitOnQueue();
 
-  // wakeAllOnQueue() wakes all threads currently sitting on the buffers
+  // WakeAllOnQueue() wakes all threads currently sitting on the buffers
   // condition variable.
   //
-  // see waitOnQueue(), wakeOneOnQueue()
-  void wakeAllOnQueue();
+  // see WaitOnQueue(), WakeOneOnQueue()
+  void WakeAllOnQueue();
 
-  // wakeOneOnQueue wakes exactly one thread from the condition variable.
+  // WakeOneOnQueue() wakes exactly one thread from the condition variable.
   //
-  // see wakeAllOnQueue(), waitOnQueue()
-  void wakeOneOnQueue();
+  // see WakeAllOnQueue(), WaitOnQueue()
+  void WakeOneOnQueue();
 
   void AddNullPacket(int packetNum);
 

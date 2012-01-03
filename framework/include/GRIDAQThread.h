@@ -55,37 +55,37 @@
 //   MyDAQ();
 //   ~MyDAQ();
 // 
-//   int connectToDAQ() {
+//   int ConnectToDAQ() {
 //     // Talk to hardware
 //   }
 // 
-//   int initalize() {
+//   int Initalize() {
 //     // Initialize DAQ hardware
 //   }
 // 
-//   int loadConfiguration() {
+//   int LoadConfiguration() {
 //     // Configure DAQ hardware
 //   }
 // 
-//   int startDataAcquisition() {
+//   int StartDataAcquisition() {
 //     // Do routines that must run immediately
 //     // before data collection.
 //   }
 // 
-//   int acquireData(int n) {
+//   int AcquireData(int n) {
 //     // Do routine that actually collects data
-//     // with the expectation that acquireData()
+//     // with the expectation that AcquireData()
 //     // will be run in a loop (as shown in run()).
 //     // Use the methods inherited from GRIProcessThread
 //     // to write data to memory through the regulator.
 //   }
 // 
-//   int stopDataAcquisition() {
+//   int StopDataAcquisition() {
 //     // Do routines that must run immediately
 //     // after data collection.
 //   }
 // 
-//   int terminationRoutines() {
+//   int TerminationRoutines() {
 //     // Do things that turn off DAQ
 //   }
 // };
@@ -111,134 +111,134 @@ class GRIDAQThread : public GRIProcessThread {
 
   // A member function for procedures that establish a connection to a DAQ
   //
-  // connectToDAQ() should contain procedures for setting up a connection to a
+  // ConnectToDAQ() should contain procedures for setting up a connection to a
   // given data acquisition device.  Simply return DAQTHREAD_SUCCESS if there
   // is nothing to do for your particular data acquisition device.
   //
   // invariants:
   // This method is guaranteed to be called only once, and only when this thread
   // starts.  It is called before any other methods in GRIDAQThread (except
-  // openInitializationControl()).  It is not called for each startCollection().
+  // OpenInitializationControl()).  It is not called for each StartCollection().
   //
   // returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an
   // error code of your choosing upon failure.  The error will be reported using
-  // the errorHandling() method.
-  virtual int connectToDAQ() = 0;
+  // the ErrorHandling() method.
+  virtual int ConnectToDAQ() = 0;
 
   // A member function for procedures that load an initial configuration of a DAQ
   //
-  // loadConfiguration() should contain procedures for loading a configuration
+  // LoadConfiguration() should contain procedures for loading a configuration
   // onto a given data acquisition device.  Simply return DAQTHREAD_SUCCESS if
   // there is nothing to do for your particular data acquisition device.
   //
   // invariants:
   // This method is guaranteed to be called only once, and only when this thread
-  // starts.  It is called immediately after connectToDAQ().  It is not called
-  // for each startCollection().
+  // starts.  It is called immediately after ConnectToDAQ().  It is not called
+  // for each StartCollection().
   //
   // returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an
   // error code of your choosing upon failure.  The error will be reported using
-  // the errorHandling() method.
-  virtual int loadConfiguration() = 0;
+  // the ErrorHandling() method.
+  virtual int LoadConfiguration() = 0;
 
   // A member function for procedures that initialize a DAQ
   //
-  // initialize() should contain procedures for doing any initial setup necessary
+  // Initialize() should contain procedures for doing any initial setup necessary
   // for a given data acquisition device.  Simply return DAQTHREAD_SUCCESS if
   // there is nothing to do for your particular data acquisition device.
   //
   // invariants:
   // This method is guaranteed to be called only once, and only when this thread
-  // starts.  It is called immediately after loadConfiguration().  It is not
-  // called for each startCollection().
+  // starts.  It is called immediately after LoadConfiguration().  It is not
+  // called for each StartCollection().
   //
   // returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an
   // error code of your choosing upon failure.  The error will be reported using
-  // the errorHandling() method.
-  virtual int initialize() = 0;
+  // the ErrorHandling() method.
+  virtual int Initialize() = 0;
 
   // A member function for procedures that start data collection from a DAQ
   //
-  // startDataAcquisition() should contain procedures initiating the data
+  // StartDataAcquisition() should contain procedures initiating the data
   // acquisition process for a given data acquisition device. Simply return
   // DAQTHREAD_SUCCESS if there is nothing to do for your particular data
   // acquisition device.
   //
   // invariants:
   // This method is guaranteed to be called once immediately after
-  // startCollection() is called.  Every time data collection is stopped using
-  // stopCollection() and restarted using startCollection() again, this method
+  // StartCollection() is called.  Every time data collection is stopped using
+  // StopCollection() and restarted using StartCollection() again, this method
   // will be called again.
   //
   // returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
   // code of your choosing upon failure.  The error will be reported using the
-  // errorHandling() method.
-  virtual int startDataAcquisition() = 0;
+  // ErrorHandling() method.
+  virtual int StartDataAcquisition() = 0;
 
   // A member function for procedures will be called repeatedly to collect data
   //
-  // acquireData() should contain procedures that collect data from a DAQ and
-  // write it to the GRIMemoryManager using the writeMemory() and readMemory()
-  // methods available in GRIProcessThread.  acquireData() should be written with
+  // AcquireData() should contain procedures that collect data from a DAQ and
+  // write it to the GRIMemoryManager using the WriteMemory() and ReadMemory()
+  // methods available in GRIProcessThread.  AcquireData() should be written with
   // the expectation that it will be repeatedly from within a loop to acquire
-  // data after startCollection() has been called.
-  // At any point during data collection, stopCollection() can be called to halt
-  // collection and/or quitDAQ() or forceQuitDAQ() can be called to halt
+  // data after StartCollection() has been called.
+  // At any point during data collection, StopCollection() can be called to halt
+  // collection and/or QuitDAQ() or ForceQuitDAQ() can be called to halt
   // collection and terminate this thread (effectively ending your session with
   // this particular DAQ).
   //
   // invariants:
   // This method is guaranteed to be called repeatedly in a loop after
-  // startDataAcquisition() is called until stopCollection(), quitDAQ(), or
-  // forceQuitDAQ() is called.
+  // StartDataAcquisition() is called until StopCollection(), QuitDAQ(), or
+  // ForceQuitDAQ() is called.
   //
   // returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an
   // error code of your choosing upon failure.  The error will be reported using
-  // the errorHandling() method.
-  virtual int acquireData(int n) = 0;
+  // the ErrorHandling() method.
+  virtual int AcquireData(int n) = 0;
 
   // A member function for procedures that stop data collection from a DAQ
   //
-  // stopDataAcquisition() should contain procedures ending the data acquisition
+  // StopDataAcquisition() should contain procedures ending the data acquisition
   // process for a given data acquisition device. Simply return DAQTHREAD_SUCCESS
   // if there is nothing to do for your particular data acquisition device.
   //
   // invariants:
   // This method will be called once immediately after the loop in which
-  // acquireData() is running ends (i.e. whenever you call stopCollection()).
-  // After stopCollection() is called and before quitDAQ() or forceQuitDAQ() is
+  // AcquireData() is running ends (i.e. whenever you call StopCollection()).
+  // After StopCollection() is called and before QuitDAQ() or ForceQuitDAQ() is
   // called, the data collection process may be started up again using
-  // startCollection().  If forceQuitDAQ() is called during an acquireData()
-  // loop, stopDataAcquisition() will not be called.  However, if quitDAQ() is
-  // called, stopDataAcquisition() will be called.
+  // StartCollection().  If ForceQuitDAQ() is called during an AcquireData()
+  // loop, StopDataAcquisition() will not be called.  However, if QuitDAQ() is
+  // called, StopDataAcquisition() will be called.
   //
   // returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an
   // error code of your choosing upon failure.  The error will be reported using
-  // the errorHandling() method.
-  virtual int stopDataAcquisition() = 0;
+  // the ErrorHandling() method.
+  virtual int StopDataAcquisition() = 0;
 
 
   // A member function for the final cleanup and shutdown for a DAQ
   //
-  // terminationRoutines() should contain procedures for cleaning up, shutting
+  // TerminationRoutines() should contain procedures for cleaning up, shutting
   // down, and turning off a DAQ.  This method will be called only when the
-  // quitDAQ() method is called. Simply return DAQTHREAD_SUCCESS if there is
+  // QuitDAQ() method is called. Simply return DAQTHREAD_SUCCESS if there is
   // nothing to do for your particular data acquisition device.
   //
   // invariants:
   // This method is guaranteed to be called once immediately before this
-  // DAQThread terminates. If the DAQ is collecting data, stopDataAcquisition()
-  // will be called before this method.  forceQuitDAQ(), however, does not call
+  // DAQThread terminates. If the DAQ is collecting data, StopDataAcquisition()
+  // will be called before this method.  ForceQuitDAQ(), however, does not call
   // this method before allowing the DAQThread to terminate.
   //
   // returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an
   // error code of your choosing upon failure.  The error will be reported using
-  // the errorHandling() method.
-  virtual int terminationRoutines() { return 0; }
+  // the ErrorHandling() method.
+  virtual int TerminationRoutines() { return 0; }
 
   // A member function for opening a GUI during DAQ initialization.
   //
-  // openInitializationControl() should open a GUI for controlling initialization of
+  // OpenInitializationControl() should open a GUI for controlling initialization of
   // the DAQ.  Dynamically getting and setting parameters may be done through the
   // getParam() and setParam() methods in GRIProcessThread().  Implementation of this
   // method is optional.
@@ -246,92 +246,92 @@ class GRIDAQThread : public GRIProcessThread {
   // invariants:
   // This method is guaranteed to be called once immediately after this DAQThread
   // runs. It is called before any other methods in GRIDAQThread (except
-  // openInitializationControl()).  It is not called for each startCollection().
+  // OpenInitializationControl()).  It is not called for each StartCollection().
   //
   // returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
   // code of your choosing upon failure.  The error will be reported using the
-  // errorHandling() method.
-  virtual int openInitializationControl() { return 0; }  //Can override to tell GUI to open.
+  // ErrorHandling() method.
+  virtual int OpenInitializationControl() { return 0; }
 
 
   // A member function for opening a GUI during a DAQ run.
   //
-  // openRunTimeControl() should open a GUI for controlling running of the DAQ.
+  // OpenRunTimeControl() should open a GUI for controlling running of the DAQ.
   // Implementation of this method is optional.
   //
   // invariants:
   // This method is guaranteed to be called once immediately after
-  // startCollection() assuming collection is not already occurring, and will be
+  // StartCollection() assuming collection is not already occurring, and will be
   // called again every time collection is stopped and restarted using
-  // stopCollection(), and startCollection(). openRunTimeControl() can override
+  // StopCollection(), and StartCollection(). OpenRunTimeControl() can override
   // to tell GUI to open.
   //
   // returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or an error
   // code of your choosing upon failure.  The error will be reported using the
-  // errorHandling() method.
-  virtual int openRunTimeControl() { return 0; }
-
-  // run() is called when this thread is started by the regulator.
-  void run();
+  // ErrorHandling() method.
+  virtual int OpenRunTimeControl() { return 0; }
 
   // Reports user generated errors for a DAQThread to standard output.
-  void errorHandling(const char * message, int errorCode);
+  void ErrorHandling(const char * message, int errorCode);
 
   // A member function for starting a DAQ run.
   //
-  // startCollection() can be called to begin collection of data from a DAQ.
+  // StartCollection() can be called to begin collection of data from a DAQ.
   // Calling this method repeatedly results in undefined behavior.  This method
-  // may be called after stopCollection() to restart data collection.
+  // may be called after StopCollection() to restart data collection.
   // "Collection" involves the following method calls, in this order:
-  // 1. openRunTimeControl()
-  // 2. startDataAcquisition()
+  // 1. OpenRunTimeControl()
+  // 2. StartDataAcquisition()
   // 3. loop {
-  //      acquireData()
-  //    } until stopCollection() is called (or one of the quit methods)
+  //      AcquireData()
+  //    } until StopCollection() is called (or one of the quit methods)
   //
   // invariants:
   // This method must be called to start the data acquisition loop.
-  void startCollection();
+  void StartCollection();
 
   // A member function for stopping a DAQ run.
   //
-  // stopCollection() can be called to end collection of data from a DAQ.
+  // StopCollection() can be called to end collection of data from a DAQ.
   // Calling this method repeatedly results in undefined behavior.
-  // startCollection() may be called after this method to restart data
-  // collection. Stopping collection results in a call to stopDataAcquisition().
+  // StartCollection() may be called after this method to restart data
+  // collection. Stopping collection results in a call to StopDataAcquisition().
   //
   // invariants:
   // This method may be called to stop the data acquisition loop without
   // terminating the thread.
   //
-  // see errorHandling(), startCollection()
-  void stopCollection();
+  // see ErrorHandling(), StartCollection()
+  void StopCollection();
 
   // A member function for stopping any data collection and nicely terminating
   // the thread.
   //
-  // quitDAQ() can be called to end collection of data from a DAQ and nicely
-  // terminating the thread.  "Nicely" means that the stopDataAcquisition() and
-  // terminationRoutines() methods are called before the thread terminates.
+  // QuitDAQ() can be called to end collection of data from a DAQ and nicely
+  // terminating the thread.  "Nicely" means that the StopDataAcquisition() and
+  // TerminationRoutines() methods are called before the thread terminates.
   //
   // invariants:
   // This method may be called to stop the data acquisition loop and terminate
   // the thread, or simply just to terminate the thread.
-  void quitDAQ();
+  void QuitDAQ();
 
   // A member function for stopping any data collection and rapidly terminating
   // the thread.
   //
-  // forceQuitDAQ() can be called to end collection of data from a DAQ and
+  // ForceQuitDAQ() can be called to end collection of data from a DAQ and
   // terminate the thread.  THIS SHOULD ONLY BE USED TO TERMINATE THE THREAD IN
   // EMERGENCIES.  This method simply ends the thread from any point in its run
   // after the currently running method returns.  It skips calls to
-  // stopDataAcquisition() and terminationRoutines().
+  // StopDataAcquisition() and TerminationRoutines().
   //
   // invariants:
   // This method may be called to stop the data acquisition loop and terminate
   // the thread, or simply just to terminate the thread.
-  void forceQuitDAQ();
+  void ForceQuitDAQ();
+
+  // run() is called when this thread is started by the regulator.
+  void run();
 
  protected:
   // Post data to the regulator to a given buffer.

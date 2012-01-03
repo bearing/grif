@@ -57,12 +57,12 @@
 //   MyAnalysis();
 //   ~MyAnalysis();
 // 
-//   virtual int startDataAcquisition() {
+//   virtual int StartDataAcquisition() {
 //     // Do routines that must run immediately
 //     // before data collection.
 //   }
 // 
-//   virtual int acquireData() {
+//   virtual int AcquireData() {
 //     // Do routine that actually collects data
 //     // with the expectation that acquireData()
 //     // will be run in a loop (as shown in run()).
@@ -70,12 +70,12 @@
 //     // to write data to memory through the regulator.
 //   }
 // 
-//   virtual int stopDataAcquisition() {
+//   virtual int StopDataAcquisition() {
 //     // Do routines that must run immediately
 //     // after data collection.
 //   }
 // 
-//   virtual int terminationRoutines() {
+//   virtual int TerminationRoutines() {
 //     // Do things that turn off DAQ
 //   }
 // 
@@ -89,22 +89,22 @@ class GRIAnalysisThread : public GRIProcessThread {
   ~GRIAnalysisThread();
 
   // A member function for procedures that initialize the Analysis
-  // initialize() should contain procedures for doing any initial setup
+  // Initialize() should contain procedures for doing any initial setup
   // necessary for a given data acquisition device.  Simply return
   // ANALYSISTHREAD_SUCCESS if there is nothing to do for your particular data
   // acquisition device.
   //
   // invariants:
   // This method is guaranteed to be called only once, and only when this
-  // thread starts.  It is called immediately after loadConfiguration().
-  // It is not called for each startCollection().
+  // thread starts.  It is called immediately after LoadConfiguration().
+  // It is not called for each StartCollection().
   //
   // returns an int containing ANALYSISTHREAD_SUCCESS if the method succeeds,
   // or an error code of your choosing upon failure.  The error will be
-  // reported using the errorHandling() method.
+  // reported using the ErrorHandling() method.
   //
-  // see errorHandling()
-  virtual int initialize() { return 0; }
+  // see ErrorHandling()
+  virtual int Initialize() { return 0; }
 
   // A member function for procedures will be called repeatedly to
   // analyze data
@@ -116,53 +116,46 @@ class GRIAnalysisThread : public GRIProcessThread {
 
   // A member function for opening a GUI during DAQ initialization.
   //
-  // openInitializationControl() should open a GUI for controlling
-  // initialization of the DAQ.  Dynamically getting and setting parameters 
-  // may be done through the getParam() and setParam() methods in 
-  // GRIProcessThread().  Implementation of this method is optional.
+  // OpenInitializationControl() should open a GUI for controlling
+  // initialization of the DAQ.
   //
   // invariants:
   // This method is guaranteed to be called once immediately after this 
   // DAQThread runs. It is called before any other methods in GRIDAQThread 
-  // (except openInitializationControl()).  It is not called for each
-  // startCollection(). This can be overriden to tell the GUI to open.
+  // (except OpenInitializationControl()).  It is not called for each
+  // StartCollection(). This can be overriden to tell the GUI to open.
   //
   // returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or
   // an error code of your choosing upon failure.  The error will be reported 
-  // using the errorHandling() method.
+  // using the ErrorHandling() method.
   // 
-  // see errorHandling()
-  virtual int openInitializationControl() { return 0; }
+  // see ErrorHandling()
+  virtual int OpenInitializationControl() { return 0; }
 
   // A member function for opening a GUI during a DAQ run.
   //
-  // openRunTimeControl() should open a GUI for controlling running of
-  // the DAQ.  Dynamically getting and setting parameters may be done 
-  // through the getParam() and setParam() methods in GRIProcessThread(). 
-  // Implementation of this method is optional. This can be overridden to 
-  // tell the GUI to open. 
+  // OpenRunTimeControl() should open a GUI for controlling running of
+  // the DAQ.
   //
   // invariants:
   // This method is guaranteed to be called once immediately after 
-  // startCollection() assuming collection is not already occurring, 
+  // StartCollection() assuming collection is not already occurring, 
   // and will be called again every time collection is stopped and 
-  // restarted using stopCollection(), and startCollection().
+  // restarted using StopCollection(), and StartCollection().
   // 
   // returns an int containing DAQTHREAD_SUCCESS if the method succeeds, 
   // or an error code of your choosing upon failure.  The error will be 
-  // reported using the errorHandling() method.
+  // reported using the ErrorHandling() method.
   // 
-  // see errorHandling(), startCollection(), stopCollection()
-  virtual int openRunTimeControl() { return 0; }
-
-  // The run() method.  Called when this thread is started by the regulator.
-  void run();
+  // see ErrorHandling(), StartCollection(), StopCollection()
+  virtual int OpenRunTimeControl() { return 0; }
 
   // The errorHandling() method. Reports user generated errors
   // for a DAQThread to standard output.
-  void errorHandling(const char * message, int errorCode);
+  void ErrorHandling(const char * message, int errorCode);
 
-  void forceQuitAnalysis();
+  // Stop the analysis thread.  The analysis thread cannot be restarted.
+  void ForceQuitAnalysis();
 
   // Post data to a buffer in the memory manager
   //
@@ -178,6 +171,9 @@ class GRIAnalysisThread : public GRIProcessThread {
   // buffer_name is the name of the buffer
   template <class T> QPair<int, T*> ReadData(QString block_name,
 					     QString buffer_name);
+
+  // The run() method.  Called when this thread is started by the regulator.
+  void run();
 
   GRIHistogrammer* GetHistogram(QString HistName);
   int CreateNewHistogram(QString HistName, int nx, double xBins[]);
@@ -225,7 +221,7 @@ template <class T> int GRIAnalysisThread::PostData(int numel,
 
 template <class T> QPair<int, T*> GRIAnalysisThread::ReadData(QString block_name,
 					                      QString buffer_name) {
-  QPair<int, T*> p = readMemory<T>(block_name, buffer_name);
+  QPair<int, T*> p = ReadMemory<T>(block_name, buffer_name);
   
   read_data_ptrs_.push_back(reinterpret_cast<void*>(p.second));
   
