@@ -39,7 +39,7 @@ void GRICLI::Init() {
                      this, SLOT(ReceiveProcessGet(ProcessCommand *)));
   }
   cli_state_ = MAIN;
-  //set the current process to null
+  // set the current process to null
   curr_proc_ = NULL;
 }
 
@@ -67,12 +67,12 @@ void GRICLI::Launch() {
       ++i;
     }
     
-    //check if help
+    // check if help
     if (instr_array[0] == "help") {
       DisplayHelp();
       continue;
     } else if (instr_array[0] == "quit") {
-      break; // get out of the loop
+      break;
     } else if (instr_array[0] == "macrodef") {
       HandleMacroDef(instr);
     } else if (instr_array[0] == "macro") {
@@ -84,7 +84,7 @@ void GRICLI::Launch() {
         HandleProcessTop(instr_array, n);
       }
     }
-  } //end while loop 
+  }
 
   Quit();
 }
@@ -126,19 +126,19 @@ void GRICLI::DisplayMain() {
 
 void GRICLI::DisplayHelp() {
   if (cli_state_ == MAIN) {
-    std::cout << "  Type 'processes' for a list of the current processes                                " << std::endl;
-    std::cout << "  Type in the name of a process to interact with it                                   " << std::endl;
-    std::cout << "  Type 'help' for instructions                                                        " << std::endl;
-    std::cout << "  Type 'quit' to exit                                                                 " << std::endl;
+    std::cout << "Type 'processes' for a list of the current processes" << std::endl
+              << "Type in the name of a process to interact with it" << std::endl
+              << "Type 'help' for instructions" << std::endl
+              << "Type 'quit' to exit" << std::endl;
   }
   else if (cli_state_ == PROCESS_TOP) {
-    std::cout << "  Current process: " << curr_proc_->get_name().toStdString().c_str() << std::endl;
-    std::cout << "  Type 'set [name] [value] [data type]' to set a value          " << std::endl;
-    std::cout << "  Type 'get [name] [data type]' to get a value                  " << std::endl;
-    std::cout << "  Type 'run [ActionName]' to perform an action                 " << std::endl;
-    std::cout << "  Type 'actions' to see a list of actions for the process       " << std::endl;
-    std::cout << "  Type 'back' to go back to main                                " << std::endl;
-    std::cout << "  Type 'quit' to exit                                           " << std::endl;
+    std::cout << "  Current process: "
+              << curr_proc_->get_name().toStdString().c_str() << std::endl
+              << "  Type 'set [name] [value] [data type]' to set a value" << std::endl
+              << "  Type 'get [name] [data type]' to get a value" << std::endl
+              << "  Type 'run [ActionName]' to perform an action" << std::endl
+              << "  Type 'back' to go back to main" << std::endl
+              << "  Type 'quit' to exit" << std::endl;
   }
 }
 
@@ -172,11 +172,6 @@ void GRICLI::ProcessAction(const QString& name) {
   curr_proc_->EnqueueDynamicCommand(pc);
 }
 
-void GRICLI::DisplayActions() {
-  // TODO(arbenson): implement this
-  std::cout << "[Not implemented yet, still need to do -Austin]" << std::endl;
-}
-
 void GRICLI::HandleMain(QString *instr_array, int n) {
   // check if processes call
   if (n < 1) {
@@ -188,7 +183,7 @@ void GRICLI::HandleMain(QString *instr_array, int n) {
     return;
   }
 
-  //check if process name is in hash table
+  // check if process name is in hash table
   GRIProcessThread *p = process_hash_[instr_array[0]];
   if (p != 0) {
     curr_proc_ = p;
@@ -206,8 +201,6 @@ void GRICLI::HandleProcessTop(QString *instr_array, int n) {
     ProcessGet(instr_array[1], instr_array[2]);
   } else if (instr_array[0] == "run" && n >= 2) {
     ProcessAction(instr_array[1]);
-  } else if (instr_array[0] == "run" && n >= 1) {
-    DisplayActions();
   } else if (instr_array[0] == "back" && n >= 1) {
     cli_state_ = MAIN;
   } else {
