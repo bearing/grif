@@ -1,14 +1,38 @@
-#ifndef GRIDAQACCUMULATOR_H
-#define GRIDAQACCUMULATOR_H
+// Copyright (C) 2012 Gamma-ray Imaging Framework Team
+// 
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 3.0 of the License, or (at your option) any later version.
+// 
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+// 
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+// 
+// The license can be found in the LICENSE.txt file.
+//
+// Contact:
+// Dr. Daniel Chivers
+// dhchivers@lbl.gov
+
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIDAQACCUMULATOR_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIDAQACCUMULATOR_H_
 
 #include "GRIAccumBuff.h"
 #include "GRIDAQBaseAccumNode.h"
+#include "GRILogger.h"
 #include <QString>
 
 template <class T>
 class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
  public:
-  GRIDAQAccumulator(QString  bname, qint64 ticks, int NBuff, int AccumMsec) {
+  GRIDAQAccumulator(QString  bname, qint64 ticks, int NBuff, int AccumMsec)
+    : logger_("accumulator_log.txt") {
     set_buffer_name(bname);
     set_ticks_per_sec(ticks);
     set_num_accum_buff(NBuff);
@@ -109,11 +133,17 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
 	  // Check for bubble
 	  if (b->get_bubble() && !NewBubbleSet) {
 	    // Write Bubble Accumulator to mm
-            std::cout << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str()
-                      << ": " << get_buffer_name().toStdString().c_str()
-                      << "(" << nbuffcnt << ") accumulator writing "
-                      << b->GetDataSize() << " events. Timestamp = "
-                      << (double)timestamps[0]/(double)get_ticks_per_sec() << std::endl;
+            // TODO(arbenson): logger needs a smoother interface
+            QString str;
+            QTextStream qts(&str);
+            qts << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str()
+                << ": " << get_buffer_name().toStdString().c_str()
+                << "(" << nbuffcnt << ") accumulator writing "
+                << b->GetDataSize() << " events. Timestamp = "
+                << (double)timestamps[0]/(double)get_ticks_per_sec()
+                << "\n";
+            logger_.writeLogFile(str);
+
 	    T* da = b->DataArray();
 
 	    get_p_DAQ()->writeMemory(get_p_DAQ()->get_name(),get_buffer_name(),b->GetDataSize(),da);
@@ -146,6 +176,8 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
       bool NewBubble = false;
       bool NewBubbleSet = false;
       std::cout << "Flushing AccumBuff Iteration " << i << std::endl;
+      logger_.writeLogFile((QString) "Flushing AccumBuff Iteration " + i);
+
       int buffctr = 0;
       for (buff_it = buff_.begin(); buff_it != buff_.end(); buff_it++) {
 	buffctr = buffctr + 1;
@@ -163,10 +195,15 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
 	// Check for bubble
 	if (b->get_bubble() && !NewBubbleSet) {
 	  // Write Bubble Accumulator to mm
-          std::cout << "FLUSH (" << buffctr << "): "
-                    << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": "
-                    << get_buffer_name().toStdString().c_str() << " accumulator writing "
-                    << b->GetDataSize() << " events." << std::endl;
+          // TODO(arbenson): logger needs to have a smoother interface
+          QString str;
+          QTextStream qts(&str);
+          qts << "FLUSH (" << buffctr << "): "
+              << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str() << ": "
+              << get_buffer_name().toStdString().c_str() << " accumulator writing "
+              << b->GetDataSize() << " events\n.";
+          logger_.writeLogFile(str);
+
 	  T* da = b->DataArray();
 
 	  get_p_DAQ()->writeMemory(get_p_DAQ()->get_name(),get_buffer_name(),b->GetDataSize(),da);
@@ -190,7 +227,8 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
 
  private:
   QList<GRIAccumBuff<T>*> buff_;
+  GRILogger logger_;
 };
 
 
-#endif // GRIDAQACCUMULATOR_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIDAQACCUMULATOR_H_

@@ -1,3 +1,25 @@
+// Copyright (C) 2012 Gamma-ray Imaging Framework Team
+// 
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 3.0 of the License, or (at your option) any later version.
+// 
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+// 
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+// 
+// The license can be found in the LICENSE.txt file.
+//
+// Contact:
+// Dr. Daniel Chivers
+// dhchivers@lbl.gov
+
 #include "SIMDAQThread.h"
 #include <iostream>
 #include <QDateTime>
@@ -57,10 +79,13 @@ GRIDAQBaseAccumNode* SIMDAQThread::RegisterDataOutput(QString outName) {
 }
 
 int SIMDAQThread::acquireData(int n) {
-  msleep(50); //Sleep for 50ms
+  Q_UNUSED(n);
+  msleep(50);
   QDateTime currentTime = QDateTime::currentDateTime();
-  qint64 deltaT = prev_time_.time().msecsTo(currentTime.time())*1E5;  // in 10ns ticks
-  qint64 t1 = start_time_.time().msecsTo(currentTime.time())*1E5;  // in 10ns ticks
+  // 10ns ticks
+  qint64 deltaT = prev_time_.time().msecsTo(currentTime.time())*1E5;
+  // 10ns ticks
+  qint64 t1 = start_time_.time().msecsTo(currentTime.time())*1E5;
   prev_time_ = currentTime;
   // First get the number of counts received
   int ncnt = 0;

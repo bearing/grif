@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<app>
+  <Objects>
+    <object name= "TcpDAQ" class = "TcpDAQ"></object>
+    <object name= "TcpAnalysis" class = "TcpAnalysis"></object>
+  </Objects>
+</app>

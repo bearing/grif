@@ -1,3 +1,25 @@
+// Copyright (C) 2012 Gamma-ray Imaging Framework Team
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 3.0 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+//
+// The license can be found in the LICENSE.txt file.
+//
+// Contact:
+// Dr. Daniel Chivers
+// dhchivers@lbl.gov
+
 #include <assert.h>
 #include <QMutexLocker>
 #include "GRIProcessThread.h"
@@ -13,6 +35,7 @@ GRIProcessThread::GRIProcessThread() {
 
     thread_id_ = GRIProcessThread::counter++;
 }
+
 // TODO(amidvidy): Possibly remove references to obj. Not sure what this is actually for
 void GRIProcessThread::init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator) {
     setParent(obj);
@@ -84,7 +107,7 @@ void GRIProcessThread::set_load_balancing_vars(int num_packets_to_sat,
 
 void GRIProcessThread::AddDataBlock(QString data_block, bool is_output) {
     //make sure only one data block/thread
-    GRIDataBlock* data;
+    GRIDataBlock *data = NULL;
     if (is_output) {
       data_out_.insert(data_block, data);
       if (is_daq_) {
@@ -151,8 +174,8 @@ bool GRIProcessThread::ChangePriority(bool is_up) {
 }
 
 void GRIProcessThread::IncrementPacketCount() {
-    ++last_adjustment_to_sat_;
-    ++last_adjustment_from_sat_;
+  ++last_adjustment_to_sat_;
+  ++last_adjustment_from_sat_;
 }
 
 GRIDataBlock* GRIProcessThread::FindDataBlock(QString data_block_name) {
@@ -166,22 +189,6 @@ GRIDataBlock* GRIProcessThread::FindDataBlock(QString data_block_name) {
       // Can't find the data block
       return 0;
     }
-}
-
-int GRIProcessThread::CurrentPacketPosition(QString bufferName) {
-    return get_reg()->currentPacketPosition(bufferName);
-}
-
-int GRIProcessThread::LastPacket(QString bufferName) {
-    return get_reg()->lastPacket(bufferName);
-}
-
-int GRIProcessThread::SizeOfPacket(QString bufferName, int packetNumber) {
-    return get_reg()->sizeofPacket(bufferName, packetNumber);
-}
-
-int GRIProcessThread::SizeOfBuffer(QString bufferName) {
-    return get_reg()->sizeofBuffer(bufferName);
 }
 
 #ifdef PROCESS_THREAD_DEBUG
@@ -207,6 +214,26 @@ void GRIProcessThread::display_current_state() {
 }
 #endif // PROCESS_THREAD_DEBUG
 
+int GRIProcessThread::EnableDataBlock(const QString& BlockName,
+                                      const QString& BufferName) {
+  GRIDataBlock *data = get_reg()->find_data(BlockName, BufferName);
+  if (!data) {
+    return -1;
+  }
+  data->set_is_enabled(true);
+  return 0;
+}
+
+int GRIProcessThread::DisableDataBlock(const QString& BlockName,
+                                       const QString& BufferName) {
+  GRIDataBlock *data = get_reg()->find_data(BlockName, BufferName);
+  if (!data) {
+    return -1;
+  }
+  data->set_is_enabled(false);
+  return 0;
+}
+
 void GRIProcessThread::EnqueueDynamicCommand(ProcessCommand *pc) {
   QMutexLocker locker(&cmd_buffer_lock_);
   if (pc) cmd_buffer_.enqueue(pc);
@@ -218,23 +245,28 @@ void GRIProcessThread::HandleDynamicCommand(ProcessCommand *pc) {
     case RUN_ACTION:
       DynamicRunAction(pc->key);
     case SET:
-      switch (pc->data_type) {
-        case BOOL:
-          DynamicSetParam<bool>(pc->key, pc->data.bool_val);
-        case CHAR:
-          DynamicSetParam<char>(pc->key, pc->data.char_val);
-        case INT:
-          DynamicSetParam<int>(pc->key, pc->data.int_val);
-        case FLOAT:
-          DynamicSetParam<float>(pc->key, pc->data.float_val);
-        case DOUBLE:
-          DynamicSetParam<double>(pc->key, pc->data.double_val);
-      }
+      HandleSetRequest(pc);
     case GET:
       HandleGetRequest(pc);
   }
   delete pc;
 }
+
+void GRIProcessThread::HandleSetRequest(ProcessCommand *pc) {
+  switch (pc->data_type) {
+  case BOOL:
+    DynamicSetBool(pc->key, pc->data.bool_val);
+  case CHAR:
+    DynamicSetChar(pc->key, pc->data.char_val);
+  case INT:
+    DynamicSetInt(pc->key, pc->data.int_val);
+  case FLOAT:
+   DynamicSetFloat(pc->key, pc->data.float_val);
+  case DOUBLE:
+    DynamicSetDouble(pc->key, pc->data.double_val);
+  }
+}
+
 
 void GRIProcessThread::HandleGetRequest(ProcessCommand *pc) {
   ProcessCommand *out_pc = new ProcessCommand;
@@ -243,15 +275,15 @@ void GRIProcessThread::HandleGetRequest(ProcessCommand *pc) {
   out_pc->command_type = pc->command_type;
   switch (pc->data_type) {
   case BOOL:
-    out_pc->data.bool_val = DynamicGetParam<bool>(pc->key);
+    out_pc->data.bool_val = DynamicGetBool(pc->key);
   case CHAR:
-    out_pc->data.char_val = DynamicGetParam<char>(pc->key);
+    out_pc->data.char_val = DynamicGetChar(pc->key);
   case INT:
-    out_pc->data.int_val = DynamicGetParam<int>(pc->key);
+    out_pc->data.int_val = DynamicGetInt(pc->key);
   case FLOAT:
-    out_pc->data.float_val = DynamicGetParam<float>(pc->key);
+    out_pc->data.float_val = DynamicGetFloat(pc->key);
   case DOUBLE:
-    out_pc->data.double_val =DynamicGetParam<double>(pc->key);
+    out_pc->data.double_val = DynamicGetDouble(pc->key);
   }
   emit GetProcessed(out_pc);
 }
@@ -262,3 +294,5 @@ void GRIProcessThread::FlushBuffer() {
     HandleDynamicCommand(cmd_buffer_.dequeue());
   }
 }
+
+

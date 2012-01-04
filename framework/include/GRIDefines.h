@@ -1,5 +1,27 @@
-#ifndef GRIDEFINES_H
-#define GRIDEFINES_H
+// Copyright (C) 2012 Gamma-ray Imaging Framework Team
+// 
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 3.0 of the License, or (at your option) any later version.
+// 
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+// 
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+// 
+// The license can be found in the LICENSE.txt file.
+//
+// Contact:
+// Dr. Daniel Chivers
+// dhchivers@lbl.gov
+
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIDEFINES_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIDEFINES_H_
 #include <QtGlobal>
 
 //Constants and macros for GRI framework (wrap Qt constants/macros).
@@ -123,4 +145,4 @@ class GRIDataBlock;
 // For Qt's internally defined globals see http://doc.trolltech.com/4.5/qtglobal.html#details
 // For definitions of macros see qglobal.h
 
-#endif // GRIDEFINES_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIDEFINES_H_

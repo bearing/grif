@@ -1,11 +1,32 @@
-#ifndef GRI_REGULATOR_H
-#define GRI_REGULATOR_H
+// Copyright (C) 2012 Gamma-ray Imaging Framework Team
+// 
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 3.0 of the License, or (at your option) any later version.
+// 
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+// 
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+// 
+// The license can be found in the LICENSE.txt file.
+//
+// Contact:
+// Dr. Daniel Chivers
+// dhchivers@lbl.gov
+
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIREGULATOR_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIREGULATOR_H_
 
 #define REGULATOR_DEBUG
 
 #include <iostream>
 #include <utility>
-#include <QLinkedList>
 #include <QLinkedList>
 #include <QMutex>
 #include <QPair>
@@ -29,74 +50,50 @@ class GRIRegulator: public GRIObject {
   explicit GRIRegulator(GRIMemoryManager* ma);
   ~GRIRegulator();
 
-
   // initConfig() is called to initialize the whole system. .
   void initConfig();
 
-  /*
-   *
-   * bufferCreate() creates a buffer in the specified data block.
-   * If the data block does not exist yet, then it will create the data block before
-   * it creates the buffer.
-   *
-   * invariants:
-   * each process_name must be unique from all other process_names
-   * within each dataBlock, each bufferName must be unique.
-   *
-   */
-  bool bufferCreate(QString bufferName);
+  // bufferCreate() creates a buffer in the specified data block.
+  // If the data block does not exist yet, then it will create the data block
+  // before it creates the buffer.
+  //
+  // invariants:
+  // each process_name must be unique from all other process_names
+  // within each dataBlock, each bufferName must be unique.
+  bool bufferCreate(const QString& bufferName);
+  
+  // readMemory() reads one packet from memory in the location specified
+  // by process_name & bufferName
+  QPair<int, char*> readMemory(const QString& blockName,
+                               const QString& bufferName);
 
-  /*
-   * readMemory() reads one packet from memory in the location specified
-   * by process_name & bufferName
-   */
-  QPair<int, char*> readMemory(QString blockName, QString bufferName);
+  // writeMemory() writes a data given in the char array to the location
+  // specified by process_name & bufferName
+  bool writeMemory(const QString& blockName, const QString& bufferName, int size,
+                   char dataArray[]);
 
-  /*
-   *
-   * writeMemory() writes a data given in the char array to the location specified
-   * by process_name & bufferName
-   *
-   */
-  bool writeMemory(QString blockName, QString bufferName, int size, char dataArray[]);
+  // currentPacketPosition() returns the current index of the packet marker.
+  // This is in most cases the last packet to be read next unless
+  // setPacketPosition() has been called.
+  int currentPacketPosition(const QString& bufferName);
 
-  /*
-   *
-   * currentPacketPosition() returns the current index of the packet marker. This is in most cases the last
-   * packet to be read next unless setPacketPosition() has been called.
-   *
-   */
-  int currentPacketPosition(QString bufferName);
+  // lastPacket() returns the index of the last packet in the specified buffer.
+  // This is equivalent to the buffer size minus one.
+  int lastPacket(const QString& bufferName);
 
-  /*
-   *
-   * lastPacket() returns the index of the last packet in the specified buffer. This is equivalent to
-   * the buffer size minus one.
-   *
-   */
-  int lastPacket(QString bufferName);
+  // setPacketPosition() sets the packet marker for the specified buffer to the
+  // packetNumber position. This is useful for use with the overloaded
+  // readMemory function which allows users to read the packet that has been
+  // indexed by the packet marker. This is in most cases the last packet to be
+  // read from unless setPacketPosition() has been called.
+  // If the operation is successful, it returns true, otherwise false.
+  bool setPacketPosition(const QString& bufferName, int packetNumber);
 
-  /*
-   *
-   * setPacketPosition() sets the packet marker for the specified buffer to the packetNumber position.
-   * This is useful for use with the overloaded readMemory function which allows users to read the packet
-   * that has been indexed by the packet marker. This is in most cases the last packet to be read from unless
-   * setPacketPosition() has been called.
-   *
-   * If the operation is successful, it returns true, otherwise false.
-   *
-   */
-  bool setPacketPosition(QString bufferName, int packetNumber);
+  // sizeofPacket() returns how big the packet is
+  int sizeofPacket(const QString& bufferName, int packetNumber);
 
-  /*
-   * sizeofPacket() returns how big the packet is
-   */
-  int sizeofPacket(QString bufferName, int packetNumber);
-
-  /*
-   * sizeofBuffer() returns how big the buffer is
-   */
-  int sizeofBuffer(QString bufferName);
+  // sizeofBuffer() returns how big the buffer is
+  int sizeofBuffer(const QString& bufferName);
 
   int GarbageCollection(QList<void*> pList);
 
@@ -126,13 +123,14 @@ class GRIRegulator: public GRIObject {
   int GarbageCollection(void* p);
 
   // find_process() returns a pointer to the actual process given the name
-  GRIProcessThread* find_process(QString process_name);
+  GRIProcessThread* find_process(const QString& process_name);
 
   // find_data() returns a pointer to the actual data block given the name
-  GRIDataBlock* find_data(QString data_block_name, QString buffer_name);
+  GRIDataBlock* find_data(const QString& data_block_name,
+                          const QString& buffer_name);
 
   // start_threads() is called just before the whole system starts. It runs all the threads
   void start_threads();
 };
 
-#endif // GRIREGULATOR_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIREGULATOR_H

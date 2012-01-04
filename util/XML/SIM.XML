@@ -1,0 +1,16 @@
+<?xml version='1.0'?>
+<Class>
+    <Info cname = "SIMDAQThread" isdaq = "true" />
+    <Auxiliary apath = "./XML/GCG_daq_aux.h" hname = "GCG_daq_aux.h"/>
+    <Header hname = "SIMDAQThread.h" />
+    <Skeleton spath = "./XML" />
+    <RunTimeParams>
+        <Param pname = "e1" type = "double" default = "10.5" />
+        <Param pname = "ind" type = "int" default = "2" />
+    </RunTimeParams>
+    <RunTimeActions>
+        <Action method = "DynamicAddPeak" />
+        <Action method = "DynamicRemovePeak" />
+        <Action method = "DynamicChangePeak" />
+    </RunTimeActions>
+</Class>

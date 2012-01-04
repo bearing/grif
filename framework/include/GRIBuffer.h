@@ -1,245 +1,153 @@
-#ifndef FRAMEWORK_TRUNK_INCLUDE_GRIBUFFER_H_
-#define FRAMEWORK_TRUNK_INCLUDE_GRIBUFFER_H_
+// Copyright (C) 2012 Gamma-ray Imaging Framework Team
+// 
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 3.0 of the License, or (at your option) any later version.
+// 
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+// 
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+// 
+// The license can be found in the LICENSE.txt file.
+//
+// Contact:
+// Dr. Daniel Chivers
+// dhchivers@lbl.gov
+
+#ifndef GRIF_FRAMEWORK_INCLUDE_GRIBUFFER_H_
+#define GRIF_FRAMEWORK_INCLUDE_GRIBUFFER_H_
 
 #include <QList>
-#include <QVector>
-#include <QWaitCondition>
 #include <QReadWriteLock>
 #include <QThread>
-#include "./GRIProcessThread.h"
+#include <QVector>
+#include <QWaitCondition>
+#include "GRIProcessThread.h"
 
-//! class used as a data structure for storing member
-/*
- * the buffer class is an abstraction of the buffer abstract data type. buffer objects will be and should ONLY be stored by
- * the memoryManager. It is not a versatile abstract data type. The buffer class comes implemented with a number of functions
- * that allow read/write access. It also keeps internal state for keeping track of file access and growth.
- *
- */
+// A class used as a data structure for storing member.
+//
+// The buffer class is an abstraction of the buffer abstract data type. buffer
+// objects will be and should ONLY be stored by the memoryManager. It is not a
+// versatile abstract data type. The buffer class comes implemented with a number
+// of functions that allow read/write access. It also keeps internal state for
+// keeping track of file access and growth.
 class GRIBuffer {
  public:
-  //! A constructor
   explicit GRIBuffer(QReadWriteLock *lock);
-  //! A destructor
   ~GRIBuffer();
 
-  //! a member function
-  /*
-   * addPacket() add's one more packet to the end of the buffer. This will update internal variables.
-   */
+  // addPacket() adds one more packet to the end of the buffer. This will
+  // update internal variables.
   void addPacket();
 
-  //! a member function
-  /*!
-   *
-   * writeToBuffer() writes one char into the specified index location of the packet. This operation
-   * will automatically create the specified packet if it does not exist yet. Returns
-   * true if the operation was successful.
-   *
-   * \param b is the char to be written into the buffer
-   * \param packetNumber is the specified packet to be written to
-   * \param index is the index to which b is to be written to inside the packet
-   * \return true if the operation was successfu, false otherwise
-   * \sa addPacket(), readBuffer()
-   *
-   */
+  // writeToBuffer() writes one char into the specified index location of the
+  // packet. This operation will automatically create the specified packet if it
+  // does not exist yet. Returns true if the operation was successful.
+  //
+  // b is the char to be written into the buffer
+  // packetNumber is the specified packet to be written to
+  // index is the index to which b is to be written to inside the packet
+  // returns true if the operation was successfu, false otherwise
+  // see addPacket(), readBuffer()
   bool writeToBuffer(char b, int packetNumber, int index);
 
-  //! a member function
-  /*!
-   *
-   * readBuffer() returns the specified char at the packet position and the index.
-   *
-   * \param packetNumber is the specified packet to be written to
-   * \param index is the location to read from
-   * \return the char at the specified index location
-   * \sa writeToBuffer()
-   *
-   */
+  // readBuffer() returns the specified char at the packet position and the index.
+  //
+  // packetNumber is the specified packet to be written to
+  // index is the location to read from
+  // returns the char at the specified index location
+  // see writeToBuffer()
   char readBuffer(int packetNumber, int index);
 
-  //! a member function
-  /*!
-   *
-   * clearBuffer() empties out the specified packet. Further reads from an empty packet will
-   * return an error.
-   *
-   * \param packetNumber an int representing the packet position
-   * \return a void value
-   * \sa clear()
-   */
+  // clearBuffer() empties out the specified packet. Further reads from an empty
+  // packet will return an error.
+  //
+  // packetNumber is an int representing the packet position
+  // see clear()
   void clearPacket(int packetNumber);
 
-  //! a member function
-  /*!
-   *
-   * setPackerMarker moves the packet marker to the index indicated by i
-   * returns true if successful, otherwise false.
-   *
-   * \param i is the index to which the packet marker should be set
-   * \return a void value
-   * \sa incrementPacketMarker(), currentPacket()
-   *
-   */
+  // setPackerMarker moves the packet marker to the index indicated by i
+  // i is the index to which the packet marker should be set
+  // returns true if successful, otherwise false.
+  // see incrementPacketMarker(), currentPacket()
   void setPacketMarker(int i);
 
-  //! a member function
-  /*!
-   *
-   * incrementPacketMarker increments the packet marker for a particular thread by one.
-   *
-   * \return a void value
-   * \sa setPacketMarker(), currentPacket()
-   *
-   */
+  // incrementPacketMarker increments the packet marker for a particular thread by one.
+  //
+  // see setPacketMarker(), currentPacket()
   void incrementPacketMarker();
 
-  //! a member function
-  /*!
-   *
-   * currentPacket() returns the index position of the packet marker.
-   *
-   * \return the index of the packet marker for the current thread
-   * \sa incrementPacketMarker(), setPacketMarker()
-   *
-   */
+  // currentPacket() returns the index position of the packet marker.
+  //
+  // returns the index of the packet marker for the current thread
+  // see incrementPacketMarker(), setPacketMarker()
   int currentPacket();
 
-  //! a member function
-  /*!
-   *
-   * bufferSize() returns the total number of packets within the buffer;
-   *
-   * \return the size of the buffer by number of packets
-   * \sa packetSize()
-   *
-   */
+  // bufferSize() returns the total number of packets within the buffer;
+  //
+  // returns the size of the buffer by number of packets
+  // see packetSize()
   int bufferSize();
 
-  //! a member function
-  /*!
-   *
-   * packetSize() returns the number of chars within the packet.
-   *
-   * \param packetNumber is the index of the packet to check the size of
-   * \return an int representing the number of elements in the packet
-   * \sa bufferSize()
-   *
-   */
+  // packetSize() returns the number of chars within the packet.
+  //
+  // packetNumber is the index of the packet to check the size of
+  // returns an int representing the number of elements in the packet
+  // see bufferSize()
   int packetSize(int packetNumber);
 
-  //! a member function
-  /*!
-   *
-   * returns the index of the next packet to be added to the buffer
-   *
-   * \return the index of the next packet
-   * \sa bufferSize()
-   *
-   */
+  // get the index of the next packet to be added to the buffer
+  //
+  // returns the index of the next packet
+  // see bufferSize()
   int nextPacket();
 
-  //! a member function
-  /*!
-   *
-   * removes all instances from the buffer and frees memory
-   *
-   * \return a void value
-   * \sa clearPacket()
-   *
-   */
+  // removes all instances from the buffer and frees memory
+  //
+  // see clearPacket()
   void clear();
 
-  //! a member function
-  /*!
-   *
-   * waitOnQueue acts as a condition variable for the buffer. There is exactly one
-   * condition variable per buffer because there is exactly one QReadWriteLock per buffer.
-   *
-   * \return a void value
-   * \sa wakeAllOnQueue(), wakeOneOnQueue()
-   *
-   */
+  // waitOnQueue acts as a condition variable for the buffer. There is exactly
+  // one condition variable per buffer because there is exactly one
+  // QReadWriteLock per buffer.
+  //
+  // see wakeAllOnQueue(), wakeOneOnQueue()
   void waitOnQueue();
 
-  //! a member function
-  /*!
-   *
-   * wakeAllOnQueue wakes all threads currently sitting on the buffers condition variable.
-   *
-   * \return a void value
-   * \sa waitOnQueue(), wakeOneOnQueue()
-   *
-   */
+  // wakeAllOnQueue() wakes all threads currently sitting on the buffers
+  // condition variable.
+  //
+  // see waitOnQueue(), wakeOneOnQueue()
   void wakeAllOnQueue();
 
-  //! a member function
-  /*!
-   *
-   * wakeOneOnQueue wakes exactly one thread from the condition variable.
-   *
-   * \return a void value
-   * \sa wakeAllOnQueue(), waitOnQueue()
-   *
-   */
+  // wakeOneOnQueue wakes exactly one thread from the condition variable.
+  //
+  // see wakeAllOnQueue(), waitOnQueue()
   void wakeOneOnQueue();
-  void SetBusyWrite(bool tf) {busyWrite = tf;}
-  bool GetBusyWrite() {return busyWrite;}
 
-  bool IsNullPacket(int packetNum);
   void AddNullPacket(int packetNum);
-  void RemoveNullPacket(int packetNum);
+
+  void set_busy_write(bool busy_write) { busy_write_ = busy_write; }
+  bool get_busy_write() { return busy_write_; }
 
  private:
-  QList<int> nullPackets;
-  bool busyWrite;
+  bool IsNullPacket(int packetNum);
+  void RemoveNullPacket(int packetNum);
 
-  //! a private variable
-  /*!
-   *
-   * variable representing number of packets in the buffer
-   *
-   */
-  int size;
-
-  //! a private variable
-  /*!
-   *
-   * a list of packets.
-   *
-   */
-  QList< QVector<char>* > *packetList;
-
-  //! a private variable
-  /*!
-   *
-   * a list of packet markers for each thread that has ever accessed the buffer for a read
-   *
-   */
-  QList<int> *markerList;
-
-  //! a private variable
-  /*!
-   *
-   * a list of thread IDs that keeps a running history of threads that have tried to read from the buffer.
-   *
-   */
-  QList<int> *threadList;
-
-  //! a private variable
-  /*!
-   *
-   * a condition variable
-   *
-   */
-  QWaitCondition *waitQueue;
-
-  //! a private variable
-  /*!
-   *
-   * a mutex for read write synchronization
-   *
-   */
-  QReadWriteLock *lock;
+  QList<int> null_packets_;
+  bool busy_write_;
+  int size_;
+  QList< QVector<char>* > packet_list_;
+  QList<int> marker_list_;
+  QList<int> thread_list_;
+  QWaitCondition wait_queue_;
+  QReadWriteLock *lock_;
 };
 
-#endif  // FRAMEWORK_TRUNK_INCLUDE_GRIBUFFER_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_GRIBUFFER_H_

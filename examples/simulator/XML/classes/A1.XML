@@ -3,13 +3,9 @@
   <Name name = "A1" />
   <Header hname = "SIMAnalysisThread.h" />
   <Info cname = "SIMAnalysisThread" isdaq = "false" />
-  <ProcessDetails readerName = "A1" objectFromName = "" />
   <DataBlocks> 
     <Data block = "ADCOutput" /> 
     <Data block = "CHAN" /> 
     <Data block = "TS" />
-    <Data block = "ADCOutput2" /> 
-    <Data block = "CHAN2" /> 
-    <Data block = "TS2" />
   </DataBlocks> 
 </class>
