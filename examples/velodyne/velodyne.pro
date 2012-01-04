@@ -1,5 +1,5 @@
 #############################################
-# Compact Compton Imaging System #
+# Velodyne Lidar #
 #############################################
 
 QT       += core network xml
@@ -17,17 +17,12 @@ include(vtkinclude.pri)
 #include(../../../application/gui/grihistwidget/trunk/grihistwidget.pri)
 
 DEPENDPATH += source include . \
-    ../../modules/daq/velodynehdl32 \
-    ../../modules/analysis/velodyne
+    velodynedaq \
+    velodyneanalysis
 
 
-INCLUDEPATH += include ../../modules/daq/velodynehdl32 \
-                ../../modules/analysis/velodyne \
-                /usr/include/pcl-1.2 \
-                /usr/include/eigen3 \
-                /usr/include/flann
-
-
+INCLUDEPATH += include velodynedaq \
+                velodyneanalysis
 
 HEADERS += \
     /usr/include/H5Cpp.h \
@@ -64,12 +59,7 @@ unix:LIBS += -lMathCore -lThread  -lGui -lGpad -lSpectrum
 #windows root library names
 win32:LIBS += -llibCore -llibCint -llibRIO -llibNet -llibHist -llibGraf -llibGraf3d -llibRint -llibPostscript
 win32:LIBS += -llibMatrix -llibPhysics -llibTree #-llibpthread -ldl -lrdynamic -lm -llibz
-win32:LIBS += -llibMathCore -llibThread  -llibGui -llibGpad -llibSpectrum
-
-#PCL
-unix:LIBS += -lpcl_common -lpcl_io -lpcl_visualization -lpcl_features -lpcl_filters -lpcl_kdtree -lpcl_keypoints -lpcl_octree\
-    -lpcl_range_image -lpcl_range_image_border_extractor -lpcl_registration -lpcl_sample_consensus -lpcl_segmentation -lpcl_surface
-
+win32:LIBS += -llibMathCore -llibThread  -llibGui -llibGpad -llibSpectrumssss
 
 #HDF5 libraries
 unix: LIBS += -L/usr/lib -lhdf5_cpp -lhdf5

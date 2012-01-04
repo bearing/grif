@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
     files.push_back("APP.XML");// QString(getenv("HOME")) +
     QString rootXMLPath = "/home/cameron/grif/project/velodyne/xml/";
     /* the following will be included for all programs */
-    GRILoader *loader = new GRIUserLoader(rootXMLPath, reg, files);
+    GRILoader *loader = new GRIUserLoader(reg);
     loader->initRegulatorDetails();
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
