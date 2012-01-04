@@ -1,9 +1,0 @@
-<DataDefines>
-    <datat>
-      <dataname dname = "NCIdata" />
-      <var>
-        <vtype type = "int" vname = "adc" />
-        <vtype type = "int" vname = "channel" />
-      </var>
-    </datat>
-</DataDefines>
