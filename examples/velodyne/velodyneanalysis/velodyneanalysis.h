@@ -16,21 +16,18 @@
  */
 
 
-class velodyneanalysis : public GRIAnalysisThread
-{
+class velodyneanalysis : public GRIAnalysisThread {
+
 public:
-    velodyneanalysis();
-    ~velodyneanalysis();
+    velodyneanalysis() {}
     int initialize();
     int Analyze();
-    std::vector<velodynepointcloud_t> showwidget();
 private:
     double sinvertangle[32];
     double cosvertangle[32];
     double sinrotangle[36000];
     double cosrotangle[36000];
     std::vector<velodynepointcloud_t> pointcloud;
-
 };
 
 #endif // VELODYNEANALYSIS_H

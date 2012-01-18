@@ -2,8 +2,7 @@
 #include "velodynedata.h"
 #include "GRIDataDefines.h"
 
-HDF5Analysis::HDF5Analysis()
-{
+HDF5Analysis() {
     nevents = 0;
     eventtype = CompType(sizeof(edt_t));
     eventtdims[0] = 1;
@@ -11,14 +10,10 @@ HDF5Analysis::HDF5Analysis()
 
 
 
-int HDF5Analysis::initialize()
-{
-    //HDF5 Stuff*******************************************************************************************************************************
+int HDF5Analysis::initialize() {
+    // HDF5 File Initialization  **********************************************
     const H5std_string FILE_NAME("data.h5");
     file = H5File( FILE_NAME, H5F_ACC_TRUNC );
-    //szip_options_mask=H5_SZIP_NN_OPTION_MASK;
-    //szip_pixels_per_block=32;
-    //unsigned int eventsperbuffer = 1;
 
     // Energy, timestamp, channel
     const H5std_string DATASET2_NAME( "PointCloud" );
@@ -26,7 +21,6 @@ int HDF5Analysis::initialize()
     const H5std_string MEMBER2( "y" );
     const H5std_string MEMBER3( "z" );
     const H5std_string MEMBER4( "timestamp" );
-
 
     edt_t hdf5filler;
     hsize_t eventdims[] = {1};
@@ -40,42 +34,34 @@ int HDF5Analysis::initialize()
 
     DSetCreatPropList eventcreateparameters;
     eventcreateparameters.setChunk(1, eventdims);
-
     hdf5filler.x = 0;
     hdf5filler.y = 0;
     hdf5filler.z = 0;
     hdf5filler.timestamp = 0;
     eventcreateparameters.setFillValue(eventtype,&hdf5filler);
-    //eventcreateparameters.setSzip(szip_options_mask,szip_pixels_per_block);
     eventcreateparameters.setShuffle();
     eventcreateparameters.setDeflate(1);
-
-
-    eventdataset = file.createDataSet(DATASET2_NAME,eventtype,eventdataspace,eventcreateparameters);
+    eventdataset = file.createDataSet(DATASET2_NAME,eventtype,eventdataspace,\
+                                      eventcreateparameters);
     return 0;
 }
 
-void HDF5Analysis::writetree(){
+void HDF5Analysis::writetree() {
     file.flush(H5F_SCOPE_GLOBAL);
     file.close();
-
 }
 
-int HDF5Analysis::Analyze()
-{
-    // Read SIS3150USB
+int HDF5Analysis::Analyze() {
     velodynepointcloud_t * rawdataarray;
-    //int nChan = 80;
     int nEvents;
 
-    QPair<int, velodynepointcloud_t*> pData = ReadData<velodynepointcloud_t>("velodyneanalysis","pointcloud");
+    QPair<int, velodynepointcloud_t*> pData = \
+            ReadData<velodynepointcloud_t>("velodyneanalysis","pointcloud");
+
     nEvents = pData.first;
     rawdataarray = pData.second;
 
-    //cout << nEvents;
-
-    for(int j=0; j<nEvents; j++){
-        //printf("There was an event");
+    for(int j = 0; j < nEvents; ++j) {
         hdf5event[0].x = rawdataarray[j].x;
         hdf5event[0].y = rawdataarray[j].y;
         hdf5event[0].z = rawdataarray[j].z;
@@ -93,7 +79,6 @@ int HDF5Analysis::Analyze()
         nevents ++;
 
     }
-    //delete [] rawdataarray;
 
     return 0;
 }

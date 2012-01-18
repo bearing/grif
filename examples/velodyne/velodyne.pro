@@ -13,8 +13,7 @@ FORMS +=
 include(../../framework/source/fsource.pri)
 include(../../framework/include/finclude.pri)
 include(vtkinclude.pri)
-#include(../../../application/daq/sis3150usb2.0/sis3150.pri)
-#include(../../../application/gui/grihistwidget/trunk/grihistwidget.pri)
+
 
 DEPENDPATH += source include . \
     velodynedaq \
@@ -63,7 +62,6 @@ win32:LIBS += -llibMathCore -llibThread  -llibGui -llibGpad -llibSpectrumssss
 
 #HDF5 libraries
 unix: LIBS += -L/usr/lib -lhdf5_cpp -lhdf5
-
 unix: LIBS += -lpcap
 
 win32: DEFINES += HDF5CPP_USEDLL

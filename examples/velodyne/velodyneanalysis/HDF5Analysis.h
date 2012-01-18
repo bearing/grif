@@ -28,19 +28,16 @@ Note:
      using namespace H5;
 #endif
 
-class HDF5Analysis : public GRIAnalysisThread
-{
+class HDF5Analysis : public GRIAnalysisThread {
 
 public:
      HDF5Analysis();
-    //~HDF5Analysis();
 
     int Analyze();
     int initialize();
     void writetree();
 private:
     GRILogMessage m_logMsg;
-    //GRILogger *m_logger;
     QString CallSign;
 
     struct edt_t {
@@ -71,8 +68,6 @@ private:
                        //UInt_t raw [256];
                        };
      event_t event;
-
-
 };
 
 #endif // HDF5Analysis_H

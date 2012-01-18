@@ -2,13 +2,7 @@
 #include "velodynedata.h"
 #include <iostream>
 
-using namespace std;
-
-VelodyneDAQ::VelodyneDAQ(){
-
-}
-
-int VelodyneDAQ::acquireData(int n){
+int VelodyneDAQ::acquireData(int n) {
     struct pcap_pkthdr header;
     const u_char *packet;
 
@@ -24,9 +18,6 @@ int VelodyneDAQ::acquireData(int n){
 
 
     packet = pcap_next(handle, &header);
-    /* Print its length */
-    //printf("Jacked a packet with length of [%d]\n", header.len);
-    /* And close the session */
 
     /* define ethernet header */
     ethernet = (struct sniff_ethernet*)(packet);
@@ -41,21 +32,20 @@ int VelodyneDAQ::acquireData(int n){
 
     /* determine protocol  if it's not a UDP packet it exits*/
     switch(ip->ip_p) {
-            case IPPROTO_TCP:
-                    printf("   Protocol: TCP\n");
-                    return 1;
-            case IPPROTO_UDP:
-                    //printf("   Protocol: UDP\n");
-                    break;
-            case IPPROTO_ICMP:
-                    printf("   Protocol: ICMP\n");
-                    return 1;
-            case IPPROTO_IP:
-                    printf("   Protocol: IP\n");
-                    return 1;
-            default:
-                    printf("   Protocol: unknown\n");
-                    return 1;
+        case IPPROTO_TCP:
+            printf("   Protocol: TCP\n");
+            return 1;
+        case IPPROTO_UDP:
+            break;
+        case IPPROTO_ICMP:
+            printf("   Protocol: ICMP\n");
+            return 1;
+        case IPPROTO_IP:
+            printf("   Protocol: IP\n");
+            return 1;
+        default:
+            printf("   Protocol: unknown\n");
+            return 1;
     }
 
 
@@ -63,10 +53,9 @@ int VelodyneDAQ::acquireData(int n){
     tcp = (struct sniff_udp*)(packet + SIZE_ETHERNET + size_ip);
     size_tcp = 8;
     if (size_tcp < 8) {
-            printf("   * Invalid UDP header length: %u bytes\n", size_tcp);
-            return 1;
+        printf("   * Invalid UDP header length: %u bytes\n", size_tcp);
+        return 1;
     }
-
 
     /* define/compute tcp payload (segment) offset */
     payload = (u_char *)(packet + SIZE_ETHERNET + size_ip + size_tcp);
@@ -78,12 +67,10 @@ int VelodyneDAQ::acquireData(int n){
     if ((size_payload > 0) && (ntohs(tcp->th_dport) == 2368)) {
         this->read_payload(payload, size_payload);
     }
-
-
   return 0;
 }
 
-int VelodyneDAQ::connectToDAQ(){
+int VelodyneDAQ::connectToDAQ() {
 
    char *dev, errbuf[PCAP_ERRBUF_SIZE];
 
@@ -94,10 +81,8 @@ int VelodyneDAQ::connectToDAQ(){
     if (handle == NULL) {
         fprintf(stderr, "Couldn't open device %s: %s\n", dev, errbuf);
         return(2);
-    }
-  
-  return 0;
-  
+    }  
+  return 0;  
 }
 
 int VelodyneDAQ::initialize(){
@@ -137,15 +122,14 @@ GRIDAQBaseAccumNode* VelodyneDAQ::RegisterDataOutput(QString outName){
 
 
 
-void VelodyneDAQ::read_payload(const u_char *payload, int len)
-{
+void VelodyneDAQ::read_payload(const u_char *payload, int len) {
     QDateTime currentTime = QDateTime::currentDateTime();
     qint64 t1 = StartTime.time().msecsTo(currentTime.time())*1E5;  // in 10ns ticks
     velodynedatablock_t *datablock = new velodynedatablock_t[1];
     const u_char *ch = payload;
     int i,j;
     u_short temp1, temp2, temp3; //endianness is flipped for all shorts
-    for (i = 0; i< 12; i++){
+    for (i = 0; i < 12; ++i){
         temp1 = *ch;
         ch++;
         //printf("identifier: %04x \n", (*ch <<8) + temp1);
@@ -156,7 +140,7 @@ void VelodyneDAQ::read_payload(const u_char *payload, int len)
         ch++;
         datablock[0].firingdata[i].rotationalposition = (*ch <<8) + temp1 ;
         ch++;
-        for(j=0; j<32; j++){
+        for(j = 0; j < 32; ++j){
             temp1 = *ch;
             ch++;
             datablock[0].firingdata[i].distancedata[j].distance = (*ch <<8) + temp1 ;
@@ -179,13 +163,10 @@ void VelodyneDAQ::read_payload(const u_char *payload, int len)
     datablock[0].timestamp = t1;
     qint64 * qTS = new qint64[1];
     qTS[0] = t1;//datablock[0].timestamp;
-   // printf("identifier: %d \n", datablock[0].timestamp);
 
     PostData(1,QString("HDLRAW"),datablock,qTS);
-    //printf("wrote 1 event");
     delete [] datablock;
     delete [] qTS;
-
   return;
 }
 

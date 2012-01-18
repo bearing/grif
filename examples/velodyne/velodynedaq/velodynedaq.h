@@ -22,11 +22,11 @@
  in velodynedata.h. The class velodyneanalysis converts the datablock format into x,y,z coordinates.
  */
 
-class VelodyneDAQ : public GRIDAQThread{
+class VelodyneDAQ : public GRIDAQThread {
 
 public:
 
-      VelodyneDAQ();
+      VelodyneDAQ() {}
 
       int acquireData(int n);
       int connectToDAQ();
@@ -34,9 +34,7 @@ public:
       int loadConfiguration();
       int startDataAcquisition();     //Called at the beginning each run.
       int stopDataAcquisition();      //Called at the end of each run.
-      GRIDAQBaseAccumNode* RegisterDataOutput(QString outName); //figure this out
-
-      /******************************************************************/
+      GRIDAQBaseAccumNode* RegisterDataOutput(QString outName);
 
 private:
     void read_payload(const u_char *payload, int len);
@@ -90,8 +88,6 @@ private:
     QDateTime StartTime;
 
     pcap_t *handle;
-
-
 };
 
 #endif // VelodyneDAQ_H
