@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<app>
+
+	<Objects>
+        <object name= "VelodyneDAQ"   class = "VelodyneDAQ"> </object>
+        <object name= "velodyneanalysis" class = "velodyneanalysis"></object>
+        <object name= "velodynehdf5" class = "HDF5Analysis"></object>
+	</Objects>
+
+	<Links>
+		<link writer = "VelodyneDAQ"   reader = "velodyneanalysis" data = "HDLRAW"> </link>
+        <link writer = "velodyneanalysis" reader = "velodynehdf5" data = "pointcloud"></link>
+	</Links>
+    
+</app>
