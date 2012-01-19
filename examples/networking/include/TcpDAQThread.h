@@ -32,15 +32,15 @@ class TcpDAQThread : public QTcpSocket, public GRIDAQThread {
   TcpDAQThread() : port_(8080) {}
   ~TcpDAQThread() {}
 
-  int acquireData(int n);
+  int AcquireData(int n);
   GRIDAQBaseAccumNode *RegisterDataOutput(QString outName) { return NULL; }
-  int connectToDAQ();
-  int stopDataAcquisition();
+  int ConnectToDAQ();
+  int StopDataAcquisition();
 
-  int initialize() { return 0; }
-  int loadConfiguration() { return 0; }
-  int startDataAcquisition() { return 0; }
-
+  int Initialize() { return 0; }
+  int LoadConfiguration() { return 0; }
+  int StartDataAcquisition() { return 0; }
+  int TerminationRoutines() { return 0; }
  private:
   GRIServer server_;
   quint16 port_;
