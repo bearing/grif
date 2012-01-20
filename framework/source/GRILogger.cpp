@@ -33,6 +33,9 @@ GRILogger::GRILogger(QString FileName) {
   } else {
     filename_ = FileName;
     // TODO(baugarten): handle windows paths differently
+    if (!QDir(grif_project_file_path_ + "/log").exists()) {
+        QDir().mkdir(grif_project_file_path_ + "/log");
+    }
     logfilepath_ = grif_project_file_path_ + "/log/" + filename_;
     ClearLogFile();
     ClearErrorLogFile();
