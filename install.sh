@@ -25,8 +25,53 @@
 # Installation script for the Gamma Ray Imaging Framerwork
 
 # Run this script in the directory in which you would like GRIF to be installed.
-# TODO (amidvidy): make this work for Linux and Windows (cygwin)
+# This script should work on any POSIX compliant system.
 
+# TODO (amidvidy): make this work for Windows (cygwin)
+# Note: Cygwin binaries for ROOT are considered "very poor" by CERN,
+# the final version of this script will probably ask Windows users
+# to manually install ROOT.
+
+## 
+# Setting up Environment
+##
+
+OS=$(uname -s)
+ARCH=$(uname -m)
+
+##
+# Utility Functions
+##
+
+# getroot: getroot <OS> <ARCH>
+# Function to download the correct ROOT binaries to the current directory
+# OS: can be either Darwin or Linux
+# ARCH: can be i386 or X86_64
+getroot () {
+    case "$1" in
+	"Darwin" ) 
+	    if [ ARCH = "X86_64" ]
+	    then
+		URL="ftp://root.cern.ch/root/root_v5.32.00.macosx106-x86_64-gcc-4.2.tar.gz"
+	    else
+		URL="ftp://root.cern.ch/root/root_v5.32.00.macosx106-i386-gcc-4.2.tar.gz"
+	    fi;;
+	"Linux" )
+	    if [ ARCH = "X86_64" ]
+	    then
+		URL="ftp://root.cern.ch/root/root_v5.32.00.Linux-slc5_amd64-gcc4.3.tar.gz"
+	    else
+		URL="ftp://root.cern.ch/root/root_v5.32.00.Linux-slc5-gcc4.3.tar.gz"
+	    fi;;
+    esac
+    echo "Downloading ROOT binaries. This may take awhile..."
+    curl -O -L $(URL)
+    FILE=${URL##*root/}
+    tar -xvzf $(FILE)
+}
+##
+# Installation Logic
+##
 which git
 if [ $? = 1 ]; 
 then
@@ -46,7 +91,9 @@ then
 else
     # download and unpack ROOT binaries
     $ROOTDIR=`pwd`
+    
+    
 fi
 
-# build GIT using the right environment variables.
+# build GRIF using the right environment variables.
     
