@@ -50,14 +50,14 @@ ARCH=$(uname -m)
 getroot () {
     case "$1" in
 	"Darwin" ) 
-	    if [ ARCH = "X86_64" ]
+	    if [ $2 = "X86_64" ]
 	    then
 		URL="ftp://root.cern.ch/root/root_v5.32.00.macosx106-x86_64-gcc-4.2.tar.gz"
 	    else
 		URL="ftp://root.cern.ch/root/root_v5.32.00.macosx106-i386-gcc-4.2.tar.gz"
 	    fi;;
 	"Linux" )
-	    if [ ARCH = "X86_64" ]
+	    if [ $2 = "X86_64" ]
 	    then
 		URL="ftp://root.cern.ch/root/root_v5.32.00.Linux-slc5_amd64-gcc4.3.tar.gz"
 	    else
@@ -89,10 +89,11 @@ then
     echo "What is the path to your root directory?"
     read $ROOTDIR
 else
-    # download and unpack ROOT binaries
+    mkdir root
+    cd root
+    getroot $(OS) $(ARCH)
     $ROOTDIR=`pwd`
-    
-    
+    cd -
 fi
 
 # build GRIF using the right environment variables.
