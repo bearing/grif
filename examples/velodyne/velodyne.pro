@@ -40,7 +40,13 @@ SOURCES += \
     velodyneanalysis.cpp \
     HDF5Analysis.cpp
 
+QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O2
+
 DEFINES += SISUSB_PATH=\\\"/opt/\\\"
+
+GRIFPROJECTDIR = /home/cameron/grif/examples/velodyne
+
+DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}
 
 # load in all ROOT libraries
 unix:INCLUDEPATH += /usr/include/root #root headers

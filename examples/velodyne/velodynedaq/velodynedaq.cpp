@@ -95,7 +95,7 @@ int VelodyneDAQ::loadConfiguration(){
 
 int VelodyneDAQ::startDataAcquisition(){
   
-  this->InitializeAccumulators(QDateTime::currentDateTime(),0,1e8,2,250); //edit this
+  this->InitializeAccumulators(QDateTime::currentDateTime(),0,1e8,2,1000); //edit this
 
 this->StartTime = QDateTime::currentDateTime();
 
@@ -115,7 +115,7 @@ int VelodyneDAQ::stopDataAcquisition(){
 GRIDAQBaseAccumNode* VelodyneDAQ::RegisterDataOutput(QString outName){
 
   GRIDAQBaseAccumNode* p = NULL; //feel free to delete after implementation
-  if(outName == "HDLRAW") p = new GRIDAQAccumulator<velodynedatablock_t>(outName,1e8,2,250);
+  if(outName == "HDLRAW") p = new GRIDAQAccumulator<velodynedatablock_t>(outName,1e8,2,1000);
   return p; //feel free to delete after implementation
 }
 

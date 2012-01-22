@@ -2,7 +2,7 @@
 #include "velodynedata.h"
 #include "GRIDataDefines.h"
 
-HDF5Analysis() {
+HDF5Analysis::HDF5Analysis() {
     nevents = 0;
     eventtype = CompType(sizeof(edt_t));
     eventtdims[0] = 1;
