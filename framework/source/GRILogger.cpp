@@ -26,8 +26,9 @@
 #include <QResource>
 
 GRILogger::GRILogger(QString FileName) {
-  grif_project_file_path_ = proc_environ_.value("GRIFPROJECTDIR");
-  if (grif_project_file_path_.length() == 0) {
+  //grif_project_file_path_ = proc_environ_.value("GRIFPROJECTDIR");
+    grif_project_file_path_ = "/home/cameron/grif/examples/velodyne/";
+    if (grif_project_file_path_.length() == 0) {
     std::cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!"
 	      << std::endl;
   } else {
