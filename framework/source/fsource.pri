@@ -36,16 +36,12 @@ GRIMath.cpp \
 GRIMemoryManager.cpp \
 GRIRegulator.cpp \
 GRILogMessage.cpp \
-#GRIUserLoader.cpp \
+GRIUserLoader.cpp \
 GRIObject.cpp \
 GRIThread.cpp \
 GRIHist1D.cpp \
 GRIHist2D.cpp \
 GRIParser.cpp \
-GRIProcList.cpp \
-gricli2.cpp
+GRIProcList.cpp
 
-
-FORMS += \
-    ../../framework/source/gricli2.ui
 

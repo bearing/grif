@@ -41,7 +41,7 @@ GRIMemoryManager.h \
 GRIRegulator.h \
 GRILogMessage.h \
 GRIUserLoader.h \
-#GRIUserProcesses.h \
+GRIUserProcesses.h \
 GRIObject.h \
 GRIThread.h \
 GRIDAQAccumulator.h \
@@ -52,7 +52,6 @@ GRIHist1D.h \
 GRIHist2D.h \
 GRIParser.h \
 GRIProcList.h \
-gricli2.h \
 GRIServer.h
 
 
