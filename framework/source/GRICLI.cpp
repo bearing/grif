@@ -25,14 +25,14 @@
 #include <QStringList>
 #include "GRICLI.h"
 
-GRICLI::GRICLI(QLinkedList<GRIProcessThread *> *processes) {
+GRICLI::GRICLI(QList<GRIProcessThread *> *processes) {
   processes_ = processes;
   Init();
 }
 
 void GRICLI::Init() {
   // form the process hash table
-  QLinkedList<GRIProcessThread*>::iterator proc_it;
+  QList<GRIProcessThread*>::iterator proc_it;
   for (proc_it = processes_->begin(); proc_it != processes_->end(); ++proc_it) {
     process_hash_[(*proc_it)->get_name()] = *proc_it;
     QObject::connect(*proc_it, SIGNAL(GetProcessed(ProcessCommand *)),
@@ -201,10 +201,7 @@ void GRICLI::HandleProcessTop(QString *instr_array, int n) {
     ProcessGet(instr_array[1], instr_array[2]);
   } else if (instr_array[0] == "run" && n >= 2) {
     ProcessAction(instr_array[1]);
-    DisplayActions();
-  } else if (instr_array[0] == "actions" && n >= 1) {
-      DisplayActions();
-    }else if (instr_array[0] == "back" && n >= 1) {
+  } else if (instr_array[0] == "back" && n >= 1) {
     cli_state_ = MAIN;
   } else {
     std::cout << "could not parse instruction" << std::endl;
