@@ -44,23 +44,23 @@ class GRILogger : public QObject {
   // that contains all important descriptions
   // Should we support standard strings in writing logs?
 
-  bool writeErrorLogFile(QString ErrorDescription, int time);
-  bool writeErrorLogFile(QString ErrorDescription);
+  bool WriteErrorLogFile(QString ErrorDescription, int time);
+  bool WriteErrorLogFile(QString ErrorDescription);
 
-  bool writeErrorLogFile(QList<QString> ErrorDescriptions, int time);
-  bool writeErrorLogFile(QList<QString> ErrorDescriptions);
+  bool WriteErrorLogFile(QList<QString> ErrorDescriptions, int time);
+  bool WriteErrorLogFile(QList<QString> ErrorDescriptions);
 
-  bool writeLogFile(QString output, int time);
-  bool writeLogFile(QString output);
+  bool WriteLogFile(QString output, int time);
+  bool WriteLogFile(QString output);
 
-  bool writeLogFile(QList<QString> output, int time);
-  bool writeLogFile(QList<QString> output);
+  bool WriteLogFile(QList<QString> output, int time);
+  bool WriteLogFile(QList<QString> output);
 
-  bool clearLogFile();
-  bool clearErrorLogFile();
+  bool ClearLogFile();
+  bool ClearErrorLogFile();
 
-  void display(std::string);
-  void display(QList<std::string>);
+  void Display(std::string);
+  void Display(QList<std::string>);
 
   QString GetLogFileName() {
     return filename_;
@@ -76,11 +76,11 @@ class GRILogger : public QObject {
   }
 
  signals:
-  void output(std::string);
-  void output(QList<std::string>);
+  void Output(std::string);
+  void Output(QList<std::string>);
 
   public slots:
-  bool writeLogFile(GRILogMessage msg);
+  bool WriteLogFile(GRILogMessage msg);
 
  private:
   QString grif_project_file_path_;  //Just the filepath (imported by GRIFPROJECTPATH)
@@ -90,7 +90,7 @@ class GRILogger : public QObject {
   QMutex mutex_;
   QProcessEnvironment proc_environ_;
 
-  static bool writeToLogFile(QString, int, QMutex*, QFile*);
+  static bool WriteToLogFile(QString, int, QMutex*, QFile*);
 };
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_GRILOGGER_H_

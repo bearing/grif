@@ -69,7 +69,7 @@ class GRIAccumBuff {
     // GRIDAQAccumulator::Accumulate
     T* a = new T[data_.size()];
 
-    for (int i = 0; i < data_.size(); i++) {
+    for (int i = 0; i < data_.size(); ++i) {
       a[i] = data_[i];
     }
     return a;

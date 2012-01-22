@@ -28,7 +28,6 @@
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/visitors.hpp>
 
-
 typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::bidirectionalS,
                               boost::property<boost::vertex_color_t,
                                               boost::default_color_type> > Graph;
@@ -37,7 +36,7 @@ GRILoader::GRILoader(GRIRegulator *regulator) {
   regulator_ = regulator;
 }
 
-void GRILoader::initRegulatorDetails() {
+void GRILoader::InitRegulatorDetails() {
   // A parsed XML file gives us:
   // 1. list of classes and names that will be used
   // 2. list of the processes
@@ -73,15 +72,15 @@ void GRILoader::initRegulatorDetails() {
   QList<struct objectParsingDetails>::iterator obj_details_it;
 
   for(obj_details_it = objectsAndLinks.begin(); obj_details_it != objectsAndLinks.end();
-      obj_details_it++) {
+      ++obj_details_it) {
 
     struct objectParsingDetails obj_details = *obj_details_it;
     QString className = obj_details.className;
     QString objectName = obj_details.objectName;
 
-    GRIProcessThread *proc = load(className, objectName);
+    GRIProcessThread *proc = Load(className, objectName);
 
-    if (proc == 0) {
+    if (!proc) {
       std::cout << "WARNING: could not load class "
 		<< className.toStdString().c_str()
 		<< " with object name " << objectName.toStdString().c_str()

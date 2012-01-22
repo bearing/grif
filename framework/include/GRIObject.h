@@ -45,7 +45,7 @@ class GRIObject : public QObject {
     QString temp;
 
   signals:
-    void logSignal(GRILogMessage m);
+    void LogSignal(GRILogMessage m);
 };
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_GRIOBJECT_H_

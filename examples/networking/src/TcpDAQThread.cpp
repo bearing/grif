@@ -22,7 +22,7 @@
 
 #include "TcpDAQThread.h"
 
-int TcpDAQThread::acquireData(int n) {
+int TcpDAQThread::AcquireData(int n) {
   sleep(1);
   int size = 10;
   int data[size];
@@ -33,17 +33,18 @@ int TcpDAQThread::acquireData(int n) {
   return 0;
 }
 
-int TcpDAQThread::connectToDAQ() {
+int TcpDAQThread::ConnectToDAQ() {
   server_.set_port(port_);
   server_.Init();
   QHostAddress addr = server_.serverAddress();
+  std::cout << "\n\n" << addr.toString().toStdString() << "\n\n";
   connectToHost(addr, port_);
   waitForConnected(-1);
   std::cout << "TcpDAQThread connected" << std::endl;
   return 0;
 }
 
-int TcpDAQThread::stopDataAcquisition() {
+int TcpDAQThread::StopDataAcquisition() {
   flush();
   close();
   return 0;

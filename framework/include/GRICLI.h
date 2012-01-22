@@ -39,7 +39,11 @@ class GRICLI : public QObject{
   explicit GRICLI(QLinkedList<GRIProcessThread*> *processes);
   virtual ~GRICLI() {}
 
+  // Call Launch() from main file to start the interface.  After launching, the
+  // CLI cycles in an event loop waiting for commands.
   void Launch();
+
+  // Stop the CLI.
   void Quit();
 
  public slots:
@@ -47,7 +51,7 @@ class GRICLI : public QObject{
 
  private:
 
-      Q_OBJECT
+  Q_OBJECT
 
   // All of these methods will be called internally
   // You only need to call the launch() method to start
@@ -55,7 +59,6 @@ class GRICLI : public QObject{
   void DisplayMain();
   void DisplayHelp();
   void DisplayProcesses();
-  void DisplayActions();
 
   void HandleMain(QString *instr_array, int n);
   void HandleProcessTop(QString *instr_array, int n);

@@ -32,7 +32,6 @@ GRIHistogrammer::~GRIHistogrammer() {
   if (rate_hist_) delete rate_hist_;
 }
 
-
 int GRIHistogrammer::Clear() {
     hist_->Reset();
     return 0;

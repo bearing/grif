@@ -54,16 +54,11 @@ SOURCES += \
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
 # Top directory of GRIF on your machine
-GRIFDIR=$$(GRIF)
+GRIFDIR=/Users/benson/Desktop/grif
 
 # run code generation
 GRIFPROJECTDIR = $$GRIFDIR/examples/simulator
-macx|unix {
-    system(cd $$GRIFPROJECTDIR; ./setup.py)
-}
-win32 {
-    system(cd $$GRIFPROJECTDIR; python setup.py)
-}
+system(cd $$GRIFPROJECTDIR; python setup.py)
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1
 
@@ -73,7 +68,7 @@ DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}
 INCLUDEPATH += $$GRIFDIR/external
 
 # ROOT headers
-ROOTDIR=$$(ROOT)
+ROOTDIR = /Users/benson/Desktop/root_x86_64
 INCLUDEPATH += $$ROOTDIR/include
 
 # ROOT libraries

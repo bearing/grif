@@ -24,34 +24,29 @@
 #define GRIF_FRAMEWORK_INCLUDE_GRIDEFINES_H_
 #include <QtGlobal>
 
-//Constants and macros for GRI framework (wrap Qt constants/macros).
+// Constants and macros for GRI framework (wrap Qt constants/macros).
 
-/*
- *  To determine operating system information:
- *      OPERATING_SYSTEM will be == to LINUX, WINDOWS, or MAC
- *      IS_64_BIT will be == to BIT_32, or BIT_64
- *      SYSTEM_ENDIAN will be == to LITTLE_END or BIG_END
- *
- *  Types defined:
- *      uint8_g for 8 bit unsigned integers
- *      uint16_g for 16 bit unsigned integers
- *      uint32_g for 32 bit unsigned integers
- *      uint64_g for 64 bit unsigned integers
- *      int8_g for 8 bit signed integers
- *      int16_g for 16 bit signed integers
- *      int32_g for 32 bit signed integers
- *      int64_g for 64 bit signed integers
- *
- *  Macros defined:
- *      CAST_LITERAL_TO_UINT64_G(c) for casting a literal constant (e.g. 36028797018963968)
- *          to uint64_g.
- *      CAST_LITERAL_TO_INT64_G(c) for casting a literal constant (e.g. 36028797018963968)
- *          to int64_g.
- *
- */
-
-// This is a C statement and seems to not be accessible to Preprocessor directives
-//enum OPSYS { LINUX, WINDOWS, MAC };
+//  To determine operating system information:
+//      OPERATING_SYSTEM will be == to LINUX, WINDOWS, or MAC
+//      IS_64_BIT will be == to BIT_32, or BIT_64
+//      SYSTEM_ENDIAN will be == to LITTLE_END or BIG_END
+//
+//  Types defined:
+//      uint8_g for 8 bit unsigned integers
+//      uint16_g for 16 bit unsigned integers
+//      uint32_g for 32 bit unsigned integers
+//      uint64_g for 64 bit unsigned integers
+//      int8_g for 8 bit signed integers
+//      int16_g for 16 bit signed integers
+//      int32_g for 32 bit signed integers
+//      int64_g for 64 bit signed integers
+//
+//  Macros defined:
+//      CAST_LITERAL_TO_UINT64_G(c) for casting a literal constant (e.g. 36028797018963968)
+//          to uint64_g.
+//      CAST_LITERAL_TO_INT64_G(c) for casting a literal constant (e.g. 36028797018963968)
+//          to int64_g.
+//
 
 #define LINUX 0
 #define WINDOWS 1

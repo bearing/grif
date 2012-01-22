@@ -68,7 +68,7 @@ class GRIProcessThread : public GRIThread {
   GRIProcessThread();
   ~GRIProcessThread();
 
-  void init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator);
+  void Init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator);
 
   // Sets the process details for this process thread.  XML file name
   // is assumed to be name + ".XML".  To determine whether or not this
@@ -76,39 +76,45 @@ class GRIProcessThread : public GRIThread {
   // is set for GRIDAQThreads and GRIAnalysisThreads upon construction.
   void SetDefaultDetail(GRIRegulator *reg, QString name);
 
-  // set_link() sets up the pointers to the processes objects that are directly involved
-  // with this process (ie: those who will be writtten to or read by this process
+  // SetLink() sets up the pointers to the processes objects that are directly
+  // involved with this process (ie: those who will be writtten to or read by
+  // this process.
   void SetLink(QLinkedList<GRIDataBlock*> *dataBlocks);
 
-  // adds a data block that this process is going to use. Whether it's a buffer that this
-  // process is writing to or reading from will be dictated by type (OUT or IN).
+  // adds a data block that this process is going to use. Whether it's a buffer
+  // that this process is writing to or reading from will be dictated by type
+  // (OUT or IN).
   void AddDataBlock(QString data_block, bool is_output);
 
-  // Adds data blocks provided in the list of QStrings.  Uses the is_daq variable to determine
-  // whether or not this is an input or output.  GRIDAQThread has is_daq set to true on construction.
-  // GRIAnalysis thread has is_daq set to false on construction.
+  // Adds data blocks provided in the list of QStrings.  Uses the is_daq_ variable
+  // to determine whether or not this is an input or output.  GRIDAQThread has
+  // is_daq_ set to true on construction.  GRIAnalysis thread has is_daq_ set to
+  // false on construction.
   void AddDataBlocks(QList<QString> dataBlockNames);
 
   // This is overloaded in GRIDAQThread...
-  virtual void RegisterAccumulator(QString datablock) { datablock = "ReduceCompilerWarnings"; }
+  virtual void RegisterAccumulator(QString datablock) {
+    Q_UNUSED(datablock)
+  }
 
-  // change_priority() decides whether to change the thread's priority or not
+  // ChangePriority() decides whether to change the thread's priority or not
   bool ChangePriority(bool is_up);
 
   void IncrementPacketCount();
 
-  // find_data_block() finds a data block that this process is possibly writing to/
+  // FindDataBlock() finds a data block that this process is possibly writing to/
   // reading from. It will return NULL when it could not find the data block.
   GRIDataBlock* FindDataBlock(QString data_block_name);
 
-  // readMemory() reads one packet from memory in the location specified by process_name
-  // and bufferName. Essentially abstracts regulator's readMemory() by templating it.
-  template<class T> QPair<int, T*> readMemory(QString blockName, QString bufferName);
+  // ReadMemory() reads one packet from memory in the location specified by process_name
+  // and bufferName. Essentially abstracts regulator's ReadMemory() by templating it.
+  template<class T> QPair<int, T*> ReadMemory(QString blockName, QString bufferName);
 
-  // writeMemory() writes a data given in the char array to the location specified.
-  // by process_name & bufferName. Also abstracts regulator's readMemory() by
+  // WriteMemory() writes a data given in the char array to the location specified.
+  // by process_name and bufferName. Also abstracts regulator's ReadMemory() by
   // templating it.
-  template <class T> bool writeMemory(QString blockName, QString bufferName, int size, T dataArray[]);
+  template <class T> bool WriteMemory(QString blockName, QString bufferName,
+                                      int size, T dataArray[]);
 
   // Handle gets/sets/runactions from the CLI
   void EnqueueDynamicCommand(ProcessCommand *pc);
@@ -193,7 +199,6 @@ class GRIProcessThread : public GRIThread {
   // to keep track what id needs to be given to a new thread
   static int counter;
 
-
   void set_run_flag(bool run_flag) { run_flag_ = run_flag; }  
   bool get_run_flag() { return run_flag_; }
   int get_thread_id() { return thread_id_; }
@@ -213,7 +218,6 @@ class GRIProcessThread : public GRIThread {
   void set_load_balancing_vars(int num_packets_to_saturation,
 			       int num_packets_from_saturation);
 
-
   // For debugging purpose; display the important state of the process, 
   // ie: who it's writing to, who it's reading from, etc
 #ifdef PROCESS_THREAD_DEBUG
@@ -228,7 +232,7 @@ class GRIProcessThread : public GRIThread {
   void FlushBuffer();
 
  private:
-  //deprecated
+  // deprecated
   typedef struct data {
     QString name;
     GRIDataBlock* data_block;
@@ -262,19 +266,19 @@ class GRIProcessThread : public GRIThread {
 };
 
 template<class T> QPair<int, T*>
-  GRIProcessThread::readMemory(QString blockName ,QString bufferName) {
+  GRIProcessThread::ReadMemory(QString blockName ,QString bufferName) {
   // Recasting here must de-couple char array and the T array to allow for proper
   // memory de-allocation via the delete method.
-  QPair<int, char *> refPair = get_reg()->readMemory(blockName, bufferName);
+  QPair<int, char *> refPair = get_reg()->ReadMemory(blockName, bufferName);
 
   QPair<int, T*> castPair(refPair.first / sizeof(T), (T*) refPair.second);
   return castPair;
 }
 
-template<class T> bool GRIProcessThread::writeMemory(QString blockName,
+template<class T> bool GRIProcessThread::WriteMemory(QString blockName,
                                                      QString bufferName,
                                                      int size, T dataArray[]) {
-  return get_reg()->writeMemory(blockName, bufferName, size * sizeof(T),
+  return get_reg()->WriteMemory(blockName, bufferName, size * sizeof(T),
                                 (char*) dataArray);
 }
 

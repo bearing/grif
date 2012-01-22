@@ -34,16 +34,19 @@ GRILogger::GRILogger(QString FileName) {
   } else {
     filename_ = FileName;
     // TODO(baugarten): handle windows paths differently
+    if (!QDir(grif_project_file_path_ + "/log").exists()) {
+        QDir().mkdir(grif_project_file_path_ + "/log");
+    }
     logfilepath_ = grif_project_file_path_ + "/log/" + filename_;
-    clearLogFile();
-    clearErrorLogFile();
+    ClearLogFile();
+    ClearErrorLogFile();
     log_level_ = 2;
   }
 }
 
 GRILogger::~GRILogger() {}
 
-bool GRILogger::clearLogFile() {
+bool GRILogger::ClearLogFile() {
   QFile f(logfilepath_);
 
   if (!f.open( QIODevice::WriteOnly | QIODevice::Truncate)) {
@@ -54,11 +57,11 @@ bool GRILogger::clearLogFile() {
   }
 
   f.close();
-  writeLogFile((QString)"GRI Framework Log V1.0\n\n");
+  WriteLogFile((QString)"GRI Framework Log V1.0\n\n");
   return true;
 }
 
-bool GRILogger::clearErrorLogFile() {
+bool GRILogger::ClearErrorLogFile() {
   QFile f(grif_project_file_path_ + "/log/errorlogfile.txt");
   if (!f.open( QIODevice::WriteOnly | QIODevice::Truncate)) {
     std::cout << "Failed to locate errorlogfile.txt.\n";
@@ -66,43 +69,42 @@ bool GRILogger::clearErrorLogFile() {
   }
 
   f.close();
-  writeErrorLogFile((QString)"GRI Framework Error Log v1.0\n\n");
+  WriteErrorLogFile((QString)"GRI Framework Error Log v1.0\n\n");
   return 1;
 }
 
 
-bool GRILogger::writeLogFile(QList<QString>d, int time) {
-  QList<QString>::iterator iter;
-  for (iter = d.begin(); iter!= d.end(); iter++) {
-    writeLogFile((*iter), time);
+bool GRILogger::WriteLogFile(QList<QString>d, int time) {
+  for (QList<QString>::iterator iter = d.begin(); iter!= d.end(); ++iter) {
+    WriteLogFile((*iter), time);
   }
   return 1;
 }
 
-bool GRILogger::writeLogFile(QList<QString>d) {
-  return writeLogFile(d, 0);
+bool GRILogger::WriteLogFile(QList<QString> d) {
+  return WriteLogFile(d, 0);
 }
 
-bool GRILogger::writeLogFile(QString output, int time) {
+bool GRILogger::WriteLogFile(QString output, int time) {
   if (time == 0) {
     time = -1;
   }
-  return writeToLogFile(output, time, &mutex_,
+  return WriteToLogFile(output, time, &mutex_,
                         new QFile(logfilepath_));
 }
 
-bool GRILogger::writeLogFile(QString output) {
-  return writeLogFile(output, 0);
+bool GRILogger::WriteLogFile(QString output) {
+  return WriteLogFile(output, 0);
 }
 
-bool GRILogger::writeErrorLogFile(QString output, int time) {
+bool GRILogger::WriteErrorLogFile(QString output, int time) {
   QMutex mutex;
 
-  return writeToLogFile(output, time, &mutex,
+  return WriteToLogFile(output, time, &mutex,
                         new QFile(grif_project_file_path_ + "/log/errorlogfile.txt"));
 }
 
-bool GRILogger::writeToLogFile(QString output, int time, QMutex *mutex, QFile *f) {
+bool GRILogger::WriteToLogFile(QString output, int time, QMutex *mutex, QFile *f) {
     time = 0;
 
     QMutexLocker qml(mutex);
@@ -121,36 +123,33 @@ bool GRILogger::writeToLogFile(QString output, int time, QMutex *mutex, QFile *f
     return 1;
 }
 
-bool GRILogger::writeErrorLogFile(QString output) {
-  return writeErrorLogFile(output, 0);
+bool GRILogger::WriteErrorLogFile(QString output) {
+  return WriteErrorLogFile(output, 0);
 }
 
-bool GRILogger::writeLogFile(GRILogMessage m) {
+bool GRILogger::WriteLogFile(GRILogMessage m) {
   if (m.level >= log_level_) {
-    return writeLogFile(m.MsgStr);
+    return WriteLogFile(m.MsgStr);
   } else {
     return false;
   }
 }
 
-bool GRILogger::writeErrorLogFile(QList<QString>d, int time) {
-  QList<QString>::iterator iter;
-  for (iter = d.begin(); iter!= d.end(); iter++) {
-    writeErrorLogFile(*iter, time);
+bool GRILogger::WriteErrorLogFile(QList<QString> d, int time) {
+  for (QList<QString>::iterator iter = d.begin(); iter!= d.end(); ++iter) {
+    WriteErrorLogFile(*iter, time);
   }
   return 1;
 }
 
-bool GRILogger::writeErrorLogFile(QList<QString>d) {
-  return writeErrorLogFile(d, 0);
+bool GRILogger::WriteErrorLogFile(QList<QString> d) {
+  return WriteErrorLogFile(d, 0);
 }
 
-void GRILogger::display(std::string a) {
-  emit output(a);
+void GRILogger::Display(std::string a) {
+  emit Output(a);
 }
 
-void GRILogger::display(QList<std::string> a) {
-  emit output(a);
+void GRILogger::Display(QList<std::string> a) {
+  emit Output(a);
 }
-
-

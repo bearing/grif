@@ -60,9 +60,6 @@ class GRIThread : public QThread {
   bool exit_thread_flag_;
   bool sleeping_;
   bool force_quit_;
-
- signals:
-  void logSignal(GRILogMessage m);
 };
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_GRITHREAD_H_

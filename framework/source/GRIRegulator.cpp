@@ -36,7 +36,7 @@ GRIRegulator::GRIRegulator(GRIMemoryManager *mm) {
 
 GRIRegulator::~GRIRegulator() {}
 
-void GRIRegulator::initConfig() {
+void GRIRegulator::InitConfig() {
   QLinkedList<GRIProcessThread*>::iterator process_it;
   QLinkedList<GRIDataBlock*>::iterator data_it;
 
@@ -44,33 +44,31 @@ void GRIRegulator::initConfig() {
       ++process_it) {
 
     GRIProcessThread* process = *process_it;
-    //process->set_reg(this);
     process->SetLink(data_blocks_);
   }
 
   for(data_it = data_blocks_->begin(); data_it != data_blocks_->end();
       ++data_it) {
     GRIDataBlock* data_block = *data_it;
-    data_block->set_mm(mem_mngr_);
-    data_block->set_link(processes_);
+    data_block->SetLink(processes_);
   }
 }
 
-void GRIRegulator::start_threads() {
+void GRIRegulator::StartThreads() {
   timer_.start();
   QLinkedList<GRIProcessThread*>::iterator it;
-  for(it = processes_->begin(); it != processes_->end(); it++) {
+  for(it = processes_->begin(); it != processes_->end(); ++it) {
     GRIProcessThread* process = *it;
     process->set_run_flag(true);
     process->start(QThread::NormalPriority);
   }
 }
 
-QPair<int, char*> GRIRegulator::readMemory(const QString& blockName,
+QPair<int, char*> GRIRegulator::ReadMemory(const QString& blockName,
                                            const QString& bufferName) {
-  GRIDataBlock* data = find_data(blockName,bufferName);
+  GRIDataBlock* data = FindData(blockName,bufferName);
   if (data == NULL) {
-    std::cerr << "GRIRegulator::readMemory(): Can't find buffer "
+    std::cerr << "GRIRegulator::ReadMemory(): Can't find buffer "
               << blockName.toStdString().c_str() << ":"
               << bufferName.toStdString().c_str() << std::endl;
     
@@ -79,53 +77,53 @@ QPair<int, char*> GRIRegulator::readMemory(const QString& blockName,
   }
   
   if (!data->get_is_enabled()) {
-    std::cerr << "GRIRegulator::readMemory(): The buffer is disabled: "
+    std::cerr << "GRIRegulator::ReadMemory(): The buffer is disabled: "
               << blockName.toStdString().c_str() << ":"
               << bufferName.toStdString().c_str() << std::endl;
     QPair<int, char*> returnVal(0, NULL);
     return returnVal;
   }
 
-  int packet_to_read = mem_mngr_->currentPacketPosition(blockName, bufferName);
-  int curr_packet = mem_mngr_->lastPacket(blockName, bufferName);
+  int packet_to_read = mem_mngr_->CurrentPacketPosition(blockName, bufferName);
+  int curr_packet = mem_mngr_->LastPacket(blockName, bufferName);
 
   while (curr_packet < packet_to_read) {
     buffer_ready_.wait(&mutex_);
-    curr_packet = mem_mngr_->lastPacket(blockName, bufferName);
+    curr_packet = mem_mngr_->LastPacket(blockName, bufferName);
   }
 
   std::cout << blockName.toStdString().c_str() << ":"
             << bufferName.toStdString().c_str() << " reading packet "
             << packet_to_read << std::endl;
 
-  if (data->update_reader()) {
-    int length = mem_mngr_->sizeofPacket(blockName, bufferName,
-					 mem_mngr_->currentPacketPosition(
+  if (data->UpdateReader()) {
+    int length = mem_mngr_->SizeofPacket(blockName, bufferName,
+					 mem_mngr_->CurrentPacketPosition(
                                                     blockName, bufferName));
 
     if (length == 0) {
       char *c = new char[1];
-      QPair<int, char*> returnVal(length, mem_mngr_->readMemory(blockName, bufferName, c));
+      QPair<int, char*> returnVal(length, mem_mngr_->ReadMemory(blockName, bufferName, c));
       // Should add char* to garbage collection list for later deletion
       // GarbageCollection requires mutex!!!
       GarbageCollection(c);
-      data->load_balancing();
+      data->LoadBalancing();
       return returnVal;
     } else {
       char *c = new char[length];
-      QPair<int, char*> returnVal(length, mem_mngr_->readMemory(blockName,
+      QPair<int, char*> returnVal(length, mem_mngr_->ReadMemory(blockName,
                                                                 bufferName, c));
 
       // Should add char* to garbage collection list for later deletion
       // GarbageCollection requires mutex!!!
       GarbageCollection(c);
 
-      data->load_balancing();
+      data->LoadBalancing();
       return returnVal;
     }
   }
 
-  std::cout << "GRIRegulator::readMemory(): " << blockName.toStdString().c_str()
+  std::cout << "GRIRegulator::ReadMemory(): " << blockName.toStdString().c_str()
             << " is not reading from "
             << data->get_writer_name().toStdString().c_str() << std::endl;
 
@@ -133,12 +131,12 @@ QPair<int, char*> GRIRegulator::readMemory(const QString& blockName,
   return returnVal;
 }
 
-bool GRIRegulator::writeMemory(const QString& blockName,
+bool GRIRegulator::WriteMemory(const QString& blockName,
                                const QString& bufferName, int size,
                                char dataArray[]) {
   QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
-  GRIDataBlock* data = find_data(blockName,bufferName);
+  GRIDataBlock* data = FindData(blockName,bufferName);
   bool ret_flag;
 
   if (data == NULL) {
@@ -146,14 +144,14 @@ bool GRIRegulator::writeMemory(const QString& blockName,
   }
 
   if (!data->get_is_enabled()) {
-    std::cerr << "GRIRegulator::writeMemory(): The buffer is disabled: "
+    std::cerr << "GRIRegulator::WriteMemory(): The buffer is disabled: "
               << blockName.toStdString().c_str() << ":"
               << bufferName.toStdString().c_str() << std::endl;
     return false;
   }
 
-  if (data->update_writer()) {
-    ret_flag =  mem_mngr_->writeMemory(process_name, bufferName, size,
+  if (data->UpdateWriter()) {
+    ret_flag =  mem_mngr_->WriteMemory(process_name, bufferName, size,
                                        (char*) dataArray);
     if(ret_flag) {
       buffer_ready_.wakeAll();
@@ -163,45 +161,45 @@ bool GRIRegulator::writeMemory(const QString& blockName,
   return false;
 }
 
-int GRIRegulator::currentPacketPosition(const QString& bufferName) {
+int GRIRegulator::CurrentPacketPosition(const QString& bufferName) {
   QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
-  return mem_mngr_->currentPacketPosition(process_name, bufferName);
+  return mem_mngr_->CurrentPacketPosition(process_name, bufferName);
 }
 
-int GRIRegulator::lastPacket(const QString& bufferName) {
+int GRIRegulator::LastPacket(const QString& bufferName) {
   QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
-  return mem_mngr_->lastPacket(process_name, bufferName);
+  return mem_mngr_->LastPacket(process_name, bufferName);
 }
 
-bool GRIRegulator::setPacketPosition(const QString& bufferName,
+bool GRIRegulator::SetPacketPosition(const QString& bufferName,
                                      int packetNumber) {
   QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
-  return mem_mngr_->setPacketPosition(process_name, bufferName, packetNumber);
+  return mem_mngr_->SetPacketPosition(process_name, bufferName, packetNumber);
 }
 
-int GRIRegulator::sizeofPacket(const QString& bufferName, int packetNumber) {
+int GRIRegulator::SizeofPacket(const QString& bufferName, int packetNumber) {
   QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
-  return mem_mngr_->sizeofPacket(process_name, bufferName, packetNumber);
+  return mem_mngr_->SizeofPacket(process_name, bufferName, packetNumber);
 }
 
-int GRIRegulator::sizeofBuffer(const QString& bufferName) {
+int GRIRegulator::SizeofBuffer(const QString& bufferName) {
   QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
-  return mem_mngr_->sizeofBuffer(process_name, bufferName);
+  return mem_mngr_->SizeofBuffer(process_name, bufferName);
 }
 
-GRIProcessThread* GRIRegulator::find_process(const QString& process_name) {
+GRIProcessThread* GRIRegulator::FindProcess(const QString& process_name) {
   QLinkedList<GRIProcessThread*>::iterator it;
-  for(it = processes_->begin(); it != processes_->end(); it++) {
+  for(it = processes_->begin(); it != processes_->end(); ++it) {
     GRIProcessThread* process = *it;
-    if(!(process->get_name()==process_name)) {
+    if(!(process->get_name() == process_name)) {
       return process;
     }
   }
   return NULL;
 }
 
-GRIDataBlock* GRIRegulator::find_data(const QString& data_block_name,
-                                      const QString& buffer_name) {
+GRIDataBlock* GRIRegulator::FindData(const QString& data_block_name,
+                                     const QString& buffer_name) {
   QLinkedList<GRIDataBlock*>::iterator it;
   for(it = data_blocks_->begin(); it != data_blocks_->end(); ++it) {
     GRIDataBlock* data_block = *it;
@@ -221,9 +219,9 @@ int GRIRegulator::GarbageCollection(void* p) {
   // deletion of arrays.  This mutex will ensure that deletion is done in a serial
   // manner.
 
-  gc_mutex_.lock();
+  QMutexLocker locker(&gc_mutex_);
   bool found = false;
-  for(int i=0; i<read_data_ptrs_.size(); i++) {
+  for(int i = 0; i < read_data_ptrs_.size(); ++i) {
     if (p == read_data_ptrs_[i]) {
       char* c = read_data_ptrs_.takeAt(i);
       delete [] c;
@@ -235,21 +233,21 @@ int GRIRegulator::GarbageCollection(void* p) {
   if (!found) {
     read_data_ptrs_.push_back((char*)p);
   }
-  gc_mutex_.unlock();
+
   return 0;
 }
 
 int GRIRegulator::GarbageCollection(QList<void*> pList) {
   int n = 0;
-  for (int i=0; i<pList.size(); i++) {
+  for (int i = 0; i < pList.size(); ++i) {
     n += GarbageCollection(pList[i]);
   }
   return n;
 }
 
 void GRIRegulator::Start() {
-  initConfig();
-  start_threads();
+  InitConfig();
+  StartThreads();
 }
 
 void GRIRegulator::Stop() {
