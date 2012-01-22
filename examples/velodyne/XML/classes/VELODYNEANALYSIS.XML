@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<class>
+  <Name name = "velodyneanalysis" />
+  <Header hname = "velodyneanalysis.h" />
+  <Info cname = "velodyneanalysis" isdaq = "false" />
+  <DataBlocks> 
+    <Data block = "pointcloud" /> 
+  </DataBlocks> 
+</class>
