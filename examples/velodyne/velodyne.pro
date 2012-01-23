@@ -12,8 +12,6 @@ FORMS +=
 
 include(../../framework/source/fsource.pri)
 include(../../framework/include/finclude.pri)
-include(vtkinclude.pri)
-
 
 DEPENDPATH += source include . \
     velodynedaq \
@@ -25,7 +23,6 @@ INCLUDEPATH += include velodynedaq \
 
 HEADERS += \
     /usr/include/H5Cpp.h \
-    GRIUserProcesses.h \
     velodynedaq.h \
     velodynedata.h \
     velodyneanalysis.h \
@@ -35,7 +32,6 @@ HEADERS += \
 # Source file and headers
 SOURCES += \
     main.cpp \
-    GRIUserLoader.cpp \
     velodynedaq.cpp \
     velodyneanalysis.cpp \
     HDF5Analysis.cpp
@@ -45,6 +41,10 @@ QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O2
 DEFINES += SISUSB_PATH=\\\"/opt/\\\"
 
 GRIFPROJECTDIR = /home/cameron/grif/examples/velodyne
+
+
+#GRIFPROJECTDIR = $$GRIFDIR/examples/simulator
+system(cd $$GRIFPROJECTDIR; python2 setup.py)
 
 DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}
 
