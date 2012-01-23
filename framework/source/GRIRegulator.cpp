@@ -92,9 +92,10 @@ QPair<int, char*> GRIRegulator::ReadMemory(const QString& blockName,
     curr_packet = mem_mngr_->LastPacket(blockName, bufferName);
   }
 
-  std::cout << blockName.toStdString().c_str() << ":"
-            << bufferName.toStdString().c_str() << " reading packet "
-            << packet_to_read << std::endl;
+  std::cout << "reading packet " << packet_to_read
+	    << " (block: " << blockName.toStdString().c_str()
+            << ", buffer: " << bufferName.toStdString().c_str() 
+            << ")" << std::endl;
 
   if (data->UpdateReader()) {
     int length = mem_mngr_->SizeofPacket(blockName, bufferName,

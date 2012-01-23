@@ -262,6 +262,12 @@ char* GRIMemoryManager::ReadMemory(const QString& dataBlockName,
 
   buf->IncrementPacketMarker();
   UnlockBuffer(dataBlockName, bufferName);
+
+  std::cout << "MM::ReadMemory: Packet #" << packetNumber
+	    << " (block: " << dataBlockName.toStdString().c_str()
+            << ", buffer: " << bufferName.toStdString().c_str() 
+            << ")" << std::endl;
+
   return buffer;
 }
 
@@ -313,8 +319,9 @@ bool GRIMemoryManager::WriteMemory(const QString& dataBlockName,
                                    char dataArray[]) {
   GRIBuffer *buf = GrabBuffer(dataBlockName, bufferName);
   int curPacket = buf->NextPacket();
-  std::cout << "MM:WriteMemory " << dataBlockName.toStdString().c_str() << ":"
-            << bufferName.toStdString().c_str() << " Packet #" << curPacket
-            << std::endl;
+  std::cout << "MM::WriteMemory: Packet #" << curPacket
+	    << " (block: " << dataBlockName.toStdString().c_str()
+            << ", buffer: " << bufferName.toStdString().c_str() 
+            << ")" << std::endl;
   return WriteMemory(dataBlockName, bufferName, curPacket, size, dataArray);
 }
