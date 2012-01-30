@@ -2,7 +2,7 @@
 # Velodyne Lidar #
 #############################################
 
-QT       += core network xml
+QT       += core xml
 QT       += gui
 
 TARGET =  velodyne
@@ -17,7 +17,6 @@ DEPENDPATH += source include . \
     velodynedaq \
     velodyneanalysis
 
-
 INCLUDEPATH += include velodynedaq \
                 velodyneanalysis
 
@@ -25,16 +24,13 @@ HEADERS += \
     /usr/include/H5Cpp.h \
     velodynedaq.h \
     velodynedata.h \
-    velodyneanalysis.h \
-    HDF5Analysis.h
-
+    velodyneanalysis.h
 
 # Source file and headers
 SOURCES += \
     main.cpp \
     velodynedaq.cpp \
-    velodyneanalysis.cpp \
-    HDF5Analysis.cpp
+    velodyneanalysis.cpp
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O2
 
@@ -72,8 +68,3 @@ unix: LIBS += -lpcap
 
 win32: DEFINES += HDF5CPP_USEDLL
 win32: LIBS += -LC:/HDF5/lib -lhdf5_cppdll -lhdf5dll
-
-
-
-
-
