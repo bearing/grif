@@ -25,7 +25,7 @@
 // All possible process thread headers should be included from GRIUserProcesses.
 #include "GRIUserProcesses.h"
 
-GRIProcessThread *GRIUserLoader::load(QString class_name, QString object_name) {
+GRIProcessThread *GRIUserLoader::Load(QString class_name, QString object_name) {
   // process_name <=> class name
   // object_name  <=> object name
 

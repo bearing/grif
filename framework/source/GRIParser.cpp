@@ -59,8 +59,8 @@ bool GRIParser::Parse(QString FilePath) {
   }
   elem = elem.firstChildElement("object");
 
-  /* read the objects, constructing object_hash_ as we go along */
-  for (int i = 0; i < num; i++) {
+  // read the objects, constructing object_hash_ as we go along
+  for (int i = 0; i < num; ++i) {
     QDomAttr name = elem.attributeNode("name");
     if (name.value().isNull()) {
       std::cout << "No object name found for an object.  Skipping that object..."
@@ -84,7 +84,7 @@ bool GRIParser::Parse(QString FilePath) {
     elem = elem.nextSiblingElement("object");
   }
 
-  /* read the links */
+  // read the links
   QDomElement e = root.firstChildElement("Links");
   if (e.isNull()) {
     std::cout << "WARNING: Could not find the Links tag.  Skipping links."

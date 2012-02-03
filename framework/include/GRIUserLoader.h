@@ -32,7 +32,7 @@ class GRIUserLoader : public GRILoader {
   GRILoader(regulator) {}
 
   virtual ~GRIUserLoader() {}
-  GRIProcessThread *load(QString process_name, QString object_name);
+  GRIProcessThread *Load(QString process_name, QString object_name);
 };
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_GRIUSERLOADER_H_

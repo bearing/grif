@@ -32,12 +32,14 @@ DEPENDPATH += ../../ . \
         ./src \
         ./include \
         ../../framework/source \
-        ../../framework/include
+        ../../framework/include \
+        ../../external
 
 INCLUDEPATH += ../../ . \
         ./include \
         ../../framework/include \
-        ../../framework/source
+        ../../framework/source \
+        ../../external
 
 include(../../framework/source/fsource.pri)
 include(../../framework/include/finclude.pri)
@@ -55,18 +57,19 @@ SOURCES += \
 # ***You must set GRIFDIR as an environment variable***
 GRIFDIR=$$(PWD)/../..
 
-ROOTDIR=/Users/benson/Desktop/root_x86_64
+ROOTDIR=/home/ben/Downloads/root
 
 # root headers
 INCLUDEPATH += $$ROOTDIR/include
 
 ROOTSYSLIB += $$ROOTDIR/lib
 INCLUDEPATH += $$ROOTSYSLIB
+
+LIBS += -L/$$ROOTSYSLIB
+LIBS += -L$$ROOTSYS/lib -lCore -lHist
 LIBS += $$ROOTSYSLIB/libCint.so
 LIBS += $$ROOTSYSLIB/libMatrix.so
 LIBS += $$ROOTSYSLIB/libMathCore.so
-LIBS += -L/$$ROOTSYSLIB
-LIBS += -L$$ROOTSYS/lib -lCore -lHist
 
 EXTDIR = $$GRIFDIR/external
 INCLUDEPATH += EXTDIR

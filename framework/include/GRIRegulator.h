@@ -28,6 +28,7 @@
 #include <iostream>
 #include <utility>
 #include <QLinkedList>
+#include <QList>
 #include <QMutex>
 #include <QPair>
 #include <QString>
@@ -50,65 +51,59 @@ class GRIRegulator: public GRIObject {
   explicit GRIRegulator(GRIMemoryManager* ma);
   ~GRIRegulator();
 
-  // initConfig() is called to initialize the whole system. .
-  void initConfig();
+  // InitConfig() is called to initialize the whole system. .
+  void InitConfig();
 
-  // bufferCreate() creates a buffer in the specified data block.
-  // If the data block does not exist yet, then it will create the data block
-  // before it creates the buffer.
-  //
-  // invariants:
-  // each process_name must be unique from all other process_names
-  // within each dataBlock, each bufferName must be unique.
-  bool bufferCreate(const QString& bufferName);
-  
-  // readMemory() reads one packet from memory in the location specified
+  // ReadMemory() reads one packet from memory in the location specified
   // by process_name & bufferName
-  QPair<int, char*> readMemory(const QString& blockName,
+  QPair<int, char*> ReadMemory(const QString& blockName,
                                const QString& bufferName);
 
-  // writeMemory() writes a data given in the char array to the location
+  // WriteMemory() writes a data given in the char array to the location
   // specified by process_name & bufferName
-  bool writeMemory(const QString& blockName, const QString& bufferName, int size,
+  bool WriteMemory(const QString& blockName, const QString& bufferName, int size,
                    char dataArray[]);
 
-  // currentPacketPosition() returns the current index of the packet marker.
+  // CurrentPacketPosition() returns the current index of the packet marker.
   // This is in most cases the last packet to be read next unless
-  // setPacketPosition() has been called.
-  int currentPacketPosition(const QString& bufferName);
+  // SetPacketPosition() has been called.
+  int CurrentPacketPosition(const QString& bufferName);
 
-  // lastPacket() returns the index of the last packet in the specified buffer.
+  // LastPacket() returns the index of the last packet in the specified buffer.
   // This is equivalent to the buffer size minus one.
-  int lastPacket(const QString& bufferName);
+  int LastPacket(const QString& bufferName);
 
-  // setPacketPosition() sets the packet marker for the specified buffer to the
+  // SetPacketPosition() sets the packet marker for the specified buffer to the
   // packetNumber position. This is useful for use with the overloaded
-  // readMemory function which allows users to read the packet that has been
+  // ReadMemory() function which allows users to read the packet that has been
   // indexed by the packet marker. This is in most cases the last packet to be
-  // read from unless setPacketPosition() has been called.
+  // read from unless SetPacketPosition() has been called.
   // If the operation is successful, it returns true, otherwise false.
-  bool setPacketPosition(const QString& bufferName, int packetNumber);
+  bool SetPacketPosition(const QString& bufferName, int packetNumber);
 
-  // sizeofPacket() returns how big the packet is
-  int sizeofPacket(const QString& bufferName, int packetNumber);
+  // SizeofPacket() returns how big the packet is
+  int SizeofPacket(const QString& bufferName, int packetNumber);
 
-  // sizeofBuffer() returns how big the buffer is
-  int sizeofBuffer(const QString& bufferName);
+  // SizeofBuffer() returns how big the buffer is
+  int SizeofBuffer(const QString& bufferName);
+
+  // Begin the regulator.  Starts all of the threads.
+  void Start();
+
+  // Stop all of the threads.
+  void Stop();
+
+  void AddDataBlock(GRIDataBlock *data) { data_blocks_->push_back(data); }
+
+  void AddProcess(GRIProcessThread *proc) { processes_->push_back(proc); }
 
   int GarbageCollection(QList<void*> pList);
 
   GRIMemoryManager *get_mem_mngr() { return mem_mngr_; }
   void set_mem_mngr(GRIMemoryManager *mem_mngr) { mem_mngr_ = mem_mngr; }
 
-  void AddDataBlock(GRIDataBlock *data) { data_blocks_->push_back(data); }
-
-  void AddProcess(GRIProcessThread *proc) { processes_->push_back(proc); }
-
   QLinkedList<GRIProcessThread*> * get_processes() { return processes_; }
 
-  void Start();
-
-  void Stop();
 
  private:
   GRIMemoryManager* mem_mngr_;
@@ -123,14 +118,15 @@ class GRIRegulator: public GRIObject {
   int GarbageCollection(void* p);
 
   // find_process() returns a pointer to the actual process given the name
-  GRIProcessThread* find_process(const QString& process_name);
+  GRIProcessThread* FindProcess(const QString& process_name);
 
   // find_data() returns a pointer to the actual data block given the name
-  GRIDataBlock* find_data(const QString& data_block_name,
+  GRIDataBlock* FindData(const QString& data_block_name,
                           const QString& buffer_name);
 
-  // start_threads() is called just before the whole system starts. It runs all the threads
-  void start_threads();
+  // StartThreads() is called just before the whole system starts. It runs all
+  // the threads.
+  void StartThreads();
 };
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_GRIREGULATOR_H

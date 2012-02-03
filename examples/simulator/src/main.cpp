@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
 
   // the following will be included for all programs
   GRILoader *loader = new GRIUserLoader(reg);
-  loader->initRegulatorDetails();
+  loader->InitRegulatorDetails();
   reg->Start();
   sleep(5);
   reg->Stop();

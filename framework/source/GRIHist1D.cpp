@@ -47,14 +47,14 @@ int GRIHist1D::Update (double x[], int numel) {
   if (get_rate_mode()) {
     // Updating on Rate Differentials...
     rate_hist_->Add(rate_hist_,-1);  // Set to zero
-    for(int i = 0; i < numel; ++i) {
+    for (int i = 0; i < numel; ++i) {
       rate_hist_->Fill(x[i]);  // Incoming...
     }
     rate_hist_->Add(hist_,-1);  // Subtract hist
     hist_->Add(rate_hist_, get_packet_scale_factor());
   } else {
     // Straight update
-    for(int i = 0; i < numel; ++i) {
+    for (int i = 0; i < numel; ++i) {
       hist_->Fill(x[i]);
     }
   }

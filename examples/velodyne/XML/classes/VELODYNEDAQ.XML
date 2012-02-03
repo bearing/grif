@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<class>
+  <Name name = "VelodyneDAQ" />
+  <Header hname = "velodynedaq.h" />
+  <Info cname = "VelodyneDAQ" isdaq = "true" />
+  <DataBlocks> 
+    <Data block = "HDLRAW" /> 
+  </DataBlocks> 
+</class>

@@ -38,8 +38,6 @@ class GRIHistogrammer: public GRIObject {
 
   virtual ~GRIHistogrammer();
 
-  virtual TH1* get_hist() { return hist_; }
-
   // The following are all dummy implementations.
   // They are implemented in GRIHist1D, GRIHist2D, and GRIHist3D
   //
@@ -56,6 +54,8 @@ class GRIHistogrammer: public GRIObject {
 
   int OpenInitializationControl() { return -1; }
   int Clear();
+
+  virtual TH1* get_hist() { return hist_; }
      
   virtual int get_id() { return id_; }
   int get_dimension() { return dimension_; }
