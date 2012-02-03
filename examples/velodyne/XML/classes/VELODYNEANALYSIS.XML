@@ -4,6 +4,7 @@
   <Header hname = "velodyneanalysis.h" />
   <Info cname = "velodyneanalysis" isdaq = "false" />
   <DataBlocks> 
+    <Data block = "HDLRAW" /> 
     <Data block = "pointcloud" /> 
   </DataBlocks> 
 </class>

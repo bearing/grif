@@ -2,7 +2,7 @@
 #include "velodynedata.h"
 #include <iostream>
 
-int VelodyneDAQ::acquireData(int n) {
+int VelodyneDAQ::AcquireData(int n) {
     struct pcap_pkthdr header;
     const u_char *packet;
 
@@ -70,7 +70,7 @@ int VelodyneDAQ::acquireData(int n) {
   return 0;
 }
 
-int VelodyneDAQ::connectToDAQ() {
+int VelodyneDAQ::ConnectToDAQ() {
 
    char *dev, errbuf[PCAP_ERRBUF_SIZE];
 
@@ -85,38 +85,32 @@ int VelodyneDAQ::connectToDAQ() {
   return 0;  
 }
 
-int VelodyneDAQ::initialize(){
+int VelodyneDAQ::Initialize() {
   return 0;
 }
 
-int VelodyneDAQ::loadConfiguration(){
+int VelodyneDAQ::LoadConfiguration() {
   return 0;
 }
 
-int VelodyneDAQ::startDataAcquisition(){
-  
+int VelodyneDAQ::StartDataAcquisition() {
   this->InitializeAccumulators(QDateTime::currentDateTime(),0,1e8,2,1000); //edit this
-
-this->StartTime = QDateTime::currentDateTime();
-
-  return 0;  //feel free to delete after implementation
-
+  this->StartTime = QDateTime::currentDateTime();
+  return 0;
 }
 
-int VelodyneDAQ::stopDataAcquisition(){
+int VelodyneDAQ::StopDataAcquisition() {
 
-  
   pcap_close(handle);
-
-  return 0; //feel free to delete after implementation
+  return 0;
   
 }
 
-GRIDAQBaseAccumNode* VelodyneDAQ::RegisterDataOutput(QString outName){
+GRIDAQBaseAccumNode* VelodyneDAQ::RegisterDataOutput(QString outName) {
 
-  GRIDAQBaseAccumNode* p = NULL; //feel free to delete after implementation
+  GRIDAQBaseAccumNode* p = NULL;
   if(outName == "HDLRAW") p = new GRIDAQAccumulator<velodynedatablock_t>(outName,1e8,2,1000);
-  return p; //feel free to delete after implementation
+  return p;
 }
 
 
