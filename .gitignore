@@ -3,3 +3,6 @@
 *.pyc
 *-build-desktop*
 *.user
+# ignore project files
+examples/simulator/FallTest.pro
+tests/tests.pro.user
