@@ -27,22 +27,24 @@
 #include "GRIServer.h"
 #include <QTcpSocket>
 
-class TcpDAQThread : public QTcpSocket, public GRIDAQThread {
+class TcpDAQThread : public GRIDAQThread {
  public:
-  TcpDAQThread() : port_(8080) {}
+  TcpDAQThread(); // : port_(8080) {}
   ~TcpDAQThread() {}
 
   int AcquireData(int n);
   GRIDAQBaseAccumNode *RegisterDataOutput(QString outName) { return NULL; }
   int ConnectToDAQ();
   int StopDataAcquisition();
+  void setServerPort(int port) { this->port_ = port; }
 
   int Initialize() { return 0; }
   int LoadConfiguration() { return 0; }
   int StartDataAcquisition() { return 0; }
   int TerminationRoutines() { return 0; }
  private:
-  GRIServer server_;
+  QTcpSocket *tcpSocket_;
+//  GRIServer server_;
   quint16 port_;
 };
 

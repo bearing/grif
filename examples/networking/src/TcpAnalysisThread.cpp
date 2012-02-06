@@ -26,21 +26,40 @@
 const int DEFAULT_PORT = 8080;
 
 TcpAnalysisThread::TcpAnalysisThread() {
-  connectToHost(QHostAddress::LocalHost, DEFAULT_PORT);
-  waitForConnected(-1);
-  std::cout << "TcpAnalysisThread connected" << std::endl;
+    tcpSocket_ = new QTcpSocket(this);
+    tcpSocket_->connectToHost(QHostAddress::LocalHost, DEFAULT_PORT);
+    if (!tcpSocket_->waitForConnected(-1)) {
+        std::cerr << "ERROR: couldn't connect Analysis thread to server";
+    } else {
+        std::cout << "TcpAnalysisThread connected" << std::endl;
+    }
+}
+void TcpAnalysisThread::readData() {
+    std::cout << "ready to read";
+//    QDataStream in(this);
+//    in.setVersion(QDataStream::Qt_4_0);
+//    if (this->bytesAvailable() < (int)sizeof(quint16))
+//        return;
+//    int res;
+//    in >> res;
+}
+
+void TcpAnalysisThread::displayError(QAbstractSocket::SocketError) {
+
 }
 
 int TcpAnalysisThread::Analyze() {
-  qint64 bytes_avail = 0;
-  while (!(bytes_avail = bytesAvailable())) {
-    sleep(1);
-  }
-  qint64 bytes_to_read = 10;
-  if (bytes_avail < bytes_to_read) {
-    bytes_to_read = bytes_avail;
-  }
-  char data[bytes_to_read];
-  readData(data, bytes_to_read);
-  return 0;
+    if (tcpSocket_ == NULL) return 0;
+    if (tcpSocket_->state() != QAbstractSocket::ConnectedState) {
+        std::cerr << "We're not actually connected" << std::endl;
+        return 0;
+    }
+    std::cout << "Reading data" << std::endl;
+    QDataStream in(tcpSocket_);
+    in.setVersion(QDataStream::Qt_4_2);
+    int block;
+    if (tcpSocket_->bytesAvailable() < (int)sizeof(quint32)) return 0;
+    in >> block;
+    std::cout << block << std::endl;
+    return 0;
 }

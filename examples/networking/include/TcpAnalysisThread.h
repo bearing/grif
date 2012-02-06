@@ -26,12 +26,19 @@
 #include "GRIAnalysisThread.h"
 #include <QTcpSocket>
 
-class TcpAnalysisThread : public QTcpSocket, public GRIAnalysisThread {
+class TcpAnalysisThread : public GRIAnalysisThread {
  public:
   TcpAnalysisThread();
   ~TcpAnalysisThread() {}
 
   int Analyze();
+
+public slots:
+  void readData();
+
+  void displayError(QAbstractSocket::SocketError);
+private:
+  QTcpSocket *tcpSocket_;
 };
 
 #endif  // TCP_ANALYSIS_THREAD_H

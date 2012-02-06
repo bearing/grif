@@ -22,31 +22,37 @@
 
 #include "TcpDAQThread.h"
 
+TcpDAQThread::TcpDAQThread() : port_(8080) {
+
+}
+
 int TcpDAQThread::AcquireData(int n) {
   sleep(1);
+  std::cout << "Acqure data ..." << std::endl;
   int size = 10;
   int data[size];
   for (int i = 0; i < size; ++i) {
     data[i] = i;
   }
-  writeData((const char *)data, sizeof(data));
+  tcpSocket_->write((const char *)data, sizeof(data));
   return 0;
 }
 
 int TcpDAQThread::ConnectToDAQ() {
-  server_.set_port(port_);
-  server_.Init();
-  QHostAddress addr = server_.serverAddress();
-  std::cout << "\n\n" << addr.toString().toStdString() << "\n\n";
-  connectToHost(addr, port_);
-  waitForConnected(-1);
-  std::cout << "TcpDAQThread connected" << std::endl;
-  return 0;
+  std::cout << "Connecting to DAQ" << std::endl;
+  tcpSocket_->connectToHost(QHostAddress::LocalHost, port_);
+  if (!tcpSocket_->waitForConnected(-1)) {
+      std::cerr << "ERROR: TcpDAQThread couldn't connect" << std::endl;
+      return 1;
+  } else {
+    std::cout << "TcpDAQThread connected" << std::endl;
+    return 0;
+  }
 }
 
 int TcpDAQThread::StopDataAcquisition() {
-  flush();
-  close();
+  //flush();
+  //close();
   return 0;
 }
 
