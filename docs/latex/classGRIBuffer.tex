@@ -1,0 +1,263 @@
+\hypertarget{classGRIBuffer}{\section{\-G\-R\-I\-Buffer \-Class \-Reference}
+\label{classGRIBuffer}\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-Buffer.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRIBuffer_af16e41e4b01f8ddad0b2649c410bdbcd}{\-G\-R\-I\-Buffer} (\-Q\-Read\-Write\-Lock $\ast$lock)
+\item 
+\hyperlink{classGRIBuffer_a1be75d85746f6d997879f781d5050246}{$\sim$\-G\-R\-I\-Buffer} ()
+\item 
+void \hyperlink{classGRIBuffer_a88cf91ba82efd1bb2409c60b918c2c1a}{\-Add\-Packet} ()
+\item 
+bool \hyperlink{classGRIBuffer_aa2a50c2dde7c7ee247d467ced3a1925b}{\-Write\-To\-Buffer} (char b, int packet\-Number, int index)
+\item 
+char \hyperlink{classGRIBuffer_a73a11a959edfefa57114799881c84dd0}{\-Read\-Buffer} (int packet\-Number, int index)
+\item 
+void \hyperlink{classGRIBuffer_a6ee5e7a16cb617252915afe14a491a54}{\-Clear\-Packet} (int packet\-Number)
+\item 
+void \hyperlink{classGRIBuffer_ae7fbe6668bd34759bca6128c87a894d3}{\-Set\-Packet\-Marker} (int i)
+\item 
+void \hyperlink{classGRIBuffer_a556ed4cdbcd951301928bb86bf3b32dd}{\-Increment\-Packet\-Marker} ()
+\item 
+int \hyperlink{classGRIBuffer_a9920b5a336f5f5d60341793b8c6c15e8}{\-Current\-Packet} ()
+\item 
+int \hyperlink{classGRIBuffer_aa5550798986f0d862e997ee67b1a43ad}{\-Buffer\-Size} ()
+\item 
+int \hyperlink{classGRIBuffer_a50682ebe28f0665ae2b12bc0f6b81560}{\-Packet\-Size} (int packet\-Number)
+\item 
+int \hyperlink{classGRIBuffer_ad0ed3ee5616303d1c3159a366584b4bf}{\-Next\-Packet} ()
+\item 
+void \hyperlink{classGRIBuffer_a0a84407e6680fdba0a05381c7a98c0ab}{\-Clear} ()
+\item 
+void \hyperlink{classGRIBuffer_ad53e55d7d8c28900a20551e93a660d1e}{\-Wait\-On\-Queue} ()
+\item 
+void \hyperlink{classGRIBuffer_a60f06c84763dfe59e00a20cbffde9c5e}{\-Wake\-All\-On\-Queue} ()
+\item 
+void \hyperlink{classGRIBuffer_a8a081223881266d3fac59476b5a25f2b}{\-Wake\-One\-On\-Queue} ()
+\item 
+void \hyperlink{classGRIBuffer_a3ddc5961489db26cb4e354ef12f178a3}{\-Add\-Null\-Packet} (int packet\-Num)
+\item 
+void \hyperlink{classGRIBuffer_a2123cc7f718d0939e1b92312958b1c26}{set\-\_\-busy\-\_\-write} (bool busy\-\_\-write)
+\item 
+bool \hyperlink{classGRIBuffer_af9fd32214c59e233d22eb128bfc45a06}{get\-\_\-busy\-\_\-write} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classGRIBuffer_a7058e04cd8dccc48cfcd8cbd83825664}{\-Is\-Null\-Packet} (int packet\-Num)
+\item 
+void \hyperlink{classGRIBuffer_ad62e30cbc12faa67a571353294c8f538}{\-Remove\-Null\-Packet} (int packet\-Num)
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\-Q\-List$<$ int $>$ \hyperlink{classGRIBuffer_ada16ddba855cc922f2e8227205ab2e26}{null\-\_\-packets\-\_\-}
+\item 
+bool \hyperlink{classGRIBuffer_a7c9dc9b15635fdfb044ae63273664dd2}{busy\-\_\-write\-\_\-}
+\item 
+int \hyperlink{classGRIBuffer_a1c470491db373e112eb96a45b09ac12d}{size\-\_\-}
+\item 
+\-Q\-List$<$ \-Q\-Vector$<$ char $>$ $\ast$ $>$ \hyperlink{classGRIBuffer_a47531e513e5783b3739c9ea857b8c229}{packet\-\_\-list\-\_\-}
+\item 
+\-Q\-List$<$ int $>$ \hyperlink{classGRIBuffer_af3360239e8142200e4011ee51ac9d113}{marker\-\_\-list\-\_\-}
+\item 
+\-Q\-List$<$ int $>$ \hyperlink{classGRIBuffer_aa0d22b7b8351092286eef843913e38b8}{thread\-\_\-list\-\_\-}
+\item 
+\-Q\-Wait\-Condition \hyperlink{classGRIBuffer_acc7e6856998c0ad94da57a0b58f66438}{wait\-\_\-queue\-\_\-}
+\item 
+\-Q\-Read\-Write\-Lock $\ast$ \hyperlink{classGRIBuffer_a781cc2011649ec15ff88281420c98110}{lock\-\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRIBuffer_af16e41e4b01f8ddad0b2649c410bdbcd}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}}
+\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-G\-R\-I\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Buffer\-::\-G\-R\-I\-Buffer} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-Read\-Write\-Lock $\ast$}]{lock}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}}\label{classGRIBuffer_af16e41e4b01f8ddad0b2649c410bdbcd}
+\hypertarget{classGRIBuffer_a1be75d85746f6d997879f781d5050246}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!$\sim$\-G\-R\-I\-Buffer@{$\sim$\-G\-R\-I\-Buffer}}
+\index{$\sim$\-G\-R\-I\-Buffer@{$\sim$\-G\-R\-I\-Buffer}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{$\sim$\-G\-R\-I\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Buffer\-::$\sim$\-G\-R\-I\-Buffer} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_a1be75d85746f6d997879f781d5050246}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRIBuffer_a3ddc5961489db26cb4e354ef12f178a3}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Add\-Null\-Packet@{\-Add\-Null\-Packet}}
+\index{\-Add\-Null\-Packet@{\-Add\-Null\-Packet}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Add\-Null\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Buffer\-::\-Add\-Null\-Packet} (
+\begin{DoxyParamCaption}
+\item[{int}]{packet\-Num}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_a3ddc5961489db26cb4e354ef12f178a3}
+\hypertarget{classGRIBuffer_a88cf91ba82efd1bb2409c60b918c2c1a}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Add\-Packet@{\-Add\-Packet}}
+\index{\-Add\-Packet@{\-Add\-Packet}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Add\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Buffer\-::\-Add\-Packet} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_a88cf91ba82efd1bb2409c60b918c2c1a}
+\hypertarget{classGRIBuffer_aa5550798986f0d862e997ee67b1a43ad}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Buffer\-Size@{\-Buffer\-Size}}
+\index{\-Buffer\-Size@{\-Buffer\-Size}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Buffer\-Size}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Buffer\-::\-Buffer\-Size} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_aa5550798986f0d862e997ee67b1a43ad}
+\hypertarget{classGRIBuffer_a0a84407e6680fdba0a05381c7a98c0ab}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Clear@{\-Clear}}
+\index{\-Clear@{\-Clear}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Clear}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Buffer\-::\-Clear} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_a0a84407e6680fdba0a05381c7a98c0ab}
+\hypertarget{classGRIBuffer_a6ee5e7a16cb617252915afe14a491a54}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Clear\-Packet@{\-Clear\-Packet}}
+\index{\-Clear\-Packet@{\-Clear\-Packet}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Clear\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Buffer\-::\-Clear\-Packet} (
+\begin{DoxyParamCaption}
+\item[{int}]{packet\-Number}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_a6ee5e7a16cb617252915afe14a491a54}
+\hypertarget{classGRIBuffer_a9920b5a336f5f5d60341793b8c6c15e8}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Current\-Packet@{\-Current\-Packet}}
+\index{\-Current\-Packet@{\-Current\-Packet}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Current\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Buffer\-::\-Current\-Packet} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_a9920b5a336f5f5d60341793b8c6c15e8}
+\hypertarget{classGRIBuffer_af9fd32214c59e233d22eb128bfc45a06}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!get\-\_\-busy\-\_\-write@{get\-\_\-busy\-\_\-write}}
+\index{get\-\_\-busy\-\_\-write@{get\-\_\-busy\-\_\-write}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{get\-\_\-busy\-\_\-write}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Buffer\-::get\-\_\-busy\-\_\-write} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIBuffer_af9fd32214c59e233d22eb128bfc45a06}
+\hypertarget{classGRIBuffer_a556ed4cdbcd951301928bb86bf3b32dd}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Increment\-Packet\-Marker@{\-Increment\-Packet\-Marker}}
+\index{\-Increment\-Packet\-Marker@{\-Increment\-Packet\-Marker}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Increment\-Packet\-Marker}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Buffer\-::\-Increment\-Packet\-Marker} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_a556ed4cdbcd951301928bb86bf3b32dd}
+\hypertarget{classGRIBuffer_a7058e04cd8dccc48cfcd8cbd83825664}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Is\-Null\-Packet@{\-Is\-Null\-Packet}}
+\index{\-Is\-Null\-Packet@{\-Is\-Null\-Packet}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Is\-Null\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Buffer\-::\-Is\-Null\-Packet} (
+\begin{DoxyParamCaption}
+\item[{int}]{packet\-Num}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIBuffer_a7058e04cd8dccc48cfcd8cbd83825664}
+\hypertarget{classGRIBuffer_ad0ed3ee5616303d1c3159a366584b4bf}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Next\-Packet@{\-Next\-Packet}}
+\index{\-Next\-Packet@{\-Next\-Packet}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Next\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Buffer\-::\-Next\-Packet} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_ad0ed3ee5616303d1c3159a366584b4bf}
+\hypertarget{classGRIBuffer_a50682ebe28f0665ae2b12bc0f6b81560}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Packet\-Size@{\-Packet\-Size}}
+\index{\-Packet\-Size@{\-Packet\-Size}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Packet\-Size}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Buffer\-::\-Packet\-Size} (
+\begin{DoxyParamCaption}
+\item[{int}]{packet\-Number}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_a50682ebe28f0665ae2b12bc0f6b81560}
+\hypertarget{classGRIBuffer_a73a11a959edfefa57114799881c84dd0}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Read\-Buffer@{\-Read\-Buffer}}
+\index{\-Read\-Buffer@{\-Read\-Buffer}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Read\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \-G\-R\-I\-Buffer\-::\-Read\-Buffer} (
+\begin{DoxyParamCaption}
+\item[{int}]{packet\-Number, }
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_a73a11a959edfefa57114799881c84dd0}
+\hypertarget{classGRIBuffer_ad62e30cbc12faa67a571353294c8f538}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Remove\-Null\-Packet@{\-Remove\-Null\-Packet}}
+\index{\-Remove\-Null\-Packet@{\-Remove\-Null\-Packet}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Remove\-Null\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Buffer\-::\-Remove\-Null\-Packet} (
+\begin{DoxyParamCaption}
+\item[{int}]{packet\-Num}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIBuffer_ad62e30cbc12faa67a571353294c8f538}
+\hypertarget{classGRIBuffer_a2123cc7f718d0939e1b92312958b1c26}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!set\-\_\-busy\-\_\-write@{set\-\_\-busy\-\_\-write}}
+\index{set\-\_\-busy\-\_\-write@{set\-\_\-busy\-\_\-write}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{set\-\_\-busy\-\_\-write}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Buffer\-::set\-\_\-busy\-\_\-write} (
+\begin{DoxyParamCaption}
+\item[{bool}]{busy\-\_\-write}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIBuffer_a2123cc7f718d0939e1b92312958b1c26}
+\hypertarget{classGRIBuffer_ae7fbe6668bd34759bca6128c87a894d3}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Set\-Packet\-Marker@{\-Set\-Packet\-Marker}}
+\index{\-Set\-Packet\-Marker@{\-Set\-Packet\-Marker}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Set\-Packet\-Marker}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Buffer\-::\-Set\-Packet\-Marker} (
+\begin{DoxyParamCaption}
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_ae7fbe6668bd34759bca6128c87a894d3}
+\hypertarget{classGRIBuffer_ad53e55d7d8c28900a20551e93a660d1e}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Wait\-On\-Queue@{\-Wait\-On\-Queue}}
+\index{\-Wait\-On\-Queue@{\-Wait\-On\-Queue}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Wait\-On\-Queue}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Buffer\-::\-Wait\-On\-Queue} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_ad53e55d7d8c28900a20551e93a660d1e}
+\hypertarget{classGRIBuffer_a60f06c84763dfe59e00a20cbffde9c5e}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Wake\-All\-On\-Queue@{\-Wake\-All\-On\-Queue}}
+\index{\-Wake\-All\-On\-Queue@{\-Wake\-All\-On\-Queue}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Wake\-All\-On\-Queue}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Buffer\-::\-Wake\-All\-On\-Queue} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_a60f06c84763dfe59e00a20cbffde9c5e}
+\hypertarget{classGRIBuffer_a8a081223881266d3fac59476b5a25f2b}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Wake\-One\-On\-Queue@{\-Wake\-One\-On\-Queue}}
+\index{\-Wake\-One\-On\-Queue@{\-Wake\-One\-On\-Queue}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Wake\-One\-On\-Queue}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Buffer\-::\-Wake\-One\-On\-Queue} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_a8a081223881266d3fac59476b5a25f2b}
+\hypertarget{classGRIBuffer_aa2a50c2dde7c7ee247d467ced3a1925b}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!\-Write\-To\-Buffer@{\-Write\-To\-Buffer}}
+\index{\-Write\-To\-Buffer@{\-Write\-To\-Buffer}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{\-Write\-To\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Buffer\-::\-Write\-To\-Buffer} (
+\begin{DoxyParamCaption}
+\item[{char}]{b, }
+\item[{int}]{packet\-Number, }
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}}\label{classGRIBuffer_aa2a50c2dde7c7ee247d467ced3a1925b}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRIBuffer_a7c9dc9b15635fdfb044ae63273664dd2}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!busy\-\_\-write\-\_\-@{busy\-\_\-write\-\_\-}}
+\index{busy\-\_\-write\-\_\-@{busy\-\_\-write\-\_\-}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{busy\-\_\-write\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Buffer\-::busy\-\_\-write\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIBuffer_a7c9dc9b15635fdfb044ae63273664dd2}
+\hypertarget{classGRIBuffer_a781cc2011649ec15ff88281420c98110}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!lock\-\_\-@{lock\-\_\-}}
+\index{lock\-\_\-@{lock\-\_\-}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{lock\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Read\-Write\-Lock$\ast$ {\bf \-G\-R\-I\-Buffer\-::lock\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIBuffer_a781cc2011649ec15ff88281420c98110}
+\hypertarget{classGRIBuffer_af3360239e8142200e4011ee51ac9d113}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!marker\-\_\-list\-\_\-@{marker\-\_\-list\-\_\-}}
+\index{marker\-\_\-list\-\_\-@{marker\-\_\-list\-\_\-}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{marker\-\_\-list\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$int$>$ {\bf \-G\-R\-I\-Buffer\-::marker\-\_\-list\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIBuffer_af3360239e8142200e4011ee51ac9d113}
+\hypertarget{classGRIBuffer_ada16ddba855cc922f2e8227205ab2e26}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!null\-\_\-packets\-\_\-@{null\-\_\-packets\-\_\-}}
+\index{null\-\_\-packets\-\_\-@{null\-\_\-packets\-\_\-}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{null\-\_\-packets\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$int$>$ {\bf \-G\-R\-I\-Buffer\-::null\-\_\-packets\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIBuffer_ada16ddba855cc922f2e8227205ab2e26}
+\hypertarget{classGRIBuffer_a47531e513e5783b3739c9ea857b8c229}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!packet\-\_\-list\-\_\-@{packet\-\_\-list\-\_\-}}
+\index{packet\-\_\-list\-\_\-@{packet\-\_\-list\-\_\-}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{packet\-\_\-list\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ \-Q\-Vector$<$char$>$$\ast$ $>$ {\bf \-G\-R\-I\-Buffer\-::packet\-\_\-list\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIBuffer_a47531e513e5783b3739c9ea857b8c229}
+\hypertarget{classGRIBuffer_a1c470491db373e112eb96a45b09ac12d}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!size\-\_\-@{size\-\_\-}}
+\index{size\-\_\-@{size\-\_\-}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{size\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Buffer\-::size\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIBuffer_a1c470491db373e112eb96a45b09ac12d}
+\hypertarget{classGRIBuffer_aa0d22b7b8351092286eef843913e38b8}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!thread\-\_\-list\-\_\-@{thread\-\_\-list\-\_\-}}
+\index{thread\-\_\-list\-\_\-@{thread\-\_\-list\-\_\-}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{thread\-\_\-list\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$int$>$ {\bf \-G\-R\-I\-Buffer\-::thread\-\_\-list\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIBuffer_aa0d22b7b8351092286eef843913e38b8}
+\hypertarget{classGRIBuffer_acc7e6856998c0ad94da57a0b58f66438}{\index{\-G\-R\-I\-Buffer@{\-G\-R\-I\-Buffer}!wait\-\_\-queue\-\_\-@{wait\-\_\-queue\-\_\-}}
+\index{wait\-\_\-queue\-\_\-@{wait\-\_\-queue\-\_\-}!GRIBuffer@{\-G\-R\-I\-Buffer}}
+\subsubsection[{wait\-\_\-queue\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Wait\-Condition {\bf \-G\-R\-I\-Buffer\-::wait\-\_\-queue\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIBuffer_acc7e6856998c0ad94da57a0b58f66438}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRIBuffer_8h}{\-G\-R\-I\-Buffer.\-h}\item 
+framework/source/\hyperlink{GRIBuffer_8cpp}{\-G\-R\-I\-Buffer.\-cpp}\end{DoxyCompactItemize}

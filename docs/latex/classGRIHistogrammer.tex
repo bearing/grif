@@ -1,0 +1,269 @@
+\hypertarget{classGRIHistogrammer}{\section{\-G\-R\-I\-Histogrammer \-Class \-Reference}
+\label{classGRIHistogrammer}\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-Histogrammer.\-h$>$}
+
+\-Inheritance diagram for \-G\-R\-I\-Histogrammer\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classGRIHistogrammer}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRIHistogrammer_ae4a817e9cf84d376cf39047c60ffc0ee}{\-G\-R\-I\-Histogrammer} ()
+\item 
+virtual \hyperlink{classGRIHistogrammer_abbcc2c725ae417acb078fd4dfa20ca99}{$\sim$\-G\-R\-I\-Histogrammer} ()
+\item 
+virtual int \hyperlink{classGRIHistogrammer_aebab3a7be1897725c6ab031266458b71}{\-Update} (double x\mbox{[}$\,$\mbox{]}, int numel)
+\item 
+virtual int \hyperlink{classGRIHistogrammer_aba8518e4a4faf8f720ccb72c33a58170}{\-Update} (double x\mbox{[}$\,$\mbox{]}, double y\mbox{[}$\,$\mbox{]}, int numel)
+\item 
+virtual int \hyperlink{classGRIHistogrammer_a0b8887e25d3ea7afda494162a58c4624}{\-Update} (double x\mbox{[}$\,$\mbox{]}, double y\mbox{[}$\,$\mbox{]}, double z\mbox{[}$\,$\mbox{]}, int numel)
+\item 
+int \hyperlink{classGRIHistogrammer_ae26d0c4f6de2d6e390baedafdd186ecf}{\-Open\-Initialization\-Control} ()
+\item 
+int \hyperlink{classGRIHistogrammer_aedd3ddf918f7eb6c35f8c8eec52757a5}{\-Clear} ()
+\item 
+virtual \-T\-H1 $\ast$ \hyperlink{classGRIHistogrammer_ac785fd203cbb106a701b40566caf54f2}{get\-\_\-hist} ()
+\item 
+virtual int \hyperlink{classGRIHistogrammer_a5e7c935824685b6738c48f02c5ee912a}{get\-\_\-id} ()
+\item 
+int \hyperlink{classGRIHistogrammer_abc2c2209c62c263bcb5fcc59f22e85ad}{get\-\_\-dimension} ()
+\item 
+void \hyperlink{classGRIHistogrammer_af15e37831a93b59748b8ff6e50f0e473}{set\-\_\-packet\-\_\-scale\-\_\-factor} (double packet\-\_\-scale\-\_\-factor)
+\item 
+double \hyperlink{classGRIHistogrammer_ad9f39945cb0260038ccf00e2e41e2cf8}{get\-\_\-packet\-\_\-scale\-\_\-factor} ()
+\item 
+void \hyperlink{classGRIHistogrammer_a0634efb03fd83becc5c976607d479b8b}{set\-\_\-rate\-\_\-mode} (bool rate\-\_\-mode)
+\item 
+bool \hyperlink{classGRIHistogrammer_ac777ea7b3134fe1b6aaf1ad04589d94c}{get\-\_\-rate\-\_\-mode} ()
+\item 
+\-Q\-String \hyperlink{classGRIHistogrammer_a73de69cf00cb00ceba3b72db39544b06}{get\-\_\-hist\-\_\-name} ()
+\item 
+\-Q\-String \hyperlink{classGRIHistogrammer_a8aa242e235d8bfb6ad176e381641d7e5}{get\-\_\-block\-\_\-name} ()
+\item 
+void \hyperlink{classGRIHistogrammer_adaee43df920362e8b352bdd514604bce}{set\-\_\-hist\-\_\-name} (\-Q\-String hist\-\_\-name)
+\item 
+void \hyperlink{classGRIHistogrammer_ab28cfc3ca048c949eb57069bb3c4e218}{\-Set\-R\-O\-O\-T\-Hist\-Name} (\-Q\-String name)
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGRIHistogrammer_ab8e81b158c6926a277af05e7956603a1}{\-Init} (\-Q\-String \-Block\-Name, int id, \-Q\-String \-Hist\-Name)
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classGRIHistogrammer_a49b765d037e31ac24d9f2215d4c336a0}{rate\-\_\-mode\-\_\-}
+\item 
+double \hyperlink{classGRIHistogrammer_a7648c469405d547dfd245a42ef10eaf0}{packet\-\_\-scale\-\_\-factor\-\_\-}
+\item 
+\-Q\-String \hyperlink{classGRIHistogrammer_a86f352e7f348578e24c5e417be5ecc7b}{hist\-\_\-name\-\_\-}
+\item 
+\-Q\-String \hyperlink{classGRIHistogrammer_a862f21981d2a6a92e2e588b767de0158}{block\-\_\-name\-\_\-}
+\item 
+bool \hyperlink{classGRIHistogrammer_afd8b37edcd387d628336849a8dd0e9b9}{is\-\_\-ready\-\_\-}
+\item 
+int \hyperlink{classGRIHistogrammer_ac1df0411fc85f0190e00b9e579237583}{dimension\-\_\-}
+\item 
+int \hyperlink{classGRIHistogrammer_a9391e0f2c821b102f39c4bbcfbb10521}{id\-\_\-}
+\item 
+\-T\-H1 $\ast$ \hyperlink{classGRIHistogrammer_a684bfe1f9f8aa6f8ee562ab845fbb7c2}{hist\-\_\-}
+\item 
+\-T\-H1 $\ast$ \hyperlink{classGRIHistogrammer_a9c464852bf5261ae03c61c5c88a7c9d7}{rate\-\_\-hist\-\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRIHistogrammer_ae4a817e9cf84d376cf39047c60ffc0ee}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}}
+\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{\-G\-R\-I\-Histogrammer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Histogrammer\-::\-G\-R\-I\-Histogrammer} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIHistogrammer_ae4a817e9cf84d376cf39047c60ffc0ee}
+\hypertarget{classGRIHistogrammer_abbcc2c725ae417acb078fd4dfa20ca99}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!$\sim$\-G\-R\-I\-Histogrammer@{$\sim$\-G\-R\-I\-Histogrammer}}
+\index{$\sim$\-G\-R\-I\-Histogrammer@{$\sim$\-G\-R\-I\-Histogrammer}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{$\sim$\-G\-R\-I\-Histogrammer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Histogrammer\-::$\sim$\-G\-R\-I\-Histogrammer} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{classGRIHistogrammer_abbcc2c725ae417acb078fd4dfa20ca99}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRIHistogrammer_aedd3ddf918f7eb6c35f8c8eec52757a5}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!\-Clear@{\-Clear}}
+\index{\-Clear@{\-Clear}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{\-Clear}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Histogrammer\-::\-Clear} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIHistogrammer_aedd3ddf918f7eb6c35f8c8eec52757a5}
+\hypertarget{classGRIHistogrammer_a8aa242e235d8bfb6ad176e381641d7e5}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!get\-\_\-block\-\_\-name@{get\-\_\-block\-\_\-name}}
+\index{get\-\_\-block\-\_\-name@{get\-\_\-block\-\_\-name}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{get\-\_\-block\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Histogrammer\-::get\-\_\-block\-\_\-name} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIHistogrammer_a8aa242e235d8bfb6ad176e381641d7e5}
+\hypertarget{classGRIHistogrammer_abc2c2209c62c263bcb5fcc59f22e85ad}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!get\-\_\-dimension@{get\-\_\-dimension}}
+\index{get\-\_\-dimension@{get\-\_\-dimension}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{get\-\_\-dimension}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Histogrammer\-::get\-\_\-dimension} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIHistogrammer_abc2c2209c62c263bcb5fcc59f22e85ad}
+\hypertarget{classGRIHistogrammer_ac785fd203cbb106a701b40566caf54f2}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!get\-\_\-hist@{get\-\_\-hist}}
+\index{get\-\_\-hist@{get\-\_\-hist}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{get\-\_\-hist}]{\setlength{\rightskip}{0pt plus 5cm}virtual \-T\-H1$\ast$ {\bf \-G\-R\-I\-Histogrammer\-::get\-\_\-hist} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIHistogrammer_ac785fd203cbb106a701b40566caf54f2}
+\hypertarget{classGRIHistogrammer_a73de69cf00cb00ceba3b72db39544b06}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!get\-\_\-hist\-\_\-name@{get\-\_\-hist\-\_\-name}}
+\index{get\-\_\-hist\-\_\-name@{get\-\_\-hist\-\_\-name}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{get\-\_\-hist\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Histogrammer\-::get\-\_\-hist\-\_\-name} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIHistogrammer_a73de69cf00cb00ceba3b72db39544b06}
+\hypertarget{classGRIHistogrammer_a5e7c935824685b6738c48f02c5ee912a}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!get\-\_\-id@{get\-\_\-id}}
+\index{get\-\_\-id@{get\-\_\-id}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{get\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-Histogrammer\-::get\-\_\-id} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIHistogrammer_a5e7c935824685b6738c48f02c5ee912a}
+\hypertarget{classGRIHistogrammer_ad9f39945cb0260038ccf00e2e41e2cf8}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!get\-\_\-packet\-\_\-scale\-\_\-factor@{get\-\_\-packet\-\_\-scale\-\_\-factor}}
+\index{get\-\_\-packet\-\_\-scale\-\_\-factor@{get\-\_\-packet\-\_\-scale\-\_\-factor}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{get\-\_\-packet\-\_\-scale\-\_\-factor}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf \-G\-R\-I\-Histogrammer\-::get\-\_\-packet\-\_\-scale\-\_\-factor} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIHistogrammer_ad9f39945cb0260038ccf00e2e41e2cf8}
+\hypertarget{classGRIHistogrammer_ac777ea7b3134fe1b6aaf1ad04589d94c}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!get\-\_\-rate\-\_\-mode@{get\-\_\-rate\-\_\-mode}}
+\index{get\-\_\-rate\-\_\-mode@{get\-\_\-rate\-\_\-mode}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{get\-\_\-rate\-\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Histogrammer\-::get\-\_\-rate\-\_\-mode} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIHistogrammer_ac777ea7b3134fe1b6aaf1ad04589d94c}
+\hypertarget{classGRIHistogrammer_ab8e81b158c6926a277af05e7956603a1}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!\-Init@{\-Init}}
+\index{\-Init@{\-Init}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{\-Init}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Histogrammer\-::\-Init} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Block\-Name, }
+\item[{int}]{id, }
+\item[{\-Q\-String}]{\-Hist\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIHistogrammer_ab8e81b158c6926a277af05e7956603a1}
+\hypertarget{classGRIHistogrammer_ae26d0c4f6de2d6e390baedafdd186ecf}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!\-Open\-Initialization\-Control@{\-Open\-Initialization\-Control}}
+\index{\-Open\-Initialization\-Control@{\-Open\-Initialization\-Control}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{\-Open\-Initialization\-Control}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Histogrammer\-::\-Open\-Initialization\-Control} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIHistogrammer_ae26d0c4f6de2d6e390baedafdd186ecf}
+\hypertarget{classGRIHistogrammer_adaee43df920362e8b352bdd514604bce}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!set\-\_\-hist\-\_\-name@{set\-\_\-hist\-\_\-name}}
+\index{set\-\_\-hist\-\_\-name@{set\-\_\-hist\-\_\-name}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{set\-\_\-hist\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Histogrammer\-::set\-\_\-hist\-\_\-name} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{hist\-\_\-name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIHistogrammer_adaee43df920362e8b352bdd514604bce}
+\hypertarget{classGRIHistogrammer_af15e37831a93b59748b8ff6e50f0e473}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!set\-\_\-packet\-\_\-scale\-\_\-factor@{set\-\_\-packet\-\_\-scale\-\_\-factor}}
+\index{set\-\_\-packet\-\_\-scale\-\_\-factor@{set\-\_\-packet\-\_\-scale\-\_\-factor}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{set\-\_\-packet\-\_\-scale\-\_\-factor}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Histogrammer\-::set\-\_\-packet\-\_\-scale\-\_\-factor} (
+\begin{DoxyParamCaption}
+\item[{double}]{packet\-\_\-scale\-\_\-factor}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIHistogrammer_af15e37831a93b59748b8ff6e50f0e473}
+\hypertarget{classGRIHistogrammer_a0634efb03fd83becc5c976607d479b8b}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!set\-\_\-rate\-\_\-mode@{set\-\_\-rate\-\_\-mode}}
+\index{set\-\_\-rate\-\_\-mode@{set\-\_\-rate\-\_\-mode}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{set\-\_\-rate\-\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Histogrammer\-::set\-\_\-rate\-\_\-mode} (
+\begin{DoxyParamCaption}
+\item[{bool}]{rate\-\_\-mode}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIHistogrammer_a0634efb03fd83becc5c976607d479b8b}
+\hypertarget{classGRIHistogrammer_ab28cfc3ca048c949eb57069bb3c4e218}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!\-Set\-R\-O\-O\-T\-Hist\-Name@{\-Set\-R\-O\-O\-T\-Hist\-Name}}
+\index{\-Set\-R\-O\-O\-T\-Hist\-Name@{\-Set\-R\-O\-O\-T\-Hist\-Name}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{\-Set\-R\-O\-O\-T\-Hist\-Name}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Histogrammer\-::\-Set\-R\-O\-O\-T\-Hist\-Name} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIHistogrammer_ab28cfc3ca048c949eb57069bb3c4e218}
+\hypertarget{classGRIHistogrammer_aebab3a7be1897725c6ab031266458b71}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!\-Update@{\-Update}}
+\index{\-Update@{\-Update}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{\-Update}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-Histogrammer\-::\-Update} (
+\begin{DoxyParamCaption}
+\item[{double}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{numel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIHistogrammer_aebab3a7be1897725c6ab031266458b71}
+
+
+\-Reimplemented in \hyperlink{classGRIHist1D_a77737f09b753f72afc93e92159c1e5b0}{\-G\-R\-I\-Hist1\-D}.
+
+\hypertarget{classGRIHistogrammer_aba8518e4a4faf8f720ccb72c33a58170}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!\-Update@{\-Update}}
+\index{\-Update@{\-Update}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{\-Update}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-Histogrammer\-::\-Update} (
+\begin{DoxyParamCaption}
+\item[{double}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{y\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{numel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIHistogrammer_aba8518e4a4faf8f720ccb72c33a58170}
+
+
+\-Reimplemented in \hyperlink{classGRIHist2D_aa66e120a1edd3ba419e5c73d13c469e2}{\-G\-R\-I\-Hist2\-D}.
+
+\hypertarget{classGRIHistogrammer_a0b8887e25d3ea7afda494162a58c4624}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!\-Update@{\-Update}}
+\index{\-Update@{\-Update}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{\-Update}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-Histogrammer\-::\-Update} (
+\begin{DoxyParamCaption}
+\item[{double}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{y\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{z\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{numel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIHistogrammer_a0b8887e25d3ea7afda494162a58c4624}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRIHistogrammer_a862f21981d2a6a92e2e588b767de0158}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!block\-\_\-name\-\_\-@{block\-\_\-name\-\_\-}}
+\index{block\-\_\-name\-\_\-@{block\-\_\-name\-\_\-}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{block\-\_\-name\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Histogrammer\-::block\-\_\-name\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIHistogrammer_a862f21981d2a6a92e2e588b767de0158}
+\hypertarget{classGRIHistogrammer_ac1df0411fc85f0190e00b9e579237583}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!dimension\-\_\-@{dimension\-\_\-}}
+\index{dimension\-\_\-@{dimension\-\_\-}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{dimension\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Histogrammer\-::dimension\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIHistogrammer_ac1df0411fc85f0190e00b9e579237583}
+\hypertarget{classGRIHistogrammer_a684bfe1f9f8aa6f8ee562ab845fbb7c2}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!hist\-\_\-@{hist\-\_\-}}
+\index{hist\-\_\-@{hist\-\_\-}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{hist\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-T\-H1$\ast$ {\bf \-G\-R\-I\-Histogrammer\-::hist\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIHistogrammer_a684bfe1f9f8aa6f8ee562ab845fbb7c2}
+\hypertarget{classGRIHistogrammer_a86f352e7f348578e24c5e417be5ecc7b}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!hist\-\_\-name\-\_\-@{hist\-\_\-name\-\_\-}}
+\index{hist\-\_\-name\-\_\-@{hist\-\_\-name\-\_\-}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{hist\-\_\-name\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Histogrammer\-::hist\-\_\-name\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIHistogrammer_a86f352e7f348578e24c5e417be5ecc7b}
+\hypertarget{classGRIHistogrammer_a9391e0f2c821b102f39c4bbcfbb10521}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!id\-\_\-@{id\-\_\-}}
+\index{id\-\_\-@{id\-\_\-}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{id\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Histogrammer\-::id\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIHistogrammer_a9391e0f2c821b102f39c4bbcfbb10521}
+\hypertarget{classGRIHistogrammer_afd8b37edcd387d628336849a8dd0e9b9}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!is\-\_\-ready\-\_\-@{is\-\_\-ready\-\_\-}}
+\index{is\-\_\-ready\-\_\-@{is\-\_\-ready\-\_\-}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{is\-\_\-ready\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Histogrammer\-::is\-\_\-ready\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIHistogrammer_afd8b37edcd387d628336849a8dd0e9b9}
+\hypertarget{classGRIHistogrammer_a7648c469405d547dfd245a42ef10eaf0}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!packet\-\_\-scale\-\_\-factor\-\_\-@{packet\-\_\-scale\-\_\-factor\-\_\-}}
+\index{packet\-\_\-scale\-\_\-factor\-\_\-@{packet\-\_\-scale\-\_\-factor\-\_\-}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{packet\-\_\-scale\-\_\-factor\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf \-G\-R\-I\-Histogrammer\-::packet\-\_\-scale\-\_\-factor\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIHistogrammer_a7648c469405d547dfd245a42ef10eaf0}
+\hypertarget{classGRIHistogrammer_a9c464852bf5261ae03c61c5c88a7c9d7}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!rate\-\_\-hist\-\_\-@{rate\-\_\-hist\-\_\-}}
+\index{rate\-\_\-hist\-\_\-@{rate\-\_\-hist\-\_\-}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{rate\-\_\-hist\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-T\-H1$\ast$ {\bf \-G\-R\-I\-Histogrammer\-::rate\-\_\-hist\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIHistogrammer_a9c464852bf5261ae03c61c5c88a7c9d7}
+\hypertarget{classGRIHistogrammer_a49b765d037e31ac24d9f2215d4c336a0}{\index{\-G\-R\-I\-Histogrammer@{\-G\-R\-I\-Histogrammer}!rate\-\_\-mode\-\_\-@{rate\-\_\-mode\-\_\-}}
+\index{rate\-\_\-mode\-\_\-@{rate\-\_\-mode\-\_\-}!GRIHistogrammer@{\-G\-R\-I\-Histogrammer}}
+\subsubsection[{rate\-\_\-mode\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Histogrammer\-::rate\-\_\-mode\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIHistogrammer_a49b765d037e31ac24d9f2215d4c336a0}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRIHistogrammer_8h}{\-G\-R\-I\-Histogrammer.\-h}\item 
+framework/source/\hyperlink{GRIHistogrammer_8cpp}{\-G\-R\-I\-Histogrammer.\-cpp}\end{DoxyCompactItemize}

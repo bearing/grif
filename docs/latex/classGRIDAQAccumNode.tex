@@ -1,0 +1,426 @@
+\hypertarget{classGRIDAQAccumNode}{\section{\-G\-R\-I\-D\-A\-Q\-Accum\-Node \-Class \-Reference}
+\label{classGRIDAQAccumNode}\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-D\-A\-Q\-Accum\-Node.\-h$>$}
+
+\-Inheritance diagram for \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classGRIDAQAccumNode}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classGRIDAQAccumNode_a738d4c7049abdf903c11f0f315202ce5}{\-Reset\-Accum\-Buffs} ()=0
+\item 
+virtual void \hyperlink{classGRIDAQAccumNode_a3835425d2d5ef5a63fc70e90ecc6faff}{\-Flush\-Buffers} ()=0
+\item 
+virtual void \hyperlink{classGRIDAQAccumNode_a975d0dd539b6977ef1f0f791e2362897}{\-Accumulate} (int numel, double data\mbox{[}$\,$\mbox{]}, qint64 timestamps\mbox{[}$\,$\mbox{]}, bool runflag)=0
+\item 
+virtual void \hyperlink{classGRIDAQAccumNode_aa9418de871167e1eabf92d24609bbe22}{\-Accumulate} (int numel, float data\mbox{[}$\,$\mbox{]}, qint64 timestamps\mbox{[}$\,$\mbox{]}, bool runflag)=0
+\item 
+virtual void \hyperlink{classGRIDAQAccumNode_ae8cee3f7e0f63a7b21ef3690ccad7284}{\-Accumulate} (int numel, int data\mbox{[}$\,$\mbox{]}, qint64 timestamps\mbox{[}$\,$\mbox{]}, bool runflag)=0
+\item 
+virtual void \hyperlink{classGRIDAQAccumNode_ad6080a31b2593b10b6df1ce1364686ef}{\-Accumulate} (int numel, qint64 data\mbox{[}$\,$\mbox{]}, qint64 timestamps\mbox{[}$\,$\mbox{]}, bool runflag)=0
+\item 
+virtual void \hyperlink{classGRIDAQAccumNode_a098599aab2aebbb267f5ce65da848195}{\-Accumulate} (int numel, long data\mbox{[}$\,$\mbox{]}, qint64 timestamps\mbox{[}$\,$\mbox{]}, bool runflag)=0
+\item 
+virtual void \hyperlink{classGRIDAQAccumNode_a0b725deb6ed608af61a62291d05c7672}{\-Accumulate} (int numel, short data\mbox{[}$\,$\mbox{]}, qint64 timestamps\mbox{[}$\,$\mbox{]}, bool runflag)=0
+\item 
+virtual void \hyperlink{classGRIDAQAccumNode_afb749d4044b61be6f2b36c106f75ec3d}{\-Accumulate} (int numel, char data\mbox{[}$\,$\mbox{]}, qint64 timestamps\mbox{[}$\,$\mbox{]}, bool runflag)=0
+\item 
+virtual void \hyperlink{classGRIDAQAccumNode_a59503ea7d79048623a39f17fa5be02fa}{\-Accumulate} (int numel, unsigned char data\mbox{[}$\,$\mbox{]}, qint64 timestamps\mbox{[}$\,$\mbox{]}, bool runflag)=0
+\item 
+virtual void \hyperlink{classGRIDAQAccumNode_aecddd350c17a924e3fc7cb3b5edb7327}{\-Accumulate} (int numel, bool data\mbox{[}$\,$\mbox{]}, qint64 timestamps\mbox{[}$\,$\mbox{]}, bool runflag)=0
+\item 
+virtual void \hyperlink{classGRIDAQAccumNode_acc2c9717d6a29a09347e92feaa92e190}{\-Initialize} (\-Q\-Date\-Time tst, qint64 t\-\_\-0)=0
+\item 
+virtual void \hyperlink{classGRIDAQAccumNode_afc32dcdf0b1e70e9d2dc74e36c29740f}{\-Initialize\-Time} (qint64 timestamp)=0
+\item 
+virtual void \hyperlink{classGRIDAQAccumNode_a4f21d81c03dea662eb9657db00266258}{\-Initialize\-Time} (\-Q\-Date\-Time tst, qint64 timestamp, qint64 ticks)=0
+\item 
+\-Q\-String \hyperlink{classGRIDAQAccumNode_a4691fc91a32e0a4101d0decd335fb462}{get\-\_\-buffer\-\_\-name} ()
+\item 
+void \hyperlink{classGRIDAQAccumNode_a2a48d3d76f3300fffe04ea00c4fdd3ac}{set\-\_\-buffer\-\_\-name} (const \-Q\-String \&buffer\-\_\-name)
+\item 
+qint64 \hyperlink{classGRIDAQAccumNode_af785ec1b1887621c1528cb4b343f9b47}{get\-\_\-accum\-\_\-time} ()
+\item 
+void \hyperlink{classGRIDAQAccumNode_a502799809c693e60764caa7e74ab7103}{set\-\_\-accum\-\_\-time} (qint64 accum\-\_\-time)
+\item 
+int \hyperlink{classGRIDAQAccumNode_afe4366f26f6efe380fc5c51ace41f78a}{get\-\_\-num\-\_\-accum\-\_\-buff} ()
+\item 
+void \hyperlink{classGRIDAQAccumNode_a4fd240d88ff70caf281b6ed6fb24272a}{set\-\_\-num\-\_\-accum\-\_\-buff} (int num\-\_\-accum\-\_\-buff)
+\item 
+qint64 \hyperlink{classGRIDAQAccumNode_a61ea7160947d2ecae9bcbc4a9dea1955}{get\-\_\-ticks\-\_\-per\-\_\-sec} ()
+\item 
+void \hyperlink{classGRIDAQAccumNode_ac93ce0fbf6e4847ef84c378675e834d0}{set\-\_\-ticks\-\_\-per\-\_\-sec} (qint64 ticks\-\_\-per\-\_\-sec)
+\item 
+\hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} $\ast$ \hyperlink{classGRIDAQAccumNode_a730a26714b89054d451b205a73ea363f}{get\-\_\-p\-\_\-\-D\-A\-Q} ()
+\item 
+void \hyperlink{classGRIDAQAccumNode_af90efbad9593e4fc498fe828ce47ad9f}{set\-\_\-p\-\_\-\-D\-A\-Q} (\hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} $\ast$p\-\_\-\-D\-A\-Q)
+\item 
+\-Q\-Time \hyperlink{classGRIDAQAccumNode_a229de080e3332cc8465ead360c13e838}{get\-\_\-t0} ()
+\item 
+void \hyperlink{classGRIDAQAccumNode_ab1b2337c4abf158e7cf21b61db2e8367}{set\-\_\-t0} (\-Q\-Time t0)
+\item 
+qint64 \hyperlink{classGRIDAQAccumNode_a3030e4cc4372bdabb65fd3d24c79821d}{get\-\_\-ts0} ()
+\item 
+void \hyperlink{classGRIDAQAccumNode_a84ff74f5c4fcc7cac0d7ae57f6e54b18}{set\-\_\-ts0} (qint64 ts0)
+\item 
+bool \hyperlink{classGRIDAQAccumNode_a7947dcd73f96eba21fea39d7fe5fa7ba}{get\-\_\-is\-\_\-running} ()
+\item 
+void \hyperlink{classGRIDAQAccumNode_afe9b512b35d2aa92e7ff454ad54760ed}{set\-\_\-is\-\_\-running} (bool is\-\_\-running)
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\-Q\-String \hyperlink{classGRIDAQAccumNode_ac5cd24f2ee84d763f68217ba57d7beff}{buffer\-\_\-name\-\_\-}
+\item 
+qint64 \hyperlink{classGRIDAQAccumNode_a2b7c3b56f0e7a8c7742f8b2db59615ae}{accum\-\_\-time\-\_\-}
+\item 
+qint64 \hyperlink{classGRIDAQAccumNode_a8ff6ba9390ba1b25c08dce5c4ad4a20b}{ticks\-\_\-per\-\_\-sec\-\_\-}
+\item 
+int \hyperlink{classGRIDAQAccumNode_abb739c7453204d9a81a9774dd9e808f9}{num\-\_\-accum\-\_\-buff\-\_\-}
+\item 
+\-Q\-Time \hyperlink{classGRIDAQAccumNode_a141321b040b79b72b4dd64da62266641}{t0\-\_\-}
+\item 
+qint64 \hyperlink{classGRIDAQAccumNode_ab230f8bb0395f382d9a2880800819f13}{ts0\-\_\-}
+\item 
+bool \hyperlink{classGRIDAQAccumNode_a0f42e69229b973ae9ab7adeeaf92c307}{is\-\_\-running\-\_\-}
+\item 
+\hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} $\ast$ \hyperlink{classGRIDAQAccumNode_af4b9be7b1c593e0201bc1b8b56f325f6}{p\-\_\-\-D\-A\-Q\-\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRIDAQAccumNode_a975d0dd539b6977ef1f0f791e2362897}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!\-Accumulate@{\-Accumulate}}
+\index{\-Accumulate@{\-Accumulate}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{\-Accumulate}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::\-Accumulate} (
+\begin{DoxyParamCaption}
+\item[{int}]{numel, }
+\item[{double}]{data\mbox{[}$\,$\mbox{]}, }
+\item[{qint64}]{timestamps\mbox{[}$\,$\mbox{]}, }
+\item[{bool}]{runflag}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQAccumNode_a975d0dd539b6977ef1f0f791e2362897}
+
+
+\-Implemented in \hyperlink{classGRIDAQBaseAccumNode_a1dfaaf425a5a808862d60b728b83005a}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+\hypertarget{classGRIDAQAccumNode_aa9418de871167e1eabf92d24609bbe22}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!\-Accumulate@{\-Accumulate}}
+\index{\-Accumulate@{\-Accumulate}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{\-Accumulate}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::\-Accumulate} (
+\begin{DoxyParamCaption}
+\item[{int}]{numel, }
+\item[{float}]{data\mbox{[}$\,$\mbox{]}, }
+\item[{qint64}]{timestamps\mbox{[}$\,$\mbox{]}, }
+\item[{bool}]{runflag}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQAccumNode_aa9418de871167e1eabf92d24609bbe22}
+
+
+\-Implemented in \hyperlink{classGRIDAQBaseAccumNode_ab703d471ecbc4ad1f0732814e108ffbb}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+\hypertarget{classGRIDAQAccumNode_ae8cee3f7e0f63a7b21ef3690ccad7284}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!\-Accumulate@{\-Accumulate}}
+\index{\-Accumulate@{\-Accumulate}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{\-Accumulate}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::\-Accumulate} (
+\begin{DoxyParamCaption}
+\item[{int}]{numel, }
+\item[{int}]{data\mbox{[}$\,$\mbox{]}, }
+\item[{qint64}]{timestamps\mbox{[}$\,$\mbox{]}, }
+\item[{bool}]{runflag}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQAccumNode_ae8cee3f7e0f63a7b21ef3690ccad7284}
+
+
+\-Implemented in \hyperlink{classGRIDAQBaseAccumNode_aaf241c53925111f17fe7f5ca50cc65af}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+\hypertarget{classGRIDAQAccumNode_ad6080a31b2593b10b6df1ce1364686ef}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!\-Accumulate@{\-Accumulate}}
+\index{\-Accumulate@{\-Accumulate}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{\-Accumulate}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::\-Accumulate} (
+\begin{DoxyParamCaption}
+\item[{int}]{numel, }
+\item[{qint64}]{data\mbox{[}$\,$\mbox{]}, }
+\item[{qint64}]{timestamps\mbox{[}$\,$\mbox{]}, }
+\item[{bool}]{runflag}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQAccumNode_ad6080a31b2593b10b6df1ce1364686ef}
+
+
+\-Implemented in \hyperlink{classGRIDAQBaseAccumNode_af67b21c2e8ec99b46e184f0e094ccf00}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+\hypertarget{classGRIDAQAccumNode_a098599aab2aebbb267f5ce65da848195}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!\-Accumulate@{\-Accumulate}}
+\index{\-Accumulate@{\-Accumulate}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{\-Accumulate}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::\-Accumulate} (
+\begin{DoxyParamCaption}
+\item[{int}]{numel, }
+\item[{long}]{data\mbox{[}$\,$\mbox{]}, }
+\item[{qint64}]{timestamps\mbox{[}$\,$\mbox{]}, }
+\item[{bool}]{runflag}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQAccumNode_a098599aab2aebbb267f5ce65da848195}
+
+
+\-Implemented in \hyperlink{classGRIDAQBaseAccumNode_ac2ed29b6004c15a449a1378229c4b355}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+\hypertarget{classGRIDAQAccumNode_a0b725deb6ed608af61a62291d05c7672}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!\-Accumulate@{\-Accumulate}}
+\index{\-Accumulate@{\-Accumulate}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{\-Accumulate}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::\-Accumulate} (
+\begin{DoxyParamCaption}
+\item[{int}]{numel, }
+\item[{short}]{data\mbox{[}$\,$\mbox{]}, }
+\item[{qint64}]{timestamps\mbox{[}$\,$\mbox{]}, }
+\item[{bool}]{runflag}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQAccumNode_a0b725deb6ed608af61a62291d05c7672}
+
+
+\-Implemented in \hyperlink{classGRIDAQBaseAccumNode_a20e35d318a811336ebff95a3dc3fc507}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+\hypertarget{classGRIDAQAccumNode_afb749d4044b61be6f2b36c106f75ec3d}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!\-Accumulate@{\-Accumulate}}
+\index{\-Accumulate@{\-Accumulate}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{\-Accumulate}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::\-Accumulate} (
+\begin{DoxyParamCaption}
+\item[{int}]{numel, }
+\item[{char}]{data\mbox{[}$\,$\mbox{]}, }
+\item[{qint64}]{timestamps\mbox{[}$\,$\mbox{]}, }
+\item[{bool}]{runflag}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQAccumNode_afb749d4044b61be6f2b36c106f75ec3d}
+
+
+\-Implemented in \hyperlink{classGRIDAQBaseAccumNode_ad158be798eab23a9c665a62d76ce5338}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+\hypertarget{classGRIDAQAccumNode_a59503ea7d79048623a39f17fa5be02fa}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!\-Accumulate@{\-Accumulate}}
+\index{\-Accumulate@{\-Accumulate}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{\-Accumulate}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::\-Accumulate} (
+\begin{DoxyParamCaption}
+\item[{int}]{numel, }
+\item[{unsigned char}]{data\mbox{[}$\,$\mbox{]}, }
+\item[{qint64}]{timestamps\mbox{[}$\,$\mbox{]}, }
+\item[{bool}]{runflag}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQAccumNode_a59503ea7d79048623a39f17fa5be02fa}
+
+
+\-Implemented in \hyperlink{classGRIDAQBaseAccumNode_ab3f7076555e040893fa08838d932a4e9}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+\hypertarget{classGRIDAQAccumNode_aecddd350c17a924e3fc7cb3b5edb7327}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!\-Accumulate@{\-Accumulate}}
+\index{\-Accumulate@{\-Accumulate}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{\-Accumulate}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::\-Accumulate} (
+\begin{DoxyParamCaption}
+\item[{int}]{numel, }
+\item[{bool}]{data\mbox{[}$\,$\mbox{]}, }
+\item[{qint64}]{timestamps\mbox{[}$\,$\mbox{]}, }
+\item[{bool}]{runflag}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQAccumNode_aecddd350c17a924e3fc7cb3b5edb7327}
+
+
+\-Implemented in \hyperlink{classGRIDAQBaseAccumNode_a7fb71d89ad3890ead20f12d7fff5e0aa}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+\hypertarget{classGRIDAQAccumNode_a3835425d2d5ef5a63fc70e90ecc6faff}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!\-Flush\-Buffers@{\-Flush\-Buffers}}
+\index{\-Flush\-Buffers@{\-Flush\-Buffers}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{\-Flush\-Buffers}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::\-Flush\-Buffers} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQAccumNode_a3835425d2d5ef5a63fc70e90ecc6faff}
+
+
+\-Implemented in \hyperlink{classGRIDAQAccumulator_a1dd946b038f31e333d56c689142a0181}{\-G\-R\-I\-D\-A\-Q\-Accumulator$<$ T $>$}, and \hyperlink{classGRIDAQBaseAccumNode_a4fde603a1ed8568408930912e51f4b84}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+\hypertarget{classGRIDAQAccumNode_af785ec1b1887621c1528cb4b343f9b47}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!get\-\_\-accum\-\_\-time@{get\-\_\-accum\-\_\-time}}
+\index{get\-\_\-accum\-\_\-time@{get\-\_\-accum\-\_\-time}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{get\-\_\-accum\-\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}qint64 {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::get\-\_\-accum\-\_\-time} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_af785ec1b1887621c1528cb4b343f9b47}
+\hypertarget{classGRIDAQAccumNode_a4691fc91a32e0a4101d0decd335fb462}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!get\-\_\-buffer\-\_\-name@{get\-\_\-buffer\-\_\-name}}
+\index{get\-\_\-buffer\-\_\-name@{get\-\_\-buffer\-\_\-name}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{get\-\_\-buffer\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::get\-\_\-buffer\-\_\-name} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_a4691fc91a32e0a4101d0decd335fb462}
+\hypertarget{classGRIDAQAccumNode_a7947dcd73f96eba21fea39d7fe5fa7ba}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!get\-\_\-is\-\_\-running@{get\-\_\-is\-\_\-running}}
+\index{get\-\_\-is\-\_\-running@{get\-\_\-is\-\_\-running}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{get\-\_\-is\-\_\-running}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::get\-\_\-is\-\_\-running} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_a7947dcd73f96eba21fea39d7fe5fa7ba}
+\hypertarget{classGRIDAQAccumNode_afe4366f26f6efe380fc5c51ace41f78a}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!get\-\_\-num\-\_\-accum\-\_\-buff@{get\-\_\-num\-\_\-accum\-\_\-buff}}
+\index{get\-\_\-num\-\_\-accum\-\_\-buff@{get\-\_\-num\-\_\-accum\-\_\-buff}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{get\-\_\-num\-\_\-accum\-\_\-buff}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::get\-\_\-num\-\_\-accum\-\_\-buff} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_afe4366f26f6efe380fc5c51ace41f78a}
+\hypertarget{classGRIDAQAccumNode_a730a26714b89054d451b205a73ea363f}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!get\-\_\-p\-\_\-\-D\-A\-Q@{get\-\_\-p\-\_\-\-D\-A\-Q}}
+\index{get\-\_\-p\-\_\-\-D\-A\-Q@{get\-\_\-p\-\_\-\-D\-A\-Q}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{get\-\_\-p\-\_\-\-D\-A\-Q}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Process\-Thread}$\ast$ {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::get\-\_\-p\-\_\-\-D\-A\-Q} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_a730a26714b89054d451b205a73ea363f}
+\hypertarget{classGRIDAQAccumNode_a229de080e3332cc8465ead360c13e838}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!get\-\_\-t0@{get\-\_\-t0}}
+\index{get\-\_\-t0@{get\-\_\-t0}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{get\-\_\-t0}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Time {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::get\-\_\-t0} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_a229de080e3332cc8465ead360c13e838}
+\hypertarget{classGRIDAQAccumNode_a61ea7160947d2ecae9bcbc4a9dea1955}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!get\-\_\-ticks\-\_\-per\-\_\-sec@{get\-\_\-ticks\-\_\-per\-\_\-sec}}
+\index{get\-\_\-ticks\-\_\-per\-\_\-sec@{get\-\_\-ticks\-\_\-per\-\_\-sec}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{get\-\_\-ticks\-\_\-per\-\_\-sec}]{\setlength{\rightskip}{0pt plus 5cm}qint64 {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::get\-\_\-ticks\-\_\-per\-\_\-sec} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_a61ea7160947d2ecae9bcbc4a9dea1955}
+\hypertarget{classGRIDAQAccumNode_a3030e4cc4372bdabb65fd3d24c79821d}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!get\-\_\-ts0@{get\-\_\-ts0}}
+\index{get\-\_\-ts0@{get\-\_\-ts0}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{get\-\_\-ts0}]{\setlength{\rightskip}{0pt plus 5cm}qint64 {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::get\-\_\-ts0} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_a3030e4cc4372bdabb65fd3d24c79821d}
+\hypertarget{classGRIDAQAccumNode_acc2c9717d6a29a09347e92feaa92e190}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!\-Initialize@{\-Initialize}}
+\index{\-Initialize@{\-Initialize}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{\-Initialize}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::\-Initialize} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-Date\-Time}]{tst, }
+\item[{qint64}]{t\-\_\-0}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQAccumNode_acc2c9717d6a29a09347e92feaa92e190}
+
+
+\-Implemented in \hyperlink{classGRIDAQBaseAccumNode_ab414ce6b216f9ca48e928cfb7dc5c619}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+\hypertarget{classGRIDAQAccumNode_afc32dcdf0b1e70e9d2dc74e36c29740f}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!\-Initialize\-Time@{\-Initialize\-Time}}
+\index{\-Initialize\-Time@{\-Initialize\-Time}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{\-Initialize\-Time}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::\-Initialize\-Time} (
+\begin{DoxyParamCaption}
+\item[{qint64}]{timestamp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQAccumNode_afc32dcdf0b1e70e9d2dc74e36c29740f}
+
+
+\-Implemented in \hyperlink{classGRIDAQBaseAccumNode_a4ce6afe81f343c9e49a87a6defa3193f}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+\hypertarget{classGRIDAQAccumNode_a4f21d81c03dea662eb9657db00266258}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!\-Initialize\-Time@{\-Initialize\-Time}}
+\index{\-Initialize\-Time@{\-Initialize\-Time}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{\-Initialize\-Time}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::\-Initialize\-Time} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-Date\-Time}]{tst, }
+\item[{qint64}]{timestamp, }
+\item[{qint64}]{ticks}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQAccumNode_a4f21d81c03dea662eb9657db00266258}
+
+
+\-Implemented in \hyperlink{classGRIDAQBaseAccumNode_abb3add1bd897202c47c179c5d9655eb9}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+\hypertarget{classGRIDAQAccumNode_a738d4c7049abdf903c11f0f315202ce5}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!\-Reset\-Accum\-Buffs@{\-Reset\-Accum\-Buffs}}
+\index{\-Reset\-Accum\-Buffs@{\-Reset\-Accum\-Buffs}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{\-Reset\-Accum\-Buffs}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::\-Reset\-Accum\-Buffs} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQAccumNode_a738d4c7049abdf903c11f0f315202ce5}
+
+
+\-Implemented in \hyperlink{classGRIDAQAccumulator_adba80ef3e7238cc667818c210b38cb92}{\-G\-R\-I\-D\-A\-Q\-Accumulator$<$ T $>$}, and \hyperlink{classGRIDAQBaseAccumNode_af4922ce0edf51ffedbcc7cedc993c1cc}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+\hypertarget{classGRIDAQAccumNode_a502799809c693e60764caa7e74ab7103}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!set\-\_\-accum\-\_\-time@{set\-\_\-accum\-\_\-time}}
+\index{set\-\_\-accum\-\_\-time@{set\-\_\-accum\-\_\-time}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{set\-\_\-accum\-\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::set\-\_\-accum\-\_\-time} (
+\begin{DoxyParamCaption}
+\item[{qint64}]{accum\-\_\-time}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_a502799809c693e60764caa7e74ab7103}
+\hypertarget{classGRIDAQAccumNode_a2a48d3d76f3300fffe04ea00c4fdd3ac}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!set\-\_\-buffer\-\_\-name@{set\-\_\-buffer\-\_\-name}}
+\index{set\-\_\-buffer\-\_\-name@{set\-\_\-buffer\-\_\-name}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{set\-\_\-buffer\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::set\-\_\-buffer\-\_\-name} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{buffer\-\_\-name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_a2a48d3d76f3300fffe04ea00c4fdd3ac}
+\hypertarget{classGRIDAQAccumNode_afe9b512b35d2aa92e7ff454ad54760ed}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!set\-\_\-is\-\_\-running@{set\-\_\-is\-\_\-running}}
+\index{set\-\_\-is\-\_\-running@{set\-\_\-is\-\_\-running}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{set\-\_\-is\-\_\-running}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::set\-\_\-is\-\_\-running} (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\-\_\-running}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_afe9b512b35d2aa92e7ff454ad54760ed}
+\hypertarget{classGRIDAQAccumNode_a4fd240d88ff70caf281b6ed6fb24272a}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!set\-\_\-num\-\_\-accum\-\_\-buff@{set\-\_\-num\-\_\-accum\-\_\-buff}}
+\index{set\-\_\-num\-\_\-accum\-\_\-buff@{set\-\_\-num\-\_\-accum\-\_\-buff}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{set\-\_\-num\-\_\-accum\-\_\-buff}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::set\-\_\-num\-\_\-accum\-\_\-buff} (
+\begin{DoxyParamCaption}
+\item[{int}]{num\-\_\-accum\-\_\-buff}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_a4fd240d88ff70caf281b6ed6fb24272a}
+\hypertarget{classGRIDAQAccumNode_af90efbad9593e4fc498fe828ce47ad9f}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!set\-\_\-p\-\_\-\-D\-A\-Q@{set\-\_\-p\-\_\-\-D\-A\-Q}}
+\index{set\-\_\-p\-\_\-\-D\-A\-Q@{set\-\_\-p\-\_\-\-D\-A\-Q}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{set\-\_\-p\-\_\-\-D\-A\-Q}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::set\-\_\-p\-\_\-\-D\-A\-Q} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-G\-R\-I\-Process\-Thread} $\ast$}]{p\-\_\-\-D\-A\-Q}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_af90efbad9593e4fc498fe828ce47ad9f}
+\hypertarget{classGRIDAQAccumNode_ab1b2337c4abf158e7cf21b61db2e8367}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!set\-\_\-t0@{set\-\_\-t0}}
+\index{set\-\_\-t0@{set\-\_\-t0}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{set\-\_\-t0}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::set\-\_\-t0} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-Time}]{t0}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_ab1b2337c4abf158e7cf21b61db2e8367}
+\hypertarget{classGRIDAQAccumNode_ac93ce0fbf6e4847ef84c378675e834d0}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!set\-\_\-ticks\-\_\-per\-\_\-sec@{set\-\_\-ticks\-\_\-per\-\_\-sec}}
+\index{set\-\_\-ticks\-\_\-per\-\_\-sec@{set\-\_\-ticks\-\_\-per\-\_\-sec}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{set\-\_\-ticks\-\_\-per\-\_\-sec}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::set\-\_\-ticks\-\_\-per\-\_\-sec} (
+\begin{DoxyParamCaption}
+\item[{qint64}]{ticks\-\_\-per\-\_\-sec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_ac93ce0fbf6e4847ef84c378675e834d0}
+\hypertarget{classGRIDAQAccumNode_a84ff74f5c4fcc7cac0d7ae57f6e54b18}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!set\-\_\-ts0@{set\-\_\-ts0}}
+\index{set\-\_\-ts0@{set\-\_\-ts0}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{set\-\_\-ts0}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::set\-\_\-ts0} (
+\begin{DoxyParamCaption}
+\item[{qint64}]{ts0}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumNode_a84ff74f5c4fcc7cac0d7ae57f6e54b18}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRIDAQAccumNode_a2b7c3b56f0e7a8c7742f8b2db59615ae}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!accum\-\_\-time\-\_\-@{accum\-\_\-time\-\_\-}}
+\index{accum\-\_\-time\-\_\-@{accum\-\_\-time\-\_\-}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{accum\-\_\-time\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}qint64 {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::accum\-\_\-time\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDAQAccumNode_a2b7c3b56f0e7a8c7742f8b2db59615ae}
+\hypertarget{classGRIDAQAccumNode_ac5cd24f2ee84d763f68217ba57d7beff}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!buffer\-\_\-name\-\_\-@{buffer\-\_\-name\-\_\-}}
+\index{buffer\-\_\-name\-\_\-@{buffer\-\_\-name\-\_\-}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{buffer\-\_\-name\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::buffer\-\_\-name\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDAQAccumNode_ac5cd24f2ee84d763f68217ba57d7beff}
+\hypertarget{classGRIDAQAccumNode_a0f42e69229b973ae9ab7adeeaf92c307}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!is\-\_\-running\-\_\-@{is\-\_\-running\-\_\-}}
+\index{is\-\_\-running\-\_\-@{is\-\_\-running\-\_\-}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{is\-\_\-running\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::is\-\_\-running\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDAQAccumNode_a0f42e69229b973ae9ab7adeeaf92c307}
+\hypertarget{classGRIDAQAccumNode_abb739c7453204d9a81a9774dd9e808f9}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!num\-\_\-accum\-\_\-buff\-\_\-@{num\-\_\-accum\-\_\-buff\-\_\-}}
+\index{num\-\_\-accum\-\_\-buff\-\_\-@{num\-\_\-accum\-\_\-buff\-\_\-}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{num\-\_\-accum\-\_\-buff\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::num\-\_\-accum\-\_\-buff\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDAQAccumNode_abb739c7453204d9a81a9774dd9e808f9}
+\hypertarget{classGRIDAQAccumNode_af4b9be7b1c593e0201bc1b8b56f325f6}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!p\-\_\-\-D\-A\-Q\-\_\-@{p\-\_\-\-D\-A\-Q\-\_\-}}
+\index{p\-\_\-\-D\-A\-Q\-\_\-@{p\-\_\-\-D\-A\-Q\-\_\-}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{p\-\_\-\-D\-A\-Q\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Process\-Thread}$\ast$ {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::p\-\_\-\-D\-A\-Q\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDAQAccumNode_af4b9be7b1c593e0201bc1b8b56f325f6}
+\hypertarget{classGRIDAQAccumNode_a141321b040b79b72b4dd64da62266641}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!t0\-\_\-@{t0\-\_\-}}
+\index{t0\-\_\-@{t0\-\_\-}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{t0\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Time {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::t0\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDAQAccumNode_a141321b040b79b72b4dd64da62266641}
+\hypertarget{classGRIDAQAccumNode_a8ff6ba9390ba1b25c08dce5c4ad4a20b}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!ticks\-\_\-per\-\_\-sec\-\_\-@{ticks\-\_\-per\-\_\-sec\-\_\-}}
+\index{ticks\-\_\-per\-\_\-sec\-\_\-@{ticks\-\_\-per\-\_\-sec\-\_\-}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{ticks\-\_\-per\-\_\-sec\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}qint64 {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::ticks\-\_\-per\-\_\-sec\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDAQAccumNode_a8ff6ba9390ba1b25c08dce5c4ad4a20b}
+\hypertarget{classGRIDAQAccumNode_ab230f8bb0395f382d9a2880800819f13}{\index{\-G\-R\-I\-D\-A\-Q\-Accum\-Node@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}!ts0\-\_\-@{ts0\-\_\-}}
+\index{ts0\-\_\-@{ts0\-\_\-}!GRIDAQAccumNode@{\-G\-R\-I\-D\-A\-Q\-Accum\-Node}}
+\subsubsection[{ts0\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}qint64 {\bf \-G\-R\-I\-D\-A\-Q\-Accum\-Node\-::ts0\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDAQAccumNode_ab230f8bb0395f382d9a2880800819f13}
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRIDAQAccumNode_8h}{\-G\-R\-I\-D\-A\-Q\-Accum\-Node.\-h}\end{DoxyCompactItemize}

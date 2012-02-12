@@ -1,0 +1,222 @@
+\hypertarget{classGRIDataBlock}{\section{\-G\-R\-I\-Data\-Block \-Class \-Reference}
+\label{classGRIDataBlock}\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-Data\-Block.\-h$>$}
+
+\-Inheritance diagram for \-G\-R\-I\-Data\-Block\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classGRIDataBlock}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRIDataBlock_a214dfc47dc01b101343a048cacf5cbb8}{\-G\-R\-I\-Data\-Block} (\hyperlink{classGRIRegulator}{\-G\-R\-I\-Regulator} $\ast$reg, \hyperlink{classGRIMemoryManager}{\-G\-R\-I\-Memory\-Manager} $\ast$mm, \-Q\-String reader\-Name, \-Q\-String reader\-Buffer, \-Q\-String object\-Data\-Name, \-Q\-String object\-From\-Name)
+\item 
+\hyperlink{classGRIDataBlock_a30c1e02eae93b7e92a9ef62ecfe8e748}{$\sim$\-G\-R\-I\-Data\-Block} ()
+\item 
+\-Q\-List$<$ \hyperlink{structreader__t}{reader\-\_\-t} $\ast$ $>$ $\ast$ \hyperlink{classGRIDataBlock_a419904d0843e583d9e8d86e1b16e690f}{\-Get\-Reader\-List} ()
+\item 
+void \hyperlink{classGRIDataBlock_a5cb3b15abf54d9d2a21911d47fe70f67}{\-Set\-Link} (\-Q\-Linked\-List$<$ \hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} $\ast$ $>$ $\ast$processes)
+\item 
+void \hyperlink{classGRIDataBlock_af424f16590858f953f85ceeec0f2c02b}{\-Load\-Balancing} ()
+\item 
+bool \hyperlink{classGRIDataBlock_a6af736b80630f2dbe8898eea9af2e254}{\-Update\-Reader} ()
+\item 
+bool \hyperlink{classGRIDataBlock_a48ea48dbe792688b2a591b763de490a0}{\-Update\-Writer} ()
+\item 
+void \hyperlink{classGRIDataBlock_a66ea5e343b0fbb7e1ded2d3f998befd4}{\-Delete\-Packet} ()
+\item 
+void \hyperlink{classGRIDataBlock_ab2a5759eab3fbc73d7e02757cfccc9f6}{set\-\_\-is\-\_\-enabled} (bool is\-\_\-enabled)
+\item 
+bool \hyperlink{classGRIDataBlock_a6362ecc61cc2da70373aad8bfa527bc7}{get\-\_\-is\-\_\-enabled} ()
+\item 
+\-Q\-String \hyperlink{classGRIDataBlock_aa50d762ee5a51958b4f3d34b40dce9c9}{get\-\_\-name} ()
+\item 
+\-Q\-String \hyperlink{classGRIDataBlock_ab66752bd04383b5e51e1939bbf6a9392}{get\-\_\-writer\-\_\-name} ()
+\item 
+\hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} $\ast$ \hyperlink{classGRIDataBlock_a7de6b71effd0e59b1035b8a195039058}{get\-\_\-writer} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structAnalysisStructureObject}{\-Analysis\-Structure\-Object} $\ast$ \hyperlink{classGRIDataBlock_a967f14cfd43d3eae26444741f50ebd0e}{obj\-\_\-}
+\item 
+\hyperlink{classGRIRegulator}{\-G\-R\-I\-Regulator} $\ast$ \hyperlink{classGRIDataBlock_ab023a641f8c1bd668f4b830049f97253}{reg\-\_\-}
+\item 
+\hyperlink{classGRIMemoryManager}{\-G\-R\-I\-Memory\-Manager} $\ast$ \hyperlink{classGRIDataBlock_a5c80adb5907a0bbda4fd75598aff0176}{mm\-\_\-}
+\item 
+\-Q\-String \hyperlink{classGRIDataBlock_ac964c1f2b5ddb97b8ef333f481687f99}{name\-\_\-}
+\item 
+\hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} $\ast$ \hyperlink{classGRIDataBlock_a7e302800f9de02e958c6b66857f5df39}{writer\-\_\-}
+\item 
+\-Q\-String \hyperlink{classGRIDataBlock_ad2d65d8c5f401bf5726f5a7fd6478e62}{writer\-\_\-name\-\_\-}
+\item 
+\-Q\-List$<$ \hyperlink{structreader__t}{reader\-\_\-t} $\ast$ $>$ \hyperlink{classGRIDataBlock_a15b74c7d6fecf83a713ca9bf3b1bbf0f}{readers\-\_\-}
+\item 
+long \hyperlink{classGRIDataBlock_a76ade2e1bd0d1db89d108f58deee637b}{write\-\_\-counter\-\_\-}
+\item 
+long \hyperlink{classGRIDataBlock_a5751612837ed2f69ddfaf6d2cdfe511f}{first\-\_\-packet\-\_\-}
+\item 
+bool \hyperlink{classGRIDataBlock_a0d33bf9305eab45c3368138490342d5a}{is\-\_\-enabled\-\_\-}
+\end{DoxyCompactItemize}
+\subsection*{\-Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classGRIDataBlock_ae5d9162c1cf3d4e10a949c025ad576d7}{\-G\-R\-I\-Command\-And\-Control}
+\item 
+class \hyperlink{classGRIDataBlock_ae3ac15336420ab6b5b09c1d69f48a11f}{\-G\-R\-I\-Memory\-Manager}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRIDataBlock_a214dfc47dc01b101343a048cacf5cbb8}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}}
+\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{\-G\-R\-I\-Data\-Block}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Data\-Block\-::\-G\-R\-I\-Data\-Block} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-G\-R\-I\-Regulator} $\ast$}]{reg, }
+\item[{{\bf \-G\-R\-I\-Memory\-Manager} $\ast$}]{mm, }
+\item[{\-Q\-String}]{reader\-Name, }
+\item[{\-Q\-String}]{reader\-Buffer, }
+\item[{\-Q\-String}]{object\-Data\-Name, }
+\item[{\-Q\-String}]{object\-From\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGRIDataBlock_a214dfc47dc01b101343a048cacf5cbb8}
+\hypertarget{classGRIDataBlock_a30c1e02eae93b7e92a9ef62ecfe8e748}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!$\sim$\-G\-R\-I\-Data\-Block@{$\sim$\-G\-R\-I\-Data\-Block}}
+\index{$\sim$\-G\-R\-I\-Data\-Block@{$\sim$\-G\-R\-I\-Data\-Block}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{$\sim$\-G\-R\-I\-Data\-Block}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Data\-Block\-::$\sim$\-G\-R\-I\-Data\-Block} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIDataBlock_a30c1e02eae93b7e92a9ef62ecfe8e748}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRIDataBlock_a66ea5e343b0fbb7e1ded2d3f998befd4}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!\-Delete\-Packet@{\-Delete\-Packet}}
+\index{\-Delete\-Packet@{\-Delete\-Packet}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{\-Delete\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Data\-Block\-::\-Delete\-Packet} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIDataBlock_a66ea5e343b0fbb7e1ded2d3f998befd4}
+\hypertarget{classGRIDataBlock_a6362ecc61cc2da70373aad8bfa527bc7}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!get\-\_\-is\-\_\-enabled@{get\-\_\-is\-\_\-enabled}}
+\index{get\-\_\-is\-\_\-enabled@{get\-\_\-is\-\_\-enabled}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{get\-\_\-is\-\_\-enabled}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Data\-Block\-::get\-\_\-is\-\_\-enabled} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDataBlock_a6362ecc61cc2da70373aad8bfa527bc7}
+\hypertarget{classGRIDataBlock_aa50d762ee5a51958b4f3d34b40dce9c9}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!get\-\_\-name@{get\-\_\-name}}
+\index{get\-\_\-name@{get\-\_\-name}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{get\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Data\-Block\-::get\-\_\-name} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDataBlock_aa50d762ee5a51958b4f3d34b40dce9c9}
+\hypertarget{classGRIDataBlock_a7de6b71effd0e59b1035b8a195039058}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!get\-\_\-writer@{get\-\_\-writer}}
+\index{get\-\_\-writer@{get\-\_\-writer}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{get\-\_\-writer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Process\-Thread}$\ast$ {\bf \-G\-R\-I\-Data\-Block\-::get\-\_\-writer} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDataBlock_a7de6b71effd0e59b1035b8a195039058}
+\hypertarget{classGRIDataBlock_ab66752bd04383b5e51e1939bbf6a9392}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!get\-\_\-writer\-\_\-name@{get\-\_\-writer\-\_\-name}}
+\index{get\-\_\-writer\-\_\-name@{get\-\_\-writer\-\_\-name}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{get\-\_\-writer\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Data\-Block\-::get\-\_\-writer\-\_\-name} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDataBlock_ab66752bd04383b5e51e1939bbf6a9392}
+\hypertarget{classGRIDataBlock_a419904d0843e583d9e8d86e1b16e690f}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!\-Get\-Reader\-List@{\-Get\-Reader\-List}}
+\index{\-Get\-Reader\-List@{\-Get\-Reader\-List}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{\-Get\-Reader\-List}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<${\bf reader\-\_\-t}$\ast$$>$$\ast$ {\bf \-G\-R\-I\-Data\-Block\-::\-Get\-Reader\-List} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDataBlock_a419904d0843e583d9e8d86e1b16e690f}
+\hypertarget{classGRIDataBlock_af424f16590858f953f85ceeec0f2c02b}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!\-Load\-Balancing@{\-Load\-Balancing}}
+\index{\-Load\-Balancing@{\-Load\-Balancing}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{\-Load\-Balancing}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Data\-Block\-::\-Load\-Balancing} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIDataBlock_af424f16590858f953f85ceeec0f2c02b}
+\hypertarget{classGRIDataBlock_ab2a5759eab3fbc73d7e02757cfccc9f6}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!set\-\_\-is\-\_\-enabled@{set\-\_\-is\-\_\-enabled}}
+\index{set\-\_\-is\-\_\-enabled@{set\-\_\-is\-\_\-enabled}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{set\-\_\-is\-\_\-enabled}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Data\-Block\-::set\-\_\-is\-\_\-enabled} (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\-\_\-enabled}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDataBlock_ab2a5759eab3fbc73d7e02757cfccc9f6}
+\hypertarget{classGRIDataBlock_a5cb3b15abf54d9d2a21911d47fe70f67}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!\-Set\-Link@{\-Set\-Link}}
+\index{\-Set\-Link@{\-Set\-Link}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{\-Set\-Link}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Data\-Block\-::\-Set\-Link} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-Linked\-List$<$ {\bf \-G\-R\-I\-Process\-Thread} $\ast$ $>$ $\ast$}]{processes}
+\end{DoxyParamCaption}
+)}}\label{classGRIDataBlock_a5cb3b15abf54d9d2a21911d47fe70f67}
+\hypertarget{classGRIDataBlock_a6af736b80630f2dbe8898eea9af2e254}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!\-Update\-Reader@{\-Update\-Reader}}
+\index{\-Update\-Reader@{\-Update\-Reader}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{\-Update\-Reader}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Data\-Block\-::\-Update\-Reader} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIDataBlock_a6af736b80630f2dbe8898eea9af2e254}
+\hypertarget{classGRIDataBlock_a48ea48dbe792688b2a591b763de490a0}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!\-Update\-Writer@{\-Update\-Writer}}
+\index{\-Update\-Writer@{\-Update\-Writer}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{\-Update\-Writer}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Data\-Block\-::\-Update\-Writer} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIDataBlock_a48ea48dbe792688b2a591b763de490a0}
+
+
+\subsection{\-Friends \-And \-Related \-Function \-Documentation}
+\hypertarget{classGRIDataBlock_ae5d9162c1cf3d4e10a949c025ad576d7}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!\-G\-R\-I\-Command\-And\-Control@{\-G\-R\-I\-Command\-And\-Control}}
+\index{\-G\-R\-I\-Command\-And\-Control@{\-G\-R\-I\-Command\-And\-Control}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{\-G\-R\-I\-Command\-And\-Control}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf \-G\-R\-I\-Command\-And\-Control}\hspace{0.3cm}{\ttfamily  \mbox{[}friend\mbox{]}}}}\label{classGRIDataBlock_ae5d9162c1cf3d4e10a949c025ad576d7}
+\hypertarget{classGRIDataBlock_ae3ac15336420ab6b5b09c1d69f48a11f}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}}
+\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{\-G\-R\-I\-Memory\-Manager}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf \-G\-R\-I\-Memory\-Manager}\hspace{0.3cm}{\ttfamily  \mbox{[}friend\mbox{]}}}}\label{classGRIDataBlock_ae3ac15336420ab6b5b09c1d69f48a11f}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRIDataBlock_a5751612837ed2f69ddfaf6d2cdfe511f}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!first\-\_\-packet\-\_\-@{first\-\_\-packet\-\_\-}}
+\index{first\-\_\-packet\-\_\-@{first\-\_\-packet\-\_\-}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{first\-\_\-packet\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}long {\bf \-G\-R\-I\-Data\-Block\-::first\-\_\-packet\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDataBlock_a5751612837ed2f69ddfaf6d2cdfe511f}
+\hypertarget{classGRIDataBlock_a0d33bf9305eab45c3368138490342d5a}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!is\-\_\-enabled\-\_\-@{is\-\_\-enabled\-\_\-}}
+\index{is\-\_\-enabled\-\_\-@{is\-\_\-enabled\-\_\-}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{is\-\_\-enabled\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Data\-Block\-::is\-\_\-enabled\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDataBlock_a0d33bf9305eab45c3368138490342d5a}
+\hypertarget{classGRIDataBlock_a5c80adb5907a0bbda4fd75598aff0176}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!mm\-\_\-@{mm\-\_\-}}
+\index{mm\-\_\-@{mm\-\_\-}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{mm\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Memory\-Manager}$\ast$ {\bf \-G\-R\-I\-Data\-Block\-::mm\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDataBlock_a5c80adb5907a0bbda4fd75598aff0176}
+\hypertarget{classGRIDataBlock_ac964c1f2b5ddb97b8ef333f481687f99}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!name\-\_\-@{name\-\_\-}}
+\index{name\-\_\-@{name\-\_\-}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{name\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Data\-Block\-::name\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDataBlock_ac964c1f2b5ddb97b8ef333f481687f99}
+\hypertarget{classGRIDataBlock_a967f14cfd43d3eae26444741f50ebd0e}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!obj\-\_\-@{obj\-\_\-}}
+\index{obj\-\_\-@{obj\-\_\-}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{obj\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf \-Analysis\-Structure\-Object}$\ast$ {\bf \-G\-R\-I\-Data\-Block\-::obj\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDataBlock_a967f14cfd43d3eae26444741f50ebd0e}
+\hypertarget{classGRIDataBlock_a15b74c7d6fecf83a713ca9bf3b1bbf0f}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!readers\-\_\-@{readers\-\_\-}}
+\index{readers\-\_\-@{readers\-\_\-}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{readers\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<${\bf reader\-\_\-t}$\ast$$>$ {\bf \-G\-R\-I\-Data\-Block\-::readers\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDataBlock_a15b74c7d6fecf83a713ca9bf3b1bbf0f}
+\hypertarget{classGRIDataBlock_ab023a641f8c1bd668f4b830049f97253}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!reg\-\_\-@{reg\-\_\-}}
+\index{reg\-\_\-@{reg\-\_\-}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{reg\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Regulator}$\ast$ {\bf \-G\-R\-I\-Data\-Block\-::reg\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDataBlock_ab023a641f8c1bd668f4b830049f97253}
+\hypertarget{classGRIDataBlock_a76ade2e1bd0d1db89d108f58deee637b}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!write\-\_\-counter\-\_\-@{write\-\_\-counter\-\_\-}}
+\index{write\-\_\-counter\-\_\-@{write\-\_\-counter\-\_\-}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{write\-\_\-counter\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}long {\bf \-G\-R\-I\-Data\-Block\-::write\-\_\-counter\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDataBlock_a76ade2e1bd0d1db89d108f58deee637b}
+\hypertarget{classGRIDataBlock_a7e302800f9de02e958c6b66857f5df39}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!writer\-\_\-@{writer\-\_\-}}
+\index{writer\-\_\-@{writer\-\_\-}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{writer\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Process\-Thread}$\ast$ {\bf \-G\-R\-I\-Data\-Block\-::writer\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDataBlock_a7e302800f9de02e958c6b66857f5df39}
+\hypertarget{classGRIDataBlock_ad2d65d8c5f401bf5726f5a7fd6478e62}{\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!writer\-\_\-name\-\_\-@{writer\-\_\-name\-\_\-}}
+\index{writer\-\_\-name\-\_\-@{writer\-\_\-name\-\_\-}!GRIDataBlock@{\-G\-R\-I\-Data\-Block}}
+\subsubsection[{writer\-\_\-name\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Data\-Block\-::writer\-\_\-name\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDataBlock_ad2d65d8c5f401bf5726f5a7fd6478e62}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRIDataBlock_8h}{\-G\-R\-I\-Data\-Block.\-h}\item 
+framework/source/\hyperlink{GRIDataBlock_8cpp}{\-G\-R\-I\-Data\-Block.\-cpp}\end{DoxyCompactItemize}

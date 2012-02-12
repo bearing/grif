@@ -1,0 +1,49 @@
+\hypertarget{GRICLI_8h}{\section{framework/include/\-G\-R\-I\-C\-L\-I.h \-File \-Reference}
+\label{GRICLI_8h}\index{framework/include/\-G\-R\-I\-C\-L\-I.\-h@{framework/include/\-G\-R\-I\-C\-L\-I.\-h}}
+}
+{\ttfamily \#include $<$\-Q\-Hash$>$}\*
+{\ttfamily \#include $<$\-Q\-List$>$}\*
+{\ttfamily \#include $<$\-Q\-Mutex$>$}\*
+{\ttfamily \#include $<$\-Q\-Object$>$}\*
+{\ttfamily \#include $<$\-Q\-String$>$}\*
+{\ttfamily \#include \char`\"{}\-G\-R\-I\-Defines.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}\-G\-R\-I\-Process\-Thread.\-h\char`\"{}}\*
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classGRICLI}{\-G\-R\-I\-C\-L\-I}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \-Q\-List$<$ \hyperlink{structProcessCommand}{\-Process\-Command} $\ast$ $>$ \hyperlink{GRICLI_8h_abbe5cb9bb48ca20e4d52dd3ff38adac2}{\-C\-L\-I\-\_\-\-M\-A\-C\-R\-O}
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{GRICLI_8h_addcf807c2f309460d6a4a863aeef1da4}{\-C\-L\-I\-\_\-state\-\_\-enum} \{ \hyperlink{GRICLI_8h_addcf807c2f309460d6a4a863aeef1da4a41c6eb506ccf657cc7e958c8e8c769cd}{\-M\-A\-I\-N}, 
+\hyperlink{GRICLI_8h_addcf807c2f309460d6a4a863aeef1da4ade75eec1d1a1ec019fe55d572401cbe5}{\-P\-R\-O\-C\-E\-S\-S\-\_\-\-T\-O\-P}
+ \}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{GRICLI_8h_abbe5cb9bb48ca20e4d52dd3ff38adac2}{\index{\-G\-R\-I\-C\-L\-I.\-h@{\-G\-R\-I\-C\-L\-I.\-h}!\-C\-L\-I\-\_\-\-M\-A\-C\-R\-O@{\-C\-L\-I\-\_\-\-M\-A\-C\-R\-O}}
+\index{\-C\-L\-I\-\_\-\-M\-A\-C\-R\-O@{\-C\-L\-I\-\_\-\-M\-A\-C\-R\-O}!GRICLI.h@{\-G\-R\-I\-C\-L\-I.\-h}}
+\subsubsection[{\-C\-L\-I\-\_\-\-M\-A\-C\-R\-O}]{\setlength{\rightskip}{0pt plus 5cm}typedef \-Q\-List$<${\bf \-Process\-Command} $\ast$$>$ {\bf \-C\-L\-I\-\_\-\-M\-A\-C\-R\-O}}}\label{GRICLI_8h_abbe5cb9bb48ca20e4d52dd3ff38adac2}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{GRICLI_8h_addcf807c2f309460d6a4a863aeef1da4}{\index{\-G\-R\-I\-C\-L\-I.\-h@{\-G\-R\-I\-C\-L\-I.\-h}!\-C\-L\-I\-\_\-state\-\_\-enum@{\-C\-L\-I\-\_\-state\-\_\-enum}}
+\index{\-C\-L\-I\-\_\-state\-\_\-enum@{\-C\-L\-I\-\_\-state\-\_\-enum}!GRICLI.h@{\-G\-R\-I\-C\-L\-I.\-h}}
+\subsubsection[{\-C\-L\-I\-\_\-state\-\_\-enum}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf \-C\-L\-I\-\_\-state\-\_\-enum}}}\label{GRICLI_8h_addcf807c2f309460d6a4a863aeef1da4}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{\-M\-A\-I\-N@{\-M\-A\-I\-N}!\-G\-R\-I\-C\-L\-I.\-h@{\-G\-R\-I\-C\-L\-I.\-h}}\index{\-G\-R\-I\-C\-L\-I.\-h@{\-G\-R\-I\-C\-L\-I.\-h}!\-M\-A\-I\-N@{\-M\-A\-I\-N}}\item[{\em 
+\hypertarget{GRICLI_8h_addcf807c2f309460d6a4a863aeef1da4a41c6eb506ccf657cc7e958c8e8c769cd}{\-M\-A\-I\-N}\label{GRICLI_8h_addcf807c2f309460d6a4a863aeef1da4a41c6eb506ccf657cc7e958c8e8c769cd}
+}]\index{\-P\-R\-O\-C\-E\-S\-S\-\_\-\-T\-O\-P@{\-P\-R\-O\-C\-E\-S\-S\-\_\-\-T\-O\-P}!\-G\-R\-I\-C\-L\-I.\-h@{\-G\-R\-I\-C\-L\-I.\-h}}\index{\-G\-R\-I\-C\-L\-I.\-h@{\-G\-R\-I\-C\-L\-I.\-h}!\-P\-R\-O\-C\-E\-S\-S\-\_\-\-T\-O\-P@{\-P\-R\-O\-C\-E\-S\-S\-\_\-\-T\-O\-P}}\item[{\em 
+\hypertarget{GRICLI_8h_addcf807c2f309460d6a4a863aeef1da4ade75eec1d1a1ec019fe55d572401cbe5}{\-P\-R\-O\-C\-E\-S\-S\-\_\-\-T\-O\-P}\label{GRICLI_8h_addcf807c2f309460d6a4a863aeef1da4ade75eec1d1a1ec019fe55d572401cbe5}
+}]\end{description}
+\end{Desc}
+

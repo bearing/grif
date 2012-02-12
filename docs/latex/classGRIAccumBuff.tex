@@ -1,0 +1,186 @@
+\hypertarget{classGRIAccumBuff}{\section{\-G\-R\-I\-Accum\-Buff$<$ \-T $>$ \-Class \-Template \-Reference}
+\label{classGRIAccumBuff}\index{\-G\-R\-I\-Accum\-Buff$<$ T $>$@{\-G\-R\-I\-Accum\-Buff$<$ T $>$}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-Accum\-Buff.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRIAccumBuff_adba44edcec702b4910818a34e1b73961}{\-G\-R\-I\-Accum\-Buff} ()
+\item 
+\hyperlink{classGRIAccumBuff_a749fb3c5737d1ee33d02595fb11d1b24}{$\sim$\-G\-R\-I\-Accum\-Buff} ()
+\item 
+qint64 \hyperlink{classGRIAccumBuff_a08df4fe23a7f605ca167c1c6d13b5115}{\-Buffer\-Data} (int numel, qint64 t\mbox{[}$\,$\mbox{]}, \-T d\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{classGRIAccumBuff_a64511803162d0227c899cec6753333d2}{\-Reset\-Buffer} (qint64 t1, qint64 t2)
+\item 
+bool \hyperlink{classGRIAccumBuff_af25890074841d4bc044f23f056d3b390}{get\-\_\-bubble} ()
+\item 
+void \hyperlink{classGRIAccumBuff_a5e128cedaec6c428a4ab688a02ef39b4}{set\-\_\-bubble} (bool bubble)
+\item 
+void \hyperlink{classGRIAccumBuff_a21524f7dc51a41a181a49241d7704396}{set\-\_\-leading\-\_\-edge} (bool leading\-\_\-edge)
+\item 
+bool \hyperlink{classGRIAccumBuff_a51610a0878b69c94f278c48382ad827a}{get\-\_\-leading\-\_\-edge} ()
+\item 
+\-T $\ast$ \hyperlink{classGRIAccumBuff_a76963f27bd79481daeef45cddb140e58}{\-Data\-Array} ()
+\item 
+int \hyperlink{classGRIAccumBuff_afd8841b3228f1b7c84e030d7a0983d86}{\-Get\-Data\-Size} ()
+\item 
+qint64 \hyperlink{classGRIAccumBuff_a1eca3d5d5dc180fac8b3c8bcc394d109}{get\-\_\-t1} ()
+\item 
+qint64 \hyperlink{classGRIAccumBuff_a4562576e56c461ed5ec8ef8fcf186330}{get\-\_\-t2} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\-Q\-List$<$ \-T $>$ \hyperlink{classGRIAccumBuff_a62ce6b1368c96c9bbb8db231415dfa17}{data\-\_\-}
+\item 
+\-Q\-List$<$ qint64 $>$ \hyperlink{classGRIAccumBuff_a9e86e603efd9fd1fc2b81e150886a110}{time\-\_\-}
+\begin{DoxyCompactList}\small\item\em list mode data \end{DoxyCompactList}\item 
+qint64 \hyperlink{classGRIAccumBuff_a178faa42c9310620855e01ded9346071}{t1\-\_\-}
+\begin{DoxyCompactList}\small\item\em list mode times \end{DoxyCompactList}\item 
+qint64 \hyperlink{classGRIAccumBuff_ad0a83f96ba721ae8206fe6f0d9d80149}{t2\-\_\-}
+\item 
+bool \hyperlink{classGRIAccumBuff_ade93076f7d91b95de01501143cf85b25}{bubble\-\_\-}
+\begin{DoxyCompactList}\small\item\em \-Timestamp boundaries of this buffer. \end{DoxyCompactList}\item 
+bool \hyperlink{classGRIAccumBuff_af912c9fd29f623504187448efab863a4}{leading\-\_\-edge\-\_\-}
+\begin{DoxyCompactList}\small\item\em \-Last buffer in times. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsubsection*{template$<$class \-T$>$ class G\-R\-I\-Accum\-Buff$<$ T $>$}
+
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRIAccumBuff_adba44edcec702b4910818a34e1b73961}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}}
+\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{\-G\-R\-I\-Accum\-Buff}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf \-G\-R\-I\-Accum\-Buff} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIAccumBuff_adba44edcec702b4910818a34e1b73961}
+\hypertarget{classGRIAccumBuff_a749fb3c5737d1ee33d02595fb11d1b24}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!$\sim$\-G\-R\-I\-Accum\-Buff@{$\sim$\-G\-R\-I\-Accum\-Buff}}
+\index{$\sim$\-G\-R\-I\-Accum\-Buff@{$\sim$\-G\-R\-I\-Accum\-Buff}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{$\sim$\-G\-R\-I\-Accum\-Buff}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::$\sim${\bf \-G\-R\-I\-Accum\-Buff} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIAccumBuff_a749fb3c5737d1ee33d02595fb11d1b24}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRIAccumBuff_a08df4fe23a7f605ca167c1c6d13b5115}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!\-Buffer\-Data@{\-Buffer\-Data}}
+\index{\-Buffer\-Data@{\-Buffer\-Data}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{\-Buffer\-Data}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ qint64 {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf \-Buffer\-Data} (
+\begin{DoxyParamCaption}
+\item[{int}]{numel, }
+\item[{qint64}]{t\mbox{[}$\,$\mbox{]}, }
+\item[{\-T}]{d\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIAccumBuff_a08df4fe23a7f605ca167c1c6d13b5115}
+\hypertarget{classGRIAccumBuff_a76963f27bd79481daeef45cddb140e58}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!\-Data\-Array@{\-Data\-Array}}
+\index{\-Data\-Array@{\-Data\-Array}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{\-Data\-Array}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ \-T$\ast$ {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf \-Data\-Array} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIAccumBuff_a76963f27bd79481daeef45cddb140e58}
+\hypertarget{classGRIAccumBuff_af25890074841d4bc044f23f056d3b390}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!get\-\_\-bubble@{get\-\_\-bubble}}
+\index{get\-\_\-bubble@{get\-\_\-bubble}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{get\-\_\-bubble}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ bool {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf get\-\_\-bubble} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIAccumBuff_af25890074841d4bc044f23f056d3b390}
+\hypertarget{classGRIAccumBuff_a51610a0878b69c94f278c48382ad827a}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!get\-\_\-leading\-\_\-edge@{get\-\_\-leading\-\_\-edge}}
+\index{get\-\_\-leading\-\_\-edge@{get\-\_\-leading\-\_\-edge}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{get\-\_\-leading\-\_\-edge}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ bool {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf get\-\_\-leading\-\_\-edge} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIAccumBuff_a51610a0878b69c94f278c48382ad827a}
+\hypertarget{classGRIAccumBuff_a1eca3d5d5dc180fac8b3c8bcc394d109}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!get\-\_\-t1@{get\-\_\-t1}}
+\index{get\-\_\-t1@{get\-\_\-t1}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{get\-\_\-t1}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ qint64 {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf get\-\_\-t1} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIAccumBuff_a1eca3d5d5dc180fac8b3c8bcc394d109}
+\hypertarget{classGRIAccumBuff_a4562576e56c461ed5ec8ef8fcf186330}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!get\-\_\-t2@{get\-\_\-t2}}
+\index{get\-\_\-t2@{get\-\_\-t2}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{get\-\_\-t2}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ qint64 {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf get\-\_\-t2} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIAccumBuff_a4562576e56c461ed5ec8ef8fcf186330}
+\hypertarget{classGRIAccumBuff_afd8841b3228f1b7c84e030d7a0983d86}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!\-Get\-Data\-Size@{\-Get\-Data\-Size}}
+\index{\-Get\-Data\-Size@{\-Get\-Data\-Size}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{\-Get\-Data\-Size}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ int {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf \-Get\-Data\-Size} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIAccumBuff_afd8841b3228f1b7c84e030d7a0983d86}
+\hypertarget{classGRIAccumBuff_a64511803162d0227c899cec6753333d2}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!\-Reset\-Buffer@{\-Reset\-Buffer}}
+\index{\-Reset\-Buffer@{\-Reset\-Buffer}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{\-Reset\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ void {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf \-Reset\-Buffer} (
+\begin{DoxyParamCaption}
+\item[{qint64}]{t1, }
+\item[{qint64}]{t2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIAccumBuff_a64511803162d0227c899cec6753333d2}
+\hypertarget{classGRIAccumBuff_a5e128cedaec6c428a4ab688a02ef39b4}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!set\-\_\-bubble@{set\-\_\-bubble}}
+\index{set\-\_\-bubble@{set\-\_\-bubble}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{set\-\_\-bubble}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ void {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf set\-\_\-bubble} (
+\begin{DoxyParamCaption}
+\item[{bool}]{bubble}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIAccumBuff_a5e128cedaec6c428a4ab688a02ef39b4}
+\hypertarget{classGRIAccumBuff_a21524f7dc51a41a181a49241d7704396}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!set\-\_\-leading\-\_\-edge@{set\-\_\-leading\-\_\-edge}}
+\index{set\-\_\-leading\-\_\-edge@{set\-\_\-leading\-\_\-edge}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{set\-\_\-leading\-\_\-edge}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ void {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf set\-\_\-leading\-\_\-edge} (
+\begin{DoxyParamCaption}
+\item[{bool}]{leading\-\_\-edge}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIAccumBuff_a21524f7dc51a41a181a49241d7704396}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRIAccumBuff_ade93076f7d91b95de01501143cf85b25}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!bubble\-\_\-@{bubble\-\_\-}}
+\index{bubble\-\_\-@{bubble\-\_\-}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{bubble\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ bool {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf bubble\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIAccumBuff_ade93076f7d91b95de01501143cf85b25}
+
+
+\-Timestamp boundaries of this buffer. 
+
+\hypertarget{classGRIAccumBuff_a62ce6b1368c96c9bbb8db231415dfa17}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!data\-\_\-@{data\-\_\-}}
+\index{data\-\_\-@{data\-\_\-}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{data\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ \-Q\-List$<$\-T$>$ {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf data\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIAccumBuff_a62ce6b1368c96c9bbb8db231415dfa17}
+\hypertarget{classGRIAccumBuff_af912c9fd29f623504187448efab863a4}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!leading\-\_\-edge\-\_\-@{leading\-\_\-edge\-\_\-}}
+\index{leading\-\_\-edge\-\_\-@{leading\-\_\-edge\-\_\-}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{leading\-\_\-edge\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ bool {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf leading\-\_\-edge\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIAccumBuff_af912c9fd29f623504187448efab863a4}
+
+
+\-Last buffer in times. 
+
+\hypertarget{classGRIAccumBuff_a178faa42c9310620855e01ded9346071}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!t1\-\_\-@{t1\-\_\-}}
+\index{t1\-\_\-@{t1\-\_\-}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{t1\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ qint64 {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf t1\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIAccumBuff_a178faa42c9310620855e01ded9346071}
+
+
+list mode times 
+
+\hypertarget{classGRIAccumBuff_ad0a83f96ba721ae8206fe6f0d9d80149}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!t2\-\_\-@{t2\-\_\-}}
+\index{t2\-\_\-@{t2\-\_\-}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{t2\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ qint64 {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf t2\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIAccumBuff_ad0a83f96ba721ae8206fe6f0d9d80149}
+\hypertarget{classGRIAccumBuff_a9e86e603efd9fd1fc2b81e150886a110}{\index{\-G\-R\-I\-Accum\-Buff@{\-G\-R\-I\-Accum\-Buff}!time\-\_\-@{time\-\_\-}}
+\index{time\-\_\-@{time\-\_\-}!GRIAccumBuff@{\-G\-R\-I\-Accum\-Buff}}
+\subsubsection[{time\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ \-Q\-List$<$qint64$>$ {\bf \-G\-R\-I\-Accum\-Buff}$<$ \-T $>$\-::{\bf time\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIAccumBuff_a9e86e603efd9fd1fc2b81e150886a110}
+
+
+list mode data 
+
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRIAccumBuff_8h}{\-G\-R\-I\-Accum\-Buff.\-h}\end{DoxyCompactItemize}

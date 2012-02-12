@@ -1,0 +1,245 @@
+\hypertarget{classGRICLI}{\section{\-G\-R\-I\-C\-L\-I \-Class \-Reference}
+\label{classGRICLI}\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-C\-L\-I.\-h$>$}
+
+\subsection*{\-Public \-Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGRICLI_a6ab2fa3bf247c4fec9ff6b595b188b34}{\-Receive\-Process\-Get} (\hyperlink{structProcessCommand}{\-Process\-Command} $\ast$pc)
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRICLI_a9aa4a6ba0951c97e617fd6be0c10f448}{\-G\-R\-I\-C\-L\-I} (\-Q\-List$<$ \hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} $\ast$ $>$ $\ast$processes)
+\item 
+virtual \hyperlink{classGRICLI_abc1d534f08f1a459a1364e5b7f26c489}{$\sim$\-G\-R\-I\-C\-L\-I} ()
+\item 
+void \hyperlink{classGRICLI_a97689492f2a9a5a274551233a47e5732}{\-Launch} ()
+\item 
+void \hyperlink{classGRICLI_ac09c912e6b7135ccbc157d2f6debc564}{\-Quit} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGRICLI_aca8db115606e75236a95dfb0d5146a0f}{\-Display\-Main} ()
+\item 
+void \hyperlink{classGRICLI_af81933db339377109871b85301bade63}{\-Display\-Help} ()
+\item 
+void \hyperlink{classGRICLI_ad1e1cd6f97c3e292865a6d82bea2d5b2}{\-Display\-Processes} ()
+\item 
+void \hyperlink{classGRICLI_a7f18b3d8d774f28264fe0d6013181e40}{\-Handle\-Main} (\-Q\-String $\ast$instr\-\_\-array, int n)
+\item 
+void \hyperlink{classGRICLI_aacdb93fd3aa84ed7f34a60ed23633cb8}{\-Handle\-Process\-Top} (\-Q\-String $\ast$instr\-\_\-array, int n)
+\item 
+void \hyperlink{classGRICLI_a2bdf0e3ff63cc8eb5b6797e715e33929}{\-Init} ()
+\item 
+void \hyperlink{classGRICLI_a8889ab59706fd5ed470840f0b126ed4f}{\-Handle\-Macro\-Def} (const \-Q\-String \&instr)
+\item 
+void \hyperlink{classGRICLI_a11dce2aefbf1502f5cddfb9d847bfd5b}{\-Handle\-Macro\-Execution} (\-Q\-String $\ast$instr\-\_\-array, int n)
+\item 
+void \hyperlink{classGRICLI_a1815d632d67a992addc93e2acdc52075}{\-Process\-Set} (const \-Q\-String \&name, const \-Q\-String \&value, const \-Q\-String \&data\-Type)
+\item 
+void \hyperlink{classGRICLI_a73efea538a8f8dfeefc8887446174e90}{\-Process\-Get} (const \-Q\-String \&name, const \-Q\-String \&data\-Type)
+\item 
+void \hyperlink{classGRICLI_adeef08c8941fab8988315f673b4fa7b6}{\-Process\-Action} (const \-Q\-String \&name)
+\item 
+\hyperlink{structProcessCommand}{\-Process\-Command} $\ast$ \hyperlink{classGRICLI_a3b2c17c5a1b9fd19455e07d336b3c5b0}{\-Create\-Get\-Command} (const \-Q\-String \&name, const \-Q\-String \&data\-Type)
+\item 
+\hyperlink{structProcessCommand}{\-Process\-Command} $\ast$ \hyperlink{classGRICLI_a4b0b181e1dad96c764ed7389cc604447}{\-Create\-Set\-Command} (const \-Q\-String \&name, const \-Q\-String \&value, const \-Q\-String \&data\-Type)
+\item 
+\hyperlink{structProcessCommand}{\-Process\-Command} $\ast$ \hyperlink{classGRICLI_aed09a0a961861bdd5c7f0c0c98f22518}{\-Create\-Run\-Action\-Command} (const \-Q\-String \&name)
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} $\ast$ \hyperlink{classGRICLI_ab77675a0f98245725c817bd4da6366f9}{curr\-\_\-proc\-\_\-}
+\item 
+\-Q\-List$<$ \hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} $\ast$ $>$ $\ast$ \hyperlink{classGRICLI_aec943cc82eb1af73f5e07100ade7407a}{processes\-\_\-}
+\item 
+\-Q\-Hash$<$ \-Q\-String, \*
+\hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} $\ast$ $>$ \hyperlink{classGRICLI_a4ff8ac76c1ca18864685470f08f11726}{process\-\_\-hash\-\_\-}
+\item 
+\-Q\-Hash$<$ \-Q\-String, \hyperlink{GRICLI_8h_abbe5cb9bb48ca20e4d52dd3ff38adac2}{\-C\-L\-I\-\_\-\-M\-A\-C\-R\-O} $>$ \hyperlink{classGRICLI_af629f086e578ea27198081ee007aa98f}{macro\-\_\-hash\-\_\-}
+\item 
+enum \hyperlink{GRICLI_8h_addcf807c2f309460d6a4a863aeef1da4}{\-C\-L\-I\-\_\-state\-\_\-enum} \hyperlink{classGRICLI_acec2fb69c8c83f03d286aaf13c8de52a}{cli\-\_\-state\-\_\-}
+\item 
+\-Q\-Mutex \hyperlink{classGRICLI_aa32c9c2ff84d0edb0ba2f4390f4de1d3}{get\-\_\-lock\-\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRICLI_a9aa4a6ba0951c97e617fd6be0c10f448}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}}
+\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-G\-R\-I\-C\-L\-I}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-C\-L\-I\-::\-G\-R\-I\-C\-L\-I} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-List$<$ {\bf \-G\-R\-I\-Process\-Thread} $\ast$ $>$ $\ast$}]{processes}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}}\label{classGRICLI_a9aa4a6ba0951c97e617fd6be0c10f448}
+\hypertarget{classGRICLI_abc1d534f08f1a459a1364e5b7f26c489}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!$\sim$\-G\-R\-I\-C\-L\-I@{$\sim$\-G\-R\-I\-C\-L\-I}}
+\index{$\sim$\-G\-R\-I\-C\-L\-I@{$\sim$\-G\-R\-I\-C\-L\-I}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{$\sim$\-G\-R\-I\-C\-L\-I}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf \-G\-R\-I\-C\-L\-I\-::$\sim$\-G\-R\-I\-C\-L\-I} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRICLI_abc1d534f08f1a459a1364e5b7f26c489}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRICLI_a3b2c17c5a1b9fd19455e07d336b3c5b0}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Create\-Get\-Command@{\-Create\-Get\-Command}}
+\index{\-Create\-Get\-Command@{\-Create\-Get\-Command}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Create\-Get\-Command}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Process\-Command} $\ast$ {\bf \-G\-R\-I\-C\-L\-I\-::\-Create\-Get\-Command} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name, }
+\item[{const \-Q\-String \&}]{data\-Type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_a3b2c17c5a1b9fd19455e07d336b3c5b0}
+\hypertarget{classGRICLI_aed09a0a961861bdd5c7f0c0c98f22518}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Create\-Run\-Action\-Command@{\-Create\-Run\-Action\-Command}}
+\index{\-Create\-Run\-Action\-Command@{\-Create\-Run\-Action\-Command}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Create\-Run\-Action\-Command}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Process\-Command} $\ast$ {\bf \-G\-R\-I\-C\-L\-I\-::\-Create\-Run\-Action\-Command} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_aed09a0a961861bdd5c7f0c0c98f22518}
+\hypertarget{classGRICLI_a4b0b181e1dad96c764ed7389cc604447}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Create\-Set\-Command@{\-Create\-Set\-Command}}
+\index{\-Create\-Set\-Command@{\-Create\-Set\-Command}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Create\-Set\-Command}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Process\-Command} $\ast$ {\bf \-G\-R\-I\-C\-L\-I\-::\-Create\-Set\-Command} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name, }
+\item[{const \-Q\-String \&}]{value, }
+\item[{const \-Q\-String \&}]{data\-Type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_a4b0b181e1dad96c764ed7389cc604447}
+\hypertarget{classGRICLI_af81933db339377109871b85301bade63}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Display\-Help@{\-Display\-Help}}
+\index{\-Display\-Help@{\-Display\-Help}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Display\-Help}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-C\-L\-I\-::\-Display\-Help} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_af81933db339377109871b85301bade63}
+\hypertarget{classGRICLI_aca8db115606e75236a95dfb0d5146a0f}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Display\-Main@{\-Display\-Main}}
+\index{\-Display\-Main@{\-Display\-Main}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Display\-Main}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-C\-L\-I\-::\-Display\-Main} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_aca8db115606e75236a95dfb0d5146a0f}
+\hypertarget{classGRICLI_ad1e1cd6f97c3e292865a6d82bea2d5b2}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Display\-Processes@{\-Display\-Processes}}
+\index{\-Display\-Processes@{\-Display\-Processes}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Display\-Processes}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-C\-L\-I\-::\-Display\-Processes} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_ad1e1cd6f97c3e292865a6d82bea2d5b2}
+\hypertarget{classGRICLI_a8889ab59706fd5ed470840f0b126ed4f}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Handle\-Macro\-Def@{\-Handle\-Macro\-Def}}
+\index{\-Handle\-Macro\-Def@{\-Handle\-Macro\-Def}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Handle\-Macro\-Def}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-C\-L\-I\-::\-Handle\-Macro\-Def} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{instr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_a8889ab59706fd5ed470840f0b126ed4f}
+\hypertarget{classGRICLI_a11dce2aefbf1502f5cddfb9d847bfd5b}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Handle\-Macro\-Execution@{\-Handle\-Macro\-Execution}}
+\index{\-Handle\-Macro\-Execution@{\-Handle\-Macro\-Execution}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Handle\-Macro\-Execution}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-C\-L\-I\-::\-Handle\-Macro\-Execution} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String $\ast$}]{instr\-\_\-array, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_a11dce2aefbf1502f5cddfb9d847bfd5b}
+\hypertarget{classGRICLI_a7f18b3d8d774f28264fe0d6013181e40}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Handle\-Main@{\-Handle\-Main}}
+\index{\-Handle\-Main@{\-Handle\-Main}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Handle\-Main}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-C\-L\-I\-::\-Handle\-Main} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String $\ast$}]{instr\-\_\-array, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_a7f18b3d8d774f28264fe0d6013181e40}
+\hypertarget{classGRICLI_aacdb93fd3aa84ed7f34a60ed23633cb8}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Handle\-Process\-Top@{\-Handle\-Process\-Top}}
+\index{\-Handle\-Process\-Top@{\-Handle\-Process\-Top}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Handle\-Process\-Top}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-C\-L\-I\-::\-Handle\-Process\-Top} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String $\ast$}]{instr\-\_\-array, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_aacdb93fd3aa84ed7f34a60ed23633cb8}
+\hypertarget{classGRICLI_a2bdf0e3ff63cc8eb5b6797e715e33929}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Init@{\-Init}}
+\index{\-Init@{\-Init}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Init}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-C\-L\-I\-::\-Init} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_a2bdf0e3ff63cc8eb5b6797e715e33929}
+\hypertarget{classGRICLI_a97689492f2a9a5a274551233a47e5732}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Launch@{\-Launch}}
+\index{\-Launch@{\-Launch}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Launch}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-C\-L\-I\-::\-Launch} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRICLI_a97689492f2a9a5a274551233a47e5732}
+\hypertarget{classGRICLI_adeef08c8941fab8988315f673b4fa7b6}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Process\-Action@{\-Process\-Action}}
+\index{\-Process\-Action@{\-Process\-Action}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Process\-Action}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-C\-L\-I\-::\-Process\-Action} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_adeef08c8941fab8988315f673b4fa7b6}
+\hypertarget{classGRICLI_a73efea538a8f8dfeefc8887446174e90}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Process\-Get@{\-Process\-Get}}
+\index{\-Process\-Get@{\-Process\-Get}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Process\-Get}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-C\-L\-I\-::\-Process\-Get} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name, }
+\item[{const \-Q\-String \&}]{data\-Type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_a73efea538a8f8dfeefc8887446174e90}
+\hypertarget{classGRICLI_a1815d632d67a992addc93e2acdc52075}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Process\-Set@{\-Process\-Set}}
+\index{\-Process\-Set@{\-Process\-Set}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Process\-Set}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-C\-L\-I\-::\-Process\-Set} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name, }
+\item[{const \-Q\-String \&}]{value, }
+\item[{const \-Q\-String \&}]{data\-Type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_a1815d632d67a992addc93e2acdc52075}
+\hypertarget{classGRICLI_ac09c912e6b7135ccbc157d2f6debc564}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Quit@{\-Quit}}
+\index{\-Quit@{\-Quit}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Quit}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-C\-L\-I\-::\-Quit} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRICLI_ac09c912e6b7135ccbc157d2f6debc564}
+\hypertarget{classGRICLI_a6ab2fa3bf247c4fec9ff6b595b188b34}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!\-Receive\-Process\-Get@{\-Receive\-Process\-Get}}
+\index{\-Receive\-Process\-Get@{\-Receive\-Process\-Get}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{\-Receive\-Process\-Get}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-C\-L\-I\-::\-Receive\-Process\-Get} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Process\-Command} $\ast$}]{pc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}\label{classGRICLI_a6ab2fa3bf247c4fec9ff6b595b188b34}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRICLI_acec2fb69c8c83f03d286aaf13c8de52a}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!cli\-\_\-state\-\_\-@{cli\-\_\-state\-\_\-}}
+\index{cli\-\_\-state\-\_\-@{cli\-\_\-state\-\_\-}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{cli\-\_\-state\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf \-C\-L\-I\-\_\-state\-\_\-enum} {\bf \-G\-R\-I\-C\-L\-I\-::cli\-\_\-state\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_acec2fb69c8c83f03d286aaf13c8de52a}
+\hypertarget{classGRICLI_ab77675a0f98245725c817bd4da6366f9}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!curr\-\_\-proc\-\_\-@{curr\-\_\-proc\-\_\-}}
+\index{curr\-\_\-proc\-\_\-@{curr\-\_\-proc\-\_\-}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{curr\-\_\-proc\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Process\-Thread}$\ast$ {\bf \-G\-R\-I\-C\-L\-I\-::curr\-\_\-proc\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_ab77675a0f98245725c817bd4da6366f9}
+\hypertarget{classGRICLI_aa32c9c2ff84d0edb0ba2f4390f4de1d3}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!get\-\_\-lock\-\_\-@{get\-\_\-lock\-\_\-}}
+\index{get\-\_\-lock\-\_\-@{get\-\_\-lock\-\_\-}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{get\-\_\-lock\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Mutex {\bf \-G\-R\-I\-C\-L\-I\-::get\-\_\-lock\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}mutable, private\mbox{]}}}}\label{classGRICLI_aa32c9c2ff84d0edb0ba2f4390f4de1d3}
+\hypertarget{classGRICLI_af629f086e578ea27198081ee007aa98f}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!macro\-\_\-hash\-\_\-@{macro\-\_\-hash\-\_\-}}
+\index{macro\-\_\-hash\-\_\-@{macro\-\_\-hash\-\_\-}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{macro\-\_\-hash\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Hash$<$\-Q\-String, {\bf \-C\-L\-I\-\_\-\-M\-A\-C\-R\-O}$>$ {\bf \-G\-R\-I\-C\-L\-I\-::macro\-\_\-hash\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_af629f086e578ea27198081ee007aa98f}
+\hypertarget{classGRICLI_a4ff8ac76c1ca18864685470f08f11726}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!process\-\_\-hash\-\_\-@{process\-\_\-hash\-\_\-}}
+\index{process\-\_\-hash\-\_\-@{process\-\_\-hash\-\_\-}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{process\-\_\-hash\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Hash$<$\-Q\-String, {\bf \-G\-R\-I\-Process\-Thread}$\ast$$>$ {\bf \-G\-R\-I\-C\-L\-I\-::process\-\_\-hash\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_a4ff8ac76c1ca18864685470f08f11726}
+\hypertarget{classGRICLI_aec943cc82eb1af73f5e07100ade7407a}{\index{\-G\-R\-I\-C\-L\-I@{\-G\-R\-I\-C\-L\-I}!processes\-\_\-@{processes\-\_\-}}
+\index{processes\-\_\-@{processes\-\_\-}!GRICLI@{\-G\-R\-I\-C\-L\-I}}
+\subsubsection[{processes\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<${\bf \-G\-R\-I\-Process\-Thread}$\ast$$>$$\ast$ {\bf \-G\-R\-I\-C\-L\-I\-::processes\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRICLI_aec943cc82eb1af73f5e07100ade7407a}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRICLI_8h}{\-G\-R\-I\-C\-L\-I.\-h}\item 
+framework/source/\hyperlink{GRICLI_8cpp}{\-G\-R\-I\-C\-L\-I.\-cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,115 @@
+\hypertarget{classGRILoader}{\section{\-G\-R\-I\-Loader \-Class \-Reference}
+\label{classGRILoader}\index{\-G\-R\-I\-Loader@{\-G\-R\-I\-Loader}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-Loader.\-h$>$}
+
+\-Inheritance diagram for \-G\-R\-I\-Loader\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classGRILoader}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRILoader_a2a5f8429fab28b6a2c37f909f9402160}{\-G\-R\-I\-Loader} (\hyperlink{classGRIRegulator}{\-G\-R\-I\-Regulator} $\ast$regulator)
+\item 
+virtual \hyperlink{classGRILoader_a4efe8ca296da5e985570ba7552f611fe}{$\sim$\-G\-R\-I\-Loader} ()
+\item 
+void \hyperlink{classGRILoader_afaf6662605f0318bf9ec489281f2f02c}{\-Init\-Regulator\-Details} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} $\ast$ \hyperlink{classGRILoader_a7f291c62743327222e6671b6bcb946e3}{\-Load} (\-Q\-String process\-\_\-name, \-Q\-String object\-\_\-name)=0
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGRILoader_a053cdaf91d58597a72bb8d37a92aada2}{\-Detect\-Cycles} ()
+\item 
+void \hyperlink{classGRILoader_a046f82faeda529ab99281dff17045ece}{\-Update\-Graph} (const \-Q\-String \&reader, const \-Q\-String \&writer)
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRIRegulator}{\-G\-R\-I\-Regulator} $\ast$ \hyperlink{classGRILoader_a6425751314cf071349e56d9c76ad79f3}{regulator\-\_\-}
+\item 
+\-Q\-List$<$ \hyperlink{GRILoader_8h_acac1200ac774ce3fecdc270358e4a6b4}{\-Edge} $>$ \hyperlink{classGRILoader_a34891667a8e27bfb35d51b312ed0d5de}{edges\-\_\-}
+\item 
+\-Q\-Hash$<$ \-Q\-String, int $>$ \hyperlink{classGRILoader_ae228167d1e2ff94fcef40f0fb2d5f413}{node\-\_\-index\-\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRILoader_a2a5f8429fab28b6a2c37f909f9402160}{\index{\-G\-R\-I\-Loader@{\-G\-R\-I\-Loader}!\-G\-R\-I\-Loader@{\-G\-R\-I\-Loader}}
+\index{\-G\-R\-I\-Loader@{\-G\-R\-I\-Loader}!GRILoader@{\-G\-R\-I\-Loader}}
+\subsubsection[{\-G\-R\-I\-Loader}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Loader\-::\-G\-R\-I\-Loader} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-G\-R\-I\-Regulator} $\ast$}]{regulator}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}}\label{classGRILoader_a2a5f8429fab28b6a2c37f909f9402160}
+\hypertarget{classGRILoader_a4efe8ca296da5e985570ba7552f611fe}{\index{\-G\-R\-I\-Loader@{\-G\-R\-I\-Loader}!$\sim$\-G\-R\-I\-Loader@{$\sim$\-G\-R\-I\-Loader}}
+\index{$\sim$\-G\-R\-I\-Loader@{$\sim$\-G\-R\-I\-Loader}!GRILoader@{\-G\-R\-I\-Loader}}
+\subsubsection[{$\sim$\-G\-R\-I\-Loader}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf \-G\-R\-I\-Loader\-::$\sim$\-G\-R\-I\-Loader} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRILoader_a4efe8ca296da5e985570ba7552f611fe}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRILoader_a053cdaf91d58597a72bb8d37a92aada2}{\index{\-G\-R\-I\-Loader@{\-G\-R\-I\-Loader}!\-Detect\-Cycles@{\-Detect\-Cycles}}
+\index{\-Detect\-Cycles@{\-Detect\-Cycles}!GRILoader@{\-G\-R\-I\-Loader}}
+\subsubsection[{\-Detect\-Cycles}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Loader\-::\-Detect\-Cycles} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRILoader_a053cdaf91d58597a72bb8d37a92aada2}
+\hypertarget{classGRILoader_afaf6662605f0318bf9ec489281f2f02c}{\index{\-G\-R\-I\-Loader@{\-G\-R\-I\-Loader}!\-Init\-Regulator\-Details@{\-Init\-Regulator\-Details}}
+\index{\-Init\-Regulator\-Details@{\-Init\-Regulator\-Details}!GRILoader@{\-G\-R\-I\-Loader}}
+\subsubsection[{\-Init\-Regulator\-Details}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Loader\-::\-Init\-Regulator\-Details} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRILoader_afaf6662605f0318bf9ec489281f2f02c}
+\hypertarget{classGRILoader_a7f291c62743327222e6671b6bcb946e3}{\index{\-G\-R\-I\-Loader@{\-G\-R\-I\-Loader}!\-Load@{\-Load}}
+\index{\-Load@{\-Load}!GRILoader@{\-G\-R\-I\-Loader}}
+\subsubsection[{\-Load}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf \-G\-R\-I\-Process\-Thread}$\ast$ {\bf \-G\-R\-I\-Loader\-::\-Load} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{process\-\_\-name, }
+\item[{\-Q\-String}]{object\-\_\-name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected, pure virtual\mbox{]}}}}\label{classGRILoader_a7f291c62743327222e6671b6bcb946e3}
+
+
+\-Implemented in \hyperlink{classGRIUserLoader_ae066002b550a6778362f61695463ba6a}{\-G\-R\-I\-User\-Loader}.
+
+\hypertarget{classGRILoader_a046f82faeda529ab99281dff17045ece}{\index{\-G\-R\-I\-Loader@{\-G\-R\-I\-Loader}!\-Update\-Graph@{\-Update\-Graph}}
+\index{\-Update\-Graph@{\-Update\-Graph}!GRILoader@{\-G\-R\-I\-Loader}}
+\subsubsection[{\-Update\-Graph}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Loader\-::\-Update\-Graph} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{reader, }
+\item[{const \-Q\-String \&}]{writer}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRILoader_a046f82faeda529ab99281dff17045ece}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRILoader_a34891667a8e27bfb35d51b312ed0d5de}{\index{\-G\-R\-I\-Loader@{\-G\-R\-I\-Loader}!edges\-\_\-@{edges\-\_\-}}
+\index{edges\-\_\-@{edges\-\_\-}!GRILoader@{\-G\-R\-I\-Loader}}
+\subsubsection[{edges\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<${\bf \-Edge}$>$ {\bf \-G\-R\-I\-Loader\-::edges\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRILoader_a34891667a8e27bfb35d51b312ed0d5de}
+\hypertarget{classGRILoader_ae228167d1e2ff94fcef40f0fb2d5f413}{\index{\-G\-R\-I\-Loader@{\-G\-R\-I\-Loader}!node\-\_\-index\-\_\-@{node\-\_\-index\-\_\-}}
+\index{node\-\_\-index\-\_\-@{node\-\_\-index\-\_\-}!GRILoader@{\-G\-R\-I\-Loader}}
+\subsubsection[{node\-\_\-index\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Hash$<$\-Q\-String, int$>$ {\bf \-G\-R\-I\-Loader\-::node\-\_\-index\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRILoader_ae228167d1e2ff94fcef40f0fb2d5f413}
+\hypertarget{classGRILoader_a6425751314cf071349e56d9c76ad79f3}{\index{\-G\-R\-I\-Loader@{\-G\-R\-I\-Loader}!regulator\-\_\-@{regulator\-\_\-}}
+\index{regulator\-\_\-@{regulator\-\_\-}!GRILoader@{\-G\-R\-I\-Loader}}
+\subsubsection[{regulator\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Regulator}$\ast$ {\bf \-G\-R\-I\-Loader\-::regulator\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRILoader_a6425751314cf071349e56d9c76ad79f3}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRILoader_8h}{\-G\-R\-I\-Loader.\-h}\item 
+framework/source/\hyperlink{GRILoader_8cpp}{\-G\-R\-I\-Loader.\-cpp}\end{DoxyCompactItemize}

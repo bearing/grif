@@ -1,0 +1,174 @@
+\hypertarget{classGRIThread}{\section{\-G\-R\-I\-Thread \-Class \-Reference}
+\label{classGRIThread}\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-Thread.\-h$>$}
+
+\-Inheritance diagram for \-G\-R\-I\-Thread\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classGRIThread}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRIThread_a4aaa2f1c4e2619ca4ccc3f36cd94165a}{\-G\-R\-I\-Thread} ()
+\item 
+\hyperlink{classGRIThread_a94c170f5a1e8ec54d6d715ae7e84620a}{$\sim$\-G\-R\-I\-Thread} ()
+\item 
+virtual void \hyperlink{classGRIThread_ae1b28195c7dcc1a241401af506597c67}{run} ()
+\item 
+void \hyperlink{classGRIThread_aec77bf5b50eb3eb7b2388cb83d3bf40f}{\-Commit\-Log} (int level)
+\item 
+void \hyperlink{classGRIThread_abb6e0c600ff6bb3cac028897ba7328d5}{set\-\_\-exit\-\_\-thread\-\_\-flag} (bool exit\-\_\-thread\-\_\-flag)
+\item 
+bool \hyperlink{classGRIThread_ae9efcc46bc524a3decbb514d79357c94}{get\-\_\-exit\-\_\-thread\-\_\-flag} ()
+\item 
+void \hyperlink{classGRIThread_a2ebe0605edc6a46f7c1825859035afc3}{set\-\_\-force\-\_\-quit} (bool force\-\_\-quit)
+\item 
+bool \hyperlink{classGRIThread_a4109f737fd9c24038dd0eedfc1c6a058}{get\-\_\-force\-\_\-quit} ()
+\item 
+void \hyperlink{classGRIThread_a3c898be7b730281944ad8ac16ea8cba7}{set\-\_\-sleeping} (bool sleeping)
+\item 
+bool \hyperlink{classGRIThread_a331eabba7b6559df1ed74e6605351427}{get\-\_\-sleeping} ()
+\item 
+void \hyperlink{classGRIThread_aa8f133c793457423eb98b2df5da1ed59}{set\-\_\-name} (const \-Q\-String \&name)
+\item 
+\-Q\-String \hyperlink{classGRIThread_a33f10e6e463f79e06f40e3a55f36281e}{get\-\_\-name} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\-Q\-Text\-Stream \hyperlink{classGRIThread_a471b216d64d51839bb08d311f5961aed}{log}
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRILogMessage}{\-G\-R\-I\-Log\-Message} \hyperlink{classGRIThread_a48647bac03c49d9eaf0630b2c47ee65d}{log\-\_\-msg\-\_\-}
+\item 
+bool \hyperlink{classGRIThread_a9694b004665bd62604ace2cdd6f00461}{exit\-\_\-thread\-\_\-flag\-\_\-}
+\item 
+bool \hyperlink{classGRIThread_a0cba5383e1e8e8e43642da07eb469f36}{sleeping\-\_\-}
+\item 
+bool \hyperlink{classGRIThread_aed787d5b9947fa7367fc44f56ef80247}{force\-\_\-quit\-\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRIThread_a4aaa2f1c4e2619ca4ccc3f36cd94165a}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}}
+\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{\-G\-R\-I\-Thread}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Thread\-::\-G\-R\-I\-Thread} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIThread_a4aaa2f1c4e2619ca4ccc3f36cd94165a}
+\hypertarget{classGRIThread_a94c170f5a1e8ec54d6d715ae7e84620a}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!$\sim$\-G\-R\-I\-Thread@{$\sim$\-G\-R\-I\-Thread}}
+\index{$\sim$\-G\-R\-I\-Thread@{$\sim$\-G\-R\-I\-Thread}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{$\sim$\-G\-R\-I\-Thread}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Thread\-::$\sim$\-G\-R\-I\-Thread} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIThread_a94c170f5a1e8ec54d6d715ae7e84620a}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRIThread_aec77bf5b50eb3eb7b2388cb83d3bf40f}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!\-Commit\-Log@{\-Commit\-Log}}
+\index{\-Commit\-Log@{\-Commit\-Log}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{\-Commit\-Log}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Thread\-::\-Commit\-Log} (
+\begin{DoxyParamCaption}
+\item[{int}]{level}
+\end{DoxyParamCaption}
+)}}\label{classGRIThread_aec77bf5b50eb3eb7b2388cb83d3bf40f}
+\hypertarget{classGRIThread_ae9efcc46bc524a3decbb514d79357c94}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!get\-\_\-exit\-\_\-thread\-\_\-flag@{get\-\_\-exit\-\_\-thread\-\_\-flag}}
+\index{get\-\_\-exit\-\_\-thread\-\_\-flag@{get\-\_\-exit\-\_\-thread\-\_\-flag}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{get\-\_\-exit\-\_\-thread\-\_\-flag}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Thread\-::get\-\_\-exit\-\_\-thread\-\_\-flag} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIThread_ae9efcc46bc524a3decbb514d79357c94}
+\hypertarget{classGRIThread_a4109f737fd9c24038dd0eedfc1c6a058}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!get\-\_\-force\-\_\-quit@{get\-\_\-force\-\_\-quit}}
+\index{get\-\_\-force\-\_\-quit@{get\-\_\-force\-\_\-quit}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{get\-\_\-force\-\_\-quit}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Thread\-::get\-\_\-force\-\_\-quit} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIThread_a4109f737fd9c24038dd0eedfc1c6a058}
+\hypertarget{classGRIThread_a33f10e6e463f79e06f40e3a55f36281e}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!get\-\_\-name@{get\-\_\-name}}
+\index{get\-\_\-name@{get\-\_\-name}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{get\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Thread\-::get\-\_\-name} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIThread_a33f10e6e463f79e06f40e3a55f36281e}
+\hypertarget{classGRIThread_a331eabba7b6559df1ed74e6605351427}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!get\-\_\-sleeping@{get\-\_\-sleeping}}
+\index{get\-\_\-sleeping@{get\-\_\-sleeping}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{get\-\_\-sleeping}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Thread\-::get\-\_\-sleeping} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIThread_a331eabba7b6559df1ed74e6605351427}
+\hypertarget{classGRIThread_ae1b28195c7dcc1a241401af506597c67}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!run@{run}}
+\index{run@{run}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-Thread\-::run} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIThread_ae1b28195c7dcc1a241401af506597c67}
+
+
+\-Reimplemented in \hyperlink{classGRIDAQThread_ae65ca14666b051d8db1c453376c1cb7d}{\-G\-R\-I\-D\-A\-Q\-Thread}, \hyperlink{classGRIProcessThread_a0d70fb6923169f4001330b47202189a3}{\-G\-R\-I\-Process\-Thread}, and \hyperlink{classGRIAnalysisThread_acc07ee77c102f8bac877efe9938d4586}{\-G\-R\-I\-Analysis\-Thread}.
+
+\hypertarget{classGRIThread_abb6e0c600ff6bb3cac028897ba7328d5}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!set\-\_\-exit\-\_\-thread\-\_\-flag@{set\-\_\-exit\-\_\-thread\-\_\-flag}}
+\index{set\-\_\-exit\-\_\-thread\-\_\-flag@{set\-\_\-exit\-\_\-thread\-\_\-flag}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{set\-\_\-exit\-\_\-thread\-\_\-flag}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Thread\-::set\-\_\-exit\-\_\-thread\-\_\-flag} (
+\begin{DoxyParamCaption}
+\item[{bool}]{exit\-\_\-thread\-\_\-flag}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIThread_abb6e0c600ff6bb3cac028897ba7328d5}
+\hypertarget{classGRIThread_a2ebe0605edc6a46f7c1825859035afc3}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!set\-\_\-force\-\_\-quit@{set\-\_\-force\-\_\-quit}}
+\index{set\-\_\-force\-\_\-quit@{set\-\_\-force\-\_\-quit}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{set\-\_\-force\-\_\-quit}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Thread\-::set\-\_\-force\-\_\-quit} (
+\begin{DoxyParamCaption}
+\item[{bool}]{force\-\_\-quit}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIThread_a2ebe0605edc6a46f7c1825859035afc3}
+\hypertarget{classGRIThread_aa8f133c793457423eb98b2df5da1ed59}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!set\-\_\-name@{set\-\_\-name}}
+\index{set\-\_\-name@{set\-\_\-name}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{set\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Thread\-::set\-\_\-name} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIThread_aa8f133c793457423eb98b2df5da1ed59}
+\hypertarget{classGRIThread_a3c898be7b730281944ad8ac16ea8cba7}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!set\-\_\-sleeping@{set\-\_\-sleeping}}
+\index{set\-\_\-sleeping@{set\-\_\-sleeping}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{set\-\_\-sleeping}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Thread\-::set\-\_\-sleeping} (
+\begin{DoxyParamCaption}
+\item[{bool}]{sleeping}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIThread_a3c898be7b730281944ad8ac16ea8cba7}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRIThread_a9694b004665bd62604ace2cdd6f00461}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!exit\-\_\-thread\-\_\-flag\-\_\-@{exit\-\_\-thread\-\_\-flag\-\_\-}}
+\index{exit\-\_\-thread\-\_\-flag\-\_\-@{exit\-\_\-thread\-\_\-flag\-\_\-}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{exit\-\_\-thread\-\_\-flag\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Thread\-::exit\-\_\-thread\-\_\-flag\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIThread_a9694b004665bd62604ace2cdd6f00461}
+\hypertarget{classGRIThread_aed787d5b9947fa7367fc44f56ef80247}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!force\-\_\-quit\-\_\-@{force\-\_\-quit\-\_\-}}
+\index{force\-\_\-quit\-\_\-@{force\-\_\-quit\-\_\-}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{force\-\_\-quit\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Thread\-::force\-\_\-quit\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIThread_aed787d5b9947fa7367fc44f56ef80247}
+\hypertarget{classGRIThread_a471b216d64d51839bb08d311f5961aed}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!log@{log}}
+\index{log@{log}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{log}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Text\-Stream {\bf \-G\-R\-I\-Thread\-::log}}}\label{classGRIThread_a471b216d64d51839bb08d311f5961aed}
+\hypertarget{classGRIThread_a48647bac03c49d9eaf0630b2c47ee65d}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!log\-\_\-msg\-\_\-@{log\-\_\-msg\-\_\-}}
+\index{log\-\_\-msg\-\_\-@{log\-\_\-msg\-\_\-}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{log\-\_\-msg\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Log\-Message} {\bf \-G\-R\-I\-Thread\-::log\-\_\-msg\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIThread_a48647bac03c49d9eaf0630b2c47ee65d}
+\hypertarget{classGRIThread_a0cba5383e1e8e8e43642da07eb469f36}{\index{\-G\-R\-I\-Thread@{\-G\-R\-I\-Thread}!sleeping\-\_\-@{sleeping\-\_\-}}
+\index{sleeping\-\_\-@{sleeping\-\_\-}!GRIThread@{\-G\-R\-I\-Thread}}
+\subsubsection[{sleeping\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Thread\-::sleeping\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIThread_a0cba5383e1e8e8e43642da07eb469f36}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRIThread_8h}{\-G\-R\-I\-Thread.\-h}\item 
+framework/source/\hyperlink{GRIThread_8cpp}{\-G\-R\-I\-Thread.\-cpp}\end{DoxyCompactItemize}

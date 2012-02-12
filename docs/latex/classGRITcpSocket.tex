@@ -1,0 +1,124 @@
+\hypertarget{classGRITcpSocket}{\section{\-G\-R\-I\-Tcp\-Socket \-Class \-Reference}
+\label{classGRITcpSocket}\index{\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-Tcp\-Socket.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRITcpSocket_aea0f8f15b96f6c5ecf5aa4b7459e19db}{\-G\-R\-I\-Tcp\-Socket} (\-Q\-Object $\ast$parent)
+\item 
+bool \hyperlink{classGRITcpSocket_a856d152f73347e16c2373dc14c980484}{send\-Data} (const \-Q\-Byte\-Array data)
+\item 
+\-Q\-String \hyperlink{classGRITcpSocket_aef69a50d65a987355587b222e2f04454}{retrieve\-Data} ()
+\item 
+void \hyperlink{classGRITcpSocket_a6fce833f6784fb277b0f471641fb3557}{pause} ()
+\item 
+void \hyperlink{classGRITcpSocket_ae08f2246ab5233240b08e5ca734a2c80}{close} ()
+\item 
+void \hyperlink{classGRITcpSocket_a32710b6bb52378ecfcd895388dfaca6c}{resume} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classGRITcpSocket_a443633117b63d3281a4247c244535f47}{\-Connection\-State} \{ \hyperlink{classGRITcpSocket_a443633117b63d3281a4247c244535f47a202f8ab58bcffce521b1681bb2f0a883}{\-Waiting}, 
+\hyperlink{classGRITcpSocket_a443633117b63d3281a4247c244535f47af636091b023f6b6e79ffa0cb360b09b6}{\-Ready}, 
+\hyperlink{classGRITcpSocket_a443633117b63d3281a4247c244535f47a3bd2f7c98edd887caa21de0ef5161f6b}{\-Blocked}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classGRITcpSocket_a6e64e7feb07a18582d2963c7f0bb85e6}{ready} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRITcpSocket_a443633117b63d3281a4247c244535f47}{\-Connection\-State} \hyperlink{classGRITcpSocket_ae7d9e4134b9a0e4effd0aeb726e593f7}{state\-\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Member \-Enumeration \-Documentation}
+\hypertarget{classGRITcpSocket_a443633117b63d3281a4247c244535f47}{\index{\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}!\-Connection\-State@{\-Connection\-State}}
+\index{\-Connection\-State@{\-Connection\-State}!GRITcpSocket@{\-G\-R\-I\-Tcp\-Socket}}
+\subsubsection[{\-Connection\-State}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf \-G\-R\-I\-Tcp\-Socket\-::\-Connection\-State}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRITcpSocket_a443633117b63d3281a4247c244535f47}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{\-Waiting@{\-Waiting}!\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}}\index{\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}!\-Waiting@{\-Waiting}}\item[{\em 
+\hypertarget{classGRITcpSocket_a443633117b63d3281a4247c244535f47a202f8ab58bcffce521b1681bb2f0a883}{\-Waiting}\label{classGRITcpSocket_a443633117b63d3281a4247c244535f47a202f8ab58bcffce521b1681bb2f0a883}
+}]\index{\-Ready@{\-Ready}!\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}}\index{\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}!\-Ready@{\-Ready}}\item[{\em 
+\hypertarget{classGRITcpSocket_a443633117b63d3281a4247c244535f47af636091b023f6b6e79ffa0cb360b09b6}{\-Ready}\label{classGRITcpSocket_a443633117b63d3281a4247c244535f47af636091b023f6b6e79ffa0cb360b09b6}
+}]\index{\-Blocked@{\-Blocked}!\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}}\index{\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}!\-Blocked@{\-Blocked}}\item[{\em 
+\hypertarget{classGRITcpSocket_a443633117b63d3281a4247c244535f47a3bd2f7c98edd887caa21de0ef5161f6b}{\-Blocked}\label{classGRITcpSocket_a443633117b63d3281a4247c244535f47a3bd2f7c98edd887caa21de0ef5161f6b}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRITcpSocket_aea0f8f15b96f6c5ecf5aa4b7459e19db}{\index{\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}!\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}}
+\index{\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}!GRITcpSocket@{\-G\-R\-I\-Tcp\-Socket}}
+\subsubsection[{\-G\-R\-I\-Tcp\-Socket}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Tcp\-Socket\-::\-G\-R\-I\-Tcp\-Socket} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-Object $\ast$}]{parent}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRITcpSocket_aea0f8f15b96f6c5ecf5aa4b7459e19db}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRITcpSocket_ae08f2246ab5233240b08e5ca734a2c80}{\index{\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}!close@{close}}
+\index{close@{close}!GRITcpSocket@{\-G\-R\-I\-Tcp\-Socket}}
+\subsubsection[{close}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Tcp\-Socket\-::close} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRITcpSocket_ae08f2246ab5233240b08e5ca734a2c80}
+\hypertarget{classGRITcpSocket_a6fce833f6784fb277b0f471641fb3557}{\index{\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}!pause@{pause}}
+\index{pause@{pause}!GRITcpSocket@{\-G\-R\-I\-Tcp\-Socket}}
+\subsubsection[{pause}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Tcp\-Socket\-::pause} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRITcpSocket_a6fce833f6784fb277b0f471641fb3557}
+\hypertarget{classGRITcpSocket_a6e64e7feb07a18582d2963c7f0bb85e6}{\index{\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}!ready@{ready}}
+\index{ready@{ready}!GRITcpSocket@{\-G\-R\-I\-Tcp\-Socket}}
+\subsubsection[{ready}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Tcp\-Socket\-::ready} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, private\mbox{]}}}}\label{classGRITcpSocket_a6e64e7feb07a18582d2963c7f0bb85e6}
+\hypertarget{classGRITcpSocket_a32710b6bb52378ecfcd895388dfaca6c}{\index{\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}!resume@{resume}}
+\index{resume@{resume}!GRITcpSocket@{\-G\-R\-I\-Tcp\-Socket}}
+\subsubsection[{resume}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Tcp\-Socket\-::resume} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRITcpSocket_a32710b6bb52378ecfcd895388dfaca6c}
+\hypertarget{classGRITcpSocket_aef69a50d65a987355587b222e2f04454}{\index{\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}!retrieve\-Data@{retrieve\-Data}}
+\index{retrieve\-Data@{retrieve\-Data}!GRITcpSocket@{\-G\-R\-I\-Tcp\-Socket}}
+\subsubsection[{retrieve\-Data}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Tcp\-Socket\-::retrieve\-Data} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRITcpSocket_aef69a50d65a987355587b222e2f04454}
+\hypertarget{classGRITcpSocket_a856d152f73347e16c2373dc14c980484}{\index{\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}!send\-Data@{send\-Data}}
+\index{send\-Data@{send\-Data}!GRITcpSocket@{\-G\-R\-I\-Tcp\-Socket}}
+\subsubsection[{send\-Data}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Tcp\-Socket\-::send\-Data} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-Byte\-Array}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRITcpSocket_a856d152f73347e16c2373dc14c980484}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRITcpSocket_ae7d9e4134b9a0e4effd0aeb726e593f7}{\index{\-G\-R\-I\-Tcp\-Socket@{\-G\-R\-I\-Tcp\-Socket}!state\-\_\-@{state\-\_\-}}
+\index{state\-\_\-@{state\-\_\-}!GRITcpSocket@{\-G\-R\-I\-Tcp\-Socket}}
+\subsubsection[{state\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Connection\-State} {\bf \-G\-R\-I\-Tcp\-Socket\-::state\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRITcpSocket_ae7d9e4134b9a0e4effd0aeb726e593f7}
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRITcpSocket_8h}{\-G\-R\-I\-Tcp\-Socket.\-h}\end{DoxyCompactItemize}

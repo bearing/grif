@@ -1,0 +1,104 @@
+\hypertarget{classGRIDAQAccumulator}{\section{\-G\-R\-I\-D\-A\-Q\-Accumulator$<$ \-T $>$ \-Class \-Template \-Reference}
+\label{classGRIDAQAccumulator}\index{\-G\-R\-I\-D\-A\-Q\-Accumulator$<$ T $>$@{\-G\-R\-I\-D\-A\-Q\-Accumulator$<$ T $>$}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-D\-A\-Q\-Accumulator.\-h$>$}
+
+\-Inheritance diagram for \-G\-R\-I\-D\-A\-Q\-Accumulator$<$ \-T $>$\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classGRIDAQAccumulator}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRIDAQAccumulator_a6165ed9e7418dc3a136df4798a8cbf19}{\-G\-R\-I\-D\-A\-Q\-Accumulator} (\-Q\-String bname, qint64 ticks, int \-N\-Buff, int \-Accum\-Msec)
+\item 
+\hyperlink{classGRIDAQAccumulator_a8ebafd25c4e7bbad50fbb3b54133cb41}{$\sim$\-G\-R\-I\-D\-A\-Q\-Accumulator} ()
+\item 
+void \hyperlink{classGRIDAQAccumulator_adba80ef3e7238cc667818c210b38cb92}{\-Reset\-Accum\-Buffs} ()
+\item 
+void \hyperlink{classGRIDAQAccumulator_a9633bfc986cbaa511ba95b8a807f1571}{\-Accumulate} (int numel, \-T data\mbox{[}$\,$\mbox{]}, qint64 timestamps\mbox{[}$\,$\mbox{]}, bool runflag)
+\item 
+void \hyperlink{classGRIDAQAccumulator_a1dd946b038f31e333d56c689142a0181}{\-Flush\-Buffers} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\-Q\-List$<$ \hyperlink{classGRIAccumBuff}{\-G\-R\-I\-Accum\-Buff}$<$ \-T $>$ $\ast$ $>$ \hyperlink{classGRIDAQAccumulator_a64939a45fcae8c062a1de6083a25423d}{buff\-\_\-}
+\item 
+\hyperlink{classGRILogger}{\-G\-R\-I\-Logger} \hyperlink{classGRIDAQAccumulator_a6ccd2aa334b6ddf7a301d664329febcf}{logger\-\_\-}
+\end{DoxyCompactItemize}
+\subsubsection*{template$<$class \-T$>$ class G\-R\-I\-D\-A\-Q\-Accumulator$<$ T $>$}
+
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRIDAQAccumulator_a6165ed9e7418dc3a136df4798a8cbf19}{\index{\-G\-R\-I\-D\-A\-Q\-Accumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}!\-G\-R\-I\-D\-A\-Q\-Accumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}}
+\index{\-G\-R\-I\-D\-A\-Q\-Accumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}!GRIDAQAccumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}}
+\subsubsection[{\-G\-R\-I\-D\-A\-Q\-Accumulator}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ {\bf \-G\-R\-I\-D\-A\-Q\-Accumulator}$<$ \-T $>$\-::{\bf \-G\-R\-I\-D\-A\-Q\-Accumulator} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{bname, }
+\item[{qint64}]{ticks, }
+\item[{int}]{\-N\-Buff, }
+\item[{int}]{\-Accum\-Msec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumulator_a6165ed9e7418dc3a136df4798a8cbf19}
+\hypertarget{classGRIDAQAccumulator_a8ebafd25c4e7bbad50fbb3b54133cb41}{\index{\-G\-R\-I\-D\-A\-Q\-Accumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}!$\sim$\-G\-R\-I\-D\-A\-Q\-Accumulator@{$\sim$\-G\-R\-I\-D\-A\-Q\-Accumulator}}
+\index{$\sim$\-G\-R\-I\-D\-A\-Q\-Accumulator@{$\sim$\-G\-R\-I\-D\-A\-Q\-Accumulator}!GRIDAQAccumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}}
+\subsubsection[{$\sim$\-G\-R\-I\-D\-A\-Q\-Accumulator}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ {\bf \-G\-R\-I\-D\-A\-Q\-Accumulator}$<$ \-T $>$\-::$\sim${\bf \-G\-R\-I\-D\-A\-Q\-Accumulator} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumulator_a8ebafd25c4e7bbad50fbb3b54133cb41}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRIDAQAccumulator_a9633bfc986cbaa511ba95b8a807f1571}{\index{\-G\-R\-I\-D\-A\-Q\-Accumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}!\-Accumulate@{\-Accumulate}}
+\index{\-Accumulate@{\-Accumulate}!GRIDAQAccumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}}
+\subsubsection[{\-Accumulate}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ void {\bf \-G\-R\-I\-D\-A\-Q\-Accumulator}$<$ \-T $>$\-::{\bf \-Accumulate} (
+\begin{DoxyParamCaption}
+\item[{int}]{numel, }
+\item[{\-T}]{data\mbox{[}$\,$\mbox{]}, }
+\item[{qint64}]{timestamps\mbox{[}$\,$\mbox{]}, }
+\item[{bool}]{runflag}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQAccumulator_a9633bfc986cbaa511ba95b8a807f1571}
+\hypertarget{classGRIDAQAccumulator_a1dd946b038f31e333d56c689142a0181}{\index{\-G\-R\-I\-D\-A\-Q\-Accumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}!\-Flush\-Buffers@{\-Flush\-Buffers}}
+\index{\-Flush\-Buffers@{\-Flush\-Buffers}!GRIDAQAccumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}}
+\subsubsection[{\-Flush\-Buffers}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ void {\bf \-G\-R\-I\-D\-A\-Q\-Accumulator}$<$ \-T $>$\-::{\bf \-Flush\-Buffers} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIDAQAccumulator_a1dd946b038f31e333d56c689142a0181}
+
+
+\-Reimplemented from \hyperlink{classGRIDAQBaseAccumNode_a4fde603a1ed8568408930912e51f4b84}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+\hypertarget{classGRIDAQAccumulator_adba80ef3e7238cc667818c210b38cb92}{\index{\-G\-R\-I\-D\-A\-Q\-Accumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}!\-Reset\-Accum\-Buffs@{\-Reset\-Accum\-Buffs}}
+\index{\-Reset\-Accum\-Buffs@{\-Reset\-Accum\-Buffs}!GRIDAQAccumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}}
+\subsubsection[{\-Reset\-Accum\-Buffs}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ void {\bf \-G\-R\-I\-D\-A\-Q\-Accumulator}$<$ \-T $>$\-::{\bf \-Reset\-Accum\-Buffs} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIDAQAccumulator_adba80ef3e7238cc667818c210b38cb92}
+
+
+\-Reimplemented from \hyperlink{classGRIDAQBaseAccumNode_af4922ce0edf51ffedbcc7cedc993c1cc}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}.
+
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRIDAQAccumulator_a64939a45fcae8c062a1de6083a25423d}{\index{\-G\-R\-I\-D\-A\-Q\-Accumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}!buff\-\_\-@{buff\-\_\-}}
+\index{buff\-\_\-@{buff\-\_\-}!GRIDAQAccumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}}
+\subsubsection[{buff\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ \-Q\-List$<${\bf \-G\-R\-I\-Accum\-Buff}$<$\-T$>$$\ast$$>$ {\bf \-G\-R\-I\-D\-A\-Q\-Accumulator}$<$ \-T $>$\-::{\bf buff\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDAQAccumulator_a64939a45fcae8c062a1de6083a25423d}
+\hypertarget{classGRIDAQAccumulator_a6ccd2aa334b6ddf7a301d664329febcf}{\index{\-G\-R\-I\-D\-A\-Q\-Accumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}!logger\-\_\-@{logger\-\_\-}}
+\index{logger\-\_\-@{logger\-\_\-}!GRIDAQAccumulator@{\-G\-R\-I\-D\-A\-Q\-Accumulator}}
+\subsubsection[{logger\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class \-T$>$ {\bf \-G\-R\-I\-Logger} {\bf \-G\-R\-I\-D\-A\-Q\-Accumulator}$<$ \-T $>$\-::{\bf logger\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDAQAccumulator_a6ccd2aa334b6ddf7a301d664329febcf}
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRIDAQAccumulator_8h}{\-G\-R\-I\-D\-A\-Q\-Accumulator.\-h}\end{DoxyCompactItemize}

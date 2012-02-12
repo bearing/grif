@@ -1,0 +1,256 @@
+\hypertarget{classGRIDAQThread}{\section{\-G\-R\-I\-D\-A\-Q\-Thread \-Class \-Reference}
+\label{classGRIDAQThread}\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-D\-A\-Q\-Thread.\-h$>$}
+
+\-Inheritance diagram for \-G\-R\-I\-D\-A\-Q\-Thread\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classGRIDAQThread}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRIDAQThread_afae9c0d5c166819a62e0c007be434a85}{\-G\-R\-I\-D\-A\-Q\-Thread} ()
+\item 
+\hyperlink{classGRIDAQThread_a92ac913769a806d23fd536f6e5e322a9}{$\sim$\-G\-R\-I\-D\-A\-Q\-Thread} ()
+\item 
+void \hyperlink{classGRIDAQThread_ad6b0768a1252bde2b8555ff9a490d75a}{\-Register\-Accumulator} (\-Q\-String buffname)
+\item 
+virtual \hyperlink{classGRIDAQBaseAccumNode}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node} $\ast$ \hyperlink{classGRIDAQThread_a4b2ff5999f6ff469cb7e3ea72a91cb04}{\-Register\-Data\-Output} (\-Q\-String out\-Name)=0
+\item 
+virtual int \hyperlink{classGRIDAQThread_a04d24a6405844aade3bc1984afb0d4ff}{\-Connect\-To\-D\-A\-Q} ()=0
+\item 
+virtual int \hyperlink{classGRIDAQThread_acdaa152991368a10145ffad70ce18e01}{\-Load\-Configuration} ()=0
+\item 
+virtual int \hyperlink{classGRIDAQThread_afe09b93ab3979cfdf4527d29b9604e05}{\-Initialize} ()=0
+\item 
+virtual int \hyperlink{classGRIDAQThread_a4d1e7b575b1a929027a178a38d3181d5}{\-Start\-Data\-Acquisition} ()=0
+\item 
+virtual int \hyperlink{classGRIDAQThread_adc06b9f50eef58cdb68c44175c55e31f}{\-Acquire\-Data} (int n)=0
+\item 
+virtual int \hyperlink{classGRIDAQThread_afc6a783bc23328db695dffe37b9c3f48}{\-Stop\-Data\-Acquisition} ()=0
+\item 
+virtual int \hyperlink{classGRIDAQThread_adfa721927bdeb45c945746cd66325d6a}{\-Termination\-Routines} ()
+\item 
+virtual int \hyperlink{classGRIDAQThread_a94de629b18b07eb576399ab636dbcd95}{\-Open\-Initialization\-Control} ()
+\item 
+virtual int \hyperlink{classGRIDAQThread_ade05ba0862fdd12bf4febe3f51ad33d5}{\-Open\-Run\-Time\-Control} ()
+\item 
+void \hyperlink{classGRIDAQThread_a7ee059340926bf1363cf63b0f1d52084}{\-Error\-Handling} (const char $\ast$message, int error\-Code)
+\item 
+void \hyperlink{classGRIDAQThread_ab915412c9ddbcb473a353c14c821f2c2}{\-Start\-Collection} ()
+\item 
+void \hyperlink{classGRIDAQThread_a50eea7f13926eb23860744ecb1e79e58}{\-Stop\-Collection} ()
+\item 
+void \hyperlink{classGRIDAQThread_a641c8bb769bcc5eda1c2015bc063d402}{\-Quit\-D\-A\-Q} ()
+\item 
+void \hyperlink{classGRIDAQThread_a0985879e6f269de965f9ff039eb45119}{\-Force\-Quit\-D\-A\-Q} ()
+\item 
+void \hyperlink{classGRIDAQThread_ae65ca14666b051d8db1c453376c1cb7d}{run} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T $>$ }\\int \hyperlink{classGRIDAQThread_a3b8409fdb2528ac1a3893482665aa82a}{\-Post\-Data} (int numel, \-Q\-String buffer\-\_\-name, \-T \hyperlink{structGRIProcessThread_1_1data}{data}\mbox{[}$\,$\mbox{]}, qint64 timestamps\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{classGRIDAQThread_ab319b29591302d1e2b356ce10e6e4345}{\-Initialize\-Accumulators} (\-Q\-Date\-Time tstart, qint64 timestamp\-\_\-0, qint64 ticks\-Per\-Second, int \-N\-Buff, int msec\-Per\-Accum)
+\item 
+int \hyperlink{classGRIDAQThread_a124368a5c9f0d6990ab1fb09779b2ab0}{\-Flush\-Accumulators} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\-Q\-List$<$ \hyperlink{classGRIDAQBaseAccumNode}{\-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node} $\ast$ $>$ \hyperlink{classGRIDAQThread_af28c48340ab936811b52febd9e171e45}{accum\-\_\-list\-\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRIDAQThread_afae9c0d5c166819a62e0c007be434a85}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-G\-R\-I\-D\-A\-Q\-Thread}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-G\-R\-I\-D\-A\-Q\-Thread} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIDAQThread_afae9c0d5c166819a62e0c007be434a85}
+\hypertarget{classGRIDAQThread_a92ac913769a806d23fd536f6e5e322a9}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!$\sim$\-G\-R\-I\-D\-A\-Q\-Thread@{$\sim$\-G\-R\-I\-D\-A\-Q\-Thread}}
+\index{$\sim$\-G\-R\-I\-D\-A\-Q\-Thread@{$\sim$\-G\-R\-I\-D\-A\-Q\-Thread}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{$\sim$\-G\-R\-I\-D\-A\-Q\-Thread}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::$\sim$\-G\-R\-I\-D\-A\-Q\-Thread} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIDAQThread_a92ac913769a806d23fd536f6e5e322a9}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRIDAQThread_adc06b9f50eef58cdb68c44175c55e31f}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Acquire\-Data@{\-Acquire\-Data}}
+\index{\-Acquire\-Data@{\-Acquire\-Data}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Acquire\-Data}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Acquire\-Data} (
+\begin{DoxyParamCaption}
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQThread_adc06b9f50eef58cdb68c44175c55e31f}
+\hypertarget{classGRIDAQThread_a04d24a6405844aade3bc1984afb0d4ff}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Connect\-To\-D\-A\-Q@{\-Connect\-To\-D\-A\-Q}}
+\index{\-Connect\-To\-D\-A\-Q@{\-Connect\-To\-D\-A\-Q}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Connect\-To\-D\-A\-Q}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Connect\-To\-D\-A\-Q} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQThread_a04d24a6405844aade3bc1984afb0d4ff}
+\hypertarget{classGRIDAQThread_a7ee059340926bf1363cf63b0f1d52084}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Error\-Handling@{\-Error\-Handling}}
+\index{\-Error\-Handling@{\-Error\-Handling}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Error\-Handling}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Error\-Handling} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{message, }
+\item[{int}]{error\-Code}
+\end{DoxyParamCaption}
+)}}\label{classGRIDAQThread_a7ee059340926bf1363cf63b0f1d52084}
+\hypertarget{classGRIDAQThread_a124368a5c9f0d6990ab1fb09779b2ab0}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Flush\-Accumulators@{\-Flush\-Accumulators}}
+\index{\-Flush\-Accumulators@{\-Flush\-Accumulators}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Flush\-Accumulators}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Flush\-Accumulators} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIDAQThread_a124368a5c9f0d6990ab1fb09779b2ab0}
+\hypertarget{classGRIDAQThread_a0985879e6f269de965f9ff039eb45119}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Force\-Quit\-D\-A\-Q@{\-Force\-Quit\-D\-A\-Q}}
+\index{\-Force\-Quit\-D\-A\-Q@{\-Force\-Quit\-D\-A\-Q}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Force\-Quit\-D\-A\-Q}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Force\-Quit\-D\-A\-Q} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIDAQThread_a0985879e6f269de965f9ff039eb45119}
+\hypertarget{classGRIDAQThread_afe09b93ab3979cfdf4527d29b9604e05}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Initialize@{\-Initialize}}
+\index{\-Initialize@{\-Initialize}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Initialize}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Initialize} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQThread_afe09b93ab3979cfdf4527d29b9604e05}
+\hypertarget{classGRIDAQThread_ab319b29591302d1e2b356ce10e6e4345}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Initialize\-Accumulators@{\-Initialize\-Accumulators}}
+\index{\-Initialize\-Accumulators@{\-Initialize\-Accumulators}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Initialize\-Accumulators}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Initialize\-Accumulators} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-Date\-Time}]{tstart, }
+\item[{qint64}]{timestamp\-\_\-0, }
+\item[{qint64}]{ticks\-Per\-Second, }
+\item[{int}]{\-N\-Buff, }
+\item[{int}]{msec\-Per\-Accum}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIDAQThread_ab319b29591302d1e2b356ce10e6e4345}
+\hypertarget{classGRIDAQThread_acdaa152991368a10145ffad70ce18e01}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Load\-Configuration@{\-Load\-Configuration}}
+\index{\-Load\-Configuration@{\-Load\-Configuration}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Load\-Configuration}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Load\-Configuration} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQThread_acdaa152991368a10145ffad70ce18e01}
+\hypertarget{classGRIDAQThread_a94de629b18b07eb576399ab636dbcd95}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Open\-Initialization\-Control@{\-Open\-Initialization\-Control}}
+\index{\-Open\-Initialization\-Control@{\-Open\-Initialization\-Control}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Open\-Initialization\-Control}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Open\-Initialization\-Control} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIDAQThread_a94de629b18b07eb576399ab636dbcd95}
+\hypertarget{classGRIDAQThread_ade05ba0862fdd12bf4febe3f51ad33d5}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Open\-Run\-Time\-Control@{\-Open\-Run\-Time\-Control}}
+\index{\-Open\-Run\-Time\-Control@{\-Open\-Run\-Time\-Control}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Open\-Run\-Time\-Control}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Open\-Run\-Time\-Control} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIDAQThread_ade05ba0862fdd12bf4febe3f51ad33d5}
+\hypertarget{classGRIDAQThread_a3b8409fdb2528ac1a3893482665aa82a}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Post\-Data@{\-Post\-Data}}
+\index{\-Post\-Data@{\-Post\-Data}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Post\-Data}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ int {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Post\-Data} (
+\begin{DoxyParamCaption}
+\item[{int}]{numel, }
+\item[{\-Q\-String}]{buffer\-\_\-name, }
+\item[{\-T}]{data\mbox{[}$\,$\mbox{]}, }
+\item[{qint64}]{timestamps\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIDAQThread_a3b8409fdb2528ac1a3893482665aa82a}
+\hypertarget{classGRIDAQThread_a641c8bb769bcc5eda1c2015bc063d402}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Quit\-D\-A\-Q@{\-Quit\-D\-A\-Q}}
+\index{\-Quit\-D\-A\-Q@{\-Quit\-D\-A\-Q}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Quit\-D\-A\-Q}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Quit\-D\-A\-Q} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIDAQThread_a641c8bb769bcc5eda1c2015bc063d402}
+\hypertarget{classGRIDAQThread_ad6b0768a1252bde2b8555ff9a490d75a}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Register\-Accumulator@{\-Register\-Accumulator}}
+\index{\-Register\-Accumulator@{\-Register\-Accumulator}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Register\-Accumulator}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Register\-Accumulator} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{buffname}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIDAQThread_ad6b0768a1252bde2b8555ff9a490d75a}
+
+
+\-Reimplemented from \hyperlink{classGRIProcessThread_a8b3b4638df86b300f94451d81bddbf37}{\-G\-R\-I\-Process\-Thread}.
+
+\hypertarget{classGRIDAQThread_a4b2ff5999f6ff469cb7e3ea72a91cb04}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Register\-Data\-Output@{\-Register\-Data\-Output}}
+\index{\-Register\-Data\-Output@{\-Register\-Data\-Output}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Register\-Data\-Output}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf \-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}$\ast$ {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Register\-Data\-Output} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{out\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQThread_a4b2ff5999f6ff469cb7e3ea72a91cb04}
+\hypertarget{classGRIDAQThread_ae65ca14666b051d8db1c453376c1cb7d}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!run@{run}}
+\index{run@{run}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::run} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{classGRIDAQThread_ae65ca14666b051d8db1c453376c1cb7d}
+
+
+\-Reimplemented from \hyperlink{classGRIProcessThread_a0d70fb6923169f4001330b47202189a3}{\-G\-R\-I\-Process\-Thread}.
+
+\hypertarget{classGRIDAQThread_ab915412c9ddbcb473a353c14c821f2c2}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Start\-Collection@{\-Start\-Collection}}
+\index{\-Start\-Collection@{\-Start\-Collection}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Start\-Collection}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Start\-Collection} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIDAQThread_ab915412c9ddbcb473a353c14c821f2c2}
+\hypertarget{classGRIDAQThread_a4d1e7b575b1a929027a178a38d3181d5}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Start\-Data\-Acquisition@{\-Start\-Data\-Acquisition}}
+\index{\-Start\-Data\-Acquisition@{\-Start\-Data\-Acquisition}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Start\-Data\-Acquisition}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Start\-Data\-Acquisition} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQThread_a4d1e7b575b1a929027a178a38d3181d5}
+\hypertarget{classGRIDAQThread_a50eea7f13926eb23860744ecb1e79e58}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Stop\-Collection@{\-Stop\-Collection}}
+\index{\-Stop\-Collection@{\-Stop\-Collection}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Stop\-Collection}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Stop\-Collection} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIDAQThread_a50eea7f13926eb23860744ecb1e79e58}
+\hypertarget{classGRIDAQThread_afc6a783bc23328db695dffe37b9c3f48}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Stop\-Data\-Acquisition@{\-Stop\-Data\-Acquisition}}
+\index{\-Stop\-Data\-Acquisition@{\-Stop\-Data\-Acquisition}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Stop\-Data\-Acquisition}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Stop\-Data\-Acquisition} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIDAQThread_afc6a783bc23328db695dffe37b9c3f48}
+\hypertarget{classGRIDAQThread_adfa721927bdeb45c945746cd66325d6a}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!\-Termination\-Routines@{\-Termination\-Routines}}
+\index{\-Termination\-Routines@{\-Termination\-Routines}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{\-Termination\-Routines}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::\-Termination\-Routines} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIDAQThread_adfa721927bdeb45c945746cd66325d6a}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRIDAQThread_af28c48340ab936811b52febd9e171e45}{\index{\-G\-R\-I\-D\-A\-Q\-Thread@{\-G\-R\-I\-D\-A\-Q\-Thread}!accum\-\_\-list\-\_\-@{accum\-\_\-list\-\_\-}}
+\index{accum\-\_\-list\-\_\-@{accum\-\_\-list\-\_\-}!GRIDAQThread@{\-G\-R\-I\-D\-A\-Q\-Thread}}
+\subsubsection[{accum\-\_\-list\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<${\bf \-G\-R\-I\-D\-A\-Q\-Base\-Accum\-Node}$\ast$$>$ {\bf \-G\-R\-I\-D\-A\-Q\-Thread\-::accum\-\_\-list\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIDAQThread_af28c48340ab936811b52febd9e171e45}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRIDAQThread_8h}{\-G\-R\-I\-D\-A\-Q\-Thread.\-h}\item 
+framework/source/\hyperlink{GRIDAQThread_8cpp}{\-G\-R\-I\-D\-A\-Q\-Thread.\-cpp}\end{DoxyCompactItemize}

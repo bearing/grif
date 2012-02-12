@@ -1,0 +1,410 @@
+\hypertarget{classGRIAnalysisThread}{\section{\-G\-R\-I\-Analysis\-Thread \-Class \-Reference}
+\label{classGRIAnalysisThread}\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-Analysis\-Thread.\-h$>$}
+
+\-Inheritance diagram for \-G\-R\-I\-Analysis\-Thread\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classGRIAnalysisThread}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGRIAnalysisThread_af6103bed49e7727f662636520cd50ce7}{\-Get\-Histogram\-Slot} (\-Q\-String \-Hist\-Name)
+\end{DoxyCompactItemize}
+\subsection*{\-Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGRIAnalysisThread_a103c0d1a1dba9090fce8c357c63aa067}{\-Send\-Histogram} (\hyperlink{classGRIHistogrammer}{\-G\-R\-I\-Histogrammer} $\ast$hist)
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRIAnalysisThread_ada9e9b19152dcaee0450d714950fdf4d}{\-G\-R\-I\-Analysis\-Thread} ()
+\item 
+\hyperlink{classGRIAnalysisThread_a2445ebf95f8be49e424e80ea4995c2b2}{$\sim$\-G\-R\-I\-Analysis\-Thread} ()
+\item 
+virtual int \hyperlink{classGRIAnalysisThread_a54f456a691dd224c3fa9d218893f0450}{\-Initialize} ()
+\item 
+virtual int \hyperlink{classGRIAnalysisThread_ab79e42bdef4dff323a979f6376359e83}{\-Analyze} ()=0
+\item 
+virtual int \hyperlink{classGRIAnalysisThread_a2f1eb919824b1e84839bacd95c20d28b}{\-Open\-Initialization\-Control} ()
+\item 
+virtual int \hyperlink{classGRIAnalysisThread_a8a6e9addc9af1ace45214043cf303fba}{\-Open\-Run\-Time\-Control} ()
+\item 
+void \hyperlink{classGRIAnalysisThread_ac36ec4cf19c888806e32705038545333}{\-Error\-Handling} (const char $\ast$message, int error\-Code)
+\item 
+void \hyperlink{classGRIAnalysisThread_af6445053a1461b3a71b214bc0cfd42bb}{\-Force\-Quit\-Analysis} ()
+\begin{DoxyCompactList}\small\item\em \-Stop the analysis thread. \-The analysis thread cannot be restarted. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ }\\int \hyperlink{classGRIAnalysisThread_ab6d676094d4fc86384a4565e9e5a756b}{\-Post\-Data} (int numel, \-Q\-String buffer\-\_\-name, \-T \hyperlink{structGRIProcessThread_1_1data}{data}\mbox{[}$\,$\mbox{]})
+\item 
+{\footnotesize template$<$class T $>$ }\\\-Q\-Pair$<$ int, \-T $\ast$ $>$ \hyperlink{classGRIAnalysisThread_a38377b7fa474a30b65973d6d5150ef46}{\-Read\-Data} (\-Q\-String block\-\_\-name, \-Q\-String buffer\-\_\-name)
+\item 
+void \hyperlink{classGRIAnalysisThread_acc07ee77c102f8bac877efe9938d4586}{run} ()
+\begin{DoxyCompactList}\small\item\em \-The \hyperlink{classGRIAnalysisThread_acc07ee77c102f8bac877efe9938d4586}{run()} method. \-Called when this thread is started by the regulator. \end{DoxyCompactList}\item 
+\hyperlink{classGRIHistogrammer}{\-G\-R\-I\-Histogrammer} $\ast$ \hyperlink{classGRIAnalysisThread_ac7afd9b97c9b3b18ede0ff28e85c18c4}{\-Get\-Histogram} (\-Q\-String \-Hist\-Name)
+\item 
+int \hyperlink{classGRIAnalysisThread_a42291c32833bda1e9bc83eb04acbcf4b}{\-Create\-New\-Histogram} (\-Q\-String \-Hist\-Name, int nx, double x\-Bins\mbox{[}$\,$\mbox{]})
+\item 
+int \hyperlink{classGRIAnalysisThread_ab8798b2dcabf2d63c906ff436c92898b}{\-Create\-New\-Histogram} (\-Q\-String \-Hist\-Name, int nx, double xmin, double xmax)
+\item 
+int \hyperlink{classGRIAnalysisThread_a0f92fffe759ec79986a93d883ca0ea4b}{\-Create\-New\-Histogram} (\-Q\-String \-Hist\-Name, int nx, double x\-Bins\mbox{[}$\,$\mbox{]}, int ny, double y\-Bins\mbox{[}$\,$\mbox{]})
+\item 
+int \hyperlink{classGRIAnalysisThread_a4da29079cdf83d312baf9ec46dbcb974}{\-Create\-New\-Histogram} (\-Q\-String \-Hist\-Name, int nx, double xmin, double xmax, int ny, double ymin, double ymax)
+\item 
+int \hyperlink{classGRIAnalysisThread_ab29571358912821bd3cb0f5507387b7b}{\-Create\-New\-Histogram} (\-Q\-String \-Hist\-Name, int nx, double xmin, double xmax, int ny, double ymin, double ymax, int nz, double zmin, double zmax)
+\item 
+int \hyperlink{classGRIAnalysisThread_acf9485402c017729819749079349608b}{\-Set\-Hist\-Rate\-Mode} (\-Q\-String \-Hist\-Name, bool tf)
+\item 
+int \hyperlink{classGRIAnalysisThread_adc3541da735117e8e6cc272398899225}{\-Set\-Hist\-Packet\-Scale\-Factor} (\-Q\-String \-Hist\-Name, double \-Scale\-Factor)
+\item 
+int \hyperlink{classGRIAnalysisThread_a5aa10ef8b16c646b2f9a0036f8aa615e}{\-Clear\-Histogram} (\-Q\-String \-Hist\-Name)
+\item 
+int \hyperlink{classGRIAnalysisThread_a6cb6342aded15cd7aea2318a1cde32e8}{\-Update\-Histogram} (\-Q\-String \-Hist\-Name, double x\mbox{[}$\,$\mbox{]}, int numel)
+\item 
+int \hyperlink{classGRIAnalysisThread_ae0aae856fcb02edaf98ed755c8b26305}{\-Update\-Histogram} (\-Q\-String \-Hist\-Name, double x\mbox{[}$\,$\mbox{]}, double y\mbox{[}$\,$\mbox{]}, int numel)
+\item 
+int \hyperlink{classGRIAnalysisThread_ab87fc59539373f2daef1acec426f94ff}{\-Update\-Histogram} (\-Q\-String \-Hist\-Name, double x\mbox{[}$\,$\mbox{]}, double y\mbox{[}$\,$\mbox{]}, double z\mbox{[}$\,$\mbox{]}, int numel)
+\item 
+\-Q\-List$<$ \-Q\-String $>$ \hyperlink{classGRIAnalysisThread_a7e6cf77f21254c544045f58f4633af06}{\-Get\-Histogram\-List} ()
+\item 
+\-Q\-List$<$ \hyperlink{classGRIHistogrammer}{\-G\-R\-I\-Histogrammer} $\ast$ $>$ \hyperlink{classGRIAnalysisThread_a57f4260ae73f93dbf2e3d8370ba76c52}{\-Get\-Histogram\-P\-List} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGRIAnalysisThread_ae1f9fea007498b70ac7db6d16dbd0975}{\-Read\-Garbage\-Collection} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\-Q\-List$<$ void $\ast$ $>$ \hyperlink{classGRIAnalysisThread_af79d2707cdbc93665ff4e69ace5532b6}{read\-\_\-data\-\_\-ptrs\-\_\-}
+\item 
+\-Q\-List$<$ \hyperlink{classGRIHistogrammer}{\-G\-R\-I\-Histogrammer} $\ast$ $>$ \hyperlink{classGRIAnalysisThread_ab42ada68a0de30979eea4443586706ff}{hist\-\_\-array\-\_\-}
+\item 
+\hyperlink{classGRILogger}{\-G\-R\-I\-Logger} \hyperlink{classGRIAnalysisThread_a1069f7fb1b6dd01e0da864a85748c83f}{logger\-\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-A \hyperlink{classGRIAnalysisThread}{\-G\-R\-I\-Analysis\-Thread} class \-The \hyperlink{classGRIAnalysisThread}{\-G\-R\-I\-Analysis\-Thread} class is an abstract class that must be inherited by any class that represents a particular data acquisition device (\-Analysis). \-It contains purely virtual methods that must be implemented, and are guaranteed to be called in a particular order. \-These methods must handle the initialization, data acquisition and shutdown procedures for a \-Analysis. \-Within these methods, please use the public methods available in \hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} to write to the memory manager and read from the memory manager. \-Methods in \hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} are also available for dynamically changing parameters in any inheriting class.
+
+see \hyperlink{classGRIProcessThread_af1890e0d920278fb3e25a7529cc2344b}{\-G\-R\-I\-Process\-Thread()}
+
+\-The app engineer must create a class inheriting \hyperlink{classGRIAnalysisThread}{\-G\-R\-I\-Analysis\-Thread} that implements the following methods. \-Unlike in our \-S\-I\-S \-Analysis implementation, the app engineer will not implement the while loop controlling data collection (see \hyperlink{classGRIAnalysisThread_acc07ee77c102f8bac877efe9938d4586}{run()} method).
+
+\-This class might look something like this\-:
+
+class \-My\-Analysis \-: public \hyperlink{classGRIAnalysisThread}{\-G\-R\-I\-Analysis\-Thread} \{ public\-: \-My\-Analysis(); $\sim$\-My\-Analysis();
+
+virtual int \-Start\-Data\-Acquisition() \{ \-Do routines that must run immediately before data collection. \}
+
+virtual int \-Acquire\-Data() \{ \-Do routine that actually collects data with the expectation that acquire\-Data() will be run in a loop (as shown in \hyperlink{classGRIAnalysisThread_acc07ee77c102f8bac877efe9938d4586}{run()}). \-Use the methods inherited from \hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} to write data to memory through the regulator. \}
+
+virtual int \-Stop\-Data\-Acquisition() \{ \-Do routines that must run immediately after data collection. \}
+
+virtual int \-Termination\-Routines() \{ \-Do things that turn off \-D\-A\-Q \}
+
+\}; 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRIAnalysisThread_ada9e9b19152dcaee0450d714950fdf4d}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}}
+\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-G\-R\-I\-Analysis\-Thread}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Analysis\-Thread\-::\-G\-R\-I\-Analysis\-Thread} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_ada9e9b19152dcaee0450d714950fdf4d}
+\hypertarget{classGRIAnalysisThread_a2445ebf95f8be49e424e80ea4995c2b2}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!$\sim$\-G\-R\-I\-Analysis\-Thread@{$\sim$\-G\-R\-I\-Analysis\-Thread}}
+\index{$\sim$\-G\-R\-I\-Analysis\-Thread@{$\sim$\-G\-R\-I\-Analysis\-Thread}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{$\sim$\-G\-R\-I\-Analysis\-Thread}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Analysis\-Thread\-::$\sim$\-G\-R\-I\-Analysis\-Thread} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_a2445ebf95f8be49e424e80ea4995c2b2}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRIAnalysisThread_ab79e42bdef4dff323a979f6376359e83}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Analyze@{\-Analyze}}
+\index{\-Analyze@{\-Analyze}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Analyze}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Analyze} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{classGRIAnalysisThread_ab79e42bdef4dff323a979f6376359e83}
+\-A member function for procedures will be called repeatedly to analyze data
+
+\hyperlink{classGRIAnalysisThread_ab79e42bdef4dff323a979f6376359e83}{\-Analyze()} should contain procedures that reads data and performs analysis then uses \-Post\-Data to send results to the next analysis block. \-This is called repreatedly for each run inside loop. \hypertarget{classGRIAnalysisThread_a5aa10ef8b16c646b2f9a0036f8aa615e}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Clear\-Histogram@{\-Clear\-Histogram}}
+\index{\-Clear\-Histogram@{\-Clear\-Histogram}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Clear\-Histogram}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Clear\-Histogram} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Hist\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_a5aa10ef8b16c646b2f9a0036f8aa615e}
+\hypertarget{classGRIAnalysisThread_a42291c32833bda1e9bc83eb04acbcf4b}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Create\-New\-Histogram@{\-Create\-New\-Histogram}}
+\index{\-Create\-New\-Histogram@{\-Create\-New\-Histogram}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Create\-New\-Histogram}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Create\-New\-Histogram} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Hist\-Name, }
+\item[{int}]{nx, }
+\item[{double}]{x\-Bins\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_a42291c32833bda1e9bc83eb04acbcf4b}
+\hypertarget{classGRIAnalysisThread_ab8798b2dcabf2d63c906ff436c92898b}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Create\-New\-Histogram@{\-Create\-New\-Histogram}}
+\index{\-Create\-New\-Histogram@{\-Create\-New\-Histogram}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Create\-New\-Histogram}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Create\-New\-Histogram} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Hist\-Name, }
+\item[{int}]{nx, }
+\item[{double}]{xmin, }
+\item[{double}]{xmax}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_ab8798b2dcabf2d63c906ff436c92898b}
+\hypertarget{classGRIAnalysisThread_a0f92fffe759ec79986a93d883ca0ea4b}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Create\-New\-Histogram@{\-Create\-New\-Histogram}}
+\index{\-Create\-New\-Histogram@{\-Create\-New\-Histogram}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Create\-New\-Histogram}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Create\-New\-Histogram} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Hist\-Name, }
+\item[{int}]{nx, }
+\item[{double}]{x\-Bins\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{ny, }
+\item[{double}]{y\-Bins\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_a0f92fffe759ec79986a93d883ca0ea4b}
+\hypertarget{classGRIAnalysisThread_a4da29079cdf83d312baf9ec46dbcb974}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Create\-New\-Histogram@{\-Create\-New\-Histogram}}
+\index{\-Create\-New\-Histogram@{\-Create\-New\-Histogram}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Create\-New\-Histogram}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Create\-New\-Histogram} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Hist\-Name, }
+\item[{int}]{nx, }
+\item[{double}]{xmin, }
+\item[{double}]{xmax, }
+\item[{int}]{ny, }
+\item[{double}]{ymin, }
+\item[{double}]{ymax}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_a4da29079cdf83d312baf9ec46dbcb974}
+\hypertarget{classGRIAnalysisThread_ab29571358912821bd3cb0f5507387b7b}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Create\-New\-Histogram@{\-Create\-New\-Histogram}}
+\index{\-Create\-New\-Histogram@{\-Create\-New\-Histogram}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Create\-New\-Histogram}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Create\-New\-Histogram} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Hist\-Name, }
+\item[{int}]{nx, }
+\item[{double}]{xmin, }
+\item[{double}]{xmax, }
+\item[{int}]{ny, }
+\item[{double}]{ymin, }
+\item[{double}]{ymax, }
+\item[{int}]{nz, }
+\item[{double}]{zmin, }
+\item[{double}]{zmax}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_ab29571358912821bd3cb0f5507387b7b}
+\hypertarget{classGRIAnalysisThread_ac36ec4cf19c888806e32705038545333}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Error\-Handling@{\-Error\-Handling}}
+\index{\-Error\-Handling@{\-Error\-Handling}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Error\-Handling}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Error\-Handling} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{message, }
+\item[{int}]{error\-Code}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_ac36ec4cf19c888806e32705038545333}
+\-The error\-Handling() method. \-Reports user generated errors for a \-D\-A\-Q\-Thread to standard output. \hypertarget{classGRIAnalysisThread_af6445053a1461b3a71b214bc0cfd42bb}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Force\-Quit\-Analysis@{\-Force\-Quit\-Analysis}}
+\index{\-Force\-Quit\-Analysis@{\-Force\-Quit\-Analysis}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Force\-Quit\-Analysis}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Force\-Quit\-Analysis} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_af6445053a1461b3a71b214bc0cfd42bb}
+
+
+\-Stop the analysis thread. \-The analysis thread cannot be restarted. 
+
+\hypertarget{classGRIAnalysisThread_ac7afd9b97c9b3b18ede0ff28e85c18c4}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Get\-Histogram@{\-Get\-Histogram}}
+\index{\-Get\-Histogram@{\-Get\-Histogram}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Get\-Histogram}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Histogrammer} $\ast$ {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Get\-Histogram} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Hist\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_ac7afd9b97c9b3b18ede0ff28e85c18c4}
+\hypertarget{classGRIAnalysisThread_a7e6cf77f21254c544045f58f4633af06}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Get\-Histogram\-List@{\-Get\-Histogram\-List}}
+\index{\-Get\-Histogram\-List@{\-Get\-Histogram\-List}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Get\-Histogram\-List}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ \-Q\-String $>$ {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Get\-Histogram\-List} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_a7e6cf77f21254c544045f58f4633af06}
+\hypertarget{classGRIAnalysisThread_a57f4260ae73f93dbf2e3d8370ba76c52}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Get\-Histogram\-P\-List@{\-Get\-Histogram\-P\-List}}
+\index{\-Get\-Histogram\-P\-List@{\-Get\-Histogram\-P\-List}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Get\-Histogram\-P\-List}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<${\bf \-G\-R\-I\-Histogrammer}$\ast$$>$ {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Get\-Histogram\-P\-List} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIAnalysisThread_a57f4260ae73f93dbf2e3d8370ba76c52}
+\hypertarget{classGRIAnalysisThread_af6103bed49e7727f662636520cd50ce7}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Get\-Histogram\-Slot@{\-Get\-Histogram\-Slot}}
+\index{\-Get\-Histogram\-Slot@{\-Get\-Histogram\-Slot}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Get\-Histogram\-Slot}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Get\-Histogram\-Slot} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Hist\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, slot\mbox{]}}}}\label{classGRIAnalysisThread_af6103bed49e7727f662636520cd50ce7}
+\hypertarget{classGRIAnalysisThread_a54f456a691dd224c3fa9d218893f0450}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Initialize@{\-Initialize}}
+\index{\-Initialize@{\-Initialize}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Initialize}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Initialize} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIAnalysisThread_a54f456a691dd224c3fa9d218893f0450}
+\-A member function for procedures that initialize the \-Analysis \hyperlink{classGRIAnalysisThread_a54f456a691dd224c3fa9d218893f0450}{\-Initialize()} should contain procedures for doing any initial setup necessary for a given data acquisition device. \-Simply return \-A\-N\-A\-L\-Y\-S\-I\-S\-T\-H\-R\-E\-A\-D\-\_\-\-S\-U\-C\-C\-E\-S\-S if there is nothing to do for your particular data acquisition device.
+
+invariants\-: \-This method is guaranteed to be called only once, and only when this thread starts. \-It is called immediately after \-Load\-Configuration(). \-It is not called for each \-Start\-Collection().
+
+returns an int containing \-A\-N\-A\-L\-Y\-S\-I\-S\-T\-H\-R\-E\-A\-D\-\_\-\-S\-U\-C\-C\-E\-S\-S if the method succeeds, or an error code of your choosing upon failure. \-The error will be reported using the \hyperlink{classGRIAnalysisThread_ac36ec4cf19c888806e32705038545333}{\-Error\-Handling()} method.
+
+see \hyperlink{classGRIAnalysisThread_ac36ec4cf19c888806e32705038545333}{\-Error\-Handling()} \hypertarget{classGRIAnalysisThread_a2f1eb919824b1e84839bacd95c20d28b}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Open\-Initialization\-Control@{\-Open\-Initialization\-Control}}
+\index{\-Open\-Initialization\-Control@{\-Open\-Initialization\-Control}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Open\-Initialization\-Control}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Open\-Initialization\-Control} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIAnalysisThread_a2f1eb919824b1e84839bacd95c20d28b}
+\-A member function for opening a \-G\-U\-I during \-D\-A\-Q initialization.
+
+\hyperlink{classGRIAnalysisThread_a2f1eb919824b1e84839bacd95c20d28b}{\-Open\-Initialization\-Control()} should open a \-G\-U\-I for controlling initialization of the \-D\-A\-Q.
+
+invariants\-: \-This method is guaranteed to be called once immediately after this \-D\-A\-Q\-Thread runs. \-It is called before any other methods in \hyperlink{classGRIDAQThread}{\-G\-R\-I\-D\-A\-Q\-Thread} (except \hyperlink{classGRIAnalysisThread_a2f1eb919824b1e84839bacd95c20d28b}{\-Open\-Initialization\-Control()}). \-It is not called for each \-Start\-Collection(). \-This can be overriden to tell the \-G\-U\-I to open.
+
+returns an int containing \-D\-A\-Q\-T\-H\-R\-E\-A\-D\-\_\-\-S\-U\-C\-C\-E\-S\-S if the method succeeds, or an error code of your choosing upon failure. \-The error will be reported using the \hyperlink{classGRIAnalysisThread_ac36ec4cf19c888806e32705038545333}{\-Error\-Handling()} method.
+
+see \hyperlink{classGRIAnalysisThread_ac36ec4cf19c888806e32705038545333}{\-Error\-Handling()} \hypertarget{classGRIAnalysisThread_a8a6e9addc9af1ace45214043cf303fba}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Open\-Run\-Time\-Control@{\-Open\-Run\-Time\-Control}}
+\index{\-Open\-Run\-Time\-Control@{\-Open\-Run\-Time\-Control}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Open\-Run\-Time\-Control}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Open\-Run\-Time\-Control} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIAnalysisThread_a8a6e9addc9af1ace45214043cf303fba}
+\-A member function for opening a \-G\-U\-I during a \-D\-A\-Q run.
+
+\hyperlink{classGRIAnalysisThread_a8a6e9addc9af1ace45214043cf303fba}{\-Open\-Run\-Time\-Control()} should open a \-G\-U\-I for controlling running of the \-D\-A\-Q.
+
+invariants\-: \-This method is guaranteed to be called once immediately after \-Start\-Collection() assuming collection is not already occurring, and will be called again every time collection is stopped and restarted using \-Stop\-Collection(), and \-Start\-Collection().
+
+returns an int containing \-D\-A\-Q\-T\-H\-R\-E\-A\-D\-\_\-\-S\-U\-C\-C\-E\-S\-S if the method succeeds, or an error code of your choosing upon failure. \-The error will be reported using the \hyperlink{classGRIAnalysisThread_ac36ec4cf19c888806e32705038545333}{\-Error\-Handling()} method.
+
+see \hyperlink{classGRIAnalysisThread_ac36ec4cf19c888806e32705038545333}{\-Error\-Handling()}, \-Start\-Collection(), \-Stop\-Collection() \hypertarget{classGRIAnalysisThread_ab6d676094d4fc86384a4565e9e5a756b}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Post\-Data@{\-Post\-Data}}
+\index{\-Post\-Data@{\-Post\-Data}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Post\-Data}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Post\-Data} (
+\begin{DoxyParamCaption}
+\item[{int}]{numel, }
+\item[{\-Q\-String}]{buffer\-\_\-name, }
+\item[{\-T}]{data\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_ab6d676094d4fc86384a4565e9e5a756b}
+\-Post data to a buffer in the memory manager
+
+numel is the number of elements posted buffer\-\_\-name is the name of the buffer data is an array of numel data elements \hypertarget{classGRIAnalysisThread_a38377b7fa474a30b65973d6d5150ef46}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Read\-Data@{\-Read\-Data}}
+\index{\-Read\-Data@{\-Read\-Data}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Read\-Data}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ \-Q\-Pair$<$ int, \-T $\ast$ $>$ {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Read\-Data} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{block\-\_\-name, }
+\item[{\-Q\-String}]{buffer\-\_\-name}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_a38377b7fa474a30b65973d6d5150ef46}
+\-Read data from a given block and buffer in the memory manager
+
+block\-\_\-name is the name of the block, which should be the name of a process thread that posts data to the buffer buffer\-\_\-name is the name of the buffer \hypertarget{classGRIAnalysisThread_ae1f9fea007498b70ac7db6d16dbd0975}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Read\-Garbage\-Collection@{\-Read\-Garbage\-Collection}}
+\index{\-Read\-Garbage\-Collection@{\-Read\-Garbage\-Collection}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Read\-Garbage\-Collection}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Read\-Garbage\-Collection} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIAnalysisThread_ae1f9fea007498b70ac7db6d16dbd0975}
+\hypertarget{classGRIAnalysisThread_acc07ee77c102f8bac877efe9938d4586}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!run@{run}}
+\index{run@{run}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Analysis\-Thread\-::run} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{classGRIAnalysisThread_acc07ee77c102f8bac877efe9938d4586}
+
+
+\-The \hyperlink{classGRIAnalysisThread_acc07ee77c102f8bac877efe9938d4586}{run()} method. \-Called when this thread is started by the regulator. 
+
+
+
+\-Reimplemented from \hyperlink{classGRIProcessThread_a0d70fb6923169f4001330b47202189a3}{\-G\-R\-I\-Process\-Thread}.
+
+\hypertarget{classGRIAnalysisThread_a103c0d1a1dba9090fce8c357c63aa067}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Send\-Histogram@{\-Send\-Histogram}}
+\index{\-Send\-Histogram@{\-Send\-Histogram}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Send\-Histogram}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Send\-Histogram} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-G\-R\-I\-Histogrammer} $\ast$}]{hist}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}\label{classGRIAnalysisThread_a103c0d1a1dba9090fce8c357c63aa067}
+\hypertarget{classGRIAnalysisThread_adc3541da735117e8e6cc272398899225}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Set\-Hist\-Packet\-Scale\-Factor@{\-Set\-Hist\-Packet\-Scale\-Factor}}
+\index{\-Set\-Hist\-Packet\-Scale\-Factor@{\-Set\-Hist\-Packet\-Scale\-Factor}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Set\-Hist\-Packet\-Scale\-Factor}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Set\-Hist\-Packet\-Scale\-Factor} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Hist\-Name, }
+\item[{double}]{\-Scale\-Factor}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_adc3541da735117e8e6cc272398899225}
+\hypertarget{classGRIAnalysisThread_acf9485402c017729819749079349608b}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Set\-Hist\-Rate\-Mode@{\-Set\-Hist\-Rate\-Mode}}
+\index{\-Set\-Hist\-Rate\-Mode@{\-Set\-Hist\-Rate\-Mode}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Set\-Hist\-Rate\-Mode}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Set\-Hist\-Rate\-Mode} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Hist\-Name, }
+\item[{bool}]{tf}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_acf9485402c017729819749079349608b}
+\hypertarget{classGRIAnalysisThread_a6cb6342aded15cd7aea2318a1cde32e8}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Update\-Histogram@{\-Update\-Histogram}}
+\index{\-Update\-Histogram@{\-Update\-Histogram}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Update\-Histogram}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Update\-Histogram} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Hist\-Name, }
+\item[{double}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{numel}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_a6cb6342aded15cd7aea2318a1cde32e8}
+\hypertarget{classGRIAnalysisThread_ae0aae856fcb02edaf98ed755c8b26305}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Update\-Histogram@{\-Update\-Histogram}}
+\index{\-Update\-Histogram@{\-Update\-Histogram}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Update\-Histogram}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Update\-Histogram} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Hist\-Name, }
+\item[{double}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{y\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{numel}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_ae0aae856fcb02edaf98ed755c8b26305}
+\hypertarget{classGRIAnalysisThread_ab87fc59539373f2daef1acec426f94ff}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!\-Update\-Histogram@{\-Update\-Histogram}}
+\index{\-Update\-Histogram@{\-Update\-Histogram}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{\-Update\-Histogram}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Analysis\-Thread\-::\-Update\-Histogram} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Hist\-Name, }
+\item[{double}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{y\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{z\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{numel}
+\end{DoxyParamCaption}
+)}}\label{classGRIAnalysisThread_ab87fc59539373f2daef1acec426f94ff}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRIAnalysisThread_ab42ada68a0de30979eea4443586706ff}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!hist\-\_\-array\-\_\-@{hist\-\_\-array\-\_\-}}
+\index{hist\-\_\-array\-\_\-@{hist\-\_\-array\-\_\-}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{hist\-\_\-array\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<${\bf \-G\-R\-I\-Histogrammer}$\ast$$>$ {\bf \-G\-R\-I\-Analysis\-Thread\-::hist\-\_\-array\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIAnalysisThread_ab42ada68a0de30979eea4443586706ff}
+\hypertarget{classGRIAnalysisThread_a1069f7fb1b6dd01e0da864a85748c83f}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!logger\-\_\-@{logger\-\_\-}}
+\index{logger\-\_\-@{logger\-\_\-}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{logger\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Logger} {\bf \-G\-R\-I\-Analysis\-Thread\-::logger\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIAnalysisThread_a1069f7fb1b6dd01e0da864a85748c83f}
+\hypertarget{classGRIAnalysisThread_af79d2707cdbc93665ff4e69ace5532b6}{\index{\-G\-R\-I\-Analysis\-Thread@{\-G\-R\-I\-Analysis\-Thread}!read\-\_\-data\-\_\-ptrs\-\_\-@{read\-\_\-data\-\_\-ptrs\-\_\-}}
+\index{read\-\_\-data\-\_\-ptrs\-\_\-@{read\-\_\-data\-\_\-ptrs\-\_\-}!GRIAnalysisThread@{\-G\-R\-I\-Analysis\-Thread}}
+\subsubsection[{read\-\_\-data\-\_\-ptrs\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$void$\ast$$>$ {\bf \-G\-R\-I\-Analysis\-Thread\-::read\-\_\-data\-\_\-ptrs\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIAnalysisThread_af79d2707cdbc93665ff4e69ace5532b6}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRIAnalysisThread_8h}{\-G\-R\-I\-Analysis\-Thread.\-h}\item 
+framework/source/\hyperlink{GRIAnalysisThread_8cpp}{\-G\-R\-I\-Analysis\-Thread.\-cpp}\end{DoxyCompactItemize}

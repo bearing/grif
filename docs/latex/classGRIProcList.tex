@@ -1,0 +1,132 @@
+\hypertarget{classGRIProcList}{\section{\-G\-R\-I\-Proc\-List \-Class \-Reference}
+\label{classGRIProcList}\index{\-G\-R\-I\-Proc\-List@{\-G\-R\-I\-Proc\-List}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-Proc\-List.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRIProcList_acfefde50634e2fe2404ed8c412401e78}{\-G\-R\-I\-Proc\-List} ()
+\item 
+int \hyperlink{classGRIProcList_a0f78c4cf651b47f4e97a5bef20a9e664}{insert\-Type} (\-Q\-String, \-Q\-String, \-Q\-String)
+\item 
+int \hyperlink{classGRIProcList_ad68f20d0997381196676b0d762e42184}{delete\-Type} (\-Q\-String, \-Q\-String, \-Q\-String)
+\item 
+\-Q\-List$<$ \-Q\-String $>$ \hyperlink{classGRIProcList_a59e4a85573205889961e07e6a35c9040}{retrieve\-Sets} (\-Q\-String)
+\item 
+\-Q\-List$<$ \-Q\-String $>$ \hyperlink{classGRIProcList_a3f00c71359b30dfbccc0fe66034585b3}{retrieve\-Gets} (\-Q\-String)
+\item 
+\-Q\-List$<$ \-Q\-String $>$ \hyperlink{classGRIProcList_ab62aa8493e541993b72e8a9b0872fbe3}{retrieve\-Run\-Actions} (\-Q\-String)
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const \-Q\-String \hyperlink{classGRIProcList_a17ea902e8a8383c6b9351b0271eba0e8}{\-S\-E\-T\-S}
+\item 
+static const \-Q\-String \hyperlink{classGRIProcList_abfd9e04ccff19dba6e86461f3407c228}{\-G\-E\-T\-S}
+\item 
+static const \-Q\-String \hyperlink{classGRIProcList_a9c5625a4111675df608616ba83662ad5}{\-R\-U\-N\-\_\-\-A\-C\-T\-I\-O\-N\-S}
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\-Q\-List$<$ \-Q\-String $>$ $\ast$ \hyperlink{classGRIProcList_a7fc7a01dcc351e30e51bb6b08e1024b1}{get\-Type\-List} (\hyperlink{structprocess}{process} $\ast$, \-Q\-String)
+\item 
+\-Q\-List$<$ \-Q\-String $>$ $\ast$ \hyperlink{classGRIProcList_aca20903dd26f91e7c1c43e7b06605b89}{retrieve\-List} (\-Q\-String, \-Q\-String)
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\-Q\-Hash$<$ \-Q\-String, \hyperlink{structprocess}{process} $\ast$ $>$ \hyperlink{classGRIProcList_a7c35a87b8b0ad3ecab5057fd6ce88e7b}{process\-\_\-map\-\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRIProcList_acfefde50634e2fe2404ed8c412401e78}{\index{\-G\-R\-I\-Proc\-List@{\-G\-R\-I\-Proc\-List}!\-G\-R\-I\-Proc\-List@{\-G\-R\-I\-Proc\-List}}
+\index{\-G\-R\-I\-Proc\-List@{\-G\-R\-I\-Proc\-List}!GRIProcList@{\-G\-R\-I\-Proc\-List}}
+\subsubsection[{\-G\-R\-I\-Proc\-List}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Proc\-List\-::\-G\-R\-I\-Proc\-List} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcList_acfefde50634e2fe2404ed8c412401e78}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRIProcList_ad68f20d0997381196676b0d762e42184}{\index{\-G\-R\-I\-Proc\-List@{\-G\-R\-I\-Proc\-List}!delete\-Type@{delete\-Type}}
+\index{delete\-Type@{delete\-Type}!GRIProcList@{\-G\-R\-I\-Proc\-List}}
+\subsubsection[{delete\-Type}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Proc\-List\-::delete\-Type} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{proc\-Name, }
+\item[{\-Q\-String}]{type, }
+\item[{\-Q\-String}]{value}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcList_ad68f20d0997381196676b0d762e42184}
+\hypertarget{classGRIProcList_a7fc7a01dcc351e30e51bb6b08e1024b1}{\index{\-G\-R\-I\-Proc\-List@{\-G\-R\-I\-Proc\-List}!get\-Type\-List@{get\-Type\-List}}
+\index{get\-Type\-List@{get\-Type\-List}!GRIProcList@{\-G\-R\-I\-Proc\-List}}
+\subsubsection[{get\-Type\-List}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ \-Q\-String $>$ $\ast$ {\bf \-G\-R\-I\-Proc\-List\-::get\-Type\-List} (
+\begin{DoxyParamCaption}
+\item[{{\bf process} $\ast$}]{proc, }
+\item[{\-Q\-String}]{type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcList_a7fc7a01dcc351e30e51bb6b08e1024b1}
+\hypertarget{classGRIProcList_a0f78c4cf651b47f4e97a5bef20a9e664}{\index{\-G\-R\-I\-Proc\-List@{\-G\-R\-I\-Proc\-List}!insert\-Type@{insert\-Type}}
+\index{insert\-Type@{insert\-Type}!GRIProcList@{\-G\-R\-I\-Proc\-List}}
+\subsubsection[{insert\-Type}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Proc\-List\-::insert\-Type} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{proc\-Name, }
+\item[{\-Q\-String}]{type, }
+\item[{\-Q\-String}]{value}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcList_a0f78c4cf651b47f4e97a5bef20a9e664}
+\hypertarget{classGRIProcList_a3f00c71359b30dfbccc0fe66034585b3}{\index{\-G\-R\-I\-Proc\-List@{\-G\-R\-I\-Proc\-List}!retrieve\-Gets@{retrieve\-Gets}}
+\index{retrieve\-Gets@{retrieve\-Gets}!GRIProcList@{\-G\-R\-I\-Proc\-List}}
+\subsubsection[{retrieve\-Gets}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ \-Q\-String $>$ {\bf \-G\-R\-I\-Proc\-List\-::retrieve\-Gets} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{proc\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcList_a3f00c71359b30dfbccc0fe66034585b3}
+\hypertarget{classGRIProcList_aca20903dd26f91e7c1c43e7b06605b89}{\index{\-G\-R\-I\-Proc\-List@{\-G\-R\-I\-Proc\-List}!retrieve\-List@{retrieve\-List}}
+\index{retrieve\-List@{retrieve\-List}!GRIProcList@{\-G\-R\-I\-Proc\-List}}
+\subsubsection[{retrieve\-List}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ \-Q\-String $>$ $\ast$ {\bf \-G\-R\-I\-Proc\-List\-::retrieve\-List} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{proc\-Name, }
+\item[{\-Q\-String}]{list}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcList_aca20903dd26f91e7c1c43e7b06605b89}
+\hypertarget{classGRIProcList_ab62aa8493e541993b72e8a9b0872fbe3}{\index{\-G\-R\-I\-Proc\-List@{\-G\-R\-I\-Proc\-List}!retrieve\-Run\-Actions@{retrieve\-Run\-Actions}}
+\index{retrieve\-Run\-Actions@{retrieve\-Run\-Actions}!GRIProcList@{\-G\-R\-I\-Proc\-List}}
+\subsubsection[{retrieve\-Run\-Actions}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ \-Q\-String $>$ {\bf \-G\-R\-I\-Proc\-List\-::retrieve\-Run\-Actions} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{proc\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcList_ab62aa8493e541993b72e8a9b0872fbe3}
+\hypertarget{classGRIProcList_a59e4a85573205889961e07e6a35c9040}{\index{\-G\-R\-I\-Proc\-List@{\-G\-R\-I\-Proc\-List}!retrieve\-Sets@{retrieve\-Sets}}
+\index{retrieve\-Sets@{retrieve\-Sets}!GRIProcList@{\-G\-R\-I\-Proc\-List}}
+\subsubsection[{retrieve\-Sets}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ \-Q\-String $>$ {\bf \-G\-R\-I\-Proc\-List\-::retrieve\-Sets} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{proc\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcList_a59e4a85573205889961e07e6a35c9040}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRIProcList_abfd9e04ccff19dba6e86461f3407c228}{\index{\-G\-R\-I\-Proc\-List@{\-G\-R\-I\-Proc\-List}!\-G\-E\-T\-S@{\-G\-E\-T\-S}}
+\index{\-G\-E\-T\-S@{\-G\-E\-T\-S}!GRIProcList@{\-G\-R\-I\-Proc\-List}}
+\subsubsection[{\-G\-E\-T\-S}]{\setlength{\rightskip}{0pt plus 5cm}const \-Q\-String {\bf \-G\-R\-I\-Proc\-List\-::\-G\-E\-T\-S}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{classGRIProcList_abfd9e04ccff19dba6e86461f3407c228}
+\hypertarget{classGRIProcList_a7c35a87b8b0ad3ecab5057fd6ce88e7b}{\index{\-G\-R\-I\-Proc\-List@{\-G\-R\-I\-Proc\-List}!process\-\_\-map\-\_\-@{process\-\_\-map\-\_\-}}
+\index{process\-\_\-map\-\_\-@{process\-\_\-map\-\_\-}!GRIProcList@{\-G\-R\-I\-Proc\-List}}
+\subsubsection[{process\-\_\-map\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Hash$<$\-Q\-String, {\bf process}$\ast$$>$ {\bf \-G\-R\-I\-Proc\-List\-::process\-\_\-map\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcList_a7c35a87b8b0ad3ecab5057fd6ce88e7b}
+\hypertarget{classGRIProcList_a9c5625a4111675df608616ba83662ad5}{\index{\-G\-R\-I\-Proc\-List@{\-G\-R\-I\-Proc\-List}!\-R\-U\-N\-\_\-\-A\-C\-T\-I\-O\-N\-S@{\-R\-U\-N\-\_\-\-A\-C\-T\-I\-O\-N\-S}}
+\index{\-R\-U\-N\-\_\-\-A\-C\-T\-I\-O\-N\-S@{\-R\-U\-N\-\_\-\-A\-C\-T\-I\-O\-N\-S}!GRIProcList@{\-G\-R\-I\-Proc\-List}}
+\subsubsection[{\-R\-U\-N\-\_\-\-A\-C\-T\-I\-O\-N\-S}]{\setlength{\rightskip}{0pt plus 5cm}const \-Q\-String {\bf \-G\-R\-I\-Proc\-List\-::\-R\-U\-N\-\_\-\-A\-C\-T\-I\-O\-N\-S}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{classGRIProcList_a9c5625a4111675df608616ba83662ad5}
+\hypertarget{classGRIProcList_a17ea902e8a8383c6b9351b0271eba0e8}{\index{\-G\-R\-I\-Proc\-List@{\-G\-R\-I\-Proc\-List}!\-S\-E\-T\-S@{\-S\-E\-T\-S}}
+\index{\-S\-E\-T\-S@{\-S\-E\-T\-S}!GRIProcList@{\-G\-R\-I\-Proc\-List}}
+\subsubsection[{\-S\-E\-T\-S}]{\setlength{\rightskip}{0pt plus 5cm}const \-Q\-String {\bf \-G\-R\-I\-Proc\-List\-::\-S\-E\-T\-S}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{classGRIProcList_a17ea902e8a8383c6b9351b0271eba0e8}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRIProcList_8h}{\-G\-R\-I\-Proc\-List.\-h}\item 
+framework/source/\hyperlink{GRIProcList_8cpp}{\-G\-R\-I\-Proc\-List.\-cpp}\end{DoxyCompactItemize}

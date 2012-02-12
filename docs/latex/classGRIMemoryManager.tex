@@ -1,0 +1,299 @@
+\hypertarget{classGRIMemoryManager}{\section{\-G\-R\-I\-Memory\-Manager \-Class \-Reference}
+\label{classGRIMemoryManager}\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-Memory\-Manager.\-h$>$}
+
+\-Inheritance diagram for \-G\-R\-I\-Memory\-Manager\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classGRIMemoryManager}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRIMemoryManager_aee93a12f4c62a218ac26a47c12047141}{\-G\-R\-I\-Memory\-Manager} ()
+\item 
+\hyperlink{classGRIMemoryManager_a067fdc47b1f48b918250e6cfaa880ac6}{$\sim$\-G\-R\-I\-Memory\-Manager} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classGRIMemoryManager_a4e2a3746b3e90f628507a273247d7beb}{\-Buffer\-Create} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name)
+\item 
+int \hyperlink{classGRIMemoryManager_a8af8fbf63d97d606ba50fd48ad80fc49}{\-Current\-Packet\-Position} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name)
+\item 
+int \hyperlink{classGRIMemoryManager_acc4a1a2b6ea1813666534f6a9f5dbd37}{\-Last\-Packet} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name)
+\item 
+bool \hyperlink{classGRIMemoryManager_aa54e3277f55cd1b11bc705d0e4e837be}{\-Set\-Packet\-Position} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name, int packet\-Number)
+\item 
+int \hyperlink{classGRIMemoryManager_a0ad9fa754a69205000fe3167d36ad74d}{\-Sizeof\-Packet} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name, int packet\-Number)
+\item 
+int \hyperlink{classGRIMemoryManager_a68bae784b1881977891df807337f358f}{\-Sizeof\-Buffer} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name)
+\item 
+void \hyperlink{classGRIMemoryManager_a895ce3a82d56ecee039ea5cba4ef9ced}{\-Buffer\-Read\-Lock} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name)
+\item 
+void \hyperlink{classGRIMemoryManager_a8e02ecbc040cd8e0baebb0700cbe53e8}{\-Buffer\-Write\-Lock} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name)
+\item 
+void \hyperlink{classGRIMemoryManager_a33e54c038504e7ca5acb9a613b2e73a5}{\-Unlock\-Buffer} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name)
+\item 
+char $\ast$ \hyperlink{classGRIMemoryManager_a0e1331c7db271c3dda06f2733c7b527b}{\-Read\-Memory} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name, int packet\-Number, char $\ast$buffer)
+\item 
+char $\ast$ \hyperlink{classGRIMemoryManager_a0966d9e38a4959b69391f4cd71026ecf}{\-Read\-Memory} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name, char $\ast$buffer)
+\item 
+bool \hyperlink{classGRIMemoryManager_ae4c6ca174caa41897316a9e681c2b76a}{\-Write\-Memory} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name, int packet\-Number, int size, char data\-Array\mbox{[}$\,$\mbox{]})
+\item 
+bool \hyperlink{classGRIMemoryManager_a76bbe9fc23773a8ec99d5d229dffe78c}{\-Write\-Memory} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name, int size, char data\-Array\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{classGRIMemoryManager_a70d455324b6f96504884752629d46324}{\-Buffer\-Delete} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name)
+\item 
+void \hyperlink{classGRIMemoryManager_a1bf8836f55fb2bed4b8fdca9ea7a692f}{\-Delete\-Packet} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name, int packet\-Number)
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classGRIMemoryManager_a7ddf18c6143b5f0532027bf18e0ec75d}{\-Locate\-Buffer} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name)
+\item 
+int \hyperlink{classGRIMemoryManager_affdd57ed0aae56c854f3f81b1d5c333a}{\-Locate\-Buffer} (const \-Q\-String \&buffer\-Name, int block\-Identifier)
+\item 
+int \hyperlink{classGRIMemoryManager_a2e3e6ae5051a8dbdcf39ae53dda37f0b}{\-Locate\-Data\-Block} (const \-Q\-String \&data\-Block\-Name)
+\item 
+\hyperlink{classGRIBuffer}{\-G\-R\-I\-Buffer} $\ast$ \hyperlink{classGRIMemoryManager_a6cc53799aba9a36370131c14b3d42f1c}{\-Grab\-Buffer} (const \-Q\-String \&data\-Block\-Name, const \-Q\-String \&buffer\-Name)
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\-Q\-List$<$ \-Q\-List$<$ \hyperlink{classGRIBuffer}{\-G\-R\-I\-Buffer} $\ast$ $>$ $\ast$ $>$ \hyperlink{classGRIMemoryManager_abd04ed6d04867c3852265a53322cff40}{data\-\_\-block\-\_\-table\-\_\-}
+\item 
+\-Q\-List$<$ \-Q\-String $>$ \hyperlink{classGRIMemoryManager_a0bdccd3ae8eb1e8958b767320d39be7f}{block\-\_\-name\-\_\-table\-\_\-}
+\item 
+\-Q\-List$<$ \-Q\-List$<$ \-Q\-String $>$ $\ast$ $>$ \hyperlink{classGRIMemoryManager_ab2b96c8f5f3c3d9f5216d871657b1d17}{name\-\_\-table\-\_\-}
+\item 
+\-Q\-List$<$ \-Q\-List$<$ \-Q\-Read\-Write\-Lock $\ast$ $>$ $\ast$ $>$ \hyperlink{classGRIMemoryManager_a30e6c169ecae9a513ecd4d4e07b38e71}{lock\-\_\-table\-\_\-}
+\end{DoxyCompactItemize}
+\subsection*{\-Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classGRIMemoryManager_a87f833908baa28aac760656947c70c04}{\-G\-R\-I\-Regulator}
+\item 
+class \hyperlink{classGRIMemoryManager_ae5d9162c1cf3d4e10a949c025ad576d7}{\-G\-R\-I\-Command\-And\-Control}
+\item 
+class \hyperlink{classGRIMemoryManager_a02a3c0a1755a1c589621c9f0f0f871f1}{\-G\-R\-I\-Data\-Block}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRIMemoryManager_aee93a12f4c62a218ac26a47c12047141}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}}
+\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-G\-R\-I\-Memory\-Manager}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Memory\-Manager\-::\-G\-R\-I\-Memory\-Manager} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIMemoryManager_aee93a12f4c62a218ac26a47c12047141}
+\hypertarget{classGRIMemoryManager_a067fdc47b1f48b918250e6cfaa880ac6}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!$\sim$\-G\-R\-I\-Memory\-Manager@{$\sim$\-G\-R\-I\-Memory\-Manager}}
+\index{$\sim$\-G\-R\-I\-Memory\-Manager@{$\sim$\-G\-R\-I\-Memory\-Manager}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{$\sim$\-G\-R\-I\-Memory\-Manager}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Memory\-Manager\-::$\sim$\-G\-R\-I\-Memory\-Manager} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIMemoryManager_a067fdc47b1f48b918250e6cfaa880ac6}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRIMemoryManager_a4e2a3746b3e90f628507a273247d7beb}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Buffer\-Create@{\-Buffer\-Create}}
+\index{\-Buffer\-Create@{\-Buffer\-Create}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Buffer\-Create}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Memory\-Manager\-::\-Buffer\-Create} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIMemoryManager_a4e2a3746b3e90f628507a273247d7beb}
+\hypertarget{classGRIMemoryManager_a70d455324b6f96504884752629d46324}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Buffer\-Delete@{\-Buffer\-Delete}}
+\index{\-Buffer\-Delete@{\-Buffer\-Delete}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Buffer\-Delete}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Memory\-Manager\-::\-Buffer\-Delete} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIMemoryManager_a70d455324b6f96504884752629d46324}
+\hypertarget{classGRIMemoryManager_a895ce3a82d56ecee039ea5cba4ef9ced}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Buffer\-Read\-Lock@{\-Buffer\-Read\-Lock}}
+\index{\-Buffer\-Read\-Lock@{\-Buffer\-Read\-Lock}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Buffer\-Read\-Lock}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Memory\-Manager\-::\-Buffer\-Read\-Lock} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIMemoryManager_a895ce3a82d56ecee039ea5cba4ef9ced}
+\hypertarget{classGRIMemoryManager_a8e02ecbc040cd8e0baebb0700cbe53e8}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Buffer\-Write\-Lock@{\-Buffer\-Write\-Lock}}
+\index{\-Buffer\-Write\-Lock@{\-Buffer\-Write\-Lock}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Buffer\-Write\-Lock}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Memory\-Manager\-::\-Buffer\-Write\-Lock} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIMemoryManager_a8e02ecbc040cd8e0baebb0700cbe53e8}
+\hypertarget{classGRIMemoryManager_a8af8fbf63d97d606ba50fd48ad80fc49}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Current\-Packet\-Position@{\-Current\-Packet\-Position}}
+\index{\-Current\-Packet\-Position@{\-Current\-Packet\-Position}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Current\-Packet\-Position}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Memory\-Manager\-::\-Current\-Packet\-Position} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIMemoryManager_a8af8fbf63d97d606ba50fd48ad80fc49}
+\hypertarget{classGRIMemoryManager_a1bf8836f55fb2bed4b8fdca9ea7a692f}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Delete\-Packet@{\-Delete\-Packet}}
+\index{\-Delete\-Packet@{\-Delete\-Packet}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Delete\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Memory\-Manager\-::\-Delete\-Packet} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name, }
+\item[{int}]{packet\-Number}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIMemoryManager_a1bf8836f55fb2bed4b8fdca9ea7a692f}
+\hypertarget{classGRIMemoryManager_a6cc53799aba9a36370131c14b3d42f1c}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Grab\-Buffer@{\-Grab\-Buffer}}
+\index{\-Grab\-Buffer@{\-Grab\-Buffer}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Grab\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Buffer} $\ast$ {\bf \-G\-R\-I\-Memory\-Manager\-::\-Grab\-Buffer} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIMemoryManager_a6cc53799aba9a36370131c14b3d42f1c}
+\hypertarget{classGRIMemoryManager_acc4a1a2b6ea1813666534f6a9f5dbd37}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Last\-Packet@{\-Last\-Packet}}
+\index{\-Last\-Packet@{\-Last\-Packet}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Last\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Memory\-Manager\-::\-Last\-Packet} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIMemoryManager_acc4a1a2b6ea1813666534f6a9f5dbd37}
+\hypertarget{classGRIMemoryManager_a7ddf18c6143b5f0532027bf18e0ec75d}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Locate\-Buffer@{\-Locate\-Buffer}}
+\index{\-Locate\-Buffer@{\-Locate\-Buffer}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Locate\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Memory\-Manager\-::\-Locate\-Buffer} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIMemoryManager_a7ddf18c6143b5f0532027bf18e0ec75d}
+\hypertarget{classGRIMemoryManager_affdd57ed0aae56c854f3f81b1d5c333a}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Locate\-Buffer@{\-Locate\-Buffer}}
+\index{\-Locate\-Buffer@{\-Locate\-Buffer}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Locate\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Memory\-Manager\-::\-Locate\-Buffer} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{buffer\-Name, }
+\item[{int}]{block\-Identifier}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIMemoryManager_affdd57ed0aae56c854f3f81b1d5c333a}
+\hypertarget{classGRIMemoryManager_a2e3e6ae5051a8dbdcf39ae53dda37f0b}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Locate\-Data\-Block@{\-Locate\-Data\-Block}}
+\index{\-Locate\-Data\-Block@{\-Locate\-Data\-Block}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Locate\-Data\-Block}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Memory\-Manager\-::\-Locate\-Data\-Block} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIMemoryManager_a2e3e6ae5051a8dbdcf39ae53dda37f0b}
+\hypertarget{classGRIMemoryManager_a0e1331c7db271c3dda06f2733c7b527b}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Read\-Memory@{\-Read\-Memory}}
+\index{\-Read\-Memory@{\-Read\-Memory}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Read\-Memory}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ {\bf \-G\-R\-I\-Memory\-Manager\-::\-Read\-Memory} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name, }
+\item[{int}]{packet\-Number, }
+\item[{char $\ast$}]{buffer}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIMemoryManager_a0e1331c7db271c3dda06f2733c7b527b}
+\hypertarget{classGRIMemoryManager_a0966d9e38a4959b69391f4cd71026ecf}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Read\-Memory@{\-Read\-Memory}}
+\index{\-Read\-Memory@{\-Read\-Memory}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Read\-Memory}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ {\bf \-G\-R\-I\-Memory\-Manager\-::\-Read\-Memory} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name, }
+\item[{char $\ast$}]{buffer}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIMemoryManager_a0966d9e38a4959b69391f4cd71026ecf}
+\hypertarget{classGRIMemoryManager_aa54e3277f55cd1b11bc705d0e4e837be}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Set\-Packet\-Position@{\-Set\-Packet\-Position}}
+\index{\-Set\-Packet\-Position@{\-Set\-Packet\-Position}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Set\-Packet\-Position}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Memory\-Manager\-::\-Set\-Packet\-Position} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name, }
+\item[{int}]{packet\-Number}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIMemoryManager_aa54e3277f55cd1b11bc705d0e4e837be}
+\hypertarget{classGRIMemoryManager_a68bae784b1881977891df807337f358f}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Sizeof\-Buffer@{\-Sizeof\-Buffer}}
+\index{\-Sizeof\-Buffer@{\-Sizeof\-Buffer}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Sizeof\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Memory\-Manager\-::\-Sizeof\-Buffer} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIMemoryManager_a68bae784b1881977891df807337f358f}
+\hypertarget{classGRIMemoryManager_a0ad9fa754a69205000fe3167d36ad74d}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Sizeof\-Packet@{\-Sizeof\-Packet}}
+\index{\-Sizeof\-Packet@{\-Sizeof\-Packet}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Sizeof\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Memory\-Manager\-::\-Sizeof\-Packet} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name, }
+\item[{int}]{packet\-Number}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIMemoryManager_a0ad9fa754a69205000fe3167d36ad74d}
+\hypertarget{classGRIMemoryManager_a33e54c038504e7ca5acb9a613b2e73a5}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Unlock\-Buffer@{\-Unlock\-Buffer}}
+\index{\-Unlock\-Buffer@{\-Unlock\-Buffer}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Unlock\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Memory\-Manager\-::\-Unlock\-Buffer} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIMemoryManager_a33e54c038504e7ca5acb9a613b2e73a5}
+\hypertarget{classGRIMemoryManager_ae4c6ca174caa41897316a9e681c2b76a}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Write\-Memory@{\-Write\-Memory}}
+\index{\-Write\-Memory@{\-Write\-Memory}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Write\-Memory}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Memory\-Manager\-::\-Write\-Memory} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name, }
+\item[{int}]{packet\-Number, }
+\item[{int}]{size, }
+\item[{char}]{data\-Array\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIMemoryManager_ae4c6ca174caa41897316a9e681c2b76a}
+\hypertarget{classGRIMemoryManager_a76bbe9fc23773a8ec99d5d229dffe78c}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-Write\-Memory@{\-Write\-Memory}}
+\index{\-Write\-Memory@{\-Write\-Memory}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-Write\-Memory}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Memory\-Manager\-::\-Write\-Memory} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-Block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name, }
+\item[{int}]{size, }
+\item[{char}]{data\-Array\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIMemoryManager_a76bbe9fc23773a8ec99d5d229dffe78c}
+
+
+\subsection{\-Friends \-And \-Related \-Function \-Documentation}
+\hypertarget{classGRIMemoryManager_ae5d9162c1cf3d4e10a949c025ad576d7}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-G\-R\-I\-Command\-And\-Control@{\-G\-R\-I\-Command\-And\-Control}}
+\index{\-G\-R\-I\-Command\-And\-Control@{\-G\-R\-I\-Command\-And\-Control}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-G\-R\-I\-Command\-And\-Control}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf \-G\-R\-I\-Command\-And\-Control}\hspace{0.3cm}{\ttfamily  \mbox{[}friend\mbox{]}}}}\label{classGRIMemoryManager_ae5d9162c1cf3d4e10a949c025ad576d7}
+\hypertarget{classGRIMemoryManager_a02a3c0a1755a1c589621c9f0f0f871f1}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}}
+\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-G\-R\-I\-Data\-Block}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf \-G\-R\-I\-Data\-Block}\hspace{0.3cm}{\ttfamily  \mbox{[}friend\mbox{]}}}}\label{classGRIMemoryManager_a02a3c0a1755a1c589621c9f0f0f871f1}
+\hypertarget{classGRIMemoryManager_a87f833908baa28aac760656947c70c04}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}}
+\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{\-G\-R\-I\-Regulator}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf \-G\-R\-I\-Regulator}\hspace{0.3cm}{\ttfamily  \mbox{[}friend\mbox{]}}}}\label{classGRIMemoryManager_a87f833908baa28aac760656947c70c04}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRIMemoryManager_a0bdccd3ae8eb1e8958b767320d39be7f}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!block\-\_\-name\-\_\-table\-\_\-@{block\-\_\-name\-\_\-table\-\_\-}}
+\index{block\-\_\-name\-\_\-table\-\_\-@{block\-\_\-name\-\_\-table\-\_\-}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{block\-\_\-name\-\_\-table\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$\-Q\-String$>$ {\bf \-G\-R\-I\-Memory\-Manager\-::block\-\_\-name\-\_\-table\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIMemoryManager_a0bdccd3ae8eb1e8958b767320d39be7f}
+\hypertarget{classGRIMemoryManager_abd04ed6d04867c3852265a53322cff40}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!data\-\_\-block\-\_\-table\-\_\-@{data\-\_\-block\-\_\-table\-\_\-}}
+\index{data\-\_\-block\-\_\-table\-\_\-@{data\-\_\-block\-\_\-table\-\_\-}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{data\-\_\-block\-\_\-table\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ \-Q\-List$<${\bf \-G\-R\-I\-Buffer}$\ast$$>$$\ast$ $>$ {\bf \-G\-R\-I\-Memory\-Manager\-::data\-\_\-block\-\_\-table\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIMemoryManager_abd04ed6d04867c3852265a53322cff40}
+\hypertarget{classGRIMemoryManager_a30e6c169ecae9a513ecd4d4e07b38e71}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!lock\-\_\-table\-\_\-@{lock\-\_\-table\-\_\-}}
+\index{lock\-\_\-table\-\_\-@{lock\-\_\-table\-\_\-}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{lock\-\_\-table\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ \-Q\-List$<$\-Q\-Read\-Write\-Lock $\ast$$>$$\ast$ $>$ {\bf \-G\-R\-I\-Memory\-Manager\-::lock\-\_\-table\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIMemoryManager_a30e6c169ecae9a513ecd4d4e07b38e71}
+\hypertarget{classGRIMemoryManager_ab2b96c8f5f3c3d9f5216d871657b1d17}{\index{\-G\-R\-I\-Memory\-Manager@{\-G\-R\-I\-Memory\-Manager}!name\-\_\-table\-\_\-@{name\-\_\-table\-\_\-}}
+\index{name\-\_\-table\-\_\-@{name\-\_\-table\-\_\-}!GRIMemoryManager@{\-G\-R\-I\-Memory\-Manager}}
+\subsubsection[{name\-\_\-table\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ \-Q\-List$<$\-Q\-String$>$$\ast$ $>$ {\bf \-G\-R\-I\-Memory\-Manager\-::name\-\_\-table\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIMemoryManager_ab2b96c8f5f3c3d9f5216d871657b1d17}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRIMemoryManager_8h}{\-G\-R\-I\-Memory\-Manager.\-h}\item 
+framework/source/\hyperlink{GRIMemoryManager_8cpp}{\-G\-R\-I\-Memory\-Manager.\-cpp}\end{DoxyCompactItemize}

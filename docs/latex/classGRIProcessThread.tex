@@ -1,0 +1,608 @@
+\hypertarget{classGRIProcessThread}{\section{\-G\-R\-I\-Process\-Thread \-Class \-Reference}
+\label{classGRIProcessThread}\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-Process\-Thread.\-h$>$}
+
+\-Inheritance diagram for \-G\-R\-I\-Process\-Thread\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classGRIProcessThread}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structGRIProcessThread_1_1data}{data}
+\end{DoxyCompactItemize}
+\subsection*{\-Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGRIProcessThread_a7f07dd9108f2a47b05606c3df113ef5e}{\-Get\-Processed} (\hyperlink{structProcessCommand}{\-Process\-Command} $\ast$pc)
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRIProcessThread_af1890e0d920278fb3e25a7529cc2344b}{\-G\-R\-I\-Process\-Thread} ()
+\item 
+\hyperlink{classGRIProcessThread_a48b6a83b1a7fb9c8821a7ef7dc8691fb}{$\sim$\-G\-R\-I\-Process\-Thread} ()
+\item 
+void \hyperlink{classGRIProcessThread_afd2898f6205acf10a043ce2f975060d8}{\-Init} (\-Q\-Object $\ast$obj, \hyperlink{GRIProcessThread_8h_ab4fa503b74fbe1a0d3f06563657266b5}{\-Process\-Details} $\ast$proc\-\_\-detail, \hyperlink{classGRIRegulator}{\-G\-R\-I\-Regulator} $\ast$regulator)
+\item 
+void \hyperlink{classGRIProcessThread_abffdc9b4b9a11f7ba82d8f19303d0422}{\-Set\-Default\-Detail} (\hyperlink{classGRIRegulator}{\-G\-R\-I\-Regulator} $\ast$reg, \-Q\-String name)
+\item 
+void \hyperlink{classGRIProcessThread_a940321bc2c1394e78c6988f6b8483e72}{\-Set\-Link} (\-Q\-Linked\-List$<$ \hyperlink{classGRIDataBlock}{\-G\-R\-I\-Data\-Block} $\ast$ $>$ $\ast$data\-Blocks)
+\item 
+void \hyperlink{classGRIProcessThread_a37a669e1ac2cd5eacf6e000cf4d91b9b}{\-Add\-Data\-Block} (\-Q\-String data\-\_\-block, bool is\-\_\-output)
+\item 
+void \hyperlink{classGRIProcessThread_a6a070aaf4a3e6ccf042cdb30fdd40606}{\-Add\-Data\-Blocks} (\-Q\-List$<$ \-Q\-String $>$ data\-Block\-Names)
+\item 
+virtual void \hyperlink{classGRIProcessThread_a8b3b4638df86b300f94451d81bddbf37}{\-Register\-Accumulator} (\-Q\-String datablock)
+\item 
+bool \hyperlink{classGRIProcessThread_a9b83487a70b73295d60a6e06b79d6439}{\-Change\-Priority} (bool is\-\_\-up)
+\item 
+void \hyperlink{classGRIProcessThread_ac6294955a90c57b1cad154729c581b81}{\-Increment\-Packet\-Count} ()
+\item 
+\hyperlink{classGRIDataBlock}{\-G\-R\-I\-Data\-Block} $\ast$ \hyperlink{classGRIProcessThread_a987a42ec5631acf403405e1474abe08b}{\-Find\-Data\-Block} (\-Q\-String data\-\_\-block\-\_\-name)
+\item 
+{\footnotesize template$<$class T $>$ }\\\-Q\-Pair$<$ int, \-T $\ast$ $>$ \hyperlink{classGRIProcessThread_a6630afde2e55a2ae57589fed46daa5d7}{\-Read\-Memory} (\-Q\-String block\-Name, \-Q\-String buffer\-Name)
+\item 
+{\footnotesize template$<$class T $>$ }\\bool \hyperlink{classGRIProcessThread_a97e988e0266ca606a5c2c5d429ac26ba}{\-Write\-Memory} (\-Q\-String block\-Name, \-Q\-String buffer\-Name, int size, \-T data\-Array\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{classGRIProcessThread_a94fc2d793e1d4c80bc5c3759c3a5a741}{\-Enqueue\-Dynamic\-Command} (\hyperlink{structProcessCommand}{\-Process\-Command} $\ast$pc)
+\item 
+int \hyperlink{classGRIProcessThread_a8e5950dcffc4301e72628291bf999bc1}{\-Enable\-Data\-Block} (const \-Q\-String \&\-Block\-Name, const \-Q\-String \&\-Buffer\-Name)
+\item 
+int \hyperlink{classGRIProcessThread_aaf1b22af60730fef9c7082831b5a2de4}{\-Disable\-Data\-Block} (const \-Q\-String \&\-Block\-Name, const \-Q\-String \&\-Buffer\-Name)
+\item 
+virtual void \hyperlink{classGRIProcessThread_a7bc51634da2c1ef7af42c88fbf167805}{\-Dynamic\-Set\-Bool} (const \-Q\-String \&name, bool value)
+\item 
+virtual void \hyperlink{classGRIProcessThread_a6deaea017ac8627dfdcff829988b1acd}{\-Dynamic\-Set\-Char} (const \-Q\-String \&name, char value)
+\item 
+virtual void \hyperlink{classGRIProcessThread_aeedab81fc8bad893f9200655bd7511a0}{\-Dynamic\-Set\-Int} (const \-Q\-String \&name, int value)
+\item 
+virtual void \hyperlink{classGRIProcessThread_a5bfcb71eb8f7b36b25b9c8af81326348}{\-Dynamic\-Set\-Float} (const \-Q\-String \&name, float value)
+\item 
+virtual void \hyperlink{classGRIProcessThread_a4c632e14a34cda838bbba501327b7d1e}{\-Dynamic\-Set\-Double} (const \-Q\-String \&name, double value)
+\item 
+{\footnotesize template$<$class T $>$ }\\void \hyperlink{classGRIProcessThread_a1f24152d976a4ac5713b1da31f745997}{\-Dynamic\-Set\-Msg} (const \-Q\-String \&name, \-T value)
+\item 
+virtual bool \hyperlink{classGRIProcessThread_ac7413294d4249678922da1297408a505}{\-Dynamic\-Get\-Bool} (const \-Q\-String \&name)
+\item 
+virtual char \hyperlink{classGRIProcessThread_acd345786baf6ecc175b4184989b26cd7}{\-Dynamic\-Get\-Char} (const \-Q\-String \&name)
+\item 
+virtual int \hyperlink{classGRIProcessThread_a750ed0f96d5881ff51800c7317d4ffd4}{\-Dynamic\-Get\-Int} (const \-Q\-String \&name)
+\item 
+virtual float \hyperlink{classGRIProcessThread_a2b2988ab4d60a3ac45709f0de6511aa4}{\-Dynamic\-Get\-Float} (const \-Q\-String \&name)
+\item 
+virtual double \hyperlink{classGRIProcessThread_a412ed5491cad50ab24bf484e8c7e6591}{\-Dynamic\-Get\-Double} (const \-Q\-String \&name)
+\item 
+void \hyperlink{classGRIProcessThread_a45c0f78282d4984efd70ed963b45eda8}{\-Dynamic\-Get\-Msg} (const \-Q\-String \&name)
+\item 
+virtual void \hyperlink{classGRIProcessThread_a97fde27005f2d5b4ef2ddd85245fcd27}{\-Dynamic\-Run\-Action} (const \-Q\-String \&name)
+\item 
+void \hyperlink{classGRIProcessThread_aa1c2c19f16e8a8e8b827b8db8623e1f4}{set\-\_\-run\-\_\-flag} (bool run\-\_\-flag)
+\item 
+bool \hyperlink{classGRIProcessThread_ad1b8c5977b21765c457cc9cca782f6b1}{get\-\_\-run\-\_\-flag} ()
+\item 
+int \hyperlink{classGRIProcessThread_a3ffef0a545f36cce75a0931ae6461455}{get\-\_\-thread\-\_\-id} ()
+\item 
+int \hyperlink{classGRIProcessThread_ad657c54d048fd87e8b907b1e45b10225}{get\-\_\-num\-\_\-packets\-\_\-to\-\_\-sat} ()
+\item 
+int \hyperlink{classGRIProcessThread_ab2e5c1ec3649c33eebbcbdfc71cef717}{get\-\_\-num\-\_\-packets\-\_\-from\-\_\-sat} ()
+\item 
+int \hyperlink{classGRIProcessThread_a841a80a2f4ed038eda84cdfb7bbc84ee}{get\-\_\-last\-\_\-adjustment\-\_\-to\-\_\-sat} ()
+\item 
+int \hyperlink{classGRIProcessThread_a57c3a67058b9bef780ee06c27dff7106}{get\-\_\-last\-\_\-adjustment\-\_\-from\-\_\-sat} ()
+\item 
+bool \hyperlink{classGRIProcessThread_a92fd125cdea966be6174dd9c36ac34c3}{get\-\_\-is\-\_\-daq} ()
+\item 
+void \hyperlink{classGRIProcessThread_a857d9628e01e6ecb4ddd311422173607}{set\-\_\-is\-\_\-daq} (bool is\-\_\-daq)
+\item 
+\hyperlink{classGRIRegulator}{\-G\-R\-I\-Regulator} $\ast$ \hyperlink{classGRIProcessThread_ac09d5b43b3e23dbcff28ed4978282ab8}{get\-\_\-reg} ()
+\item 
+void \hyperlink{classGRIProcessThread_acb3b59b5ed83b8b044e519d9294ce8ef}{set\-\_\-reg} (\hyperlink{classGRIRegulator}{\-G\-R\-I\-Regulator} $\ast$reg)
+\item 
+\-Q\-String \hyperlink{classGRIProcessThread_ae784da2cb525e593e3ff3b91d20fcb99}{get\-\_\-xml\-\_\-path} ()
+\item 
+void \hyperlink{classGRIProcessThread_a8dc5e101ac14539d38f291f6031f9ef1}{set\-\_\-load\-\_\-balancing\-\_\-vars} (int num\-\_\-packets\-\_\-to\-\_\-saturation, int num\-\_\-packets\-\_\-from\-\_\-saturation)
+\item 
+void \hyperlink{classGRIProcessThread_a25eddada2448f25431c9e1214976edfe}{display\-\_\-current\-\_\-state} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{classGRIProcessThread_acb373c365624696034eeb9f9662b56d1}{counter} = 0
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classGRIProcessThread_a0d70fb6923169f4001330b47202189a3}{run} ()
+\item 
+void \hyperlink{classGRIProcessThread_a007fbf43e0faf98916595e2f1d04d615}{\-Flush\-Buffer} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \*
+\hyperlink{structGRIProcessThread_1_1data}{\-G\-R\-I\-Process\-Thread\-::data} \hyperlink{classGRIProcessThread_a423f1f4b8f6c94ae5ac6707433bc8e07}{data\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGRIProcessThread_aae5947ed8aa3493f361003655de94b1f}{\-Handle\-Dynamic\-Command} (\hyperlink{structProcessCommand}{\-Process\-Command} $\ast$pc)
+\item 
+void \hyperlink{classGRIProcessThread_a375881fa5596dd79b58f34a9b987e889}{\-Handle\-Set\-Request} (\hyperlink{structProcessCommand}{\-Process\-Command} $\ast$pc)
+\item 
+void \hyperlink{classGRIProcessThread_a0fe71e6fc0d6c1a40329ed9c959a4b8f}{\-Handle\-Get\-Request} (\hyperlink{structProcessCommand}{\-Process\-Command} $\ast$pc)
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\-Q\-String \hyperlink{classGRIProcessThread_a2554bf45bd5097d3074c4ae7c50e9daa}{xml\-\_\-path\-\_\-}
+\item 
+\-Q\-List$<$ \-Q\-String $>$ \hyperlink{classGRIProcessThread_ad0fb6d68e75ba1c87d913edcd863ace2}{data\-\_\-block\-\_\-names\-\_\-}
+\item 
+\-Q\-Queue$<$ \hyperlink{structProcessCommand}{\-Process\-Command} $\ast$ $>$ \hyperlink{classGRIProcessThread_ac2f88f4a351a4c5ef86a7c797c7e548a}{cmd\-\_\-buffer\-\_\-}
+\item 
+\-Q\-Mutex \hyperlink{classGRIProcessThread_a827bcf8628fd76cc8a6d260c0b4623a2}{cmd\-\_\-buffer\-\_\-lock\-\_\-}
+\item 
+\-Q\-Hash$<$ \-Q\-String, \hyperlink{classGRIDataBlock}{\-G\-R\-I\-Data\-Block} $\ast$ $>$ \hyperlink{classGRIProcessThread_a33bf6fff182f03b00d43d3d3a66409ee}{data\-\_\-out\-\_\-}
+\item 
+\-Q\-Hash$<$ \-Q\-String, \hyperlink{classGRIDataBlock}{\-G\-R\-I\-Data\-Block} $\ast$ $>$ \hyperlink{classGRIProcessThread_aa89164841b50bd60d0da3ae9e3254f62}{data\-\_\-in\-\_\-}
+\item 
+int \hyperlink{classGRIProcessThread_af40bc18b79529b079c46ab55bfc806b2}{num\-\_\-packets\-\_\-to\-\_\-sat\-\_\-}
+\item 
+int \hyperlink{classGRIProcessThread_adcf581f4fc99468d4c81ce4033add63b}{num\-\_\-packets\-\_\-from\-\_\-sat\-\_\-}
+\item 
+int \hyperlink{classGRIProcessThread_a7085814bd5c193bf6f233e755bf06630}{last\-\_\-adjustment\-\_\-to\-\_\-sat\-\_\-}
+\item 
+int \hyperlink{classGRIProcessThread_a451c53d3a1912e358e9008f86fa490e2}{last\-\_\-adjustment\-\_\-from\-\_\-sat\-\_\-}
+\item 
+bool \hyperlink{classGRIProcessThread_a8fb2fe6170dd07f06cfe25963398afd0}{run\-\_\-flag\-\_\-}
+\item 
+bool \hyperlink{classGRIProcessThread_acea50dedd5b028dcc66ed86b807ca8b0}{is\-\_\-daq\-\_\-}
+\item 
+int \hyperlink{classGRIProcessThread_a35f82ee828412c8b75cdc24ba765f8ed}{thread\-\_\-id\-\_\-}
+\item 
+\hyperlink{classGRIRegulator}{\-G\-R\-I\-Regulator} $\ast$ \hyperlink{classGRIProcessThread_a6ee0190728642ea5242085b2949d2da2}{reg\-\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Member \-Typedef \-Documentation}
+\hypertarget{classGRIProcessThread_a423f1f4b8f6c94ae5ac6707433bc8e07}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!data\-\_\-t@{data\-\_\-t}}
+\index{data\-\_\-t@{data\-\_\-t}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{data\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \-G\-R\-I\-Process\-Thread\-::data}  {\bf \-G\-R\-I\-Process\-Thread\-::data\-\_\-t}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_a423f1f4b8f6c94ae5ac6707433bc8e07}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRIProcessThread_af1890e0d920278fb3e25a7529cc2344b}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}}
+\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-G\-R\-I\-Process\-Thread}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Process\-Thread\-::\-G\-R\-I\-Process\-Thread} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_af1890e0d920278fb3e25a7529cc2344b}
+\hypertarget{classGRIProcessThread_a48b6a83b1a7fb9c8821a7ef7dc8691fb}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!$\sim$\-G\-R\-I\-Process\-Thread@{$\sim$\-G\-R\-I\-Process\-Thread}}
+\index{$\sim$\-G\-R\-I\-Process\-Thread@{$\sim$\-G\-R\-I\-Process\-Thread}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{$\sim$\-G\-R\-I\-Process\-Thread}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Process\-Thread\-::$\sim$\-G\-R\-I\-Process\-Thread} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_a48b6a83b1a7fb9c8821a7ef7dc8691fb}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRIProcessThread_a37a669e1ac2cd5eacf6e000cf4d91b9b}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Add\-Data\-Block@{\-Add\-Data\-Block}}
+\index{\-Add\-Data\-Block@{\-Add\-Data\-Block}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Add\-Data\-Block}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::\-Add\-Data\-Block} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{data\-\_\-block, }
+\item[{bool}]{is\-\_\-output}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_a37a669e1ac2cd5eacf6e000cf4d91b9b}
+\hypertarget{classGRIProcessThread_a6a070aaf4a3e6ccf042cdb30fdd40606}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Add\-Data\-Blocks@{\-Add\-Data\-Blocks}}
+\index{\-Add\-Data\-Blocks@{\-Add\-Data\-Blocks}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Add\-Data\-Blocks}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::\-Add\-Data\-Blocks} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-List$<$ \-Q\-String $>$}]{data\-Block\-Names}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_a6a070aaf4a3e6ccf042cdb30fdd40606}
+\hypertarget{classGRIProcessThread_a9b83487a70b73295d60a6e06b79d6439}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Change\-Priority@{\-Change\-Priority}}
+\index{\-Change\-Priority@{\-Change\-Priority}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Change\-Priority}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Process\-Thread\-::\-Change\-Priority} (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\-\_\-up}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_a9b83487a70b73295d60a6e06b79d6439}
+\hypertarget{classGRIProcessThread_aaf1b22af60730fef9c7082831b5a2de4}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Disable\-Data\-Block@{\-Disable\-Data\-Block}}
+\index{\-Disable\-Data\-Block@{\-Disable\-Data\-Block}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Disable\-Data\-Block}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Process\-Thread\-::\-Disable\-Data\-Block} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{\-Block\-Name, }
+\item[{const \-Q\-String \&}]{\-Buffer\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_aaf1b22af60730fef9c7082831b5a2de4}
+\hypertarget{classGRIProcessThread_a25eddada2448f25431c9e1214976edfe}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!display\-\_\-current\-\_\-state@{display\-\_\-current\-\_\-state}}
+\index{display\-\_\-current\-\_\-state@{display\-\_\-current\-\_\-state}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{display\-\_\-current\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::display\-\_\-current\-\_\-state} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_a25eddada2448f25431c9e1214976edfe}
+\hypertarget{classGRIProcessThread_ac7413294d4249678922da1297408a505}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Dynamic\-Get\-Bool@{\-Dynamic\-Get\-Bool}}
+\index{\-Dynamic\-Get\-Bool@{\-Dynamic\-Get\-Bool}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Dynamic\-Get\-Bool}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool {\bf \-G\-R\-I\-Process\-Thread\-::\-Dynamic\-Get\-Bool} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIProcessThread_ac7413294d4249678922da1297408a505}
+\hypertarget{classGRIProcessThread_acd345786baf6ecc175b4184989b26cd7}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Dynamic\-Get\-Char@{\-Dynamic\-Get\-Char}}
+\index{\-Dynamic\-Get\-Char@{\-Dynamic\-Get\-Char}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Dynamic\-Get\-Char}]{\setlength{\rightskip}{0pt plus 5cm}virtual char {\bf \-G\-R\-I\-Process\-Thread\-::\-Dynamic\-Get\-Char} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIProcessThread_acd345786baf6ecc175b4184989b26cd7}
+\hypertarget{classGRIProcessThread_a412ed5491cad50ab24bf484e8c7e6591}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Dynamic\-Get\-Double@{\-Dynamic\-Get\-Double}}
+\index{\-Dynamic\-Get\-Double@{\-Dynamic\-Get\-Double}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Dynamic\-Get\-Double}]{\setlength{\rightskip}{0pt plus 5cm}virtual double {\bf \-G\-R\-I\-Process\-Thread\-::\-Dynamic\-Get\-Double} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIProcessThread_a412ed5491cad50ab24bf484e8c7e6591}
+\hypertarget{classGRIProcessThread_a2b2988ab4d60a3ac45709f0de6511aa4}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Dynamic\-Get\-Float@{\-Dynamic\-Get\-Float}}
+\index{\-Dynamic\-Get\-Float@{\-Dynamic\-Get\-Float}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Dynamic\-Get\-Float}]{\setlength{\rightskip}{0pt plus 5cm}virtual float {\bf \-G\-R\-I\-Process\-Thread\-::\-Dynamic\-Get\-Float} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIProcessThread_a2b2988ab4d60a3ac45709f0de6511aa4}
+\hypertarget{classGRIProcessThread_a750ed0f96d5881ff51800c7317d4ffd4}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Dynamic\-Get\-Int@{\-Dynamic\-Get\-Int}}
+\index{\-Dynamic\-Get\-Int@{\-Dynamic\-Get\-Int}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Dynamic\-Get\-Int}]{\setlength{\rightskip}{0pt plus 5cm}virtual int {\bf \-G\-R\-I\-Process\-Thread\-::\-Dynamic\-Get\-Int} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIProcessThread_a750ed0f96d5881ff51800c7317d4ffd4}
+\hypertarget{classGRIProcessThread_a45c0f78282d4984efd70ed963b45eda8}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Dynamic\-Get\-Msg@{\-Dynamic\-Get\-Msg}}
+\index{\-Dynamic\-Get\-Msg@{\-Dynamic\-Get\-Msg}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Dynamic\-Get\-Msg}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::\-Dynamic\-Get\-Msg} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIProcessThread_a45c0f78282d4984efd70ed963b45eda8}
+\hypertarget{classGRIProcessThread_a97fde27005f2d5b4ef2ddd85245fcd27}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Dynamic\-Run\-Action@{\-Dynamic\-Run\-Action}}
+\index{\-Dynamic\-Run\-Action@{\-Dynamic\-Run\-Action}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Dynamic\-Run\-Action}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-Process\-Thread\-::\-Dynamic\-Run\-Action} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIProcessThread_a97fde27005f2d5b4ef2ddd85245fcd27}
+\hypertarget{classGRIProcessThread_a7bc51634da2c1ef7af42c88fbf167805}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Dynamic\-Set\-Bool@{\-Dynamic\-Set\-Bool}}
+\index{\-Dynamic\-Set\-Bool@{\-Dynamic\-Set\-Bool}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Dynamic\-Set\-Bool}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-Process\-Thread\-::\-Dynamic\-Set\-Bool} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name, }
+\item[{bool}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIProcessThread_a7bc51634da2c1ef7af42c88fbf167805}
+\hypertarget{classGRIProcessThread_a6deaea017ac8627dfdcff829988b1acd}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Dynamic\-Set\-Char@{\-Dynamic\-Set\-Char}}
+\index{\-Dynamic\-Set\-Char@{\-Dynamic\-Set\-Char}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Dynamic\-Set\-Char}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-Process\-Thread\-::\-Dynamic\-Set\-Char} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name, }
+\item[{char}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIProcessThread_a6deaea017ac8627dfdcff829988b1acd}
+\hypertarget{classGRIProcessThread_a4c632e14a34cda838bbba501327b7d1e}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Dynamic\-Set\-Double@{\-Dynamic\-Set\-Double}}
+\index{\-Dynamic\-Set\-Double@{\-Dynamic\-Set\-Double}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Dynamic\-Set\-Double}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-Process\-Thread\-::\-Dynamic\-Set\-Double} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name, }
+\item[{double}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIProcessThread_a4c632e14a34cda838bbba501327b7d1e}
+\hypertarget{classGRIProcessThread_a5bfcb71eb8f7b36b25b9c8af81326348}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Dynamic\-Set\-Float@{\-Dynamic\-Set\-Float}}
+\index{\-Dynamic\-Set\-Float@{\-Dynamic\-Set\-Float}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Dynamic\-Set\-Float}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-Process\-Thread\-::\-Dynamic\-Set\-Float} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name, }
+\item[{float}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIProcessThread_a5bfcb71eb8f7b36b25b9c8af81326348}
+\hypertarget{classGRIProcessThread_aeedab81fc8bad893f9200655bd7511a0}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Dynamic\-Set\-Int@{\-Dynamic\-Set\-Int}}
+\index{\-Dynamic\-Set\-Int@{\-Dynamic\-Set\-Int}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Dynamic\-Set\-Int}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-Process\-Thread\-::\-Dynamic\-Set\-Int} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name, }
+\item[{int}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIProcessThread_aeedab81fc8bad893f9200655bd7511a0}
+\hypertarget{classGRIProcessThread_a1f24152d976a4ac5713b1da31f745997}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Dynamic\-Set\-Msg@{\-Dynamic\-Set\-Msg}}
+\index{\-Dynamic\-Set\-Msg@{\-Dynamic\-Set\-Msg}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Dynamic\-Set\-Msg}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf \-G\-R\-I\-Process\-Thread\-::\-Dynamic\-Set\-Msg} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{name, }
+\item[{\-T}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIProcessThread_a1f24152d976a4ac5713b1da31f745997}
+\hypertarget{classGRIProcessThread_a8e5950dcffc4301e72628291bf999bc1}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Enable\-Data\-Block@{\-Enable\-Data\-Block}}
+\index{\-Enable\-Data\-Block@{\-Enable\-Data\-Block}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Enable\-Data\-Block}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Process\-Thread\-::\-Enable\-Data\-Block} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{\-Block\-Name, }
+\item[{const \-Q\-String \&}]{\-Buffer\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_a8e5950dcffc4301e72628291bf999bc1}
+\hypertarget{classGRIProcessThread_a94fc2d793e1d4c80bc5c3759c3a5a741}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Enqueue\-Dynamic\-Command@{\-Enqueue\-Dynamic\-Command}}
+\index{\-Enqueue\-Dynamic\-Command@{\-Enqueue\-Dynamic\-Command}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Enqueue\-Dynamic\-Command}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::\-Enqueue\-Dynamic\-Command} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Process\-Command} $\ast$}]{pc}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_a94fc2d793e1d4c80bc5c3759c3a5a741}
+\hypertarget{classGRIProcessThread_a987a42ec5631acf403405e1474abe08b}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Find\-Data\-Block@{\-Find\-Data\-Block}}
+\index{\-Find\-Data\-Block@{\-Find\-Data\-Block}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Find\-Data\-Block}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Data\-Block} $\ast$ {\bf \-G\-R\-I\-Process\-Thread\-::\-Find\-Data\-Block} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{data\-\_\-block\-\_\-name}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_a987a42ec5631acf403405e1474abe08b}
+\hypertarget{classGRIProcessThread_a007fbf43e0faf98916595e2f1d04d615}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Flush\-Buffer@{\-Flush\-Buffer}}
+\index{\-Flush\-Buffer@{\-Flush\-Buffer}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Flush\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::\-Flush\-Buffer} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classGRIProcessThread_a007fbf43e0faf98916595e2f1d04d615}
+\hypertarget{classGRIProcessThread_a92fd125cdea966be6174dd9c36ac34c3}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!get\-\_\-is\-\_\-daq@{get\-\_\-is\-\_\-daq}}
+\index{get\-\_\-is\-\_\-daq@{get\-\_\-is\-\_\-daq}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{get\-\_\-is\-\_\-daq}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Process\-Thread\-::get\-\_\-is\-\_\-daq} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIProcessThread_a92fd125cdea966be6174dd9c36ac34c3}
+\hypertarget{classGRIProcessThread_a57c3a67058b9bef780ee06c27dff7106}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!get\-\_\-last\-\_\-adjustment\-\_\-from\-\_\-sat@{get\-\_\-last\-\_\-adjustment\-\_\-from\-\_\-sat}}
+\index{get\-\_\-last\-\_\-adjustment\-\_\-from\-\_\-sat@{get\-\_\-last\-\_\-adjustment\-\_\-from\-\_\-sat}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{get\-\_\-last\-\_\-adjustment\-\_\-from\-\_\-sat}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Process\-Thread\-::get\-\_\-last\-\_\-adjustment\-\_\-from\-\_\-sat} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIProcessThread_a57c3a67058b9bef780ee06c27dff7106}
+\hypertarget{classGRIProcessThread_a841a80a2f4ed038eda84cdfb7bbc84ee}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!get\-\_\-last\-\_\-adjustment\-\_\-to\-\_\-sat@{get\-\_\-last\-\_\-adjustment\-\_\-to\-\_\-sat}}
+\index{get\-\_\-last\-\_\-adjustment\-\_\-to\-\_\-sat@{get\-\_\-last\-\_\-adjustment\-\_\-to\-\_\-sat}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{get\-\_\-last\-\_\-adjustment\-\_\-to\-\_\-sat}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Process\-Thread\-::get\-\_\-last\-\_\-adjustment\-\_\-to\-\_\-sat} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIProcessThread_a841a80a2f4ed038eda84cdfb7bbc84ee}
+\hypertarget{classGRIProcessThread_ab2e5c1ec3649c33eebbcbdfc71cef717}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!get\-\_\-num\-\_\-packets\-\_\-from\-\_\-sat@{get\-\_\-num\-\_\-packets\-\_\-from\-\_\-sat}}
+\index{get\-\_\-num\-\_\-packets\-\_\-from\-\_\-sat@{get\-\_\-num\-\_\-packets\-\_\-from\-\_\-sat}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{get\-\_\-num\-\_\-packets\-\_\-from\-\_\-sat}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Process\-Thread\-::get\-\_\-num\-\_\-packets\-\_\-from\-\_\-sat} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIProcessThread_ab2e5c1ec3649c33eebbcbdfc71cef717}
+\hypertarget{classGRIProcessThread_ad657c54d048fd87e8b907b1e45b10225}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!get\-\_\-num\-\_\-packets\-\_\-to\-\_\-sat@{get\-\_\-num\-\_\-packets\-\_\-to\-\_\-sat}}
+\index{get\-\_\-num\-\_\-packets\-\_\-to\-\_\-sat@{get\-\_\-num\-\_\-packets\-\_\-to\-\_\-sat}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{get\-\_\-num\-\_\-packets\-\_\-to\-\_\-sat}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Process\-Thread\-::get\-\_\-num\-\_\-packets\-\_\-to\-\_\-sat} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIProcessThread_ad657c54d048fd87e8b907b1e45b10225}
+\hypertarget{classGRIProcessThread_ac09d5b43b3e23dbcff28ed4978282ab8}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!get\-\_\-reg@{get\-\_\-reg}}
+\index{get\-\_\-reg@{get\-\_\-reg}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{get\-\_\-reg}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Regulator}$\ast$ {\bf \-G\-R\-I\-Process\-Thread\-::get\-\_\-reg} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIProcessThread_ac09d5b43b3e23dbcff28ed4978282ab8}
+\hypertarget{classGRIProcessThread_ad1b8c5977b21765c457cc9cca782f6b1}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!get\-\_\-run\-\_\-flag@{get\-\_\-run\-\_\-flag}}
+\index{get\-\_\-run\-\_\-flag@{get\-\_\-run\-\_\-flag}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{get\-\_\-run\-\_\-flag}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Process\-Thread\-::get\-\_\-run\-\_\-flag} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIProcessThread_ad1b8c5977b21765c457cc9cca782f6b1}
+\hypertarget{classGRIProcessThread_a3ffef0a545f36cce75a0931ae6461455}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!get\-\_\-thread\-\_\-id@{get\-\_\-thread\-\_\-id}}
+\index{get\-\_\-thread\-\_\-id@{get\-\_\-thread\-\_\-id}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{get\-\_\-thread\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Process\-Thread\-::get\-\_\-thread\-\_\-id} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIProcessThread_a3ffef0a545f36cce75a0931ae6461455}
+\hypertarget{classGRIProcessThread_ae784da2cb525e593e3ff3b91d20fcb99}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!get\-\_\-xml\-\_\-path@{get\-\_\-xml\-\_\-path}}
+\index{get\-\_\-xml\-\_\-path@{get\-\_\-xml\-\_\-path}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{get\-\_\-xml\-\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Process\-Thread\-::get\-\_\-xml\-\_\-path} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIProcessThread_ae784da2cb525e593e3ff3b91d20fcb99}
+\hypertarget{classGRIProcessThread_a7f07dd9108f2a47b05606c3df113ef5e}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Get\-Processed@{\-Get\-Processed}}
+\index{\-Get\-Processed@{\-Get\-Processed}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Get\-Processed}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::\-Get\-Processed} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Process\-Command} $\ast$}]{pc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}\label{classGRIProcessThread_a7f07dd9108f2a47b05606c3df113ef5e}
+\hypertarget{classGRIProcessThread_aae5947ed8aa3493f361003655de94b1f}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Handle\-Dynamic\-Command@{\-Handle\-Dynamic\-Command}}
+\index{\-Handle\-Dynamic\-Command@{\-Handle\-Dynamic\-Command}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Handle\-Dynamic\-Command}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::\-Handle\-Dynamic\-Command} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Process\-Command} $\ast$}]{pc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_aae5947ed8aa3493f361003655de94b1f}
+\hypertarget{classGRIProcessThread_a0fe71e6fc0d6c1a40329ed9c959a4b8f}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Handle\-Get\-Request@{\-Handle\-Get\-Request}}
+\index{\-Handle\-Get\-Request@{\-Handle\-Get\-Request}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Handle\-Get\-Request}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::\-Handle\-Get\-Request} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Process\-Command} $\ast$}]{pc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_a0fe71e6fc0d6c1a40329ed9c959a4b8f}
+\hypertarget{classGRIProcessThread_a375881fa5596dd79b58f34a9b987e889}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Handle\-Set\-Request@{\-Handle\-Set\-Request}}
+\index{\-Handle\-Set\-Request@{\-Handle\-Set\-Request}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Handle\-Set\-Request}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::\-Handle\-Set\-Request} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Process\-Command} $\ast$}]{pc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_a375881fa5596dd79b58f34a9b987e889}
+\hypertarget{classGRIProcessThread_ac6294955a90c57b1cad154729c581b81}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Increment\-Packet\-Count@{\-Increment\-Packet\-Count}}
+\index{\-Increment\-Packet\-Count@{\-Increment\-Packet\-Count}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Increment\-Packet\-Count}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::\-Increment\-Packet\-Count} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_ac6294955a90c57b1cad154729c581b81}
+\hypertarget{classGRIProcessThread_afd2898f6205acf10a043ce2f975060d8}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Init@{\-Init}}
+\index{\-Init@{\-Init}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Init}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::\-Init} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-Object $\ast$}]{obj, }
+\item[{{\bf \-Process\-Details} $\ast$}]{proc\-\_\-detail, }
+\item[{{\bf \-G\-R\-I\-Regulator} $\ast$}]{regulator}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_afd2898f6205acf10a043ce2f975060d8}
+\hypertarget{classGRIProcessThread_a6630afde2e55a2ae57589fed46daa5d7}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Read\-Memory@{\-Read\-Memory}}
+\index{\-Read\-Memory@{\-Read\-Memory}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Read\-Memory}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ \-Q\-Pair$<$ int, \-T $\ast$ $>$ {\bf \-G\-R\-I\-Process\-Thread\-::\-Read\-Memory} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{block\-Name, }
+\item[{\-Q\-String}]{buffer\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_a6630afde2e55a2ae57589fed46daa5d7}
+\hypertarget{classGRIProcessThread_a8b3b4638df86b300f94451d81bddbf37}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Register\-Accumulator@{\-Register\-Accumulator}}
+\index{\-Register\-Accumulator@{\-Register\-Accumulator}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Register\-Accumulator}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-Process\-Thread\-::\-Register\-Accumulator} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{datablock}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{classGRIProcessThread_a8b3b4638df86b300f94451d81bddbf37}
+
+
+\-Reimplemented in \hyperlink{classGRIDAQThread_ad6b0768a1252bde2b8555ff9a490d75a}{\-G\-R\-I\-D\-A\-Q\-Thread}.
+
+\hypertarget{classGRIProcessThread_a0d70fb6923169f4001330b47202189a3}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!run@{run}}
+\index{run@{run}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-G\-R\-I\-Process\-Thread\-::run} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected, virtual\mbox{]}}}}\label{classGRIProcessThread_a0d70fb6923169f4001330b47202189a3}
+
+
+\-Reimplemented from \hyperlink{classGRIThread_ae1b28195c7dcc1a241401af506597c67}{\-G\-R\-I\-Thread}.
+
+
+
+\-Reimplemented in \hyperlink{classGRIDAQThread_ae65ca14666b051d8db1c453376c1cb7d}{\-G\-R\-I\-D\-A\-Q\-Thread}, and \hyperlink{classGRIAnalysisThread_acc07ee77c102f8bac877efe9938d4586}{\-G\-R\-I\-Analysis\-Thread}.
+
+\hypertarget{classGRIProcessThread_a857d9628e01e6ecb4ddd311422173607}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!set\-\_\-is\-\_\-daq@{set\-\_\-is\-\_\-daq}}
+\index{set\-\_\-is\-\_\-daq@{set\-\_\-is\-\_\-daq}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{set\-\_\-is\-\_\-daq}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::set\-\_\-is\-\_\-daq} (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\-\_\-daq}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIProcessThread_a857d9628e01e6ecb4ddd311422173607}
+\hypertarget{classGRIProcessThread_a8dc5e101ac14539d38f291f6031f9ef1}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!set\-\_\-load\-\_\-balancing\-\_\-vars@{set\-\_\-load\-\_\-balancing\-\_\-vars}}
+\index{set\-\_\-load\-\_\-balancing\-\_\-vars@{set\-\_\-load\-\_\-balancing\-\_\-vars}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{set\-\_\-load\-\_\-balancing\-\_\-vars}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::set\-\_\-load\-\_\-balancing\-\_\-vars} (
+\begin{DoxyParamCaption}
+\item[{int}]{num\-\_\-packets\-\_\-to\-\_\-saturation, }
+\item[{int}]{num\-\_\-packets\-\_\-from\-\_\-saturation}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_a8dc5e101ac14539d38f291f6031f9ef1}
+\hypertarget{classGRIProcessThread_acb3b59b5ed83b8b044e519d9294ce8ef}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!set\-\_\-reg@{set\-\_\-reg}}
+\index{set\-\_\-reg@{set\-\_\-reg}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{set\-\_\-reg}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::set\-\_\-reg} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-G\-R\-I\-Regulator} $\ast$}]{reg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIProcessThread_acb3b59b5ed83b8b044e519d9294ce8ef}
+\hypertarget{classGRIProcessThread_aa1c2c19f16e8a8e8b827b8db8623e1f4}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!set\-\_\-run\-\_\-flag@{set\-\_\-run\-\_\-flag}}
+\index{set\-\_\-run\-\_\-flag@{set\-\_\-run\-\_\-flag}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{set\-\_\-run\-\_\-flag}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::set\-\_\-run\-\_\-flag} (
+\begin{DoxyParamCaption}
+\item[{bool}]{run\-\_\-flag}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIProcessThread_aa1c2c19f16e8a8e8b827b8db8623e1f4}
+\hypertarget{classGRIProcessThread_abffdc9b4b9a11f7ba82d8f19303d0422}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Set\-Default\-Detail@{\-Set\-Default\-Detail}}
+\index{\-Set\-Default\-Detail@{\-Set\-Default\-Detail}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Set\-Default\-Detail}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::\-Set\-Default\-Detail} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-G\-R\-I\-Regulator} $\ast$}]{reg, }
+\item[{\-Q\-String}]{name}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_abffdc9b4b9a11f7ba82d8f19303d0422}
+\hypertarget{classGRIProcessThread_a940321bc2c1394e78c6988f6b8483e72}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Set\-Link@{\-Set\-Link}}
+\index{\-Set\-Link@{\-Set\-Link}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Set\-Link}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Process\-Thread\-::\-Set\-Link} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-Linked\-List$<$ {\bf \-G\-R\-I\-Data\-Block} $\ast$ $>$ $\ast$}]{data\-Blocks}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_a940321bc2c1394e78c6988f6b8483e72}
+\hypertarget{classGRIProcessThread_a97e988e0266ca606a5c2c5d429ac26ba}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!\-Write\-Memory@{\-Write\-Memory}}
+\index{\-Write\-Memory@{\-Write\-Memory}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{\-Write\-Memory}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ bool {\bf \-G\-R\-I\-Process\-Thread\-::\-Write\-Memory} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{block\-Name, }
+\item[{\-Q\-String}]{buffer\-Name, }
+\item[{int}]{size, }
+\item[{\-T}]{data\-Array\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{classGRIProcessThread_a97e988e0266ca606a5c2c5d429ac26ba}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRIProcessThread_ac2f88f4a351a4c5ef86a7c797c7e548a}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!cmd\-\_\-buffer\-\_\-@{cmd\-\_\-buffer\-\_\-}}
+\index{cmd\-\_\-buffer\-\_\-@{cmd\-\_\-buffer\-\_\-}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{cmd\-\_\-buffer\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Queue$<${\bf \-Process\-Command} $\ast$$>$ {\bf \-G\-R\-I\-Process\-Thread\-::cmd\-\_\-buffer\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_ac2f88f4a351a4c5ef86a7c797c7e548a}
+\hypertarget{classGRIProcessThread_a827bcf8628fd76cc8a6d260c0b4623a2}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!cmd\-\_\-buffer\-\_\-lock\-\_\-@{cmd\-\_\-buffer\-\_\-lock\-\_\-}}
+\index{cmd\-\_\-buffer\-\_\-lock\-\_\-@{cmd\-\_\-buffer\-\_\-lock\-\_\-}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{cmd\-\_\-buffer\-\_\-lock\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Mutex {\bf \-G\-R\-I\-Process\-Thread\-::cmd\-\_\-buffer\-\_\-lock\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}mutable, private\mbox{]}}}}\label{classGRIProcessThread_a827bcf8628fd76cc8a6d260c0b4623a2}
+\hypertarget{classGRIProcessThread_acb373c365624696034eeb9f9662b56d1}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!counter@{counter}}
+\index{counter@{counter}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{counter}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Process\-Thread\-::counter} = 0\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{classGRIProcessThread_acb373c365624696034eeb9f9662b56d1}
+\hypertarget{classGRIProcessThread_ad0fb6d68e75ba1c87d913edcd863ace2}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!data\-\_\-block\-\_\-names\-\_\-@{data\-\_\-block\-\_\-names\-\_\-}}
+\index{data\-\_\-block\-\_\-names\-\_\-@{data\-\_\-block\-\_\-names\-\_\-}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{data\-\_\-block\-\_\-names\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$\-Q\-String$>$ {\bf \-G\-R\-I\-Process\-Thread\-::data\-\_\-block\-\_\-names\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_ad0fb6d68e75ba1c87d913edcd863ace2}
+\hypertarget{classGRIProcessThread_aa89164841b50bd60d0da3ae9e3254f62}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!data\-\_\-in\-\_\-@{data\-\_\-in\-\_\-}}
+\index{data\-\_\-in\-\_\-@{data\-\_\-in\-\_\-}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{data\-\_\-in\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Hash$<$\-Q\-String, {\bf \-G\-R\-I\-Data\-Block}$\ast$$>$ {\bf \-G\-R\-I\-Process\-Thread\-::data\-\_\-in\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_aa89164841b50bd60d0da3ae9e3254f62}
+\hypertarget{classGRIProcessThread_a33bf6fff182f03b00d43d3d3a66409ee}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!data\-\_\-out\-\_\-@{data\-\_\-out\-\_\-}}
+\index{data\-\_\-out\-\_\-@{data\-\_\-out\-\_\-}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{data\-\_\-out\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Hash$<$\-Q\-String, {\bf \-G\-R\-I\-Data\-Block}$\ast$$>$ {\bf \-G\-R\-I\-Process\-Thread\-::data\-\_\-out\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_a33bf6fff182f03b00d43d3d3a66409ee}
+\hypertarget{classGRIProcessThread_acea50dedd5b028dcc66ed86b807ca8b0}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!is\-\_\-daq\-\_\-@{is\-\_\-daq\-\_\-}}
+\index{is\-\_\-daq\-\_\-@{is\-\_\-daq\-\_\-}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{is\-\_\-daq\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Process\-Thread\-::is\-\_\-daq\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_acea50dedd5b028dcc66ed86b807ca8b0}
+\hypertarget{classGRIProcessThread_a451c53d3a1912e358e9008f86fa490e2}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!last\-\_\-adjustment\-\_\-from\-\_\-sat\-\_\-@{last\-\_\-adjustment\-\_\-from\-\_\-sat\-\_\-}}
+\index{last\-\_\-adjustment\-\_\-from\-\_\-sat\-\_\-@{last\-\_\-adjustment\-\_\-from\-\_\-sat\-\_\-}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{last\-\_\-adjustment\-\_\-from\-\_\-sat\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Process\-Thread\-::last\-\_\-adjustment\-\_\-from\-\_\-sat\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_a451c53d3a1912e358e9008f86fa490e2}
+\hypertarget{classGRIProcessThread_a7085814bd5c193bf6f233e755bf06630}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!last\-\_\-adjustment\-\_\-to\-\_\-sat\-\_\-@{last\-\_\-adjustment\-\_\-to\-\_\-sat\-\_\-}}
+\index{last\-\_\-adjustment\-\_\-to\-\_\-sat\-\_\-@{last\-\_\-adjustment\-\_\-to\-\_\-sat\-\_\-}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{last\-\_\-adjustment\-\_\-to\-\_\-sat\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Process\-Thread\-::last\-\_\-adjustment\-\_\-to\-\_\-sat\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_a7085814bd5c193bf6f233e755bf06630}
+\hypertarget{classGRIProcessThread_adcf581f4fc99468d4c81ce4033add63b}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!num\-\_\-packets\-\_\-from\-\_\-sat\-\_\-@{num\-\_\-packets\-\_\-from\-\_\-sat\-\_\-}}
+\index{num\-\_\-packets\-\_\-from\-\_\-sat\-\_\-@{num\-\_\-packets\-\_\-from\-\_\-sat\-\_\-}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{num\-\_\-packets\-\_\-from\-\_\-sat\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Process\-Thread\-::num\-\_\-packets\-\_\-from\-\_\-sat\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_adcf581f4fc99468d4c81ce4033add63b}
+\hypertarget{classGRIProcessThread_af40bc18b79529b079c46ab55bfc806b2}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!num\-\_\-packets\-\_\-to\-\_\-sat\-\_\-@{num\-\_\-packets\-\_\-to\-\_\-sat\-\_\-}}
+\index{num\-\_\-packets\-\_\-to\-\_\-sat\-\_\-@{num\-\_\-packets\-\_\-to\-\_\-sat\-\_\-}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{num\-\_\-packets\-\_\-to\-\_\-sat\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Process\-Thread\-::num\-\_\-packets\-\_\-to\-\_\-sat\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_af40bc18b79529b079c46ab55bfc806b2}
+\hypertarget{classGRIProcessThread_a6ee0190728642ea5242085b2949d2da2}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!reg\-\_\-@{reg\-\_\-}}
+\index{reg\-\_\-@{reg\-\_\-}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{reg\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Regulator}$\ast$ {\bf \-G\-R\-I\-Process\-Thread\-::reg\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_a6ee0190728642ea5242085b2949d2da2}
+\hypertarget{classGRIProcessThread_a8fb2fe6170dd07f06cfe25963398afd0}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!run\-\_\-flag\-\_\-@{run\-\_\-flag\-\_\-}}
+\index{run\-\_\-flag\-\_\-@{run\-\_\-flag\-\_\-}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{run\-\_\-flag\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Process\-Thread\-::run\-\_\-flag\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_a8fb2fe6170dd07f06cfe25963398afd0}
+\hypertarget{classGRIProcessThread_a35f82ee828412c8b75cdc24ba765f8ed}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!thread\-\_\-id\-\_\-@{thread\-\_\-id\-\_\-}}
+\index{thread\-\_\-id\-\_\-@{thread\-\_\-id\-\_\-}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{thread\-\_\-id\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Process\-Thread\-::thread\-\_\-id\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_a35f82ee828412c8b75cdc24ba765f8ed}
+\hypertarget{classGRIProcessThread_a2554bf45bd5097d3074c4ae7c50e9daa}{\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!xml\-\_\-path\-\_\-@{xml\-\_\-path\-\_\-}}
+\index{xml\-\_\-path\-\_\-@{xml\-\_\-path\-\_\-}!GRIProcessThread@{\-G\-R\-I\-Process\-Thread}}
+\subsubsection[{xml\-\_\-path\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Process\-Thread\-::xml\-\_\-path\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIProcessThread_a2554bf45bd5097d3074c4ae7c50e9daa}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRIProcessThread_8h}{\-G\-R\-I\-Process\-Thread.\-h}\item 
+framework/source/\hyperlink{GRIProcessThread_8cpp}{\-G\-R\-I\-Process\-Thread.\-cpp}\end{DoxyCompactItemize}

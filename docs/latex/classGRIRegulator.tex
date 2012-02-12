@@ -1,0 +1,303 @@
+\hypertarget{classGRIRegulator}{\section{\-G\-R\-I\-Regulator \-Class \-Reference}
+\label{classGRIRegulator}\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-Regulator.\-h$>$}
+
+\-Inheritance diagram for \-G\-R\-I\-Regulator\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classGRIRegulator}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRIRegulator_a728a2a26cf85a297fdbf4e7d14e3b6f1}{\-G\-R\-I\-Regulator} (\hyperlink{classGRIMemoryManager}{\-G\-R\-I\-Memory\-Manager} $\ast$ma)
+\item 
+\hyperlink{classGRIRegulator_a66efa63d7f1cb4ef145509438e06f6be}{$\sim$\-G\-R\-I\-Regulator} ()
+\item 
+void \hyperlink{classGRIRegulator_a5cc42ce8a036e62cc61939a6c30d1b98}{\-Init\-Config} ()
+\item 
+\-Q\-Pair$<$ int, char $\ast$ $>$ \hyperlink{classGRIRegulator_a2f1e359537054a4fb69490e0180bb06f}{\-Read\-Memory} (const \-Q\-String \&block\-Name, const \-Q\-String \&buffer\-Name)
+\item 
+bool \hyperlink{classGRIRegulator_a535dd128b732df3950c189f6404c5607}{\-Write\-Memory} (const \-Q\-String \&block\-Name, const \-Q\-String \&buffer\-Name, int size, char data\-Array\mbox{[}$\,$\mbox{]})
+\item 
+int \hyperlink{classGRIRegulator_a6114f5b000254c666dac349ed790ee05}{\-Current\-Packet\-Position} (const \-Q\-String \&buffer\-Name)
+\item 
+int \hyperlink{classGRIRegulator_ac120f773e0fc99ba956027dfcf06574c}{\-Last\-Packet} (const \-Q\-String \&buffer\-Name)
+\item 
+bool \hyperlink{classGRIRegulator_a51bd194df93c5db285624115c70dfafe}{\-Set\-Packet\-Position} (const \-Q\-String \&buffer\-Name, int packet\-Number)
+\item 
+int \hyperlink{classGRIRegulator_a4aacbfe3b9e1d12686e8641c8fad0d5a}{\-Sizeof\-Packet} (const \-Q\-String \&buffer\-Name, int packet\-Number)
+\item 
+int \hyperlink{classGRIRegulator_ae1b5a1bab87e4b58251842a0b6322e98}{\-Sizeof\-Buffer} (const \-Q\-String \&buffer\-Name)
+\item 
+void \hyperlink{classGRIRegulator_a924c4fa2df0b032223e37bc53ffadd30}{\-Start} ()
+\item 
+void \hyperlink{classGRIRegulator_a1ff6e0e5f53ef3cf6f468d994eb007a2}{\-Stop} ()
+\item 
+void \hyperlink{classGRIRegulator_a2cbb8bf8c1c6592c19caaad328484a8d}{\-Add\-Data\-Block} (\hyperlink{classGRIDataBlock}{\-G\-R\-I\-Data\-Block} $\ast$data)
+\item 
+void \hyperlink{classGRIRegulator_ac70577111abf5a102642787efe945615}{\-Add\-Process} (\hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} $\ast$proc)
+\item 
+int \hyperlink{classGRIRegulator_ad9e75ac4b7dda64abd8620116b09367f}{\-Garbage\-Collection} (\-Q\-List$<$ void $\ast$ $>$ p\-List)
+\item 
+\hyperlink{classGRIMemoryManager}{\-G\-R\-I\-Memory\-Manager} $\ast$ \hyperlink{classGRIRegulator_a6e4c8db5a7b22e5f7a4f2851f2042c68}{get\-\_\-mem\-\_\-mngr} ()
+\item 
+void \hyperlink{classGRIRegulator_a9809eb7c5f4286041a448bb77b343b0a}{set\-\_\-mem\-\_\-mngr} (\hyperlink{classGRIMemoryManager}{\-G\-R\-I\-Memory\-Manager} $\ast$mem\-\_\-mngr)
+\item 
+\-Q\-Linked\-List$<$ \hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} $\ast$ $>$ $\ast$ \hyperlink{classGRIRegulator_a06bd9d1013d5e8fc4fa757d166d69b31}{get\-\_\-processes} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classGRIRegulator_a1b086f33a28240cd4fc7254e5880165c}{\-Garbage\-Collection} (void $\ast$p)
+\item 
+\hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} $\ast$ \hyperlink{classGRIRegulator_a06925e80c5b9b432a7273b6230e4ea33}{\-Find\-Process} (const \-Q\-String \&process\-\_\-name)
+\item 
+\hyperlink{classGRIDataBlock}{\-G\-R\-I\-Data\-Block} $\ast$ \hyperlink{classGRIRegulator_a5a6069c5569e928dc10bb125e5729f37}{\-Find\-Data} (const \-Q\-String \&data\-\_\-block\-\_\-name, const \-Q\-String \&buffer\-\_\-name)
+\item 
+void \hyperlink{classGRIRegulator_a1d6ba3a87019cf4cb199f2e853e42dac}{\-Start\-Threads} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRIMemoryManager}{\-G\-R\-I\-Memory\-Manager} $\ast$ \hyperlink{classGRIRegulator_a9d6026fe67539022cad0e9bb4be60956}{mem\-\_\-mngr\-\_\-}
+\item 
+\-Q\-Mutex \hyperlink{classGRIRegulator_a3b75f15bdae72cbf888084d6e396c8b2}{gc\-\_\-mutex\-\_\-}
+\item 
+\-Q\-Mutex \hyperlink{classGRIRegulator_a462abd0c2e6a432f9d080cde8899d059}{mutex\-\_\-}
+\item 
+\-Q\-Wait\-Condition \hyperlink{classGRIRegulator_ae0fe8063d2012c33caa9f09ee8b078c9}{buffer\-\_\-ready\-\_\-}
+\item 
+\-Q\-Time \hyperlink{classGRIRegulator_a43ec993acb8324946780eeab8484e8b4}{timer\-\_\-}
+\item 
+\-Q\-Linked\-List$<$ \hyperlink{classGRIDataBlock}{\-G\-R\-I\-Data\-Block} $\ast$ $>$ $\ast$ \hyperlink{classGRIRegulator_af68ee4d44730f3b5fd07df9ada967ce2}{data\-\_\-blocks\-\_\-}
+\item 
+\-Q\-Linked\-List$<$ \hyperlink{classGRIProcessThread}{\-G\-R\-I\-Process\-Thread} $\ast$ $>$ $\ast$ \hyperlink{classGRIRegulator_afbe971d9b6ae796fd8fe9bc8f241ba35}{processes\-\_\-}
+\item 
+\-Q\-List$<$ char $\ast$ $>$ \hyperlink{classGRIRegulator_acbc03d3e5b17ea2725ac93b313ecb4e3}{read\-\_\-data\-\_\-ptrs\-\_\-}
+\end{DoxyCompactItemize}
+\subsection*{\-Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classGRIRegulator_ae5d9162c1cf3d4e10a949c025ad576d7}{\-G\-R\-I\-Command\-And\-Control}
+\item 
+class \hyperlink{classGRIRegulator_a02a3c0a1755a1c589621c9f0f0f871f1}{\-G\-R\-I\-Data\-Block}
+\item 
+class \hyperlink{classGRIRegulator_a5daf6c2b25042fa24a9190cd0430a008}{\-G\-R\-I\-Process\-Thread}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRIRegulator_a728a2a26cf85a297fdbf4e7d14e3b6f1}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}}
+\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-G\-R\-I\-Regulator}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Regulator\-::\-G\-R\-I\-Regulator} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-G\-R\-I\-Memory\-Manager} $\ast$}]{ma}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}}\label{classGRIRegulator_a728a2a26cf85a297fdbf4e7d14e3b6f1}
+\hypertarget{classGRIRegulator_a66efa63d7f1cb4ef145509438e06f6be}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!$\sim$\-G\-R\-I\-Regulator@{$\sim$\-G\-R\-I\-Regulator}}
+\index{$\sim$\-G\-R\-I\-Regulator@{$\sim$\-G\-R\-I\-Regulator}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{$\sim$\-G\-R\-I\-Regulator}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Regulator\-::$\sim$\-G\-R\-I\-Regulator} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIRegulator_a66efa63d7f1cb4ef145509438e06f6be}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRIRegulator_a2cbb8bf8c1c6592c19caaad328484a8d}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Add\-Data\-Block@{\-Add\-Data\-Block}}
+\index{\-Add\-Data\-Block@{\-Add\-Data\-Block}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Add\-Data\-Block}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Regulator\-::\-Add\-Data\-Block} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-G\-R\-I\-Data\-Block} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIRegulator_a2cbb8bf8c1c6592c19caaad328484a8d}
+\hypertarget{classGRIRegulator_ac70577111abf5a102642787efe945615}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Add\-Process@{\-Add\-Process}}
+\index{\-Add\-Process@{\-Add\-Process}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Add\-Process}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Regulator\-::\-Add\-Process} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-G\-R\-I\-Process\-Thread} $\ast$}]{proc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIRegulator_ac70577111abf5a102642787efe945615}
+\hypertarget{classGRIRegulator_a6114f5b000254c666dac349ed790ee05}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Current\-Packet\-Position@{\-Current\-Packet\-Position}}
+\index{\-Current\-Packet\-Position@{\-Current\-Packet\-Position}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Current\-Packet\-Position}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Regulator\-::\-Current\-Packet\-Position} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{buffer\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGRIRegulator_a6114f5b000254c666dac349ed790ee05}
+\hypertarget{classGRIRegulator_a5a6069c5569e928dc10bb125e5729f37}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Find\-Data@{\-Find\-Data}}
+\index{\-Find\-Data@{\-Find\-Data}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Find\-Data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Data\-Block} $\ast$ {\bf \-G\-R\-I\-Regulator\-::\-Find\-Data} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{data\-\_\-block\-\_\-name, }
+\item[{const \-Q\-String \&}]{buffer\-\_\-name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIRegulator_a5a6069c5569e928dc10bb125e5729f37}
+\hypertarget{classGRIRegulator_a06925e80c5b9b432a7273b6230e4ea33}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Find\-Process@{\-Find\-Process}}
+\index{\-Find\-Process@{\-Find\-Process}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Find\-Process}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Process\-Thread} $\ast$ {\bf \-G\-R\-I\-Regulator\-::\-Find\-Process} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{process\-\_\-name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIRegulator_a06925e80c5b9b432a7273b6230e4ea33}
+\hypertarget{classGRIRegulator_ad9e75ac4b7dda64abd8620116b09367f}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Garbage\-Collection@{\-Garbage\-Collection}}
+\index{\-Garbage\-Collection@{\-Garbage\-Collection}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Garbage\-Collection}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Regulator\-::\-Garbage\-Collection} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-List$<$ void $\ast$ $>$}]{p\-List}
+\end{DoxyParamCaption}
+)}}\label{classGRIRegulator_ad9e75ac4b7dda64abd8620116b09367f}
+\hypertarget{classGRIRegulator_a1b086f33a28240cd4fc7254e5880165c}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Garbage\-Collection@{\-Garbage\-Collection}}
+\index{\-Garbage\-Collection@{\-Garbage\-Collection}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Garbage\-Collection}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Regulator\-::\-Garbage\-Collection} (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{p}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIRegulator_a1b086f33a28240cd4fc7254e5880165c}
+\hypertarget{classGRIRegulator_a6e4c8db5a7b22e5f7a4f2851f2042c68}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!get\-\_\-mem\-\_\-mngr@{get\-\_\-mem\-\_\-mngr}}
+\index{get\-\_\-mem\-\_\-mngr@{get\-\_\-mem\-\_\-mngr}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{get\-\_\-mem\-\_\-mngr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Memory\-Manager}$\ast$ {\bf \-G\-R\-I\-Regulator\-::get\-\_\-mem\-\_\-mngr} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIRegulator_a6e4c8db5a7b22e5f7a4f2851f2042c68}
+\hypertarget{classGRIRegulator_a06bd9d1013d5e8fc4fa757d166d69b31}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!get\-\_\-processes@{get\-\_\-processes}}
+\index{get\-\_\-processes@{get\-\_\-processes}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{get\-\_\-processes}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Linked\-List$<${\bf \-G\-R\-I\-Process\-Thread}$\ast$$>$$\ast$ {\bf \-G\-R\-I\-Regulator\-::get\-\_\-processes} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIRegulator_a06bd9d1013d5e8fc4fa757d166d69b31}
+\hypertarget{classGRIRegulator_a5cc42ce8a036e62cc61939a6c30d1b98}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Init\-Config@{\-Init\-Config}}
+\index{\-Init\-Config@{\-Init\-Config}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Init\-Config}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Regulator\-::\-Init\-Config} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIRegulator_a5cc42ce8a036e62cc61939a6c30d1b98}
+\hypertarget{classGRIRegulator_ac120f773e0fc99ba956027dfcf06574c}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Last\-Packet@{\-Last\-Packet}}
+\index{\-Last\-Packet@{\-Last\-Packet}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Last\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Regulator\-::\-Last\-Packet} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{buffer\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGRIRegulator_ac120f773e0fc99ba956027dfcf06574c}
+\hypertarget{classGRIRegulator_a2f1e359537054a4fb69490e0180bb06f}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Read\-Memory@{\-Read\-Memory}}
+\index{\-Read\-Memory@{\-Read\-Memory}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Read\-Memory}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Pair$<$ int, char $\ast$ $>$ {\bf \-G\-R\-I\-Regulator\-::\-Read\-Memory} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGRIRegulator_a2f1e359537054a4fb69490e0180bb06f}
+\hypertarget{classGRIRegulator_a9809eb7c5f4286041a448bb77b343b0a}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!set\-\_\-mem\-\_\-mngr@{set\-\_\-mem\-\_\-mngr}}
+\index{set\-\_\-mem\-\_\-mngr@{set\-\_\-mem\-\_\-mngr}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{set\-\_\-mem\-\_\-mngr}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Regulator\-::set\-\_\-mem\-\_\-mngr} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-G\-R\-I\-Memory\-Manager} $\ast$}]{mem\-\_\-mngr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRIRegulator_a9809eb7c5f4286041a448bb77b343b0a}
+\hypertarget{classGRIRegulator_a51bd194df93c5db285624115c70dfafe}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Set\-Packet\-Position@{\-Set\-Packet\-Position}}
+\index{\-Set\-Packet\-Position@{\-Set\-Packet\-Position}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Set\-Packet\-Position}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Regulator\-::\-Set\-Packet\-Position} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{buffer\-Name, }
+\item[{int}]{packet\-Number}
+\end{DoxyParamCaption}
+)}}\label{classGRIRegulator_a51bd194df93c5db285624115c70dfafe}
+\hypertarget{classGRIRegulator_ae1b5a1bab87e4b58251842a0b6322e98}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Sizeof\-Buffer@{\-Sizeof\-Buffer}}
+\index{\-Sizeof\-Buffer@{\-Sizeof\-Buffer}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Sizeof\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Regulator\-::\-Sizeof\-Buffer} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{buffer\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGRIRegulator_ae1b5a1bab87e4b58251842a0b6322e98}
+\hypertarget{classGRIRegulator_a4aacbfe3b9e1d12686e8641c8fad0d5a}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Sizeof\-Packet@{\-Sizeof\-Packet}}
+\index{\-Sizeof\-Packet@{\-Sizeof\-Packet}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Sizeof\-Packet}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Regulator\-::\-Sizeof\-Packet} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{buffer\-Name, }
+\item[{int}]{packet\-Number}
+\end{DoxyParamCaption}
+)}}\label{classGRIRegulator_a4aacbfe3b9e1d12686e8641c8fad0d5a}
+\hypertarget{classGRIRegulator_a924c4fa2df0b032223e37bc53ffadd30}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Start@{\-Start}}
+\index{\-Start@{\-Start}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Start}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Regulator\-::\-Start} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIRegulator_a924c4fa2df0b032223e37bc53ffadd30}
+\hypertarget{classGRIRegulator_a1d6ba3a87019cf4cb199f2e853e42dac}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Start\-Threads@{\-Start\-Threads}}
+\index{\-Start\-Threads@{\-Start\-Threads}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Start\-Threads}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Regulator\-::\-Start\-Threads} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIRegulator_a1d6ba3a87019cf4cb199f2e853e42dac}
+\hypertarget{classGRIRegulator_a1ff6e0e5f53ef3cf6f468d994eb007a2}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Stop@{\-Stop}}
+\index{\-Stop@{\-Stop}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Stop}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Regulator\-::\-Stop} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRIRegulator_a1ff6e0e5f53ef3cf6f468d994eb007a2}
+\hypertarget{classGRIRegulator_a535dd128b732df3950c189f6404c5607}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-Write\-Memory@{\-Write\-Memory}}
+\index{\-Write\-Memory@{\-Write\-Memory}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-Write\-Memory}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Regulator\-::\-Write\-Memory} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{block\-Name, }
+\item[{const \-Q\-String \&}]{buffer\-Name, }
+\item[{int}]{size, }
+\item[{char}]{data\-Array\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{classGRIRegulator_a535dd128b732df3950c189f6404c5607}
+
+
+\subsection{\-Friends \-And \-Related \-Function \-Documentation}
+\hypertarget{classGRIRegulator_ae5d9162c1cf3d4e10a949c025ad576d7}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-G\-R\-I\-Command\-And\-Control@{\-G\-R\-I\-Command\-And\-Control}}
+\index{\-G\-R\-I\-Command\-And\-Control@{\-G\-R\-I\-Command\-And\-Control}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-G\-R\-I\-Command\-And\-Control}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf \-G\-R\-I\-Command\-And\-Control}\hspace{0.3cm}{\ttfamily  \mbox{[}friend\mbox{]}}}}\label{classGRIRegulator_ae5d9162c1cf3d4e10a949c025ad576d7}
+\hypertarget{classGRIRegulator_a02a3c0a1755a1c589621c9f0f0f871f1}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}}
+\index{\-G\-R\-I\-Data\-Block@{\-G\-R\-I\-Data\-Block}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-G\-R\-I\-Data\-Block}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf \-G\-R\-I\-Data\-Block}\hspace{0.3cm}{\ttfamily  \mbox{[}friend\mbox{]}}}}\label{classGRIRegulator_a02a3c0a1755a1c589621c9f0f0f871f1}
+\hypertarget{classGRIRegulator_a5daf6c2b25042fa24a9190cd0430a008}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}}
+\index{\-G\-R\-I\-Process\-Thread@{\-G\-R\-I\-Process\-Thread}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{\-G\-R\-I\-Process\-Thread}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf \-G\-R\-I\-Process\-Thread}\hspace{0.3cm}{\ttfamily  \mbox{[}friend\mbox{]}}}}\label{classGRIRegulator_a5daf6c2b25042fa24a9190cd0430a008}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRIRegulator_ae0fe8063d2012c33caa9f09ee8b078c9}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!buffer\-\_\-ready\-\_\-@{buffer\-\_\-ready\-\_\-}}
+\index{buffer\-\_\-ready\-\_\-@{buffer\-\_\-ready\-\_\-}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{buffer\-\_\-ready\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Wait\-Condition {\bf \-G\-R\-I\-Regulator\-::buffer\-\_\-ready\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIRegulator_ae0fe8063d2012c33caa9f09ee8b078c9}
+\hypertarget{classGRIRegulator_af68ee4d44730f3b5fd07df9ada967ce2}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!data\-\_\-blocks\-\_\-@{data\-\_\-blocks\-\_\-}}
+\index{data\-\_\-blocks\-\_\-@{data\-\_\-blocks\-\_\-}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{data\-\_\-blocks\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Linked\-List$<${\bf \-G\-R\-I\-Data\-Block}$\ast$$>$$\ast$ {\bf \-G\-R\-I\-Regulator\-::data\-\_\-blocks\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIRegulator_af68ee4d44730f3b5fd07df9ada967ce2}
+\hypertarget{classGRIRegulator_a3b75f15bdae72cbf888084d6e396c8b2}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!gc\-\_\-mutex\-\_\-@{gc\-\_\-mutex\-\_\-}}
+\index{gc\-\_\-mutex\-\_\-@{gc\-\_\-mutex\-\_\-}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{gc\-\_\-mutex\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Mutex {\bf \-G\-R\-I\-Regulator\-::gc\-\_\-mutex\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIRegulator_a3b75f15bdae72cbf888084d6e396c8b2}
+\hypertarget{classGRIRegulator_a9d6026fe67539022cad0e9bb4be60956}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!mem\-\_\-mngr\-\_\-@{mem\-\_\-mngr\-\_\-}}
+\index{mem\-\_\-mngr\-\_\-@{mem\-\_\-mngr\-\_\-}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{mem\-\_\-mngr\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Memory\-Manager}$\ast$ {\bf \-G\-R\-I\-Regulator\-::mem\-\_\-mngr\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIRegulator_a9d6026fe67539022cad0e9bb4be60956}
+\hypertarget{classGRIRegulator_a462abd0c2e6a432f9d080cde8899d059}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!mutex\-\_\-@{mutex\-\_\-}}
+\index{mutex\-\_\-@{mutex\-\_\-}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{mutex\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Mutex {\bf \-G\-R\-I\-Regulator\-::mutex\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIRegulator_a462abd0c2e6a432f9d080cde8899d059}
+\hypertarget{classGRIRegulator_afbe971d9b6ae796fd8fe9bc8f241ba35}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!processes\-\_\-@{processes\-\_\-}}
+\index{processes\-\_\-@{processes\-\_\-}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{processes\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Linked\-List$<${\bf \-G\-R\-I\-Process\-Thread}$\ast$$>$$\ast$ {\bf \-G\-R\-I\-Regulator\-::processes\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIRegulator_afbe971d9b6ae796fd8fe9bc8f241ba35}
+\hypertarget{classGRIRegulator_acbc03d3e5b17ea2725ac93b313ecb4e3}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!read\-\_\-data\-\_\-ptrs\-\_\-@{read\-\_\-data\-\_\-ptrs\-\_\-}}
+\index{read\-\_\-data\-\_\-ptrs\-\_\-@{read\-\_\-data\-\_\-ptrs\-\_\-}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{read\-\_\-data\-\_\-ptrs\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$char$\ast$$>$ {\bf \-G\-R\-I\-Regulator\-::read\-\_\-data\-\_\-ptrs\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIRegulator_acbc03d3e5b17ea2725ac93b313ecb4e3}
+\hypertarget{classGRIRegulator_a43ec993acb8324946780eeab8484e8b4}{\index{\-G\-R\-I\-Regulator@{\-G\-R\-I\-Regulator}!timer\-\_\-@{timer\-\_\-}}
+\index{timer\-\_\-@{timer\-\_\-}!GRIRegulator@{\-G\-R\-I\-Regulator}}
+\subsubsection[{timer\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Time {\bf \-G\-R\-I\-Regulator\-::timer\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRIRegulator_a43ec993acb8324946780eeab8484e8b4}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRIRegulator_8h}{\-G\-R\-I\-Regulator.\-h}\item 
+framework/source/\hyperlink{GRIRegulator_8cpp}{\-G\-R\-I\-Regulator.\-cpp}\end{DoxyCompactItemize}

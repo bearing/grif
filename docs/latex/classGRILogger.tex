@@ -1,0 +1,272 @@
+\hypertarget{classGRILogger}{\section{\-G\-R\-I\-Logger \-Class \-Reference}
+\label{classGRILogger}\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}}
+}
+
+
+{\ttfamily \#include $<$\-G\-R\-I\-Logger.\-h$>$}
+
+\subsection*{\-Public \-Slots}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classGRILogger_afde9ab6b9dc1700494ff8e9d7b7963db}{\-Write\-Log\-File} (\hyperlink{classGRILogMessage}{\-G\-R\-I\-Log\-Message} msg)
+\end{DoxyCompactItemize}
+\subsection*{\-Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGRILogger_af2288c2cabc18ebfa16bb6c154a7f0d2}{\-Output} (std\-::string)
+\item 
+void \hyperlink{classGRILogger_af576a217f0f98104b1c8d8cbe5154999}{\-Output} (\-Q\-List$<$ std\-::string $>$)
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGRILogger_a5bc6e70b190b2b040e6d127ff67e1127}{\-G\-R\-I\-Logger} (\-Q\-String \-File\-Name)
+\item 
+\hyperlink{classGRILogger_ab9c62dacaebf90ad2c018b28c16b468a}{$\sim$\-G\-R\-I\-Logger} ()
+\item 
+bool \hyperlink{classGRILogger_ad0a66372098ce1a4467dd4a88b7d451d}{\-Write\-Error\-Log\-File} (\-Q\-String \-Error\-Description, int time)
+\item 
+bool \hyperlink{classGRILogger_a986af22eb17bc900501d5cee27bd7083}{\-Write\-Error\-Log\-File} (\-Q\-String \-Error\-Description)
+\item 
+bool \hyperlink{classGRILogger_a8c99342ac9b5e4aaedd0724b2c592a1a}{\-Write\-Error\-Log\-File} (\-Q\-List$<$ \-Q\-String $>$ \-Error\-Descriptions, int time)
+\item 
+bool \hyperlink{classGRILogger_ac5dfd784d8e6cc55057f886bd6c60411}{\-Write\-Error\-Log\-File} (\-Q\-List$<$ \-Q\-String $>$ \-Error\-Descriptions)
+\item 
+bool \hyperlink{classGRILogger_aabe86599899900ad403b391d92a82931}{\-Write\-Log\-File} (\-Q\-String output, int time)
+\item 
+bool \hyperlink{classGRILogger_a9251445c62908692afc80efca1b49a2d}{\-Write\-Log\-File} (\-Q\-String output)
+\item 
+bool \hyperlink{classGRILogger_ad1b6770a16ec00568376e2f931a318e3}{\-Write\-Log\-File} (\-Q\-List$<$ \-Q\-String $>$ output, int time)
+\item 
+bool \hyperlink{classGRILogger_a5350f24e3479833ac1500b22ca9a4285}{\-Write\-Log\-File} (\-Q\-List$<$ \-Q\-String $>$ output)
+\item 
+bool \hyperlink{classGRILogger_affd7b6afb8593583fa20c7f672c12394}{\-Clear\-Log\-File} ()
+\item 
+bool \hyperlink{classGRILogger_afc0bd7b5b18ab23bf20e49f5b248e52a}{\-Clear\-Error\-Log\-File} ()
+\item 
+void \hyperlink{classGRILogger_a95533a5302ccfc29c877a2318e0e708a}{\-Display} (std\-::string)
+\item 
+void \hyperlink{classGRILogger_a008dea4b6e32d6044ad7d5e9757424c9}{\-Display} (\-Q\-List$<$ std\-::string $>$)
+\item 
+\-Q\-String \hyperlink{classGRILogger_a3e2d8e4d4fd8ffa1a575efea60ce94fd}{\-Get\-Log\-File\-Name} ()
+\item 
+\-Q\-String \hyperlink{classGRILogger_a499b53b2be3e963c0deee633fcb76081}{\-Get\-Log\-File\-Path} ()
+\item 
+void \hyperlink{classGRILogger_a2d8ebeb8244906c6a187e4eb2cfd1cac}{\-Set\-Log\-Level} (int l)
+\item 
+int \hyperlink{classGRILogger_a356e46016eed231ce2134a551b791adb}{\-Get\-Log\-Level} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Private \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \hyperlink{classGRILogger_a99d802cf1171ea64c030cfb8769e3905}{\-Write\-To\-Log\-File} (\-Q\-String, int, \-Q\-Mutex $\ast$, \-Q\-File $\ast$)
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\-Q\-String \hyperlink{classGRILogger_aa1280ba96497c651f21c80929baaa582}{grif\-\_\-project\-\_\-file\-\_\-path\-\_\-}
+\item 
+\-Q\-String \hyperlink{classGRILogger_aee75dc42ec31c6b8668ba18606c16d1b}{filename\-\_\-}
+\item 
+\-Q\-String \hyperlink{classGRILogger_aed2b4ca9781c7faf1fce8ee5a4ccc760}{logfilepath\-\_\-}
+\item 
+int \hyperlink{classGRILogger_acc78c8a84f847872fabee9af161fc4d9}{log\-\_\-level\-\_\-}
+\item 
+\-Q\-Mutex \hyperlink{classGRILogger_aacbb428753b5108e5608d23bed5ff38d}{mutex\-\_\-}
+\item 
+\-Q\-Process\-Environment \hyperlink{classGRILogger_aa603a5003a56547f48ef748123aedeec}{proc\-\_\-environ\-\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classGRILogger_a5bc6e70b190b2b040e6d127ff67e1127}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}}
+\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-G\-R\-I\-Logger}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Logger\-::\-G\-R\-I\-Logger} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-File\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}}\label{classGRILogger_a5bc6e70b190b2b040e6d127ff67e1127}
+\hypertarget{classGRILogger_ab9c62dacaebf90ad2c018b28c16b468a}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!$\sim$\-G\-R\-I\-Logger@{$\sim$\-G\-R\-I\-Logger}}
+\index{$\sim$\-G\-R\-I\-Logger@{$\sim$\-G\-R\-I\-Logger}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{$\sim$\-G\-R\-I\-Logger}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-R\-I\-Logger\-::$\sim$\-G\-R\-I\-Logger} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRILogger_ab9c62dacaebf90ad2c018b28c16b468a}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classGRILogger_afc0bd7b5b18ab23bf20e49f5b248e52a}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Clear\-Error\-Log\-File@{\-Clear\-Error\-Log\-File}}
+\index{\-Clear\-Error\-Log\-File@{\-Clear\-Error\-Log\-File}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Clear\-Error\-Log\-File}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Logger\-::\-Clear\-Error\-Log\-File} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRILogger_afc0bd7b5b18ab23bf20e49f5b248e52a}
+\hypertarget{classGRILogger_affd7b6afb8593583fa20c7f672c12394}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Clear\-Log\-File@{\-Clear\-Log\-File}}
+\index{\-Clear\-Log\-File@{\-Clear\-Log\-File}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Clear\-Log\-File}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Logger\-::\-Clear\-Log\-File} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGRILogger_affd7b6afb8593583fa20c7f672c12394}
+\hypertarget{classGRILogger_a95533a5302ccfc29c877a2318e0e708a}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Display@{\-Display}}
+\index{\-Display@{\-Display}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Display}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Logger\-::\-Display} (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{a}
+\end{DoxyParamCaption}
+)}}\label{classGRILogger_a95533a5302ccfc29c877a2318e0e708a}
+\hypertarget{classGRILogger_a008dea4b6e32d6044ad7d5e9757424c9}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Display@{\-Display}}
+\index{\-Display@{\-Display}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Display}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Logger\-::\-Display} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-List$<$ std\-::string $>$}]{a}
+\end{DoxyParamCaption}
+)}}\label{classGRILogger_a008dea4b6e32d6044ad7d5e9757424c9}
+\hypertarget{classGRILogger_a3e2d8e4d4fd8ffa1a575efea60ce94fd}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Get\-Log\-File\-Name@{\-Get\-Log\-File\-Name}}
+\index{\-Get\-Log\-File\-Name@{\-Get\-Log\-File\-Name}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Get\-Log\-File\-Name}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Logger\-::\-Get\-Log\-File\-Name} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRILogger_a3e2d8e4d4fd8ffa1a575efea60ce94fd}
+\hypertarget{classGRILogger_a499b53b2be3e963c0deee633fcb76081}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Get\-Log\-File\-Path@{\-Get\-Log\-File\-Path}}
+\index{\-Get\-Log\-File\-Path@{\-Get\-Log\-File\-Path}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Get\-Log\-File\-Path}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Logger\-::\-Get\-Log\-File\-Path} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRILogger_a499b53b2be3e963c0deee633fcb76081}
+\hypertarget{classGRILogger_a356e46016eed231ce2134a551b791adb}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Get\-Log\-Level@{\-Get\-Log\-Level}}
+\index{\-Get\-Log\-Level@{\-Get\-Log\-Level}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Get\-Log\-Level}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Logger\-::\-Get\-Log\-Level} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRILogger_a356e46016eed231ce2134a551b791adb}
+\hypertarget{classGRILogger_af2288c2cabc18ebfa16bb6c154a7f0d2}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Output@{\-Output}}
+\index{\-Output@{\-Output}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Output}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Logger\-::\-Output} (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}\label{classGRILogger_af2288c2cabc18ebfa16bb6c154a7f0d2}
+\hypertarget{classGRILogger_af576a217f0f98104b1c8d8cbe5154999}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Output@{\-Output}}
+\index{\-Output@{\-Output}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Output}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Logger\-::\-Output} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-List$<$ std\-::string $>$}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}\label{classGRILogger_af576a217f0f98104b1c8d8cbe5154999}
+\hypertarget{classGRILogger_a2d8ebeb8244906c6a187e4eb2cfd1cac}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Set\-Log\-Level@{\-Set\-Log\-Level}}
+\index{\-Set\-Log\-Level@{\-Set\-Log\-Level}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Set\-Log\-Level}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-G\-R\-I\-Logger\-::\-Set\-Log\-Level} (
+\begin{DoxyParamCaption}
+\item[{int}]{l}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classGRILogger_a2d8ebeb8244906c6a187e4eb2cfd1cac}
+\hypertarget{classGRILogger_ad0a66372098ce1a4467dd4a88b7d451d}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Write\-Error\-Log\-File@{\-Write\-Error\-Log\-File}}
+\index{\-Write\-Error\-Log\-File@{\-Write\-Error\-Log\-File}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Write\-Error\-Log\-File}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Logger\-::\-Write\-Error\-Log\-File} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Error\-Description, }
+\item[{int}]{time}
+\end{DoxyParamCaption}
+)}}\label{classGRILogger_ad0a66372098ce1a4467dd4a88b7d451d}
+\hypertarget{classGRILogger_a986af22eb17bc900501d5cee27bd7083}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Write\-Error\-Log\-File@{\-Write\-Error\-Log\-File}}
+\index{\-Write\-Error\-Log\-File@{\-Write\-Error\-Log\-File}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Write\-Error\-Log\-File}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Logger\-::\-Write\-Error\-Log\-File} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{\-Error\-Description}
+\end{DoxyParamCaption}
+)}}\label{classGRILogger_a986af22eb17bc900501d5cee27bd7083}
+\hypertarget{classGRILogger_a8c99342ac9b5e4aaedd0724b2c592a1a}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Write\-Error\-Log\-File@{\-Write\-Error\-Log\-File}}
+\index{\-Write\-Error\-Log\-File@{\-Write\-Error\-Log\-File}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Write\-Error\-Log\-File}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Logger\-::\-Write\-Error\-Log\-File} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-List$<$ \-Q\-String $>$}]{\-Error\-Descriptions, }
+\item[{int}]{time}
+\end{DoxyParamCaption}
+)}}\label{classGRILogger_a8c99342ac9b5e4aaedd0724b2c592a1a}
+\hypertarget{classGRILogger_ac5dfd784d8e6cc55057f886bd6c60411}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Write\-Error\-Log\-File@{\-Write\-Error\-Log\-File}}
+\index{\-Write\-Error\-Log\-File@{\-Write\-Error\-Log\-File}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Write\-Error\-Log\-File}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Logger\-::\-Write\-Error\-Log\-File} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-List$<$ \-Q\-String $>$}]{\-Error\-Descriptions}
+\end{DoxyParamCaption}
+)}}\label{classGRILogger_ac5dfd784d8e6cc55057f886bd6c60411}
+\hypertarget{classGRILogger_aabe86599899900ad403b391d92a82931}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Write\-Log\-File@{\-Write\-Log\-File}}
+\index{\-Write\-Log\-File@{\-Write\-Log\-File}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Write\-Log\-File}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Logger\-::\-Write\-Log\-File} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{output, }
+\item[{int}]{time}
+\end{DoxyParamCaption}
+)}}\label{classGRILogger_aabe86599899900ad403b391d92a82931}
+\hypertarget{classGRILogger_a9251445c62908692afc80efca1b49a2d}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Write\-Log\-File@{\-Write\-Log\-File}}
+\index{\-Write\-Log\-File@{\-Write\-Log\-File}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Write\-Log\-File}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Logger\-::\-Write\-Log\-File} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{output}
+\end{DoxyParamCaption}
+)}}\label{classGRILogger_a9251445c62908692afc80efca1b49a2d}
+\hypertarget{classGRILogger_ad1b6770a16ec00568376e2f931a318e3}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Write\-Log\-File@{\-Write\-Log\-File}}
+\index{\-Write\-Log\-File@{\-Write\-Log\-File}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Write\-Log\-File}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Logger\-::\-Write\-Log\-File} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-List$<$ \-Q\-String $>$}]{output, }
+\item[{int}]{time}
+\end{DoxyParamCaption}
+)}}\label{classGRILogger_ad1b6770a16ec00568376e2f931a318e3}
+\hypertarget{classGRILogger_a5350f24e3479833ac1500b22ca9a4285}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Write\-Log\-File@{\-Write\-Log\-File}}
+\index{\-Write\-Log\-File@{\-Write\-Log\-File}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Write\-Log\-File}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Logger\-::\-Write\-Log\-File} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-List$<$ \-Q\-String $>$}]{output}
+\end{DoxyParamCaption}
+)}}\label{classGRILogger_a5350f24e3479833ac1500b22ca9a4285}
+\hypertarget{classGRILogger_afde9ab6b9dc1700494ff8e9d7b7963db}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Write\-Log\-File@{\-Write\-Log\-File}}
+\index{\-Write\-Log\-File@{\-Write\-Log\-File}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Write\-Log\-File}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Logger\-::\-Write\-Log\-File} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-G\-R\-I\-Log\-Message}}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}\label{classGRILogger_afde9ab6b9dc1700494ff8e9d7b7963db}
+\hypertarget{classGRILogger_a99d802cf1171ea64c030cfb8769e3905}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!\-Write\-To\-Log\-File@{\-Write\-To\-Log\-File}}
+\index{\-Write\-To\-Log\-File@{\-Write\-To\-Log\-File}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{\-Write\-To\-Log\-File}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-G\-R\-I\-Logger\-::\-Write\-To\-Log\-File} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{output, }
+\item[{int}]{time, }
+\item[{\-Q\-Mutex $\ast$}]{mutex, }
+\item[{\-Q\-File $\ast$}]{f}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static, private\mbox{]}}}}\label{classGRILogger_a99d802cf1171ea64c030cfb8769e3905}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classGRILogger_aee75dc42ec31c6b8668ba18606c16d1b}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!filename\-\_\-@{filename\-\_\-}}
+\index{filename\-\_\-@{filename\-\_\-}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{filename\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Logger\-::filename\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRILogger_aee75dc42ec31c6b8668ba18606c16d1b}
+\hypertarget{classGRILogger_aa1280ba96497c651f21c80929baaa582}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!grif\-\_\-project\-\_\-file\-\_\-path\-\_\-@{grif\-\_\-project\-\_\-file\-\_\-path\-\_\-}}
+\index{grif\-\_\-project\-\_\-file\-\_\-path\-\_\-@{grif\-\_\-project\-\_\-file\-\_\-path\-\_\-}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{grif\-\_\-project\-\_\-file\-\_\-path\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Logger\-::grif\-\_\-project\-\_\-file\-\_\-path\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRILogger_aa1280ba96497c651f21c80929baaa582}
+\hypertarget{classGRILogger_acc78c8a84f847872fabee9af161fc4d9}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!log\-\_\-level\-\_\-@{log\-\_\-level\-\_\-}}
+\index{log\-\_\-level\-\_\-@{log\-\_\-level\-\_\-}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{log\-\_\-level\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-G\-R\-I\-Logger\-::log\-\_\-level\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRILogger_acc78c8a84f847872fabee9af161fc4d9}
+\hypertarget{classGRILogger_aed2b4ca9781c7faf1fce8ee5a4ccc760}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!logfilepath\-\_\-@{logfilepath\-\_\-}}
+\index{logfilepath\-\_\-@{logfilepath\-\_\-}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{logfilepath\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-String {\bf \-G\-R\-I\-Logger\-::logfilepath\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRILogger_aed2b4ca9781c7faf1fce8ee5a4ccc760}
+\hypertarget{classGRILogger_aacbb428753b5108e5608d23bed5ff38d}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!mutex\-\_\-@{mutex\-\_\-}}
+\index{mutex\-\_\-@{mutex\-\_\-}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{mutex\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Mutex {\bf \-G\-R\-I\-Logger\-::mutex\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRILogger_aacbb428753b5108e5608d23bed5ff38d}
+\hypertarget{classGRILogger_aa603a5003a56547f48ef748123aedeec}{\index{\-G\-R\-I\-Logger@{\-G\-R\-I\-Logger}!proc\-\_\-environ\-\_\-@{proc\-\_\-environ\-\_\-}}
+\index{proc\-\_\-environ\-\_\-@{proc\-\_\-environ\-\_\-}!GRILogger@{\-G\-R\-I\-Logger}}
+\subsubsection[{proc\-\_\-environ\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-Process\-Environment {\bf \-G\-R\-I\-Logger\-::proc\-\_\-environ\-\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}\label{classGRILogger_aa603a5003a56547f48ef748123aedeec}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+framework/include/\hyperlink{GRILogger_8h}{\-G\-R\-I\-Logger.\-h}\item 
+framework/source/\hyperlink{GRILogger_8cpp}{\-G\-R\-I\-Logger.\-cpp}\end{DoxyCompactItemize}
