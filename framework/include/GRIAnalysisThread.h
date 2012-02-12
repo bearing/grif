@@ -33,54 +33,54 @@
 
 #define ANALYSISTHREAD_SUCCESS   0
 
-// A GRIAnalysisThread class
-// The GRIAnalysisThread class is an abstract class that must be inherited by
-// any class that represents a particular data acquisition device (Analysis).
-// It contains purely virtual methods that must be implemented, and are
-// guaranteed to be called in a particular order.  These methods must handle
-// the initialization, data acquisition and shutdown procedures for a Analysis.
-// Within these methods, please use the public methods available in
-// GRIProcessThread to write to the memory manager and read from the memory
-// manager.  Methods in GRIProcessThread are also available for dynamically
-// changing parameters in any inheriting class.
-//
-// see GRIProcessThread()
-//
-// The app engineer must create a class inheriting GRIAnalysisThread that
-// implements the following methods.  Unlike in our SIS Analysis
-// implementation, the app engineer will not implement the while loop
-// controlling data collection (see run() method).
-//
-// This class might look something like this:
-//
-// class MyAnalysis : public GRIAnalysisThread {
-//  public:
-//   MyAnalysis();
-//   ~MyAnalysis();
-// 
-//   virtual int StartDataAcquisition() {
-//     // Do routines that must run immediately
-//     // before data collection.
-//   }
-// 
-//   virtual int AcquireData() {
-//     // Do routine that actually collects data
-//     // with the expectation that acquireData()
-//     // will be run in a loop (as shown in run()).
-//     // Use the methods inherited from GRIProcessThread
-//     // to write data to memory through the regulator.
-//   }
-// 
-//   virtual int StopDataAcquisition() {
-//     // Do routines that must run immediately
-//     // after data collection.
-//   }
-// 
-//   virtual int TerminationRoutines() {
-//     // Do things that turn off DAQ
-//   }
-// 
-// };
+/// A GRIAnalysisThread class
+/// The GRIAnalysisThread class is an abstract class that must be inherited by
+/// any class that represents a particular data acquisition device (Analysis).
+/// It contains purely virtual methods that must be implemented, and are
+/// guaranteed to be called in a particular order.  These methods must handle
+/// the initialization, data acquisition and shutdown procedures for a Analysis.
+/// Within these methods, please use the public methods available in
+/// GRIProcessThread to write to the memory manager and read from the memory
+/// manager.  Methods in GRIProcessThread are also available for dynamically
+/// changing parameters in any inheriting class.
+///
+/// see GRIProcessThread()
+///
+/// The app engineer must create a class inheriting GRIAnalysisThread that
+/// implements the following methods.  Unlike in our SIS Analysis
+/// implementation, the app engineer will not implement the while loop
+/// controlling data collection (see run() method).
+///
+/// This class might look something like this:
+///
+/// class MyAnalysis : public GRIAnalysisThread {
+///  public:
+///   MyAnalysis();
+///   ~MyAnalysis();
+///
+///   virtual int StartDataAcquisition() {
+///     // Do routines that must run immediately
+///     // before data collection.
+///   }
+///
+///   virtual int AcquireData() {
+///     // Do routine that actually collects data
+///     // with the expectation that acquireData()
+///     // will be run in a loop (as shown in run()).
+///     // Use the methods inherited from GRIProcessThread
+///     // to write data to memory through the regulator.
+///   }
+///
+///   virtual int StopDataAcquisition() {
+///     // Do routines that must run immediately
+///     // after data collection.
+///   }
+///
+///   virtual int TerminationRoutines() {
+///     // Do things that turn off DAQ
+///   }
+///
+/// };
 
 class GRIAnalysisThread : public GRIProcessThread {
   Q_OBJECT
@@ -89,91 +89,91 @@ class GRIAnalysisThread : public GRIProcessThread {
   GRIAnalysisThread();
   ~GRIAnalysisThread();
 
-  // A member function for procedures that initialize the Analysis
-  // Initialize() should contain procedures for doing any initial setup
-  // necessary for a given data acquisition device.  Simply return
-  // ANALYSISTHREAD_SUCCESS if there is nothing to do for your particular data
-  // acquisition device.
-  //
-  // invariants:
-  // This method is guaranteed to be called only once, and only when this
-  // thread starts.  It is called immediately after LoadConfiguration().
-  // It is not called for each StartCollection().
-  //
-  // returns an int containing ANALYSISTHREAD_SUCCESS if the method succeeds,
-  // or an error code of your choosing upon failure.  The error will be
-  // reported using the ErrorHandling() method.
-  //
-  // see ErrorHandling()
+  /// A member function for procedures that initialize the Analysis
+  /// Initialize() should contain procedures for doing any initial setup
+  /// necessary for a given data acquisition device.  Simply return
+  /// ANALYSISTHREAD_SUCCESS if there is nothing to do for your particular data
+  /// acquisition device.
+  ///
+  /// invariants:
+  /// This method is guaranteed to be called only once, and only when this
+  /// thread starts.  It is called immediately after LoadConfiguration().
+  /// It is not called for each StartCollection().
+  ///
+  /// returns an int containing ANALYSISTHREAD_SUCCESS if the method succeeds,
+  /// or an error code of your choosing upon failure.  The error will be
+  /// reported using the ErrorHandling() method.
+  ///
+  /// see ErrorHandling()
   virtual int Initialize() { return 0; }
 
-  // A member function for procedures will be called repeatedly to
-  // analyze data
-  //
-  // Analyze() should contain procedures that reads data and performs 
-  // analysis then uses PostData to send results to the next analysis block.
-  // This is called repreatedly for each run inside loop.
+  /// A member function for procedures will be called repeatedly to
+  /// analyze data
+  ///
+  /// Analyze() should contain procedures that reads data and performs
+  /// analysis then uses PostData to send results to the next analysis block.
+  /// This is called repreatedly for each run inside loop.
   virtual int Analyze() = 0;
 
-  // A member function for opening a GUI during DAQ initialization.
-  //
-  // OpenInitializationControl() should open a GUI for controlling
-  // initialization of the DAQ.
-  //
-  // invariants:
-  // This method is guaranteed to be called once immediately after this 
-  // DAQThread runs. It is called before any other methods in GRIDAQThread 
-  // (except OpenInitializationControl()).  It is not called for each
-  // StartCollection(). This can be overriden to tell the GUI to open.
-  //
-  // returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or
-  // an error code of your choosing upon failure.  The error will be reported 
-  // using the ErrorHandling() method.
-  // 
-  // see ErrorHandling()
+  /// A member function for opening a GUI during DAQ initialization.
+  ///
+  /// OpenInitializationControl() should open a GUI for controlling
+  /// initialization of the DAQ.
+  ///
+  /// invariants:
+  /// This method is guaranteed to be called once immediately after this
+  /// DAQThread runs. It is called before any other methods in GRIDAQThread
+  /// (except OpenInitializationControl()).  It is not called for each
+  /// StartCollection(). This can be overriden to tell the GUI to open.
+  ///
+  /// returns an int containing DAQTHREAD_SUCCESS if the method succeeds, or
+  /// an error code of your choosing upon failure.  The error will be reported
+  /// using the ErrorHandling() method.
+  ///
+  /// see ErrorHandling()
   virtual int OpenInitializationControl() { return 0; }
 
-  // A member function for opening a GUI during a DAQ run.
-  //
-  // OpenRunTimeControl() should open a GUI for controlling running of
-  // the DAQ.
-  //
-  // invariants:
-  // This method is guaranteed to be called once immediately after 
-  // StartCollection() assuming collection is not already occurring, 
-  // and will be called again every time collection is stopped and 
-  // restarted using StopCollection(), and StartCollection().
-  // 
-  // returns an int containing DAQTHREAD_SUCCESS if the method succeeds, 
-  // or an error code of your choosing upon failure.  The error will be 
-  // reported using the ErrorHandling() method.
-  // 
-  // see ErrorHandling(), StartCollection(), StopCollection()
+  /// A member function for opening a GUI during a DAQ run.
+  ///
+  /// OpenRunTimeControl() should open a GUI for controlling running of
+  /// the DAQ.
+  ///
+  /// invariants:
+  /// This method is guaranteed to be called once immediately after
+  /// StartCollection() assuming collection is not already occurring,
+  /// and will be called again every time collection is stopped and
+  /// restarted using StopCollection(), and StartCollection().
+  ///
+  /// returns an int containing DAQTHREAD_SUCCESS if the method succeeds,
+  /// or an error code of your choosing upon failure.  The error will be
+  /// reported using the ErrorHandling() method.
+  ///
+  /// see ErrorHandling(), StartCollection(), StopCollection()
   virtual int OpenRunTimeControl() { return 0; }
 
-  // The errorHandling() method. Reports user generated errors
-  // for a DAQThread to standard output.
+  /// The errorHandling() method. Reports user generated errors
+  /// for a DAQThread to standard output.
   void ErrorHandling(const char * message, int errorCode);
 
-  // Stop the analysis thread.  The analysis thread cannot be restarted.
+  /// Stop the analysis thread.  The analysis thread cannot be restarted.
   void ForceQuitAnalysis();
 
-  // Post data to a buffer in the memory manager
-  //
-  // numel is the number of elements posted
-  // buffer_name is the name of the buffer
-  // data is an array of numel data elements
+  /// Post data to a buffer in the memory manager
+  ///
+  /// numel is the number of elements posted
+  /// buffer_name is the name of the buffer
+  /// data is an array of numel data elements
   template <class T> int PostData(int numel, QString buffer_name, T data[]);
 
-  // Read data from a given block and buffer in the memory manager
-  //
-  // block_name is the name of the block, which should be the name of a
-  //            process thread that posts data to the buffer
-  // buffer_name is the name of the buffer
+  /// Read data from a given block and buffer in the memory manager
+  ///
+  /// block_name is the name of the block, which should be the name of a
+  ///            process thread that posts data to the buffer
+  /// buffer_name is the name of the buffer
   template <class T> QPair<int, T*> ReadData(QString block_name,
 					     QString buffer_name);
 
-  // The run() method.  Called when this thread is started by the regulator.
+  /// The run() method.  Called when this thread is started by the regulator.
   void run();
 
   GRIHistogrammer* GetHistogram(QString HistName);
