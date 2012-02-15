@@ -20,9 +20,7 @@
 # Dr. Daniel Chivers
 # dhchivers@lbl.gov
 
-import sys
-import os
-import xml
+import sys, os, xml
 from xml.etree.ElementTree import ElementTree
 
 '''
@@ -180,7 +178,11 @@ class DataParser(XMLParser):
 
   def ParseFile(self, path):
     tree = ElementTree()
-    tree.parse(path)
+    try:
+      tree.parse(path)
+    except IOError as e:
+      print "Could not parse path: " + path
+      sys.exit(-1)
     datatypes = tree.findall('datat')
     if datatypes is None:
       return
