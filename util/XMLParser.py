@@ -93,7 +93,7 @@ class GRIUserProcessesParser(XMLParser):
     self.prefix += '#define GRIUSERPROCESSES_AUX_H\n'
     self.prefix += '\n/*\n'
     self.prefix += 'This file includes all of the necessary user header files\n'
-    self.prefix += 'The data in this file was generated with GCG_GRIUserProccesses.pl,\n'
+    self.prefix += 'The data in this file was generated with GCG_GRIUserProccesses.py,\n'
     self.prefix += 'which can be found in grif/framework/util\n'
     self.prefix += '*/\n\n\n'
     self.prefix += '//Code-generated includes (harvested from XML files => Header tag)\n'
