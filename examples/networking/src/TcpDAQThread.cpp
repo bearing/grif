@@ -23,7 +23,7 @@
 #include "TcpDAQThread.h"
 
 TcpDAQThread::TcpDAQThread() : port_(8080) {
-
+  tcpSocket_ = new QTcpSocket();
 }
 
 int TcpDAQThread::AcquireData(int n) {
