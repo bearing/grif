@@ -26,6 +26,10 @@ TcpDAQThread::TcpDAQThread() : port_(8080) {
   tcpSocket_ = new QTcpSocket();
 }
 
+TcpDAQThread::~TcpDAQThread() {
+  delete(tcpSocket_);
+}
+
 int TcpDAQThread::AcquireData(int n) {
   sleep(1);
   std::cout << "Acqure data ..." << std::endl;
