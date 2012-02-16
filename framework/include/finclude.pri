@@ -19,6 +19,7 @@
 # Contact:
 # Dr. Daniel Chivers
 # dhchivers@lbl.gov
+
 HEADERS += GRIProcessThread.h \
 GRIAnalysisThread.h \
 GRIBuffer.h \
@@ -47,3 +48,4 @@ GRIHist2D.h \
 GRIParser.h \
 GRIProcList.h \
 GRIServer.h
+
