@@ -41,6 +41,10 @@ TcpDAQThread::TcpDAQThread() : port_(8081) {
     }
 }
 
+TcpDAQThread::~TcpDAQThread() {
+  delete(tcpSocket_);
+}
+
 int TcpDAQThread::AcquireData(int n) {
     sleep(1);
     if (tcpSocket_ == 0) {

@@ -20,9 +20,7 @@
 # Dr. Daniel Chivers
 # dhchivers@lbl.gov
 
-import sys
-import os
-import xml
+import sys, os, xml
 from xml.etree.ElementTree import ElementTree
 
 '''
@@ -93,7 +91,7 @@ class GRIUserProcessesParser(XMLParser):
     self.prefix += '#define GRIUSERPROCESSES_AUX_H\n'
     self.prefix += '\n/*\n'
     self.prefix += 'This file includes all of the necessary user header files\n'
-    self.prefix += 'The data in this file was generated with GCG_GRIUserProccesses.pl,\n'
+    self.prefix += 'The data in this file was generated with GCG_GRIUserProccesses.py,\n'
     self.prefix += 'which can be found in grif/framework/util\n'
     self.prefix += '*/\n\n\n'
     self.prefix += '//Code-generated includes (harvested from XML files => Header tag)\n'
@@ -180,7 +178,11 @@ class DataParser(XMLParser):
 
   def ParseFile(self, path):
     tree = ElementTree()
-    tree.parse(path)
+    try:
+      tree.parse(path)
+    except IOError as e:
+      print "Could not parse path: " + path
+      sys.exit(-1)
     datatypes = tree.findall('datat')
     if datatypes is None:
       return

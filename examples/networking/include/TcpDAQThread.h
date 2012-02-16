@@ -33,7 +33,7 @@ class TcpDAQThread : public GRIDAQThread {
 
  public:
   TcpDAQThread(); // : port_(8080) {}
-  ~TcpDAQThread() {}
+  ~TcpDAQThread();
 
   int AcquireData(int n);
   GRIDAQBaseAccumNode *RegisterDataOutput(QString outName) { return NULL; }
