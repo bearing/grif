@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<class>
-  <Name name = "velodynehdf5" />
-  <Header hname = "HDF5Analysis.h" />
-  <Info cname = "HDF5Analysis" isdaq = "false" /> 
-</class>

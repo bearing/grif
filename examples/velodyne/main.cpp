@@ -7,13 +7,6 @@
 #include "GRIUserLoader.h"
 #include "GRIMemoryManager.h"
 
-#include "velodynedaq.h"
-#include "velodyneanalysis.h"
-#include "velodynedata.h"
-#include "HDF5Analysis.h"
-
-
-
 int main(int argc, char* argv[])
 {
     QCoreApplication app(argc, argv);

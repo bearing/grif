@@ -1,4 +1,3 @@
-
 # Copyright (C) 2012 Gamma-ray Imaging Framework Team
 # 
 # This library is free software; you can redistribute it and/or
@@ -20,8 +19,6 @@
 # Contact:
 # Dr. Daniel Chivers
 # dhchivers@lbl.gov
-DEPENDPATH += \
-        ../../framework/source
 
 SOURCES += GRIProcessThread.cpp \
 GRIAnalysisThread.cpp \
@@ -43,5 +40,3 @@ GRIHist1D.cpp \
 GRIHist2D.cpp \
 GRIParser.cpp \
 GRIProcList.cpp
-
-

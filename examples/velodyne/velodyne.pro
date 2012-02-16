@@ -15,10 +15,14 @@ include(../../framework/include/finclude.pri)
 
 DEPENDPATH += source include . \
     velodynedaq \
-    velodyneanalysis
+    velodyneanalysis \
+    ../../framework/source \
+    ../../framework/include
+
 
 INCLUDEPATH += include velodynedaq \
-                velodyneanalysis
+               velodyneanalysis \
+               ../../framework/include
 
 HEADERS += \
     /usr/include/H5Cpp.h \
