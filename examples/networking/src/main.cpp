@@ -34,10 +34,11 @@
 #include "GRIServer.h"
 int main(int argc, char* argv[]) {
   // the following will be included for all programs
-  QCoreApplication app(argc, argv);
-  GRIMemoryManager *mm = new GRIMemoryManager();
   GRIServer *server = new GRIServer();
   server->Init();
+  QCoreApplication app(argc, argv);
+  GRIMemoryManager *mm = new GRIMemoryManager();
+
   GRIRegulator *reg = new GRIRegulator(mm);
 
   GRILoader *loader = new GRIUserLoader(reg);

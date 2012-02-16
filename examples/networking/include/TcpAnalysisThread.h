@@ -25,8 +25,10 @@
 
 #include "GRIAnalysisThread.h"
 #include <QTcpSocket>
+#include <QNetworkSession>
 
 class TcpAnalysisThread : public GRIAnalysisThread {
+ Q_OBJECT
  public:
   TcpAnalysisThread();
   ~TcpAnalysisThread() {}
@@ -35,10 +37,11 @@ class TcpAnalysisThread : public GRIAnalysisThread {
 
 public slots:
   void readData();
-
+  void sessionOpened();
   void displayError(QAbstractSocket::SocketError);
 private:
   QTcpSocket *tcpSocket_;
+  QNetworkSession *networkSession_;
 };
 
 #endif  // TCP_ANALYSIS_THREAD_H

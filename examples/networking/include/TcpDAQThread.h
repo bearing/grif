@@ -26,8 +26,11 @@
 #include "GRIDAQThread.h"
 #include "GRIServer.h"
 #include <QTcpSocket>
+#include <QThread>
 
 class TcpDAQThread : public GRIDAQThread {
+ Q_OBJECT
+
  public:
   TcpDAQThread(); // : port_(8080) {}
   ~TcpDAQThread() {}
@@ -42,9 +45,19 @@ class TcpDAQThread : public GRIDAQThread {
   int LoadConfiguration() { return 0; }
   int StartDataAcquisition() { return 0; }
   int TerminationRoutines() { return 0; }
+
+ public slots:
+  void sendData();
+  void displayError(QAbstractSocket::SocketError);
+  void connectToServer();
+  void acquireData(int);
+
+signals:
+  void connecting();
+  void acquire(int);
  private:
+  QThread *readThread_;
   QTcpSocket *tcpSocket_;
-//  GRIServer server_;
   quint16 port_;
 };
 
