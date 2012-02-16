@@ -22,20 +22,51 @@
 
 #ifndef GRIF_FRAMEWORK_INCLUDE_GRISERVER_H_
 #define GRIF_FRAMEWORK_INCLUDE_GRISERVER_H_
-
+#include <iostream>
 #include <QTcpServer>
+#include <QThread>
+#include <QSettings>
+#include <QNetworkConfiguration>
+#include <QNetworkConfigurationManager>
+#include <QNetworkSession>
 
-class GRIServer : public QTcpServer {
- public:
-  GRIServer() { port_ = 8080; }
-  ~GRIServer() {}
+class GRIServer : public QObject { //public QTcpServer {
+    Q_OBJECT
 
-  void Init() { listen(QHostAddress::Any, port_); }
+protected slots:
+    void incomingConnection() {
+        std::cout << "Incoming connection: hasdhasdkjashd" << std::endl << std::endl;
+        server_->nextPendingConnection();
+    }
+    void sessionOpened() {
+        std::cout << "Opened session" << std::endl;
+    }
 
-  void set_port(quint16 port) { port_ = port; }
+public:
+    GRIServer() {
+        port_ = 8081;
+        server_ = new QTcpServer();
+        connect(server_, SIGNAL(newConnection()), this, SLOT(incomingConnection()));
 
- private:
-  quint16 port_;
+    }
+
+    ~GRIServer() {}
+
+    void Init() {
+        if (!server_->listen(QHostAddress::LocalHost, port_)) {
+            std::cout << "Error setting up server" << std::endl;
+        } else {
+            std::cout << "Server set up" << std::endl;
+        }
+    }
+
+    void set_port(quint16 port) { port_ = port; }
+
+
+private:
+    quint16 port_;
+    QTcpServer *server_;
+    QNetworkSession *networkSession;
 };
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_GRI_SERVER_H_
