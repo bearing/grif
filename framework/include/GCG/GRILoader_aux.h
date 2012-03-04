@@ -1,1 +1,0 @@
-app_file = "/Users/benson/Desktop/gitprojs/grif/examples/simulator/XML/app/APP.XML";
