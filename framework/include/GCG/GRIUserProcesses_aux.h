@@ -3,7 +3,7 @@
 
 /*
 This file includes all of the necessary user header files
-The data in this file was generated with GCG_GRIUserProccesses.pl,
+The data in this file was generated with GCG_GRIUserProccesses.py,
 which can be found in grif/framework/util
 */
 
