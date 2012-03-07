@@ -39,4 +39,8 @@ GRIThread.cpp \
 GRIHist1D.cpp \
 GRIHist2D.cpp \
 GRIParser.cpp \
-GRIProcList.cpp
+GRIProcList.cpp \
+#hist/GRIHist1DWidget.cpp \
+#hist/GRIHist1DGridWidget.cpp \
+#hist/GRIHist1DGridScrollWidget.cpp \
+#hist/GRIHist2DWidget.cpp
