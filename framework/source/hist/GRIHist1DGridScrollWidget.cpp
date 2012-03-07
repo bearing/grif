@@ -20,8 +20,8 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRIHist1DGridScrollWidget.h"
-#include "GRIHist1DWidget.h"
+#include <hist/GRIHist1DGridScrollWidget.h>
+#include <hist/GRIHist1DWidget.h>
 
 #include <QBrush>
 #include <QPoint>
@@ -124,8 +124,8 @@ void GRIHist1DGridScrollWidget::ResetGrid() {
 	// make a histogram widget
 	GRIHist1DWidget *histWidg = new GRIHist1DWidget(0, gri_hist_vec_.at(ind),
                                                         hist_color_vec_.at(ind));
-	histWidg->setLogScale(log_scale_on_);
-	histWidg->setAutoScale(auto_scale_on_);
+        histWidg->SetLogScale(log_scale_on_);
+        histWidg->SetAutoScale(auto_scale_on_);
 	hist_widg_disp_vec_.append(histWidg);
 	hist_layout_->addWidget(histWidg,row,col);
       }

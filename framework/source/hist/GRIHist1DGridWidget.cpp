@@ -20,8 +20,8 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRIHist1DGridWidget.h"
-#include "GRIHist1DWidget.h"
+#include <hist/GRIHist1DGridWidget.h>
+#include <hist/GRIHist1DWidget.h>
 #include "TMath.h"
 
 GRIHist1DGridWidget::GRIHist1DGridWidget(QWidget *parent) : QFrame(parent) {
@@ -41,7 +41,7 @@ GRIHist1DGridWidget::~GRIHist1DGridWidget() {
 
 void GRIHist1DGridWidget::AddHist(GRIHistogrammer *h, QColor qcolor) {
     // add histogram to list if it is not already there
-    if (!histIsPresent(h)) {
+    if (!HistIsPresent(h)) {
         // make a histogram widget
         GRIHist1DWidget *histWidg = new GRIHist1DWidget(0,h,qcolor);
         hist_widget_.append(histWidg);
@@ -62,7 +62,7 @@ void GRIHist1DGridWidget::ClearGrid() {
 
 GRIHist1DWidget* GRIHist1DGridWidget::GetHistWidget(GRIHistogrammer *h) {
   if (HistIsPresent(h)) {
-    return histWidget[HistWidgetIndex(h)];
+    return hist_widget_[HistWidgetIndex(h)];
   }
   return NULL;  // histogram not found!
 }
@@ -98,7 +98,7 @@ void GRIHist1DGridWidget::SetGridNy(int ny) {
 bool GRIHist1DGridWidget::HistIsPresent(GRIHistogrammer *h) {
     bool hist_present = false;
     for (int i = 0; i < hist_widget_.size(); ++i) {
-        if (hist_widget_[i]->getHist()->get_id() == h->get_id()) {
+        if (hist_widget_[i]->GetHist()->get_id() == h->get_id()) {
             hist_present = true;
         }
     }
@@ -110,8 +110,8 @@ int GRIHist1DGridWidget::HistWidgetIndex(GRIHistogrammer *h) {
     if (HistIsPresent(h)) {
         int index = -1;
         for (int i = 0; i < hist_widget_.size(); ++i) {
-            if (hist_widget_[i]->getHist()->get_hist_name() == h->get_hist_name()
-                && (hist_widget_[i]->getHist()->get_id() == h->get_id())) {
+            if (hist_widget_[i]->GetHist()->get_hist_name() == h->get_hist_name()
+                && (hist_widget_[i]->GetHist()->get_id() == h->get_id())) {
                 index = i;
             }
         }
@@ -123,14 +123,14 @@ int GRIHist1DGridWidget::HistWidgetIndex(GRIHistogrammer *h) {
 
 void GRIHist1DGridWidget::SetColor(GRIHistogrammer *h, QColor qcolor) {
     if (HistIsPresent(h)) {
-        hist_widget_[HistWidgetIndex(h)]->setColor(qcolor);
+        hist_widget_[HistWidgetIndex(h)]->set_plot_color(qcolor);
     }
 }
 
 
 void GRIHist1DGridWidget::SetColorAll(QColor qcolor) {
     for (int i = 0; i < hist_widget_.size(); ++i) {
-        hist_widget_[i]->setColor(qcolor);
+        hist_widget_[i]->set_plot_color(qcolor);
     }
 }
 

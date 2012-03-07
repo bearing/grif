@@ -25,7 +25,7 @@
 
 #include "TMath.h"
 
-#include "GRIHist1DWidget.h"
+#include <hist/GRIHist1DWidget.h>
 
 GRIHist1DWidget::GRIHist1DWidget(QWidget *parent, GRIHistogrammer *grihist,
                                  QColor qcolor) : QWidget(parent) {
@@ -47,8 +47,8 @@ GRIHist1DWidget::GRIHist1DWidget(QWidget *parent, GRIHistogrammer *grihist,
   window_margin_R_ = text_height_+15;
   window_margin_T_ = text_height_+5;
   window_margin_B_ = text_height_;
-  window_canvas_W_ = this->width()-window_margin_L_-window_margin_R_;
-  window_canvas_H_ = this->height()-window_margin_T_-window_margin_B_;
+  window_canvas_W_ = width()-window_margin_L_-window_margin_R_;
+  window_canvas_H_ = height()-window_margin_T_-window_margin_B_;
 
   autoscale_on_ = true;
   logscale_on_ = false;
@@ -69,7 +69,7 @@ GRIHist1DWidget::GRIHist1DWidget(QWidget *parent, GRIHistogrammer *grihist,
   } else {
     button_toggle_auto_scale_->setText("Auto Off");
   }
-  button_toggle_auto_scale_->move(0, this->height()-button_toggle_auto_scale_->height());
+  button_toggle_auto_scale_->move(0, height()-button_toggle_auto_scale_->height());
   QObject::connect(button_toggle_auto_scale_, SIGNAL(clicked()), this, SLOT(toggleAutoScale()) );
 
   button_toggle_log_scale_ = new QPushButton("Linear", this);
@@ -142,7 +142,7 @@ int GRIHist1DWidget::Window_Y(double dataY) {
   } else {
     y_frac = (dataY-data_ymin_)/(data_ymax_-data_ymin_);
   }
-  return this->height() - window_margin_B_
+  return height() - window_margin_B_
     - (int)(y_frac*(double)window_canvas_H_);
 }
 
@@ -162,7 +162,7 @@ double GRIHist1DWidget::Data_Y(int windowY) {
 }
 
 double GRIHist1DWidget::Data_Y(int windowY, double data_ymin, double data_ymax) {
-  double window_y_frac = (double)(this->height()-window_margin_B_-windowY)
+  double window_y_frac = (double)(height()-window_margin_B_-windowY)
     / (double)(window_canvas_H_);
   if (logscale_on_) {
     return TMath::Exp(TMath::Log(10.)*( TMath::Log10(data_ymin)
@@ -245,10 +245,10 @@ void GRIHist1DWidget::resizeEvent(QResizeEvent *event) {
   temp = 0;
 
   window_margin_B_ = button_toggle_auto_scale_->height() + text_height_;
-  window_canvas_W_ = this->width()-window_margin_L_ - window_margin_R_;
-  window_canvas_H_ = this->height()-window_margin_T_ - window_margin_B_;
+  window_canvas_W_ = width()-window_margin_L_ - window_margin_R_;
+  window_canvas_H_ = height()-window_margin_T_ - window_margin_B_;
 
-  button_toggle_auto_scale_->move(0, this->height()
+  button_toggle_auto_scale_->move(0, height()
 				  - button_toggle_auto_scale_->height());
   button_toggle_log_scale_->move(button_toggle_auto_scale_->x()
                                  + button_toggle_auto_scale_->width(),
@@ -268,16 +268,16 @@ void GRIHist1DWidget::paintEvent(QPaintEvent *event) {
 
   // X Label
   painter.setFont(QFont("Arial", 15));
-  painter.drawText(QRect(window_margin_L_, this->height() - window_margin_B_,
+  painter.drawText(QRect(window_margin_L_, height() - window_margin_B_,
 			 window_canvas_W_, window_margin_B_
                          - button_toggle_auto_scale_->height()),
 		   Qt::AlignCenter, xlabel_);
   painter.setFont(QFont("Arial", 11));
-  painter.drawText(QRect(0,this->height() - window_margin_B_,
+  painter.drawText(QRect(0,height() - window_margin_B_,
 			 2 * window_margin_L_, text_height_),
 		   Qt::AlignCenter,
 		   QString::number(data_xmin_, 'g', 4));
-  painter.drawText(QRect(this->width() - 2 * window_margin_R_,this->height()
+  painter.drawText(QRect(width() - 2 * window_margin_R_,height()
 			 - window_margin_B_,
 			 2 * window_margin_R_, text_height_),
 		   Qt::AlignCenter,
@@ -285,14 +285,14 @@ void GRIHist1DWidget::paintEvent(QPaintEvent *event) {
 
   // Y Label
   painter.save();
-  painter.translate(0, this->height() - window_margin_B_);
+  painter.translate(0, height() - window_margin_B_);
   painter.rotate(-90.);
   painter.setFont(QFont("Arial", 15));
   painter.drawText(QRect(0, 0, window_canvas_H_,window_margin_L_),
 		   Qt::AlignCenter, ylabel_);
   painter.restore();
   painter.setFont(QFont("Arial", 11));
-  painter.drawText(QRect(0,this->height() - window_margin_B_-text_height_ / 2,
+  painter.drawText(QRect(0,height() - window_margin_B_-text_height_ / 2,
 			 window_margin_L_, text_height_),
 		   Qt::AlignRight, QString::number(data_ymin_, 'g', 4));
   painter.drawText(QRect(0,window_margin_T_-text_height_/2,
@@ -302,7 +302,7 @@ void GRIHist1DWidget::paintEvent(QPaintEvent *event) {
   // Title
   if (gri_hist_) {
     painter.setFont(QFont("Arial", 15));
-    painter.drawText(QRect(0,0,this->width(),window_margin_T_),
+    painter.drawText(QRect(0,0,width(),window_margin_T_),
 		     Qt::AlignCenter, gri_hist_->get_hist_name());
   }
 
@@ -329,23 +329,23 @@ void GRIHist1DWidget::paintEvent(QPaintEvent *event) {
       int win_Y_B = Window_Y(HistRangeMin());
       
       bool clip_L = (win_X_L < window_margin_L_);
-      bool clip_R = (win_X_R > this->width()-window_margin_R_);
+      bool clip_R = (win_X_R > width()-window_margin_R_);
       bool clip_T = (win_Y_T < window_margin_T_);
-      bool clip_B = (win_Y_B > this->height()-window_margin_B_);
+      bool clip_B = (win_Y_B > height()-window_margin_B_);
 
       bool draw_bar = (win_X_R >= window_margin_L_)
-	&& (win_X_L <= this->width()-window_margin_R_)
+	&& (win_X_L <= width()-window_margin_R_)
 	&& (win_Y_B >= window_margin_T_)
-	&& (win_Y_T <= this->height()-window_margin_B_);
+	&& (win_Y_T <= height()-window_margin_B_);
 
       if (draw_bar) {
 	if (clip_L) win_X_L = window_margin_L_;
-	if (clip_R) win_X_R = this->width()-window_margin_R_;
+	if (clip_R) win_X_R = width()-window_margin_R_;
 	if (clip_T) win_Y_T = window_margin_T_;
-	if (clip_B) win_Y_B = this->height()-window_margin_B_;
+	if (clip_B) win_Y_B = height()-window_margin_B_;
 
-	QBrush barbrush = QBrush(this->plotColor, Qt::SolidPattern);
-	painter.setPen(QPen(this->plotColor));
+	QBrush barbrush = QBrush(plot_color_, Qt::SolidPattern);
+	painter.setPen(QPen(plot_color_));
 	painter.setBrush(barbrush);
 	painter.drawRect(QRect(win_X_L, win_Y_T, win_X_R - win_X_L, win_Y_B - win_Y_T));
 	painter.setPen(Qt::black);
@@ -361,13 +361,13 @@ void GRIHist1DWidget::paintEvent(QPaintEvent *event) {
 	  
 	bool clip_T_prev = win_Y_prev < window_margin_T_;
 	bool clip_T_next = win_Y_next < window_margin_T_;
-	bool clip_B_prev = win_Y_prev > this->height()-window_margin_B_;
-	bool clip_B_next = win_Y_next > this->height()-window_margin_B_;
+	bool clip_B_prev = win_Y_prev > height()-window_margin_B_;
+	bool clip_B_next = win_Y_next > height()-window_margin_B_;
 
 	if (clip_T_prev) win_Y_prev = window_margin_T_;
 	if (clip_T_next) win_Y_next = window_margin_T_;
-	if (clip_B_prev) win_Y_prev = this->height() - window_margin_B_;
-	if (clip_B_next) win_Y_next = this->height() - window_margin_B_;
+	if (clip_B_prev) win_Y_prev = height() - window_margin_B_;
+	if (clip_B_next) win_Y_next = height() - window_margin_B_;
 
 	if (!clip_L) painter.drawLine(win_X_L, win_Y_prev, win_X_L, win_Y_T);
 	if (!clip_R) painter.drawLine(win_X_R, win_Y_T, win_X_R, win_Y_next);
@@ -381,8 +381,8 @@ void GRIHist1DWidget::paintEvent(QPaintEvent *event) {
   painter.setPen(Qt::black);
   painter.setBrush(Qt::NoBrush);
   painter.drawRect(window_margin_L_,window_margin_T_,
-	           this->width() - window_margin_L_-window_margin_R_,
-		   this->height() - window_margin_T_-window_margin_B_);
+	           width() - window_margin_L_-window_margin_R_,
+		   height() - window_margin_T_-window_margin_B_);
 
   // Draw data where we are hovering
   if (mousehover_on_ && gri_hist_) {
@@ -451,13 +451,13 @@ void GRIHist1DWidget::mouseMoveEvent(QMouseEvent *event) {
     int x = event->x();
     int y = event->y();
     if (x < window_margin_L_) x=window_margin_L_;
-    if (x > this->width()-window_margin_R_) x = this->width()-window_margin_R_;
+    if (x > width()-window_margin_R_) x = width()-window_margin_R_;
     if (y < window_margin_T_) y = window_margin_T_;
-    if (y > this->height()-window_margin_B_) y = this->height()-window_margin_B_;
+    if (y > height()-window_margin_B_) y = height()-window_margin_B_;
     double current_data_x = Data_X(x, mouseclicked_data_xmin_,
                                    mouseclicked_data_xmax_);
     double current_data_y = Data_Y(y, mouseclicked_data_ymin_,
-                                   mouselicked_data_ymax_);
+                                   mouseclicked_data_ymax_);
     // update X
     double delta_data_x = current_data_x - mouseclicked_data_x_;
     data_xmin_ = mouseclicked_data_xmin_ - delta_data_x;
@@ -468,19 +468,19 @@ void GRIHist1DWidget::mouseMoveEvent(QMouseEvent *event) {
       data_ymin_ = TMath::Exp(TMath::Log(10.)
                    * (TMath::Log10(mouseclicked_data_ymin_) - delta_data_y));
       data_ymax_ = TMath::Exp(TMath::Log(10.)
-                   * (TMath::Log10(mouselicked_data_ymax_) - delta_data_y));
+                   * (TMath::Log10(mouseclicked_data_ymax_) - delta_data_y));
     } else {
       double delta_data_y = current_data_y - mouseclicked_data_y_;
       data_ymin_ = mouseclicked_data_ymin_ - delta_data_y;
-      data_ymax_ = mouselicked_data_ymax_ - delta_data_y;
+      data_ymax_ = mouseclicked_data_ymax_ - delta_data_y;
     }
     UpdateData();
   } else {
     // draw the data where the cursor is!
     if ((window_margin_L_ <= event->x())
-        && (event->x()<=this->width()-window_margin_R_)
+        && (event->x()<=width()-window_margin_R_)
 	&& (window_margin_T_ <= event->y())
-        && (event->y()<=this->height()-window_margin_B_)) {
+        && (event->y()<=height()-window_margin_B_)) {
       mousehover_on_ = true;
       mousehover_x_ = event->x();
       mousehover_y_ = event->y();
@@ -493,9 +493,9 @@ void GRIHist1DWidget::mouseMoveEvent(QMouseEvent *event) {
 void GRIHist1DWidget::mousePressEvent(QMouseEvent *event) {
   if ((event->button() == Qt::LeftButton)
       && (window_margin_L_ <= event->x())
-      && (event->x() <= this->width() - window_margin_R_)
+      && (event->x() <= width() - window_margin_R_)
       && (window_margin_T_ <= event->y())
-      && (event->y() <= this->height() - window_margin_B_)) {
+      && (event->y() <= height() - window_margin_B_)) {
     mousedrag_on_ = true;
 
     if (autoscale_on_) ToggleAutoScale();
@@ -507,7 +507,7 @@ void GRIHist1DWidget::mousePressEvent(QMouseEvent *event) {
     mouseclicked_data_xmin_ = data_xmin_;
     mouseclicked_data_xmax_ = data_xmax_;
     mouseclicked_data_ymin_ = data_ymin_;
-    mouselicked_data_ymax_ = data_ymax_;
+    mouseclicked_data_ymax_ = data_ymax_;
   }
 }
 

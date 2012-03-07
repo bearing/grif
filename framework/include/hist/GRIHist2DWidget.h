@@ -75,7 +75,8 @@ public:
                    QColor qcolor = QColor(0,0,255,255));
     ~GRIHist2DWidget();
     void SetHist(GRIHistogrammer *grihist);
-    GRIHistogrammer* GetHist() { return grihist; };
+    GRIHistogrammer* GetHist() { return gri_hist_; }
+
     void SetColor(QColor qcolor) { 
       plot_color_ = qcolor;
       double_color_ = false;
@@ -85,10 +86,14 @@ public:
       plot_color2_ = qcolor2;
       double_color_ = true;
     }
-    void SetScale(bool mode) {this->scaleMode = mode;};
-    void SetScale(double low, double high) {this->scaleMode = false; this->zmin = low; this->zmax = high;};
-    void set_xlabel(QString xlabel) { xlabel_ = xlabel; };
-    void set_ylabel(QString ylabel) { ylabel_ = ylabel; };
+    void set_scale_mode(bool scale_mode) { scale_mode_ = scale_mode; }
+    void SetScale(double low, double high) {
+      set_scale_mode(false);
+      zmin_ = low;
+      zmax_ = high;
+    }
+    void set_xlabel(QString xlabel) { xlabel_ = xlabel; }
+    void set_ylabel(QString ylabel) { ylabel_ = ylabel; }
 
 public slots:
     void UpdateData();

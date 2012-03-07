@@ -20,7 +20,7 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRIHist2DWidget.h"
+#include <hist/GRIHist2DWidget.h>
 
 #include "TMath.h"
 
@@ -42,8 +42,8 @@ GRIHist2DWidget::GRIHist2DWidget(QWidget *parent, GRIHistogrammer *grihist,
   window_margin_R_ = 25;
   window_margin_T_ = 25;
   window_margin_B_ = 35;
-  window_canvas_W_ = width()-window_margin_L_-window_margin_R_;
-  window_canvas_H_ = height()-window_margin_T_-window_margin_B_;
+  window_canvas_W_ = width() - window_margin_L_-window_margin_R_;
+  window_canvas_H_ = height() - window_margin_T_-window_margin_B_;
   text_height_ = 20;
 
   data_xmin_ = 0.;
@@ -111,7 +111,7 @@ double GRIHist2DWidget::DataY(int windowY) {
 }
 
 
-void GRIHist2DWidget::updateData() {
+void GRIHist2DWidget::UpdateData() {
   if (gri_hist_) {
     // update the pixmap data with histogram data
     int nbinsx = gri_hist_->get_hist()->GetNbinsX();
@@ -123,8 +123,8 @@ void GRIHist2DWidget::updateData() {
       for (int ix = 0; ix < nbinsx; ++ix) {
 	for (int iy = 0; iy < nbinsy; ++iy) {
 	  double z = gri_hist_->get_hist()->GetBinContent(ix+1,iy+1);
-	  if (z>zmax) zmax=z;
-	  if (z<zmin) zmin=z;
+          if (z > zmax) zmax=z;
+          if (z < zmin) zmin=z;
 	}
       }
     }
@@ -192,7 +192,7 @@ void GRIHist2DWidget::paintEvent(QPaintEvent *event) {
   painter.setFont(QFont("Arial", 15));
   painter.drawText(QRect(window_margin_L_, height() - window_margin_B_,
 			 window_canvas_W_, window_margin_B_),
-		   Qt::AlignCenter, xlabel);
+                   Qt::AlignCenter, xlabel_);
   painter.setFont(QFont("Arial", 11));
   painter.drawText(QRect(0,height() - window_margin_B_,
 			 2 * window_margin_L_, text_height_),
@@ -209,7 +209,7 @@ void GRIHist2DWidget::paintEvent(QPaintEvent *event) {
   painter.rotate(-90.);
   painter.setFont(QFont("Arial", 15));
   painter.drawText(QRect(0,0,window_canvas_H_,window_margin_L_),
-		   Qt::AlignCenter, ylabel);
+                   Qt::AlignCenter, ylabel_);
   painter.restore();
   painter.setFont(QFont("Arial", 11));
   painter.drawText(QRect(0,height() - window_margin_B_ - text_height_ / 2,
@@ -230,11 +230,11 @@ void GRIHist2DWidget::paintEvent(QPaintEvent *event) {
   painter.setPen(Qt::black);
   painter.setBrush(Qt::NoBrush);
   painter.drawRect(window_margin_L_,window_margin_T_,
-		   width()-window_margin_L_-window_margin_R_,
-		   height()-window_margin_T_-window_margin_B_);
+                   width() - window_margin_L_-window_margin_R_,
+                   height() - window_margin_T_-window_margin_B_);
 
   // Draw data where we are hovering
-  if (mousehover_on_ gri_hist_) {
+  if (mousehover_on_ && gri_hist_) {
     double data_x = DataX(mousehover_x_);
     double data_y = DataY(mousehover_y_);
     int nbinsx = gri_hist_->get_hist()->GetNbinsX();
