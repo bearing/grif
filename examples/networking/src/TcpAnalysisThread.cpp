@@ -52,7 +52,6 @@ void TcpAnalysisThread::sessionOpened() {
 
 void TcpAnalysisThread::readData() {
     std::cout << "ready to read" << std::endl;
-
 }
 
 void TcpAnalysisThread::displayError(QAbstractSocket::SocketError err) {
@@ -60,35 +59,22 @@ void TcpAnalysisThread::displayError(QAbstractSocket::SocketError err) {
 }
 
 int TcpAnalysisThread::Analyze() {
-    //std::cout << "Analyzing" << std::endl;
     sleep(1);
     if (!tcpSocket_->isReadable()) {
         std::cerr << "Something went wrong" << std::endl;
-    }
-    std::cout << "Input stream" << std::endl;
-    QDataStream in(tcpSocket_);
-    std::cout << "Input stream created" << std::endl;
-    in.setVersion(QDataStream::Qt_4_0);
-    if (tcpSocket_->bytesAvailable() < (int)sizeof(quint16))
-        std::cout << "Nada " << std::endl;
         return 0;
-    int res;
-    in >> res;
-    std::cout << "Read: " << res;
+    }
 
-    /*
-    if (tcpSocket_ == NULL) return 0;
-    if (tcpSocket_->state() != QAbstractSocket::ConnectedState) {
-        std::cerr << "We're not actually connected" << std::endl;
-        return 0;
+    if (tcpSocket_->waitForReadyRead(-1)) {
+        char data[100];
+        int bytesRead;
+        if ((bytesRead = tcpSocket_->read(data, 100)) == -1) {
+            std::cerr << "Socket is closed!?!?" << std::endl;
+        } else {
+            std::cout << "Read: " << data[0] << data[1] << data[2] << data[3] << std::endl;
+        }
+    } else {
+        std::cout << "WE CANT READ!?!?!" << std::endl;
     }
-    std::cout << "Reading data" << std::endl;
-    QDataStream in(tcpSocket_);
-    in.setVersion(QDataStream::Qt_4_2);
-    int block;
-    if (tcpSocket_->bytesAvailable() < (int)sizeof(quint32)) return 0;
-    in >> block;
-    std::cout << block << std::endl;
-    */
     return 0;
 }

@@ -35,7 +35,7 @@
 int main(int argc, char* argv[]) {
   // the following will be included for all programs
   GRIServer *server = new GRIServer();
-  server->Init();
+  server->start();
   QCoreApplication app(argc, argv);
   GRIMemoryManager *mm = new GRIMemoryManager();
 
