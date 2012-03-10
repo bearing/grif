@@ -24,48 +24,85 @@
 #define GRIF_FRAMEWORK_INCLUDE_GRISERVER_H_
 #include <iostream>
 #include <QTcpServer>
+#include <QTcpSocket>
 #include <QThread>
 #include <QSettings>
 #include <QNetworkConfiguration>
 #include <QNetworkConfigurationManager>
 #include <QNetworkSession>
 
-class GRIServer : public QObject { //public QTcpServer {
+class Server : public QObject {
     Q_OBJECT
+ public:
+    Server (quint32 port, QObject *parent = 0) : QObject(parent) {
+        mTcpServer = new QTcpServer(this);
+        connect(mTcpServer,SIGNAL(newConnection()), this,SLOT(onNewConnection()));
+        mTcpServer->listen(QHostAddress::LocalHost, port);
+        connected = QList<QTcpSocket*>();
+        std::cout << "Listening" << std::endl;
+    }
 
-protected slots:
-    void incomingConnection() {
-        std::cout << "Incoming connection: hasdhasdkjashd" << std::endl << std::endl;
-        server_->nextPendingConnection();
+    ~Server() {}
+
+ private slots:
+    void onNewConnection() {
+        QTcpSocket *socket = mTcpServer->nextPendingConnection();
+        connect(socket, SIGNAL(readyRead()), this, SLOT(readAndWriteData()));
+        connected.append(socket);
+        if (socket == 0) {
+            return;
+        }
     }
-    void sessionOpened() {
-        std::cout << "Opened session" << std::endl;
+    void readAndWriteData() {
+        QList<QTcpSocket*>::iterator itr = connected.begin();
+        char writing[100];
+        int read = 0;
+        for (; itr != connected.end(); itr++) {
+            QTcpSocket* sock = *itr;
+            while (sock->bytesAvailable() > sizeof(char)) {
+                int bytesread;
+                if ((bytesread = sock->read((writing + read), 100 - read)) == -1) {
+                    connected.removeOne(sock);
+                    break;
+                }
+                read += bytesread;
+            }
+        }
+        for (itr = connected.begin(); itr != connected.end(); itr++) {
+            QTcpSocket* sock = *itr;
+            sock->write(writing, read);
+            if (!sock->waitForBytesWritten(-1)) {
+                std::cout << "Could NOT write buffer to socket" <<std::endl;
+            }
+        }
     }
+
+ private:
+    QTcpServer *mTcpServer;
+    QList<QTcpSocket*> connected;
+
+};
+
+class GRIServer : public QThread { //public QTcpServer {
+    Q_OBJECT
 
 public:
     GRIServer() {
         port_ = 8081;
-        server_ = new QTcpServer();
-        connect(server_, SIGNAL(newConnection()), this, SLOT(incomingConnection()));
-
     }
 
     ~GRIServer() {}
 
-    void Init() {
-        if (!server_->listen(QHostAddress::LocalHost, port_)) {
-            std::cout << "Error setting up server" << std::endl;
-        } else {
-            std::cout << "Server set up" << std::endl;
-        }
+    void run() {
+        server_ = new Server(port_);
+        exec();
     }
-
     void set_port(quint16 port) { port_ = port; }
 
 
 private:
     quint16 port_;
-    QTcpServer *server_;
+    Server *server_;
     QNetworkSession *networkSession;
 };
 
