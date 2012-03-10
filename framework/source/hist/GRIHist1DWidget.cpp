@@ -53,7 +53,7 @@ GRIHist1DWidget::GRIHist1DWidget(QWidget *parent, GRIHistogrammer *grihist,
   autoscale_on_ = true;
   logscale_on_ = false;
   mousedrag_on_ = false;
-  this->setMouseTracking(true);
+  setMouseTracking(true);
   mousehover_on_ = false;
 
   data_xmin_ = 0.;
@@ -180,7 +180,7 @@ double GRIHist1DWidget::HistRangeMin() {
     if ((ymin>0.) && (data_ymin_>0.)) {
       return data_ymin_;
     } else {
-      return this->histSmallestNonzero();
+      return HistSmallestNonzero();
     }
   } else {
     return 0.0;
@@ -188,7 +188,7 @@ double GRIHist1DWidget::HistRangeMin() {
 }
 
 double GRIHist1DWidget::HistSmallestNonzero() {
-  double min_gtr_0 = this->histRangeMax()/10.;
+  double min_gtr_0 = HistRangeMax()/10.;
   int nx = gri_hist_->get_hist()->GetNbinsX();
   for (int i = 1; i <= nx; ++i) {
     double this_y = gri_hist_->get_hist()->GetBinContent(i);
@@ -228,7 +228,7 @@ void GRIHist1DWidget::ToggleAutoScale() {
   } else {
     button_toggle_auto_scale_->setText("Auto Off");
   }
-  if (logscale_on_) data_ymin_ = this->histSmallestNonzero();
+  if (logscale_on_) data_ymin_ = HistSmallestNonzero();
 }
 
 void GRIHist1DWidget::SetLogScale(bool logscale_on) {

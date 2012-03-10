@@ -118,43 +118,43 @@ void GRIHist2DWidget::UpdateData() {
     int nbinsy = gri_hist_->get_hist()->GetNbinsY();
 
     if (scale_mode_) {
-      zmax = gri_hist_->get_hist()->GetBinContent(1,1);
-      zmin = gri_hist_->get_hist()->GetBinContent(1,1);
+      zmax_ = gri_hist_->get_hist()->GetBinContent(1,1);
+      zmin_ = gri_hist_->get_hist()->GetBinContent(1,1);
       for (int ix = 0; ix < nbinsx; ++ix) {
 	for (int iy = 0; iy < nbinsy; ++iy) {
 	  double z = gri_hist_->get_hist()->GetBinContent(ix+1,iy+1);
-          if (z > zmax) zmax=z;
-          if (z < zmin) zmin=z;
+          if (z > zmax_) zmax_ = z;
+          if (z < zmin_) zmin_ = z;
 	}
       }
     }
-    int r0=0, g0=0, b0=0;
-    int r1=0, g1=0, b1=0;
-    plot_color_.rgb(&r0,&g0,&b0);
+    int r0 = 0, g0 = 0, b0 = 0;
+    int r1 = 0, g1 = 0, b1 = 0;
+    plot_color_.setRgb(r0, g0, b0);
 
     if (double_color_) {
-      plot_color2_.rgb(&r1,&g1,&b1);
+      plot_color2_.setRgb(r1, g1, b1);
     }
 
     for (int ix = 0; ix < nbinsx; ++ix) {
       for (int iy = 0; iy < nbinsy; ++iy) {
-	double z = gri_hist_->get_hist()->GetBinContent(ix+1,iy+1);
-	int r=0,g=0,b=0;
-	if (z < zmin) z = zmin;
-	if (z > zmax) z = zmax;
+        double z = gri_hist_->get_hist()->GetBinContent(ix + 1, iy + 1);
+        int r = 0, g = 0, b = 0;
+        if (z < zmin_) z = zmin_;
+        if (z > zmax_) z = zmax_;
 
-	r = (int)TMath::Floor(((double)r0) * (z - zmin) / (zmax - zmin));
-	g = (int)TMath::Floor(((double)g0) * (z - zmin) / (zmax - zmin));
-	b = (int)TMath::Floor(((double)b0) * (z - zmin) / (zmax - zmin));
+        r = (int)TMath::Floor(((double)r0) * (z - zmin_) / (zmax_ - zmin_));
+        g = (int)TMath::Floor(((double)g0) * (z - zmin_) / (zmax_ - zmin_));
+        b = (int)TMath::Floor(((double)b0) * (z - zmin_) / (zmax_ - zmin_));
 
 	if (r > r0) r = r0;
 	if (g > g0) g = g0;
 	if (b > b0) b = b0;
 
 	if (double_color_) {
-	  r += (int)TMath::Floor(((double)r1) * (zmax-z) / (zmax-zmin));
-	  g += (int)TMath::Floor(((double)g1) * (zmax-z) / (zmax-zmin));
-	  b += (int)TMath::Floor(((double)b1) * (zmax-z) / (zmax-zmin));
+          r += (int)TMath::Floor(((double)r1) * (zmax_ - z) / (zmax_ - zmin_));
+          g += (int)TMath::Floor(((double)g1) * (zmax_ - z) / (zmax_ - zmin_));
+          b += (int)TMath::Floor(((double)b1) * (zmax_ - z) / (zmax_ - zmin_));
 	}
 
 	image_.setPixel(ix, nbinsy - iy - 1, qRgb(r,g,b));
