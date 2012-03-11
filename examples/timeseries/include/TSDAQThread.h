@@ -20,8 +20,7 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef TSDAQTHREAD_H
-#define TSDAQTHREAD_H
+#include "GRIDAQThread.h"
 
 class TSDAQThread : public GRIDAQThread {
   public:
