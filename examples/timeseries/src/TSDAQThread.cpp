@@ -32,16 +32,9 @@ TSDAQThread::TSDAQThread() {
 TSDAQThread::~TSDAQThread() {
 }
 
-int TSDAQThread::StartDataAcquisition() {
-  int data = rand();
-  point *t =
-  PostData<point>(1, "points", NULL, NULL)
-}
-
 int TSDAQThread::AcquireData(int n) {
-
-
-
-
-
+  point[] t = new point[1];
+  t[0]->value = rand();
+  t[0]->time = n;
+  PostData<point>(1, "points", t, NULL)
 }
