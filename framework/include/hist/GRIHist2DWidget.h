@@ -129,8 +129,10 @@ private:
     bool double_color_;
     bool scale_mode_;
 
-    double data_X(int windowX);
-    double data_Y(int windowY);
+    double zmin_, zmax_;
+
+    double DataX(int windowX);
+    double DataY(int windowY);
 };
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST2DWIDGET_H_

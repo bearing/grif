@@ -49,12 +49,7 @@ class TcpDAQThread : public GRIDAQThread {
  public slots:
   void sendData();
   void displayError(QAbstractSocket::SocketError);
-  void connectToServer();
-  void acquireData(int);
 
-signals:
-  void connecting();
-  void acquire(int);
  private:
   QThread *readThread_;
   QTcpSocket *tcpSocket_;
