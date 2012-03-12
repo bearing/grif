@@ -19,28 +19,3 @@
 // Contact:
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
-
-#ifndef RANDDAQTHREAD_H
-#define RANDDAQTHREAD_H
-
-class RandDAQThread : public GRIDAQThread {
-  public:
-    MyDAQ();
-    ~MyDAQ();
-
-    int ConnectToDAQ() { return 0; }
-
-    int Initalize() { return 0; }
-
-    int LoadConfiguration() { return 0; }
-
-    int StartDataAcquisition();
-
-    int AcquireData(int n);
-
-    int StopDataAcquisition() { return 0; }
-
-    int TerminationRoutines() { return 0; }
-};
-
-#endif // RANDDAQTHREAD_H

@@ -1,0 +1,9 @@
+<?xml version="1.0">
+<app>
+  <Objects>
+    <object name="TSDAQ" class="TSDAQThread"></object>
+    <object name="A1" class="TSAnalysisThread"></object>
+    <object name="A2" class="TSAnalysisThread2"></object>
+  </Objects>
+</app>
+    

@@ -80,9 +80,9 @@ public:
     void SetAutoScale(bool autoscale_on);
 
     void set_plot_color(QColor plot_color) { plot_color_ = plot_color; }
-    void set_xlabel(QString xlabel) { xlabel_ = xlabel; };
-    void set_ylabel(QString ylabel) { ylabel = ylabel; };
-    GRIHistogrammer* get_hist() { return gri_hist_; };
+    void set_xlabel(QString xlabel) { xlabel_ = xlabel; }
+    void set_ylabel(QString ylabel) { ylabel = ylabel; }
+    GRIHistogrammer* get_gri_hist() { return gri_hist_; }
     bool get_logscale_on() { return logscale_on_; }
     bool get_autoscale_on() { return autoscale_on_; }
 
