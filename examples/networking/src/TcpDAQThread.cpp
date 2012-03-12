@@ -22,14 +22,25 @@
 
 #include "TcpDAQThread.h"
 
-TcpDAQThread::TcpDAQThread() : port_(8081) {
+const int DEFAULT_PORT = 8081;
+
+TcpDAQThread::TcpDAQThread() : port_(DEFAULT_PORT) {
+    // Instantiate a socket to communicate with the server, connect
+    // the 'connected()' signal to sendData(), so we know when we are
+    // connected to the server, and the error signal to our own error
+    // handling function.
     tcpSocket_ = new QTcpSocket(this);
     connect(tcpSocket_, SIGNAL(connected()), this, SLOT(sendData()));
     connect(tcpSocket_, SIGNAL(error(QAbstractSocket::SocketError)),
         this, SLOT(displayError(QAbstractSocket::SocketError)));
 
+    // connect to the server -- change QHostAddress::LocalHost to the host
+    // address you want to connect to
     tcpSocket_->connectToHost(QHostAddress::LocalHost, port_);
+
+    // This is a blocking call to wait until we're
     if (!tcpSocket_->waitForConnected(-1)) {
+
         std::cerr << "ERROR: couldn't connect DAQ thread to server";
     } else {
         std::cout << "TcpDAQ connected" << std::endl;
@@ -53,12 +64,19 @@ int TcpDAQThread::AcquireData(int n) {
         std::cerr << "Something went wrong" << std::endl;
         return -1;
     }
+    // the data to collect and send to be analyzed -- this data
+    // can be anything, I chose to send 'grif'
 
     const char *data = "grif";
     std::cout << "Writing " << (const char *) data << std::endl;
+
+    // write sizeof(data) bytes of data to the socket
     tcpSocket_->write(data, sizeof(data));
+
+    // flush the buffer, should have the same effect as !tcpSocket->waitForBytesWritted(-1)
     if (!tcpSocket_->flush()) {
         std::cout << "FAAAAIL" << std::endl;
+        return -1;
     }
     return 0;
 }

@@ -28,11 +28,19 @@
 #include <QTcpSocket>
 #include <QThread>
 
+
+/**
+  * This class is a data acquisition thread that sends the data
+  * it collects via a QTcpSocket over a network
+  * connection to be analyzed. Before reading this example, I suggest
+  * taking a look at GRIServer.h in include/. It has the
+  * code that ties this and TcpAnalysisThread together.
+  */
 class TcpDAQThread : public GRIDAQThread {
  Q_OBJECT
 
  public:
-  TcpDAQThread(); // : port_(8080) {}
+  TcpDAQThread();
   ~TcpDAQThread();
 
   int AcquireData(int n);
@@ -47,7 +55,14 @@ class TcpDAQThread : public GRIDAQThread {
   int TerminationRoutines() { return 0; }
 
  public slots:
+  /**
+    * This slot gets called when our QTcpSocket is connected
+    * to whatever server we're connecting to.
+   `*/
   void sendData();
+  /**
+    * Our own error-handling function.
+    */
   void displayError(QAbstractSocket::SocketError);
 
  private:

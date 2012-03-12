@@ -27,6 +27,13 @@
 #include <QTcpSocket>
 #include <QNetworkSession>
 
+/**
+  * This class is an analysis thread that gets the data
+  * it needs to analyze via a QTcpSocket over a network
+  * connection. Before reading this example, I suggest
+  * taking a look at GRIServer.h in include/. It has the
+  * code that ties this and TcpDAQThread together.
+  */
 class TcpAnalysisThread : public GRIAnalysisThread {
  Q_OBJECT
  public:
@@ -36,12 +43,20 @@ class TcpAnalysisThread : public GRIAnalysisThread {
   int Analyze();
 
 public slots:
+  /**
+    * This slot gets called when our QTcpSocket is connected
+    * to whatever server we're connecting to.
+   `*/
   void readData();
-  void sessionOpened();
+  /**
+    * Our own error-handling function.
+    */
   void displayError(QAbstractSocket::SocketError);
+
 private:
   QTcpSocket *tcpSocket_;
   QNetworkSession *networkSession_;
+  quint16 port_;
 };
 
 #endif  // TCP_ANALYSIS_THREAD_H

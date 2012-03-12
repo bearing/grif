@@ -29,14 +29,21 @@
 
 const int DEFAULT_PORT = 8081;
 
-TcpAnalysisThread::TcpAnalysisThread() {
-
+TcpAnalysisThread::TcpAnalysisThread() : port_(DEFAULT_PORT){
+    // Instantiate a socket to communicate with the server, connect
+    // the 'connected()' signal to readData(), so we know when we are
+    // connected to the server, and the error signal to our own error
+    // handling function.
     tcpSocket_ = new QTcpSocket(this);
     connect(tcpSocket_, SIGNAL(connected()), this, SLOT(readData()));
     connect(tcpSocket_, SIGNAL(error(QAbstractSocket::SocketError)),
                  this, SLOT(displayError(QAbstractSocket::SocketError)));
 
+    // connect to the server -- change QHostAddress::LocalHost to the host
+    // address you want to connect to
     tcpSocket_->connectToHost(QHostAddress::LocalHost, DEFAULT_PORT);
+
+    // This is a blocking call to wait until we're connected
     if (!tcpSocket_->waitForConnected(-1)) {
         std::cerr << "ERROR: couldn't connect Analysis thread to server";
     } else {
@@ -46,9 +53,6 @@ TcpAnalysisThread::TcpAnalysisThread() {
     }
 }
 
-void TcpAnalysisThread::sessionOpened() {
-
-}
 
 void TcpAnalysisThread::readData() {
     std::cout << "ready to read" << std::endl;
@@ -60,21 +64,32 @@ void TcpAnalysisThread::displayError(QAbstractSocket::SocketError err) {
 
 int TcpAnalysisThread::Analyze() {
     sleep(1);
-    if (!tcpSocket_->isReadable()) {
+    if (!tcpSocket_->isReadable()) { // A simple catch just in case, this should never happen
         std::cerr << "Something went wrong" << std::endl;
-        return 0;
+        return -1;
     }
-
+    // we block this thread until there is something to read
     if (tcpSocket_->waitForReadyRead(-1)) {
         char data[100];
         int bytesRead;
         if ((bytesRead = tcpSocket_->read(data, 100)) == -1) {
+            // if read() returns -1 there is something wrong with the socket
             std::cerr << "Socket is closed!?!?" << std::endl;
+            return -1;
         } else {
-            std::cout << "Read: " << data[0] << data[1] << data[2] << data[3] << std::endl;
+            // now we output whatever we read, and we can preform whatever kind
+            // of analysis we want.
+            char *datum;
+            std::cout << "Read: ";
+            for ( datum = data; datum < data + bytesRead; datum++) {
+                std::cout << datum;
+            }
+            std::cout << std::endl;
         }
     } else {
-        std::cout << "WE CANT READ!?!?!" << std::endl;
+        // something went wrong.
+        std::cerr << "Something is wrong with the socket" << std::endl;
+        return -1;
     }
     return 0;
 }
