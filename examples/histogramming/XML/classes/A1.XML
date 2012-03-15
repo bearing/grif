@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <class>
   <Name name = "A1" />
-  <Header hname = "SIMAnalysisThread.h" />
-  <Info cname = "SIMAnalysisThread" isdaq = "false" />
+  <Header hname = "SIMMCAnalysisThread.h" />
+  <Info cname = "SIMMCAnalysisThread" isdaq = "false" />
   <DataBlocks> 
     <Data block = "ADCOutput" /> 
     <Data block = "CHAN" /> 

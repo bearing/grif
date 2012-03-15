@@ -3,7 +3,7 @@
   <Objects>
     <object name= "SIMDAQ1" class = "SIMDAQ"></object>
     <object name= "SIMDAQ2" class = "SIMDAQ"></object>
-    <object name= "A1" class = "SIMAnalysis"></object>
+    <object name= "A1" class = "SIMMCAnalysis"></object>
   </Objects>
 
   <Links>

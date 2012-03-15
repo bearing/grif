@@ -1,3 +1,24 @@
+# Copyright (C) 2012 Gamma-ray Imaging Framework Team
+# 
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 3.0 of the License, or (at your option) any later version.
+# 
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+# 
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# 
+# The license can be found in the LICENSE.txt file.
+# 
+# Contact:
+# Dr. Daniel Chivers
+# dhchivers@lbl.gov
 
 QT       += core network qt3support xml
 QT       += gui
@@ -6,55 +27,64 @@ TARGET = GRIHistWidgetTest
 CONFIG   += console
 TEMPLATE = app
 
-DEPENDPATH += ../../../ . \
-        ../../../application/daq/simulator/trunk/source \
-        ../../../application/daq/simulator/trunk/include \
-        ../../../framework/trunk/source \
-        ../../../framework/trunk/include \
-        ../../../application/gui/grihistwidget/trunk/include \
-        ../../../application/gui/grihistwidget/trunk/source
+DEPENDPATH += ../../ . \
+        ./src \
+        ./include \
+        ../../framework/source \
+        ../../framework/include \
+        ../../framework/source/hist \
+        ../../framework/include/hist
 
-INCLUDEPATH += ../../../ . \
-        ../../../application/analysis/simulator/trunk/include \
-        ../../../application/daq/simulator/trunk/include \
-        ../../../framework/trunk/include \
-        ../../../framework/trunk/source \
-        ../../../application/gui/grihistwidget/trunk/include
 
-include(../../../framework/trunk/source/fsource.pri)
-include(../../../framework/trunk/include/finclude.pri)
-include(../../../application/daq/simulator/trunk/source/ssource.pri)
-include(../../../application/daq/simulator/trunk/include/sinclude.pri)
+INCLUDEPATH += ../../ . \
+        ./include \
+        ../../framework/include \
+        ../../framework/source \
+        ../../framework/source/hist \
+        ../../framework/include/hist
+
+include(../../framework/source/fsource.pri)
+include(../../framework/include/finclude.pri)
+include(../../framework/source/hist/histsource.pri)
+include(../../framework/include/hist/histinclude.pri)
 
 # Source file and headers
-SOURCES += main.cpp \
-    ./SIMMCAnalysisThread.cpp \
-    ./GRIUserLoader.cpp \
-    ../../../application/gui/grihistwidget/trunk/source/GRIHist1DWidget.cpp \
-    ../../../application/gui/grihistwidget/trunk/source/GRIHist1DGridWidget.cpp \
-    ../../../application/gui/grihistwidget/trunk/source/GRIHist1DGridScrollWidget.cpp \
-    ../../../application/gui/grihistwidget/trunk/source/GRIHist2DWidget.cpp
+SOURCES += \
+    ./src/main.cpp \
+    ./src/SIMMCAnalysisThread.cpp \
+    ./src/SIMDAQThread.cpp
 
 HEADERS += \
-    ./SIMMCAnalysisThread.h \
-    ./GRIUserProcesses.h \
-    ./GRIDataDefines.h \
-    ../../../application/gui/grihistwidget/trunk/include/GRIHist1DWidget.h \
-    ../../../application/gui/grihistwidget/trunk/include/GRIHist1DGridWidget.h \
-    ../../../application/gui/grihistwidget/trunk/include/GRIHist1DGridScrollWidget.h \
-    ../../../application/gui/grihistwidget/trunk/include/GRIHist2DWidget.h
+    ./include/SIMMCAnalysisThread.h \
+    ./include/SIMDAQThread.h
 
-ROOTSYS=/usr/local/root
-GRIFDIR=$$HOME/Projects/GRIF/grif
-GRIFPROJECTDIR=$$GRIFDIR/project/bandstra/Hist2D
 
-INCLUDEPATH += $$ROOTSYS/include
-ROOTSYSLIB += $$ROOTSYS/lib
+QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
-# load in all ROOT libraries
+# Top directory of GRIF on your machine
+GRIFDIR=/Users/benson/Desktop/gitprojs/grif
+
+# run code generation
+GRIFPROJECTDIR = $$GRIFDIR/examples/histogramming
+system(cd $$GRIFPROJECTDIR; python setup.py)
+
+QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1
+
+DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}
+
+# External libraries
+INCLUDEPATH += $$GRIFDIR/external
+
+# ROOT headers
+ROOTDIR = /Users/benson/Desktop/root_x86_64
+INCLUDEPATH += $$ROOTDIR/include
+
+# ROOT libraries
+ROOTSYSLIB += $$ROOTDIR/lib
+INCLUDEPATH += $$ROOTSYSLIB
+LIBS += $$ROOTSYSLIB/libCint.so
+LIBS += $$ROOTSYSLIB/libMatrix.so
+LIBS += $$ROOTSYSLIB/libMathCore.so
 LIBS += -L$$ROOTSYSLIB
-LIBS += -L$$ROOTSYSLIB -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lRint -lPostscript
-LIBS += -L$$ROOTSYSLIB -pthread -ldl -rdynamic -lm -lMatrix -lPhysics -lTree
-LIBS += -L$$ROOTSYSLIB -lMathCore -lThread -lz -lGui -lpthread -lGpad -lSpectrum
-
+LIBS += -L$$ROOTSYS/lib -lCore -lHist
 

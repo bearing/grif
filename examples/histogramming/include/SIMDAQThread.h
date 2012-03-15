@@ -64,6 +64,7 @@ class SIMDAQThread : public GRIDAQThread {
 
   void init_chans(int numOfChans,double min=0, double max=65535, double rate=1);
   int get_nchan() { return nchan_; }
+  void set_nchan(int nchan) { nchan_ = nchan; }
 
  private:
   int npk_;

@@ -22,6 +22,8 @@
 
 #include "SIMMCAnalysisThread.h"
 
+#include <QPair>
+
 int SIMMCAnalysisThread::Initialize(int nchan) {
   // create an ADC histogram for each channel
   int nhist = 0;
@@ -35,7 +37,7 @@ int SIMMCAnalysisThread::Initialize(int nchan) {
 
   QString histname = "ADC Channel 0 by Channel 1";
   std::cout << "SIMMCAnalysisThread::initialize: Creating histogram "
-            << (string)histname << endl;
+            << (std::string)histname << endl;
   if (CreateNewHistogram(histname,50,0.0,1000.0,50,0.0,1000.0) == 0) {
     ++nhist;
     SetHistRateMode(histname,false);
@@ -53,11 +55,11 @@ int SIMMCAnalysisThread::Analyze() {
   qint64* ts1;
   int nADC1;
 
-  std::pair<unsigned int, double*> pADC1 = ReadData<double>("SIMDAQ1","ADCOutput");
+  QPair<int, double*> pADC1 = ReadData<double>("SIMDAQ1","ADCOutput");
   ADC1 = pADC1.second; nADC1 = pADC1.first;
-  std::pair<unsigned int, int*> pCH1 = ReadData<int>("SIMDAQ1","CHAN");
+  QPair<int, int*> pCH1 = ReadData<int>("SIMDAQ1","CHAN");
   Ch1 = pCH1.second;
-  std::pair<unsigned int, qint64*> pTS1 = ReadData<qint64>("SIMDAQ1","TS");
+  QPair<int, qint64*> pTS1 = ReadData<qint64>("SIMDAQ1","TS");
   ts1 = pTS1.second;
 
   // these should all be the same
@@ -85,11 +87,11 @@ int SIMMCAnalysisThread::Analyze() {
   qint64* ts2;
   int nADC2;
 
-  std::pair<unsigned int, double*> pADC2 = ReadData<double>("SIMDAQ2","ADCOutput");
+  QPair<int, double*> pADC2 = ReadData<double>("SIMDAQ2","ADCOutput");
   ADC2 = pADC2.second; nADC2 = pADC2.first;
-  std::pair<unsigned int, int*> pCH2 = ReadData<int>("SIMDAQ2","CHAN");
+  QPair<int, int*> pCH2 = ReadData<int>("SIMDAQ2","CHAN");
   Ch2 = pCH2.second;
-  std::pair<unsigned int, qint64*> pTS2 = ReadData<qint64>("SIMDAQ2","TS");
+  QPair<int, qint64*> pTS2 = ReadData<qint64>("SIMDAQ2","TS");
   ts2 = pTS2.second;
 
   for (int i=0; i<nADC2; i++) {
