@@ -70,14 +70,14 @@ GRIHist1DWidget::GRIHist1DWidget(QWidget *parent, GRIHistogrammer *grihist,
     button_toggle_auto_scale_->setText("Auto Off");
   }
   button_toggle_auto_scale_->move(0, height()-button_toggle_auto_scale_->height());
-  QObject::connect(button_toggle_auto_scale_, SIGNAL(clicked()), this, SLOT(toggleAutoScale()) );
+  QObject::connect(button_toggle_auto_scale_, SIGNAL(clicked()), this, SLOT(ToggleAutoScale()) );
 
   button_toggle_log_scale_ = new QPushButton("Linear", this);
   if (logscale_on_) button_toggle_log_scale_->setText("Log");
   else button_toggle_log_scale_->setText("Linear");
   button_toggle_log_scale_->move(button_toggle_auto_scale_->x()+button_toggle_auto_scale_->width(),
 				 button_toggle_auto_scale_->y());
-  QObject::connect(button_toggle_log_scale_, SIGNAL(clicked()), this, SLOT(toggleLogScale()) );
+  QObject::connect(button_toggle_log_scale_, SIGNAL(clicked()), this, SLOT(ToggleLogScale()) );
 }
 
 // Destructor
@@ -103,7 +103,7 @@ void GRIHist1DWidget::SetHist(GRIHistogrammer *grihist) {
 
       // set up a timer to update histogram
       data_update_timer_ = new QTimer();
-      connect(data_update_timer_, SIGNAL(timeout()), this, SLOT(updateData()));
+      connect(data_update_timer_, SIGNAL(timeout()), this, SLOT(UpdateData()));
       connect(data_update_timer_, SIGNAL(timeout()), this, SLOT(update()));
       data_update_timer_->setInterval(300);
       data_update_timer_->start();
