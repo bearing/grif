@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<class>
+  <Name name = "SIMDAQ2" />
+  <Header hname = "SIMDAQThread.h" />
+  <Info cname = "SIMDAQThread" isdaq = "true" />
+  <DataBlocks> 
+    <Data block = "ADCOutput" /> 
+    <Data block = "CHAN" /> 
+    <Data block = "TS" />
+  </DataBlocks> 
+</class>
