@@ -102,7 +102,7 @@ class GRIRegulator: public GRIObject {
   GRIMemoryManager *get_mem_mngr() { return mem_mngr_; }
   void set_mem_mngr(GRIMemoryManager *mem_mngr) { mem_mngr_ = mem_mngr; }
 
-  QLinkedList<GRIProcessThread*> * get_processes() { return processes_; }
+  QLinkedList<GRIProcessThread*> *get_processes() { return processes_; }
 
 
  private:

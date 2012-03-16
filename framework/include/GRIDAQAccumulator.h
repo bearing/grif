@@ -173,7 +173,7 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
       bool NewBubble = false;
       bool NewBubbleSet = false;
       std::cout << "Flushing AccumBuff Iteration " << i << std::endl;
-      logger_.WriteLogFile((QString) "Flushing AccumBuff Iteration " + i);
+      //logger_.WriteLogFile((QString) "Flushing AccumBuff Iteration " + i);
 
       int buffctr = 0;
       for (buff_it = buff_.begin(); buff_it != buff_.end(); ++buff_it) {

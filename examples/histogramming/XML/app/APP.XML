@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<app>
+  <Objects>
+    <object name= "SIMDAQ1" class = "SIMDAQ"></object>
+    <object name= "SIMDAQ2" class = "SIMDAQ"></object>
+    <object name= "A1" class = "SIMMCAnalysis"></object>
+  </Objects>
+
+  <Links>
+    <link writer = "SIMDAQ1" reader = "A1" data = "ADCOutput"></link>
+    <link writer = "SIMDAQ1" reader = "A1" data = "CHAN"></link>
+    <link writer = "SIMDAQ1" reader = "A1" data = "TS"></link>
+    <link writer = "SIMDAQ2" reader = "A1" data = "ADCOutput"></link>
+    <link writer = "SIMDAQ2" reader = "A1" data = "CHAN"></link>
+    <link writer = "SIMDAQ2" reader = "A1" data = "TS"></link>
+  </Links>
+</app>

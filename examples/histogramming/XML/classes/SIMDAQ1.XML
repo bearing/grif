@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<class>
+  <Name name = "SIMDAQ1" />
+  <Header hname = "SIMDAQThread.h" />
+  <Info cname = "SIMDAQThread" isdaq = "true" />
+  <RunTimeParams>
+    <Param name = "e1" type = "double" />
+    <Param name = "ind" type = "int" />
+  </RunTimeParams>
+  <DataBlocks> 
+    <Data block = "ADCOutput" /> 
+    <Data block = "CHAN" /> 
+    <Data block = "TS" />
+  </DataBlocks> 
+</class>

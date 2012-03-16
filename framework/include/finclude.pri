@@ -47,10 +47,6 @@ GRIHist1D.h \
 GRIHist2D.h \
 GRIParser.h \
 GRIProcList.h \
-GRIServer.h \
-#hist/GRIHist1DWidget.h \
-#hist/GRIHist1DGridWidget.h \
-#hist/GRIHist1DGridScrollWidget.h \
-#hist/GRIHist2DWidget.h
+GRIServer.h
 
 

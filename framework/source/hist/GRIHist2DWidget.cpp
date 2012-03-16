@@ -88,8 +88,8 @@ void GRIHist2DWidget::SetHist(GRIHistogrammer *grihist) {
 	
       // set up a timer to update histogram
       data_update_timer_ = new QTimer();
-      connect(data_update_timer_,SIGNAL(timeout()),this,SLOT(updateData()));
-      connect(data_update_timer_,SIGNAL(timeout()),this,SLOT(update()));
+      connect(data_update_timer_, SIGNAL(timeout()), this, SLOT(UpdateData()));
+      connect(data_update_timer_, SIGNAL(timeout()), this, SLOT(update()));
       data_update_timer_->setInterval(500);
       data_update_timer_->start();
     }
