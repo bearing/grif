@@ -23,6 +23,8 @@
 QT       += core network xml
 QT       -= gui
 
+RESOURCES += ../../CONFIG.qrc
+
 # Change this variable to whatever your project name is
 TARGET = networking
 
