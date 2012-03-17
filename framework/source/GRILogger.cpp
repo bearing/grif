@@ -103,7 +103,8 @@ bool GRILogger::WriteErrorLogFile(QString output, int time) {
                         new QFile(grif_project_file_path_ + "/log/errorlogfile.txt"));
 }
 
-bool GRILogger::WriteToLogFile(QString output, int time, QMutex *mutex, QFile *f) {
+bool GRILogger::WriteToLogFile(QString output, int time, QMutex *mutex,
+                               QFile *f) {
     time = 0;
 
     QMutexLocker qml(mutex);

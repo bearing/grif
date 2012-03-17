@@ -56,22 +56,22 @@ class GRIRegulator: public GRIObject {
 
   // ReadMemory() reads one packet from memory in the location specified
   // by process_name & bufferName
-  QPair<int, char*> ReadMemory(const QString& blockName,
-                               const QString& bufferName);
+  QPair<int, char*> ReadMemory(QString blockName,
+                               QString bufferName);
 
   // WriteMemory() writes a data given in the char array to the location
   // specified by process_name & bufferName
-  bool WriteMemory(const QString& blockName, const QString& bufferName, int size,
+  bool WriteMemory(QString blockName, QString bufferName, int size,
                    char dataArray[]);
 
   // CurrentPacketPosition() returns the current index of the packet marker.
   // This is in most cases the last packet to be read next unless
   // SetPacketPosition() has been called.
-  int CurrentPacketPosition(const QString& bufferName);
+  int CurrentPacketPosition(QString bufferName);
 
   // LastPacket() returns the index of the last packet in the specified buffer.
   // This is equivalent to the buffer size minus one.
-  int LastPacket(const QString& bufferName);
+  int LastPacket(QString bufferName);
 
   // SetPacketPosition() sets the packet marker for the specified buffer to the
   // packetNumber position. This is useful for use with the overloaded
@@ -79,13 +79,13 @@ class GRIRegulator: public GRIObject {
   // indexed by the packet marker. This is in most cases the last packet to be
   // read from unless SetPacketPosition() has been called.
   // If the operation is successful, it returns true, otherwise false.
-  bool SetPacketPosition(const QString& bufferName, int packetNumber);
+  bool SetPacketPosition(QString bufferName, int packetNumber);
 
   // SizeofPacket() returns how big the packet is
-  int SizeofPacket(const QString& bufferName, int packetNumber);
+  int SizeofPacket(QString bufferName, int packetNumber);
 
   // SizeofBuffer() returns how big the buffer is
-  int SizeofBuffer(const QString& bufferName);
+  int SizeofBuffer(QString bufferName);
 
   // Begin the regulator.  Starts all of the threads.
   void Start();
@@ -118,11 +118,11 @@ class GRIRegulator: public GRIObject {
   int GarbageCollection(void* p);
 
   // find_process() returns a pointer to the actual process given the name
-  GRIProcessThread* FindProcess(const QString& process_name);
+  GRIProcessThread* FindProcess(QString process_name);
 
   // find_data() returns a pointer to the actual data block given the name
-  GRIDataBlock* FindData(const QString& data_block_name,
-                          const QString& buffer_name);
+  GRIDataBlock* FindData(QString data_block_name,
+                          QString buffer_name);
 
   // StartThreads() is called just before the whole system starts. It runs all
   // the threads.

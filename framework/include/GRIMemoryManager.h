@@ -82,7 +82,7 @@ class GRIMemoryManager : public GRIObject {
   // 
   // returns a boolean which is true if the buffer creation was successful,
   // false if not
-  bool BufferCreate(const QString& dataBlockName, const QString& bufferName);
+  bool BufferCreate(QString dataBlockName, QString bufferName);
 
   // CurrentPacketPosition() returns the current index of the packet marker.
   // This is in most cases the last packet to be read next unless
@@ -94,8 +94,8 @@ class GRIMemoryManager : public GRIObject {
   // returns the current index of the packet marker as an int.
   //
   // see LastPacket(), SetPacketPosition()
-  int CurrentPacketPosition(const QString& dataBlockName,
-                            const QString& bufferName);
+  int CurrentPacketPosition(QString dataBlockName,
+                            QString bufferName);
 
   // LastPacket() returns the index of the last packet in the specified buffer.
   // This is equivalent to the buffer size minus one.
@@ -106,7 +106,7 @@ class GRIMemoryManager : public GRIObject {
   // returns the index of the last packet
   //
   // see CurrentPacketPosition(), SetPacketPosition(),
-  int LastPacket(const QString& dataBlockName, const QString& bufferName);
+  int LastPacket(QString dataBlockName, QString bufferName);
 
   // SetPacketPosition() sets the packet marker for the specified buffer to the
   // packetNumber position.  This is useful for use with the overloaded
@@ -123,7 +123,7 @@ class GRIMemoryManager : public GRIObject {
   // returns true if the operation was successful, false otherwise
   // 
   // see CurrentPacketPosition(), LastPacket()
-  bool SetPacketPosition(const QString& dataBlockName, const QString& bufferName,
+  bool SetPacketPosition(QString dataBlockName, QString bufferName,
                          int packetNumber);
 
   // SizeofPacket() returns the size of a packet.
@@ -135,7 +135,7 @@ class GRIMemoryManager : public GRIObject {
   // returns the size of the specified packet by number of elements
   //
   // see SizeofBuffer()
-  int SizeofPacket(const QString& dataBlockName, const QString& bufferName, int packetNumber);
+  int SizeofPacket(QString dataBlockName, QString bufferName, int packetNumber);
 
   // SizeofBuffer() returns the total number of packets ever created.
   //
@@ -146,7 +146,7 @@ class GRIMemoryManager : public GRIObject {
   // within the buffer
   //
   // see SizeofPacket()
-  int SizeofBuffer(const QString& dataBlockName, const QString& bufferName);
+  int SizeofBuffer(QString dataBlockName, QString bufferName);
 
   // BufferReadLock() locks a single buffer for read access. While locked, all
   // other threads will not be able to write to the buffer and will be blocked
@@ -160,7 +160,7 @@ class GRIMemoryManager : public GRIObject {
   // bufferName provides the name of the buffer or the data name
   //
   // see BufferWriteLock(), UnlockBuffer()
-  void BufferReadLock(const QString& dataBlockName, const QString& bufferName);
+  void BufferReadLock(QString dataBlockName, QString bufferName);
 
   // BufferWriteLock() locks a single buffer for write access. While locked, all
   // other threads will not be able to access the buffer for neither write or
@@ -173,7 +173,7 @@ class GRIMemoryManager : public GRIObject {
   // bufferName provides the name of the buffer or the data name
   //
   // see BufferReadLock(), UnlockBuffer()
-  void BufferWriteLock(const QString& dataBlockName, const QString& bufferName);
+  void BufferWriteLock(QString dataBlockName, QString bufferName);
 
   // UnlockBuffer() unlocks the buffer for other threads to have access.
   //
@@ -181,7 +181,7 @@ class GRIMemoryManager : public GRIObject {
   // bufferName provides the name of the buffer or the data name
   //
   // see BufferWriteLock(), BufferReadLock()
-  void UnlockBuffer(const QString& dataBlockName, const QString& bufferName);
+  void UnlockBuffer(QString dataBlockName, QString bufferName);
 
   // ReadMemory() searches it's tables to find the specified buffer and return a
   // char[] array from the specified packet location and buffer. It makes use of
@@ -195,7 +195,7 @@ class GRIMemoryManager : public GRIObject {
   // buffer provides an array of chars that read() will use to copy data into.
   // 
   // returns a pointer to the char array that was used to copy data into.
-  char* ReadMemory(const QString& dataBlockName, const QString& bufferName,
+  char* ReadMemory(QString dataBlockName, QString bufferName,
                    int packetNumber, char* buffer);
 
   // this ReadMemory() method is an overloaded function. It does not require the
@@ -211,7 +211,7 @@ class GRIMemoryManager : public GRIObject {
   //        out array
   // 
   // returns a char array containing the copied out data from the buffer
-  char* ReadMemory(const QString& dataBlockName, const QString& bufferName,
+  char* ReadMemory(QString dataBlockName, QString bufferName,
                    char* buffer);
 
   // WriteMemory() writes the data given from dataArray into the corresponding
@@ -235,9 +235,9 @@ class GRIMemoryManager : public GRIObject {
   //
   // returns true if the write operation was successful and false otherwise
   //
-  // see WriteMemory(const QString& dataBlockName, const QString& bufferName,
+  // see WriteMemory(QString dataBlockName, QString bufferName,
   //                 int size, char dataArray[])
-  bool WriteMemory(const QString& dataBlockName, const QString& bufferName,
+  bool WriteMemory(QString dataBlockName, QString bufferName,
                    int packetNumber, int size, char dataArray[]);
 
   // Overloaded write function. This write function will always write to the
@@ -252,9 +252,9 @@ class GRIMemoryManager : public GRIObject {
   //
   // returns true if the operation was successful , false otherwise
   //
-  // see WriteMemory(const QString& dataBlockName, const QString& bufferName,
+  // see WriteMemory(QString dataBlockName, QString bufferName,
   //                 int size, char dataArray[])
-  bool WriteMemory(const QString& dataBlockName, const QString& bufferName,
+  bool WriteMemory(QString dataBlockName, QString bufferName,
                    int size, char dataArray[]);
 
   // BufferDelete() deletes the buffer from all applicable tables inside the
@@ -264,7 +264,7 @@ class GRIMemoryManager : public GRIObject {
   // bufferName provides the name of the buffer or the data name
   //
   // see BufferCreate()
-  void BufferDelete(const QString& dataBlockName, const QString& bufferName);
+  void BufferDelete(QString dataBlockName, QString bufferName);
 
   // DeletePacket() clears the memory of one packet while leaving the buffer's
   // packet numbering and order intact. This is used for freeing memory.
@@ -274,7 +274,7 @@ class GRIMemoryManager : public GRIObject {
   // packetNumber an int used to identify the packet to be deleted
   //
   // see BufferDelete()
-  void DeletePacket(const QString& dataBlockName, const QString& bufferName,
+  void DeletePacket(QString dataBlockName, QString bufferName,
                     int packetNumber);
 
  private:
@@ -286,20 +286,20 @@ class GRIMemoryManager : public GRIObject {
   //
   // returns the index location of the buffer inside the given data block
   //
-  // see LocateBuffer(const QString& bufferName, int blockIdentifier),
+  // see LocateBuffer(QString bufferName, int blockIdentifier),
   //     LocateDataBlock(), GrabBuffer()
-  int LocateBuffer(const QString& dataBlockName, const QString& bufferName);
+  int LocateBuffer(QString dataBlockName, QString bufferName);
 
   // overloaded function that takes in the QString name of the buffer requested
   // and in the index of the block identifier which is equivalent to the return
-  // value of LocateDataBlock(const QString& dataBlockName)
+  // value of LocateDataBlock(QString dataBlockName)
   //
   // bufferName provides the name of the buffer or the data name
   // blockIdentifier is the index of the block from which this buffer belongs to
   // returns the index location of the buffer inside the given data block
-  // see LocateBuffer(const QString& dataBlockName, const QString& bufferName),
+  // see LocateBuffer(QString dataBlockName, QString bufferName),
   //     LocateDataBlock(), GrabBuffer()
-  int LocateBuffer(const QString& bufferName, int blockIdentifier);
+  int LocateBuffer(QString bufferName, int blockIdentifier);
 
   // this function returns the block indentifier for the specified block. Using
   // this block identifier in conjunction with LocateBuffer() allows for access
@@ -310,7 +310,7 @@ class GRIMemoryManager : public GRIObject {
   // returns the index of the specified data block
   //
   // see LocateBuffer(), GrabBuffer()
-  int LocateDataBlock(const QString& dataBlockName);
+  int LocateDataBlock(QString dataBlockName);
 
   // similar to LocateBuffer() except GrabBuffer() returns a pointer to the
   // buffer itself rather than the position of it within the table objects.
@@ -321,7 +321,7 @@ class GRIMemoryManager : public GRIObject {
   // returns a pointer to the requested buffer object
   //
   // see LocateBuffer(), LocateDataBlock()
-  GRIBuffer* GrabBuffer(const QString& dataBlockName, const QString& bufferName);
+  GRIBuffer* GrabBuffer(QString dataBlockName, QString bufferName);
 
   // A list of lists containing buffers. Used as a table in the memory manager.
   QList< QList<GRIBuffer*>* > data_block_table_;
