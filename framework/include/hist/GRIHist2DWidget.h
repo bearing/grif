@@ -23,36 +23,6 @@
 #ifndef GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST2DWIDGET_H_
 #define GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST2DWIDGET_H_
 
-//////////////////////////////////////////////////////////////
-//
-//    --- GRIHist2DWidget ---
-//
-// A QWidget-derived class to display a single 2D GRIHistogram.
-// The user can interact with the histogram using the mouse,
-// including mousing over data to display the x, y, and z data.
-//
-// You can use it like any QWidget.  For example, it can be
-// displayed on its own:
-//
-//     GRIHist2DWidget *histwidget = new GRIHist2DWidget();
-//     histwidget->setHist(A1->GetHistogram("ADCHist"));
-//     histwidget->show();
-//      ...
-//     delete histwidget;
-//
-// Or it can be placed inside another QWidget, such as a
-// QMainWindow:
-//
-//     QMainWindow *win = new QMainWindow();
-//     GRIHist2DWidget *histwidget = new GRIHist2DWidget(win);
-//     histwidget->setHist(A1->GetHistogram("ADCHist"));
-//     win->setCentralWidget(histwidget);
-//     win->show();
-//      ...
-//     delete win;
-//
-//////////////////////////////////////////////////////////////
-
 #include <QColor>
 #include <QImage>
 #include <QMouseEvent>
@@ -65,6 +35,26 @@
 #include <QWidget>
 
 #include "GRIHistogrammer.h"
+
+// A QWidget-derived class to display a single 2D GRIHistogram.
+// The user can interact with the histogram using the mouse,
+// including mousing over data to display the x, y, and z data.
+//
+// You can use it like any QWidget.  For example, it can be
+// displayed on its own:
+//
+//     GRIHist2DWidget *histwidget = new GRIHist2DWidget();
+//     histwidget->SetHist(A1->GetHistogram("ADCHist"));
+//     histwidget->show();
+//
+// Or it can be placed inside another QWidget, such as a
+// QMainWindow:
+//
+//     QMainWindow *win = new QMainWindow();
+//     GRIHist2DWidget *histwidget = new GRIHist2DWidget(win);
+//     histwidget->SetHist(A1->GetHistogram("ADCHist"));
+//     win->setCentralWidget(histwidget);
+//     win->show();
 
 class GRIHist2DWidget : public QWidget {
 

@@ -23,70 +23,6 @@
 #ifndef GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DGRIDSCROLLWIDGET_H_
 #define GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DGRIDSCROLLWIDGET_H_
 
-//////////////////////////////////////////////////////////////
-//
-//    --- GRIHist1DGridScrollWidget ---
-//
-// A QFrame-derived class to display multiple GRIHistograms
-// in a grid layout.  Each histogram is a GRIHist1DWidget
-// that the user can interact with.  There are four buttons
-// that allow scrolling through a large grid of detectors (the
-// "major" grid) while only looking at a smaller grid of them
-// (the "minor" grid).
-//
-// Histograms are stored in a 1D list.  Call addHist to add
-// a histogram to that list.  The dimensions of the major grid
-// are set using setGridMajor(Nrow,Ncol), while the dimensions of
-// the minor grid are set using setGridMinor(Nrow,Ncol).  The
-// initial position of the upper-left corner of the minor grid
-// can be set using setGridMinorUpperLeft(row,col), but it
-// defaults to (0,0).
-//
-// You can use this widget like any QWidget.  For example, it can
-// be displayed on its own:
-//
-//     GRIHist1DGridScrollWidget *histgrid = new GRIHist1DGridScrollWidget();
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 0"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 1"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 2"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 3"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 4"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 5"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 6"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 7"));
-//     histgrid->setColor(A1->GetHistogram("ADC Channel 0"),QColor(255,0,0));
-//     histgrid->setGridMajor(3,3);
-//     histgrid->setGridMinor(2,2);
-//     histgrid->resize(100,300);
-//     histgrid->show();
-//      ...
-//     delete histgrid;
-//
-// Or it can be placed inside another QWidget, such as a
-// QMainWindow:
-//
-//     QMainWindow *win = new QMainWindow();
-//     GRIHist1DGridScrollWidget *histgrid = new GRIHist1DGridScrollWidget(win);
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 0"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 1"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 2"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 3"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 4"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 5"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 6"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 7"));
-//     histgrid->setColor(A1->GetHistogram("ADC Channel 0"),QColor(255,0,0));
-//     histgrid->setGridMajor(3,3);
-//     histgrid->setGridMinor(2,2);
-//     win->setCentralWidget(histgrid);
-//     win->resize(100,300);
-//     win->show();
-//      ...
-//     delete win;
-//
-//////////////////////////////////////////////////////////////
-
-
 #include <QFrame>
 #include <QGridLayout>
 #include <QMainWindow>
@@ -97,6 +33,59 @@
 
 #include "GRIHist1DWidget.h"
 #include "GRIHistogrammer.h"
+
+// A QFrame-derived class to display multiple GRIHistograms
+// in a grid layout.  Each histogram is a GRIHist1DWidget
+// that the user can interact with.  There are four buttons
+// that allow scrolling through a large grid of detectors (the
+// "major" grid) while only looking at a smaller grid of them
+// (the "minor" grid).
+//
+// Histograms are stored in a 1D list.  Call addHist to add
+// a histogram to that list.  The dimensions of the major grid
+// are set using SetGridMajor(Nrow,Ncol), while the dimensions of
+// the minor grid are set using SetGridMinor(Nrow,Ncol).  The
+// initial position of the upper-left corner of the minor grid
+// can be set using SetGridMinorUpperLeft(row,col), but it
+// defaults to (0,0).
+//
+// You can use this widget like any QWidget.  For example, it can
+// be displayed on its own:
+//
+//     GRIHist1DGridScrollWidget *histgrid = new GRIHist1DGridScrollWidget();
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 0"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 1"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 2"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 3"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 4"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 5"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 6"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 7"));
+//     histgrid->SetColor(A1->GetHistogram("ADC Channel 0"),QColor(255,0,0));
+//     histgrid->SetGridMajor(3,3);
+//     histgrid->SetGridMinor(2,2);
+//     histgrid->resize(100,300);
+//     histgrid->show();
+//
+// Or it can be placed inside another QWidget, such as a
+// QMainWindow:
+//
+//     QMainWindow *win = new QMainWindow();
+//     GRIHist1DGridScrollWidget *histgrid = new GRIHist1DGridScrollWidget(win);
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 0"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 1"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 2"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 3"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 4"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 5"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 6"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 7"));
+//     histgrid->SetColor(A1->GetHistogram("ADC Channel 0"),QColor(255,0,0));
+//     histgrid->SetGridMajor(3,3);
+//     histgrid->SetGridMinor(2,2);
+//     win->setCentralWidget(histgrid);
+//     win->resize(100,300);
+//     win->show();
 
 class GRIHist1DGridScrollWidget : public QFrame {
 
