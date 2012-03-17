@@ -67,12 +67,11 @@ int TcpDAQThread::AcquireData(int n) {
     // the data to collect and send to be analyzed -- this data
     // can be anything, I chose to send 'grif'
 
-    const char *data = "grif";
-    std::cout << "Writing " << (const char *) data << std::endl;
+    char *data = "grif";
+    std::cout << "Writing " << (char *) data << std::endl;
 
-    // write sizeof(data) bytes of data to the socket
-    tcpSocket_->write(data, sizeof(data));
-
+    // write strlen(data) bytes of data to the socket
+    tcpSocket_->write(data, strlen(data));
     // flush the buffer, should have the same effect as !tcpSocket->waitForBytesWritted(-1)
     if (!tcpSocket_->flush()) {
         std::cout << "FAAAAIL" << std::endl;

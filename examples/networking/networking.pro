@@ -75,11 +75,13 @@ EXTDIR = $$GRIFDIR/external
 INCLUDEPATH += EXTDIR
 
 # run code generation
-macx|unix {
+macx {
     system(cd $$GRIFPROJECTDIR; ./setup.py)
 }
-win32 {
+win32|unix {
     system(cd $$GRIFPROJECTDIR; python setup.py)
 }
+
+DEFINES += GRIFPROJECTDIR=\"\\\"/home/ben/Documents/grif\\\"\"
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
