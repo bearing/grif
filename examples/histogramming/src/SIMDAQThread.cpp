@@ -87,6 +87,7 @@ int SIMDAQThread::AcquireData(int n) {
   // 10ns ticks
   qint64 t1 = start_time_.time().msecsTo(currentTime.time())*1E5;
   prev_time_ = currentTime;
+
   // First get the number of counts received
   int ncnt = 0;
   int *NB = new int[get_nchan()];
@@ -124,7 +125,7 @@ int SIMDAQThread::AcquireData(int n) {
       ts[m] = qint64(rnd*(double)deltaT + (double)(t1));
     }
   }
-  m = -1;
+
   for (int i = 0; i < get_npk(); ++i) {
     peak* pt = pk_.at(i);
     for (int j = 0; j < NS[i]; ++j) {
@@ -135,6 +136,10 @@ int SIMDAQThread::AcquireData(int n) {
       ts[m] = qint64(rnd*(double)deltaT + (double)(t1));
     }
   }
+
+
+  std::cout << "Posting data!" << std::endl;
+
   PostData(ncnt, "ADCOutput",ADC,ts);
   PostData(ncnt, "CHAN",Ch,ts);
   PostData(ncnt, "TS",ts,ts);
@@ -144,6 +149,8 @@ int SIMDAQThread::AcquireData(int n) {
   delete [] ADC;
   delete [] ts;
   delete [] Ch;
+
+  msleep(300);
 
   return 0;
 }

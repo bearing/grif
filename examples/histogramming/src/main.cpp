@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
   p->push_back(AMC1);
 
   // Analysis
-  int nchan = 100;
+  int nchan = 10;
   AMC1->Initialize(nchan);
   // DAQ1
   simdaq1->init_chans(nchan, 0, 1000, 200);
@@ -236,10 +236,6 @@ int main(int argc, char* argv[]) {
   sleep(20);
 
   reg->Stop();
-
-   sleep(20);
-
-
 
   delete(win1);
   delete(win2);
