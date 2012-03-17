@@ -69,6 +69,7 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
+DEFINES += GRIFPROJECTDIR=\"\\\"/home/ben/Documents/grif\\\"\"
 
 SOURCES += \
     main.cpp

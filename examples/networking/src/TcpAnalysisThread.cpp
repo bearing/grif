@@ -70,6 +70,7 @@ int TcpAnalysisThread::Analyze() {
     }
     // we block this thread until there is something to read
     if (tcpSocket_->waitForReadyRead(-1)) {
+        // This is a good example of how to read from a socket.
         char data[100];
         int bytesRead;
         if ((bytesRead = tcpSocket_->read(data, 100)) == -1) {
@@ -82,7 +83,7 @@ int TcpAnalysisThread::Analyze() {
             char *datum;
             std::cout << "Read: ";
             for ( datum = data; datum < data + bytesRead; datum++) {
-                std::cout << datum;
+                std::cout << *datum;
             }
             std::cout << std::endl;
         }
