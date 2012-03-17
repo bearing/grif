@@ -92,10 +92,12 @@ QPair<int, char*> GRIRegulator::ReadMemory(QString blockName,
     curr_packet = mem_mngr_->LastPacket(blockName, bufferName);
   }
 
+#ifdef __GRIF_DEBUG__
   std::cout << "reading packet " << packet_to_read
 	    << " (block: " << blockName.toStdString().c_str()
             << ", buffer: " << bufferName.toStdString().c_str() 
             << ")" << std::endl;
+#endif
 
   if (data->UpdateReader()) {
     int length = mem_mngr_->SizeofPacket(blockName, bufferName,
@@ -124,9 +126,11 @@ QPair<int, char*> GRIRegulator::ReadMemory(QString blockName,
     }
   }
 
+#ifdef __GRIF_DEBUG__
   std::cout << "GRIRegulator::ReadMemory(): " << blockName.toStdString().c_str()
             << " is not reading from "
             << data->get_writer_name().toStdString().c_str() << std::endl;
+#endif
 
   QPair<int, char*> returnVal(0, NULL);
   return returnVal;

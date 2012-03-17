@@ -197,8 +197,10 @@ void GRIMemoryManager::UnlockBuffer(QString dataBlockName,
 
 int GRIMemoryManager::LocateBuffer(QString dataBlockName,
                                    QString bufferName) {
+#ifdef __GRIF_DEBUG__
   std::cout << "LocateBuffer: " << dataBlockName.toStdString().c_str()
             << "-" << bufferName.toStdString().c_str() << std::endl;
+#endif
   int blockIndex = LocateDataBlock(dataBlockName); 
   QList<QString> *bufferNames = name_table_.at(blockIndex);
   int size = bufferNames->size();
@@ -270,10 +272,12 @@ char* GRIMemoryManager::ReadMemory(QString dataBlockName,
   buf->IncrementPacketMarker();
   UnlockBuffer(dataBlockName, bufferName);
 
+#ifdef __GRIF_DEBUG__
   std::cout << "MM::ReadMemory: Packet #" << packetNumber
 	    << " (block: " << dataBlockName.toStdString().c_str()
             << ", buffer: " << bufferName.toStdString().c_str() 
             << ")" << std::endl;
+#endif
 
   return buffer;
 }
@@ -327,7 +331,7 @@ bool GRIMemoryManager::WriteMemory(QString dataBlockName,
   GRIBuffer *buf = GrabBuffer(dataBlockName, bufferName);
   int curPacket = buf->NextPacket();
 
-#ifdef GRI_DEBUG
+#ifdef __GRIF_DEBUG__
   std::cout << "MM::WriteMemory: Packet #" << curPacket
 	    << " (block: " << dataBlockName.toStdString().c_str()
             << ", buffer: " << bufferName.toStdString().c_str() 
