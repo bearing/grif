@@ -105,7 +105,7 @@ int SIMMCAnalysisThread::Analyze() {
       UpdateHistogram(histname, &(ADC2[i]), 1);
     } else {
       std::cerr << "SIMMCAnalysisThread::Analyze: ADC2 channel out of range!  ch=" 
-		<< Ch2[i] << endl;
+                << Ch2[i] << std::endl;
     }
   }
   for (int i1 = 0; i1 < nADC2; ++i1) {
