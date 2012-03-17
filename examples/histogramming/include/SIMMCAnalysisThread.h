@@ -46,9 +46,4 @@ public:
   int Initialize(int nchan);
 };
 
-// UpdateHistogram()
-// GetHistogram()
-// SetHistRateMode()
-// CreateNewHistogram()
-
 #endif  // GRIF_EXAMPLES_HISTOGRAMMING_SIMMCANALYSISTHREAD_H_
