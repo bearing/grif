@@ -64,8 +64,8 @@ void GRIRegulator::StartThreads() {
   }
 }
 
-QPair<int, char*> GRIRegulator::ReadMemory(const QString& blockName,
-                                           const QString& bufferName) {
+QPair<int, char*> GRIRegulator::ReadMemory(QString blockName,
+                                           QString bufferName) {
   GRIDataBlock* data = FindData(blockName,bufferName);
   if (data == NULL) {
     std::cerr << "GRIRegulator::ReadMemory(): Can't find buffer "
@@ -132,8 +132,8 @@ QPair<int, char*> GRIRegulator::ReadMemory(const QString& blockName,
   return returnVal;
 }
 
-bool GRIRegulator::WriteMemory(const QString& blockName,
-                               const QString& bufferName, int size,
+bool GRIRegulator::WriteMemory(QString blockName,
+                               QString bufferName, int size,
                                char dataArray[]) {
   QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
 
@@ -162,33 +162,33 @@ bool GRIRegulator::WriteMemory(const QString& blockName,
   return false;
 }
 
-int GRIRegulator::CurrentPacketPosition(const QString& bufferName) {
+int GRIRegulator::CurrentPacketPosition(QString bufferName) {
   QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
   return mem_mngr_->CurrentPacketPosition(process_name, bufferName);
 }
 
-int GRIRegulator::LastPacket(const QString& bufferName) {
+int GRIRegulator::LastPacket(QString bufferName) {
   QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
   return mem_mngr_->LastPacket(process_name, bufferName);
 }
 
-bool GRIRegulator::SetPacketPosition(const QString& bufferName,
+bool GRIRegulator::SetPacketPosition(QString bufferName,
                                      int packetNumber) {
   QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
   return mem_mngr_->SetPacketPosition(process_name, bufferName, packetNumber);
 }
 
-int GRIRegulator::SizeofPacket(const QString& bufferName, int packetNumber) {
+int GRIRegulator::SizeofPacket(QString bufferName, int packetNumber) {
   QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
   return mem_mngr_->SizeofPacket(process_name, bufferName, packetNumber);
 }
 
-int GRIRegulator::SizeofBuffer(const QString& bufferName) {
+int GRIRegulator::SizeofBuffer(QString bufferName) {
   QString process_name = ((GRIProcessThread*)QThread::currentThread())->get_name();
   return mem_mngr_->SizeofBuffer(process_name, bufferName);
 }
 
-GRIProcessThread* GRIRegulator::FindProcess(const QString& process_name) {
+GRIProcessThread* GRIRegulator::FindProcess(QString process_name) {
   QLinkedList<GRIProcessThread*>::iterator it;
   for(it = processes_->begin(); it != processes_->end(); ++it) {
     GRIProcessThread* process = *it;
@@ -199,8 +199,8 @@ GRIProcessThread* GRIRegulator::FindProcess(const QString& process_name) {
   return NULL;
 }
 
-GRIDataBlock* GRIRegulator::FindData(const QString& data_block_name,
-                                     const QString& buffer_name) {
+GRIDataBlock* GRIRegulator::FindData(QString data_block_name,
+                                     QString buffer_name) {
   QLinkedList<GRIDataBlock*>::iterator it;
   for(it = data_blocks_->begin(); it != data_blocks_->end(); ++it) {
     GRIDataBlock* data_block = *it;

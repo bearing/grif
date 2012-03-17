@@ -124,7 +124,7 @@ int SIMDAQThread::AcquireData(int n) {
       ts[m] = qint64(rnd*(double)deltaT + (double)(t1));
     }
   }
-  m = -1;
+
   for (int i = 0; i < get_npk(); ++i) {
     peak* pt = pk_.at(i);
     for (int j = 0; j < NS[i]; ++j) {

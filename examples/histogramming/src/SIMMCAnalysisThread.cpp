@@ -37,18 +37,21 @@ int SIMMCAnalysisThread::Initialize(int nchan) {
 
   QString histname = "ADC Channel 0 by Channel 1";
   std::cout << "SIMMCAnalysisThread::initialize: Creating histogram "
-            << (std::string)histname << endl;
+            << (std::string)histname << std::endl;
   if (CreateNewHistogram(histname,50,0.0,1000.0,50,0.0,1000.0) == 0) {
     ++nhist;
     SetHistRateMode(histname,false);
   }
   std::cout << "SIMMCAnalysisThread: Number of histograms created: "
-            << nhist << endl;
+            << nhist << std::endl;
   return nhist;
 }
 
 
 int SIMMCAnalysisThread::Analyze() {
+
+  std::cout << "analyze..." << std::endl;
+
   // Read SIMDAQ
   double* ADC1;
   int* Ch1;
@@ -56,7 +59,8 @@ int SIMMCAnalysisThread::Analyze() {
   int nADC1;
 
   QPair<int, double*> pADC1 = ReadData<double>("SIMDAQ1","ADCOutput");
-  ADC1 = pADC1.second; nADC1 = pADC1.first;
+  nADC1 = pADC1.first;
+  ADC1 = pADC1.second;
   QPair<int, int*> pCH1 = ReadData<int>("SIMDAQ1","CHAN");
   Ch1 = pCH1.second;
   QPair<int, qint64*> pTS1 = ReadData<qint64>("SIMDAQ1","TS");
@@ -66,7 +70,7 @@ int SIMMCAnalysisThread::Analyze() {
   for (int i = 0; i < nADC1; ++i) {
     QString histname = "ADC Channel "+QString::number(Ch1[i]);
     if (GetHistogram(histname)) {
-      UpdateHistogram(histname,&(ADC1[i]),1);
+      UpdateHistogram(histname, &(ADC1[i]),1);
     } else {
       std::cerr << "SIMMCAnalysisThread::Analyze: ADC1 channel out of range!  ch="
 		<< Ch1[i] << std::endl;
@@ -88,16 +92,17 @@ int SIMMCAnalysisThread::Analyze() {
   int nADC2;
 
   QPair<int, double*> pADC2 = ReadData<double>("SIMDAQ2","ADCOutput");
-  ADC2 = pADC2.second; nADC2 = pADC2.first;
+  nADC2 = pADC2.first;
+  ADC2 = pADC2.second;
   QPair<int, int*> pCH2 = ReadData<int>("SIMDAQ2","CHAN");
   Ch2 = pCH2.second;
   QPair<int, qint64*> pTS2 = ReadData<qint64>("SIMDAQ2","TS");
   ts2 = pTS2.second;
 
-  for (int i=0; i<nADC2; i++) {
+  for (int i = 0; i < nADC2; ++i) {
     QString histname = "ADC Channel "+QString::number(Ch2[i]);
     if (GetHistogram(histname)) {
-      UpdateHistogram(histname,&(ADC2[i]),1);
+      UpdateHistogram(histname, &(ADC2[i]), 1);
     } else {
       std::cerr << "SIMMCAnalysisThread::Analyze: ADC2 channel out of range!  ch=" 
 		<< Ch2[i] << endl;

@@ -23,10 +23,14 @@
 #ifndef GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DGRIDWIDGET_H_
 #define GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DGRIDWIDGET_H_
 
-//////////////////////////////////////////////////////////////
-//
-//    --- GRIHist1DGridWidget ---
-//
+#include <QFrame>
+#include <QGridLayout>
+#include <QMainWindow>
+#include <QWidget>
+
+#include "GRIHist1DWidget.h"
+#include "GRIHistogrammer.h"
+
 // A QFrame-derived class to display multiple GRIHistograms
 // in a grid layout.  Each histogram is a GRIHist1DWidget
 // that the user can interact with.
@@ -42,42 +46,27 @@
 // displayed on its own:
 //
 //     GRIHist1DGridWidget *histgrid = new GRIHist1DGridWidget();
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 0"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 1"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 2"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 0"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 1"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 2"));
 //     histgrid->histWidget(A1->GetHistogram("ADC Channel 0"))->setColor(QColor(255,0,0));
-//     histgrid->setGridNx(1);    // optional; setGridNx forces the number of grid columns
+//     histgrid->SetGridNx(1);    // optional; setGridNx forces the number of grid columns
 //     histgrid->resize(100,300);
 //     histgrid->show();
-//      ...
-//     delete histgrid;
 //
 // Or it can be placed inside another QWidget, such as a
 // QMainWindow:
 //
 //     QMainWindow *win = new QMainWindow();
 //     GRIHist1DGridWidget *histgrid = new GRIHist1DGridWidget(win);
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 0"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 1"));
-//     histgrid->addHist(A1->GetHistogram("ADC Channel 2"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 0"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 1"));
+//     histgrid->AddHist(A1->GetHistogram("ADC Channel 2"));
 //     histgrid->histWidget(A1->GetHistogram("ADC Channel 0"))->setColor(QColor(255,0,0));
-//     histgrid->setGridNy(3);    // optional; setGridNy forces the number of grid rows
+//     histgrid->SetGridNy(3);    // optional; setGridNy forces the number of grid rows
 //     win->setCentralWidget(histgrid);
 //     win->resize(100,300);
 //     win->show();
-//      ...
-//     delete win;
-//
-//////////////////////////////////////////////////////////////
-
-
-#include <QFrame>
-#include <QGridLayout>
-#include <QMainWindow>
-#include <QWidget>
-
-#include "GRIHist1DWidget.h"
-#include "GRIHistogrammer.h"
 
 class GRIHist1DGridWidget : public QFrame {
 
