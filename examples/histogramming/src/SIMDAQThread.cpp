@@ -80,7 +80,7 @@ GRIDAQBaseAccumNode* SIMDAQThread::RegisterDataOutput(QString outName) {
 
 int SIMDAQThread::AcquireData(int n) {
   Q_UNUSED(n);
-  msleep(50);
+  GRISleep::msleep(50);
   QDateTime currentTime = QDateTime::currentDateTime();
   // 10ns ticks
   qint64 deltaT = prev_time_.time().msecsTo(currentTime.time())*1E5;
@@ -150,7 +150,7 @@ int SIMDAQThread::AcquireData(int n) {
   delete [] ts;
   delete [] Ch;
 
-  msleep(300);
+  GRISleep::msleep(300);
 
   return 0;
 }
