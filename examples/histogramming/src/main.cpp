@@ -233,7 +233,7 @@ int main(int argc, char* argv[]) {
 
   app.exec();
 
-  sleep(20);
+  GRISleep::msleep(20000);
 
   reg->Stop();
 
