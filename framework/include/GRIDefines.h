@@ -24,6 +24,8 @@
 #define GRIF_FRAMEWORK_INCLUDE_GRIDEFINES_H_
 #include <QtGlobal>
 
+#include <QThread>
+
 // Constants and macros for GRI framework (wrap Qt constants/macros).
 
 //  To determine operating system information:
@@ -136,6 +138,13 @@ struct ProcessCommand {
 
 class GRIProcessThread;
 class GRIDataBlock;
+
+// GRISleep is used as a workaround to portable thread sleeping
+// To sleep, call GRISleep::msleep()
+class GRISleep : public QThread {
+ public:
+  static void msleep(unsigned long msecs) { QThread::msleep(msecs); }
+};
 
 // For Qt's internally defined globals see http://doc.trolltech.com/4.5/qtglobal.html#details
 // For definitions of macros see qglobal.h
