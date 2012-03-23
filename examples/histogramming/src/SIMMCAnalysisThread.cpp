@@ -49,9 +49,6 @@ int SIMMCAnalysisThread::Initialize(int nchan) {
 
 
 int SIMMCAnalysisThread::Analyze() {
-
-  std::cout << "analyze..." << std::endl;
-
   // Read SIMDAQ
   double* ADC1;
   int* Ch1;
