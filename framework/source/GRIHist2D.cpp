@@ -46,6 +46,8 @@ int GRIHist2D::SetBins (int nx, double xmin, double xmax, int ny,
 }
 
 int GRIHist2D::Update (double x[], double y[], int numel) {
+  QMutexLocker lock(&update_lock_);
+
   if (get_rate_mode()) {
     // Updating on Rate Differentials...
     rate_hist_->Add(rate_hist_,-1);  // Set to zero

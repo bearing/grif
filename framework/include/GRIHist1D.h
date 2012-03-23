@@ -25,6 +25,8 @@
 
 #include "GRIHistogrammer.h"
 
+#include <QMutex>
+
 class GRIHist1D: public GRIHistogrammer {
  public:
   GRIHist1D(QString BlockName, int ID, QString HistName);
@@ -34,6 +36,9 @@ class GRIHist1D: public GRIHistogrammer {
   int SetBins(int nx, double xBins[]);
   int SetBins(int nx, double xmin, double xmax);
   int Update(double x[], int numel);
+
+ private:
+  QMutex update_lock_;
 };
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_GRIHIST1D_H_
