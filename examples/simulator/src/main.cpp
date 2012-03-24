@@ -48,9 +48,9 @@ int main(int argc, char* argv[]) {
   GRILoader *loader = new GRIUserLoader(reg);
   loader->InitRegulatorDetails();
   reg->Start();
-  sleep(5);
+  GRISleep::msleep(5000);
   reg->Stop();
-  sleep(10);
+  GRISleep::msleep(10000);
   std::cout << "done..." << std::endl;
   return app.exec();
 }
