@@ -66,7 +66,7 @@ void GRIRegulator::StartThreads() {
 
 QPair<int, char*> GRIRegulator::ReadMemory(QString blockName,
                                            QString bufferName) {
-  GRIDataBlock* data = FindData(blockName,bufferName);
+  GRIDataBlock* data = FindData(blockName, bufferName);
   if (data == NULL) {
     std::cerr << "GRIRegulator::ReadMemory(): Can't find buffer "
               << blockName.toStdString().c_str() << ":"
