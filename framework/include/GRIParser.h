@@ -41,16 +41,15 @@ struct objectParsingDetails {
 
 class GRIParser {
  public:
-  // Parse the XML file path provided by FilePath.  Sets up the
-  // objectsAndLinks data structure which contains the details
-  // of the parsing.  This data is used by GRILoader.  Use
-  // the getObjectsAndLinks() method to retrieve the data.
-  //
-  // parse() returns true if the parsing was successful and
-  // false otherwise
+  /// Parse the XML file path provided by FilePath.  Sets up the
+  /// objectsAndLinks data structure which contains the details
+  /// of the parsing.  This data is used by GRILoader.  Use
+  /// the getObjectsAndLinks() method to retrieve the data.
+  ///
+  /// @return true if the parsing was successful and false otherwise
   bool Parse(QString FilePath);
 
-  // returns the objects and links necessary for InitRegulatorDetails()
+  /// returns the objects and links necessary for InitRegulatorDetails()
   QList<struct objectParsingDetails> get_objs_and_links() {
     return objs_and_links_;
   }

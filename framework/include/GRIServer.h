@@ -30,13 +30,10 @@
 
 const int port_ = 8081;
 
-/**
-  * This is an inner class that runs in its own thread, and does
-  * all of the work of the server. It listens on whatever host
-  * address and port specified, and and then sends all the data
-  * written to sockets to ALL of the sockets connected to it.
-  *
-  */
+/// This is an inner class that runs in its own thread, and does
+/// all of the work of the server. It listens on whatever host
+/// address and port specified, and and then sends all the data
+/// written to sockets to ALL of the sockets connected to it.
 class Server : public QObject {
     Q_OBJECT
  public:

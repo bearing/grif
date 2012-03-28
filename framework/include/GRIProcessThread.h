@@ -50,16 +50,16 @@ typedef struct process_details {
   bool isDaq;
 } ProcessDetails;
 
-// GRIProcessThread class is a common interface for DAQ thread and analysis
-// thread.
-//
-// Load balancing is being partially done in here (ie: the actual changing of
-// thread's priority). It is done by having two sets of variables. One is the
-// number of packets before we are allowed to adjust the priority of this 
-// process away/to saturation. Saturation is defined as the time-critical 
-// priority or idle priority. The other one is when is the last time this 
-// process adjusts its priority away/to saturation. If the latter is greater 
-// than the former, priority adjustment will be done.
+/// GRIProcessThread class is a common interface for DAQ thread and analysis
+/// thread.
+///
+/// Load balancing is being partially done in here (ie: the actual changing of
+/// thread's priority). It is done by having two sets of variables. One is the
+/// number of packets before we are allowed to adjust the priority of this 
+/// process away/to saturation. Saturation is defined as the time-critical 
+/// priority or idle priority. The other one is when is the last time this 
+/// process adjusts its priority away/to saturation. If the latter is greater 
+/// than the former, priority adjustment will be done.
 class GRIProcessThread : public GRIThread {
 
   Q_OBJECT
@@ -70,44 +70,44 @@ class GRIProcessThread : public GRIThread {
 
   void Init(QObject* obj, ProcessDetails* proc_detail, GRIRegulator *regulator);
 
-  // Sets the process details for this process thread.  XML file name
-  // is assumed to be name + ".XML".  To determine whether or not this
-  // thread is a daq thread, it uses the is_daq boolean variable, which
-  // is set for GRIDAQThreads and GRIAnalysisThreads upon construction.
+  /// Sets the process details for this process thread.  XML file name
+  /// is assumed to be name + ".XML".  To determine whether or not this
+  /// thread is a daq thread, it uses the is_daq boolean variable, which
+  /// is set for GRIDAQThreads and GRIAnalysisThreads upon construction.
   void SetDefaultDetail(GRIRegulator *reg, QString name);
 
-  // SetLink() sets up the pointers to the processes objects that are directly
-  // involved with this process (ie: those who will be writtten to or read by
-  // this process.
+  /// SetLink() sets up the pointers to the processes objects that are directly
+  /// involved with this process (i.e., those who will be writtten to or read by
+  /// this process).
   void SetLink(QLinkedList<GRIDataBlock*> *dataBlocks);
 
-  // adds a data block that this process is going to use. Whether it's a buffer
-  // that this process is writing to or reading from will be dictated by type
-  // (OUT or IN).
+  /// adds a data block that this process is going to use. Whether it's a buffer
+  /// that this process is writing to or reading from will be dictated by type
+  /// (OUT or IN).
   void AddDataBlock(QString data_block, bool is_output);
 
-  // Adds data blocks provided in the list of QStrings.  Uses the is_daq_ variable
-  // to determine whether or not this is an input or output.  GRIDAQThread has
-  // is_daq_ set to true on construction.  GRIAnalysis thread has is_daq_ set to
-  // false on construction.
+  /// Adds data blocks provided in the list of QStrings.  Uses the is_daq_ variable
+  /// to determine whether or not this is an input or output.  GRIDAQThread has
+  /// is_daq_ set to true on construction.  GRIAnalysis thread has is_daq_ set to
+  /// false on construction.
   void AddDataBlocks(QList<QString> dataBlockNames);
 
-  // This is overloaded in GRIDAQThread...
+  /// This is overloaded in GRIDAQThread...
   virtual void RegisterAccumulator(QString datablock) {
     Q_UNUSED(datablock)
   }
 
-  // ChangePriority() decides whether to change the thread's priority or not
+  /// ChangePriority() decides whether to change the thread's priority or not
   bool ChangePriority(bool is_up);
 
   void IncrementPacketCount();
 
-  // FindDataBlock() finds a data block that this process is possibly writing to/
-  // reading from. It will return NULL when it could not find the data block.
+  /// FindDataBlock() finds a data block that this process is possibly writing to
+  /// or reading from. It will return NULL when it could not find the data block.
   GRIDataBlock* FindDataBlock(QString data_block_name);
 
-  // ReadMemory() reads one packet from memory in the location specified by process_name
-  // and bufferName. Essentially abstracts regulator's ReadMemory() by templating it.
+  /// ReadMemory() reads one packet from memory in the location specified by process_name
+  /// and bufferName. Essentially abstracts regulator's ReadMemory() by templating it.
   template<class T> QPair<int, T*> ReadMemory(QString blockName, QString bufferName);
 
   // WriteMemory() writes a data given in the char array to the location specified.
@@ -116,17 +116,17 @@ class GRIProcessThread : public GRIThread {
   template <class T> bool WriteMemory(QString blockName, QString bufferName,
                                       int size, T dataArray[]);
 
-  // Handle gets/sets/runactions from the CLI
+  /// Handle gets/sets/runactions from the CLI
   void EnqueueDynamicCommand(ProcessCommand *pc);
 
-  // EnableDataBlock() enables the data block corresponding to the given
-  // block name and buffer name.  When a data block is enable, data is able
-  // to pass through the block.  By default, each data block is enabled.
+  /// EnableDataBlock() enables the data block corresponding to the given
+  /// block name and buffer name.  When a data block is enable, data is able
+  /// to pass through the block.  By default, each data block is enabled.
   int EnableDataBlock(const QString& BlockName, const QString& BufferName);
 
-  // DisableDataBlock() disables the data block corresponding to the given
-  // block name and buffer name.  When a data block is disabled, data is not
-  // able to pass through the block.
+  /// DisableDataBlock() disables the data block corresponding to the given
+  /// block name and buffer name.  When a data block is disabled, data is not
+  /// able to pass through the block.
   int DisableDataBlock(const QString& BlockName, const QString& BufferName);
 
   virtual void DynamicSetBool(const QString& name, bool value) {
@@ -212,14 +212,14 @@ class GRIProcessThread : public GRIThread {
   void set_reg(GRIRegulator *reg) { reg_ = reg; }
   QString get_xml_path() { return xml_path_; }
 
-  // set_load_balancing_vars() allows the user to customize the number of
-  // packets need to be written/read before this thread's priority could be
-  //  adjusted again.
+  /// set_load_balancing_vars() allows the user to customize the number of
+  /// packets need to be written/read before this thread's priority could be
+  /// adjusted again.
   void set_load_balancing_vars(int num_packets_to_saturation,
 			       int num_packets_from_saturation);
 
-  // For debugging purpose; display the important state of the process, 
-  // ie: who it's writing to, who it's reading from, etc
+  /// For debugging purpose; display the important state of the process, 
+  /// i.e., who it's writing to, who it's reading from, etc
 #ifdef PROCESS_THREAD_DEBUG
   void display_current_state();
 #endif // PROCESS_THREAD_DEBUG

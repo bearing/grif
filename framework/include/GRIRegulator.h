@@ -51,46 +51,48 @@ class GRIRegulator: public GRIObject {
   explicit GRIRegulator(GRIMemoryManager* ma);
   ~GRIRegulator();
 
-  // InitConfig() is called to initialize the whole system. .
+  /// InitConfig() is called to initialize the whole system.
   void InitConfig();
 
-  // ReadMemory() reads one packet from memory in the location specified
-  // by process_name & bufferName
+  /// ReadMemory() reads one packet from memory in the location specified
+  /// by process_name and bufferName
   QPair<int, char*> ReadMemory(QString blockName,
                                QString bufferName);
 
-  // WriteMemory() writes a data given in the char array to the location
-  // specified by process_name & bufferName
+  /// WriteMemory() writes a data given in the char array to the location
+  /// specified by process_name and bufferName
   bool WriteMemory(QString blockName, QString bufferName, int size,
                    char dataArray[]);
 
-  // CurrentPacketPosition() returns the current index of the packet marker.
-  // This is in most cases the last packet to be read next unless
-  // SetPacketPosition() has been called.
+  /// CurrentPacketPosition() returns the current index of the packet marker.
+  /// This is in most cases the last packet to be read next unless
+  /// SetPacketPosition() has been called.
+  /// @see SetPacketPosition()
   int CurrentPacketPosition(QString bufferName);
 
-  // LastPacket() returns the index of the last packet in the specified buffer.
-  // This is equivalent to the buffer size minus one.
+  /// LastPacket() returns the index of the last packet in the specified buffer.
+  /// This is equivalent to the buffer size minus one.
   int LastPacket(QString bufferName);
 
-  // SetPacketPosition() sets the packet marker for the specified buffer to the
-  // packetNumber position. This is useful for use with the overloaded
-  // ReadMemory() function which allows users to read the packet that has been
-  // indexed by the packet marker. This is in most cases the last packet to be
-  // read from unless SetPacketPosition() has been called.
-  // If the operation is successful, it returns true, otherwise false.
+  /// SetPacketPosition() sets the packet marker for the specified buffer to the
+  /// packetNumber position. This is useful for use with the overloaded
+  /// ReadMemory() function which allows users to read the packet that has been
+  /// indexed by the packet marker. This is in most cases the last packet to be
+  /// read from unless SetPacketPosition() has been called.
+  /// If the operation is successful, it returns true, otherwise false.
+  /// @see ReadMemory()
   bool SetPacketPosition(QString bufferName, int packetNumber);
 
-  // SizeofPacket() returns how big the packet is
+  /// SizeofPacket() returns how big the packet is
   int SizeofPacket(QString bufferName, int packetNumber);
 
-  // SizeofBuffer() returns how big the buffer is
+  /// SizeofBuffer() returns how big the buffer is
   int SizeofBuffer(QString bufferName);
 
-  // Begin the regulator.  Starts all of the threads.
+  /// Begin the regulator.  Starts all of the threads.
   void Start();
 
-  // Stop all of the threads.
+  /// Stop all of the threads.
   void Stop();
 
   void AddDataBlock(GRIDataBlock *data) { data_blocks_->push_back(data); }
@@ -117,15 +119,15 @@ class GRIRegulator: public GRIObject {
 
   int GarbageCollection(void* p);
 
-  // find_process() returns a pointer to the actual process given the name
+  /// find_process() returns a pointer to the actual process given the name
   GRIProcessThread* FindProcess(QString process_name);
 
-  // find_data() returns a pointer to the actual data block given the name
+  /// find_data() returns a pointer to the actual data block given the name
   GRIDataBlock* FindData(QString data_block_name,
                           QString buffer_name);
 
-  // StartThreads() is called just before the whole system starts. It runs all
-  // the threads.
+  /// StartThreads() is called just before the whole system starts. It runs all
+  /// the threads.
   void StartThreads();
 };
 

@@ -40,10 +40,10 @@
 class GRIProcessThread;
 class GRIMemoryManager;
 
-// GRIBufferObject class is a buffer descriptor (eg: energy buffer). The reason
-// this class is created is because it could monitor the flow of the packets
-// easily since each object of this class will have pointers to the thread
-// writing to this buffer and the thread reading from it.
+/// GRIBufferObject class is a buffer descriptor (eg: energy buffer). The reason
+/// this class is created is because it could monitor the flow of the packets
+/// easily since each object of this class will have pointers to the thread
+/// writing to this buffer and the thread reading from it.
 
 struct ReaderDataObject {
   QString name;
@@ -74,65 +74,65 @@ class GRIDataBlock: public GRIObject {
 
   ~GRIDataBlock();
 
-  // GetReaderList() returns the threads that are reading to this data block
+  /// GetReaderList() returns the threads that are reading to this data block
   QList<reader_t*>* GetReaderList() { return &readers_; }
 
-  // SetLink() sets up the pointers to the processes objects that are directly
-  // involved with this buffer (ie: those who will be writing to or reading from
-  // this buffer)
+  /// SetLink() sets up the pointers to the processes objects that are directly
+  /// involved with this buffer (ie: those who will be writing to or reading from
+  /// this buffer)
   void SetLink(QLinkedList<GRIProcessThread*>* processes);
 
-  // load_balancing() monitors the flow of the packets. If an inbalance is
-  // detected (which is based on the value of threshold), the buffer will call
-  // for an adjustment of priority of the processes that are writing/reading
-  // from it
+  /// load_balancing() monitors the flow of the packets. If an inbalance is
+  /// detected (which is based on the value of threshold), the buffer will call
+  /// for an adjustment of priority of the processes that are writing/reading
+  /// from it
   void LoadBalancing();
 
-  // update_reader() updates the state of the reader (ie: the # of times it's reading
-  // from this buffer) specified in the parameter
+  /// update_reader() updates the state of the reader (ie: the # of times it's reading
+  /// from this buffer) specified in the parameter
   bool UpdateReader();
 
-  // UpdateWriter() updates the state of the writer (ie: the # of times it's
-  // writing from this buffer) specified in the parameter
+  /// UpdateWriter() updates the state of the writer (ie: the # of times it's
+  /// writing from this buffer) specified in the parameter
   bool UpdateWriter();
 
-  // DeletePacket() decides whether some spaces could be freed by deleting
-  // packets
+  /// DeletePacket() decides whether some spaces could be freed by deleting
+  /// packets
   void DeletePacket();
 
-  // If the data block is active, then data will pass through this block in the
-  // system.  If the data block is not active, then data will not pass through
-  // this block, and a warning message will be posted.  The block's active
-  // status can be changed as often as the user wants during run time via
-  // GRIProcessThread::EnableDataBlock() and 
-  // GRIProcessThread::DisableDataBlock().  By default, the data block is
-  // enabled for use.
+  /// If the data block is active, then data will pass through this block in the
+  /// system.  If the data block is not active, then data will not pass through
+  /// this block, and a warning message will be posted.  The block's active
+  /// status can be changed as often as the user wants during run time via
+  /// GRIProcessThread::EnableDataBlock() and 
+  /// GRIProcessThread::DisableDataBlock().  By default, the data block is
+  /// enabled for use.
   void set_is_enabled(bool is_enabled) { is_enabled_ = is_enabled; }
 
-  // get_is_enabled() returns an indicator of whether or not the data block is
-  // currently in use.  This allows the user to dynamically disable and
-  // re-enable links at run time.
+  /// get_is_enabled() returns an indicator of whether or not the data block is
+  /// currently in use.  This allows the user to dynamically disable and
+  /// re-enable links at run time.
   bool get_is_enabled() { return is_enabled_; }
 
-  // get_name() returns the name of this data block
+  /// get_name() returns the name of this data block
   QString get_name() { return name_; }
 
-  // get_writer_name() returns the thread's name that's writing to this block
+  /// get_writer_name() returns the thread's name that's writing to this block
   QString get_writer_name() { return writer_name_; }
 
-  // get_writer() returns the thread that's writing to this data block
+  /// get_writer() returns the thread that's writing to this data block
   GRIProcessThread* get_writer() { return writer_; }
 
  private:
   struct AnalysisStructureObject *obj_;
   GRIRegulator* reg_;
   GRIMemoryManager* mm_;
-  QString name_;  // name of this data block
-  GRIProcessThread* writer_;  // the thread that's writing to this object
-  QString writer_name_;  // name of writer writing to this object
-  QList<reader_t*> readers_;  // list of threads reading from this object
-  long write_counter_;  // # of times this buffer is written
-  long first_packet_;  // last packet # deleted + 1
+  QString name_;  ///< name of this data block
+  GRIProcessThread* writer_;  ///< the thread that's writing to this object
+  QString writer_name_;  ///< name of writer writing to this object
+  QList<reader_t*> readers_;  ///< list of threads reading from this object
+  long write_counter_;  ///< # of times this buffer is written
+  long first_packet_;  ///< last packet # deleted + 1
   bool is_enabled_;
 };
 

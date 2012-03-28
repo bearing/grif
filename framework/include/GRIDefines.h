@@ -139,8 +139,8 @@ struct ProcessCommand {
 class GRIProcessThread;
 class GRIDataBlock;
 
-// GRISleep is used as a workaround to portable thread sleeping
-// To sleep, call GRISleep::msleep()
+/// GRISleep is used as a workaround to portable thread sleeping
+/// To sleep, call GRISleep::msleep()
 class GRISleep : public QThread {
  public:
   static void msleep(unsigned long msecs) { QThread::msleep(msecs); }

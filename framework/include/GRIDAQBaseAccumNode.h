@@ -30,13 +30,13 @@
 #include "GRIObject.h"
 #include "GRIProcessThread.h"
 
-// Abstract Container for GRIDAQAccumulators of different types
+/// Abstract Container for GRIDAQAccumulators of different types
 class GRIDAQBaseAccumNode : public GRIDAQAccumNode {
  public:
   virtual void ResetAccumBuffs() {}
   virtual void FlushBuffers() {}
 
-  // These are placeholders for supported data types
+  /// These are placeholders for supported data types
   virtual void Accumulate(int numel, double data[], qint64 timestamps[],
                           bool runflag) {
     Q_UNUSED(numel);

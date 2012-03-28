@@ -31,42 +31,42 @@
 #include "GRIHist1DWidget.h"
 #include "GRIHistogrammer.h"
 
-// A QFrame-derived class to display multiple GRIHistograms
-// in a grid layout.  Each histogram is a GRIHist1DWidget
-// that the user can interact with.
-//
-// Histograms are stored in a 1D list.  Call addHist to add
-// a histogram to that list.  The grid is automatically set so that
-// the number of rows and columns is the same; to override, call
-// setGridNx (sets # of columns) or setGridNy (sets # of rows).
-// To access the GRIHist1DWidget for a certain GRIHistogrammer
-// (e.g., in order to set the color), call histWidget.
-//
-// You can use it like any QWidget.  For example, it can be
-// displayed on its own:
-//
-//     GRIHist1DGridWidget *histgrid = new GRIHist1DGridWidget();
-//     histgrid->AddHist(A1->GetHistogram("ADC Channel 0"));
-//     histgrid->AddHist(A1->GetHistogram("ADC Channel 1"));
-//     histgrid->AddHist(A1->GetHistogram("ADC Channel 2"));
-//     histgrid->histWidget(A1->GetHistogram("ADC Channel 0"))->setColor(QColor(255,0,0));
-//     histgrid->SetGridNx(1);    // optional; setGridNx forces the number of grid columns
-//     histgrid->resize(100,300);
-//     histgrid->show();
-//
-// Or it can be placed inside another QWidget, such as a
-// QMainWindow:
-//
-//     QMainWindow *win = new QMainWindow();
-//     GRIHist1DGridWidget *histgrid = new GRIHist1DGridWidget(win);
-//     histgrid->AddHist(A1->GetHistogram("ADC Channel 0"));
-//     histgrid->AddHist(A1->GetHistogram("ADC Channel 1"));
-//     histgrid->AddHist(A1->GetHistogram("ADC Channel 2"));
-//     histgrid->histWidget(A1->GetHistogram("ADC Channel 0"))->setColor(QColor(255,0,0));
-//     histgrid->SetGridNy(3);    // optional; setGridNy forces the number of grid rows
-//     win->setCentralWidget(histgrid);
-//     win->resize(100,300);
-//     win->show();
+/// A QFrame-derived class to display multiple GRIHistograms
+/// in a grid layout.  Each histogram is a GRIHist1DWidget
+/// that the user can interact with.
+///
+/// Histograms are stored in a 1D list.  Call addHist to add
+/// a histogram to that list.  The grid is automatically set so that
+/// the number of rows and columns is the same; to override, call
+/// setGridNx (sets # of columns) or setGridNy (sets # of rows).
+/// To access the GRIHist1DWidget for a certain GRIHistogrammer
+/// (e.g., in order to set the color), call histWidget.
+///
+/// You can use it like any QWidget.  For example, it can be
+/// displayed on its own:
+///
+///     GRIHist1DGridWidget *histgrid = new GRIHist1DGridWidget();
+///     histgrid->AddHist(A1->GetHistogram("ADC Channel 0"));
+///     histgrid->AddHist(A1->GetHistogram("ADC Channel 1"));
+///     histgrid->AddHist(A1->GetHistogram("ADC Channel 2"));
+///     histgrid->histWidget(A1->GetHistogram("ADC Channel 0"))->setColor(QColor(255,0,0));
+///     histgrid->SetGridNx(1);    // optional; setGridNx forces the number of grid columns
+///     histgrid->resize(100,300);
+///     histgrid->show();
+///
+/// Or it can be placed inside another QWidget, such as a
+/// QMainWindow:
+///
+///     QMainWindow *win = new QMainWindow();
+///     GRIHist1DGridWidget *histgrid = new GRIHist1DGridWidget(win);
+///     histgrid->AddHist(A1->GetHistogram("ADC Channel 0"));
+///     histgrid->AddHist(A1->GetHistogram("ADC Channel 1"));
+///     histgrid->AddHist(A1->GetHistogram("ADC Channel 2"));
+///     histgrid->histWidget(A1->GetHistogram("ADC Channel 0"))->setColor(QColor(255,0,0));
+///     histgrid->SetGridNy(3);    // optional; setGridNy forces the number of grid rows
+///     win->setCentralWidget(histgrid);
+///     win->resize(100,300);
+///     win->show();
 
 class GRIHist1DGridWidget : public QFrame {
 

@@ -29,7 +29,7 @@
 #include "GRIObject.h"
 #include "GRIProcessThread.h"
 
-// Abstract Container for GRIDAQAccumulators of different types
+/// Abstract Container for GRIDAQAccumulators of different types
 class GRIDAQAccumNode: public GRIObject {
  public:
   virtual void ResetAccumBuffs() = 0;

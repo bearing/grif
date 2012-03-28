@@ -35,26 +35,26 @@
 
 #include "GRIHistogrammer.h"
 
-// A QWidget-derived class to display a single GRIHistogram.
-// The user can interact with the histogram using the mouse,
-// including dragging to pan, using the scroll button to zoom,
-// and mousing over data to display the channel and data.
-//
-// You can use it like any QWidget.  For example, it can be
-// displayed on its own:
-//
-//     GRIHist1DWidget *histwidget = new GRIHist1DWidget();
-//     histwidget->SetHist(A1->GetHistogram("ADCHist"));
-//     histwidget->show();
-//
-// Or it can be placed inside another QWidget, such as a
-// QMainWindow:
-//
-//     QMainWindow *win = new QMainWindow();
-//     GRIHist1DWidget *histwidget = new GRIHist1DWidget(win);
-//     histwidget->SetHist(A1->GetHistogram("ADCHist"));
-//     win->setCentralWidget(histwidget);
-//     win->show();
+/// A QWidget-derived class to display a single GRIHistogram.
+/// The user can interact with the histogram using the mouse,
+/// including dragging to pan, using the scroll button to zoom,
+/// and mousing over data to display the channel and data.
+///
+/// You can use it like any QWidget.  For example, it can be
+/// displayed on its own:
+///
+///     GRIHist1DWidget *histwidget = new GRIHist1DWidget();
+///     histwidget->SetHist(A1->GetHistogram("ADCHist"));
+///     histwidget->show();
+///
+/// Or it can be placed inside another QWidget, such as a
+/// QMainWindow:
+///
+///     QMainWindow *win = new QMainWindow();
+///     GRIHist1DWidget *histwidget = new GRIHist1DWidget(win);
+///     histwidget->SetHist(A1->GetHistogram("ADCHist"));
+///     win->setCentralWidget(histwidget);
+///     win->show();
 
 class GRIHist1DWidget : public QWidget {
 

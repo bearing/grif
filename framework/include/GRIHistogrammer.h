@@ -27,23 +27,23 @@
 #include "TH1.h"
 #include "GRIObject.h"
 
-// Base class for multiple types of histogramming classes
-//
-// This abstract class is implemented in GRIHist1D, GRIHist2D,
-// and GRIHist3D.
-//
+/// Base class for multiple types of histogramming classes
+///
+/// This abstract class is implemented in GRIHist1D, GRIHist2D,
+/// and GRIHist3D.
+///
 class GRIHistogrammer: public GRIObject {
  public:
   GRIHistogrammer();
 
   virtual ~GRIHistogrammer();
 
-  // The following are all dummy implementations.
-  // They are implemented in GRIHist1D, GRIHist2D, and GRIHist3D
-  //
-  // GRIHist1D overrides the first Update()
-  // GRIHist2D overrides the second Update()
-  // GRIHist3D overrides the third Update()
+  /// The following are all dummy implementations.
+  /// They are implemented in GRIHist1D, GRIHist2D, and GRIHist3D
+  ///
+  /// GRIHist1D overrides the first Update()
+  /// GRIHist2D overrides the second Update()
+  /// GRIHist3D overrides the third Update()
   virtual int Update(double x[], int numel) { x = 0; numel = 0; return -1; }
   virtual int Update(double x[], double y[], int numel) { 
     x = y = 0; numel = 0; return -1;
@@ -94,8 +94,8 @@ class GRIHistogrammer: public GRIObject {
   QString hist_name_;
   QString block_name_;
   bool is_ready_;
-  int dimension_;  //the dimension of the histogram (1, 2, or 3)
-  int id_;  //id number of the histogrammer
+  int dimension_;  ///< the dimension of the histogram (1, 2, or 3)
+  int id_;  ///< id number of the histogrammer
 
   TH1 *hist_;
   TH1 *rate_hist_;

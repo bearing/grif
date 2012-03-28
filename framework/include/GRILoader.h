@@ -44,8 +44,8 @@ class GRILoader {
 
   virtual ~GRILoader() {}
 
-  // Initialization of process threads based on the list fileNames
-  // returns pointer to list of GRIProcessThread pointers for the framework
+  /// Initialization of process threads based on the list fileNames
+  /// returns pointer to list of GRIProcessThread pointers for the framework
   void InitRegulatorDetails();
 
  protected:

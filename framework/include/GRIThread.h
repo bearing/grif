@@ -54,7 +54,6 @@ class GRIThread : public QThread {
   void set_name(const QString& name) { setObjectName(name); }
   QString get_name() { return objectName(); }
 
-
  private:
   GRILogMessage log_msg_;
   bool exit_thread_flag_;

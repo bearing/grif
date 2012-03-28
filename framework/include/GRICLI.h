@@ -39,11 +39,11 @@ class GRICLI : public QObject{
   explicit GRICLI(QList<GRIProcessThread*> *processes);
   virtual ~GRICLI() {}
 
-  // Call Launch() from main file to start the interface.  After launching, the
-  // CLI cycles in an event loop waiting for commands.
+  /// Call Launch() from main file to start the interface.  After launching, the
+  /// CLI cycles in an event loop waiting for commands.
   void Launch();
 
-  // Stop the CLI.
+  /// Stop the CLI.
   void Quit();
 
  public slots:
