@@ -163,4 +163,5 @@ void GRILoader::DetectCycles() {
   } else {
     std::cout << "No dependency cycle detected." << std::endl;
   }
+  delete[] edges;
 }
