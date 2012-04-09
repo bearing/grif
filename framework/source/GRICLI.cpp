@@ -58,7 +58,7 @@ void GRICLI::Launch() {
 
     QStringList instr_breakup = instr.split(" ", QString::SkipEmptyParts);
     int n = instr_breakup.length();
-    QString instr_array[n];
+    QString *instr_array = new QString[n];
     QList<QString>::iterator instr_it;
     int i = 0;
     for (instr_it = instr_breakup.begin(); instr_it != instr_breakup.end();
