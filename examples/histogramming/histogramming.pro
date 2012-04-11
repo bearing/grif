@@ -88,4 +88,3 @@ LIBS += $$ROOTSYSLIB/libMatrix.so
 LIBS += $$ROOTSYSLIB/libMathCore.so
 LIBS += -L$$ROOTSYSLIB
 LIBS += -L$$ROOTSYS/lib -lCore -lHist
-

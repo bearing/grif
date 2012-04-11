@@ -131,7 +131,7 @@ void GRIHist2DWidget::UpdateData() {
     int r0 = 0, g0 = 0, b0 = 0;
     int r1 = 0, g1 = 0, b1 = 0;
     plot_color_background_.getRgb(&r0, &g0, &b0);
-    plot_color_.getRgb(&r1, &g1, &b1);
+    plot_color_foreground_.getRgb(&r1, &g1, &b1);
 
     for (int ix = 0; ix < nbinsx; ++ix) {
       for (int iy = 0; iy < nbinsy; ++iy) {

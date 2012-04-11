@@ -69,7 +69,7 @@ public:
     GRIHistogrammer* GetHist() { return gri_hist_; }
 
     void SetColor(QColor qcolor_foreground, QColor qcolor_background = QColor(0,0,0,255)) {
-      plot_color_ = qcolor_foreground;
+      plot_color_foreground_ = qcolor_foreground;
       plot_color_background_ = qcolor_background;
     }
     void set_scale_mode(bool scale_mode) { scale_mode_ = scale_mode; }
@@ -110,7 +110,7 @@ private:
     QTimer* data_update_timer_;
 
     // misc
-    QColor plot_color_;
+    QColor plot_color_foreground_;
     QColor plot_color_background_;
     bool scale_mode_;
 
