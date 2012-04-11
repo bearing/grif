@@ -149,7 +149,7 @@ void GRILoader::DetectCycles() {
   std::cout << "checking for dependency cycles..." << std::endl;
   int num_nodes = node_index_.size();
   int num_edges = edges_.size();
-  Edge edges[num_edges];
+  Edge *edges = new Edge[num_edges];
   for (int i = 0; i < num_edges; ++i) {
     edges[i] = edges_.at(i);
   }
@@ -163,4 +163,5 @@ void GRILoader::DetectCycles() {
   } else {
     std::cout << "No dependency cycle detected." << std::endl;
   }
+  delete[] edges;
 }

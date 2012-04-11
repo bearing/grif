@@ -77,12 +77,8 @@ EXTDIR = $$GRIFDIR/external
 INCLUDEPATH += EXTDIR
 
 # run code generation
-macx {
-    system(cd $$GRIFPROJECTDIR; ./setup.py)
-}
-win32|unix {
-    system(cd $$GRIFPROJECTDIR; python setup.py)
-}
+system(cd $$GRIFPROJECTDIR)
+system(python setup.py)
 
 DEFINES += GRIFPROJECTDIR=\"\\\"/home/ben/Documents/grif\\\"\"
 
