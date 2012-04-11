@@ -20,17 +20,15 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include <cstdlib>
 #include "TSDAQThread.h"
 
-
 TSDAQThread::TSDAQThread() {
-  srand((unsigned)time(NULL));
-  start = QDateTime.currentDateTime();
+  qsrand(QTime::currentTime().msec());
+  start_ = QDateTime.currentDateTime();
 }
 
 TSDAQThread::~TSDAQThread() {
-  delete start;
+  delete start_;
 }
 
 int TSDAQThread::AcquireData(int n) {
@@ -44,7 +42,7 @@ int TSDAQThread::AcquireData(int n) {
   // this is just a random double
   pts[0].x = (double)rand()/(double)RAND_MAX;
   QDateTime now = QDateTime.currentDateTime();
-  pts[0].y = ts[0] = start.msecsTo(now);
+  pts[0].y = ts[0] = start_.msecsTo(now);
   PostData<point>(1, "points", pts, ts);
 
   // free unneeded memory

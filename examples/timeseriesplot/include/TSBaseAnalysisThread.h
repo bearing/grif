@@ -37,7 +37,7 @@ class TSBaseAnalysisThread : public GRIAnalysisThread {
   private:
     virtual double compute();
     QList<point> raw_data;
-    QList<QPair<qint64, double>> computed_data;
+    QList<QPair<qint64, double> > computed_data;
     qint64 time;
 
 };

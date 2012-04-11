@@ -23,6 +23,7 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
+#include <QTime>
 #include <QDateTime>
 #include "GRIDAQThread.h"
 
