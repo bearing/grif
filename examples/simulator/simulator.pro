@@ -58,7 +58,8 @@ GRIFDIR=/Users/benson/Desktop/gitprojs/grif
 
 # run code generation
 GRIFPROJECTDIR = $$GRIFDIR/examples/simulator
-system(cd $$GRIFPROJECTDIR; python setup.py)
+system(cd $$GRIFPROJECTDIR)
+system(python setup.py)
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1
 
