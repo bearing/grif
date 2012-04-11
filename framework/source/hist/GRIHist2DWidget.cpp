@@ -25,9 +25,9 @@
 #include "TMath.h"
 
 GRIHist2DWidget::GRIHist2DWidget(QWidget *parent, GRIHistogrammer *grihist,
-                                 QColor qcolor) : QWidget(parent) {
+               QColor qcolor_foreground, QColor qcolor_background) : QWidget(parent) {
   // set default plot color
-  SetColor(qcolor);
+  SetColor(qcolor_foreground, qcolor_background);
 
   // make sure timer is null until it starts
   data_update_timer_ = 0;
@@ -121,20 +121,17 @@ void GRIHist2DWidget::UpdateData() {
       zmax_ = gri_hist_->get_hist()->GetBinContent(1,1);
       zmin_ = gri_hist_->get_hist()->GetBinContent(1,1);
       for (int ix = 0; ix < nbinsx; ++ix) {
-	for (int iy = 0; iy < nbinsy; ++iy) {
-	  double z = gri_hist_->get_hist()->GetBinContent(ix+1,iy+1);
-          if (z > zmax_) zmax_ = z;
-          if (z < zmin_) zmin_ = z;
-	}
+          for (int iy = 0; iy < nbinsy; ++iy) {
+              double z = gri_hist_->get_hist()->GetBinContent(ix+1,iy+1);
+              if (z > zmax_) zmax_ = z;
+              if (z < zmin_) zmin_ = z;
+          }
       }
     }
     int r0 = 0, g0 = 0, b0 = 0;
     int r1 = 0, g1 = 0, b1 = 0;
-    plot_color_.setRgb(r0, g0, b0);
-
-    if (double_color_) {
-      plot_color2_.setRgb(r1, g1, b1);
-    }
+    plot_color_background_.getRgb(&r0, &g0, &b0);
+    plot_color_foreground_.getRgb(&r1, &g1, &b1);
 
     for (int ix = 0; ix < nbinsx; ++ix) {
       for (int iy = 0; iy < nbinsy; ++iy) {
@@ -143,21 +140,43 @@ void GRIHist2DWidget::UpdateData() {
         if (z < zmin_) z = zmin_;
         if (z > zmax_) z = zmax_;
 
-        r = (int)TMath::Floor(((double)r0) * (z - zmin_) / (zmax_ - zmin_));
-        g = (int)TMath::Floor(((double)g0) * (z - zmin_) / (zmax_ - zmin_));
-        b = (int)TMath::Floor(((double)b0) * (z - zmin_) / (zmax_ - zmin_));
+        r = r0 + (int)TMath::Floor(((double)(r1-r0)) * (z - zmin_) / (zmax_ - zmin_));
+        g = g0 + (int)TMath::Floor(((double)(g1-g0)) * (z - zmin_) / (zmax_ - zmin_));
+        b = b0 + (int)TMath::Floor(((double)(b1-b0)) * (z - zmin_) / (zmax_ - zmin_));
 
-	if (r > r0) r = r0;
-	if (g > g0) g = g0;
-	if (b > b0) b = b0;
+        // make sure r, g, and b are between the background color and foreground colors
+        int r_min = 0, g_min = 0, b_min = 0;
+        int r_max = 0, g_max = 0, b_max = 0;
+        if (r0<r1) {
+            r_min = r0;
+            r_max = r1;
+        } else {
+            r_min = r1;
+            r_max = r0;
+        }
+        if (g0<g1) {
+            g_min = g0;
+            g_max = g1;
+        } else {
+            g_min = g1;
+            g_max = g0;
+        }
+        if (b0<b1) {
+            b_min = b0;
+            b_max = b1;
+        } else {
+            b_min = b1;
+            b_max = b0;
+        }
 
-	if (double_color_) {
-          r += (int)TMath::Floor(((double)r1) * (zmax_ - z) / (zmax_ - zmin_));
-          g += (int)TMath::Floor(((double)g1) * (zmax_ - z) / (zmax_ - zmin_));
-          b += (int)TMath::Floor(((double)b1) * (zmax_ - z) / (zmax_ - zmin_));
-	}
+        if (r<r_min) r=r_min;
+        if (r>r_max) r=r_max;
+        if (g<g_min) g=g_min;
+        if (g>g_max) g=g_max;
+        if (b<b_min) b=b_min;
+        if (b>b_max) b=b_max;
 
-	image_.setPixel(ix, nbinsy - iy - 1, qRgb(r,g,b));
+        image_.setPixel(ix, nbinsy - iy - 1, qRgb(r,g,b));
       }
     }
   }
