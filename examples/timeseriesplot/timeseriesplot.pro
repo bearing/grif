@@ -45,6 +45,9 @@ include(../../framework/include/finclude.pri)
 SOURCES += main.cpp \
     TSDAQThread.cpp \
     TSBaseAnalysisThread.cpp
+HEADERS += \
+    TSDAQThread.h \
+    TSBaseAnalysisThread.h
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
@@ -75,7 +78,5 @@ LIBS += $$ROOTSYSLIB/libMathCore.so
 LIBS += -L$$ROOTSYSLIB
 LIBS += -L$$ROOTSYS/lib -lCore -lHist
 
-HEADERS += \
-    TSDAQThread.h \
-    TSBaseAnalysisThread.h
+
 
