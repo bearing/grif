@@ -42,7 +42,7 @@ public:
     int TerminationRoutines() { return 0; }
 
 private:
-    QDateTime start;
+    QDateTime start_;
 
 };
 

@@ -23,13 +23,19 @@
 #include "TSBaseAnalysisThread.h"
 
 TSBaseAnalysisThread::TSBaseAnalysisThread() {
+    raw_data_ = new QList<point*>();
+    computed_data_ = new QList<QPair<qint64, double>* >();
 }
 
 TSBaseAnalysisThread::~TSBaseAnalysisThread() {
-}
-
-int TSBaseAnalysisThread::Initialize() {
+    delete raw_data_;
+    delete computed_data_;
 }
 
 int TSBaseAnalysisThread::Analyze() {
+    // get next data
+    QPair<int, point*> nxtpt = ReadData<point>("DAQ", "points");
+    raw_data_.push_back(nxtpt.second);
+    computed_data_.push_back(compute(raw_data_));
+    return 0;
 }
