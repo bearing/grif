@@ -1,0 +1,10 @@
+<?xml version=1.0"?>
+<data>
+  <datat>
+    <dataname dname="point" />
+    <var>
+      <vtype type="double" vname="x" />
+      <vtype type="qint64" vname="y" />
+    </var>
+  </datat>
+</data>

@@ -1,0 +1,10 @@
+<?xml version="1.0">
+<app>
+  <Objects>
+    <object name="TSDAQ" class="TSDAQThread"></object>
+    <object name="id" class="TSIDAnalysisThread"></object>
+    <object name="sum" class="TSSumAnalysisThread"></object>
+    <object name="avg"" class="TSAvgAnalysisThread"></object>
+  </Objects>
+</app>
+    
