@@ -62,19 +62,15 @@ class GRIHist2DWidget : public QWidget {
 
 public:
     GRIHist2DWidget(QWidget *parent = 0, GRIHistogrammer *grihist = NULL,
-                   QColor qcolor = QColor(0,0,255,255));
+                   QColor qcolor_foreground = QColor(0,0,255,255),
+                   QColor qcolor_background = QColor(0,0,0,255));
     ~GRIHist2DWidget();
     void SetHist(GRIHistogrammer *grihist);
     GRIHistogrammer* GetHist() { return gri_hist_; }
 
-    void SetColor(QColor qcolor) { 
-      plot_color_ = qcolor;
-      double_color_ = false;
-    }
-    void SetColor(QColor qcolor, QColor qcolor2) { 
-      plot_color_ = qcolor;
-      plot_color2_ = qcolor2;
-      double_color_ = true;
+    void SetColor(QColor qcolor_foreground, QColor qcolor_background = QColor(0,0,0,255)) {
+      plot_color_ = qcolor_foreground;
+      plot_color_background_ = qcolor_background;
     }
     void set_scale_mode(bool scale_mode) { scale_mode_ = scale_mode; }
     void SetScale(double low, double high) {
@@ -115,8 +111,7 @@ private:
 
     // misc
     QColor plot_color_;
-    QColor plot_color2_;
-    bool double_color_;
+    QColor plot_color_background_;
     bool scale_mode_;
 
     double zmin_, zmax_;
