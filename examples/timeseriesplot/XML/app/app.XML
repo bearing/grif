@@ -2,9 +2,9 @@
 <app>
   <Objects>
     <object name="TSDAQ" class="TSDAQThread"></object>
-    <object name="id" class="TSIDAnalysisThread"></object>
-    <object name="sum" class="TSSumAnalysisThread"></object>
-    <object name="avg"" class="TSAvgAnalysisThread"></object>
+    <object name="ID" class="TSIDAnalysisThread"></object>
+    <object name="SUM" class="TSSumAnalysisThread"></object>
+    <object name="AVG" class="TSAvgAnalysisThread"></object>
   </Objects>
 </app>
     
