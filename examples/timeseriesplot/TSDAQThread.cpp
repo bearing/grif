@@ -19,3 +19,37 @@
 // Contact:
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
+
+#include <cstdlib>
+#include "TSDAQThread.h"
+
+
+TSDAQThread::TSDAQThread() {
+  srand((unsigned)time(NULL));
+  start = QDateTime.currentDateTime();
+}
+
+TSDAQThread::~TSDAQThread() {
+  delete start;
+}
+
+int TSDAQThread::AcquireData(int n) {
+  // suppress compiler errors
+  Q_UNUSED(n);
+  // slow down generation of data
+  GRISleep::sleep(100);
+  // point is a codegenned struct
+  point pts[] = new point[1];
+  qint64 ts[] = new qint64[1];
+  // this is just a random double
+  pts[0].x = (double)rand()/(double)RAND_MAX;
+  QDateTime now = QDateTime.currentDateTime();
+  pts[0].y = ts[0] = start.msecsTo(now);
+  PostData<point>(1, "points", pts, ts);
+
+  // free unneeded memory
+  delete[] f;
+  delete[] t;
+
+  return 0;
+}

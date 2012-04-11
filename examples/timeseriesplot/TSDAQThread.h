@@ -1,3 +1,6 @@
+#ifndef TSDAQTHREAD_H
+#define TSDAQTHREAD_H
+
 // Copyright (C) 2012 Gamma-ray Imaging Framework Team
 //
 // This library is free software; you can redistribute it and/or
@@ -19,3 +22,27 @@
 // Contact:
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
+
+#include <QDateTime>
+#include "GRIDAQThread.h"
+
+
+class TSDAQThread : public GRIDAQThread {
+public:
+    TSDAQThread();
+    ~TSDAQThread();
+
+    int ConnectToDAQ() { return 0; }
+    int Initalize() { return 0; }
+    int LoadConfiguration() { return 0; }
+    int StartDataAcquisition() { return 0; }
+    int AcquireData(int n);
+    int StopDataAcquisition() { return 0; }
+    int TerminationRoutines() { return 0; }
+
+private:
+    QDateTime start;
+
+};
+
+#endif // TSDAQTHREAD_H

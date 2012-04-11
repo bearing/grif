@@ -20,13 +20,26 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef TSANALYSISTHREAD2_H
-#define TSANALYSISTHREAD2_H
+#ifndef TSBASEANALYSISTHREAD_H
+#define TSBASEANALYSISTHREAD_H
 
-class TSAnalysisThread2
-{
-public:
-  TSAnalysisThread2();
+#include <QPair>
+#include <QList>
+#include "GRIAnalysisThread.h"
+
+class TSBaseAnalysisThread : public GRIAnalysisThread {
+  public:
+    TSBaseAnalysisThread();
+    ~TSBaseAnalysisThread();
+
+    int Analyze();
+
+  private:
+    virtual double compute();
+    QList<point> raw_data;
+    QList<QPair<qint64, double>> computed_data;
+    qint64 time;
+
 };
 
-#endif // TSANALYSISTHREAD2_H
+#endif // TSBASEANALYSISTHREAD_H

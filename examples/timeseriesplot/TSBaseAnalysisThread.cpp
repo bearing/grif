@@ -20,26 +20,16 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRIDAQThread.h"
+#include "TSBaseAnalysisThread.h"
 
-class TSDAQThread : public GRIDAQThread {
-  public:
-    TSDAQThread();
-    ~TSDAQThread();
+TSBaseAnalysisThread::TSBaseAnalysisThread() {
+}
 
-    int ConnectToDAQ() { return 0; }
+TSBaseAnalysisThread::~TSBaseAnalysisThread() {
+}
 
-    int Initalize() { return 0; }
+int TSBaseAnalysisThread::Initialize() {
+}
 
-    int LoadConfiguration() { return 0; }
-
-    int StartDataAcquisition();
-
-    int AcquireData(int n);
-
-    int StopDataAcquisition() { return 0; }
-
-    int TerminationRoutines() { return 0; }
-};
-
-#endif // TSDAQTHREAD_H
+int TSBaseAnalysisThread::Analyze() {
+}
