@@ -121,20 +121,15 @@ void GRIHist2DWidget::UpdateData() {
       zmax_ = gri_hist_->get_hist()->GetBinContent(1,1);
       zmin_ = gri_hist_->get_hist()->GetBinContent(1,1);
       for (int ix = 0; ix < nbinsx; ++ix) {
-	for (int iy = 0; iy < nbinsy; ++iy) {
-	  double z = gri_hist_->get_hist()->GetBinContent(ix+1,iy+1);
+        for (int iy = 0; iy < nbinsy; ++iy) {
+          double z = gri_hist_->get_hist()->GetBinContent(ix+1,iy+1);
           if (z > zmax_) zmax_ = z;
           if (z < zmin_) zmin_ = z;
-	}
+        }
       }
     }
     int r0 = 0, g0 = 0, b0 = 0;
-    int r1 = 0, g1 = 0, b1 = 0;
-    plot_color_.setRgb(r0, g0, b0);
-
-    if (double_color_) {
-      plot_color2_.setRgb(r1, g1, b1);
-    }
+    plot_color_.getRgb(&r0, &g0, &b0);
 
     for (int ix = 0; ix < nbinsx; ++ix) {
       for (int iy = 0; iy < nbinsy; ++iy) {
@@ -147,17 +142,11 @@ void GRIHist2DWidget::UpdateData() {
         g = (int)TMath::Floor(((double)g0) * (z - zmin_) / (zmax_ - zmin_));
         b = (int)TMath::Floor(((double)b0) * (z - zmin_) / (zmax_ - zmin_));
 
-	if (r > r0) r = r0;
-	if (g > g0) g = g0;
-	if (b > b0) b = b0;
+        if (r > r0) r = r0;
+        if (g > g0) g = g0;
+        if (b > b0) b = b0;
 
-	if (double_color_) {
-          r += (int)TMath::Floor(((double)r1) * (zmax_ - z) / (zmax_ - zmin_));
-          g += (int)TMath::Floor(((double)g1) * (zmax_ - z) / (zmax_ - zmin_));
-          b += (int)TMath::Floor(((double)b1) * (zmax_ - z) / (zmax_ - zmin_));
-	}
-
-	image_.setPixel(ix, nbinsy - iy - 1, qRgb(r,g,b));
+        image_.setPixel(ix, nbinsy - iy - 1, qRgb(r,g,b));
       }
     }
   }

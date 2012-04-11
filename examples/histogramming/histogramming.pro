@@ -62,11 +62,12 @@ HEADERS += \
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
 # Top directory of GRIF on your machine
-GRIFDIR=/Users/benson/Desktop/gitprojs/grif
+GRIFDIR=/Users/markbandstra/Projects/GRIF/grif
 
 # run code generation
 GRIFPROJECTDIR = $$GRIFDIR/examples/histogramming
-system(cd $$GRIFPROJECTDIR; python setup.py)
+system(cd $$GRIFPROJECTDIR)
+system(python setup.py)
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1
 
@@ -76,7 +77,7 @@ DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}
 INCLUDEPATH += $$GRIFDIR/external
 
 # ROOT headers
-ROOTDIR = /Users/benson/Desktop/root_x86_64
+ROOTDIR = /Users/markbandstra/Software/root
 INCLUDEPATH += $$ROOTDIR/include
 
 # ROOT libraries
@@ -87,6 +88,3 @@ LIBS += $$ROOTSYSLIB/libMatrix.so
 LIBS += $$ROOTSYSLIB/libMathCore.so
 LIBS += -L$$ROOTSYSLIB
 LIBS += -L$$ROOTSYS/lib -lCore -lHist
-
-DEFINES += GRIFPROJECTDIR=\"\\\"/home/ben/Documents/grif\\\"\"
-

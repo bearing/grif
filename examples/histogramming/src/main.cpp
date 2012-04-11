@@ -130,7 +130,7 @@ int main(int argc, char* argv[]) {
   GRIHist1DGridWidget *histDraw4 = new GRIHist1DGridWidget(win4);
   win4->setCentralWidget(histDraw4);
   histDraw4->setWindowTitle("Single Channel");
-  histDraw4->AddHist(AMC1->GetHistogram("ADC Channel 12"));
+  histDraw4->AddHist(AMC1->GetHistogram("ADC Channel 5"));
   win4->setWindowTitle("Single Channel (Grid Widget)");
   win4->resize(450,300);
   win4->show();
@@ -208,11 +208,7 @@ int main(int argc, char* argv[]) {
     histDraw_Scroll->SetColor(AMC1->GetHistogram("ADC Channel 9"),
                               QColor(128, 0, 128));
   }
-  if (AMC1->GetHistogram("ADC Channel 10")) {
-    histDraw_Scroll->SetColor(AMC1->GetHistogram("ADC Channel 10"),
-                              QColor(128, 0, 128));
-  }
-  histDraw_Scroll->SetGridMajor(10,10);
+  histDraw_Scroll->SetGridMajor(4,3);
   histDraw_Scroll->SetGridMinor(2,2);
   histDraw_Scroll->SetGridMinorUpperLeft(0,0);
   histDraw_Scroll->SetLogScaleAll(true);

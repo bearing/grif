@@ -69,12 +69,6 @@ public:
 
     void SetColor(QColor qcolor) { 
       plot_color_ = qcolor;
-      double_color_ = false;
-    }
-    void SetColor(QColor qcolor, QColor qcolor2) { 
-      plot_color_ = qcolor;
-      plot_color2_ = qcolor2;
-      double_color_ = true;
     }
     void set_scale_mode(bool scale_mode) { scale_mode_ = scale_mode; }
     void SetScale(double low, double high) {
@@ -115,8 +109,6 @@ private:
 
     // misc
     QColor plot_color_;
-    QColor plot_color2_;
-    bool double_color_;
     bool scale_mode_;
 
     double zmin_, zmax_;
