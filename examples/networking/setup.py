@@ -23,29 +23,32 @@
 import sys
 import os
 
+def slash_format(path):
+    return path.replace('\\','/')
+
 grif_root = "../../"
 grif_root = os.path.abspath(grif_root)
 
-data = os.path.join(grif_root, "util/GCG_data.py")
-loader = os.path.join(grif_root,
-                      "util/GCG_GRILoader.py")
-user_loader = os.path.join(grif_root,
-                           "util/GCG_GRIUserLoader.py")
-user_procs = os.path.join(grif_root,
-                          "util/GCG_GRIUserProcesses.py")
+data = slash_format(os.path.join(grif_root, "util/GCG_data.py"))
+loader = slash_format(os.path.join(grif_root,
+                      "util/GCG_GRILoader.py"))
+user_loader = slash_format(os.path.join(grif_root,
+                           "util/GCG_GRIUserLoader.py"))
+user_procs = slash_format(os.path.join(grif_root,
+                          "util/GCG_GRIUserProcesses.py"))
 
 data_xml = os.path.abspath("./XML/data/data.XML")
 classes_xml = os.path.abspath("./XML/classes")
 loader_xml = os.path.abspath("./XML/app/APP.XML")
 
-data_aux = os.path.join(grif_root,
-                        "framework/include/GCG/GRIDataDefines_aux.h")
-loader_aux = os.path.join(grif_root,
-                          "framework/include/GCG/GRILoader_aux.h")
-user_loader_aux = os.path.join(grif_root,
-                               "framework/include/GCG/GRIUserLoader_aux.h")
-procs_aux = os.path.join(grif_root,
-                         "framework/include/GCG/GRIUserProcesses_aux.h")
+data_aux = slash_format(os.path.join(grif_root,
+                        "framework/include/GCG/GRIDataDefines_aux.h"))
+loader_aux = slash_format(os.path.join(grif_root,
+                          "framework/include/GCG/GRILoader_aux.h"))
+user_loader_aux = slash_format(os.path.join(grif_root,
+                               "framework/include/GCG/GRIUserLoader_aux.h"))
+procs_aux = slash_format(os.path.join(grif_root,
+                         "framework/include/GCG/GRIUserProcesses_aux.h"))
 
 print "-"*20
 print "Data XML file directory: {0}".format(data_xml)
@@ -68,4 +71,3 @@ print "Running code generation for user loader..."
 os.system("python {0} {1} {2}".format(user_loader, classes_xml, user_loader_aux))
 print "Running code generation for user processes..."
 os.system("python {0} {1} {2}".format(user_procs, classes_xml, procs_aux))
-
