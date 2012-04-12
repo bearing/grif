@@ -55,11 +55,12 @@ SOURCES += \
     ./src/TcpAnalysisThread.cpp \
     ./src/TcpDAQThread.cpp
 
-# GRIFDIR is the head directory of GRIF on your machine
-# ***You must set GRIFDIR as an environment variable***
-GRIFDIR=$$(PWD)/../..
-
-ROOTDIR=/home/ben/Downloads/root
+## 
+# Please fill in GRIFDIR and ROOTDIR with the appropriate paths
+# Top directory of GRIF on your machine:
+GRIFDIR =
+# Directory of ROOT on your machine:
+ROOTDIR =
 
 # root headers
 INCLUDEPATH += $$ROOTDIR/include

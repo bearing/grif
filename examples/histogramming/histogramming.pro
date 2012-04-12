@@ -61,8 +61,12 @@ HEADERS += \
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
-# Top directory of GRIF on your machine
-GRIFDIR=/Users/markbandstra/Projects/GRIF/grif
+## 
+# Please fill in GRIFDIR and ROOTDIR with the appropriate paths
+# Top directory of GRIF on your machine:
+GRIFDIR =
+# Directory of ROOT on your machine:
+ROOTDIR =
 
 # run code generation
 GRIFPROJECTDIR = $$GRIFDIR/examples/histogramming
@@ -76,10 +80,9 @@ DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}
 # External libraries
 INCLUDEPATH += $$GRIFDIR/external
 
-# ROOT headers
-ROOTDIR = /Users/markbandstra/Software/root
-INCLUDEPATH += $$ROOTDIR/include
 
+# ROOT headers
+INCLUDEPATH += $$ROOTDIR/include
 # ROOT libraries
 ROOTSYSLIB += $$ROOTDIR/lib
 INCLUDEPATH += $$ROOTSYSLIB

@@ -53,8 +53,12 @@ SOURCES += \
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
-# Top directory of GRIF on your machine
-GRIFDIR=/Users/benson/Desktop/gitprojs/grif
+## 
+# Please fill in GRIFDIR and ROOTDIR with the appropriate paths
+# Top directory of GRIF on your machine:
+GRIFDIR =
+# Directory of ROOT on your machine:
+ROOTDIR =
 
 # run code generation
 GRIFPROJECTDIR = $$GRIFDIR/examples/simulator
