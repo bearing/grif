@@ -6,5 +6,10 @@
     <object name="SUM" class="TSSumAnalysisThread"></object>
     <object name="AVG" class="TSAvgAnalysisThread"></object>
   </Objects>
+  <Links>
+    <link writer = "TSDAQ" reader="ID" data="points"></link>
+    <link writer = "TSDAQ" reader="SUM" data="points"></link>
+    <link writer = "TSDAQ" reader="AVG" data="points"></link>
+  </Links>
 </app>
     
