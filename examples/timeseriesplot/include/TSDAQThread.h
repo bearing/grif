@@ -33,6 +33,11 @@ public:
     TSDAQThread();
     ~TSDAQThread();
 
+    int ConnectToDAQ() { return 0; }
+    int Initialize() { return 0; }
+    int LoadConfiguration() { return 0; }
+    int StartDataAcquisition();
+    int StopDataAcquisition() { return 0; }
     int AcquireData(int n);
 
 private:
