@@ -33,13 +33,7 @@ public:
     TSDAQThread();
     ~TSDAQThread();
 
-    int ConnectToDAQ() { return 0; }
-    int Initalize() { return 0; }
-    int LoadConfiguration() { return 0; }
-    int StartDataAcquisition() { return 0; }
     int AcquireData(int n);
-    int StopDataAcquisition() { return 0; }
-    int TerminationRoutines() { return 0; }
 
 private:
     QDateTime start_;

@@ -35,8 +35,8 @@ class TSBaseAnalysisThread : public GRIAnalysisThread {
     int Analyze();
 
   protected:
-    virtual QPair<qint64, double> compute(const QList<point>& raw);
-    QList<point> raw_data_;
+    virtual QPair<qint64, double> compute(const QList<point*>& raw);
+    QList<point*> raw_data_;
     QList<QPair<qint64, double> > computed_data_;
 
 };
