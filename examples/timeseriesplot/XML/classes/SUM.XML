@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<class>
+  <Name name = "ID" />
+  <Header hname = "TSSumAnalysisThread.h" />
+  <Info cname = "TSSumAnalysisThread" isdaq = "false" />
+  <DataBlocks> 
+    <Data block = "points" /> 
+  </DataBlocks> 
+</class>

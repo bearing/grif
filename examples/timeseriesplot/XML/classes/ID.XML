@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<class>
+  <Name name = "ID" />
+  <Header hname = "TSIdAnalysisThread.h" />
+  <Info cname = "TSIdAnalysisThread" isdaq = "false" />
+  <DataBlocks> 
+    <Data block = "points" /> 
+  </DataBlocks> 
+</class>

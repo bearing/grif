@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<class>
+  <Name name = "TSDAQ" />
+  <Header hname = "TSDAQThread.h" />
+  <Info cname = "TSDAQThread" isdaq = "true" />
+  <RunTimeParams>
+    <Param name = "e1" type = "double" />
+    <Param name = "ind" type = "int" />
+  </RunTimeParams>
+  <DataBlocks> 
+    <Data block = "points" /> 
+  </DataBlocks> 
+</class>
