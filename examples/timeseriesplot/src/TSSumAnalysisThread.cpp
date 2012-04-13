@@ -22,13 +22,12 @@
 
 #include "TSSumAnalysisThread.h"
 
-QPair<qint64, double> TSAvgAnalysisThread::compute(const QList<point*> &raw) {
+QPair<qint64, double> TSSumAnalysisThread::compute(const QList<point*> &raw) {
   double sum = 0;
   qint64 new_time = raw.last()->x;
   for (int i = 0; i < raw.size(); ++i) {
       sum += raw.at(i)->y;
   }
-  QPair<qint64, double> new_node = new QPair(sum, new_time);
-  return new_node;
+  return QPair<qint64, double>(sum, new_time);
 }
 

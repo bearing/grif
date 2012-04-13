@@ -29,6 +29,5 @@ QPair<qint64, double> TSAvgAnalysisThread::compute(const QList<point*> &raw) {
       avg += raw.at(i)->y;
   }
   avg /= raw.size();
-  QPair<qint64, double> new_node = new QPair(avg, new_time);
-  return new_node;
+  return QPair<qint64, double>(new_time, avg);
 }

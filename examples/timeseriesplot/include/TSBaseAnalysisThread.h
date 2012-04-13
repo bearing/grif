@@ -23,13 +23,13 @@
 #ifndef TSBASEANALYSISTHREAD_H
 #define TSBASEANALYSISTHREAD_H
 
+#include <QtAlgorithms>
 #include <QPair>
 #include <QList>
 #include "GRIAnalysisThread.h"
 
 class TSBaseAnalysisThread : public GRIAnalysisThread {
   public:
-    TSBaseAnalysisThread();
     ~TSBaseAnalysisThread();
 
     int Analyze();
@@ -37,7 +37,7 @@ class TSBaseAnalysisThread : public GRIAnalysisThread {
   protected:
     virtual QPair<qint64, double> compute(const QList<point*>& raw);
     QList<point*> raw_data_;
-    QList<QPair<qint64, double> > computed_data_;
+    QList<QPair<qint64, double>*> computed_data_;
 
 };
 

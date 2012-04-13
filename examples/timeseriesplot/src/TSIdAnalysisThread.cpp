@@ -22,8 +22,7 @@
 
 #include "TSIdAnalysisThread.h"
 
-QPair<qint64, double> TSAvgAnalysisThread::compute(const QList<point*> &raw) {
+QPair<qint64, double> TSIdAnalysisThread::compute(const QList<point*> &raw) {
   point* pLast = raw.last();
-  QPair<qint64, double> new_node = new QPair(pLast->x, pLast->y);
-  return new_node;
+  return QPair<qint64, double>(pLast->x, pLast->y);
 }

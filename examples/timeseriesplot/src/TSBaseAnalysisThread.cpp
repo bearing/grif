@@ -22,27 +22,21 @@
 
 #include "TSBaseAnalysisThread.h"
 
-TSBaseAnalysisThread::TSBaseAnalysisThread() {
-  raw_data_ = new QList<point*>();
-  computed_data_ = new QList<QPair<qint64, double>* >();
-}
-
 TSBaseAnalysisThread::~TSBaseAnalysisThread() {
-  for (int i = 0; i < raw_data_.size(); ++i) {
-    delete *(raw_data_.at(i));
-  }
-  // these should theoretically be the same size, but just to be safe
-  for (int i = 0; i < computed_data_.size(); ++i) {
-    delete *(computed_data_.at(i));
-  }
-  delete raw_data_;
-  delete computed_data_;
+  qDeleteAll(raw_data_);
+  qDeleteAll(computed_data_);
+  raw_data_.clear();
+  computed_data_.clear();
+
+  delete &raw_data_;
+  delete &computed_data_;
 }
 
 int TSBaseAnalysisThread::Analyze() {
   // get next data
   QPair<int, point*> nextpt = ReadData<point>("DAQ", "points");
-  raw_data_ = raw_data_ << nextpt.second;
-  computed_data_ = computed_data_ << compute(raw_data_);
+  raw_data_ << nextpt.second;
+  QPair<qint64, double> nextcomp = compute(raw_data_);
+  computed_data_ << &nextcomp;
   return 0;
 }
