@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <app>
   <Objects>
+    <object name="TSDAQ" class="TSDAQAnalysisThread"></object>
     <object name="ID" class="TSIDAnalysisThread"></object>
     <object name="SUM" class="TSSumAnalysisThread"></object>
     <object name="AVG" class="TSAvgAnalysisThread"></object>
