@@ -3,8 +3,8 @@
   <datat>
     <dataname dname="point" />
     <var>
-      <vtype type="double" vname="x" />
-      <vtype type="qint64" vname="y" />
+      <vtype type="double" vname="y" />
+      <vtype type="qint64" vname="x" />
     </var>
   </datat>
 </data>
