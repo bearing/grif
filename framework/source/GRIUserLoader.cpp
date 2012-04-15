@@ -28,6 +28,7 @@
 GRIProcessThread *GRIUserLoader::Load(QString class_name, QString object_name) {
   // process_name <=> class name
   // object_name  <=> object name
+  Q_UNUSED(class_name)
 
   // fall back null pointer
   GRIProcessThread *p = NULL;
