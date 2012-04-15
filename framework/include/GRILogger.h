@@ -62,19 +62,20 @@ class GRILogger : public QObject {
   void Display(std::string);
   void Display(QList<std::string>);
 
-  QString GetLogFileName() {
-    return filename_;
-  }
-  QString GetLogFilePath() {
-    return grif_project_file_path_;
-  }
-  void SetLogLevel(int l) {
-    log_level_ = l;
-  }
-  int GetLogLevel() {
-    return log_level_;
-  }
+  /// Update the log directory.  If the path is bad, then the logger
+  /// will not be able to output logs.
+  /// @param logDir the new directory to store the log files in
+  /// @return a boolean indicating whether or not the updated log path
+  ///          is good.  If not, then logs can no longer be written
+  ///          via the logger.
+  bool UpdateLogDir(QString logDir);
 
+  QString get_file_name() { return file_name_; }
+  QString get_log_dir() { return log_dir_; }
+  bool get_path_good() { return path_good_; }
+  int get_log_level() { return log_level_; }
+  void set_log_level(int l) { log_level_ = l; }
+  
  signals:
   void Output(std::string);
   void Output(QList<std::string>);
@@ -83,14 +84,15 @@ class GRILogger : public QObject {
   bool WriteLogFile(GRILogMessage msg);
 
  private:
-  QString grif_project_file_path_;  //Just the filepath (imported by GRIFPROJECTPATH)
-  QString filename_;  // Just the filename
-  QString logfilepath_; //full file path
+  QString log_dir_;
+  QString file_name_;
+  QString log_file_path_;
   int log_level_;
   QMutex mutex_;
-  QProcessEnvironment proc_environ_;
+  bool path_good_;
 
-  static bool WriteToLogFile(QString, int, QMutex*, QFile*);
+  bool MakeLogDir();
+  bool WriteToLogFile(QString, int, QMutex*, QFile*);
 };
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_GRILOGGER_H_
