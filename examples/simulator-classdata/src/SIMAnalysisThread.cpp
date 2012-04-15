@@ -73,10 +73,15 @@ int SIMAnalysisThread::Analyze() {
   QPair<int, qint64*> pTS2 = ReadData<qint64>("SIMDAQ2","TS");
   ts2_ = pTS2.second;
 
-//  EventClass* Event;
-//  int nEvent;
-//  QPair<int, EventClass*> pEvent = ReadData<EventClass>("Event","TS");
-//  Event = pEvent.second; nEvent = pEvent.first;
+  EventClass* Event1;
+  int nEvent1;
+  QPair<int, EventClass*> pEvent1 = ReadData<EventClass>("SIMDAQ1","Event");
+  Event1 = pEvent1.second; nEvent1 = pEvent1.first;
+
+  EventClass* Event2;
+  int nEvent2;
+  QPair<int, EventClass*> pEvent2 = ReadData<EventClass>("SIMDAQ2","Event");
+  Event2 = pEvent2.second; nEvent2 = pEvent2.first;
 
   ++nread_;
 

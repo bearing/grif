@@ -141,9 +141,9 @@ int SIMDAQThread::AcquireData(int n) {
   PostData(ncnt, "CHAN",Ch,ts);
   PostData(ncnt, "TS",ts,ts);
 
-//  EventClass *Events = new EventClass[ncnt];
-//  PostData(ncnt,"Event",Events,ts);
-//  delete [] Events;
+  EventClass *Events = new EventClass[ncnt];
+  PostData(ncnt,"Event",Events,ts);
+  delete [] Events;
 
   delete [] NS;
   delete [] NB;
