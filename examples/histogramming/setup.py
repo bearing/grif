@@ -23,31 +23,31 @@
 import sys
 import os
 
-def slash_format(path):
+def format(path):
     return path.replace('\\','/')
 
 grif_root = "../../"
 grif_root = os.path.abspath(grif_root)
 
-data = slash_format(os.path.join(grif_root, "util/GCG_data.py"))
-loader = slash_format(os.path.join(grif_root,
+data = format(os.path.join(grif_root, "util/GCG_data.py"))
+loader = format(os.path.join(grif_root,
                       "util/GCG_GRILoader.py"))
-user_loader = slash_format(os.path.join(grif_root,
+user_loader = format(os.path.join(grif_root,
                            "util/GCG_GRIUserLoader.py"))
-user_procs = slash_format(os.path.join(grif_root,
+user_procs = format(os.path.join(grif_root,
                           "util/GCG_GRIUserProcesses.py"))
 
-data_xml = os.path.abspath("./XML/data/data.XML")
-classes_xml = os.path.abspath("./XML/classes")
-loader_xml = os.path.abspath("./XML/app/APP.XML")
+data_xml = format(os.path.abspath("./XML/data/data.XML"))
+classes_xml = format(os.path.abspath("./XML/classes"))
+loader_xml = format(os.path.abspath("./XML/app/APP.XML"))
 
-data_aux = slash_format(os.path.join(grif_root,
+data_aux = format(os.path.join(grif_root,
                         "framework/include/GCG/GRIDataDefines_aux.h"))
-loader_aux = slash_format(os.path.join(grif_root,
+loader_aux = format(os.path.join(grif_root,
                           "framework/include/GCG/GRILoader_aux.h"))
-user_loader_aux = slash_format(os.path.join(grif_root,
+user_loader_aux = format(os.path.join(grif_root,
                                "framework/include/GCG/GRIUserLoader_aux.h"))
-procs_aux = slash_format(os.path.join(grif_root,
+procs_aux = format(os.path.join(grif_root,
                          "framework/include/GCG/GRIUserProcesses_aux.h"))
 
 print "-"*20
