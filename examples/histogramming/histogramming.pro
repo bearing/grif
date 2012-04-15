@@ -20,7 +20,7 @@
 # Dr. Daniel Chivers
 # dhchivers@lbl.gov
 
-QT       += core network qt3support xml
+QT       += core network xml
 QT       += gui
 
 TARGET = GRIHistWidgetTest
@@ -58,9 +58,6 @@ HEADERS += \
     ./include/SIMMCAnalysisThread.h \
     ./include/SIMDAQThread.h
 
-
-QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
-
 ## 
 # Please fill in GRIFDIR and ROOTDIR with the appropriate paths
 # Top directory of GRIF on your machine:
@@ -73,7 +70,7 @@ GRIFPROJECTDIR = $$GRIFDIR/examples/histogramming
 system(cd $$GRIFPROJECTDIR)
 system(python setup.py)
 
-QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1
+QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
 DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}
 
