@@ -73,17 +73,15 @@ DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}
 INCLUDEPATH += $$GRIFDIR/external
 
 # ROOT headers
-ROOTDIR = /Users/benson/Desktop/root_x86_64
 INCLUDEPATH += $$ROOTDIR/include
 
 # ROOT libraries
 ROOTSYSLIB += $$ROOTDIR/lib
 INCLUDEPATH += $$ROOTSYSLIB
 LIBS += $$ROOTSYSLIB/libCint.so
+LIBS += $$ROOTSYSLIB/libCore.so
+LIBS += $$ROOTSYSLIB/libHist.so
 LIBS += $$ROOTSYSLIB/libMatrix.so
 LIBS += $$ROOTSYSLIB/libMathCore.so
 LIBS += -L$$ROOTSYSLIB
-LIBS += -L$$ROOTSYS/lib -lCore -lHist
-
-DEFINES += GRIFPROJECTDIR=\"\\\"/home/ben/Documents/grif\\\"\"
 
