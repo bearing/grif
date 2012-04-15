@@ -24,7 +24,7 @@ QT       += core network xml
 QT       -= gui
 
 # Change this variable to whatever your project name is
-TARGET = simulator
+TARGET = simulator-classdata
 
 TEMPLATE = app
 
@@ -45,11 +45,14 @@ include(../../framework/include/finclude.pri)
 # Your application files
 HEADERS += \
     ./include/SIMAnalysisThread.h \
-    ./include/SIMDAQThread.h
+    ./include/SIMDAQThread.h \
+    ./include/EventClass.h
+
 SOURCES += \
     ./src/main.cpp \
     ./src/SIMAnalysisThread.cpp \
-    ./src/SIMDAQThread.cpp
+    ./src/SIMDAQThread.cpp \
+    ./src/EventClass.cpp
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
@@ -61,7 +64,7 @@ GRIFDIR = /Users/markbandstra/Projects/GRIF/grif
 ROOTDIR = /Users/markbandstra/Software/root
 
 # run code generation
-GRIFPROJECTDIR = $$GRIFDIR/examples/simulator
+GRIFPROJECTDIR = $$GRIFDIR/examples/simulator-classdata
 system(cd $$GRIFPROJECTDIR)
 system(python setup.py)
 
