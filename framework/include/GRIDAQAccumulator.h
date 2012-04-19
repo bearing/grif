@@ -62,16 +62,18 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
       b->ResetBuffer(t1_,t2_);
 
       // First buffer in list is on the bubble
-      if(buffcnt == 0)
-	b->set_bubble(true);
-      else
-	b->set_bubble(false);
+      if(buffcnt == 0) {
+        b->set_bubble(true);
+      } else {
+        b->set_bubble(false);
+      }
 
       // Last buffer in list is leading Edge
-      if(buffcnt == get_num_accum_buff()-1)
-	b->set_leading_edge(true);
-      else
-	b->set_leading_edge(false);
+      if(buffcnt == get_num_accum_buff()-1) {
+        b->set_leading_edge(true);
+      } else {
+        b->set_leading_edge(false);
+      }
 
       buffcnt+=1;
     }
@@ -91,46 +93,46 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
     qint64 BubbleDT = 0;
 
     if(!FlushFlag) {
-      for (buff_it = buff_.begin(); buff_it != buff_.end(); buff_it++) {
-	GRIAccumBuff<T>* b = *buff_it;
-	// Buffer Data and sense the bubble
-	BubbleDT = (b->BufferData(numel, timestamps,data));
-	if (BubbleDT) {
-	  BubbleTrigger = true;
-	  // TODO(arbenson): BubbleWriteNum is used when data is missing for accumulation times
-	  BubbleWriteNum = (int)((BubbleDT)/get_accum_time() + 1);
-	}
+      for (buff_it = buff_.begin(); buff_it != buff_.end(); ++buff_it) {
+        GRIAccumBuff<T>* b = *buff_it;
+        // Buffer Data and sense the bubble
+        BubbleDT = (b->BufferData(numel, timestamps,data));
+        if (BubbleDT) {
+          BubbleTrigger = true;
+          // TODO(arbenson): BubbleWriteNum is used when data is missing for accumulation times
+          BubbleWriteNum = (int)((BubbleDT)/get_accum_time() + 1);
+        }
       }
     }
 
     if (BubbleTrigger) {
-      for (int i=0; i < BubbleWriteNum; i++) {
-	// We want to go through the buffers again and
-	// 1) Write the bubble buffer to the mm
-	// 2) Reset the bubble buffer to the leading edge
-	// 3) Re-buffer the data for the new buffer
-	// 4) Set the new bubble
+      for (int i = 0; i < BubbleWriteNum; ++i) {
+        // We want to go through the buffers again and
+        // 1) Write the bubble buffer to the mm
+        // 2) Reset the bubble buffer to the leading edge
+        // 3) Re-buffer the data for the new buffer
+        // 4) Set the new bubble
 
-	int nbuffcnt = 0;
-	bool NewBubble = false;
-	bool NewBubbleSet = false;
+        int nbuffcnt = 0;
+        bool NewBubble = false;
+        bool NewBubbleSet = false;
 
-	for(buff_it = buff_.begin(); buff_it != buff_.end(); ++buff_it) {
-	  nbuffcnt = nbuffcnt + 1;
-	  GRIAccumBuff<T>* b = *buff_it;
-	  if (NewBubble) {
-	    b->set_bubble(true);
-	    NewBubbleSet = true;
-	    NewBubble = false;
-	  }
-
-          if (b->get_leading_edge()) {
-	    b->set_leading_edge(false);
+        for(buff_it = buff_.begin(); buff_it != buff_.end(); ++buff_it) {
+          nbuffcnt = nbuffcnt + 1;
+          GRIAccumBuff<T>* b = *buff_it;
+          if (NewBubble) {
+            b->set_bubble(true);
+            NewBubbleSet = true;
+            NewBubble = false;
           }
 
-	  // Check for bubble
-	  if (b->get_bubble() && !NewBubbleSet) {
-	    // Write Bubble Accumulator to mm
+          if (b->get_leading_edge()) {
+            b->set_leading_edge(false);
+          }
+
+          // Check for bubble
+          if (b->get_bubble() && !NewBubbleSet) {
+            // Write Bubble Accumulator to mm
             // TODO(arbenson): logger needs a smoother interface
             QString str;
             QTextStream qts(&str);
@@ -142,25 +144,25 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
                 << "\n";
             logger_.WriteLogFile(str);
 
-	    T* da = b->DataArray();
+            T* da = b->DataArray();
 
             get_p_DAQ()->WriteMemory(get_p_DAQ()->get_name(),get_buffer_name(),b->GetDataSize(),da);
-	    delete [] da;
+            delete [] da;
 
-	    NewBubble = true;  // Sets up next buffer to be the bubble
-	    b->set_bubble(false);
-	    b->ResetBuffer(b->get_t1() + get_accum_time()*get_num_accum_buff(),
-			   b->get_t2() + get_accum_time()*get_num_accum_buff());
-	    b->set_leading_edge(true);
-	    b->BufferData(numel, timestamps,data);
-	  }
-	}
+            NewBubble = true;  // Sets up next buffer to be the bubble
+            b->set_bubble(false);
+            b->ResetBuffer(b->get_t1() + get_accum_time()*get_num_accum_buff(),
+                           b->get_t2() + get_accum_time()*get_num_accum_buff());
+            b->set_leading_edge(true);
+            b->BufferData(numel, timestamps,data);
+          }
+        }
 
-	// If we are at the end of the buffer list and need a new bubble
-	if (!NewBubbleSet) {
-	  GRIAccumBuff<T>* b2 = buff_.front();
-	  b2->set_bubble(true);   
-	}
+        // If we are at the end of the buffer list and need a new bubble
+        if (!NewBubbleSet) {
+          GRIAccumBuff<T>* b2 = buff_.front();
+          b2->set_bubble(true);   
+        }
       }
     }
   }
@@ -178,20 +180,21 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
       int buffctr = 0;
       for (buff_it = buff_.begin(); buff_it != buff_.end(); ++buff_it) {
         ++buffctr;
-	GRIAccumBuff<T>* b = *buff_it;
+        GRIAccumBuff<T>* b = *buff_it;
 
-	if (NewBubble) {
-	  b->set_bubble(true);
-	  NewBubbleSet = true;
-	  NewBubble = false;
-	}
+        if (NewBubble) {
+          b->set_bubble(true);
+          NewBubbleSet = true;
+          NewBubble = false;
+        }
 
-	if(b->get_leading_edge())
-	  b->set_leading_edge(false);
+        if(b->get_leading_edge()) {
+          b->set_leading_edge(false);
+        }
 
-	// Check for bubble
-	if (b->get_bubble() && !NewBubbleSet) {
-	  // Write Bubble Accumulator to mm
+        // Check for bubble
+        if (b->get_bubble() && !NewBubbleSet) {
+          // Write Bubble Accumulator to mm
           // TODO(arbenson): logger needs to have a smoother interface
           QString str;
           QTextStream qts(&str);
@@ -201,23 +204,23 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
               << b->GetDataSize() << " events\n.";
           logger_.WriteLogFile(str);
 
-	  T* da = b->DataArray();
+          T* da = b->DataArray();
 
           get_p_DAQ()->WriteMemory(get_p_DAQ()->get_name(),get_buffer_name(),b->GetDataSize(),da);
-	  delete [] da;
+          delete [] da;
 
-	  NewBubble = true;  // Sets up next buffer to be the bubble
-	  b->set_bubble(false);
-	  b->ResetBuffer(b->get_t1() + get_accum_time()*get_num_accum_buff(),
+          NewBubble = true;  // Sets up next buffer to be the bubble
+          b->set_bubble(false);
+          b->ResetBuffer(b->get_t1() + get_accum_time()*get_num_accum_buff(),
                          b->get_t2() + get_accum_time()*get_num_accum_buff());
-	  b->set_leading_edge(true);
-	}
+          b->set_leading_edge(true);
+        }
       }
 
       // If we are at the end of the buffer list and need a new bubble
       if (!NewBubbleSet) {
-	GRIAccumBuff<T>* b2 = buff_.front();
-	b2->set_bubble(true);
+        GRIAccumBuff<T>* b2 = buff_.front();
+        b2->set_bubble(true);
       }
     }
   }
