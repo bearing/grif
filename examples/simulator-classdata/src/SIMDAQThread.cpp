@@ -137,9 +137,9 @@ int SIMDAQThread::AcquireData(int n) {
       ts[m] = qint64(rnd*(double)deltaT + (double)(t1));
     }
   }
-  PostData(ncnt, "ADCOutput",ADC,ts);
-  PostData(ncnt, "CHAN",Ch,ts);
-  PostData(ncnt, "TS",ts,ts);
+  PostData<double>(ncnt, "ADCOutput",ADC,ts);
+  PostData<int>(ncnt, "CHAN",Ch,ts);
+  PostData<qint64>(ncnt, "TS",ts,ts);
 
   EventClass *Events = new EventClass[ncnt];
   for (int i=0; i<ncnt; i++) {
@@ -150,7 +150,7 @@ int SIMDAQThread::AcquireData(int n) {
               << "  (test=" << Events[i].EnergyTest() << ")"
               << std::endl;
   }
-  PostData(ncnt,"Event",Events,ts);
+  PostData<EventClass>(ncnt,"Event",Events,ts);
   delete [] Events;
 
   delete [] NS;
