@@ -67,6 +67,11 @@ int SIMAnalysisThread::Analyze() {
   QPair<int, EventClass*> pEvent1 = ReadData<EventClass>("SIMDAQ1","Event");
   Event1 = pEvent1.second; nEvent1 = pEvent1.first;
   std::cout << "SIMAnalysisThread::Analyze:  Finished reading Events from SIMDAQ1" << std::endl;
+  for (int i=0; i<nEvent1; i++) {
+    std::cout << "SIMAnalysisThread::Analyze:  Event #" << i
+              << " has " << Event1[i].NEnergies() << " hits, "
+              << "  energy=" << Event1[i].Energy(0) << std::endl;
+  }
 
   std::cout << "SIMAnalysisThread::Analyze:  Now reading Events from SIMDAQ2" << std::endl;
   EventClass* Event2;
@@ -74,6 +79,11 @@ int SIMAnalysisThread::Analyze() {
   QPair<int, EventClass*> pEvent2 = ReadData<EventClass>("SIMDAQ2","Event");
   Event2 = pEvent2.second; nEvent2 = pEvent2.first;
   std::cout << "SIMAnalysisThread::Analyze:  Finished reading Events from SIMDAQ2" << std::endl;
+  for (int i=0; i<nEvent2; i++) {
+    std::cout << "SIMAnalysisThread::Analyze:  Event #" << i
+              << " has " << Event2[i].NEnergies() << " hits, "
+              << "  energy=" << Event2[i].Energy(0) << std::endl;
+  }
 
   ++nread_;
 

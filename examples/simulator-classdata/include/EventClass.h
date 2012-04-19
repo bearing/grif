@@ -4,7 +4,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-//#include <QList>
+#include <QList>
 
 // ROOT libs:
 
@@ -26,8 +26,12 @@ class EventClass {
   // Default destructor
   ~EventClass();
 
+  void AddEnergy(double energy) { energy_.push_back(energy); }
+  int NEnergies() { return energy_.size(); }
+  int Energy(int i);
+
  private:
-//  QList energy_;
+  QList<double> energy_;
 
 };
 

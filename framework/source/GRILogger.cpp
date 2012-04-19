@@ -28,8 +28,8 @@
 #include <QProcessEnvironment>
 
 GRILogger::GRILogger(QString FileName) {
-  //log_dir_ = QProcessEnvironment::systemEnvironment().value("GRIF_LOG_DIR");
-  log_dir_ = GRIF_LOG_DIR;
+  log_dir_ = QProcessEnvironment::systemEnvironment().value("GRIF_LOG_DIR");
+//  log_dir_ = GRIF_LOG_DIR;
   if (log_dir_.length() == 0) {
     std::cout << "WARNING: GRIF_LOG_DIR environment variable not set!!!"
               << std::endl;

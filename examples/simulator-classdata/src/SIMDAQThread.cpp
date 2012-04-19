@@ -142,6 +142,13 @@ int SIMDAQThread::AcquireData(int n) {
   PostData(ncnt, "TS",ts,ts);
 
   EventClass *Events = new EventClass[ncnt];
+  for (int i=0; i<ncnt; i++) {
+    std::cout << "SIMDAQThread::AcquireData: Event #" << i
+              << " adding hit of energy " << ADC[i] << std::endl;
+    Events[i].AddEnergy((double)ADC[i]);
+    std::cout << "SIMDAQThread::AcquireData: Event #" << i
+              << " now has " << Events[i].NEnergies() << " hits" << std::endl;
+  }
   PostData(ncnt,"Event",Events,ts);
   delete [] Events;
 
