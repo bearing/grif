@@ -21,17 +21,17 @@ class EventClass {
  public:
   // Standard constructor
   EventClass();
-  //! Copy constructor
-  EventClass(const EventClass& Event);
   // Default destructor
   ~EventClass();
 
-  void AddEnergy(double energy) { energy_.push_back(energy); }
+  void AddEnergy(double energy);
   int NEnergies() { return energy_.size(); }
-  int Energy(int i);
+  double Energy(int i);
+  double EnergyTest();
 
  private:
   QList<double> energy_;
+  double energy_test_;
 
 };
 

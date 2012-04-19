@@ -69,8 +69,10 @@ int SIMAnalysisThread::Analyze() {
   std::cout << "SIMAnalysisThread::Analyze:  Finished reading Events from SIMDAQ1" << std::endl;
   for (int i=0; i<nEvent1; i++) {
     std::cout << "SIMAnalysisThread::Analyze:  Event #" << i
-              << " has " << Event1[i].NEnergies() << " hits, "
-              << "  energy=" << Event1[i].Energy(0) << std::endl;
+              << " has " << Event1[i].NEnergies() << " energies, "
+              << "  energy=" << Event1[i].Energy(0)
+              << "  (test=" << Event1[i].EnergyTest() << ")"
+              << std::endl;
   }
 
   std::cout << "SIMAnalysisThread::Analyze:  Now reading Events from SIMDAQ2" << std::endl;
@@ -81,8 +83,10 @@ int SIMAnalysisThread::Analyze() {
   std::cout << "SIMAnalysisThread::Analyze:  Finished reading Events from SIMDAQ2" << std::endl;
   for (int i=0; i<nEvent2; i++) {
     std::cout << "SIMAnalysisThread::Analyze:  Event #" << i
-              << " has " << Event2[i].NEnergies() << " hits, "
-              << "  energy=" << Event2[i].Energy(0) << std::endl;
+              << " has " << Event2[i].NEnergies() << " energies, "
+              << "  energy=" << Event2[i].Energy(0)
+              << "  (test=" << Event2[i].EnergyTest() << ")"
+              << std::endl;
   }
 
   ++nread_;
