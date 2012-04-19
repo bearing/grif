@@ -65,6 +65,8 @@ GRIFDIR =
 # Directory of ROOT on your machine:
 ROOTDIR =
 
+
+
 # run code generation
 GRIFPROJECTDIR = $$GRIFDIR/examples/histogramming
 system(cd $$GRIFPROJECTDIR)
@@ -73,7 +75,14 @@ system(python setup.py)
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
 DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}
+# set up log directory
+GRIF_LOG_DIR = $$GRIFDIR/log/
+win32 {
+    GRIF_LOG_DIR = $$GRIFDIR\\log
+}
 
+
+DEFINES += GRIF_LOG_DIR=\\\"$${GRIF_LOG_DIR}\\\"
 # External libraries
 INCLUDEPATH += $$GRIFDIR/external
 

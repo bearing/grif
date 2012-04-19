@@ -23,8 +23,6 @@
 QT       += core network xml
 QT       -= gui
 
-RESOURCES += ../../CONFIG.qrc
-
 # Change this variable to whatever your project name is
 TARGET = networking
 
@@ -81,6 +79,14 @@ INCLUDEPATH += EXTDIR
 system(cd $$GRIFPROJECTDIR)
 system(python setup.py)
 
-DEFINES += GRIFPROJECTDIR=\"\\\"/home/ben/Documents/grif\\\"\"
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
+DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}
+
+# set up log directory
+GRIF_LOG_DIR = $$GRIFDIR/log/
+win32 {
+    GRIF_LOG_DIR = $$GRIFDIR\\log
+}
+
+DEFINES += GRIF_LOG_DIR=\\\"$${GRIF_LOG_DIR}\\\"
