@@ -35,10 +35,6 @@ class SIMAnalysisThread : public GRIAnalysisThread {
   int Analyze();
 
  private:
-  bool OpenOutputFile();
-  int ClearOutputFile();
-  int WriteToOutputFile(int nread, int Ch[], double ADC[], qint64 timestamps[], int N);
-  int WriteToOutputFile(GRIHistogrammer* pH);
   int nread_;
   QTextStream ts_;
   QTextStream ts2_;

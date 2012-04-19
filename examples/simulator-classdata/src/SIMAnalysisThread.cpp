@@ -25,24 +25,12 @@
 
 SIMAnalysisThread::SIMAnalysisThread() {
   nread_ = 0;
-  fname_ = "Out.txt";
-  fp_ = new QFile(fname_);
-  fname2_ = "OutHist.txt";
-  fp2_ = new QFile(fname2_);
-  ClearOutputFile();
-  file_open_ = OpenOutputFile();
-  ts_.setDevice(fp_);
-  ts2_.setDevice(fp2_);
-  first_write_ = true;
-
   CreateNewHistogram("ADCHist",200,0,1000);
   SetHistRateMode("ADCHist",true);
   SetHistPacketScaleFactor("ADCHist",0.01);
 }
 
 SIMAnalysisThread::~SIMAnalysisThread() {
-  delete fp2_;
-  delete fp_;
 }
 
 int SIMAnalysisThread::Analyze() {
@@ -73,79 +61,25 @@ int SIMAnalysisThread::Analyze() {
   QPair<int, qint64*> pTS2 = ReadData<qint64>("SIMDAQ2","TS");
   ts2_ = pTS2.second;
 
+  std::cout << "SIMAnalysisThread::Analyze:  Now reading Events from SIMDAQ1" << std::endl;
   EventClass* Event1;
   int nEvent1;
   QPair<int, EventClass*> pEvent1 = ReadData<EventClass>("SIMDAQ1","Event");
   Event1 = pEvent1.second; nEvent1 = pEvent1.first;
+  std::cout << "SIMAnalysisThread::Analyze:  Finished reading Events from SIMDAQ1" << std::endl;
 
+  std::cout << "SIMAnalysisThread::Analyze:  Now reading Events from SIMDAQ2" << std::endl;
   EventClass* Event2;
   int nEvent2;
   QPair<int, EventClass*> pEvent2 = ReadData<EventClass>("SIMDAQ2","Event");
   Event2 = pEvent2.second; nEvent2 = pEvent2.first;
+  std::cout << "SIMAnalysisThread::Analyze:  Finished reading Events from SIMDAQ2" << std::endl;
 
   ++nread_;
 
   UpdateHistogram("ADCHist",ADC,nADC);
   UpdateHistogram("ADCHist",ADC2,nADC2);
-  WriteToOutputFile(GetHistogram("ADCHist"));
 
   return 0;
-}
-
-int SIMAnalysisThread::WriteToOutputFile(GRIHistogrammer* pH) {
-  int nb = pH->get_hist()->GetNbinsX();
-
-  if(first_write_) {
-    for (int i = 0; i < nb; ++i) {
-      ts2_ << double(pH->get_hist()->GetBinCenter(i)) << " ";
-    }
-    ts2_ << endl;
-    
-    first_write_ = false;
-  }
-
-  for(int i = 0; i < nb; ++i) {
-    ts2_ << double(pH->get_hist()->GetBinContent(i)) << " ";
-  }
-  ts2_ << endl;
-  
-  return 1;
-}
-
-int SIMAnalysisThread::WriteToOutputFile(int nread_, int Ch[], 
-                                         double ADC[], qint64 timestamps[],
-                                         int N) {
-  for(int i = 0; i < N; ++i) {
-    ts_ << nread_ << " " << timestamps[i] << " " << Ch[i] << " " << ADC[i]
-        << " " << endl;
-  }
-  return 1;
-}
-
-bool SIMAnalysisThread::OpenOutputFile() {
-  fp_->close();
-
-  if(!fp_->open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-    if(!fp_->open(QIODevice::WriteOnly)) {
-      std::cerr << "!Failure to open data output file\n";
-      return false;
-    }
-  }
-  fp2_->close();
-
-  if(!fp2_->open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-    if(!fp2_->open(QIODevice::WriteOnly)) {
-      std::cerr << "!Failure to open hist output file\n";
-      return false;
-    }
-  }
-
-  return true;
-}
-
-int SIMAnalysisThread::ClearOutputFile() {
-  //QFile f(fname_);
-  OpenOutputFile();
-  return 1;
 }
 

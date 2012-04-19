@@ -4,6 +4,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
+//#include <QList>
 
 // ROOT libs:
 
@@ -19,11 +20,14 @@ class EventClass {
  // public interface:
  public:
   // Standard constructor
-  EventClass() {};
+  EventClass();
   //! Copy constructor
-  EventClass(const EventClass& Event) {};
+  EventClass(const EventClass& Event);
   // Default destructor
-  ~EventClass() {};
+  ~EventClass();
+
+ private:
+//  QList energy_;
 
 };
 
