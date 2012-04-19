@@ -32,20 +32,11 @@
 class GRIObject : public QObject {
   Q_OBJECT
 
-  public:
-    GRIObject();
-    virtual ~GRIObject();
+ public:
+  GRIObject() {}
+  virtual ~GRIObject() {}
 
-    QTextStream log;
-    void CommitLog(int level);
-    void set_name(const QString& name);
-
-  private:
-    GRILogMessage LogMsg;
-    QString temp;
-
-  signals:
-    void LogSignal(GRILogMessage m);
+  void set_name(const QString& name);
 };
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_GRIOBJECT_H_

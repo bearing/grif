@@ -137,9 +137,6 @@ int SIMDAQThread::AcquireData(int n) {
     }
   }
 
-
-  std::cout << "Posting data!" << std::endl;
-
   PostData(ncnt, "ADCOutput",ADC,ts);
   PostData(ncnt, "CHAN",Ch,ts);
   PostData(ncnt, "TS",ts,ts);

@@ -22,23 +22,6 @@
 
 #include "GRIObject.h"
 
-GRIObject::GRIObject() {
-     log.setString(&temp,QIODevice::ReadWrite);
-}
-
-GRIObject::~GRIObject() {}
-
-void GRIObject::CommitLog(int level) {
-    if(LogMsg.IsLevelEnabled(level)) {
-        if(LogMsg.SetMessageTime(log.readAll(),level)) {
-            LogSignal(LogMsg);
-        }
-    } else {
-        log.flush();
-    }
-}
-
 void GRIObject::set_name(const QString& name) {
-    setObjectName(name);
-    LogMsg.SetObjectName(name);
+  setObjectName(name);
 }

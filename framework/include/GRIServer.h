@@ -88,7 +88,7 @@ class Server : public QObject {
         // written data, and we could have lost in that process.
         for (; itr != connected.end(); itr++) {
             QTcpSocket* sock = *itr;
-            while (sock->bytesAvailable() > sizeof(char)) {
+            while (sock->bytesAvailable() > (qint64)sizeof(char)) {
                 int bytesread;
                 if ((bytesread = sock->read((writing + read), 100 - read)) == -1) {
                     // If the socket we're reading from gives us bad data or its closed,

@@ -37,7 +37,7 @@ int SIMMCAnalysisThread::Initialize(int nchan) {
 
   QString histname = "ADC Channel 0 by Channel 1";
   std::cout << "SIMMCAnalysisThread::initialize: Creating histogram "
-            << (std::string)histname << std::endl;
+            << histname.toStdString().c_str() << std::endl;
   if (CreateNewHistogram(histname,50,0.0,1000.0,50,0.0,1000.0) == 0) {
     ++nhist;
     SetHistRateMode(histname,false);

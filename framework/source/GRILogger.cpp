@@ -22,31 +22,44 @@
 
 #include "GRILogger.h"
 #include <stdio.h>
+#include <iostream>
 #include <QDir>
 #include <QResource>
+#include <QProcessEnvironment>
 
 GRILogger::GRILogger(QString FileName) {
-  grif_project_file_path_ = proc_environ_.value("GRIFPROJECTDIR");
-  if (grif_project_file_path_.length() == 0) {
-    std::cout << "WARNING: GRIFPROJECTDIR environment variable not set!!!"
-	      << std::endl;
+  //log_dir_ = QProcessEnvironment::systemEnvironment().value("GRIF_LOG_DIR");
+  log_dir_ = GRIF_LOG_DIR;
+  if (log_dir_.length() == 0) {
+    std::cout << "WARNING: GRIF_LOG_DIR environment variable not set!!!"
+              << std::endl;
+    path_good_ = false;
   } else {
-    filename_ = FileName;
-    // TODO(baugarten): handle windows paths differently
-    if (!QDir(grif_project_file_path_ + "/log").exists()) {
-        QDir().mkdir(grif_project_file_path_ + "/log");
-    }
-    logfilepath_ = grif_project_file_path_ + "/log/" + filename_;
-    ClearLogFile();
-    ClearErrorLogFile();
+    std::cout << log_dir_.toStdString() << std::endl;
+    file_name_ = FileName;
+    path_good_ = MakeLogDir();
     log_level_ = 2;
   }
+}
+
+bool GRILogger::MakeLogDir() {
+  // TODO(baugarten): handle windows paths differently
+  if ((!QDir(log_dir_).exists() &&
+      QDir().mkdir(log_dir_))
+          || QDir(log_dir_).exists()) {
+    log_file_path_ = log_dir_ + file_name_;
+    std::cout << "Making log file: " << log_file_path_.toStdString() << std::endl;
+    ClearLogFile();
+    ClearErrorLogFile();
+    return true;
+  }
+  return false;
 }
 
 GRILogger::~GRILogger() {}
 
 bool GRILogger::ClearLogFile() {
-  QFile f(logfilepath_);
+  QFile f(log_file_path_);
 
   if (!f.open( QIODevice::WriteOnly | QIODevice::Truncate)) {
     if (!f.open(QIODevice::WriteOnly)) {
@@ -61,7 +74,7 @@ bool GRILogger::ClearLogFile() {
 }
 
 bool GRILogger::ClearErrorLogFile() {
-  QFile f(grif_project_file_path_ + "/log/errorlogfile.txt");
+  QFile f(log_dir_ + "errorlogfile.txt");
   if (!f.open( QIODevice::WriteOnly | QIODevice::Truncate)) {
     std::cout << "Failed to locate errorlogfile.txt.\n";
     return 0;
@@ -89,7 +102,7 @@ bool GRILogger::WriteLogFile(QString output, int time) {
     time = -1;
   }
   return WriteToLogFile(output, time, &mutex_,
-                        new QFile(logfilepath_));
+                        new QFile(log_file_path_));
 }
 
 bool GRILogger::WriteLogFile(QString output) {
@@ -100,27 +113,30 @@ bool GRILogger::WriteErrorLogFile(QString output, int time) {
   QMutex mutex;
 
   return WriteToLogFile(output, time, &mutex,
-                        new QFile(grif_project_file_path_ + "/log/errorlogfile.txt"));
+                        new QFile(log_dir_ + "/errorlogfile.txt"));
 }
 
 bool GRILogger::WriteToLogFile(QString output, int time, QMutex *mutex,
                                QFile *f) {
-    time = 0;
+  if (!path_good_) {
+    return false;
+  }
 
-    QMutexLocker qml(mutex);
+  time = 0;
+  
+  QMutexLocker qml(mutex);
+  
+  if (!f->open(QIODevice::Append | QIODevice::Text | QIODevice::ReadWrite)) {
+    std::cout << "failed to locate " << f->fileName().toStdString() << std::endl;
+    return 0;
+  }
+  QTextStream ts(f);
 
-    if (!f->open(QIODevice::Append | QIODevice::Text | QIODevice::ReadWrite)) {
-        std::cout << "failed to locate " << f->fileName().toStdString() << std::endl;
-        return 0;
-    }
-
-    QTextStream ts(f);
-
-    ts << output;
-    ts << "\n";
-    f->close();
-
-    return 1;
+  ts << output;
+  ts << "\n";
+  f->close();
+  
+  return 1;
 }
 
 bool GRILogger::WriteErrorLogFile(QString output) {
@@ -152,4 +168,10 @@ void GRILogger::Display(std::string a) {
 
 void GRILogger::Display(QList<std::string> a) {
   emit Output(a);
+}
+
+bool GRILogger::UpdateLogDir(QString logDir) {
+  log_dir_ = logDir;
+  path_good_ = MakeLogDir();
+  return path_good_;
 }
