@@ -54,9 +54,9 @@ QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 ## 
 # Please fill in GRIFDIR and ROOTDIR with the appropriate paths
 # Top directory of GRIF on your machine:
-GRIFDIR =/home/ben/Documents/grif
+GRIFDIR =
 # Directory of ROOT on your machine:
-ROOTDIR = /home/ben/Downloads/root
+ROOTDIR =
 
 # run code generation
 GRIFPROJECTDIR = $$GRIFDIR/examples/timeseriesplot

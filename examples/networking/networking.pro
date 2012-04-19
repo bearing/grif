@@ -56,9 +56,9 @@ SOURCES += \
 ## 
 # Please fill in GRIFDIR and ROOTDIR with the appropriate paths
 # Top directory of GRIF on your machine:
-GRIFDIR = /home/ben/Documents/grif
+GRIFDIR =
 # Directory of ROOT on your machine:
-ROOTDIR = /home/ben/Downloads/root
+ROOTDIR =
 
 # root headers
 INCLUDEPATH += $$ROOTDIR/include
