@@ -22,17 +22,20 @@
 
 #include "GRILogger.h"
 #include <stdio.h>
+#include <iostream>
 #include <QDir>
 #include <QResource>
 #include <QProcessEnvironment>
 
 GRILogger::GRILogger(QString FileName) {
-  log_dir_ = QProcessEnvironment::systemEnvironment().value("GRIF_LOG_DIR");
+  //log_dir_ = QProcessEnvironment::systemEnvironment().value("GRIF_LOG_DIR");
+  log_dir_ = GRIF_LOG_DIR;
   if (log_dir_.length() == 0) {
     std::cout << "WARNING: GRIF_LOG_DIR environment variable not set!!!"
               << std::endl;
     path_good_ = false;
   } else {
+    std::cout << log_dir_.toStdString() << std::endl;
     file_name_ = FileName;
     path_good_ = MakeLogDir();
     log_level_ = 2;
@@ -41,9 +44,11 @@ GRILogger::GRILogger(QString FileName) {
 
 bool GRILogger::MakeLogDir() {
   // TODO(baugarten): handle windows paths differently
-  if (!QDir(log_dir_ + "/log").exists() && 
-      QDir().mkdir(log_dir_ + "/log")) {
-    log_file_path_ = log_dir_ + "/log/" + file_name_;
+  if ((!QDir(log_dir_).exists() &&
+      QDir().mkdir(log_dir_))
+          || QDir(log_dir_).exists()) {
+    log_file_path_ = log_dir_ + file_name_;
+    std::cout << "Making log file: " << log_file_path_.toStdString() << std::endl;
     ClearLogFile();
     ClearErrorLogFile();
     return true;
@@ -69,7 +74,7 @@ bool GRILogger::ClearLogFile() {
 }
 
 bool GRILogger::ClearErrorLogFile() {
-  QFile f(log_dir_ + "/log/errorlogfile.txt");
+  QFile f(log_dir_ + "errorlogfile.txt");
   if (!f.open( QIODevice::WriteOnly | QIODevice::Truncate)) {
     std::cout << "Failed to locate errorlogfile.txt.\n";
     return 0;
@@ -108,7 +113,7 @@ bool GRILogger::WriteErrorLogFile(QString output, int time) {
   QMutex mutex;
 
   return WriteToLogFile(output, time, &mutex,
-                        new QFile(log_dir_ + "/log/errorlogfile.txt"));
+                        new QFile(log_dir_ + "/errorlogfile.txt"));
 }
 
 bool GRILogger::WriteToLogFile(QString output, int time, QMutex *mutex,
@@ -125,9 +130,8 @@ bool GRILogger::WriteToLogFile(QString output, int time, QMutex *mutex,
     std::cout << "failed to locate " << f->fileName().toStdString() << std::endl;
     return 0;
   }
-
   QTextStream ts(f);
-  
+
   ts << output;
   ts << "\n";
   f->close();

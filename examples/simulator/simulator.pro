@@ -56,9 +56,9 @@ QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 ## 
 # Please fill in GRIFDIR and ROOTDIR with the appropriate paths
 # Top directory of GRIF on your machine:
-GRIFDIR =
+GRIFDIR =/home/ben/Documents/grif
 # Directory of ROOT on your machine:
-ROOTDIR =
+ROOTDIR =/home/ben/Downloads/root
 
 # run code generation
 GRIFPROJECTDIR = $$GRIFDIR/examples/simulator
@@ -66,6 +66,15 @@ system(cd $$GRIFPROJECTDIR)
 system(python setup.py)
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1
+
+# set up log directory
+GRIF_LOG_DIR = $$GRIFDIR/log/
+win32 {
+    GRIF_LOG_DIR = $$GRIFDIR\\log
+}
+
+
+DEFINES += GRIF_LOG_DIR=\\\"$${GRIF_LOG_DIR}\\\"
 
 DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}
 
