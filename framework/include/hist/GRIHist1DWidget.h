@@ -58,11 +58,11 @@
 
 class GRIHist1DWidget : public QWidget {
 
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    GRIHist1DWidget(QWidget *parent = 0, GRIHistogrammer *grihist = NULL,
-                    QColor qcolor = QColor(0,255,0,255));
+  GRIHist1DWidget(QWidget *parent = 0, GRIHistogrammer *grihist = NULL,
+                  QColor qcolor = QColor(0,255,0,255));
     ~GRIHist1DWidget();
     void SetHist(GRIHistogrammer *grihist);
     void SetLogScale(bool logscale_on);
@@ -120,7 +120,8 @@ private:
     bool mousehover_on_;
     int mousehover_x_, mousehover_y_;
 
-    // Return the minimum value to be used for the histogram, whether 0 (linear) or smallest nonzero value (log)
+    // Return the minimum value to be used for the histogram, whether 0 
+    // (linear) or smallest nonzero value (log)
     double HistRangeMin();
     double HistRangeMax();
     double HistSmallestNonzero();

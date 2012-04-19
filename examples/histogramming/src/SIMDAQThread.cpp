@@ -137,9 +137,9 @@ int SIMDAQThread::AcquireData(int n) {
     }
   }
 
-  PostData(ncnt, "ADCOutput",ADC,ts);
-  PostData(ncnt, "CHAN",Ch,ts);
-  PostData(ncnt, "TS",ts,ts);
+  PostData<double>(ncnt, "ADCOutput",ADC,ts);
+  PostData<int>(ncnt, "CHAN",Ch,ts);
+  PostData<qint64>(ncnt, "TS",ts,ts);
 
   delete [] NS;
   delete [] NB;
