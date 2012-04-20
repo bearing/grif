@@ -4,7 +4,8 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <QList>
+//#include <QList>
+#include <vector>
 
 // ROOT libs:
 
@@ -30,7 +31,8 @@ class EventClass {
   double EnergyTest();
 
  private:
-  QList<double> energy_;
+//  QList<double> energy_;
+  std::vector<double> energy_;
   double energy_test_;
 
 };
