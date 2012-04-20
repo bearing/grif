@@ -27,3 +27,25 @@ double EventClass::Energy(int i) {
 double EventClass::EnergyTest() {
   return energy_test_;
 }
+
+void EventClass::AddChan(int chan) {
+  chan_.push_back(chan);
+}
+
+int EventClass::Chan(int i) {
+  if (i<chan_.size()) {
+    return chan_[i];
+  }
+  return -1;
+}
+
+void EventClass::AddTS(qint64 ts) {
+  ts_.push_back(ts);
+}
+
+qint64 EventClass::TS(int i) {
+  if (i<ts_.size()) {
+    return ts_[i];
+  }
+  return qint64(-1);
+}

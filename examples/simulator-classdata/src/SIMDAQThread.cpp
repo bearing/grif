@@ -143,7 +143,23 @@ int SIMDAQThread::AcquireData(int n) {
 
   EventClass *Events = new EventClass[ncnt];
   for (int i=0; i<ncnt; i++) {
-    Events[i].AddEnergy((double)ADC[i]);
+    Events[i].AddEnergy(ADC[i]);
+    Events[i].AddChan(Ch[i]);
+    Events[i].AddTS(ts[i]);
+    std::cout << "SIMDAQThread::AcquireData:  Event #" << i
+              << " has " << Events[i].NEnergies() << " energies, "
+              << Events[i].NChan() << " channels, "
+              << "and " << Events[i].NTS() << " timestamps"
+              << std::endl;
+    if (Events[i].NEnergies()>0)
+      std::cout << "SIMDAQThread::AcquireData:  Event #" << i
+                << " energy=" << Events[i].Energy(0) << std::endl;
+    if (Events[i].NChan()>0)
+      std::cout << "SIMDAQThread::AcquireData:  Event #" << i
+                << " chan=" << Events[i].Chan(0) << std::endl;
+    if (Events[i].NTS())
+      std::cout << "SIMDAQThread::AcquireData:  Event #" << i
+                << " timestamp=" << Events[i].TS(0) << std::endl;
     std::cout << "SIMDAQThread::AcquireData:  Event #" << i
               << " has " << Events[i].NEnergies() << " energies, "
               << "  energy=" << Events[i].Energy(0)

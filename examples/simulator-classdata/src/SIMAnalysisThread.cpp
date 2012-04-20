@@ -68,6 +68,20 @@ int SIMAnalysisThread::Analyze() {
   Event1 = pEvent1.second; nEvent1 = pEvent1.first;
   std::cout << "SIMAnalysisThread::Analyze:  Finished reading Events from SIMDAQ1" << std::endl;
   for (int i=0; i<nEvent1; i++) {
+    std::cout << "SIMDAQThread::AcquireData:  Event #" << i
+              << " has " << Event1[i].NEnergies() << " energies, "
+              << "  " << Event1[i].NChan() << " channels, "
+              << "and " << Event1[i].NTS() << " timestamps"
+              << std::endl;
+    if (Event1[i].NEnergies()>0)
+      std::cout << "SIMDAQThread::AcquireData:  Event #" << i
+                << " energy=" << Event1[i].Energy(0) << std::endl;
+    if (Event1[i].NChan()>0)
+      std::cout << "SIMDAQThread::AcquireData:  Event #" << i
+                << " chan=" << Event1[i].Chan(0) << std::endl;
+    if (Event1[i].NTS())
+      std::cout << "SIMDAQThread::AcquireData:  Event #" << i
+                << " timestamp=" << Event1[i].TS(0) << std::endl;
     std::cout << "SIMAnalysisThread::Analyze:  Event #" << i
               << " has " << Event1[i].NEnergies() << " energies, "
               << "  energy=" << Event1[i].Energy(0)
@@ -82,6 +96,20 @@ int SIMAnalysisThread::Analyze() {
   Event2 = pEvent2.second; nEvent2 = pEvent2.first;
   std::cout << "SIMAnalysisThread::Analyze:  Finished reading Events from SIMDAQ2" << std::endl;
   for (int i=0; i<nEvent2; i++) {
+    std::cout << "SIMDAQThread::AcquireData:  Event #" << i
+              << " has " << Event2[i].NEnergies() << " energies, "
+              << "  " << Event2[i].NChan() << " channels, "
+              << "and " << Event2[i].NTS() << " timestamps"
+              << std::endl;
+    if (Event2[i].NEnergies()>0)
+      std::cout << "SIMDAQThread::AcquireData:  Event #" << i
+                << " energy=" << Event2[i].Energy(0) << std::endl;
+    if (Event2[i].NChan()>0)
+      std::cout << "SIMDAQThread::AcquireData:  Event #" << i
+                << " chan=" << Event2[i].Chan(0) << std::endl;
+    if (Event2[i].NTS())
+      std::cout << "SIMDAQThread::AcquireData:  Event #" << i
+                << " timestamp=" << Event2[i].TS(0) << std::endl;
     std::cout << "SIMAnalysisThread::Analyze:  Event #" << i
               << " has " << Event2[i].NEnergies() << " energies, "
               << "  energy=" << Event2[i].Energy(0)
