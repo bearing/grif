@@ -25,11 +25,21 @@
 
 TSDAQThread::TSDAQThread() {
   qsrand(QTime::currentTime().msec());
-  start_ = QDateTime::currentDateTime();
 }
 
 TSDAQThread::~TSDAQThread() {
-  delete &start_;
+  delete start_;
+}
+
+int TSDAQThread::StartDataAcquisition() {
+  start_ = QDateTime::currentDateTime();
+  InitializeAccumulators(start_,0,1e8,1,250);
+  return DAQTHREAD_SUCCESS;
+}
+
+GRIDAQBaseAccumNode* TSDAQThread::RegisterDataOutput(QString outName) {
+  GRIDAQBaseAccumNode* p = new GRIDAQAccumulator<point>(outName,1e8,5,250);
+  return p;
 }
 
 int TSDAQThread::AcquireData(int n) {
@@ -44,10 +54,10 @@ int TSDAQThread::AcquireData(int n) {
   pts[0].x = (double)rand()/(double)RAND_MAX;
   QDateTime now = QDateTime::currentDateTime();
   pts[0].y = ts[0] = start_.msecsTo(now);
-  PostData<point>(1, "points", pts, ts);
+  PostData<point>(1, "RAW", pts, ts);
 
   delete[] pts;
   delete[] ts;
 
-  return 0;
+  return DAQTHREAD_SUCCESS;
 }

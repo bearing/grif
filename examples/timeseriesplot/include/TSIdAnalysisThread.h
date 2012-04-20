@@ -23,10 +23,11 @@
 #ifndef TSIDANALYSISTHREAD_H
 #define TSIDANALYSISTHREAD_H
 
-#include "TSBaseAnalysisThread.h".h"
+#include "TSBaseAnalysisThread.h"
 
-class TSIdAnalysisThread : public TSBaseAnalysisThread
-{
+class TSIdAnalysisThread : public TSBaseAnalysisThread {
+public:
+    TSIdAnalysisThread();
 protected:
   QPair<qint64, double> compute(const QList<point*>& raw);
 };

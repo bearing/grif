@@ -22,7 +22,11 @@
 
 #include "TSIdAnalysisThread.h"
 
-QPair<qint64, double> TSIdAnalysisThread::compute(const QList<point*> &raw) {
-  point* pLast = raw.last();
-  return QPair<qint64, double>(pLast->x, pLast->y);
+TSIdAnalysisThread::TSIdAnalysisThread() {
+    buff_name = "ID"; next_buff = "SUM";
+}
+
+
+point TSIdAnalysisThread::compute(const QList<point> &raw) {
+  return raw.last();
 }

@@ -25,8 +25,9 @@
 
 #include "TSBaseAnalysisThread.h"
 
-class TSAvgAnalysisThread : public TSBaseAnalysisThread
-{
+class TSAvgAnalysisThread : public TSBaseAnalysisThread {
+public:
+  TSAvgAnalysisThread();
 protected:
   QPair<qint64, double> compute(const QList<point*>& raw);
 };
