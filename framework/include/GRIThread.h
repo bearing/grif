@@ -27,7 +27,6 @@
 #include <QTextStream>
 #include <QThread>
 #include <QString>
-#include "GRILogMessage.h"
 
 class GRIThread : public QThread {
   Q_OBJECT
@@ -37,13 +36,8 @@ class GRIThread : public QThread {
   ~GRIThread() {}
   virtual void run () { exec (); }
 
-  QTextStream log;
-  void CommitLog(int level);
-
   void set_exit_thread_flag(bool exit_thread_flag) {
-   if (sleeping_) {
-      sleeping_ = false;
-    }
+   if (sleeping_) { sleeping_ = false; }
     exit_thread_flag_ = exit_thread_flag;
   }
   bool get_exit_thread_flag() { return exit_thread_flag_; }
@@ -55,7 +49,6 @@ class GRIThread : public QThread {
   QString get_name() { return objectName(); }
 
  private:
-  GRILogMessage log_msg_;
   bool exit_thread_flag_;
   bool sleeping_;
   bool force_quit_;

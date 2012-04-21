@@ -35,7 +35,6 @@ GRIRegulator.cpp \
 GRILogMessage.cpp \
 GRIUserLoader.cpp \
 GRIObject.cpp \
-GRIThread.cpp \
 GRIHist1D.cpp \
 GRIHist2D.cpp \
 GRIParser.cpp \

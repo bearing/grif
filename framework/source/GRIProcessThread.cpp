@@ -131,12 +131,6 @@ bool GRIProcessThread::ChangePriority(bool is_up) {
   int current_priority = (int)(priority());
   int normal_priority = (int)QThread::NormalPriority;
 
-  log << endl << "GRIProcessThread::change_priority()"  << endl;
-  log << "process name: " << get_name() << " priority: " << (int)priority()
-      << " last adjustment to saturation: " << last_adjustment_to_sat_
-      << " last adjustment from saturation: " << last_adjustment_from_sat_ << endl;
-  CommitLog(GRILOG_VERBOSE);
-
   if (is_up) {
     if (current_priority >= normal_priority) {
       if (last_adjustment_to_sat_ >= num_packets_to_sat_) {
@@ -189,29 +183,6 @@ GRIDataBlock* GRIProcessThread::FindDataBlock(QString data_block_name) {
     return 0;
   }
 }
-
-#ifdef PROCESS_THREAD_DEBUG
-void GRIProcessThread::display_current_state() {
-  QList<QString>::iterator it;
-  log << endl << "** GRIProcessThread::current_state" << endl;
-  log << "process name: " << get_name() << " id: " << thread_id_
-      << " last adjustment from saturation: " << last_adjustment_from_sat_
-      << " last adjustment to saturation: " << last_adjustment_to_sat_
-      << endl;
-
-  log << endl << "Data inputs" << endl;
-  QList<QString> data_inputs = data_in_.keys();
-  for (it = data_inputs.begin(); it != data_inputs.end(); ++it) {
-    log << *it << endl;
-  }
-  log << endl << "Data outputs" << endl;
-  QList<QString> data_outputs = data_out_.keys();
-  for (it = data_outputs.begin(); it != data_outputs.end(); ++it) {
-    log << *it << endl;
-  }  
-  CommitLog(GRILOG_DEBUG);
-}
-#endif // PROCESS_THREAD_DEBUG
 
 int GRIProcessThread::EnableDataBlock(const QString& BlockName,
                                       const QString& BufferName) {

@@ -50,19 +50,20 @@ int SIMAnalysisThread::Analyze() {
   double* ADC2;
   int* Ch;
   int* Ch2;
-  qint64* ts_;
-  qint64* ts2_;
+  qint64* ts;
+  qint64* ts2;
   int nADC;
   int nADC2;
 
   QPair<int, double*> pADC = ReadData<double>("SIMDAQ1","ADCOutput");
-  ADC = pADC.second; nADC = pADC.first;
+  nADC = pADC.first;
+  ADC = pADC.second;
 
   QPair<int, int*> pCH = ReadData<int>("SIMDAQ1","CHAN");
   Ch = pCH.second;
 
   QPair<int, qint64*> pTS = ReadData<qint64>("SIMDAQ1","TS");
-  ts_ = pTS.second;
+  ts = pTS.second;
 
   QPair<int, double*> pADC2 = ReadData<double>("SIMDAQ2","ADCOutput");
   ADC2 = pADC2.second; nADC2 = pADC2.first;
@@ -71,7 +72,7 @@ int SIMAnalysisThread::Analyze() {
   Ch2 = pCH2.second;
 
   QPair<int, qint64*> pTS2 = ReadData<qint64>("SIMDAQ2","TS");
-  ts2_ = pTS2.second;
+  ts2 = pTS2.second;
 
   ++nread_;
 
@@ -134,7 +135,6 @@ bool SIMAnalysisThread::OpenOutputFile() {
 }
 
 int SIMAnalysisThread::ClearOutputFile() {
-  //QFile f(fname_);
   OpenOutputFile();
   return 1;
 }

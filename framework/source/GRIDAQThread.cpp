@@ -126,9 +126,6 @@ void GRIDAQThread::run() {
 void GRIDAQThread::ErrorHandling(const char * message, int errorCode) {
   std::cerr << "GRIDAQThreadError: Message: " << message << std::endl;
   std::cerr << "\tError code = " << errorCode << std::endl;
-  //log << "GRIDAQThreadError: Message: " << message << std::endl;
-  //log << "\tError code = " << errorCode << std::endl;
-  CommitLog(GRILOG_ERROR);
 }
 
 void GRIDAQThread::InitializeAccumulators(QDateTime tstart, qint64 timestamp_0,
