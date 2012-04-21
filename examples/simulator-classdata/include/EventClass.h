@@ -4,7 +4,8 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <QList>
+//#include <QList>
+#include <QVector>
 //#include <vector>
 
 // ROOT libs:
@@ -39,7 +40,8 @@ class EventClass {
   qint64 TS(int i);
 
  private:
-  QList<double> energy_;
+//  QList<double> energy_;
+  QVector<double> energy_;
 //  std::vector<double> energy_;
   double energy_test_;
   QList<int> chan_;
