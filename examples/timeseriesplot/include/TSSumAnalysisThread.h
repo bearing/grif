@@ -25,8 +25,9 @@
 
 #include "TSBaseAnalysisThread.h"
 
-class TSSumAnalysisThread : public TSBaseAnalysisThread
-{
+class TSSumAnalysisThread : public TSBaseAnalysisThread {
+public:
+  TSSumAnalysisThread();
 protected:
   QPair<qint64, double> compute(const QList<point*>& raw);
 };

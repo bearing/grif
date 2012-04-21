@@ -25,18 +25,19 @@
 TSBaseAnalysisThread::~TSBaseAnalysisThread() {
   qDeleteAll(raw_data_);
   qDeleteAll(computed_data_);
-  raw_data_.clear();
-  computed_data_.clear();
-
-  delete &raw_data_;
-  delete &computed_data_;
+  delete raw_data_;
+  delete computed_data_;
 }
 
 int TSBaseAnalysisThread::Analyze() {
   // get next data
   QPair<int, point*> nextpt = ReadData<point>("DAQ", "points");
   raw_data_ << nextpt.second;
-  QPair<qint64, double> nextcomp = compute(raw_data_);
-  computed_data_ << &nextcomp;
-  return 0;
+  point nextcomp[] = new point[1];
+  nextcomp[0] = compute(raw_data_);
+  computed_data_ << nextcomp[0];
+  if (!next_buff.isNull()) {
+    PostData<point>(1, next_buff, nextcomp);
+  }
+  return ANALYSISTHREAD_SUCCESS;
 }

@@ -44,10 +44,16 @@ include(../../framework/include/finclude.pri)
 
 SOURCES += main.cpp \
     TSDAQThread.cpp \
-    TSBaseAnalysisThread.cpp
+    TSBaseAnalysisThread.cpp \
+    TSIdAnalysisThread.cpp \
+    TSSumAnalysisThread.cpp \
+    TSAvgAnalysisThread.cpp
 HEADERS += \
     TSDAQThread.h \
-    TSBaseAnalysisThread.h
+    TSBaseAnalysisThread.h \
+    TSIdAnalysisThread.h \
+    TSSumAnalysisThread.h \
+    TSAvgAnalysisThread.h
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 

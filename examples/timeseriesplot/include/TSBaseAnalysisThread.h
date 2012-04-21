@@ -26,6 +26,7 @@
 #include <QtAlgorithms>
 #include <QPair>
 #include <QList>
+#include <QString>
 #include "GRIAnalysisThread.h"
 
 class TSBaseAnalysisThread : public GRIAnalysisThread {
@@ -35,9 +36,10 @@ class TSBaseAnalysisThread : public GRIAnalysisThread {
     int Analyze();
 
   protected:
-    virtual QPair<qint64, double> compute(const QList<point*>& raw) = 0;
-    QList<point*> raw_data_;
-    QList<QPair<qint64, double>*> computed_data_;
+    QString buff_name, next_buff;
+    virtual point compute(const QList<point>& raw) = 0;
+    QList<point> raw_data_;
+    QList<point> computed_data_;
 
 };
 

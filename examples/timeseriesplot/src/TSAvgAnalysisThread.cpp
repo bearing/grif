@@ -22,12 +22,20 @@
 
 #include "TSAvgAnalysisThread.h"
 
-QPair<qint64, double> TSAvgAnalysisThread::compute(const QList<point*> &raw) {
-  double avg = 0;
-  qint64 new_time = raw.last()->x;
-  for (int i = 0; i < raw.size(); ++i) {
-      avg += raw.at(i)->y;
+TSAvgAnalysisThread::TSAvgAnalysisThread() {
+    buff_name = "AVG"; next_buff = "";
+}
+
+point TSAvgAnalysisThread::compute(const QList<point> &raw) {
+  point next_data = raw.last();
+  point ret = new point;
+  ret.x = next_data.x;
+  if (computed_data_.empty()) {
+    ret.y = next_data.y;
+  } else {
+    point last_avg = computed_data_.last();
+    int size = raw.size();
+    ret.y = ((last_avg.y * (size - 1)) + next_data.y) / size;
   }
-  avg /= raw.size();
-  return QPair<qint64, double>(new_time, avg);
+  return ret;
 }
