@@ -225,6 +225,8 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
     }
   }
 
+  bool UpdateLogDir(QString logDir) { return logger_.UpdateLogDir(logDir); }
+
  private:
   QList<GRIAccumBuff<T>*> buff_;
   GRILogger logger_;
