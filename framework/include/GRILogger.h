@@ -71,6 +71,7 @@ class GRILogger : public QObject {
   bool UpdateLogDir(QString logDir);
 
   QString get_file_name() { return file_name_; }
+  void set_file_name(QString file_name) { file_name_ = file_name; }
   QString get_log_dir() { return log_dir_; }
   bool get_path_good() { return path_good_; }
   int get_log_level() { return log_level_; }
