@@ -36,7 +36,7 @@ GRIHistWidget::GRIHistWidget(QWidget *parent, GRIHistogrammer *grihist) : QWidge
   data_update_timer_ = 0;
 
   // set the histogram (this will do nothing if grihist is NULL)
-  set_gri_hist(grihist);
+  set_hist(grihist);
 
   // set up the window layout
   set_xlabel(QString("X Label"));
@@ -65,28 +65,15 @@ GRIHistWidget::~GRIHistWidget() {
   delete data_update_timer_;
 }
 
-void GRIHistWidget::set_gri_hist(GRIHistogrammer *grihist) {
+void GRIHistWidget::set_hist(GRIHistogrammer *grihist) {
   gri_hist_ = grihist;
 
   if (gri_hist_) {
-    if (gri_hist_->get_dimension() == 1) {
-      // set plot limits
-      int nx = gri_hist_->get_hist()->GetNbinsX();
-      data_xmin_ = gri_hist_->get_hist()->GetBinCenter(1)-gri_hist_->get_hist()->GetBinWidth(1)/2.;
-      data_xmax_ = gri_hist_->get_hist()->GetBinCenter(nx)+gri_hist_->get_hist()->GetBinWidth(nx)/2.;
-      data_ymin_ = 0.;
-//      if (logscale_on_) data_ymin_ = 0.01;
-      data_ymax_ = 1.;
-
-      // update the chart limits
-      UpdateData();
-
-      // set up a timer to update histogram
-      data_update_timer_ = new QTimer();
-      connect(data_update_timer_, SIGNAL(timeout()), this, SLOT(UpdateData()));
-      connect(data_update_timer_, SIGNAL(timeout()), this, SLOT(update()));
-      data_update_timer_->setInterval(300);
-      data_update_timer_->start();
-    }
+    // set up a timer to update histogram
+    data_update_timer_ = new QTimer();
+    connect(data_update_timer_, SIGNAL(timeout()), this, SLOT(UpdateData()));
+    connect(data_update_timer_, SIGNAL(timeout()), this, SLOT(update()));
+    data_update_timer_->setInterval(300);
+    data_update_timer_->start();
   }
 }

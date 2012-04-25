@@ -71,17 +71,37 @@ GRIHist1DWidget::GRIHist1DWidget(QWidget *parent, GRIHistogrammer *grihist)
   QObject::connect(button_toggle_log_scale_, SIGNAL(clicked()), this, SLOT(ToggleLogScale()) );
 }
 
+
 // Destructor
 GRIHist1DWidget::~GRIHist1DWidget() {
 }
 
+
+void GRIHist1DWidget::Initialize() {
+  if (get_hist()) {
+    if (get_hist()->get_dimension() == 1) {
+      // set plot limits
+      int nx = get_hist()->get_hist()->GetNbinsX();
+      data_xmin_ = get_hist()->get_hist()->GetBinCenter(1)-get_hist()->get_hist()->GetBinWidth(1)/2.;
+      data_xmax_ = get_hist()->get_hist()->GetBinCenter(nx)+get_hist()->get_hist()->GetBinWidth(nx)/2.;
+      data_ymin_ = 0.;
+      if (logscale_on_) data_ymin_ = 0.01;
+      data_ymax_ = 1.;
+
+      // update the chart limits
+      UpdateData();
+    }
+  }
+}
+
+
 void GRIHist1DWidget::UpdateData() {
-  if ((autoscale_on_) && (get_gri_hist() != 0)) {
-    int nx = get_gri_hist()->get_hist()->GetNbinsX();
-    data_xmin_ = get_gri_hist()->get_hist()->GetBinCenter(1)
-        - get_gri_hist()->get_hist()->GetBinWidth(1) / 2.;
-    data_xmax_ = get_gri_hist()->get_hist()->GetBinCenter(nx)
-        + get_gri_hist()->get_hist()->GetBinWidth(nx) / 2.;
+  if ((autoscale_on_) && (get_hist() != 0)) {
+    int nx = get_hist()->get_hist()->GetNbinsX();
+    data_xmin_ = get_hist()->get_hist()->GetBinCenter(1)
+        - get_hist()->get_hist()->GetBinWidth(1) / 2.;
+    data_xmax_ = get_hist()->get_hist()->GetBinCenter(nx)
+        + get_hist()->get_hist()->GetBinWidth(nx) / 2.;
     data_ymax_ = HistRangeMax();
     data_ymin_ = HistRangeMin();
   }
@@ -139,8 +159,8 @@ double GRIHist1DWidget::Data_Y(int windowY, double data_ymin, double data_ymax) 
 double GRIHist1DWidget::HistRangeMin() {
   if (!logscale_on_) {
     return 0.;
-  } else if (get_gri_hist() != 0) {
-    double ymin = get_gri_hist()->get_hist()->GetMinimum();
+  } else if (get_hist() != 0) {
+    double ymin = get_hist()->get_hist()->GetMinimum();
     if ((ymin>0.) && (data_ymin_>0.)) {
       return data_ymin_;
     } else {
@@ -153,17 +173,17 @@ double GRIHist1DWidget::HistRangeMin() {
 
 double GRIHist1DWidget::HistSmallestNonzero() {
   double min_gtr_0 = HistRangeMax()/10.;
-  int nx = get_gri_hist()->get_hist()->GetNbinsX();
+  int nx = get_hist()->get_hist()->GetNbinsX();
   for (int i = 1; i <= nx; ++i) {
-    double this_y = get_gri_hist()->get_hist()->GetBinContent(i);
+    double this_y = get_hist()->get_hist()->GetBinContent(i);
     if ((this_y>0.) && (this_y<min_gtr_0)) min_gtr_0 = this_y;
   }
   return min_gtr_0 / 2.;
 }
 
 double GRIHist1DWidget::HistRangeMax() {
-  if (get_gri_hist() != 0) {
-    double ymax = get_gri_hist()->get_hist()->GetMaximum();
+  if (get_hist() != 0) {
+    double ymax = get_hist()->get_hist()->GetMaximum();
     if (!logscale_on_) {
       return 1.05*ymax;
     } else {
@@ -264,27 +284,27 @@ void GRIHist1DWidget::paintEvent(QPaintEvent *event) {
                    Qt::AlignRight, QString::number(data_ymax_, 'g', 4));
 
   // Title
-  if (get_gri_hist()) {
+  if (get_hist()) {
     painter.setFont(QFont("Arial", 15));
     painter.drawText(QRect(0,0,width(),window_margin_T_),
-                     Qt::AlignCenter, get_gri_hist()->get_hist_name());
+                     Qt::AlignCenter, get_hist()->get_hist_name());
   }
 
   // Canvas
   painter.setPen(Qt::black);
-  QBrush brush = QBrush(QColor(255,255,255));
+  QBrush brush = QBrush(get_background_color());
   painter.setBrush(brush);
   painter.drawRect(window_margin_L_,window_margin_T_,
                    window_canvas_W_, window_canvas_H_);
 
   // Bars
-  if (get_gri_hist()) {
-    int nx = get_gri_hist()->get_hist()->GetNbinsX();
+  if (get_hist()) {
+    int nx = get_hist()->get_hist()->GetNbinsX();
     for (int i = 1; i <= nx; ++i) {
-      double X_L = get_gri_hist()->get_hist()->GetBinCenter(i)
-          - get_gri_hist()->get_hist()->GetBinWidth(i)/2.;
-      double dX = get_gri_hist()->get_hist()->GetBinWidth(i);
-      double Y = get_gri_hist()->get_hist()->GetBinContent(i);
+      double X_L = get_hist()->get_hist()->GetBinCenter(i)
+          - get_hist()->get_hist()->GetBinWidth(i)/2.;
+      double dX = get_hist()->get_hist()->GetBinWidth(i);
+      double Y = get_hist()->get_hist()->GetBinContent(i);
       
       // calculate positions on the window
       int win_X_L = Window_X(X_L);
@@ -312,13 +332,13 @@ void GRIHist1DWidget::paintEvent(QPaintEvent *event) {
         painter.setPen(QPen(get_foreground_color()));
         painter.setBrush(barbrush);
         painter.drawRect(QRect(win_X_L, win_Y_T, win_X_R - win_X_L, win_Y_B - win_Y_T));
-        painter.setPen(Qt::black);
+        painter.setPen(QPen(get_outline_color()));
 
         double previous_Y, next_Y;
         if (i == 1) previous_Y = HistRangeMin();
-        else previous_Y = get_gri_hist()->get_hist()->GetBinContent(i-1);
+        else previous_Y = get_hist()->get_hist()->GetBinContent(i-1);
         if (i == nx) next_Y = HistRangeMin();
-        else next_Y = get_gri_hist()->get_hist()->GetBinContent(i+1);
+        else next_Y = get_hist()->get_hist()->GetBinContent(i+1);
 
         int win_Y_prev = Window_Y(previous_Y);
         int win_Y_next = Window_Y(next_Y);
@@ -349,21 +369,21 @@ void GRIHist1DWidget::paintEvent(QPaintEvent *event) {
                    height() - window_margin_T_-window_margin_B_);
 
   // Draw data where we are hovering
-  if (mousehover_on_ && get_gri_hist()) {
+  if (mousehover_on_ && get_hist()) {
     double data_x = Data_X(mousehover_x_);
-    int nx = get_gri_hist()->get_hist()->GetNbinsX();
+    int nx = get_hist()->get_hist()->GetNbinsX();
     for (int i = 1; i <= nx; ++i) {
-      if ((get_gri_hist()->get_hist()->GetBinCenter(i)
-           - get_gri_hist()->get_hist()->GetBinWidth(i) / 2. <= data_x)
-          && (data_x < get_gri_hist()->get_hist()->GetBinCenter(i)
-              + get_gri_hist()->get_hist()->GetBinWidth(i) / 2.)) {
+      if ((get_hist()->get_hist()->GetBinCenter(i)
+           - get_hist()->get_hist()->GetBinWidth(i) / 2. <= data_x)
+          && (data_x < get_hist()->get_hist()->GetBinCenter(i)
+              + get_hist()->get_hist()->GetBinWidth(i) / 2.)) {
         QBrush hoverbrush = QBrush(QColor(240,240,240), Qt::SolidPattern);
         QString text = "X="
             + QString::number(
-              get_gri_hist()->get_hist()->GetBinCenter(i),'g',4)
+              get_hist()->get_hist()->GetBinCenter(i),'g',4)
             + ", Y="
             + QString::number(
-              get_gri_hist()->get_hist()->GetBinContent(i), 'g', 4);
+              get_hist()->get_hist()->GetBinContent(i), 'g', 4);
         painter.setFont(QFont("Arial", 10));
         QRect hoverrect = painter.boundingRect(mousehover_x_+40, mousehover_y_+30, 1, 1,
                                                Qt::AlignLeft|Qt::AlignCenter, text);

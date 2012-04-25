@@ -44,7 +44,8 @@
 /// displayed on its own:
 ///
 ///     GRIHistWidget *histwidget = new GRIHistWidget();
-///     histwidget->SetHist(A1->GetHistogram("ADCHist"));
+///     histwidget->set_hist(A1->GetHistogram("ADCHist"));
+///     histwidget->Initialize();
 ///     histwidget->show();
 ///
 /// Or it can be placed inside another QWidget, such as a
@@ -52,7 +53,8 @@
 ///
 ///     QMainWindow *win = new QMainWindow();
 ///     GRIHistWidget *histwidget = new GRIHistWidget(win);
-///     histwidget->SetHist(A1->GetHistogram("ADCHist"));
+///     histwidget->set_hist(A1->GetHistogram("ADCHist"));
+///     histwidget->Initialize();
 ///     win->setCentralWidget(histwidget);
 ///     win->show();
 
@@ -65,8 +67,9 @@ public:
   ~GRIHistWidget();
 
   /// Get and set underlying GRIHistogram
-  void set_gri_hist(GRIHistogrammer *grihist);
-  GRIHistogrammer* get_gri_hist() { return gri_hist_; }
+  void set_hist(GRIHistogrammer *grihist);
+  GRIHistogrammer* get_hist() { return gri_hist_; }
+  virtual void Initialize() { ; }
 
   /// Get and set the background and foreground colors
   void set_foreground_color(QColor foreground_color) { foreground_color_ = foreground_color; }
@@ -95,7 +98,6 @@ protected slots:
 protected:
 
   /// Drawing objects
-  QImage image_;
   QString xlabel_, ylabel_;
   int text_height_;
   int window_margin_L_, window_margin_R_, window_margin_B_, window_margin_T_;

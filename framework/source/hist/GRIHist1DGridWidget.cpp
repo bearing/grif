@@ -99,7 +99,7 @@ void GRIHist1DGridWidget::SetGridNy(int ny) {
 bool GRIHist1DGridWidget::HistIsPresent(GRIHistogrammer *h) {
   bool hist_present = false;
   for (int i = 0; i < hist_widget_.size(); ++i) {
-    if (hist_widget_[i]->get_gri_hist()->get_id() == h->get_id()) {
+    if (hist_widget_[i]->get_hist()->get_id() == h->get_id()) {
       hist_present = true;
     }
   }
@@ -111,8 +111,8 @@ int GRIHist1DGridWidget::HistWidgetIndex(GRIHistogrammer *h) {
   if (HistIsPresent(h)) {
     int index = -1;
     for (int i = 0; i < hist_widget_.size(); ++i) {
-      if (hist_widget_[i]->get_gri_hist()->get_hist_name() == h->get_hist_name()
-          && (hist_widget_[i]->get_gri_hist()->get_id() == h->get_id())) {
+      if (hist_widget_[i]->get_hist()->get_hist_name() == h->get_hist_name()
+          && (hist_widget_[i]->get_hist()->get_id() == h->get_id())) {
         index = i;
       }
     }

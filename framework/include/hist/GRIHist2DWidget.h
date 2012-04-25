@@ -23,17 +23,7 @@
 #ifndef GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST2DWIDGET_H_
 #define GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST2DWIDGET_H_
 
-#include <QColor>
 #include <QImage>
-#include <QMouseEvent>
-#include <QPaintDevice>
-#include <QPainter>
-#include <QPushButton>
-#include <QResizeEvent>
-#include <QTimer>
-#include <QWheelEvent>
-#include <QWidget>
-
 #include "GRIHistWidget.h"
 
 /// A QWidget-derived class to display a single 2D GRIHistogram.
@@ -44,7 +34,8 @@
 /// displayed on its own:
 ///
 ///     GRIHist2DWidget *histwidget = new GRIHist2DWidget();
-///     histwidget->SetHist(A1->GetHistogram("ADCHist"));
+///     histwidget->set_hist(A1->GetHistogram("ADCHist"));
+///     histwidget->Initialize();
 ///     histwidget->show();
 ///
 /// Or it can be placed inside another QWidget, such as a
@@ -52,7 +43,8 @@
 ///
 ///     QMainWindow *win = new QMainWindow();
 ///     GRIHist2DWidget *histwidget = new GRIHist2DWidget(win);
-///     histwidget->SetHist(A1->GetHistogram("ADCHist"));
+///     histwidget->set_hist(A1->GetHistogram("ADCHist"));
+///     histwidget->Initialize();
 ///     win->setCentralWidget(histwidget);
 ///     win->show();
 
@@ -63,6 +55,8 @@ class GRIHist2DWidget : public GRIHistWidget {
 public:
   GRIHist2DWidget(QWidget *parent = 0, GRIHistogrammer *grihist = NULL);
   ~GRIHist2DWidget();
+
+  void Initialize();
 
 public slots:
   void UpdateData();
@@ -76,6 +70,9 @@ public slots:
   void mouseReleaseEvent(QMouseEvent *event);
 
 private:
+  /// Drawing objects
+  QImage image_;
+
   double zmin_, zmax_;
 
   double DataX(int windowX);

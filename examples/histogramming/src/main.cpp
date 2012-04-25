@@ -96,7 +96,8 @@ int main(int argc, char* argv[]) {
   GRIHist1DWidget *histDraw1 = new GRIHist1DWidget(win1);
   win1->setCentralWidget(histDraw1);
   histDraw1->setWindowTitle("ADC Channel 0");
-  histDraw1->set_gri_hist(AMC1->GetHistogram("ADC Channel 0"));
+  histDraw1->set_hist(AMC1->GetHistogram("ADC Channel 0"));
+  histDraw1->Initialize();
   histDraw1->set_xlabel("Channel");
   histDraw1->set_ylabel("Counts");
   win1->setWindowTitle("1D Histogram");
@@ -107,8 +108,11 @@ int main(int argc, char* argv[]) {
   GRIHist1DWidget *histDraw2 = new GRIHist1DWidget(win2);
   win2->setCentralWidget(histDraw2);
   histDraw2->setWindowTitle("ADC Channel 1");
-  histDraw2->set_gri_hist(AMC1->GetHistogram("ADC Channel 1"));
-  histDraw2->set_foreground_color(QColor(255,0,0));
+  histDraw2->set_hist(AMC1->GetHistogram("ADC Channel 1"));
+  histDraw2->Initialize();
+  histDraw2->set_foreground_color(QColor(150,150,0));
+  histDraw2->set_background_color(QColor(50,50,50));
+  histDraw2->set_outline_color(QColor(200,200,200));
   histDraw2->set_xlabel("Channel");
   histDraw2->set_ylabel("Counts");
   win2->setWindowTitle("1D Histogram (2)");
@@ -119,7 +123,8 @@ int main(int argc, char* argv[]) {
   GRIHist2DWidget *histDraw3 = new GRIHist2DWidget(win3);
   win3->setCentralWidget(histDraw3);
   histDraw3->setWindowTitle("ADC Channel 0 by ADC Channel 1");
-  histDraw3->set_gri_hist(AMC1->GetHistogram("ADC Channel 0 by Channel 1"));
+  histDraw3->set_hist(AMC1->GetHistogram("ADC Channel 0 by Channel 1"));
+  histDraw3->Initialize();
   histDraw3->set_foreground_color(QColor(0,0,255));
   histDraw3->set_background_color(QColor(255,255,255));
   histDraw3->set_xlabel("ADC Channel 0");

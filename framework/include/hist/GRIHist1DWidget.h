@@ -23,16 +23,6 @@
 #ifndef GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DWIDGET_H_
 #define GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DWIDGET_H_
 
-#include <QColor>
-#include <QMouseEvent>
-#include <QPaintDevice>
-#include <QPainter>
-#include <QPushButton>
-#include <QResizeEvent>
-#include <QTimer>
-#include <QWheelEvent>
-#include <QWidget>
-
 #include "GRIHistWidget.h"
 
 /// A QWidget-derived class to display a single GRIHistogram.
@@ -44,7 +34,8 @@
 /// displayed on its own:
 ///
 ///     GRIHist1DWidget *histwidget = new GRIHist1DWidget();
-///     histwidget->SetHist(A1->GetHistogram("ADCHist"));
+///     histwidget->set_hist(A1->GetHistogram("ADCHist"));
+///     histwidget->Initialize();
 ///     histwidget->show();
 ///
 /// Or it can be placed inside another QWidget, such as a
@@ -52,7 +43,8 @@
 ///
 ///     QMainWindow *win = new QMainWindow();
 ///     GRIHist1DWidget *histwidget = new GRIHist1DWidget(win);
-///     histwidget->SetHist(A1->GetHistogram("ADCHist"));
+///     histwidget->set_hist(A1->GetHistogram("ADCHist"));
+///     histwidget->Initialize();
 ///     win->setCentralWidget(histwidget);
 ///     win->show();
 
@@ -64,8 +56,13 @@ public:
   GRIHist1DWidget(QWidget *parent = 0, GRIHistogrammer *grihist = NULL);
   ~GRIHist1DWidget();
 
+  void Initialize();
+
   void SetLogScale(bool logscale_on);
   void SetAutoScale(bool autoscale_on);
+
+  void set_outline_color(QColor outline_color) { outline_color_ = outline_color; }
+  QColor get_outline_color() { return outline_color_; }
 
 public slots:
   void UpdateData();
@@ -100,13 +97,16 @@ private:
   bool mousehover_on_;
   int mousehover_x_, mousehover_y_;
 
-  // Return the minimum value to be used for the histogram, whether 0
-  // (linear) or smallest nonzero value (log)
+  /// Return the minimum value to be used for the histogram, whether 0
+  /// (linear) or smallest nonzero value (log)
   double HistRangeMin();
   double HistRangeMax();
   double HistSmallestNonzero();
 
-  // UI stuff
+  /// Colors
+  QColor outline_color_;
+
+  /// UI stuff
   QPushButton *button_toggle_log_scale_;
   QPushButton *button_toggle_auto_scale_;
 };
