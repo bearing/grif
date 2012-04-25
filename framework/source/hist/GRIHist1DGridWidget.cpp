@@ -25,39 +25,40 @@
 #include "TMath.h"
 
 GRIHist1DGridWidget::GRIHist1DGridWidget(QWidget *parent) : QFrame(parent) {
-    grid_layout_ = NULL;
+  grid_layout_ = NULL;
 }
 
 GRIHist1DGridWidget::~GRIHist1DGridWidget() {
-    ClearGrid();
+  ClearGrid();
 
-    // free all pointers
-    while (hist_widget_.size() > 0) {
-        GRIHist1DWidget *h0 = hist_widget_[0];
-        hist_widget_.remove(0);
-        delete h0;
-    }
+  // free all pointers
+  while (hist_widget_.size() > 0) {
+    GRIHist1DWidget *h0 = hist_widget_[0];
+    hist_widget_.remove(0);
+    delete h0;
+  }
 }
 
 void GRIHist1DGridWidget::AddHist(GRIHistogrammer *h, QColor qcolor) {
-    // add histogram to list if it is not already there
-    if (!HistIsPresent(h)) {
-        // make a histogram widget
-        GRIHist1DWidget *histWidg = new GRIHist1DWidget(0,h,qcolor);
-        hist_widget_.append(histWidg);
-    }
-    // Make sure the arrangwment is updated
-    SetGrid();
+  // add histogram to list if it is not already there
+  if (!HistIsPresent(h)) {
+    // make a histogram widget
+    GRIHist1DWidget *histWidg = new GRIHist1DWidget(0,h);
+    histWidg->set_foreground_color(qcolor);
+    hist_widget_.append(histWidg);
+  }
+  // Make sure the arrangwment is updated
+  SetGrid();
 }
 
 void GRIHist1DGridWidget::ClearGrid() {
-    if (grid_layout_) {
-        while(grid_layout_->count() > 0) {
-            QWidget* widget = (QWidget*)grid_layout_->itemAt(0)->widget();
-            grid_layout_->removeWidget(widget);
-        }
-        delete grid_layout_;
+  if (grid_layout_) {
+    while(grid_layout_->count() > 0) {
+      QWidget* widget = (QWidget*)grid_layout_->itemAt(0)->widget();
+      grid_layout_->removeWidget(widget);
     }
+    delete grid_layout_;
+  }
 }
 
 GRIHist1DWidget* GRIHist1DGridWidget::GetHistWidget(GRIHistogrammer *h) {
@@ -68,82 +69,82 @@ GRIHist1DWidget* GRIHist1DGridWidget::GetHistWidget(GRIHistogrammer *h) {
 }
 
 void GRIHist1DGridWidget::SetGrid() {
-    int n = hist_widget_.size();
-    if (n == 0) {
-        SetGridNx(1);
-    } else {
-        SetGridNx(ceil(sqrt((double)n)));
-    }
+  int n = hist_widget_.size();
+  if (n == 0) {
+    SetGridNx(1);
+  } else {
+    SetGridNx(ceil(sqrt((double)n)));
+  }
 }
 
 void GRIHist1DGridWidget::SetGridNx(int nx) {
-    ClearGrid();
-    grid_layout_ = new QGridLayout();
-    setLayout(grid_layout_);
-    for (int i = 0; i < hist_widget_.size(); ++i) {
-        grid_layout_->addWidget(hist_widget_.at(i), i / nx, i % nx);
-    }
+  ClearGrid();
+  grid_layout_ = new QGridLayout();
+  setLayout(grid_layout_);
+  for (int i = 0; i < hist_widget_.size(); ++i) {
+    grid_layout_->addWidget(hist_widget_.at(i), i / nx, i % nx);
+  }
 }
 
 void GRIHist1DGridWidget::SetGridNy(int ny) {
-    int n = hist_widget_.size();
-    if (n == 0) {
-        SetGridNx(1);
-    } else {
-        SetGridNx((int)TMath::Ceil(TMath::Sqrt(((double)n)/((double)ny))));
-    }
+  int n = hist_widget_.size();
+  if (n == 0) {
+    SetGridNx(1);
+  } else {
+    SetGridNx((int)TMath::Ceil(TMath::Sqrt(((double)n)/((double)ny))));
+  }
 }
 
 
 bool GRIHist1DGridWidget::HistIsPresent(GRIHistogrammer *h) {
-    bool hist_present = false;
-    for (int i = 0; i < hist_widget_.size(); ++i) {
-        if (hist_widget_[i]->get_gri_hist()->get_id() == h->get_id()) {
-            hist_present = true;
-        }
+  bool hist_present = false;
+  for (int i = 0; i < hist_widget_.size(); ++i) {
+    if (hist_widget_[i]->get_gri_hist()->get_id() == h->get_id()) {
+      hist_present = true;
     }
-    return hist_present;
+  }
+  return hist_present;
 }
 
 
 int GRIHist1DGridWidget::HistWidgetIndex(GRIHistogrammer *h) {
-    if (HistIsPresent(h)) {
-        int index = -1;
-        for (int i = 0; i < hist_widget_.size(); ++i) {
-            if (hist_widget_[i]->get_gri_hist()->get_hist_name() == h->get_hist_name()
-                && (hist_widget_[i]->get_gri_hist()->get_id() == h->get_id())) {
-                index = i;
-            }
-        }
-        return index;
+  if (HistIsPresent(h)) {
+    int index = -1;
+    for (int i = 0; i < hist_widget_.size(); ++i) {
+      if (hist_widget_[i]->get_gri_hist()->get_hist_name() == h->get_hist_name()
+          && (hist_widget_[i]->get_gri_hist()->get_id() == h->get_id())) {
+        index = i;
+      }
     }
-    return -1;
+    return index;
+  }
+  return -1;
 }
 
 
 void GRIHist1DGridWidget::SetColor(GRIHistogrammer *h, QColor qcolor) {
-    if (HistIsPresent(h)) {
-        hist_widget_[HistWidgetIndex(h)]->set_plot_color(qcolor);
-    }
+  if (HistIsPresent(h)) {
+    hist_widget_[HistWidgetIndex(h)]->set_foreground_color(qcolor);
+  }
 }
 
 
 void GRIHist1DGridWidget::SetColorAll(QColor qcolor) {
-    for (int i = 0; i < hist_widget_.size(); ++i) {
-        hist_widget_[i]->set_plot_color(qcolor);
-    }
+  for (int i = 0; i < hist_widget_.size(); ++i) {
+    hist_widget_[i]->set_foreground_color(qcolor);
+  }
 }
 
 
 void GRIHist1DGridWidget::SetLogScaleAll(bool logscale_on) {
-    for (int i = 0; i < hist_widget_.size(); ++i) {
-        hist_widget_[i]->SetLogScale(logscale_on);
-    }
+  for (int i = 0; i < hist_widget_.size(); ++i) {
+    hist_widget_[i]->SetLogScale(logscale_on);
+  }
 }
 
 
 void GRIHist1DGridWidget::SetAutoScaleAll(bool autoscale_on) {
-    for (int i = 0; i < hist_widget_.size(); ++i) {
-       hist_widget_[i]->SetAutoScale(autoscale_on);
-    }
+  for (int i = 0; i < hist_widget_.size(); ++i) {
+    hist_widget_[i]->SetAutoScale(autoscale_on);
+  }
 }

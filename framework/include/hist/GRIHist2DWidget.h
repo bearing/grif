@@ -34,7 +34,7 @@
 #include <QWheelEvent>
 #include <QWidget>
 
-#include "GRIHistogrammer.h"
+#include "GRIHistWidget.h"
 
 /// A QWidget-derived class to display a single 2D GRIHistogram.
 /// The user can interact with the histogram using the mouse,
@@ -56,68 +56,30 @@
 ///     win->setCentralWidget(histwidget);
 ///     win->show();
 
-class GRIHist2DWidget : public QWidget {
+class GRIHist2DWidget : public GRIHistWidget {
 
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    GRIHist2DWidget(QWidget *parent = 0, GRIHistogrammer *grihist = NULL,
-                   QColor qcolor_foreground = QColor(0,0,255,255),
-                   QColor qcolor_background = QColor(0,0,0,255));
-    ~GRIHist2DWidget();
-    void SetHist(GRIHistogrammer *grihist);
-    GRIHistogrammer* GetHist() { return gri_hist_; }
-
-    void SetColor(QColor qcolor_foreground, QColor qcolor_background = QColor(0,0,0,255)) {
-      plot_color_foreground_ = qcolor_foreground;
-      plot_color_background_ = qcolor_background;
-    }
-    void set_scale_mode(bool scale_mode) { scale_mode_ = scale_mode; }
-    void SetScale(double low, double high) {
-      set_scale_mode(false);
-      zmin_ = low;
-      zmax_ = high;
-    }
-    void set_xlabel(QString xlabel) { xlabel_ = xlabel; }
-    void set_ylabel(QString ylabel) { ylabel_ = ylabel; }
+  GRIHist2DWidget(QWidget *parent = 0, GRIHistogrammer *grihist = NULL);
+  ~GRIHist2DWidget();
 
 public slots:
-    void UpdateData();
-    void paintEvent(QPaintEvent *event);
-    void resizeEvent(QResizeEvent *event);
-    void wheelEvent(QWheelEvent *event);
-    void mouseDoubleClickEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
+  void UpdateData();
+
+  void paintEvent(QPaintEvent *event);
+  void resizeEvent(QResizeEvent *event);
+  void wheelEvent(QWheelEvent *event);
+  void mouseDoubleClickEvent(QMouseEvent *event);
+  void mouseMoveEvent(QMouseEvent *event);
+  void mousePressEvent(QMouseEvent *event);
+  void mouseReleaseEvent(QMouseEvent *event);
 
 private:
-    // underlying histogram to display
-    GRIHistogrammer *gri_hist_;
+  double zmin_, zmax_;
 
-    // Drawing objects
-    QImage image_;
-    QString xlabel_, ylabel_;
-    int text_height_;
-    int window_margin_L_, window_margin_R_, window_margin_B_, window_margin_T_;
-    int window_canvas_W_, window_canvas_H_;
-    double data_xmin_, data_xmax_, data_ymin_, data_ymax_;
-
-    bool mousehover_on_;
-    int mousehover_x_, mousehover_y_;
-
-    // timer to update data
-    QTimer* data_update_timer_;
-
-    // misc
-    QColor plot_color_foreground_;
-    QColor plot_color_background_;
-    bool scale_mode_;
-
-    double zmin_, zmax_;
-
-    double DataX(int windowX);
-    double DataY(int windowY);
+  double DataX(int windowX);
+  double DataY(int windowY);
 };
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST2DWIDGET_H_

@@ -89,59 +89,59 @@
 
 class GRIHist1DGridScrollWidget : public QFrame {
 
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    GRIHist1DGridScrollWidget(QWidget *parent = 0);
-    ~GRIHist1DGridScrollWidget();
+  GRIHist1DGridScrollWidget(QWidget *parent = 0);
+  ~GRIHist1DGridScrollWidget();
 
-    void AddHist(GRIHistogrammer *h, QColor qcolor = QColor(0,128,0,255));
-    void SetColor(GRIHistogrammer *h, QColor qcolor);
-    void SetColorAll(QColor qcolor);
-    void SetLogScaleAll(bool logscale_on);
-    void SetAutoScaleAll(bool autoscale_on);
-    void SetGridMajor(int Nrow, int Ncol);
-    void SetGridMinor(int Nrow, int Ncol);
-    void SetGridMinorUpperLeft(int row, int col);
+  void AddHist(GRIHistogrammer *h, QColor qcolor = QColor(0,128,0,255));
+  void SetColor(GRIHistogrammer *h, QColor qcolor);
+  void SetColorAll(QColor qcolor);
+  void SetLogScaleAll(bool logscale_on);
+  void SetAutoScaleAll(bool autoscale_on);
+  void SetGridMajor(int Nrow, int Ncol);
+  void SetGridMinor(int Nrow, int Ncol);
+  void SetGridMinorUpperLeft(int row, int col);
 
 public slots:
-    void paintEvent(QPaintEvent *event);
-    void resizeEvent(QResizeEvent *event);
-    void mousePressEvent(QMouseEvent *event);
+  void paintEvent(QPaintEvent *event);
+  void resizeEvent(QResizeEvent *event);
+  void mousePressEvent(QMouseEvent *event);
 
 protected slots:
-    void scrollLeft();
-    void scrollRight();
-    void scrollUp();
-    void scrollDown();
+  void scrollLeft();
+  void scrollRight();
+  void scrollUp();
+  void scrollDown();
 
 private:
-    void ResetGrid();
-    void ClearGrid();
-    void SetDefaultGrid();
+  void ResetGrid();
+  void ClearGrid();
+  void SetDefaultGrid();
 
-    bool HistIsPresent(GRIHistogrammer *h);
-    int HistIndex(GRIHistogrammer *h);
+  bool HistIsPresent(GRIHistogrammer *h);
+  int HistIndex(GRIHistogrammer *h);
 
-    int major_nx_;
-    int major_ny_;
-    int minor_nx_;
-    int minor_ny_;
+  int major_nx_;
+  int major_ny_;
+  int minor_nx_;
+  int minor_ny_;
 
-    int minor_upper_left_row_;
-    int minor_upper_left_col_;
+  int minor_upper_left_row_;
+  int minor_upper_left_col_;
 
-    int window_margin_L_, window_margin_R_, window_margin_B_, window_margin_T_;
-    int window_canvas_W_, window_canvas_H_;
+  int window_margin_L_, window_margin_R_, window_margin_B_, window_margin_T_;
+  int window_canvas_W_, window_canvas_H_;
 
-    QVector<GRIHist1DWidget *> hist_widg_disp_vec_;
-    QVector<GRIHistogrammer *> gri_hist_vec_;
-    QVector<QColor> hist_color_vec_;
-    bool log_scale_on_;
-    bool auto_scale_on_;
+  QVector<GRIHist1DWidget *> hist_widg_disp_vec_;
+  QVector<GRIHistogrammer *> gri_hist_vec_;
+  QVector<QColor> hist_color_vec_;
+  bool log_scale_on_;
+  bool auto_scale_on_;
 
-    QFrame *hist_frame_;
-    QGridLayout *hist_layout_;
+  QFrame *hist_frame_;
+  QGridLayout *hist_layout_;
 };
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DGRIDSCROLLWIDGET_H_

@@ -61,9 +61,9 @@ HEADERS += \
 ## 
 # Please fill in GRIFDIR and ROOTDIR with the appropriate paths
 # Top directory of GRIF on your machine:
-GRIFDIR =
+GRIFDIR = /Users/markbandstra/Projects/GRIF/grif
 # Directory of ROOT on your machine:
-ROOTDIR =
+ROOTDIR = /Users/markbandstra/Software/root
 
 
 
@@ -76,7 +76,7 @@ QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
 DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}
 # set up log directory
-GRIF_LOG_DIR = $$GRIFDIR/log/
+GRIF_LOG_DIR = $$GRIFPROJECTDIR/log/
 win32 {
     GRIF_LOG_DIR = $$GRIFDIR\\log
 }
@@ -92,8 +92,10 @@ INCLUDEPATH += $$ROOTDIR/include
 # ROOT libraries
 ROOTSYSLIB += $$ROOTDIR/lib
 INCLUDEPATH += $$ROOTSYSLIB
+LIBS += -L$$ROOTSYSLIB
+LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore
 LIBS += $$ROOTSYSLIB/libCint.so
+LIBS += $$ROOTSYSLIB/libCore.so
+LIBS += $$ROOTSYSLIB/libHist.so
 LIBS += $$ROOTSYSLIB/libMatrix.so
 LIBS += $$ROOTSYSLIB/libMathCore.so
-LIBS += -L$$ROOTSYSLIB
-LIBS += -L$$ROOTSYS/lib -lCore -lHist

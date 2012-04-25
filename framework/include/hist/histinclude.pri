@@ -21,6 +21,7 @@
 # dhchivers@lbl.gov
 
 HEADERS += \
+GRIHistWidget.h \
 GRIHist1DWidget.h \
 GRIHist1DGridWidget.h \
 GRIHist1DGridScrollWidget.h \

@@ -121,13 +121,12 @@ void GRIHist1DGridScrollWidget::ResetGrid() {
          ++col) {
       int ind = row * major_nx_ + col;
       if (ind < gri_hist_vec_.size()) {
-	// make a histogram widget
-	GRIHist1DWidget *histWidg = new GRIHist1DWidget(0, gri_hist_vec_.at(ind),
-                                                        hist_color_vec_.at(ind));
+        // make a histogram widget
+        GRIHist1DWidget *histWidg = new GRIHist1DWidget(0, gri_hist_vec_.at(ind));
         histWidg->SetLogScale(log_scale_on_);
         histWidg->SetAutoScale(auto_scale_on_);
-	hist_widg_disp_vec_.append(histWidg);
-	hist_layout_->addWidget(histWidg,row,col);
+        hist_widg_disp_vec_.append(histWidg);
+        hist_layout_->addWidget(histWidg,row,col);
       }
     }
   }
@@ -206,7 +205,7 @@ bool GRIHist1DGridScrollWidget::HistIsPresent(GRIHistogrammer *h) {
   bool hist_present = false;
   for (int i = 0; i < gri_hist_vec_.size(); ++i) {
     if ((gri_hist_vec_[i]->get_id() == h->get_id())
-	&& (gri_hist_vec_[i]->get_hist_name() == h->get_hist_name())) {
+        && (gri_hist_vec_[i]->get_hist_name() == h->get_hist_name())) {
       return hist_present;
     }
   }
@@ -219,8 +218,8 @@ int GRIHist1DGridScrollWidget::HistIndex(GRIHistogrammer *h) {
     int index = -1;
     for (int i = 0; i < gri_hist_vec_.size(); ++i) {
       if ((gri_hist_vec_[i]->get_id() == h->get_id())
-	  && (gri_hist_vec_[i]->get_hist_name() == h->get_hist_name())) {
-	index = i;
+          && (gri_hist_vec_[i]->get_hist_name() == h->get_hist_name())) {
+        index = i;
       }
     }
     return index;
@@ -264,8 +263,8 @@ void GRIHist1DGridScrollWidget::paintEvent(QPaintEvent *event) {
   points.clear();
   painter.setBrush(Qt::NoBrush);
   painter.drawText(QRect(window_margin_L_, 0,
-			 window_canvas_W_, window_margin_T_),
-		   Qt::AlignCenter, "Move Up");
+                         window_canvas_W_, window_margin_T_),
+                   Qt::AlignCenter, "Move Up");
 
   // Down
   points.append(QPoint(0,height()));
@@ -278,8 +277,8 @@ void GRIHist1DGridScrollWidget::paintEvent(QPaintEvent *event) {
   points.clear();
   painter.setBrush(Qt::NoBrush);
   painter.drawText(QRect(window_margin_L_, height() - window_margin_B_,
-			 window_canvas_W_, window_margin_B_),
-		   Qt::AlignCenter, "Move Down");
+                         window_canvas_W_, window_margin_B_),
+                   Qt::AlignCenter, "Move Down");
 
   // Left
   points.append(QPoint(0,0));
@@ -295,7 +294,7 @@ void GRIHist1DGridScrollWidget::paintEvent(QPaintEvent *event) {
   painter.translate(0,height() - window_margin_B_);
   painter.rotate(-90.);
   painter.drawText(QRect(0,0,window_canvas_H_,window_margin_L_),
-		   Qt::AlignCenter, "Move Left");
+                   Qt::AlignCenter, "Move Left");
   painter.restore();
 
   // Right
@@ -312,7 +311,7 @@ void GRIHist1DGridScrollWidget::paintEvent(QPaintEvent *event) {
   painter.translate(width(),window_margin_T_);
   painter.rotate(90.);
   painter.drawText(QRect(0,0,window_canvas_H_, window_margin_L_),
-		   Qt::AlignCenter, "Move Right");
+                   Qt::AlignCenter, "Move Right");
   painter.restore();
 }
 
@@ -322,19 +321,19 @@ void GRIHist1DGridScrollWidget::mousePressEvent(QMouseEvent *event) {
     int x = event->x();
     int y = event->y();
     if ((0 <= x) && (x <= window_margin_L_)
-	&& (window_margin_T_ <= y) && (y <= height() - window_margin_B_)) {
+        && (window_margin_T_ <= y) && (y <= height() - window_margin_B_)) {
       scrollLeft();
     }
     else if ((width() - window_margin_R_<=x) && (x <= width())
-	     && (window_margin_T_ <= y) && (y <= height() - window_margin_B_)) {
+             && (window_margin_T_ <= y) && (y <= height() - window_margin_B_)) {
       scrollRight();
     }
     else if ((window_margin_L_ <= x) && (x <= width() - window_margin_R_)
-	     && (0 <= y) && ( y<= window_margin_T_)) {
+             && (0 <= y) && ( y<= window_margin_T_)) {
       scrollUp();
     }
     else if ((window_margin_L_ <= x) && (x <= width() - window_margin_R_)
-	     && (height() - window_margin_B_ <= y) && (y <= height())) {
+             && (height() - window_margin_B_ <= y) && (y <= height())) {
       scrollDown();
     }
   }

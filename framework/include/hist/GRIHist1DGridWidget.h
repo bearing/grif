@@ -70,30 +70,30 @@
 
 class GRIHist1DGridWidget : public QFrame {
 
-    Q_OBJECT
+  Q_OBJECT
 
 public:
 
-    GRIHist1DGridWidget(QWidget *parent = 0);
-    ~GRIHist1DGridWidget();
+  GRIHist1DGridWidget(QWidget *parent = 0);
+  ~GRIHist1DGridWidget();
 
-    void AddHist(GRIHistogrammer *h, QColor qcolor = QColor(0,128,0,255));
-    void SetColor(GRIHistogrammer *h, QColor qcolor);
-    void SetColorAll(QColor qcolor);
-    void SetLogScaleAll(bool logscale_on);
-    void SetAutoScaleAll(bool autoscale_on);
-    void SetGridNx(int nx);
-    void SetGridNy(int ny);
-    GRIHist1DWidget* GetHistWidget(GRIHistogrammer *h);
+  void AddHist(GRIHistogrammer *h, QColor qcolor = QColor(0,128,0,255));
+  void SetColor(GRIHistogrammer *h, QColor qcolor);
+  void SetColorAll(QColor qcolor);
+  void SetLogScaleAll(bool logscale_on);
+  void SetAutoScaleAll(bool autoscale_on);
+  void SetGridNx(int nx);
+  void SetGridNy(int ny);
+  GRIHist1DWidget* GetHistWidget(GRIHistogrammer *h);
 
 private:
-    void SetGrid();
-    void ClearGrid();
-    bool HistIsPresent(GRIHistogrammer *h);
-    int HistWidgetIndex(GRIHistogrammer *h);
+  void SetGrid();
+  void ClearGrid();
+  bool HistIsPresent(GRIHistogrammer *h);
+  int HistWidgetIndex(GRIHistogrammer *h);
 
-    QVector<GRIHist1DWidget *> hist_widget_;
-    QGridLayout *grid_layout_;
+  QVector<GRIHist1DWidget *> hist_widget_;
+  QGridLayout *grid_layout_;
 };
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DGRIDWIDGET_H_
