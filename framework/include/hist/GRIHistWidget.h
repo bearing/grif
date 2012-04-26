@@ -35,28 +35,11 @@
 
 #include "GRIHistogrammer.h"
 
-/// A QWidget-derived class to display a single GRIHistogram.
-/// The user can interact with the histogram using the mouse,
-/// including dragging to pan, using the scroll button to zoom,
-/// and mousing over data to display the channel and data.
+/// A QWidget-derived class to display and interact with
+/// a single GRIHistogram.
 ///
-/// You can use it like any QWidget.  For example, it can be
-/// displayed on its own:
-///
-///     GRIHistWidget *histwidget = new GRIHistWidget();
-///     histwidget->set_hist(A1->GetHistogram("ADCHist"));
-///     histwidget->Initialize();
-///     histwidget->show();
-///
-/// Or it can be placed inside another QWidget, such as a
-/// QMainWindow:
-///
-///     QMainWindow *win = new QMainWindow();
-///     GRIHistWidget *histwidget = new GRIHistWidget(win);
-///     histwidget->set_hist(A1->GetHistogram("ADCHist"));
-///     histwidget->Initialize();
-///     win->setCentralWidget(histwidget);
-///     win->show();
+/// GRIHistWidget is an abstract base class.  Please see GRIHist1DWidget
+/// and GRIHist2DWidget for 1D and 2D GRIHistogrammer implementations.
 
 class GRIHistWidget : public QWidget {
 

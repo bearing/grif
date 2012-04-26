@@ -72,34 +72,17 @@ void GRIHist1DGridScrollWidget::AddHist(GRIHistogrammer *h) {
 
 
 void GRIHist1DGridScrollWidget::SetForegroundColor(GRIHistogrammer *h, QColor qcolor) {
-  int r,g,b;
-  qcolor.getRgb(&r,&g,&b);
-  std::cout << "GRIHist1DGridScrollWidget::SetForegroundColor: Setting foreground color to (" << r << "," << g << "," << b << ")" << std::endl;
-  std::cout << HistIsPresent(h) << std::endl;
   if (HistIsPresent(h)) {
     hist_foreground_color_vec_[HistIndex(h)] = qcolor;
   }
-  std::cout << "GRIHist1DGridScrollWidget::SetForegroundColor: Vector is now: " << std::endl;
-  for (int i = 0; i < hist_foreground_color_vec_.size(); ++i) {
-    hist_foreground_color_vec_[i].getRgb(&r,&g,&b);
-    std::cout << i << ": (" << r << "," << g << "," << b << ")  ";
-  }
-  std::cout << std::endl;
   ResetGrid();
 }
 
 
 void GRIHist1DGridScrollWidget::SetForegroundColorAll(QColor qcolor) {
-  int r,g,b;
-  qcolor.getRgb(&r,&g,&b);
-  std::cout << "GRIHist1DGridScrollWidget::SetForegroundColorAll: Setting foreground color to (" << r << "," << g << "," << b << ")" << std::endl;
-  std::cout << "GRIHist1DGridScrollWidget::SetForegroundColorAll: Vector is now: " << std::endl;
   for (int i = 0; i < hist_foreground_color_vec_.size(); ++i) {
     hist_foreground_color_vec_[i] = qcolor;
-    hist_foreground_color_vec_[i].getRgb(&r,&g,&b);
-    std::cout << i << ": (" << r << "," << g << "," << b << ")  ";
   }
-  std::cout << std::endl;
   ResetGrid();
 }
 
@@ -257,9 +240,6 @@ void GRIHist1DGridScrollWidget::scrollDown() {
 
 bool GRIHist1DGridScrollWidget::HistIsPresent(GRIHistogrammer *h) {
   for (int i = 0; i < gri_hist_vec_.size(); ++i) {
-    std::cout << gri_hist_vec_[i]->get_id() << " -- " << h->get_id() << std::endl;
-    std::cout << gri_hist_vec_[i]->get_hist_name().toStdString().c_str()
-              << " -- " << h->get_hist_name().toStdString().c_str() << std::endl;
     if ((gri_hist_vec_[i]->get_id() == h->get_id())
         && (gri_hist_vec_[i]->get_hist_name() == h->get_hist_name())) {
       return true;

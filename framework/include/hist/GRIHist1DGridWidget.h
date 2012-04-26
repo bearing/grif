@@ -42,27 +42,19 @@
 /// To access the GRIHist1DWidget for a certain GRIHistogrammer
 /// (e.g., in order to set the color), call histWidget.
 ///
-/// You can use it like any QWidget.  For example, it can be
-/// displayed on its own:
-///
-///     GRIHist1DGridWidget *histgrid = new GRIHist1DGridWidget();
-///     histgrid->AddHist(A1->GetHistogram("ADC Channel 0"));
-///     histgrid->AddHist(A1->GetHistogram("ADC Channel 1"));
-///     histgrid->AddHist(A1->GetHistogram("ADC Channel 2"));
-///     histgrid->histWidget(A1->GetHistogram("ADC Channel 0"))->setColor(QColor(255,0,0));
-///     histgrid->SetGridNx(1);    // optional; setGridNx forces the number of grid columns
-///     histgrid->resize(100,300);
-///     histgrid->show();
-///
-/// Or it can be placed inside another QWidget, such as a
-/// QMainWindow:
+/// You can use it like any QWidget.  For example:
 ///
 ///     QMainWindow *win = new QMainWindow();
 ///     GRIHist1DGridWidget *histgrid = new GRIHist1DGridWidget(win);
 ///     histgrid->AddHist(A1->GetHistogram("ADC Channel 0"));
 ///     histgrid->AddHist(A1->GetHistogram("ADC Channel 1"));
 ///     histgrid->AddHist(A1->GetHistogram("ADC Channel 2"));
-///     histgrid->histWidget(A1->GetHistogram("ADC Channel 0"))->setColor(QColor(255,0,0));
+///     histgrid->SetForegroundColorAll(Qt::cyan);
+///     histgrid->SetBackgroundColorAll(Qt::darkblue);
+///     histgrid->SetOutlineColorAll(Qt::cyan);
+///     histgrid->SetForegroundColor(A1->GetHistogram("ADC Channel 0"),Qt::red);
+///     histgrid->SetBackgroundColor(A1->GetHistogram("ADC Channel 0"),Qt::white);
+///     histgrid->SetOutlineColor(A1->GetHistogram("ADC Channel 0"),Qt::black);
 ///     histgrid->SetGridNy(3);    // optional; setGridNy forces the number of grid rows
 ///     win->setCentralWidget(histgrid);
 ///     win->resize(100,300);
