@@ -61,9 +61,9 @@ HEADERS += \
 ## 
 # Please fill in GRIFDIR and ROOTDIR with the appropriate paths
 # Top directory of GRIF on your machine:
-GRIFDIR = /Users/markbandstra/Projects/GRIF/grif
+GRIFDIR =
 # Directory of ROOT on your machine:
-ROOTDIR = /Users/markbandstra/Software/root
+ROOTDIR =
 
 
 
@@ -76,7 +76,7 @@ QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
 DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}
 # set up log directory
-GRIF_LOG_DIR = $$GRIFPROJECTDIR/log/
+GRIF_LOG_DIR = $$GRIFDIR/log/
 win32 {
     GRIF_LOG_DIR = $$GRIFDIR\\log
 }
