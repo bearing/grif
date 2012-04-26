@@ -64,22 +64,42 @@ GRIHist1DGridScrollWidget::~GRIHist1DGridScrollWidget() {
 void GRIHist1DGridScrollWidget::AddHist(GRIHistogrammer *h) {
   // add histogram to list
   gri_hist_vec_.append(h);
+  hist_foreground_color_vec_.append(Qt::green);
+  hist_background_color_vec_.append(Qt::white);
+  hist_outline_color_vec_.append(Qt::black);
   SetDefaultGrid();
 }
 
 
 void GRIHist1DGridScrollWidget::SetForegroundColor(GRIHistogrammer *h, QColor qcolor) {
+  int r,g,b;
+  qcolor.getRgb(&r,&g,&b);
+  std::cout << "GRIHist1DGridScrollWidget::SetForegroundColor: Setting foreground color to (" << r << "," << g << "," << b << ")" << std::endl;
+  std::cout << HistIsPresent(h) << std::endl;
   if (HistIsPresent(h)) {
     hist_foreground_color_vec_[HistIndex(h)] = qcolor;
   }
+  std::cout << "GRIHist1DGridScrollWidget::SetForegroundColor: Vector is now: " << std::endl;
+  for (int i = 0; i < hist_foreground_color_vec_.size(); ++i) {
+    hist_foreground_color_vec_[i].getRgb(&r,&g,&b);
+    std::cout << i << ": (" << r << "," << g << "," << b << ")  ";
+  }
+  std::cout << std::endl;
   ResetGrid();
 }
 
 
 void GRIHist1DGridScrollWidget::SetForegroundColorAll(QColor qcolor) {
+  int r,g,b;
+  qcolor.getRgb(&r,&g,&b);
+  std::cout << "GRIHist1DGridScrollWidget::SetForegroundColorAll: Setting foreground color to (" << r << "," << g << "," << b << ")" << std::endl;
+  std::cout << "GRIHist1DGridScrollWidget::SetForegroundColorAll: Vector is now: " << std::endl;
   for (int i = 0; i < hist_foreground_color_vec_.size(); ++i) {
     hist_foreground_color_vec_[i] = qcolor;
+    hist_foreground_color_vec_[i].getRgb(&r,&g,&b);
+    std::cout << i << ": (" << r << "," << g << "," << b << ")  ";
   }
+  std::cout << std::endl;
   ResetGrid();
 }
 
@@ -153,7 +173,7 @@ void GRIHist1DGridScrollWidget::ResetGrid() {
       int ind = row * major_nx_ + col;
       if (ind < gri_hist_vec_.size()) {
         // make a histogram widget
-        GRIHist1DWidget *histWidg = new GRIHist1DWidget(0, gri_hist_vec_.at(ind));
+        GRIHist1DWidget *histWidg = new GRIHist1DWidget(0, gri_hist_vec_[ind]);
         histWidg->SetLogScale(log_scale_on_);
         histWidg->SetAutoScale(auto_scale_on_);
         histWidg->set_foreground_color(hist_foreground_color_vec_[ind]);
@@ -236,14 +256,16 @@ void GRIHist1DGridScrollWidget::scrollDown() {
 
 
 bool GRIHist1DGridScrollWidget::HistIsPresent(GRIHistogrammer *h) {
-  bool hist_present = false;
   for (int i = 0; i < gri_hist_vec_.size(); ++i) {
+    std::cout << gri_hist_vec_[i]->get_id() << " -- " << h->get_id() << std::endl;
+    std::cout << gri_hist_vec_[i]->get_hist_name().toStdString().c_str()
+              << " -- " << h->get_hist_name().toStdString().c_str() << std::endl;
     if ((gri_hist_vec_[i]->get_id() == h->get_id())
         && (gri_hist_vec_[i]->get_hist_name() == h->get_hist_name())) {
-      return hist_present;
+      return true;
     }
   }
-  return hist_present;
+  return false;
 }
 
 

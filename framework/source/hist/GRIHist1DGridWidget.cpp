@@ -96,13 +96,12 @@ void GRIHist1DGridWidget::SetGridNy(int ny) {
 
 
 bool GRIHist1DGridWidget::HistIsPresent(GRIHistogrammer *h) {
-  bool hist_present = false;
   for (int i = 0; i < hist_widget_.size(); ++i) {
     if (hist_widget_[i]->get_hist()->get_id() == h->get_id()) {
-      hist_present = true;
+      return true;
     }
   }
-  return hist_present;
+  return false;
 }
 
 
