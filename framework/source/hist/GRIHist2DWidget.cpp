@@ -99,7 +99,7 @@ void GRIHist2DWidget::UpdateData() {
     int nbinsx = get_hist()->get_hist()->GetNbinsX();
     int nbinsy = get_hist()->get_hist()->GetNbinsY();
 
-    zmax_ = get_hist()->get_hist()->GetBinContent(1,1);
+    zmax_ = get_hist()->get_hist()->GetBinContent(1,1)+1.;
     zmin_ = get_hist()->get_hist()->GetBinContent(1,1);
     for (int ix = 0; ix < nbinsx; ++ix) {
       for (int iy = 0; iy < nbinsy; ++iy) {

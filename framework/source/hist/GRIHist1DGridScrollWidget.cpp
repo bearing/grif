@@ -61,25 +61,56 @@ GRIHist1DGridScrollWidget::~GRIHist1DGridScrollWidget() {
 }
 
 
-void GRIHist1DGridScrollWidget::AddHist(GRIHistogrammer *h, QColor qcolor) {
+void GRIHist1DGridScrollWidget::AddHist(GRIHistogrammer *h) {
   // add histogram to list
   gri_hist_vec_.append(h);
-  hist_color_vec_.append(qcolor);
   SetDefaultGrid();
 }
 
 
-void GRIHist1DGridScrollWidget::SetColor(GRIHistogrammer *h, QColor qcolor) {
+void GRIHist1DGridScrollWidget::SetForegroundColor(GRIHistogrammer *h, QColor qcolor) {
   if (HistIsPresent(h)) {
-    hist_color_vec_[HistIndex(h)] = qcolor;
+    hist_foreground_color_vec_[HistIndex(h)] = qcolor;
   }
   ResetGrid();
 }
 
 
-void GRIHist1DGridScrollWidget::SetColorAll(QColor qcolor) {
-  for (int i = 0; i < hist_color_vec_.size(); ++i) {
-    hist_color_vec_[i] = qcolor;
+void GRIHist1DGridScrollWidget::SetForegroundColorAll(QColor qcolor) {
+  for (int i = 0; i < hist_foreground_color_vec_.size(); ++i) {
+    hist_foreground_color_vec_[i] = qcolor;
+  }
+  ResetGrid();
+}
+
+
+void GRIHist1DGridScrollWidget::SetBackgroundColor(GRIHistogrammer *h, QColor qcolor) {
+  if (HistIsPresent(h)) {
+    hist_background_color_vec_[HistIndex(h)] = qcolor;
+  }
+  ResetGrid();
+}
+
+
+void GRIHist1DGridScrollWidget::SetBackgroundColorAll(QColor qcolor) {
+  for (int i = 0; i < hist_background_color_vec_.size(); ++i) {
+    hist_background_color_vec_[i] = qcolor;
+  }
+  ResetGrid();
+}
+
+
+void GRIHist1DGridScrollWidget::SetOutlineColor(GRIHistogrammer *h, QColor qcolor) {
+  if (HistIsPresent(h)) {
+    hist_outline_color_vec_[HistIndex(h)] = qcolor;
+  }
+  ResetGrid();
+}
+
+
+void GRIHist1DGridScrollWidget::SetOutlineColorAll(QColor qcolor) {
+  for (int i = 0; i < hist_outline_color_vec_.size(); ++i) {
+    hist_outline_color_vec_[i] = qcolor;
   }
   ResetGrid();
 }
@@ -125,6 +156,9 @@ void GRIHist1DGridScrollWidget::ResetGrid() {
         GRIHist1DWidget *histWidg = new GRIHist1DWidget(0, gri_hist_vec_.at(ind));
         histWidg->SetLogScale(log_scale_on_);
         histWidg->SetAutoScale(auto_scale_on_);
+        histWidg->set_foreground_color(hist_foreground_color_vec_[ind]);
+        histWidg->set_background_color(hist_background_color_vec_[ind]);
+        histWidg->set_outline_color(hist_outline_color_vec_[ind]);
         hist_widg_disp_vec_.append(histWidg);
         hist_layout_->addWidget(histWidg,row,col);
       }

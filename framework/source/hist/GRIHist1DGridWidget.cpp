@@ -39,12 +39,11 @@ GRIHist1DGridWidget::~GRIHist1DGridWidget() {
   }
 }
 
-void GRIHist1DGridWidget::AddHist(GRIHistogrammer *h, QColor qcolor) {
+void GRIHist1DGridWidget::AddHist(GRIHistogrammer *h) {
   // add histogram to list if it is not already there
   if (!HistIsPresent(h)) {
     // make a histogram widget
     GRIHist1DWidget *histWidg = new GRIHist1DWidget(0,h);
-    histWidg->set_foreground_color(qcolor);
     hist_widget_.append(histWidg);
   }
   // Make sure the arrangwment is updated
@@ -122,16 +121,44 @@ int GRIHist1DGridWidget::HistWidgetIndex(GRIHistogrammer *h) {
 }
 
 
-void GRIHist1DGridWidget::SetColor(GRIHistogrammer *h, QColor qcolor) {
+void GRIHist1DGridWidget::SetForegroundColor(GRIHistogrammer *h, QColor qcolor) {
   if (HistIsPresent(h)) {
     hist_widget_[HistWidgetIndex(h)]->set_foreground_color(qcolor);
   }
 }
 
 
-void GRIHist1DGridWidget::SetColorAll(QColor qcolor) {
+void GRIHist1DGridWidget::SetForegroundColorAll(QColor qcolor) {
   for (int i = 0; i < hist_widget_.size(); ++i) {
     hist_widget_[i]->set_foreground_color(qcolor);
+  }
+}
+
+
+void GRIHist1DGridWidget::SetBackgroundColor(GRIHistogrammer *h, QColor qcolor) {
+  if (HistIsPresent(h)) {
+    hist_widget_[HistWidgetIndex(h)]->set_background_color(qcolor);
+  }
+}
+
+
+void GRIHist1DGridWidget::SetBackgroundColorAll(QColor qcolor) {
+  for (int i = 0; i < hist_widget_.size(); ++i) {
+    hist_widget_[i]->set_background_color(qcolor);
+  }
+}
+
+
+void GRIHist1DGridWidget::SetOutlineColor(GRIHistogrammer *h, QColor qcolor) {
+  if (HistIsPresent(h)) {
+    hist_widget_[HistWidgetIndex(h)]->set_outline_color(qcolor);
+  }
+}
+
+
+void GRIHist1DGridWidget::SetOutlineColorAll(QColor qcolor) {
+  for (int i = 0; i < hist_widget_.size(); ++i) {
+    hist_widget_[i]->set_outline_color(qcolor);
   }
 }
 

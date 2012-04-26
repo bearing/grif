@@ -110,9 +110,9 @@ int main(int argc, char* argv[]) {
   histDraw2->setWindowTitle("ADC Channel 1");
   histDraw2->set_hist(AMC1->GetHistogram("ADC Channel 1"));
   histDraw2->Initialize();
-  histDraw2->set_foreground_color(QColor(150,150,0));
-  histDraw2->set_background_color(QColor(50,50,50));
-  histDraw2->set_outline_color(QColor(200,200,200));
+  histDraw2->set_foreground_color(Qt::cyan);
+  histDraw2->set_background_color(Qt::black);
+  histDraw2->set_outline_color(Qt::cyan);
   histDraw2->set_xlabel("Channel");
   histDraw2->set_ylabel("Counts");
   win2->setWindowTitle("1D Histogram (2)");
@@ -125,8 +125,8 @@ int main(int argc, char* argv[]) {
   histDraw3->setWindowTitle("ADC Channel 0 by ADC Channel 1");
   histDraw3->set_hist(AMC1->GetHistogram("ADC Channel 0 by Channel 1"));
   histDraw3->Initialize();
-  histDraw3->set_foreground_color(QColor(0,0,255));
-  histDraw3->set_background_color(QColor(255,255,255));
+  histDraw3->set_foreground_color(Qt::blue);
+  histDraw3->set_background_color(Qt::white);
   histDraw3->set_xlabel("ADC Channel 0");
   histDraw3->set_ylabel("ADC Channel 1");
   win3->setWindowTitle("2D Histogram");

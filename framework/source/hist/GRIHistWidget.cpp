@@ -28,15 +28,15 @@
 #include <hist/GRIHistWidget.h>
 
 GRIHistWidget::GRIHistWidget(QWidget *parent, GRIHistogrammer *grihist) : QWidget(parent) {
-  // set default plot color
-  set_foreground_color(QColor(200,0,0));
-  set_background_color(QColor(255,255,255));
-  
   // make sure timer is null until it starts
   data_update_timer_ = 0;
 
   // set the histogram (this will do nothing if grihist is NULL)
   set_hist(grihist);
+
+  // set default plot color
+  set_foreground_color(QColor(200,0,0));
+  set_background_color(QColor(230,230,230));
 
   // set up the window layout
   set_xlabel(QString("X Label"));

@@ -77,9 +77,13 @@ public:
   GRIHist1DGridWidget(QWidget *parent = 0);
   ~GRIHist1DGridWidget();
 
-  void AddHist(GRIHistogrammer *h, QColor qcolor = QColor(0,128,0,255));
-  void SetColor(GRIHistogrammer *h, QColor qcolor);
-  void SetColorAll(QColor qcolor);
+  void AddHist(GRIHistogrammer *h);
+  void SetForegroundColor(GRIHistogrammer *h, QColor qcolor);
+  void SetForegroundColorAll(QColor qcolor);
+  void SetBackgroundColor(GRIHistogrammer *h, QColor qcolor);
+  void SetBackgroundColorAll(QColor qcolor);
+  void SetOutlineColor(GRIHistogrammer *h, QColor qcolor);
+  void SetOutlineColorAll(QColor qcolor);
   void SetLogScaleAll(bool logscale_on);
   void SetAutoScaleAll(bool autoscale_on);
   void SetGridNx(int nx);

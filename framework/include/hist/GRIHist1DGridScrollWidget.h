@@ -95,9 +95,13 @@ public:
   GRIHist1DGridScrollWidget(QWidget *parent = 0);
   ~GRIHist1DGridScrollWidget();
 
-  void AddHist(GRIHistogrammer *h, QColor qcolor = QColor(0,128,0,255));
-  void SetColor(GRIHistogrammer *h, QColor qcolor);
-  void SetColorAll(QColor qcolor);
+  void AddHist(GRIHistogrammer *h);
+  void SetForegroundColor(GRIHistogrammer *h, QColor qcolor);
+  void SetForegroundColorAll(QColor qcolor);
+  void SetBackgroundColor(GRIHistogrammer *h, QColor qcolor);
+  void SetBackgroundColorAll(QColor qcolor);
+  void SetOutlineColor(GRIHistogrammer *h, QColor qcolor);
+  void SetOutlineColorAll(QColor qcolor);
   void SetLogScaleAll(bool logscale_on);
   void SetAutoScaleAll(bool autoscale_on);
   void SetGridMajor(int Nrow, int Ncol);
@@ -136,7 +140,9 @@ private:
 
   QVector<GRIHist1DWidget *> hist_widg_disp_vec_;
   QVector<GRIHistogrammer *> gri_hist_vec_;
-  QVector<QColor> hist_color_vec_;
+  QVector<QColor> hist_foreground_color_vec_;
+  QVector<QColor> hist_background_color_vec_;
+  QVector<QColor> hist_outline_color_vec_;
   bool log_scale_on_;
   bool auto_scale_on_;
 
