@@ -21,6 +21,7 @@
 # dhchivers@lbl.gov
 
 SOURCES += \
+GRIHistWidget.cpp \
 GRIHist1DWidget.cpp \
 GRIHist1DGridWidget.cpp \
 GRIHist1DGridScrollWidget.cpp \

@@ -42,27 +42,19 @@
 /// To access the GRIHist1DWidget for a certain GRIHistogrammer
 /// (e.g., in order to set the color), call histWidget.
 ///
-/// You can use it like any QWidget.  For example, it can be
-/// displayed on its own:
-///
-///     GRIHist1DGridWidget *histgrid = new GRIHist1DGridWidget();
-///     histgrid->AddHist(A1->GetHistogram("ADC Channel 0"));
-///     histgrid->AddHist(A1->GetHistogram("ADC Channel 1"));
-///     histgrid->AddHist(A1->GetHistogram("ADC Channel 2"));
-///     histgrid->histWidget(A1->GetHistogram("ADC Channel 0"))->setColor(QColor(255,0,0));
-///     histgrid->SetGridNx(1);    // optional; setGridNx forces the number of grid columns
-///     histgrid->resize(100,300);
-///     histgrid->show();
-///
-/// Or it can be placed inside another QWidget, such as a
-/// QMainWindow:
+/// You can use it like any QWidget.  For example:
 ///
 ///     QMainWindow *win = new QMainWindow();
 ///     GRIHist1DGridWidget *histgrid = new GRIHist1DGridWidget(win);
 ///     histgrid->AddHist(A1->GetHistogram("ADC Channel 0"));
 ///     histgrid->AddHist(A1->GetHistogram("ADC Channel 1"));
 ///     histgrid->AddHist(A1->GetHistogram("ADC Channel 2"));
-///     histgrid->histWidget(A1->GetHistogram("ADC Channel 0"))->setColor(QColor(255,0,0));
+///     histgrid->SetForegroundColorAll(Qt::cyan);
+///     histgrid->SetBackgroundColorAll(Qt::darkblue);
+///     histgrid->SetOutlineColorAll(Qt::cyan);
+///     histgrid->SetForegroundColor(A1->GetHistogram("ADC Channel 0"),Qt::red);
+///     histgrid->SetBackgroundColor(A1->GetHistogram("ADC Channel 0"),Qt::white);
+///     histgrid->SetOutlineColor(A1->GetHistogram("ADC Channel 0"),Qt::black);
 ///     histgrid->SetGridNy(3);    // optional; setGridNy forces the number of grid rows
 ///     win->setCentralWidget(histgrid);
 ///     win->resize(100,300);
@@ -70,30 +62,34 @@
 
 class GRIHist1DGridWidget : public QFrame {
 
-    Q_OBJECT
+  Q_OBJECT
 
 public:
 
-    GRIHist1DGridWidget(QWidget *parent = 0);
-    ~GRIHist1DGridWidget();
+  GRIHist1DGridWidget(QWidget *parent = 0);
+  ~GRIHist1DGridWidget();
 
-    void AddHist(GRIHistogrammer *h, QColor qcolor = QColor(0,128,0,255));
-    void SetColor(GRIHistogrammer *h, QColor qcolor);
-    void SetColorAll(QColor qcolor);
-    void SetLogScaleAll(bool logscale_on);
-    void SetAutoScaleAll(bool autoscale_on);
-    void SetGridNx(int nx);
-    void SetGridNy(int ny);
-    GRIHist1DWidget* GetHistWidget(GRIHistogrammer *h);
+  void AddHist(GRIHistogrammer *h);
+  void SetForegroundColor(GRIHistogrammer *h, QColor qcolor);
+  void SetForegroundColorAll(QColor qcolor);
+  void SetBackgroundColor(GRIHistogrammer *h, QColor qcolor);
+  void SetBackgroundColorAll(QColor qcolor);
+  void SetOutlineColor(GRIHistogrammer *h, QColor qcolor);
+  void SetOutlineColorAll(QColor qcolor);
+  void SetLogScaleAll(bool logscale_on);
+  void SetAutoScaleAll(bool autoscale_on);
+  void SetGridNx(int nx);
+  void SetGridNy(int ny);
+  GRIHist1DWidget* GetHistWidget(GRIHistogrammer *h);
 
 private:
-    void SetGrid();
-    void ClearGrid();
-    bool HistIsPresent(GRIHistogrammer *h);
-    int HistWidgetIndex(GRIHistogrammer *h);
+  void SetGrid();
+  void ClearGrid();
+  bool HistIsPresent(GRIHistogrammer *h);
+  int HistWidgetIndex(GRIHistogrammer *h);
 
-    QVector<GRIHist1DWidget *> hist_widget_;
-    QGridLayout *grid_layout_;
+  QVector<GRIHist1DWidget *> hist_widget_;
+  QGridLayout *grid_layout_;
 };
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DGRIDWIDGET_H_

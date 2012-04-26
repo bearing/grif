@@ -37,6 +37,7 @@
 
 #include "SIMDAQThread.h"
 #include "SIMMCAnalysisThread.h"
+#include "GRIHistWidget.h"
 #include "GRIHist1DWidget.h"
 #include "GRIHist2DWidget.h"
 #include "GRIHist1DGridWidget.h"
@@ -95,7 +96,11 @@ int main(int argc, char* argv[]) {
   GRIHist1DWidget *histDraw1 = new GRIHist1DWidget(win1);
   win1->setCentralWidget(histDraw1);
   histDraw1->setWindowTitle("ADC Channel 0");
-  histDraw1->SetHist(AMC1->GetHistogram("ADC Channel 0"));
+  histDraw1->set_hist(AMC1->GetHistogram("ADC Channel 0"));
+  histDraw1->Initialize();
+  histDraw1->set_foreground_color(Qt::cyan);
+  histDraw1->set_background_color(Qt::darkBlue);
+  histDraw1->set_outline_color(Qt::cyan);
   histDraw1->set_xlabel("Channel");
   histDraw1->set_ylabel("Counts");
   win1->setWindowTitle("1D Histogram");
@@ -106,8 +111,11 @@ int main(int argc, char* argv[]) {
   GRIHist1DWidget *histDraw2 = new GRIHist1DWidget(win2);
   win2->setCentralWidget(histDraw2);
   histDraw2->setWindowTitle("ADC Channel 1");
-  histDraw2->SetHist(AMC1->GetHistogram("ADC Channel 1"));
-  histDraw2->set_plot_color(QColor(255,0,0));
+  histDraw2->set_hist(AMC1->GetHistogram("ADC Channel 1"));
+  histDraw2->Initialize();
+  histDraw2->set_foreground_color(Qt::yellow);
+  histDraw2->set_background_color(Qt::black);
+  histDraw2->set_outline_color(Qt::yellow);
   histDraw2->set_xlabel("Channel");
   histDraw2->set_ylabel("Counts");
   win2->setWindowTitle("1D Histogram (2)");
@@ -118,8 +126,10 @@ int main(int argc, char* argv[]) {
   GRIHist2DWidget *histDraw3 = new GRIHist2DWidget(win3);
   win3->setCentralWidget(histDraw3);
   histDraw3->setWindowTitle("ADC Channel 0 by ADC Channel 1");
-  histDraw3->SetHist(AMC1->GetHistogram("ADC Channel 0 by Channel 1"));
-  histDraw3->SetColor(QColor(0,0,255),QColor(255,255,255));
+  histDraw3->set_hist(AMC1->GetHistogram("ADC Channel 0 by Channel 1"));
+  histDraw3->Initialize();
+  histDraw3->set_foreground_color(Qt::blue);
+  histDraw3->set_background_color(Qt::white);
   histDraw3->set_xlabel("ADC Channel 0");
   histDraw3->set_ylabel("ADC Channel 1");
   win3->setWindowTitle("2D Histogram");
@@ -146,16 +156,16 @@ int main(int argc, char* argv[]) {
   histDraw5->SetGridNx(2);
   histDraw5->SetLogScaleAll(true);
   if (AMC1->GetHistogram("ADC Channel 0")) {
-    histDraw5->SetColor(AMC1->GetHistogram("ADC Channel 0"),QColor(255, 0, 0));
+    histDraw5->SetForegroundColor(AMC1->GetHistogram("ADC Channel 0"),QColor(255, 0, 0));
   }
   if (AMC1->GetHistogram("ADC Channel 1")) {
-    histDraw5->SetColor(AMC1->GetHistogram("ADC Channel 1"),QColor(200, 100, 0));
+    histDraw5->SetForegroundColor(AMC1->GetHistogram("ADC Channel 1"),QColor(200, 100, 0));
   }
   if (AMC1->GetHistogram("ADC Channel 4")) {
-    histDraw5->SetColor(AMC1->GetHistogram("ADC Channel 4"),QColor(0, 180, 255));
+    histDraw5->SetForegroundColor(AMC1->GetHistogram("ADC Channel 4"),QColor(0, 180, 255));
   }
   if (AMC1->GetHistogram("ADC Channel 5")) {
-    histDraw5->SetColor(AMC1->GetHistogram("ADC Channel 5"),QColor(0, 255, 255));
+    histDraw5->SetForegroundColor(AMC1->GetHistogram("ADC Channel 5"),QColor(0, 255, 255));
   }
   win5->resize(640,600);
   win5->show();
@@ -169,43 +179,43 @@ int main(int argc, char* argv[]) {
       histDraw_Scroll->AddHist(AMC1->GetHistogram(histname));
   }
   if (AMC1->GetHistogram("ADC Channel 0")) {
-    histDraw_Scroll->SetColor(AMC1->GetHistogram("ADC Channel 0"),
+    histDraw_Scroll->SetForegroundColor(AMC1->GetHistogram("ADC Channel 0"),
                               QColor(255,0,0));
   }
   if (AMC1->GetHistogram("ADC Channel 1")) {
-    histDraw_Scroll->SetColor(AMC1->GetHistogram("ADC Channel 1"),
+    histDraw_Scroll->SetForegroundColor(AMC1->GetHistogram("ADC Channel 1"),
                               QColor(200, 100, 0));
   }
   if (AMC1->GetHistogram("ADC Channel 2")) {
-    histDraw_Scroll->SetColor(AMC1->GetHistogram("ADC Channel 2"),
+    histDraw_Scroll->SetForegroundColor(AMC1->GetHistogram("ADC Channel 2"),
                               QColor(100, 50, 200));
   }
   if (AMC1->GetHistogram("ADC Channel 3")) {
-    histDraw_Scroll->SetColor(AMC1->GetHistogram("ADC Channel 3"),
+    histDraw_Scroll->SetForegroundColor(AMC1->GetHistogram("ADC Channel 3"),
                               QColor(255, 255, 0));
   }
   if (AMC1->GetHistogram("ADC Channel 4")) {
-    histDraw_Scroll->SetColor(AMC1->GetHistogram("ADC Channel 4"),
+    histDraw_Scroll->SetForegroundColor(AMC1->GetHistogram("ADC Channel 4"),
                               QColor(0, 180, 255));
   }
   if (AMC1->GetHistogram("ADC Channel 5")) {
-    histDraw_Scroll->SetColor(AMC1->GetHistogram("ADC Channel 5"),
+    histDraw_Scroll->SetForegroundColor(AMC1->GetHistogram("ADC Channel 5"),
                               QColor(0, 255, 255));
   }
   if (AMC1->GetHistogram("ADC Channel 6")) {
-    histDraw_Scroll->SetColor(AMC1->GetHistogram("ADC Channel 6"),
+    histDraw_Scroll->SetForegroundColor(AMC1->GetHistogram("ADC Channel 6"),
                               QColor(0, 128, 255));
   }
   if (AMC1->GetHistogram("ADC Channel 7")) {
-    histDraw_Scroll->SetColor(AMC1->GetHistogram("ADC Channel 7"),
+    histDraw_Scroll->SetForegroundColor(AMC1->GetHistogram("ADC Channel 7"),
                               QColor(0, 100, 128));
   }
   if (AMC1->GetHistogram("ADC Channel 8")) {
-    histDraw_Scroll->SetColor(AMC1->GetHistogram("ADC Channel 8"),
+    histDraw_Scroll->SetForegroundColor(AMC1->GetHistogram("ADC Channel 8"),
                               QColor(0, 255, 128));
   }
   if (AMC1->GetHistogram("ADC Channel 9")) {
-    histDraw_Scroll->SetColor(AMC1->GetHistogram("ADC Channel 9"),
+    histDraw_Scroll->SetForegroundColor(AMC1->GetHistogram("ADC Channel 9"),
                               QColor(128, 0, 128));
   }
   histDraw_Scroll->SetGridMajor(4,3);
@@ -229,7 +239,7 @@ int main(int argc, char* argv[]) {
 
   app.exec();
 
-  GRISleep::msleep(20000);
+  GRISleep::msleep(2000);
 
   reg->Stop();
 

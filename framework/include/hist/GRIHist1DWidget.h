@@ -23,17 +23,7 @@
 #ifndef GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DWIDGET_H_
 #define GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DWIDGET_H_
 
-#include <QColor>
-#include <QMouseEvent>
-#include <QPaintDevice>
-#include <QPainter>
-#include <QPushButton>
-#include <QResizeEvent>
-#include <QTimer>
-#include <QWheelEvent>
-#include <QWidget>
-
-#include "GRIHistogrammer.h"
+#include "GRIHistWidget.h"
 
 /// A QWidget-derived class to display a single GRIHistogram.
 /// The user can interact with the histogram using the mouse,
@@ -44,7 +34,8 @@
 /// displayed on its own:
 ///
 ///     GRIHist1DWidget *histwidget = new GRIHist1DWidget();
-///     histwidget->SetHist(A1->GetHistogram("ADCHist"));
+///     histwidget->set_hist(A1->GetHistogram("ADCHist"));
+///     histwidget->Initialize();
 ///     histwidget->show();
 ///
 /// Or it can be placed inside another QWidget, such as a
@@ -52,89 +43,72 @@
 ///
 ///     QMainWindow *win = new QMainWindow();
 ///     GRIHist1DWidget *histwidget = new GRIHist1DWidget(win);
-///     histwidget->SetHist(A1->GetHistogram("ADCHist"));
+///     histwidget->set_hist(A1->GetHistogram("ADCHist"));
+///     histwidget->Initialize();
 ///     win->setCentralWidget(histwidget);
 ///     win->show();
 
-class GRIHist1DWidget : public QWidget {
+class GRIHist1DWidget : public GRIHistWidget {
 
   Q_OBJECT
 
 public:
-  GRIHist1DWidget(QWidget *parent = 0, GRIHistogrammer *grihist = NULL,
-                  QColor qcolor = QColor(0,255,0,255));
-    ~GRIHist1DWidget();
-    void SetHist(GRIHistogrammer *grihist);
-    void SetLogScale(bool logscale_on);
-    void SetAutoScale(bool autoscale_on);
+  GRIHist1DWidget(QWidget *parent = 0, GRIHistogrammer *grihist = NULL);
+  ~GRIHist1DWidget();
 
-    void set_plot_color(QColor plot_color) { plot_color_ = plot_color; }
-    void set_xlabel(QString xlabel) { xlabel_ = xlabel; }
-    void set_ylabel(QString ylabel) { ylabel = ylabel; }
-    GRIHistogrammer* get_gri_hist() { return gri_hist_; }
-    bool get_logscale_on() { return logscale_on_; }
-    bool get_autoscale_on() { return autoscale_on_; }
+  void Initialize();
 
+  void SetLogScale(bool logscale_on);
+  void SetAutoScale(bool autoscale_on);
+
+  void set_outline_color(QColor outline_color) { outline_color_ = outline_color; }
+  QColor get_outline_color() { return outline_color_; }
 
 public slots:
-    void UpdateData();
+  void UpdateData();
 
-    void paintEvent(QPaintEvent *event);
-    void resizeEvent(QResizeEvent *event);
-    void wheelEvent(QWheelEvent *event);
-    void mouseDoubleClickEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
+  void paintEvent(QPaintEvent *event);
+  void resizeEvent(QResizeEvent *event);
+  void wheelEvent(QWheelEvent *event);
+  void mouseDoubleClickEvent(QMouseEvent *event);
+  void mouseMoveEvent(QMouseEvent *event);
+  void mousePressEvent(QMouseEvent *event);
+  void mouseReleaseEvent(QMouseEvent *event);
 
 protected slots:
-    void ToggleLogScale();
-    void ToggleAutoScale();
+  void ToggleLogScale();
+  void ToggleAutoScale();
 
 private:
-    // underlying histogram to display
-    GRIHistogrammer *gri_hist_;
+  int Window_Y(double dataY);
+  int Window_X(double dataX);
+  double Data_X(int windowX);
+  double Data_Y(int windowY);
+  double Data_X(int windowX, double data_xmin, double data_xmax);
+  double Data_Y(int windowY, double data_ymin, double data_ymax);
 
-    // Drawing objects
-    QImage image_;
-    QString xlabel_, ylabel_;
-    int text_height_;
-    int window_margin_L_, window_margin_R_, window_margin_B_, window_margin_T_;
-    int window_canvas_W_, window_canvas_H_;
-    double data_xmin_, data_xmax_, data_ymin_, data_ymax_;
+  bool autoscale_on_;
+  bool logscale_on_;
+  bool mousedrag_on_;
+  int mouseclicked_window_x_, mouseclicked_window_y_;
+  double mouseclicked_data_x_, mouseclicked_data_y_,
+  mouseclicked_data_xmin_, mouseclicked_data_xmax_,
+  mouseclicked_data_ymin_, mouseclicked_data_ymax_;
+  bool mousehover_on_;
+  int mousehover_x_, mousehover_y_;
 
-    int Window_Y(double dataY);
-    int Window_X(double dataX);
-    double Data_X(int windowX);
-    double Data_Y(int windowY);
-    double Data_X(int windowX, double data_xmin, double data_xmax);
-    double Data_Y(int windowY, double data_ymin, double data_ymax);
+  /// Return the minimum value to be used for the histogram, whether 0
+  /// (linear) or smallest nonzero value (log)
+  double HistRangeMin();
+  double HistRangeMax();
+  double HistSmallestNonzero();
 
-    bool autoscale_on_;
-    bool logscale_on_;
-    bool mousedrag_on_;
-    int mouseclicked_window_x_, mouseclicked_window_y_;
-    double mouseclicked_data_x_, mouseclicked_data_y_,
-        mouseclicked_data_xmin_, mouseclicked_data_xmax_,
-        mouseclicked_data_ymin_, mouseclicked_data_ymax_;
-    bool mousehover_on_;
-    int mousehover_x_, mousehover_y_;
+  /// Colors
+  QColor outline_color_;
 
-    // Return the minimum value to be used for the histogram, whether 0 
-    // (linear) or smallest nonzero value (log)
-    double HistRangeMin();
-    double HistRangeMax();
-    double HistSmallestNonzero();
-
-    // timer to update data
-    QTimer* data_update_timer_;
-
-    // misc
-    QColor plot_color_;
-
-    // UI stuff
-    QPushButton *button_toggle_log_scale_;
-    QPushButton *button_toggle_auto_scale_;
+  /// UI stuff
+  QPushButton *button_toggle_log_scale_;
+  QPushButton *button_toggle_auto_scale_;
 };
 
 #endif  // GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DWIDGET_H_
