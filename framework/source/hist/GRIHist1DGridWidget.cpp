@@ -120,6 +120,34 @@ int GRIHist1DGridWidget::HistWidgetIndex(GRIHistogrammer *h) {
 }
 
 
+void GRIHist1DGridWidget::SetXLabel(GRIHistogrammer *h, QString xlabel) {
+  if (HistIsPresent(h)) {
+    hist_widget_[HistWidgetIndex(h)]->set_xlabel(xlabel);
+  }
+}
+
+
+void GRIHist1DGridWidget::SetXLabelAll(QString xlabel) {
+  for (int i = 0; i < hist_widget_.size(); ++i) {
+    hist_widget_[i]->set_xlabel(xlabel);
+  }
+}
+
+
+void GRIHist1DGridWidget::SetYLabel(GRIHistogrammer *h, QString ylabel) {
+  if (HistIsPresent(h)) {
+    hist_widget_[HistWidgetIndex(h)]->set_ylabel(ylabel);
+  }
+}
+
+
+void GRIHist1DGridWidget::SetYLabelAll(QString ylabel) {
+  for (int i = 0; i < hist_widget_.size(); ++i) {
+    hist_widget_[i]->set_ylabel(ylabel);
+  }
+}
+
+
 void GRIHist1DGridWidget::SetForegroundColor(GRIHistogrammer *h, QColor qcolor) {
   if (HistIsPresent(h)) {
     hist_widget_[HistWidgetIndex(h)]->set_foreground_color(qcolor);
@@ -162,9 +190,23 @@ void GRIHist1DGridWidget::SetOutlineColorAll(QColor qcolor) {
 }
 
 
+void GRIHist1DGridWidget::SetLogScale(GRIHistogrammer *h, bool logscale_on) {
+  if (HistIsPresent(h)) {
+    hist_widget_[HistWidgetIndex(h)]->SetLogScale(logscale_on);
+  }
+}
+
+
 void GRIHist1DGridWidget::SetLogScaleAll(bool logscale_on) {
   for (int i = 0; i < hist_widget_.size(); ++i) {
     hist_widget_[i]->SetLogScale(logscale_on);
+  }
+}
+
+
+void GRIHist1DGridWidget::SetAutoScale(GRIHistogrammer *h, bool autoscale_on) {
+  if (HistIsPresent(h)) {
+    hist_widget_[HistWidgetIndex(h)]->SetAutoScale(autoscale_on);
   }
 }
 

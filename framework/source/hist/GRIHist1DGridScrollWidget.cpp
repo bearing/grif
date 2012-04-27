@@ -51,8 +51,6 @@ GRIHist1DGridScrollWidget::GRIHist1DGridScrollWidget(QWidget *parent)
   hist_frame_->resize(window_canvas_W_, window_canvas_H_);
   hist_layout_ = NULL;
 
-  log_scale_on_ = false;
-  auto_scale_on_ = true;
 }
 
 
@@ -64,10 +62,46 @@ GRIHist1DGridScrollWidget::~GRIHist1DGridScrollWidget() {
 void GRIHist1DGridScrollWidget::AddHist(GRIHistogrammer *h) {
   // add histogram to list
   gri_hist_vec_.append(h);
+  hist_xlabel_vec_.append("");
+  hist_ylabel_vec_.append("");
   hist_foreground_color_vec_.append(Qt::green);
   hist_background_color_vec_.append(Qt::white);
   hist_outline_color_vec_.append(Qt::black);
+  hist_logscale_on_vec_.append(false);
+  hist_autoscale_on_vec_.append(true);
   SetDefaultGrid();
+}
+
+
+void GRIHist1DGridScrollWidget::SetXLabel(GRIHistogrammer *h, QString xlabel) {
+  if (HistIsPresent(h)) {
+    hist_xlabel_vec_[HistIndex(h)] = xlabel;
+  }
+  ResetGrid();
+}
+
+
+void GRIHist1DGridScrollWidget::SetXLabelAll(QString xlabel) {
+  for (int i = 0; i < hist_xlabel_vec_.size(); ++i) {
+    hist_xlabel_vec_[i] = xlabel;
+  }
+  ResetGrid();
+}
+
+
+void GRIHist1DGridScrollWidget::SetYLabel(GRIHistogrammer *h, QString ylabel) {
+  if (HistIsPresent(h)) {
+    hist_ylabel_vec_[HistIndex(h)] = ylabel;
+  }
+  ResetGrid();
+}
+
+
+void GRIHist1DGridScrollWidget::SetYLabelAll(QString ylabel) {
+  for (int i = 0; i < hist_ylabel_vec_.size(); ++i) {
+    hist_ylabel_vec_[i] = ylabel;
+  }
+  ResetGrid();
 }
 
 
@@ -119,14 +153,34 @@ void GRIHist1DGridScrollWidget::SetOutlineColorAll(QColor qcolor) {
 }
 
 
+void GRIHist1DGridScrollWidget::SetLogScale(GRIHistogrammer *h, bool logscale_on) {
+  if (HistIsPresent(h)) {
+    hist_logscale_on_vec_[HistIndex(h)] = logscale_on;
+  }
+  ResetGrid();
+}
+
+
 void GRIHist1DGridScrollWidget::SetLogScaleAll(bool logscale_on) {
-  log_scale_on_ = logscale_on;
+  for (int i = 0; i < hist_logscale_on_vec_.size(); ++i) {
+    hist_logscale_on_vec_[i] = logscale_on;
+  }
+  ResetGrid();
+}
+
+
+void GRIHist1DGridScrollWidget::SetAutoScale(GRIHistogrammer *h, bool autoscale_on) {
+  if (HistIsPresent(h)) {
+    hist_autoscale_on_vec_[HistIndex(h)] = autoscale_on;
+  }
   ResetGrid();
 }
 
 
 void GRIHist1DGridScrollWidget::SetAutoScaleAll(bool autoscale_on) {
-  auto_scale_on_ = autoscale_on;
+  for (int i = 0; i < hist_autoscale_on_vec_.size(); ++i) {
+    hist_autoscale_on_vec_[i] = autoscale_on;
+  }
   ResetGrid();
 }
 
@@ -157,11 +211,13 @@ void GRIHist1DGridScrollWidget::ResetGrid() {
       if (ind < gri_hist_vec_.size()) {
         // make a histogram widget
         GRIHist1DWidget *histWidg = new GRIHist1DWidget(0, gri_hist_vec_[ind]);
-        histWidg->SetLogScale(log_scale_on_);
-        histWidg->SetAutoScale(auto_scale_on_);
+        histWidg->set_xlabel(hist_xlabel_vec_[ind]);
+        histWidg->set_ylabel(hist_ylabel_vec_[ind]);
         histWidg->set_foreground_color(hist_foreground_color_vec_[ind]);
         histWidg->set_background_color(hist_background_color_vec_[ind]);
         histWidg->set_outline_color(hist_outline_color_vec_[ind]);
+        histWidg->SetLogScale(hist_logscale_on_vec_[ind]);
+        histWidg->SetAutoScale(hist_autoscale_on_vec_[ind]);
         hist_widg_disp_vec_.append(histWidg);
         hist_layout_->addWidget(histWidg,row,col);
       }

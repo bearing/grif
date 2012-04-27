@@ -39,8 +39,8 @@ GRIHistWidget::GRIHistWidget(QWidget *parent, GRIHistogrammer *grihist) : QWidge
   set_background_color(QColor(230,230,230));
 
   // set up the window layout
-  set_xlabel(QString("X Label"));
-  set_ylabel(QString("Y Label"));
+  set_xlabel(QString(""));
+  set_ylabel(QString(""));
 
   text_height_ = 25;
   window_margin_L_ = text_height_+15;

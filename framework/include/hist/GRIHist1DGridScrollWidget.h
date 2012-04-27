@@ -82,13 +82,19 @@ public:
   ~GRIHist1DGridScrollWidget();
 
   void AddHist(GRIHistogrammer *h);
+  void SetXLabel(GRIHistogrammer *h, QString xlabel);
+  void SetXLabelAll(QString xlabel);
+  void SetYLabel(GRIHistogrammer *h, QString ylabel);
+  void SetYLabelAll(QString ylabel);
   void SetForegroundColor(GRIHistogrammer *h, QColor qcolor);
   void SetForegroundColorAll(QColor qcolor);
   void SetBackgroundColor(GRIHistogrammer *h, QColor qcolor);
   void SetBackgroundColorAll(QColor qcolor);
   void SetOutlineColor(GRIHistogrammer *h, QColor qcolor);
   void SetOutlineColorAll(QColor qcolor);
+  void SetLogScale(GRIHistogrammer *h, bool logscale_on);
   void SetLogScaleAll(bool logscale_on);
+  void SetAutoScale(GRIHistogrammer *h, bool autoscale_on);
   void SetAutoScaleAll(bool autoscale_on);
   void SetGridMajor(int Nrow, int Ncol);
   void SetGridMinor(int Nrow, int Ncol);
@@ -126,11 +132,13 @@ private:
 
   QVector<GRIHist1DWidget *> hist_widg_disp_vec_;
   QVector<GRIHistogrammer *> gri_hist_vec_;
+  QVector<QString> hist_xlabel_vec_;
+  QVector<QString> hist_ylabel_vec_;
   QVector<QColor> hist_foreground_color_vec_;
   QVector<QColor> hist_background_color_vec_;
   QVector<QColor> hist_outline_color_vec_;
-  bool log_scale_on_;
-  bool auto_scale_on_;
+  QVector<bool> hist_logscale_on_vec_;
+  QVector<bool> hist_autoscale_on_vec_;
 
   QFrame *hist_frame_;
   QGridLayout *hist_layout_;

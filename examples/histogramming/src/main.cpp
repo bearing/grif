@@ -141,6 +141,9 @@ int main(int argc, char* argv[]) {
   win4->setCentralWidget(histDraw4);
   histDraw4->setWindowTitle("Single Channel");
   histDraw4->AddHist(AMC1->GetHistogram("ADC Channel 5"));
+  histDraw4->SetXLabel(AMC1->GetHistogram("ADC Channel 5"),QString("Channel"));
+  histDraw4->SetYLabel(AMC1->GetHistogram("ADC Channel 5"),QString("Counts"));
+  histDraw4->SetLogScale(AMC1->GetHistogram("ADC Channel 5"),false);
   win4->setWindowTitle("Single Channel (Grid Widget)");
   win4->resize(450,300);
   win4->show();
@@ -155,6 +158,8 @@ int main(int argc, char* argv[]) {
   histDraw5->AddHist(AMC1->GetHistogram("ADC Channel 5"));
   histDraw5->SetGridNx(2);
   histDraw5->SetLogScaleAll(true);
+  histDraw5->SetXLabelAll("Channel");
+  histDraw5->SetYLabelAll("Counts");
   if (AMC1->GetHistogram("ADC Channel 0")) {
     histDraw5->SetForegroundColor(AMC1->GetHistogram("ADC Channel 0"),QColor(255, 0, 0));
   }
@@ -167,7 +172,7 @@ int main(int argc, char* argv[]) {
   if (AMC1->GetHistogram("ADC Channel 5")) {
     histDraw5->SetForegroundColor(AMC1->GetHistogram("ADC Channel 5"),QColor(0, 255, 255));
   }
-  win5->resize(640,600);
+  win5->resize(640,480);
   win5->show();
 
   QMainWindow *win7 = new QMainWindow();
@@ -221,6 +226,8 @@ int main(int argc, char* argv[]) {
   histDraw_Scroll->SetGridMajor(4,3);
   histDraw_Scroll->SetGridMinor(2,2);
   histDraw_Scroll->SetGridMinorUpperLeft(0,0);
+  histDraw_Scroll->SetXLabelAll("Channel");
+  histDraw_Scroll->SetYLabelAll("Counts");
   histDraw_Scroll->SetLogScaleAll(true);
   win7->resize(640,480);
   win7->show();
@@ -239,9 +246,11 @@ int main(int argc, char* argv[]) {
 
   app.exec();
 
-  GRISleep::msleep(2000);
+  GRISleep::msleep(5000);
 
   reg->Stop();
+
+  GRISleep::msleep(5000);
 
   delete(win1);
   delete(win2);

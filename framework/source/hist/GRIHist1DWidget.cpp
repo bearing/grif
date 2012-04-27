@@ -31,10 +31,10 @@ GRIHist1DWidget::GRIHist1DWidget(QWidget *parent, GRIHistogrammer *grihist)
   : GRIHistWidget(parent, grihist) {
   // set default plot color
   set_foreground_color(QColor(0,200,0));
-  set_background_color(QColor(240,240,240));
+  set_background_color(QColor(245,245,245));
   set_outline_color(QColor(0,0,0));
 
-  text_height_ = 20;
+  text_height_ = 25;
   window_margin_L_ = text_height_+15;
   window_margin_R_ = text_height_+15;
   window_margin_T_ = text_height_+5;
