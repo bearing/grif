@@ -110,9 +110,12 @@ class GRIProcessThread : public GRIThread {
   /// and bufferName. Essentially abstracts regulator's ReadMemory() by templating it.
   template<class T> QPair<int, T*> ReadMemory(QString blockName, QString bufferName);
 
-  // WriteMemory() writes a data given in the char array to the location specified.
-  // by process_name and bufferName. Also abstracts regulator's ReadMemory() by
-  // templating it.
+  /// WriteMemory() writes a data given in the char array to the location specified.
+  /// by process_name and bufferName. Also abstracts regulator's ReadMemory() by
+  /// templating it.
+  ///
+  /// The data posted __must__ be of a static data type.  Vectors, lists, etc.
+  /// are not static and we cannot determine how many elements there are.
   template <class T> bool WriteMemory(QString blockName, QString bufferName,
                                       int size, T dataArray[]);
 

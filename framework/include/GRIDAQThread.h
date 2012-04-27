@@ -383,6 +383,8 @@ class GRIDAQThread : public GRIProcessThread {
 
  protected:
   /// Post data to the regulator to a given buffer.
+  /// The data posted __must__ be of a static data type.  Vectors, lists, etc.
+  /// are not static and we cannot determine how many elements there are.
   ///
   /// @param numel is the number of data elements
   /// @param buffer_name is the name of the buffer where the data will be stored
