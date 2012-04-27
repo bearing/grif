@@ -70,13 +70,19 @@ public:
   ~GRIHist1DGridWidget();
 
   void AddHist(GRIHistogrammer *h);
+  void SetXLabel(GRIHistogrammer *h, QString xlabel);
+  void SetXLabelAll(QString xlabel);
+  void SetYLabel(GRIHistogrammer *h, QString ylabel);
+  void SetYLabelAll(QString ylabel);
   void SetForegroundColor(GRIHistogrammer *h, QColor qcolor);
   void SetForegroundColorAll(QColor qcolor);
   void SetBackgroundColor(GRIHistogrammer *h, QColor qcolor);
   void SetBackgroundColorAll(QColor qcolor);
   void SetOutlineColor(GRIHistogrammer *h, QColor qcolor);
   void SetOutlineColorAll(QColor qcolor);
+  void SetLogScale(GRIHistogrammer *h, bool logscale_on);
   void SetLogScaleAll(bool logscale_on);
+  void SetAutoScale(GRIHistogrammer *h, bool autoscale_on);
   void SetAutoScaleAll(bool autoscale_on);
   void SetGridNx(int nx);
   void SetGridNy(int ny);
