@@ -36,7 +36,7 @@ GRIHistWidget::GRIHistWidget(QWidget *parent, GRIHistogrammer *grihist) : QWidge
 
   // set default plot color
   set_foreground_color(QColor(200,0,0));
-  set_background_color(QColor(230,230,230));
+  set_background_color(QColor(245,245,245));
 
   // set up the window layout
   set_xlabel(QString(""));

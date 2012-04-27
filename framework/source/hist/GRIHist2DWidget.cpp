@@ -26,12 +26,7 @@
 
 GRIHist2DWidget::GRIHist2DWidget(QWidget *parent, GRIHistogrammer *grihist)
   : GRIHistWidget(parent, grihist) {
-  // set default plot color
-  //  SetColor(qcolor_foreground, qcolor_background);
-
   // set up the window layout
-  xlabel_ = QString("X Label");
-  ylabel_ = QString("Y Label");
   window_margin_L_ = 35;
   window_margin_R_ = 25;
   window_margin_T_ = 25;
