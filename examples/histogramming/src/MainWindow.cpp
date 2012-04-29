@@ -8,8 +8,10 @@ MainWindow::MainWindow(QWidget *parent, SIMMCAnalysisThread *AMC) :
     ui->setupUi(this);
 
     amc1_ = AMC;
+
+    /*Set the layout so widgets will resize */
     QVBoxLayout *vbl_1 = new QVBoxLayout(ui->HistWidget1D);
-    QSize minWidgetSize(400,300);
+    QSize minWidgetSize(400,320);
 
     /*Setup the 1D histogram case */
     hist_draw_1D_ = new GRIHist1DWidget(this);
@@ -25,20 +27,22 @@ MainWindow::MainWindow(QWidget *parent, SIMMCAnalysisThread *AMC) :
     hist_draw_2D_ = new GRIHist2DWidget(this);
     vbl_2->addWidget(hist_draw_2D_);
 
-
+    /*Get the histogram listing */
     hist_list_ = amc1_->GetHistogramList();
     ui->comboBox->addItems(hist_list_);
 
+    /*Add some colors for the user to choose from */
     QStringList colors;
     colors << "darkCyan" << "darkGreen" << "darkBlue" << "darkRed" << "cyan" << "green" << "blue" << "red" ;
     ui->comboBox_2->addItems(colors);
 
+    /*Signal and slot connections */
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setHist(int)));
     connect(ui->comboBox_2, SIGNAL(currentIndexChanged(int)), this, SLOT(setColor(int)));
     connect(ui->comboBox_2, SIGNAL(activated(int)), this, SLOT(setColor(int)));
-//    connect(ui->lineEdit, SIGNAL(textChanged(QString)), this, SLOT(getPeaks()));
     connect(ui->lineEdit, SIGNAL(returnPressed()), this, SLOT(getPeaks()));
 
+    /*Initialize and setup the some histogrammer display variables */
     color_hist_vect_ = new QVector<QColor>( amc1_->GetHistogramList().size() );
     color_hist_vect_->fill( QColor(colors.at(0)));
     setColor(0);
@@ -55,6 +59,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+/*
+    Get an estimate of peak locations, nothing too computationally intense!!!
+    this is the GUI thread!!!
+*/
 void MainWindow::getPeaks()
 {
     QString histName = ui->comboBox->itemText( ui->comboBox->currentIndex() );
@@ -74,7 +82,7 @@ void MainWindow::getPeaks()
         spec->Search(currentHist->get_hist(), sigma, "goff");
         int nfound = spec->GetNPeaks();
         Float_t *xpeaks = spec->GetPositionX();
-        ui->listWidget->addItem(QString("Channel ------- FWHM"));
+        ui->listWidget->addItem(QString("Channel -------"));
         for(int i = 0; i < nfound ; i++){
             ui->listWidget->addItem(QString::number(xpeaks[i]));
         }
@@ -82,6 +90,12 @@ void MainWindow::getPeaks()
     }
 
 }
+
+/*
+    dynamically set the histogram, one can now abstract this further because
+    GRIHistWidget*D is now derived from GRIHistWidget! Not done here but one
+    could easily 'dynamic_cast<type>(hist_pointer)'
+*/
 
 void MainWindow::setHist(int i)
 {
@@ -109,6 +123,9 @@ void MainWindow::setHist(int i)
 
 }
 
+/*
+  set the plot color
+*/
 void MainWindow::setColor(int i){
 
     QString currentHist = ui->comboBox->itemText( ui->comboBox->currentIndex() );
@@ -125,6 +142,9 @@ void MainWindow::setColor(int i){
 
 }
 
+/*
+    slot for updating the GUI after the current tab has changed
+*/
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
@@ -137,6 +157,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     }
 }
 
+/*
+    menu action for clicks on the File->Close button in the GUI
+*/
 void MainWindow::on_actionClose_triggered()
 {
     close();

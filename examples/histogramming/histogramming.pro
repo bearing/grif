@@ -63,9 +63,9 @@ HEADERS += \
 ## 
 # Please fill in GRIFDIR and ROOTDIR with the appropriate paths
 # Top directory of GRIF on your machine:
-GRIFDIR = "C:\grif"
+GRIFDIR =
 # Directory of ROOT on your machine:
-ROOTDIR = "C:\root"
+ROOTDIR =
 
 
 
