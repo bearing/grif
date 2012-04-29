@@ -52,18 +52,20 @@ include(../../framework/include/hist/histinclude.pri)
 SOURCES += \
     ./src/main.cpp \
     ./src/SIMMCAnalysisThread.cpp \
-    ./src/SIMDAQThread.cpp
+    ./src/SIMDAQThread.cpp \
+    src/MainWindow.cpp
 
 HEADERS += \
     ./include/SIMMCAnalysisThread.h \
-    ./include/SIMDAQThread.h
+    ./include/SIMDAQThread.h \
+    src/MainWindow.h
 
 ## 
 # Please fill in GRIFDIR and ROOTDIR with the appropriate paths
 # Top directory of GRIF on your machine:
-GRIFDIR =
+GRIFDIR = "C:\grif"
 # Directory of ROOT on your machine:
-ROOTDIR =
+ROOTDIR = "C:\root"
 
 
 
@@ -92,10 +94,19 @@ INCLUDEPATH += $$ROOTDIR/include
 # ROOT libraries
 ROOTSYSLIB += $$ROOTDIR/lib
 INCLUDEPATH += $$ROOTSYSLIB
-LIBS += -L$$ROOTSYSLIB
-LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore
-LIBS += $$ROOTSYSLIB/libCint.so
-LIBS += $$ROOTSYSLIB/libCore.so
-LIBS += $$ROOTSYSLIB/libHist.so
-LIBS += $$ROOTSYSLIB/libMatrix.so
-LIBS += $$ROOTSYSLIB/libMathCore.so
+unix {
+    LIBS += -L$$ROOTSYSLIB
+    LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore
+    LIBS += $$ROOTSYSLIB/libCint.so
+    LIBS += $$ROOTSYSLIB/libCore.so
+    LIBS += $$ROOTSYSLIB/libHist.so
+    LIBS += $$ROOTSYSLIB/libMatrix.so
+    LIBS += $$ROOTSYSLIB/libMathCore.so
+}
+win32 {
+    LIBS += -L$$ROOTSYSLIB
+    LIBS += -L$$ROOTSYS/lib -llibCore -llibHist -llibMatrix -llibMathCore -llibCint -llibSpectrum
+}
+
+FORMS += \
+    src/mainwindow.ui
