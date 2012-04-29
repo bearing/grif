@@ -8,15 +8,26 @@ MainWindow::MainWindow(QWidget *parent, SIMMCAnalysisThread *AMC) :
     ui->setupUi(this);
 
     amc1_ = AMC;
+    Init();
 
+}
+
+MainWindow::~MainWindow()
+{
+
+    delete ui;
+}
+
+void MainWindow::Init()
+{
     /*Set the layout so widgets will resize */
     QVBoxLayout *vbl_1 = new QVBoxLayout(ui->HistWidget1D);
-    QSize minWidgetSize(400,320);
+    QSize min_widget_size(400,320);
 
     /*Setup the 1D histogram case */
     hist_draw_1D_ = new GRIHist1DWidget(this);
     vbl_1->addWidget(hist_draw_1D_);
-    hist_draw_1D_->setMinimumSize(minWidgetSize);
+    hist_draw_1D_->setMinimumSize(min_widget_size);
     hist_draw_1D_->setWindowTitle("ADC Channel 0");
     hist_draw_1D_->set_hist(amc1_->GetHistogram("ADC Channel 0"));
     hist_draw_1D_->set_xlabel("Channel");
@@ -53,23 +64,17 @@ MainWindow::MainWindow(QWidget *parent, SIMMCAnalysisThread *AMC) :
     hist_draw_2D_->Initialize();
 }
 
-MainWindow::~MainWindow()
-{
-
-    delete ui;
-}
-
 /*
     Get an estimate of peak locations, nothing too computationally intense!!!
     this is the GUI thread!!!
 */
 void MainWindow::getPeaks()
 {
-    QString histName = ui->comboBox->itemText( ui->comboBox->currentIndex() );
-    GRIHistogrammer *currentHist = amc1_->GetHistogram( histName );
+    QString hist_name = ui->comboBox->itemText( ui->comboBox->currentIndex() );
+    GRIHistogrammer *current_hist = amc1_->GetHistogram( hist_name );
     float sigma = ui->lineEdit->text().toFloat();
 
-    if((currentHist==NULL)||(sigma<0.1)){
+    if((current_hist==NULL)||(sigma<0.1)){
 
         ui->listWidget->clear();
         ui->statusbar->showMessage("ERROR: Sigma must be set to 0.1 or greater", 4000);
@@ -79,12 +84,12 @@ void MainWindow::getPeaks()
         ui->listWidget->clear();
 
         TSpectrum* spec = new TSpectrum();
-        spec->Search(currentHist->get_hist(), sigma, "goff");
-        int nfound = spec->GetNPeaks();
-        Float_t *xpeaks = spec->GetPositionX();
+        spec->Search(current_hist->get_hist(), sigma, "goff");
+        int n_found = spec->GetNPeaks();
+        Float_t *x_peaks = spec->GetPositionX();
         ui->listWidget->addItem(QString("Channel -------"));
-        for(int i = 0; i < nfound ; i++){
-            ui->listWidget->addItem(QString::number(xpeaks[i]));
+        for(int i = 0; i < n_found ; i++){
+            ui->listWidget->addItem(QString::number(x_peaks[i]));
         }
         delete spec;
     }
@@ -99,8 +104,8 @@ void MainWindow::getPeaks()
 
 void MainWindow::setHist(int i)
 {
-    QString currentHist = ui->comboBox->itemText(i);
-    GRIHistogrammer *hist = amc1_->GetHistogram(currentHist.toAscii());
+    QString current_hist = ui->comboBox->itemText(i);
+    GRIHistogrammer *hist = amc1_->GetHistogram(current_hist.toAscii());
 
     if( hist->get_dimension() == 1){
         ui->tabWidget->setCurrentIndex(0);
@@ -128,13 +133,13 @@ void MainWindow::setHist(int i)
 */
 void MainWindow::setColor(int i){
 
-    QString currentHist = ui->comboBox->itemText( ui->comboBox->currentIndex() );
-    GRIHistogrammer *hist = amc1_->GetHistogram(currentHist.toAscii());
+    QString current_hist = ui->comboBox->itemText( ui->comboBox->currentIndex() );
+    GRIHistogrammer *hist = amc1_->GetHistogram(current_hist.toAscii());
 
     if( hist->get_dimension() == 1){
         QColor color = QColor(ui->comboBox_2->itemText(i));
         hist_draw_1D_->set_foreground_color( color );
-        color_hist_vect_->replace( ui->comboBox->findText( currentHist ), color);
+        color_hist_vect_->replace( ui->comboBox->findText( current_hist ), color);
     }
     else{
 
