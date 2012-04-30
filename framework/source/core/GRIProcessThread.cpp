@@ -20,9 +20,9 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
+#include <core/GRIProcessThread.h>
 #include <assert.h>
 #include <QMutexLocker>
-#include "GRIProcessThread.h"
 
 int GRIProcessThread::counter = 0;
 

@@ -20,12 +20,12 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
+#include <hist/GRIHist1DWidget.h>
+
 #include <QPoint>
 #include <QBrush>
 
 #include "TMath.h"
-
-#include <hist/GRIHist1DWidget.h>
 
 GRIHist1DWidget::GRIHist1DWidget(QWidget *parent, GRIHistogrammer *grihist)
   : GRIHistWidget(parent, grihist) {

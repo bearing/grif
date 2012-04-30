@@ -20,7 +20,7 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRILogMessage.h"
+#include <logging/GRILogMessage.h>
 #include <QDateTime>
 #include "stdlib.h"
 #include "stdio.h"

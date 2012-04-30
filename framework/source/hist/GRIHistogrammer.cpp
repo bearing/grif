@@ -20,7 +20,7 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRIHistogrammer.h"
+#include <hist/GRIHistogrammer.h>
 
 GRIHistogrammer::GRIHistogrammer() {
     hist_ = NULL;

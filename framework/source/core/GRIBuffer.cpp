@@ -20,7 +20,7 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRIBuffer.h"
+#include <core/GRIBuffer.h>
 
 GRIBuffer::GRIBuffer(QReadWriteLock *lock) {
   busy_write_ = false;

@@ -20,7 +20,7 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRIMemoryManager.h"
+#include <core/GRIMemoryManager.h>
 #include <assert.h>
 
 GRIMemoryManager::~GRIMemoryManager() {

@@ -20,7 +20,7 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRIMath.h"
+#include <tools/GRIMath.h>
 
 double erfinv(double P) {
   double      Y,A,B,X,Z,W,WI,SN,SD,F,Z2,SIGMA;

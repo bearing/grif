@@ -20,10 +20,10 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
+#include <config/GRIParser.h>
 #include "iostream"
 #include "qdom.h"
 #include "QFile"
-#include "GRIParser.h"
 
 bool GRIParser::Parse(QString FilePath) {
   QFile f(FilePath);

@@ -20,10 +20,10 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRIUserLoader.h"
+#include <config/GRIUserLoader.h>
 
 // All possible process thread headers should be included from GRIUserProcesses.
-#include "GRIUserProcesses.h"
+#include <config/GRIUserProcesses.h>
 
 GRIProcessThread *GRIUserLoader::Load(QString class_name, QString object_name) {
   // process_name <=> class name

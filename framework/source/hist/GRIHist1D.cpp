@@ -20,7 +20,7 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRIHist1D.h"
+#include <hist/GRIHist1D.h>
 
 GRIHist1D::GRIHist1D(QString BlockName, int ID, QString HistName) {
   hist_ = new TH1D();

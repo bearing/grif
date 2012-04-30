@@ -20,7 +20,7 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRILogger.h"
+#include <logging/GRILogger.h>
 #include <stdio.h>
 #include <iostream>
 #include <QDir>

@@ -20,10 +20,10 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
+#include <core/GRIDataBlock.h>
 #include <cassert>
 #include <time.h>
-#include "GRIDataBlock.h"
-#include "GRIMemoryManager.h"
+#include <core/GRIMemoryManager.h>
 
 GRIDataBlock::GRIDataBlock(GRIRegulator *reg, GRIMemoryManager *mm, 
                            QString readerName, QString readerBuffer,

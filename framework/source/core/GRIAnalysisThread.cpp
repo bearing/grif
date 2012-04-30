@@ -20,10 +20,10 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
+#include <core/GRIAnalysisThread.h>
 #include <QTextStream>
-#include "GRIAnalysisThread.h"
-#include "GRIHist1D.h"
-#include "GRIHist2D.h"
+#include <hist/GRIHist1D.h>
+#include <hist/GRIHist2D.h>
 
 const int ANALYSIS_SLEEP_TIME = 2;
 

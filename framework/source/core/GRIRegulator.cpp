@@ -20,12 +20,13 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
+#include <core/GRIRegulator.h>
+
 #include <cassert>
-#include "GRIMemoryManager.h"
-#include "GRIDataBlock.h"
-#include "GRIProcessThread.h"
-#include "GRILoader.h"
-#include "GRIRegulator.h"
+#include <config/GRILoader.h>
+#include <core/GRIMemoryManager.h>
+#include <core/GRIDataBlock.h>
+#include <core/GRIProcessThread.h>
 
 GRIRegulator::GRIRegulator(GRIMemoryManager *mm) {
   mem_mngr_ = mm;

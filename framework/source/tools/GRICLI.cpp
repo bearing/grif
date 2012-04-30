@@ -20,10 +20,10 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
+#include <tools/GRICLI.h>
 #include "iostream"
 #include <QList>
 #include <QStringList>
-#include "GRICLI.h"
 
 GRICLI::GRICLI(QList<GRIProcessThread *> *processes) {
   processes_ = processes;

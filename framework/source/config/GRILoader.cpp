@@ -20,13 +20,14 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRILoader.h"
-#include "GRIParser.h"
+#include <config/GRILoader.h>
+
 #include <utility>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/depth_first_search.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/visitors.hpp>
+#include <config/GRIParser.h>
 
 typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::bidirectionalS,
                               boost::property<boost::vertex_color_t,

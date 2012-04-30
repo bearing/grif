@@ -20,7 +20,7 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRIObject.h"
+#include <core/GRIObject.h>
 
 void GRIObject::set_name(const QString& name) {
   setObjectName(name);

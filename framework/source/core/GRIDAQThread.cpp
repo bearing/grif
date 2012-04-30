@@ -20,7 +20,7 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRIDAQThread.h"
+#include <core/GRIDAQThread.h>
 
 const int DAQ_SLEEP_TIME = 2;
 

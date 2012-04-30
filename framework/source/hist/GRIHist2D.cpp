@@ -20,7 +20,7 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#include "GRIHist2D.h"
+#include <hist/GRIHist2D.h>
 
 GRIHist2D::GRIHist2D(QString BlockName, int ID, QString HistName) {
   hist_ = new TH2D();
