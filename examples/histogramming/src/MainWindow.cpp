@@ -6,7 +6,6 @@ MainWindow::MainWindow(QWidget *parent, SIMMCAnalysisThread *AMC) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     amc1_ = AMC;
     Init();
 
@@ -78,7 +77,6 @@ void MainWindow::getPeaks()
 
         ui->listWidget->clear();
         ui->statusbar->showMessage("ERROR: Sigma must be set to 0.1 or greater", 4000);
-
     } else {
 
         ui->listWidget->clear();
@@ -125,14 +123,12 @@ void MainWindow::setHist(int i)
         ui->comboBox_2->setVisible(false);
         ui->label_2->setVisible(false);
     }
-
 }
 
 /*
   set the plot color
 */
 void MainWindow::setColor(int i) {
-
     QString current_hist = ui->comboBox->itemText( ui->comboBox->currentIndex() );
     GRIHistogrammer *hist = amc1_->GetHistogram(current_hist.toAscii());
 
@@ -144,7 +140,6 @@ void MainWindow::setColor(int i) {
     else{
 
     }
-
 }
 
 /*
@@ -173,5 +168,4 @@ void MainWindow::on_actionClose_triggered()
 
 void MainWindow::on_actionHistograms_hovered()
 {
-
 }
