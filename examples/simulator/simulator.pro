@@ -87,10 +87,20 @@ INCLUDEPATH += $$ROOTDIR/include
 # ROOT libraries
 ROOTSYSLIB += $$ROOTDIR/lib
 INCLUDEPATH += $$ROOTSYSLIB
-LIBS += $$ROOTSYSLIB/libCint.so
-LIBS += $$ROOTSYSLIB/libCore.so
-LIBS += $$ROOTSYSLIB/libHist.so
-LIBS += $$ROOTSYSLIB/libMatrix.so
-LIBS += $$ROOTSYSLIB/libMathCore.so
-LIBS += -L$$ROOTSYSLIB
+
+# All *nix systems
+unix|macx {
+    LIBS += -L$$ROOTSYSLIB
+    LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore
+    LIBS += $$ROOTSYSLIB/libCint.so
+    LIBS += $$ROOTSYSLIB/libCore.so
+    LIBS += $$ROOTSYSLIB/libHist.so
+    LIBS += $$ROOTSYSLIB/libMatrix.so
+    LIBS += $$ROOTSYSLIB/libMathCore.so
+}
+# All windows platforms
+win32 {
+    LIBS += -L$$ROOTSYSLIB
+    LIBS += -L$$ROOTSYS/lib -llibCore -llibHist -llibMatrix -llibMathCore -llibCint
+}
 
