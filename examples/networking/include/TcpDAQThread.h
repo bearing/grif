@@ -23,8 +23,8 @@
 #ifndef TCP_DAQ_THREAD_H
 #define TCP_DAQ_THREAD_H
 
-#include "GRIDAQThread.h"
-#include "GRIServer.h"
+#include <core/GRIDAQThread.h>
+#include <networking/GRIServer.h>
 #include <QTcpSocket>
 #include <QThread>
 

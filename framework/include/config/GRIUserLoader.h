@@ -24,7 +24,7 @@
 #define GRIF_FRAMEWORK_INCLUDE_CONFIG_GRIUSERLOADER_H_
 
 #include <QString>
-#include <core/GRILoader.h>
+#include <config/GRILoader.h>
 
 class GRIUserLoader : public GRILoader {
  public:

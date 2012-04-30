@@ -23,7 +23,7 @@
 #ifndef GRIF_EXAMPLES_SIMULATOR_SIMANALYSISTHREAD_H_
 #define GRIF_EXAMPLES_SIMULATOR_SIMANALYSISTHREAD_H_
 
-#include "GRIAnalysisThread.h"
+#include <core/GRIAnalysisThread.h>
 #include "QFile"
 
 class SIMAnalysisThread : public GRIAnalysisThread {

@@ -25,13 +25,14 @@
 #include <QtGui/QtGui>
 #include <QtCore>
 #include <Qt>
-#include "GRICLI.h"
-#include "GRIDefines.h"
-#include "GRILoader.h"
-#include "GRIUserLoader.h"
-#include "GRIMemoryManager.h"
-#include "GRIRegulator.h"
-#include "GRIServer.h"
+#include <config/GRILoader.h>
+#include <config/GRIUserLoader.h>
+#include <core/GRIDefines.h>
+#include <core/GRIMemoryManager.h>
+#include <core/GRIRegulator.h>
+#include <networking/GRIServer.h>
+#include <tools/GRICLI.h>
+
 int main(int argc, char* argv[]) {
   // the following will be included for all programs
   GRIServer *server = new GRIServer();

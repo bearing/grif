@@ -45,8 +45,6 @@ INCLUDEPATH += ../../ . \
 
 include(../../framework/source/fsource.pri)
 include(../../framework/include/finclude.pri)
-include(../../framework/source/hist/histsource.pri)
-include(../../framework/include/hist/histinclude.pri)
 
 # Source file and headers
 SOURCES += \
@@ -81,11 +79,9 @@ win32 {
     GRIF_LOG_DIR = $$GRIFPROJECTDIR\\log
 }
 
-
 DEFINES += GRIF_LOG_DIR=\\\"$${GRIF_LOG_DIR}\\\"
 # External libraries
 INCLUDEPATH += $$GRIFDIR/external
-
 
 # ROOT headers
 INCLUDEPATH += $$ROOTDIR/include

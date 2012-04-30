@@ -23,7 +23,7 @@
 #include "SIMDAQThread.h"
 #include <iostream>
 #include <QDateTime>
-#include "GRIMath.h"
+#include <tools/GRIMath.h>
 
 SIMDAQThread::SIMDAQThread(int num, double min, double max, double rate) {
   init_ready_ = true;

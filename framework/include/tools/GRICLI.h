@@ -28,8 +28,8 @@
 #include <QMutex>
 #include <QObject>
 #include <QString>
-#include "GRIDefines.h"
-#include "GRIProcessThread.h"
+#include <core/GRIDefines.h>
+#include <core/GRIProcessThread.h>
 
 enum CLI_state_enum { MAIN, PROCESS_TOP };
 typedef QList<ProcessCommand *> CLI_MACRO;

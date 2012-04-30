@@ -20,12 +20,12 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIDAQACCUMULATOR_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIDAQACCUMULATOR_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_CORE_ACCUM_GRIDAQACCUMULATOR_H_
+#define GRIF_FRAMEWORK_INCLUDE_CORE_ACCUM_GRIDAQACCUMULATOR_H_
 
-#include "GRIAccumBuff.h"
-#include "GRIDAQBaseAccumNode.h"
-#include "GRILogger.h"
+#include <core/accum/GRIAccumBuff.h>
+#include <core/accum/GRIDAQBaseAccumNode.h>
+#include <logging/GRILogger.h>
 #include <QString>
 
 template <class T>
@@ -233,4 +233,4 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
   GRILogger logger_;
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIDAQACCUMULATOR_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_CORE_ACCUM_GRIDAQACCUMULATOR_H_

@@ -29,19 +29,19 @@
 #include <QWidget>
 #include <QColor>
 
-#include "GRIDefines.h"
-#include "GRILoader.h"
-#include "GRIUserLoader.h"
-#include "GRIMemoryManager.h"
-#include "GRIRegulator.h"
+#include <config/GRILoader.h>
+#include <config/GRIUserLoader.h>
+#include <core/GRIDefines.h>
+#include <core/GRIMemoryManager.h>
+#include <core/GRIRegulator.h>
+#include <hist/GRIHistWidget.h>
+#include <hist/GRIHist1DWidget.h>
+#include <hist/GRIHist2DWidget.h>
+#include <hist/GRIHist1DGridWidget.h>
+#include <hist/GRIHist1DGridScrollWidget.h>
 
 #include "SIMDAQThread.h"
 #include "SIMMCAnalysisThread.h"
-#include "GRIHistWidget.h"
-#include "GRIHist1DWidget.h"
-#include "GRIHist2DWidget.h"
-#include "GRIHist1DGridWidget.h"
-#include "GRIHist1DGridScrollWidget.h"
 
 int main(int argc, char* argv[]) {
   // the following will be included for all programs

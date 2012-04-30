@@ -20,8 +20,8 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIACCUMBUFF_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIACCUMBUFF_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_CORE_ACCUM_GRIACCUMBUFF_H_
+#define GRIF_FRAMEWORK_INCLUDE_CORE_ACCUM_GRIACCUMBUFF_H_
 
 #include <QList>
 
@@ -89,4 +89,4 @@ class GRIAccumBuff {
   bool leading_edge_;  // First Buffer in times
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIACCUMBUFF_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_CORE_ACCUM_GRIACCUMBUFF_H_

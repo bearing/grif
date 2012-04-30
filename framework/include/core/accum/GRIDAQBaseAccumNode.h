@@ -20,15 +20,15 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIDAQBASEACCUMNODE_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIDAQBASEACCUMNODE_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_CORE_ACCUM_GRIDAQBASEACCUMNODE_H_
+#define GRIF_FRAMEWORK_INCLUDE_CORE_ACCUM_GRIDAQBASEACCUMNODE_H_
 
 #include <QString>
 #include <QTime>
-#include "GRIAccumBuff.h"
-#include "GRIDAQAccumNode.h"
-#include "GRIObject.h"
-#include "GRIProcessThread.h"
+#include <core/accum/GRIAccumBuff.h>
+#include <core/accum/GRIDAQAccumNode.h>
+#include <core/GRIObject.h>
+#include <core/GRIProcessThread.h>
 
 /// Abstract Container for GRIDAQAccumulators of different types
 class GRIDAQBaseAccumNode : public GRIDAQAccumNode {
@@ -124,4 +124,4 @@ class GRIDAQBaseAccumNode : public GRIDAQAccumNode {
   }
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIDAQBASEACCUMNODE_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_CORE_ACCUM_GRIDAQBASEACCUMNODE_H_

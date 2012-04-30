@@ -42,7 +42,6 @@ hist/GRIHist2DWidget.cpp \
 hist/GRIHistWidget.cpp \
 logging/GRILogger.cpp \
 logging/GRILogMessage.cpp \
-networking/GRIServer.cpp \
 tools/GRICLI.cpp \
 tools/GRIMath.cpp
 

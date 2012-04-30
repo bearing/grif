@@ -27,10 +27,10 @@
 #include <math.h>
 #include <time.h>
 #include <QVector>
-#include "GRIDAQAccumulator.h"
-#include "GRIDAQBaseAccumNode.h"
-#include "GRIDataDefines.h"
-#include "GRIDAQThread.h"
+#include <config/GRIDataDefines.h>
+#include <core/accum/GRIDAQAccumulator.h>
+#include <core/accum/GRIDAQBaseAccumNode.h>
+#include <core/GRIDAQThread.h>
 
 class SIMDAQThread : public GRIDAQThread {
  public:
