@@ -20,8 +20,8 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIDATABLOCK_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIDATABLOCK_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_CORE_GRIDATABLOCK_H_
+#define GRIF_FRAMEWORK_INCLUDE_CORE_GRIDATABLOCK_H_
 
 #define DATA_BLOCK_DEBUG
 
@@ -29,8 +29,8 @@
 #include <cstdlib>
 #include <QList>
 #include <QString>
-#include "GRIProcessThread.h"
-#include "GRIRegulator.h"
+#include <core/GRIProcessThread.h>
+#include <core/GRIRegulator.h>
 
 // Load balancing constant
 #define MAX_THRESHOLD 2 // When the difference in packets with writers from readers is this big
@@ -136,4 +136,4 @@ class GRIDataBlock: public GRIObject {
   bool is_enabled_;
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIDATABLOCK_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_CORE_GRIDATABLOCK_H_

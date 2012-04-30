@@ -20,8 +20,8 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRILOGGER_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRILOGGER_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_LOGGING_GRILOGGER_H_
+#define GRIF_FRAMEWORK_INCLUDE_LOGGING_GRILOGGER_H_
 
 #include <stdlib.h>
 #include <QFile>
@@ -30,7 +30,7 @@
 #include <QProcessEnvironment>
 #include <QString>
 #include <QTextStream>
-#include "GRILogMessage.h"
+#include <logging/GRILogMessage.h>
 
 class GRILogger : public QObject {
 
@@ -96,4 +96,4 @@ class GRILogger : public QObject {
   bool WriteToLogFile(QString, int, QMutex*, QFile*);
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRILOGGER_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_LOGGING_GRILOGGER_H_

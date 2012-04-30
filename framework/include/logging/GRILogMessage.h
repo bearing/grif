@@ -20,25 +20,33 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIHIST1D_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIHIST1D_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_LOGGING_GRILOGMESSAGE_H_
+#define GRIF_FRAMEWORK_INCLUDE_LOGGING_GRILOGMESSAGE_H_
 
-#include "GRIHistogrammer.h"
+#include <iostream>
+#include <QString>
 
-#include <QMutex>
-
-class GRIHist1D: public GRIHistogrammer {
+class GRILogMessage {
  public:
-  GRIHist1D(QString BlockName, int ID, QString HistName);
-  ~GRIHist1D() {}
+  GRILogMessage();
+  ~GRILogMessage();
 
-  // 1D implementations
-  int SetBins(int nx, double xBins[]);
-  int SetBins(int nx, double xmin, double xmax);
-  int Update(double x[], int numel);
+  bool SetMessageTime(QString s, int level = 0);
+  void SetObjectName(QString s) {
+    object_name_ = s;
+  }
+  bool IsLevelEnabled(int level);
+  bool IsLevelEnabled();
+  QString GetObjectName() {
+    return object_name_;
+  }
+  int level;
+  QString DateTime;
+  QString MsgStr;
 
  private:
-  QMutex update_lock_;
+  QString object_name_;
+  void SetTimeString();
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIHIST1D_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_LOGGING_GRILOGMESSAGE_H_

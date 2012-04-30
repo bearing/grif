@@ -20,8 +20,8 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIPARSER_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIPARSER_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_CONFIG_GRIPARSER_H_
+#define GRIF_FRAMEWORK_INCLUDE_CONFIG_GRIPARSER_H_
 
 #include <QHash>
 #include <QList>
@@ -59,4 +59,4 @@ class GRIParser {
   QList<struct objectParsingDetails> objs_and_links_;
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIPARSER_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_CONFIG_GRIPARSER_H_

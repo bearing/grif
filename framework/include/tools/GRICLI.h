@@ -20,8 +20,8 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRICLI_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRICLI_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_TOOLS_GRICLI_H_
+#define GRIF_FRAMEWORK_INCLUDE_TOOLS_GRICLI_H_
 
 #include <QHash>
 #include <QList>
@@ -89,4 +89,4 @@ class GRICLI : public QObject{
   mutable QMutex get_lock_;
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRICLI_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_TOOLS_GRICLI_H_

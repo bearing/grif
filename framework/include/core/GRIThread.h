@@ -20,8 +20,8 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRITHREAD_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRITHREAD_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_CORE_GRITHREAD_H_
+#define GRIF_FRAMEWORK_INCLUDE_CORE_GRITHREAD_H_
 
 #include <QTime>
 #include <QTextStream>
@@ -54,4 +54,4 @@ class GRIThread : public QThread {
   bool force_quit_;
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRITHREAD_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_CORE_GRITHREAD_H_

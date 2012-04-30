@@ -31,8 +31,8 @@
 #include <QResizeEvent>
 #include <QWidget>
 
-#include "GRIHist1DWidget.h"
-#include "GRIHistogrammer.h"
+#include <hist/GRIHist1DWidget.h>
+#include <GRIHistogrammer.h>
 
 /// A QFrame-derived class to display multiple GRIHistograms
 /// in a grid layout.  Each histogram is a GRIHist1DWidget

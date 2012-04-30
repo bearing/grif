@@ -20,13 +20,13 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIMEMORYMANAGER_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIMEMORYMANAGER_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_CORE_GRIMEMORYMANAGER_H_
+#define GRIF_FRAMEWORK_INCLUDE_CORE_GRIMEMORYMANAGER_H_
 
 #include <QString>
 #include <QReadWriteLock>
-#include "GRIBuffer.h"
-#include "GRILogMessage.h"
+#include <core/GRIBuffer.h>
+#include <logging/GRILogMessage.h>
 
 class GRIBuffer;
 
@@ -316,4 +316,4 @@ class GRIMemoryManager : public GRIObject {
   QList< QList<QReadWriteLock *>* > lock_table_;
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIMEMORYMANAGER_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_CORE_GRIMEMORYMANAGER_H_

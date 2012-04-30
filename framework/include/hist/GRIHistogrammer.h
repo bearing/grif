@@ -20,12 +20,12 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIHISTOGRAMMER_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIHISTOGRAMMER_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_HIST_GRIHISTOGRAMMER_H_
+#define GRIF_FRAMEWORK_INCLUDE_HIST_GRIHISTOGRAMMER_H_
 
 #include <QString>
 #include "TH1.h"
-#include "GRIObject.h"
+#include <core/GRIObject.h>
 
 /// Base class for multiple types of histogramming classes
 ///
@@ -101,4 +101,4 @@ class GRIHistogrammer: public GRIObject {
   TH1 *rate_hist_;
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIHISTOGRAMMER_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_HIST_GRIHISTOGRAMMER_H_

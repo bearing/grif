@@ -20,8 +20,8 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIREGULATOR_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIREGULATOR_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_CORE_GRIREGULATOR_H_
+#define GRIF_FRAMEWORK_INCLUDE_CORE_GRIREGULATOR_H_
 
 #define REGULATOR_DEBUG
 
@@ -34,8 +34,8 @@
 #include <QString>
 #include <QVector>
 #include <QWaitCondition>
-#include "GRILogMessage.h"
-#include "GRIObject.h"
+#include <core/GRIObject.h>
+#include <logging/GRILogMessage.h>
 
 class GRILoader;
 class GRIDataBlock;
@@ -131,4 +131,4 @@ class GRIRegulator: public GRIObject {
   void StartThreads();
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIREGULATOR_H
+#endif  // GRIF_FRAMEWORK_INCLUDE_CORE_GRIREGULATOR_H

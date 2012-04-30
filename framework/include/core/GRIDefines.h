@@ -20,10 +20,10 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIDEFINES_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIDEFINES_H_
-#include <QtGlobal>
+#ifndef GRIF_FRAMEWORK_INCLUDE_CORE_GRIDEFINES_H_
+#define GRIF_FRAMEWORK_INCLUDE_CORE_GRIDEFINES_H_
 
+#include <QtGlobal>
 #include <QThread>
 
 // Constants and macros for GRI framework (wrap Qt constants/macros).
@@ -149,4 +149,4 @@ class GRISleep : public QThread {
 // For Qt's internally defined globals see http://doc.trolltech.com/4.5/qtglobal.html#details
 // For definitions of macros see qglobal.h
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIDEFINES_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_CORE_GRIDEFINES_H_

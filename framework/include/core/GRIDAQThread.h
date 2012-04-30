@@ -20,16 +20,16 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIDAQTHREAD_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIDAQTHREAD_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_CORE_GRIDAQTHREAD_H_
+#define GRIF_FRAMEWORK_INCLUDE_CORE_GRIDAQTHREAD_H_
 
 #include <iostream>
 #include <QList>
 #include <QHash>
 #include <QString>
-#include "GRIDAQAccumulator.h"
-#include "GRIDAQBaseAccumNode.h"
-#include "GRIProcessThread.h"
+#include <core/GRIProcessThread.h>
+#include <core/accum/GRIDAQAccumulator.h>
+#include <core/accum/GRIDAQBaseAccumNode.h>
 
 #define DAQTHREAD_SUCCESS   0
 
@@ -434,4 +434,4 @@ template <class T> int GRIDAQThread::PostData(int numel, QString buffer_name,
   return 1;
 }
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIDAQTHREAD_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_CORE_GRIDAQTHREAD_H_

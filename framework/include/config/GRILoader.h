@@ -20,18 +20,18 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRILOADER_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRILOADER_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_CONFIG_GRILOADER_H_
+#define GRIF_FRAMEWORK_INCLUDE_CONFIG_GRILOADER_H_
 
 #include <QList>
 #include <QFile>
 #include <QHash>
 #include <QString>
-#include "GRIDefines.h"
-#include "GRIParser.h"
-#include "GRIProcessThread.h"
-#include "GRIThread.h"
-#include "GRIRegulator.h"
+#include <config/GRIParser.h>
+#include <core/GRIDefines.h>
+#include <core/GRIProcessThread.h>
+#include <core/GRIThread.h>
+#include <core/GRIRegulator.h>
 
 class GRIRegulator;
 class GRIProcessThread;
@@ -60,4 +60,4 @@ class GRILoader {
   QHash<QString, int> node_index_;
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRILOADER_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_CONFIG_GRILOADER_H_

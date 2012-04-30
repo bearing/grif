@@ -20,16 +20,16 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIANALYSISTHREAD_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIANALYSISTHREAD_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_CORE_GRIANALYSISTHREAD_H_
+#define GRIF_FRAMEWORK_INCLUDE_CORE_GRIANALYSISTHREAD_H_
 
 #include <iostream>
 #include <QHash>
 #include <QPair>
 #include <QString>
-#include "GRIHistogrammer.h"
-#include "GRILogger.h"
-#include "GRIProcessThread.h"
+#include <core/GRIProcessThread.h>
+#include <logging/GRILogger.h>
+#include <hist/GRIHistogrammer.h>
 
 #define ANALYSISTHREAD_SUCCESS   0
 
@@ -239,4 +239,4 @@ template <class T> QPair<int, T*> GRIAnalysisThread::ReadData(QString block_name
   return p;
 }
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIANALYSISTHREAD_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_CORE_GRIANALYSISTHREAD_H_

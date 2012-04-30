@@ -33,7 +33,7 @@
 #include <QWheelEvent>
 #include <QWidget>
 
-#include "GRIHistogrammer.h"
+#include <hist/GRIHistogrammer.h>
 
 /// A QWidget-derived class to display and interact with
 /// a single GRIHistogram.

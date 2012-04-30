@@ -20,15 +20,15 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIBUFFER_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIBUFFER_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_CORE_GRIBUFFER_H_
+#define GRIF_FRAMEWORK_INCLUDE_CORE_GRIBUFFER_H_
 
 #include <QList>
 #include <QReadWriteLock>
 #include <QThread>
 #include <QVector>
 #include <QWaitCondition>
-#include "GRIProcessThread.h"
+#include <core/GRIProcessThread.h>
 
 /// A class used as a data structure for storing member.
 ///
@@ -160,4 +160,4 @@ class GRIBuffer {
   QReadWriteLock *lock_;
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIBUFFER_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_CORE_GRIBUFFER_H_

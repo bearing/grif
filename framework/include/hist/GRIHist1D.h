@@ -20,19 +20,24 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIUSERLOADER_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIUSERLOADER_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1D_H_
+#define GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1D_H_
 
-#include <QString>
-#include "GRILoader.h"
+#include <QMutex>
+#include <hist/GRIHistogrammer.h>
 
-class GRIUserLoader : public GRILoader {
+class GRIHist1D: public GRIHistogrammer {
  public:
- explicit GRIUserLoader(GRIRegulator *regulator):
-  GRILoader(regulator) {}
+  GRIHist1D(QString BlockName, int ID, QString HistName);
+  ~GRIHist1D() {}
 
-  virtual ~GRIUserLoader() {}
-  GRIProcessThread *Load(QString process_name, QString object_name);
+  // 1D implementations
+  int SetBins(int nx, double xBins[]);
+  int SetBins(int nx, double xmin, double xmax);
+  int Update(double x[], int numel);
+
+ private:
+  QMutex update_lock_;
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIUSERLOADER_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1D_H_

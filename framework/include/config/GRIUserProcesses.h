@@ -20,33 +20,20 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRILOGMESSAGE_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRILOGMESSAGE_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_CONFIG_GRIUSERPROCESSES_H_
+#define GRIF_FRAMEWORK_INCLUDE_CONFIG_GRIUSERPROCESSES_H_
 
-#include <iostream>
-#include <QString>
+// Users will include header files for their derived GRIDAQThread and
+// GRIAnalyisThread classes here.  This file will be included in the
+// GRIUserLoader.
 
-class GRILogMessage {
- public:
-  GRILogMessage();
-  ~GRILogMessage();
+// Ex: #include "sisdaq.h"
+//     #include "siscal.h"
 
-  bool SetMessageTime(QString s, int level = 0);
-  void SetObjectName(QString s) {
-    object_name_ = s;
-  }
-  bool IsLevelEnabled(int level);
-  bool IsLevelEnabled();
-  QString GetObjectName() {
-    return object_name_;
-  }
-  int level;
-  QString DateTime;
-  QString MsgStr;
 
- private:
-  QString object_name_;
-  void SetTimeString();
-};
+#ifdef GRIF_CODE_GENERATION
+// This file will be code genned with
+#include <GCG/GRIUserProcesses_aux.h>
+#endif // GRIF_CODE_GENERATION
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRILOGMESSAGE_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_CONFIG_GRIUSERPROCESSES_H_

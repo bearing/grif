@@ -20,33 +20,36 @@
 # Dr. Daniel Chivers
 # dhchivers@lbl.gov
 
-HEADERS += GRIProcessThread.h \
-GRIAnalysisThread.h \
-GRIBuffer.h \
-GRICLI.h \
-GRIDAQThread.h \
-GRIDataBlock.h \
-GRIDataDefines.h \
-GRIDefines.h \
-GRIHistogrammer.h \
-GRILogger.h \
-GRILoader.h \
-GRIMath.h \
-GRIMemoryManager.h \
-GRIRegulator.h \
-GRILogMessage.h \
-GRIUserLoader.h \
-GRIUserProcesses.h \
-GRIObject.h \
-GRIThread.h \
-GRIDAQAccumulator.h \
-GRIAccumBuff.h \
-GRIDAQAccumNode.h \
-GRIDAQBaseAccumNode.h \
-GRIHist1D.h \
-GRIHist2D.h \
-GRIParser.h \
-GRIProcList.h \
-GRIServer.h
-
-
+HEADERS += \
+config/GRIUserLoader.h \
+config/GRIUserProcesses.h \
+config/GRIParser.h \
+config/GRIDataDefines.h \
+config/GRILoader.h \
+core/GRIProcessThread.h \
+core/GRIAnalysisThread.h \
+core/GRIBuffer.h \
+core/GRIDAQThread.h \
+core/GRIDataBlock.h \
+core/GRIDefines.h \
+core/GRIMemoryManager.h \
+core/GRIObject.h \
+core/GRIRegulator.h \
+core/GRIThread.h \
+core/accum/GRIDAQAccumulator.h \
+core/accum/GRIAccumBuff.h \
+core/accum/GRIDAQAccumNode.h \
+core/accum/GRIDAQBaseAccumNode.h \
+hist/GRIHistogrammer.h \
+hist/GRIHist1D.h \
+hist/GRIHist2D.h \
+hist/GRIHist1DGridScrollWidget.h \
+hist/GRIHist1DGridWidget.h \
+hist/GRIHist1DWidget.h \
+hist/GRIHist2DWidget.h \
+hist/GRIHistWidget.h \
+logging/GRILogger.h \
+logging/GRILogMessage.h \
+networking/GRIServer.h \
+tools/GRICLI.h \
+tools/GRIMath.h

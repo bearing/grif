@@ -20,14 +20,13 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIOBJECT_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIOBJECT_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_CORE_GRIOBJECT_H_
+#define GRIF_FRAMEWORK_INCLUDE_CORE_GRIOBJECT_H_
 
 #include <QTime>
 #include <QTextStream>
 #include <QString>
 #include <QObject>
-#include "GRILogMessage.h"
 
 class GRIObject : public QObject {
   Q_OBJECT
@@ -39,4 +38,4 @@ class GRIObject : public QObject {
   void set_name(const QString& name);
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIOBJECT_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_CORE_GRIOBJECT_H_

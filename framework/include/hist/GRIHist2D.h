@@ -20,20 +20,26 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIUSERPROCESSES_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIUSERPROCESSES_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST2D_H_
+#define GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST2D_H_
 
-// Users will include header files for their derived GRIDAQThread and
-// GRIAnalyisThread classes here.  This file will be included in the
-// GRIUserLoader.
+#include <QMutex>
+#include "TH2D.h"
+#include <hist/GRIHistogrammer.h>
 
-// Ex: #include "sisdaq.h"
-//     #include "siscal.h"
+class GRIHist2D: public GRIHistogrammer {
+ public:
+  GRIHist2D(QString BlockName, int ID, QString HistName);
+  ~GRIHist2D() {}
 
+  // 1D implementations
+  int SetBins(int nx, double xBins[], int ny, double yBins[]);
+  int SetBins(int nx, double xmin, double xmax, int ny, double ymin,
+              double ymax);
+  int Update(double x[], double y[], int numel);
 
-#ifdef GRIF_CODE_GENERATION
-// This file will be code genned with
-#include "GCG/GRIUserProcesses_aux.h"
-#endif // GRIF_CODE_GENERATION
+ private:
+  QMutex update_lock_;
+};
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIUSERPROCESSES_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST2D_H_

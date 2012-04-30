@@ -20,8 +20,8 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRIPROCESSTHREAD_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRIPROCESSTHREAD_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_CORE_GRIPROCESSTHREAD_H_
+#define GRIF_FRAMEWORK_INCLUDE_CORE_GRIPROCESSTHREAD_H_
 
 #define PROCESS_THREAD_DEBUG
 
@@ -31,12 +31,12 @@
 #include <QPair>
 #include <QQueue>
 #include <QString>
-#include "GRIDataBlock.h"
-#include "GRIDataDefines.h"
-#include "GRIDefines.h"
-#include "GRILogMessage.h"
-#include "GRIRegulator.h"
-#include "GRIThread.h"
+#include <config/GRIDataDefines.h>
+#include <core/GRIDataBlock.h>
+#include <core/GRIDefines.h>
+#include <core/GRIRegulator.h>
+#include <core/GRIThread.h>
+#include <logging/GRILogMessage.h>
 
 class GRIRegulator;
 class GRIDataBlock;
@@ -285,4 +285,4 @@ template<class T> bool GRIProcessThread::WriteMemory(QString blockName,
                                 (char*) dataArray);
 }
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRIPROCESSTHREAD_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_CORE_GRIPROCESSTHREAD_H_

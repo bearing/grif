@@ -20,8 +20,8 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef GRIF_FRAMEWORK_INCLUDE_GRISERVER_H_
-#define GRIF_FRAMEWORK_INCLUDE_GRISERVER_H_
+#ifndef GRIF_FRAMEWORK_INCLUDE_NETWORKING_GRISERVER_H_
+#define GRIF_FRAMEWORK_INCLUDE_NETWORKING_GRISERVER_H_
 #include <iostream>
 #include <QTcpServer>
 #include <QTcpSocket>
@@ -140,4 +140,4 @@ private:
     Server *server_;
 };
 
-#endif  // GRIF_FRAMEWORK_INCLUDE_GRI_SERVER_H_
+#endif  // GRIF_FRAMEWORK_INCLUDE_NETWORKING_GRI_SERVER_H_
