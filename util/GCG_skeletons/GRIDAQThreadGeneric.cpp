@@ -42,7 +42,7 @@ my_grif_daq::~my_grif_daq() {
    */
 }
 
-int my_grif_daq::AcquireData(int ret) {
+int my_grif_daq::acquireData() {
   /*
    *
    * YOUR CODE HERE (REQUIRED)
@@ -52,7 +52,7 @@ int my_grif_daq::AcquireData(int ret) {
   return 0;
 }
 
-int my_grif_daq::ConnectToDAQ() {
+int my_grif_daq::connectToDAQ() {
   /*
    *
    * YOUR CODE HERE (REQUIRED)
@@ -62,7 +62,7 @@ int my_grif_daq::ConnectToDAQ() {
   return 0;
 }
 
-int my_grif_daq::Initialize() {
+int my_grif_daq::initialize() {
   /*
    *
    * YOUR CODE HERE (REQUIRED)
@@ -72,7 +72,7 @@ int my_grif_daq::Initialize() {
   return 0;
 }
 
-int my_grif_daq::LoadConfiguration() {
+int my_grif_daq::loadConfiguration() {
   /*
    *
    * YOUR CODE HERE (REQUIRED)
@@ -82,7 +82,7 @@ int my_grif_daq::LoadConfiguration() {
   return 0;
 }
 
-int my_grif_daq::StartDataAcquisition() {
+int my_grif_daq::startDataAcquisition() {
   /*
    *
    * YOUR CODE HERE (REQUIRED)
@@ -96,7 +96,7 @@ int my_grif_daq::StartDataAcquisition() {
   return 0;  // feel free to delete after implementation
 }
 
-int my_grif_daq:StopDataAcquisition(){
+int my_grif_daq:stopDataAcquisition(){
 
   /*
    *
@@ -107,9 +107,9 @@ int my_grif_daq:StopDataAcquisition(){
   return 0;  // feel free to delete after implementation
 }
 
-GRIDAQBaseAccumNode* my_grif_daq::RegisterDataOutput(QString outName){
+GRIDAQAccumNode* my_grif_daq::RegisterDataOutput(QString outName){
 
-  GRIDAQBaseAccumNode* p = NULL;  // feel free to delete after implementation
+  GRIDAQAccumNode* p = NULL;  // feel free to delete after implementation
   
   /*
    *
