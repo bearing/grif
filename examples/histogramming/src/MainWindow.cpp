@@ -74,12 +74,12 @@ void MainWindow::getPeaks()
     GRIHistogrammer *current_hist = amc1_->GetHistogram( hist_name );
     float sigma = ui->lineEdit->text().toFloat();
 
-    if((current_hist==NULL)||(sigma<0.1)){
+    if( !current_hist || sigma < 0.1 ) {
 
         ui->listWidget->clear();
         ui->statusbar->showMessage("ERROR: Sigma must be set to 0.1 or greater", 4000);
 
-    }else{
+    } else {
 
         ui->listWidget->clear();
 
@@ -88,7 +88,7 @@ void MainWindow::getPeaks()
         int n_found = spec->GetNPeaks();
         Float_t *x_peaks = spec->GetPositionX();
         ui->listWidget->addItem(QString("Channel -------"));
-        for(int i = 0; i < n_found ; i++){
+        for( int i = 0; i < n_found ; ++i ) {
             ui->listWidget->addItem(QString::number(x_peaks[i]));
         }
         delete spec;
@@ -107,14 +107,14 @@ void MainWindow::setHist(int i)
     QString current_hist = ui->comboBox->itemText(i);
     GRIHistogrammer *hist = amc1_->GetHistogram(current_hist.toAscii());
 
-    if( hist->get_dimension() == 1){
+    if( hist->get_dimension() == 1) {
         ui->tabWidget->setCurrentIndex(0);
         hist_draw_1D_->set_hist(hist);
         ui->comboBox_2->setVisible(true);
         ui->label_2->setVisible(true);
-        if(color_hist_vect_->at(i).isValid()){
+        if(color_hist_vect_->at(i).isValid()) {
             hist_draw_1D_->set_foreground_color( color_hist_vect_->at(i) );
-        }else{
+        } else {
             setColor( ui->comboBox_2->currentIndex() );
         }
         this->getPeaks();
@@ -131,12 +131,12 @@ void MainWindow::setHist(int i)
 /*
   set the plot color
 */
-void MainWindow::setColor(int i){
+void MainWindow::setColor(int i) {
 
     QString current_hist = ui->comboBox->itemText( ui->comboBox->currentIndex() );
     GRIHistogrammer *hist = amc1_->GetHistogram(current_hist.toAscii());
 
-    if( hist->get_dimension() == 1){
+    if( hist->get_dimension() == 1) {
         QColor color = QColor(ui->comboBox_2->itemText(i));
         hist_draw_1D_->set_foreground_color( color );
         color_hist_vect_->replace( ui->comboBox->findText( current_hist ), color);
@@ -153,10 +153,10 @@ void MainWindow::setColor(int i){
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
-    if( index == 0 ){
+    if( index == 0 ) {
         ui->comboBox_2->setVisible(true);
         ui->label_2->setVisible(true);
-    }else{
+    } else {
         ui->comboBox_2->setVisible(false);
         ui->label_2->setVisible(false);
     }
