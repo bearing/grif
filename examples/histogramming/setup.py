@@ -41,6 +41,10 @@ data_xml = format(os.path.abspath("./XML/data/data.XML"))
 classes_xml = format(os.path.abspath("./XML/classes"))
 loader_xml = format(os.path.abspath("./XML/app/APP.XML"))
 
+output_directory = format(os.path.join(grif_root, "framework/include/GCG"))
+if not os.path.exists(output_directory):
+    os.mkdir(output_directory)
+
 data_aux = format(os.path.join(grif_root,
                         "framework/include/GCG/GRIDataDefines_aux.h"))
 loader_aux = format(os.path.join(grif_root,
