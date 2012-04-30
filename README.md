@@ -14,6 +14,9 @@ also be used to provide non-standard data types to the GRIF system.
 
 For example applications, see the `grif/examples` directory.
 
+Also be sure to check out the [GRIF github wiki](https://github.com/bearing/grif/wiki), which has installation
+instructions and supplementary documentation.
+
 ## Dependencies
 
 GRIF assumes the following libraries:
