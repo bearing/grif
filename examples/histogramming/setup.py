@@ -50,6 +50,10 @@ user_loader_aux = format(os.path.join(grif_root,
 procs_aux = format(os.path.join(grif_root,
                          "framework/include/GCG/GRIUserProcesses_aux.h"))
 
+gcg = os.path.join(grif_root, "framework/include/GCG/")
+if not os.path.exists(gcg):
+    os.mkdir(gcg)
+
 print "-"*20
 print "Data XML file directory: {0}".format(data_xml)
 print "Classes XML file directory: {0}".format(classes_xml)
