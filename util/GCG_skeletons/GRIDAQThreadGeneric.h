@@ -60,26 +60,28 @@ class my_grif_daq : public GRIDAQThread {
    * -See SIMDAQThread.h and SIMDAQThread.cpp for an example 
    */
   
-   int AcquireData(int ret);
-   int ConnectToDAQ();
-   int Initialize();
-   int LoadConfiguration();
-   int StartDataAcquisition();     //Called at the beginning each run.
-   int StopDataAcquisition();      //Called at the end of each run.
-   GRIDAQBaseAccumNode* RegisterDataOutput(QString outName); //figure this out
+  int acquireData();
+  int connectToDAQ(); 
+  int initialize(); 
+  int loadConfiguration(); 
+  int startDataAcquisition();     //Called at the beginning each run.
+  int stopDataAcquisition();      //Called at the end of each run.
+  GRIDAQAccumNode* RegisterDataOutput(QString outName); //figure this out
 
-    /******************************************************************/
-
-#ifdef GRIF_CG
-    //GCG_INCLUDE
-#endif
+  /******************************************************************/
 
 
-    /* put your protected variables and methods here (not required) */
-protected:
 
-    /* put your private variables and methods here (not required) */
-private:
+  #ifdef GRIF_CG
+  //GCG_INCLUDE
+  #endif
+
+
+  /* put your protected variables and methods here (not required) */
+ protected:
+
+  /* put your private variables and methods here (not required) */
+ private:
 
 };
 
