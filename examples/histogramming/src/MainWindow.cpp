@@ -63,10 +63,9 @@ void MainWindow::Init()
     hist_draw_2D_->Initialize();
 }
 
-/*
-    Get an estimate of peak locations, nothing too computationally intense!!!
-    this is the GUI thread!!!
-*/
+
+/// Get an estimate of peak locations, nothing too computationally intense!!!
+/// this is the GUI thread!!!
 void MainWindow::getPeaks()
 {
     QString hist_name = ui->comboBox->itemText( ui->comboBox->currentIndex() );
@@ -74,13 +73,10 @@ void MainWindow::getPeaks()
     float sigma = ui->lineEdit->text().toFloat();
 
     if( !current_hist || sigma < 0.1 ) {
-
         ui->listWidget->clear();
         ui->statusbar->showMessage("ERROR: Sigma must be set to 0.1 or greater", 4000);
     } else {
-
         ui->listWidget->clear();
-
         TSpectrum* spec = new TSpectrum();
         spec->Search(current_hist->get_hist(), sigma, "goff");
         int n_found = spec->GetNPeaks();
@@ -91,15 +87,12 @@ void MainWindow::getPeaks()
         }
         delete spec;
     }
-
 }
 
-/*
-    dynamically set the histogram, one can now abstract this further because
-    GRIHistWidget*D is now derived from GRIHistWidget! Not done here but one
-    could easily 'dynamic_cast<type>(hist_pointer)'
-*/
 
+/// dynamically set the histogram, one can now abstract this further because
+/// GRIHistWidget*D is now derived from GRIHistWidget! Not done here but one
+/// could easily 'dynamic_cast<type>(hist_pointer)'
 void MainWindow::setHist(int i)
 {
     QString current_hist = ui->comboBox->itemText(i);
@@ -125,9 +118,9 @@ void MainWindow::setHist(int i)
     }
 }
 
-/*
-  set the plot color
-*/
+
+
+/// set the plot color
 void MainWindow::setColor(int i) {
     QString current_hist = ui->comboBox->itemText( ui->comboBox->currentIndex() );
     GRIHistogrammer *hist = amc1_->GetHistogram(current_hist.toAscii());
@@ -142,10 +135,8 @@ void MainWindow::setColor(int i) {
     }
 }
 
-/*
-    slot for updating the GUI after the current tab has changed
-*/
 
+/// slot for updating the GUI after the current tab has changed
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
     if( index == 0 ) {
@@ -157,9 +148,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     }
 }
 
-/*
-    menu action for clicks on the File->Close button in the GUI
-*/
+
+/// menu action for clicks on the File->Close button in the GUI
 void MainWindow::on_actionClose_triggered()
 {
     close();
