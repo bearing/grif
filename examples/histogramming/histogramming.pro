@@ -64,9 +64,9 @@ FORMS += \
 ## 
 # Please fill in GRIFDIR and ROOTDIR with the appropriate paths
 # Top directory of GRIF on your machine:
-GRIFDIR =
+GRIFDIR = "C:\grif"
 # Directory of ROOT on your machine:
-ROOTDIR =
+ROOTDIR = "C:\root"
 
 # run code generation
 GRIFPROJECTDIR = $$GRIFDIR/examples/histogramming
@@ -107,5 +107,5 @@ unix|macx {
 # All windows platforms
 win32 {
     LIBS += -L$$ROOTSYSLIB
-    LIBS += -L$$ROOTSYS/lib -llibCore -llibHist -llibMatrix -llibMathCore -llibCint
+    LIBS += -L$$ROOTSYS/lib -llibCore -llibHist -llibMatrix -llibMathCore -llibCint -llibSpectrum
 }
