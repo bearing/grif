@@ -97,7 +97,7 @@ INCLUDEPATH += $$ROOTSYSLIB
 # All *nix systems
 unix|macx {
     LIBS += -L$$ROOTSYSLIB
-    LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore
+    LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore -lSpectrum
     LIBS += $$ROOTSYSLIB/libCint.so
     LIBS += $$ROOTSYSLIB/libCore.so
     LIBS += $$ROOTSYSLIB/libHist.so
