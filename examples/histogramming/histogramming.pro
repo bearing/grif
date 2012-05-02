@@ -45,8 +45,6 @@ INCLUDEPATH += ../../ . \
 
 include(../../framework/source/fsource.pri)
 include(../../framework/include/finclude.pri)
-include(../../framework/source/hist/histsource.pri)
-include(../../framework/include/hist/histinclude.pri)
 
 # Source file and headers
 SOURCES += \
@@ -58,7 +56,10 @@ SOURCES += \
 HEADERS += \
     ./include/SIMMCAnalysisThread.h \
     ./include/SIMDAQThread.h \
-    src/MainWindow.h
+    include/MainWindow.h
+
+FORMS += \
+    src/mainwindow.ui
 
 ## 
 # Please fill in GRIFDIR and ROOTDIR with the appropriate paths
@@ -67,12 +68,12 @@ GRIFDIR =
 # Directory of ROOT on your machine:
 ROOTDIR =
 
-
-
 # run code generation
 GRIFPROJECTDIR = $$GRIFDIR/examples/histogramming
+UTILDIR = $$GRIFDIR/util
+system(cd $$UTILDIR)
+system(python setup.py $$GRIFPROJECTDIR)
 system(cd $$GRIFPROJECTDIR)
-system(python setup.py)
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
@@ -83,18 +84,18 @@ win32 {
     GRIF_LOG_DIR = $$GRIFPROJECTDIR\\log
 }
 
-
 DEFINES += GRIF_LOG_DIR=\\\"$${GRIF_LOG_DIR}\\\"
 # External libraries
 INCLUDEPATH += $$GRIFDIR/external
-
 
 # ROOT headers
 INCLUDEPATH += $$ROOTDIR/include
 # ROOT libraries
 ROOTSYSLIB += $$ROOTDIR/lib
 INCLUDEPATH += $$ROOTSYSLIB
-unix {
+
+# All *nix systems
+unix|macx {
     LIBS += -L$$ROOTSYSLIB
     LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore
     LIBS += $$ROOTSYSLIB/libCint.so
@@ -103,10 +104,8 @@ unix {
     LIBS += $$ROOTSYSLIB/libMatrix.so
     LIBS += $$ROOTSYSLIB/libMathCore.so
 }
+# All windows platforms
 win32 {
     LIBS += -L$$ROOTSYSLIB
-    LIBS += -L$$ROOTSYS/lib -llibCore -llibHist -llibMatrix -llibMathCore -llibCint -llibSpectrum
+    LIBS += -L$$ROOTSYS/lib -llibCore -llibHist -llibMatrix -llibMathCore -llibCint
 }
-
-FORMS += \
-    src/mainwindow.ui

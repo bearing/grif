@@ -60,25 +60,37 @@ GRIFDIR =
 # Directory of ROOT on your machine:
 ROOTDIR =
 
+# run code generation
+GRIFPROJECTDIR = $$GRIFDIR/examples/networking
+UTILDIR = $$GRIFDIR/util
+system(cd $$UTILDIR)
+system(python setup.py $$GRIFPROJECTDIR)
+system(cd $$GRIFPROJECTDIR)
+
 # root headers
 INCLUDEPATH += $$ROOTDIR/include
 
 ROOTSYSLIB += $$ROOTDIR/lib
 INCLUDEPATH += $$ROOTSYSLIB
 
-LIBS += -L/$$ROOTSYSLIB
-LIBS += -L$$ROOTSYS/lib -lCore -lHist
-LIBS += $$ROOTSYSLIB/libCint.so
-LIBS += $$ROOTSYSLIB/libMatrix.so
-LIBS += $$ROOTSYSLIB/libMathCore.so
+# All *nix systems
+unix|macx {
+    LIBS += -L$$ROOTSYSLIB
+    LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore
+    LIBS += $$ROOTSYSLIB/libCint.so
+    LIBS += $$ROOTSYSLIB/libCore.so
+    LIBS += $$ROOTSYSLIB/libHist.so
+    LIBS += $$ROOTSYSLIB/libMatrix.so
+    LIBS += $$ROOTSYSLIB/libMathCore.so
+}
+# All windows platforms
+win32 {
+    LIBS += -L$$ROOTSYSLIB
+    LIBS += -L$$ROOTSYS/lib -llibCore -llibHist -llibMatrix -llibMathCore -llibCint
+}
 
 EXTDIR = $$GRIFDIR/external
 INCLUDEPATH += EXTDIR
-
-# run code generation
-system(cd $$GRIFPROJECTDIR)
-system(python setup.py)
-
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 DEFINES += GRIFPROJECTDIR=$${GRIFPROJECTDIR}

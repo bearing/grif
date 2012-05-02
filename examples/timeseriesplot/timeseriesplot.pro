@@ -66,8 +66,10 @@ ROOTDIR =
 
 # run code generation
 GRIFPROJECTDIR = $$GRIFDIR/examples/timeseriesplot
+UTILDIR = $$GRIFDIR/util
+system(cd $$UTILDIR)
+system(python setup.py $$GRIFPROJECTDIR)
 system(cd $$GRIFPROJECTDIR)
-system(python setup.py)
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1
 
@@ -88,11 +90,21 @@ INCLUDEPATH += $$ROOTDIR/include
 # ROOT libraries
 ROOTSYSLIB += $$ROOTDIR/lib
 INCLUDEPATH += $$ROOTSYSLIB
-LIBS += $$ROOTSYSLIB/libCint.so
-LIBS += $$ROOTSYSLIB/libMatrix.so
-LIBS += $$ROOTSYSLIB/libMathCore.so
-LIBS += -L$$ROOTSYSLIB
-LIBS += -L$$ROOTSYS/lib -lCore -lHist
 
+# All *nix systems
+unix|macx {
+    LIBS += -L$$ROOTSYSLIB
+    LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore
+    LIBS += $$ROOTSYSLIB/libCint.so
+    LIBS += $$ROOTSYSLIB/libCore.so
+    LIBS += $$ROOTSYSLIB/libHist.so
+    LIBS += $$ROOTSYSLIB/libMatrix.so
+    LIBS += $$ROOTSYSLIB/libMathCore.so
+}
+# All windows platforms
+win32 {
+    LIBS += -L$$ROOTSYSLIB
+    LIBS += -L$$ROOTSYS/lib -llibCore -llibHist -llibMatrix -llibMathCore -llibCint
+}
 
 

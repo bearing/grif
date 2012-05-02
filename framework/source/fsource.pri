@@ -20,23 +20,28 @@
 # Dr. Daniel Chivers
 # dhchivers@lbl.gov
 
-SOURCES += GRIProcessThread.cpp \
-GRIAnalysisThread.cpp \
-GRIBuffer.cpp \
-GRICLI.cpp \
-GRIDAQThread.cpp \
-GRIDataBlock.cpp \
-GRIHistogrammer.cpp \
-GRILoader.cpp \
-GRILogger.cpp \
-GRIMath.cpp \
-GRIMemoryManager.cpp \
-GRIRegulator.cpp \
-GRILogMessage.cpp \
-GRIUserLoader.cpp \
-GRIObject.cpp \
-GRIHist1D.cpp \
-GRIHist2D.cpp \
-GRIParser.cpp \
-GRIProcList.cpp \
+SOURCES += \
+config/GRIUserLoader.cpp \
+config/GRIParser.cpp \
+config/GRILoader.cpp \
+core/GRIProcessThread.cpp \
+core/GRIAnalysisThread.cpp \
+core/GRIBuffer.cpp \
+core/GRIDAQThread.cpp \
+core/GRIDataBlock.cpp \
+core/GRIMemoryManager.cpp \
+core/GRIObject.cpp \
+core/GRIRegulator.cpp \
+hist/GRIHistogrammer.cpp \
+hist/GRIHist1D.cpp \
+hist/GRIHist2D.cpp \
+hist/GRIHist1DGridScrollWidget.cpp \
+hist/GRIHist1DGridWidget.cpp \
+hist/GRIHist1DWidget.cpp \
+hist/GRIHist2DWidget.cpp \
+hist/GRIHistWidget.cpp \
+logging/GRILogger.cpp \
+logging/GRILogMessage.cpp \
+tools/GRICLI.cpp \
+tools/GRIMath.cpp
 

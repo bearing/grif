@@ -23,7 +23,7 @@
 #ifndef GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DWIDGET_H_
 #define GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DWIDGET_H_
 
-#include "GRIHistWidget.h"
+#include <hist/GRIHistWidget.h>
 
 /// A QWidget-derived class to display a single GRIHistogram.
 /// The user can interact with the histogram using the mouse,

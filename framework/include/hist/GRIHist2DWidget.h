@@ -24,7 +24,7 @@
 #define GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST2DWIDGET_H_
 
 #include <QImage>
-#include "GRIHistWidget.h"
+#include <hist/GRIHistWidget.h>
 
 /// A QWidget-derived class to display a single 2D GRIHistogram.
 /// The user can interact with the histogram using the mouse,

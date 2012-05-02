@@ -21,8 +21,9 @@
 // dhchivers@lbl.gov
 
 #include <hist/GRIHist1DGridWidget.h>
-#include <hist/GRIHist1DWidget.h>
+
 #include "TMath.h"
+#include <hist/GRIHist1DWidget.h>
 
 GRIHist1DGridWidget::GRIHist1DGridWidget(QWidget *parent) : QFrame(parent) {
   grid_layout_ = NULL;

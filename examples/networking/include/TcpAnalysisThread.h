@@ -23,7 +23,7 @@
 #ifndef TCP_ANALYSIS_THREAD_H
 #define TCP_ANALYSIS_THREAD_H
 
-#include "GRIAnalysisThread.h"
+#include <core/GRIAnalysisThread.h>
 #include <QTcpSocket>
 #include <QNetworkSession>
 

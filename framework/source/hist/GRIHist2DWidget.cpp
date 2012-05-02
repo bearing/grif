@@ -21,7 +21,6 @@
 // dhchivers@lbl.gov
 
 #include <hist/GRIHist2DWidget.h>
-
 #include "TMath.h"
 
 GRIHist2DWidget::GRIHist2DWidget(QWidget *parent, GRIHistogrammer *grihist)

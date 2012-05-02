@@ -34,7 +34,7 @@
 #include <QList>
 #include <QString>
 
-#include "GRIAnalysisThread.h"
+#include <core/GRIAnalysisThread.h>
 
 class SIMMCAnalysisThread : public GRIAnalysisThread {
 

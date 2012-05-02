@@ -21,14 +21,13 @@
 // dhchivers@lbl.gov
 
 #include <hist/GRIHist1DGridScrollWidget.h>
-#include <hist/GRIHist1DWidget.h>
 
 #include <QBrush>
 #include <QPoint>
 #include <QPolygon>
 #include <QVector>
-
 #include "TMath.h"
+#include <hist/GRIHist1DWidget.h>
 
 GRIHist1DGridScrollWidget::GRIHist1DGridScrollWidget(QWidget *parent)
   : QFrame(parent) {

@@ -20,12 +20,10 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
+#include <hist/GRIHistWidget.h>
 #include <QPoint>
 #include <QBrush>
-
 #include "TMath.h"
-
-#include <hist/GRIHistWidget.h>
 
 GRIHistWidget::GRIHistWidget(QWidget *parent, GRIHistogrammer *grihist) : QWidget(parent) {
   // make sure timer is null until it starts
