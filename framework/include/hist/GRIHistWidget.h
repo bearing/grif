@@ -23,15 +23,15 @@
 #ifndef GRIF_FRAMEWORK_INCLUDE_HIST_GRIHISTWIDGET_H_
 #define GRIF_FRAMEWORK_INCLUDE_HIST_GRIHISTWIDGET_H_
 
-#include <QColor>
-#include <QMouseEvent>
-#include <QPaintDevice>
-#include <QPainter>
-#include <QPushButton>
-#include <QResizeEvent>
+#include <QtGui/QColor>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QPaintDevice>
+#include <QtGui/QPainter>
+#include <QtGui/QPushButton>
+#include <QtGui/QResizeEvent>
 #include <QTimer>
-#include <QWheelEvent>
-#include <QWidget>
+#include <QtGui/QWheelEvent>
+#include <QtGui/QWidget>
 
 #include <hist/GRIHistogrammer.h>
 

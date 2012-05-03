@@ -22,7 +22,7 @@
 
 #include <hist/GRIHistWidget.h>
 #include <QPoint>
-#include <QBrush>
+#include <QtGui/QBrush>
 #include "TMath.h"
 
 GRIHistWidget::GRIHistWidget(QWidget *parent, GRIHistogrammer *grihist) : QWidget(parent) {

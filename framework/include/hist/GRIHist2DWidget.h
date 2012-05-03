@@ -23,7 +23,7 @@
 #ifndef GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST2DWIDGET_H_
 #define GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST2DWIDGET_H_
 
-#include <QImage>
+#include <QtGui/QImage>
 #include <hist/GRIHistWidget.h>
 
 /// A QWidget-derived class to display a single 2D GRIHistogram.

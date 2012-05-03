@@ -22,17 +22,17 @@
 
 #ifndef GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DGRIDSCROLLWIDGET_H_
 #define GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DGRIDSCROLLWIDGET_H_
-
-#include <QFrame>
-#include <QGridLayout>
-#include <QMainWindow>
-#include <QMouseEvent>
-#include <QPaintEvent>
-#include <QResizeEvent>
-#include <QWidget>
+#include <QtGui/QFrame>
+#include <QtGui/QGridLayout>
+#include <QtGui/QGridLayout>
+#include <QtGui/QMainWindow>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QPaintEvent>
+#include <QtGui/QResizeEvent>
+#include <QtGui/QWidget>
 
 #include <hist/GRIHist1DWidget.h>
-#include <GRIHistogrammer.h>
+#include <hist/GRIHistogrammer.h>
 
 /// A QFrame-derived class to display multiple GRIHistograms
 /// in a grid layout.  Each histogram is a GRIHist1DWidget

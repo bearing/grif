@@ -22,9 +22,9 @@
 
 #include <hist/GRIHist1DGridScrollWidget.h>
 
-#include <QBrush>
+#include <QtGui/QBrush>
 #include <QPoint>
-#include <QPolygon>
+#include <QtGui/QPolygon>
 #include <QVector>
 #include "TMath.h"
 #include <hist/GRIHist1DWidget.h>

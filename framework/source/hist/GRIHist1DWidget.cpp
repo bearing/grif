@@ -23,7 +23,7 @@
 #include <hist/GRIHist1DWidget.h>
 
 #include <QPoint>
-#include <QBrush>
+#include <QtGui/QBrush>
 
 #include "TMath.h"
 

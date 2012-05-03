@@ -23,10 +23,10 @@
 #ifndef GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DGRIDWIDGET_H_
 #define GRIF_FRAMEWORK_INCLUDE_HIST_GRIHIST1DGRIDWIDGET_H_
 
-#include <QFrame>
-#include <QGridLayout>
-#include <QMainWindow>
-#include <QWidget>
+#include <QtGui/QFrame>
+#include <QtGui/QGridLayout>
+#include <QtGui/QMainWindow>
+#include <QtGui/QWidget>
 
 #include <hist/GRIHist1DWidget.h>
 #include <hist/GRIHistogrammer.h>
