@@ -116,11 +116,11 @@ enum COMMAND_TYPE {
 };
 
 enum DATA_TYPE {
-  BOOL = 0,
-  CHAR,
-  INT,
-  FLOAT,
-  DOUBLE
+  GRI_BOOL = 0,
+  GRI_CHAR,
+  GRI_INT,
+  GRI_FLOAT,
+  GRI_DOUBLE
 };
 
 struct ProcessCommand {

@@ -100,19 +100,19 @@ void GRICLI::ReceiveProcessGet(ProcessCommand *pc) {
   if (!pc) return;
   if (!(pc->command_type == GET)) return;
   switch (pc->data_type) {
-    case BOOL:
+    case GRI_BOOL:
       std::cout << "GET (" << pc->key.toStdString().c_str() << "): "
 		<< pc->data.bool_val << std::endl;
-    case CHAR:
+    case GRI_CHAR:
       std::cout << "GET (" << pc->key.toStdString().c_str() << "): "
 		<< pc->data.char_val << std::endl;
-    case INT:
+    case GRI_INT:
       std::cout << "GET (" << pc->key.toStdString().c_str() << "): "
 		<< pc->data.int_val << std::endl;
-    case FLOAT:
+    case GRI_FLOAT:
       std::cout << "GET (" << pc->key.toStdString().c_str() << "): "
 		<< pc->data.float_val << std::endl;
-    case DOUBLE:
+    case GRI_DOUBLE:
       std::cout << "GET (" << pc->key.toStdString().c_str() << "): "
 		<< pc->data.double_val << std::endl;
   }
@@ -276,15 +276,15 @@ ProcessCommand *GRICLI::CreateGetCommand(const QString& name,
   pc->command_type = GET;
   pc->key = name;
   if (dataType == "double") {
-    pc->data_type = DOUBLE;
+    pc->data_type = GRI_DOUBLE;
   } else if (dataType == "int") {
-    pc->data_type = INT;
+    pc->data_type = GRI_INT;
   } else if (dataType == "float") {
-    pc->data_type = FLOAT;
+    pc->data_type = GRI_FLOAT;
   } else if (dataType == "char") {
-    pc->data_type = CHAR;
+    pc->data_type = GRI_CHAR;
   } else if (dataType == "bool" || dataType == "boolean") {
-    pc->data_type = BOOL;
+    pc->data_type = GRI_BOOL;
   } else {
     std::cout << "Can't parse data type: " << dataType.toStdString().c_str() << std::endl;
   }
@@ -302,23 +302,23 @@ ProcessCommand *GRICLI::CreateSetCommand(const QString& name,
   pc->key = name;
   
   if (dataType == "double") {
-    pc->data_type = DOUBLE;
+    pc->data_type = GRI_DOUBLE;
     double val = value.toDouble();
     pc->data.double_val = val;
   } else if (dataType == "int") {
-    pc->data_type = INT;
+    pc->data_type = GRI_INT;
     int val = value.toInt();
     pc->data.int_val = val;
   } else if (dataType == "float") {
-    pc->data_type = FLOAT;
+    pc->data_type = GRI_FLOAT;
     float val = value.toFloat();
     pc->data.float_val = val;
   } else if (dataType == "char") {
-    pc->data_type = CHAR;
+    pc->data_type = GRI_CHAR;
     char val = (char)value.toInt();
     pc->data.char_val = val;
   } else if (dataType == "bool" || dataType == "boolean") {
-    pc->data_type = BOOL;
+    pc->data_type = GRI_BOOL;
     bool val;
     if (value == "true" || value == "1" || value == "yes") {
       val = true;

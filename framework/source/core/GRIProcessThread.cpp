@@ -224,15 +224,15 @@ void GRIProcessThread::HandleDynamicCommand(ProcessCommand *pc) {
 
 void GRIProcessThread::HandleSetRequest(ProcessCommand *pc) {
   switch (pc->data_type) {
-  case BOOL:
+  case GRI_BOOL:
     DynamicSetBool(pc->key, pc->data.bool_val);
-  case CHAR:
+  case GRI_CHAR:
     DynamicSetChar(pc->key, pc->data.char_val);
-  case INT:
+  case GRI_INT:
     DynamicSetInt(pc->key, pc->data.int_val);
-  case FLOAT:
+  case GRI_FLOAT:
     DynamicSetFloat(pc->key, pc->data.float_val);
-  case DOUBLE:
+  case GRI_DOUBLE:
     DynamicSetDouble(pc->key, pc->data.double_val);
   }
 }
@@ -244,15 +244,15 @@ void GRIProcessThread::HandleGetRequest(ProcessCommand *pc) {
   out_pc->data_type = pc->data_type;
   out_pc->command_type = pc->command_type;
   switch (pc->data_type) {
-  case BOOL:
+  case GRI_BOOL:
     out_pc->data.bool_val = DynamicGetBool(pc->key);
-  case CHAR:
+  case GRI_CHAR:
     out_pc->data.char_val = DynamicGetChar(pc->key);
-  case INT:
+  case GRI_INT:
     out_pc->data.int_val = DynamicGetInt(pc->key);
-  case FLOAT:
+  case GRI_FLOAT:
     out_pc->data.float_val = DynamicGetFloat(pc->key);
-  case DOUBLE:
+  case GRI_DOUBLE:
     out_pc->data.double_val = DynamicGetDouble(pc->key);
   }
   emit GetProcessed(out_pc);
