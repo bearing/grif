@@ -57,7 +57,7 @@ void GRILoader::InitRegulatorDetails() {
   QString app_file = "APP.XML";
 
 #ifdef GRIF_CODE_GENERATION
-#include "../include/GCG/GRILoader_aux.h"
+#include "../../include/GCG/GRILoader_aux.h"
 #endif
 
   GRIParser parser;

@@ -40,7 +40,7 @@ app_dir = os.path.abspath(app_dir)
 
 data_xml = format(os.path.join(app_dir, "XML/data/data.XML"))
 classes_xml = format(os.path.join(app_dir, "XML/classes"))
-loader_xml = format(os.path.join("XML/app/APP.XML"))
+loader_xml = format(os.path.join(app_dir, "XML/app/APP.XML"))
 
 output_directory = format(os.path.join(grif_root, "framework/include/GCG"))
 if not os.path.exists(output_directory):
