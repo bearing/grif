@@ -66,8 +66,7 @@ ROOTDIR =
 # run code generation
 GRIFPROJECTDIR = $$GRIFDIR/examples/histogramming
 UTILDIR = $$GRIFDIR/util
-system(cd $$UTILDIR)
-system(python setup.py $$GRIFPROJECTDIR)
+system(cd $$UTILDIR && python setup.py $$GRIFPROJECTDIR)
 system(cd $$GRIFPROJECTDIR)
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
@@ -93,11 +92,6 @@ INCLUDEPATH += $$ROOTSYSLIB
 unix|macx {
     LIBS += -L$$ROOTSYSLIB
     LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore
-    LIBS += $$ROOTSYSLIB/libCint.so
-    LIBS += $$ROOTSYSLIB/libCore.so
-    LIBS += $$ROOTSYSLIB/libHist.so
-    LIBS += $$ROOTSYSLIB/libMatrix.so
-    LIBS += $$ROOTSYSLIB/libMathCore.so
 }
 # All windows platforms
 win32 {
