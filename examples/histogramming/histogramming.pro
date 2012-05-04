@@ -50,11 +50,16 @@ include(../../framework/include/finclude.pri)
 SOURCES += \
     ./src/main.cpp \
     ./src/SIMMCAnalysisThread.cpp \
-    ./src/SIMDAQThread.cpp
+    ./src/SIMDAQThread.cpp \
+    src/MainWindow.cpp
 
 HEADERS += \
     ./include/SIMMCAnalysisThread.h \
-    ./include/SIMDAQThread.h
+    ./include/SIMDAQThread.h \
+    include/MainWindow.h
+
+FORMS += \
+    src/mainwindow.ui
 
 ## 
 # Please fill in GRIFDIR and ROOTDIR with the appropriate paths
@@ -92,7 +97,7 @@ INCLUDEPATH += $$ROOTSYSLIB
 # All *nix systems
 unix|macx {
     LIBS += -L$$ROOTSYSLIB
-    LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore
+    LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore -lSpectrum
     LIBS += $$ROOTSYSLIB/libCint.so
     LIBS += $$ROOTSYSLIB/libCore.so
     LIBS += $$ROOTSYSLIB/libHist.so
@@ -102,5 +107,5 @@ unix|macx {
 # All windows platforms
 win32 {
     LIBS += -L$$ROOTSYSLIB
-    LIBS += -L$$ROOTSYS/lib -llibCore -llibHist -llibMatrix -llibMathCore -llibCint
+    LIBS += -L$$ROOTSYS/lib -llibCore -llibHist -llibMatrix -llibMathCore -llibCint -llibSpectrum
 }
