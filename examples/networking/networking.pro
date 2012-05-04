@@ -21,7 +21,6 @@
 # dhchivers@lbl.gov
 
 QT       += core network xml
-QT       -= gui
 
 # Change this variable to whatever your project name is
 TARGET = networking
@@ -63,9 +62,7 @@ ROOTDIR =
 # run code generation
 GRIFPROJECTDIR = $$GRIFDIR/examples/networking
 UTILDIR = $$GRIFDIR/util
-system(cd $$UTILDIR)
-system(python setup.py $$GRIFPROJECTDIR)
-system(cd $$GRIFPROJECTDIR)
+system(cd $$UTILDIR && python setup.py $$GRIFPROJECTDIR)
 
 # root headers
 INCLUDEPATH += $$ROOTDIR/include
@@ -77,11 +74,6 @@ INCLUDEPATH += $$ROOTSYSLIB
 unix|macx {
     LIBS += -L$$ROOTSYSLIB
     LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore
-    LIBS += $$ROOTSYSLIB/libCint.so
-    LIBS += $$ROOTSYSLIB/libCore.so
-    LIBS += $$ROOTSYSLIB/libHist.so
-    LIBS += $$ROOTSYSLIB/libMatrix.so
-    LIBS += $$ROOTSYSLIB/libMathCore.so
 }
 # All windows platforms
 win32 {

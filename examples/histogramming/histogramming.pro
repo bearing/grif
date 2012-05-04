@@ -67,7 +67,6 @@ ROOTDIR =
 GRIFPROJECTDIR = $$GRIFDIR/examples/histogramming
 UTILDIR = $$GRIFDIR/util
 system(cd $$UTILDIR && python setup.py $$GRIFPROJECTDIR)
-system(cd $$GRIFPROJECTDIR)
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
