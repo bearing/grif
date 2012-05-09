@@ -67,6 +67,7 @@ ROOTDIR =
 GRIFPROJECTDIR = $$GRIFDIR/examples/timeseriesplot
 UTILDIR = $$GRIFDIR/util
 system(cd $$UTILDIR && python setup.py $$GRIFPROJECTDIR)
+QMAKE_CLEAN += $$GRIFDIR/framework/include/GCG/*
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1
 
@@ -91,7 +92,7 @@ INCLUDEPATH += $$ROOTSYSLIB
 # All *nix systems
 unix|macx {
     LIBS += -L$$ROOTSYSLIB
-    LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore
+    LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore -lCint
 }
 # All windows platforms
 win32 {

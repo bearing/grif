@@ -63,6 +63,7 @@ ROOTDIR =
 GRIFPROJECTDIR = $$GRIFDIR/examples/simulator
 UTILDIR = $$GRIFDIR/util
 system(cd $$UTILDIR && python setup.py $$GRIFPROJECTDIR)
+QMAKE_CLEAN += $$GRIFDIR/framework/include/GCG/*
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1
 

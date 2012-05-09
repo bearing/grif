@@ -67,6 +67,7 @@ ROOTDIR =
 GRIFPROJECTDIR = $$GRIFDIR/examples/histogramming
 UTILDIR = $$GRIFDIR/util
 system(cd $$UTILDIR && python setup.py $$GRIFPROJECTDIR)
+QMAKE_CLEAN += $$GRIFDIR/framework/include/GCG/*
 
 QMAKE_CXXFLAGS += -D GRIF_CODE_GENERATION=1 -O3
 
@@ -84,7 +85,7 @@ INCLUDEPATH += $$GRIFDIR/external
 # ROOT headers
 INCLUDEPATH += $$ROOTDIR/include
 # ROOT libraries
-ROOTSYSLIB += $$ROOTDIR/lib
+ROOTSYSLIB = $$ROOTDIR/lib
 INCLUDEPATH += $$ROOTSYSLIB
 
 # All *nix systems
