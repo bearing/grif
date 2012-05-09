@@ -89,7 +89,7 @@ INCLUDEPATH += $$ROOTSYSLIB
 # All *nix systems
 unix|macx {
     LIBS += -L$$ROOTSYSLIB
-    LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore
+    LIBS += -L$$ROOTSYS/lib -lCore -lHist -lMatrix -lMathCore -lCint
 }
 # All windows platforms
 win32 {
