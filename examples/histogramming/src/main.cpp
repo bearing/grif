@@ -235,12 +235,6 @@ int main(int argc, char* argv[]) {
   // make sure the app exits when all GUI windows are closed
   QObject::connect(qApp, SIGNAL(lastWindowClosed()), qApp, SLOT(quit()));
 
-  // test the processes
-  std::cout << "Setting thread priorities" << std::endl;
-  simdaq1->start(QThread::NormalPriority);
-  simdaq2->start(QThread::NormalPriority);
-  AMC1->start(QThread::NormalPriority);
-
   std::cout << "Running Now" << std::endl;
   reg->Start();
 
