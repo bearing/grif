@@ -155,7 +155,7 @@ int SIMDAQThread::AcquireData(int n) {
 int SIMDAQThread::StartDataAcquisition() {
   start_time_ = QDateTime::currentDateTime();
   prev_time_ = start_time_;
-  InitializeAccumulators(start_time_,0,1e8,4,250);
+  InitializeAccumulators(start_time_,0);
   return 0;
 }
 
@@ -164,9 +164,6 @@ void SIMDAQThread::init_chans(int numOfChans, double min, double max,
   if (numOfChans > 0) {
     if (init_ready_) {
       bkg_.clear();   
-    } else {
-      //log << "DAQ not ready to initialize new channels." << endl;
-      //Commit//log(GRI//log_ERROR);
     }
     background* b;
     for (int i = 0; i < numOfChans; ++i) {
@@ -178,8 +175,5 @@ void SIMDAQThread::init_chans(int numOfChans, double min, double max,
       bkg_.push_back(b);
     }
     nchan_ = numOfChans;
-  } else {
-    //log << "Not enough channels, must be at least 1 channel" << endl;
-    //Commit//log(GRI//log_ERROR);
   }
 }
