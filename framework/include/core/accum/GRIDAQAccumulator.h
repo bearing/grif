@@ -36,10 +36,10 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
     set_buffer_name(bname);
     set_ticks_per_sec(ticks);
     set_num_accum_buff(NBuff);
-    //Set accumulation time in ticks
+    // Set accumulation time in ticks
     set_accum_time(AccumMsec*1E-3*ticks);
 
-    for (int i=0; i < NBuff; i++) {
+    for (int i = 0; i < NBuff; ++i) {
       GRIAccumBuff<T>* b = new GRIAccumBuff<T>();
       buff_.push_back(b);
     }
@@ -133,7 +133,6 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
           // Check for bubble
           if (b->get_bubble() && !NewBubbleSet) {
             // Write Bubble Accumulator to mm
-            // TODO(arbenson): logger needs a smoother interface
             QString str;
             QTextStream qts(&str);
             qts << QTime::currentTime().toString("hh:mm:ss.zzz").toStdString().c_str()
@@ -146,7 +145,8 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
 
             T* da = b->DataArray();
 
-            get_p_DAQ()->WriteMemory(get_p_DAQ()->get_name(),get_buffer_name(),b->GetDataSize(),da);
+            get_p_DAQ()->WriteMemory(get_p_DAQ()->get_name(), get_buffer_name(),
+                                     b->GetDataSize(), da);
             delete [] da;
 
             NewBubble = true;  // Sets up next buffer to be the bubble
@@ -175,7 +175,6 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
       bool NewBubble = false;
       bool NewBubbleSet = false;
       std::cout << "Flushing AccumBuff Iteration " << i << std::endl;
-      //logger_.WriteLogFile((QString) "Flushing AccumBuff Iteration " + i);
 
       int buffctr = 0;
       for (buff_it = buff_.begin(); buff_it != buff_.end(); ++buff_it) {
@@ -195,7 +194,6 @@ class GRIDAQAccumulator : public GRIDAQBaseAccumNode {
         // Check for bubble
         if (b->get_bubble() && !NewBubbleSet) {
           // Write Bubble Accumulator to mm
-          // TODO(arbenson): logger needs to have a smoother interface
           QString str;
           QTextStream qts(&str);
           qts << "FLUSH (" << buffctr << "): "
