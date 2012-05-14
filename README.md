@@ -26,3 +26,13 @@ GRIF assumes the following libraries:
 * Dan Chivers (chivers@berkeley.edu)
 * Mark Bandstra (bandstra@berkeley.edu)
 * Austin Benson (arbenson@berkeley.edu)
+
+## Publications
+
+If you use our software for your research, please cite the following reference:
+
+* A\. Benson, M\. S\. Bandstra, D\. H\. Chivers, T\. Aucott, B\. Augarten, C\. Bates, A\. Midvidy, R\. Pavlovsky, J\. Siegrist, K\. Vetter. _The Gamma-Ray Imaging Framework._ Proceedings of the IEEE Symposium on Radiation Measurements and Applications (SORMA), Oakland, California, May 14--17, 2012. _[in preparation]_
+
+## Acknowledgements
+
+This project was funded through the [Domestic Nuclear Threat Security (DoNuTS) Initiative](http://donuts.berkeley.edu/) at the [University of California Berkeley](http://berkeley.edu/). The DoNuTS grant was awarded by the [United States Department of Homeland Security](http://www.dhs.gov/)'s Domestic Nuclear Detection Office (DNDO) Academic Research Initiative (ARI) program, Grant Award Number 2008-DN-077-ARI-001-02.
