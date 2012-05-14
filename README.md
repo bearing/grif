@@ -14,6 +14,12 @@ also be used to provide non-standard data types to the GRIF system.
 
 For example applications, see the `grif/examples` directory.
 
+## Download
+
+To download GRIF, just use:
+
+    git clone git@github.com:bearing/grif.git
+
 ## Dependencies
 
 GRIF assumes the following libraries:
