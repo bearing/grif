@@ -95,7 +95,7 @@ class GRIDAQThread : public GRIProcessThread {
   GRIDAQThread();
   ~GRIDAQThread() {}
 
-  void RegisterAccumulator(QString buffname) {
+  virtual void RegisterAccumulator(QString buffname) {
     GRIDAQBaseAccumNode* p = RegisterDataOutput(buffname);
     if(p != NULL) {
       p->set_p_DAQ(this);
@@ -381,10 +381,22 @@ class GRIDAQThread : public GRIProcessThread {
   /// run() is called when this thread is started by the regulator.
   void run();
 
+  /// Initializes all accumulators with the given start time and timestamp.
+  virtual void InitializeAccumulators(QDateTime tstart, qint64 timestamp_0);
+
+  /// Calls FlushBuffers() on each accumulator associated with this DAQ thread
+  virtual int FlushAccumulators();
+
  protected:
   /// Post data to the regulator to a given buffer.
   /// The data posted __must__ be of a static data type.  Vectors, lists, etc.
   /// are not static and we cannot determine how many elements there are.
+  ///
+  /// PostData() sends the data to the accumulator matching buffer_name.  The
+  /// method RegisterAccumulator() is called for each buffer, which is where
+  /// the DAQ accumulators are created.  The method can be overridden to
+  /// provide custom accumulators.  Alternatively, GRIProcessThread::WriteMemory()
+  /// can be called directly.
   ///
   /// @param numel is the number of data elements
   /// @param buffer_name is the name of the buffer where the data will be stored
@@ -392,14 +404,12 @@ class GRIDAQThread : public GRIProcessThread {
   ///      data elements of the templated type
   /// @param timestamps is an array of timestamps corresponding to data.  This array
   ///            should contain numel timestamps.
+  /// @see PostData()
+  /// @see InitializeAccumulators()
+  /// @see FlushAccumulators()
+  /// @see RegisterAccumulator()
   template <class T> int PostData(int numel, QString buffer_name, T data[], 
                                   qint64 timestamps[]);
-
-  void InitializeAccumulators(QDateTime tstart, qint64 timestamp_0,
-			      qint64 ticksPerSecond, int NBuff,  
-			      int msecPerAccum);
-
-  int FlushAccumulators();
 
  private:
   QList<GRIDAQBaseAccumNode*> accum_list_;
@@ -407,7 +417,6 @@ class GRIDAQThread : public GRIProcessThread {
 
 template <class T> int GRIDAQThread::PostData(int numel, QString buffer_name,
                                               T data[], qint64 timestamps[]) {
-
   QList<GRIDAQBaseAccumNode*>::iterator accum_it;
 
   /// Finding the Accumulator in the list

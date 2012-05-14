@@ -25,7 +25,7 @@
 
 #include <QTime>
 #include <QDateTime>
-#include "GRIDAQThread.h"
+#include <core/GRIDAQThread.h>
 
 
 class TSDAQThread : public GRIDAQThread {

@@ -128,12 +128,8 @@ void GRIDAQThread::ErrorHandling(const char * message, int errorCode) {
   std::cerr << "\tError code = " << errorCode << std::endl;
 }
 
-void GRIDAQThread::InitializeAccumulators(QDateTime tstart, qint64 timestamp_0,
-                                          qint64 ticksPerSecond, int NBuff,
-                                          int msecPerAccum) {
-  ticksPerSecond = 0;
-  NBuff = msecPerAccum = 0;
-
+void GRIDAQThread::InitializeAccumulators(QDateTime tstart,
+                                          qint64 timestamp_0) {
   QList<GRIDAQBaseAccumNode*>::iterator accum_it;
 
   // Finding the Accumulator in the list

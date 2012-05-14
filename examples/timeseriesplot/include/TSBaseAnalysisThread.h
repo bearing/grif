@@ -27,7 +27,7 @@
 #include <QPair>
 #include <QList>
 #include <QString>
-#include "GRIAnalysisThread.h"
+#include <core/GRIAnalysisThread.h>
 
 class TSBaseAnalysisThread : public GRIAnalysisThread {
   public:

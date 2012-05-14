@@ -33,7 +33,7 @@ TSDAQThread::~TSDAQThread() {
 
 int TSDAQThread::StartDataAcquisition() {
   start_ = QDateTime::currentDateTime();
-  InitializeAccumulators(start_,0,1e8,1,250);
+  InitializeAccumulators(start_, 0);
   return DAQTHREAD_SUCCESS;
 }
 
