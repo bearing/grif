@@ -20,27 +20,32 @@
 // Dr. Daniel Chivers
 // dhchivers@lbl.gov
 
-#ifndef TSBASEANALYSISTHREAD_H
-#define TSBASEANALYSISTHREAD_H
+#ifndef TSDAQTHREAD_H
+#define TSDAQTHREAD_H
 
-#include <QtAlgorithms>
-#include <QPair>
-#include <QList>
-#include <QString>
-#include "GRIAnalysisThread.h"
+#include <QTime>
+#include <QDateTime>
+#include <core/GRIDAQThread.h>
 
-class TSBaseAnalysisThread : public GRIAnalysisThread {
-  public:
-    ~TSBaseAnalysisThread();
 
-    int Analyze();
+class TSDAQThread : public GRIDAQThread {
+public:
+  TSDAQThread();
+  ~TSDAQThread();
 
-  protected:
-    QString buff_name, next_buff;
-    virtual point compute(const QList<point>& raw) = 0;
-    QList<point> raw_data_;
-    QList<point> computed_data_;
+  int AcquireData(int n);
+  GRIDAQBaseAccumNode *RegisterDataOutput(QString outName);
+  int StartDataAcquisition();
+
+  int ConnectToDAQ() { return DAQTHREAD_SUCCESS; }
+  int Initialize() { return DAQTHREAD_SUCCESS; }
+  int LoadConfiguration() { return DAQTHREAD_SUCCESS; }
+  int StopDataAcquisition() { return DAQTHREAD_SUCCESS; }
+
+
+private:
+  QDateTime start_;
 
 };
 
-#endif // TSBASEANALYSISTHREAD_H
+#endif // TSDAQTHREAD_H
