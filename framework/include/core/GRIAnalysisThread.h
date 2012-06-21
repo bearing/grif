@@ -218,7 +218,7 @@ template <class T> int GRIAnalysisThread::PostData(int numel,
   std::cout << get_name().toStdString().c_str()
 	    << "::PostData - "
 	    << buffer_name.toStdString().c_str()
-	    << endl;
+      << std::endl;
   return WriteMemory(get_name(), buffer_name, numel, data);
 }
 
