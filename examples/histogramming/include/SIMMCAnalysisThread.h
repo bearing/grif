@@ -44,6 +44,9 @@ public:
 
   int Analyze();
   int Initialize(int nchan);
+
+private:
+  int n_channels_;
 };
 
 #endif  // GRIF_EXAMPLES_HISTOGRAMMING_SIMMCANALYSISTHREAD_H_
