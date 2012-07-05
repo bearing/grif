@@ -91,6 +91,7 @@ public:
 private:
   void SetGrid();
   void ClearGrid();
+
   bool HistIsPresent(GRIHistogrammer *h);
   int HistWidgetIndex(GRIHistogrammer *h);
 

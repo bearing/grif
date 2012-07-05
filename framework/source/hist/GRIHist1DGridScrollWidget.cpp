@@ -295,8 +295,7 @@ void GRIHist1DGridScrollWidget::scrollDown() {
 
 bool GRIHist1DGridScrollWidget::HistIsPresent(GRIHistogrammer *h) {
   for (int i = 0; i < gri_hist_vec_.size(); ++i) {
-    if ((gri_hist_vec_[i]->get_id() == h->get_id())
-        && (gri_hist_vec_[i]->get_hist_name() == h->get_hist_name())) {
+    if (h->IdenticalTo(gri_hist_vec_[i])) {
       return true;
     }
   }
@@ -308,8 +307,7 @@ int GRIHist1DGridScrollWidget::HistIndex(GRIHistogrammer *h) {
   if (HistIsPresent(h)) {
     int index = -1;
     for (int i = 0; i < gri_hist_vec_.size(); ++i) {
-      if ((gri_hist_vec_[i]->get_id() == h->get_id())
-          && (gri_hist_vec_[i]->get_hist_name() == h->get_hist_name())) {
+        if (h->IdenticalTo(gri_hist_vec_[i])) {
         index = i;
       }
     }
