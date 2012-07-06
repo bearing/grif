@@ -289,19 +289,19 @@ class AppXml(object):
                     try:
                         assert(link.data in thread.class_xml.data_blocks)
                     except:
-                        print("Error: Data block " + link.data + " not specifified in XML file for " + thread.name + "!")
+                        print("Error: Data block " + link.data + " not specified in XML file for " + thread.name + "!")
                         sys.exit(-1)
         self.find_thread_names()
         for link in self.links:
             try:
                 assert(link.writer in self.thread_names)
             except:
-                print("Error: Link" + link + " refers to a writer object that is not specifified: " + thread.name)
+                print("Error: Link " + str(link) + " refers to a writer object that is not specified: " + link.writer)
                 sys.exit(-1)
             try:
                 assert(link.reader in self.thread_names)
             except:
-                print("Error: Link" + link + " refers to a readerr object that is not specifified: " + thread.name)
+                print("Error: Link " + str(link) + " refers to a reader object that is not specified: " + link.reader)
                 sys.exit(-1)                
         print("AppXml: Check passed!")
         return True
