@@ -24,8 +24,19 @@ from __future__ import print_function
 import sys, os, xml
 from xml.etree.ElementTree import ElementTree
 
+
 def format(path):
     return path.replace('\\','/')
+
+
+def print_error(error_message):
+    """Print error message to stderr."""
+    print("*** Error: "+error_message, file=sys.stderr)
+
+
+def print_warning(warning_message):
+    """Print warning message."""
+    print("*** Warning: "+warning_message)
 
 
 class ClassXml(object):
@@ -54,45 +65,45 @@ class ClassXml(object):
         tree = ElementTree()
         try:
             tree.parse(self.filename)
-        except IOError as e:
-            print("Error: Could not parse file: " + self.filename)
+        except:
+            print_error("Could not parse file: " + self.filename)
             sys.exit(-1)
-        
         # Read <class> tag
         try:
             Name = tree.findall('Name')[0]
         except:
-            print("Error: Problem finding <Name> tag in " + self.filename)
+            print_error("Problem finding <Name> tag in " + self.filename)
             sys.exit(-1)
         try:
             Header = tree.findall('Header')[0]
         except:
-            print("Error: Problem finding <Header> tag in " + self.filename)
+            print_error("Problem finding <Header> tag in " + self.filename)
             sys.exit(-1)
         try:
             Info = tree.findall('Info')[0]
         except:
-            print("Error: Problem finding <Info> tag in " + self.filename)
+            print_error("Problem finding <Info> tag in " + self.filename)
             sys.exit(-1)
         try:
             DataBlocks = tree.findall('DataBlocks')[0]
         except:
-            print("Error: Problem finding <DataBlocks> tag in " + self.filename)
+            print_error("Problem finding <DataBlocks> tag in " + self.filename)
             sys.exit(-1)
-        
-        self.name = Name.attrib['name']
-        self.header_name = Header.attrib['hname']
-        self.class_name = Info.attrib['cname']
-        self.isdaq = (Info.attrib['isdaq'].lower()=='true')
-        
+        try:
+            self.name = Name.attrib['name']
+            self.header_name = Header.attrib['hname']
+            self.class_name = Info.attrib['cname']
+            self.isdaq = (Info.attrib['isdaq'].lower() == 'true')
+        except:
+            print_error("Attributes \'name\', \'hname\', \'cname\', and \'isdaq\' are not all specified in " + self.filename)
+            sys.exit(-1)
         try:
             Data = DataBlocks.findall('Data')
         except:
-            print("Error: Problem finding <Data> tag in " + self.filename)
+            print_error("Problem finding <Data> tag in " + self.filename)
             sys.exit(-1)
-        for data in Data:
-            self.data_blocks += [data.attrib['block']]
-        
+        self.data_blocks = [data.attrib['block'] for data in Data]
+        # print class information
         print("Class: " + self.name)
         print("    " + self.header_name + " " + self.class_name + " " + str(self.isdaq))
         dbstr = "    data blocks: "
@@ -137,6 +148,8 @@ class AppXml(object):
         self.check()
     
     def parse(self):
+        """Parse the APP.XML file.  Searches through <Objects> and <Links> tabs and adds AppXmlThread
+        and AppXmlLink objects to self.threads and self.links."""
         # <app>
         #   <Objects>
         #     <object name = "SIMDAQ1" class = "SIMDAQ"></object>
@@ -155,36 +168,34 @@ class AppXml(object):
         tree = ElementTree()
         try:
             tree.parse(self.filename)
-        except IOError as e:
-            print("Error: Could not parse file: " + self.filename)
+        except:
+            print_error("Could not parse file: " + self.filename)
             sys.exit(-1)
-        
         # Read <object> tags
         try:
             threads = tree.findall('Objects')[0]
         except:
-            print("Error: Problem finding <Objects> tag in " + self.filename)
+            print_error("Problem finding <Objects> tag in " + self.filename)
             sys.exit(-1)
         thread_list = threads.findall('object')
-        if len(thread_list)==0:
-            print("Error: No objects in " + self.filename + "!")
+        if len(thread_list) == 0:
+            print_error("No objects in " + self.filename + "!")
             sys.exit(-1)
         for thread in thread_list:
             # <object name = "A86" class = "AnalysisThreadSeries"></object>
             name = thread.attrib['name']
             class_name = thread.attrib['class']
             thread_object = AppXmlThread(name, class_name)
-            self.threads += [thread_object]
-        
+            self.threads.append(thread_object)
         # Read <link> tags
         try:
             links = tree.findall('Links')[0]
         except:
-            print("Error: Problem finding <Links> tag in " + self.filename)
+            print_error("Problem finding <Links> tag in " + self.filename)
             sys.exit(-1)
         link_list = links.findall('link')
-        if len(link_list)==0:
-            print("Error: No links in " + self.filename + "!")
+        if len(link_list) == 0:
+            print_error("No links in " + self.filename + "!")
             sys.exit(-1)
         for link in link_list:
             # <link writer = "A01" reader = "A02" data = "CHAN"></link>
@@ -192,79 +203,73 @@ class AppXml(object):
             reader = link.attrib['reader']
             data = link.attrib['data']
             link_object = AppXmlLink(writer, reader, data)
-            self.links += [link_object]
+            self.links.append(link_object)
     
     def check(self):
-        """Run checks that object list and link list are well-formed."""
+        """Check that the object list and link list are well-formed."""
         check_1 = self._check_no_duplicate_objects()
-        check_2 = self._check_objects()
+        check_2 = self._check_object_xmls()
         check_3 = self._check_no_duplicate_links()
         check_4 = self._check_links()
         return check_1 and check_2 and check_3 and check_4
     
     def find_thread_names(self):
-        self.thread_names = []
-        for thread in self.threads:
-            self.thread_names += [thread.name]
+        """Return sorted list of thread names.  Also updates self.thread_names."""
+        self.thread_names = [thread.name for thread in self.threads]
         self.thread_names.sort()
         return self.thread_names
 
     def find_link_names(self):
-        self.link_names = []
-        for link in self.links:
-            self.link_names += [str(link)]
+        """Return sorted list of link names.  Also updates self.link_names."""
+        self.link_names = [str(link) for link in self.links]
         self.link_names.sort()
         return self.link_names
     
     def _check_no_duplicate_objects(self):
+        """Check that there are no duplicate objects/threads."""
         print("AppXml: Checking there are no duplicate objects")
         self.find_thread_names()
         thread_names_uniq = []
         thread_names_uniq = list(set(self.thread_names))
-        try:
-            assert(len(self.thread_names)==len(thread_names_uniq))
-        except:
+        if len(self.thread_names) != len(thread_names_uniq):
             print(len(self.thread_names), len(thread_names_uniq))
             print(self.thread_names)
             print(thread_names_uniq)
-            print("Error: List of objects in APP.XML contains duplicates!")
+            print_error("List of objects in APP.XML contains duplicates!")
             sys.exit(-1)
         thread_names_uniq.sort()
         print(thread_names_uniq)
         print("AppXml: Check passed!")
         return True
     
-    def _check_objects(self):
-        print("AppXml: Checking objects")
+    def _check_object_xmls(self):
+        """Read class XML file for each object and check that the definitions match."""
+        print("AppXml: Checking object XML files")
         for thread in self.threads:
-            class_xml_file = format(os.path.join(self.classes_xml_dir, thread.name+".XML"))
+            class_xml_file = format(os.path.join(self.classes_xml_dir, thread.name + ".XML"))
             # print(class_xml_file)
             thread.class_xml = ClassXml(class_xml_file)
             thread.class_xml.parse()
-            try:
-                assert(thread.name == thread.class_xml.name)
-                # assert(thread.class_name == thread.class_xml.class_name)
-            except:
+            if thread.name != thread.class_xml.name:
                 print(thread.name, thread.class_xml.name)
                 # print(thread.class_name, thread.class_xml.class_name)
-                print("Error: Mismatch between APP.XML definition and class XML definition for " \
+                print_error("Mismatch between APP.XML definition and class XML definition for " \
                         + thread.name + " in " + thread.name + ".XML")
                 sys.exit(-1)
         print("AppXml: Check passed!")
         return True
     
     def _check_no_duplicate_links(self):
+        """Check that there are no duplicate links."""
         print("AppXml: Checking there are no duplicate links")
         self.find_link_names()
         link_names_uniq = []
         link_names_uniq = list(set(self.link_names))
-        try:
-            assert(len(self.link_names)==len(link_names_uniq))
-        except:
+        if len(self.link_names) != len(link_names_uniq):
             print(len(self.link_names), len(link_names_uniq))
             print(self.link_names)
             print(link_names_uniq)
-            print("Error: List of links in APP.XML contains duplicates!")
+            print_error("List of links in APP.XML contains duplicates!")
             sys.exit(-1)
         link_names_uniq.sort()
         for link_name in link_names_uniq:
@@ -273,43 +278,33 @@ class AppXml(object):
         return True
     
     def _check_links(self):
+        """Check that the links are well-formed."""
         print("AppXml: Checking links")
         for thread in self.threads:
             for link in self.links:
-                if (thread.name==link.writer):
-                    thread.links_as_writer += [link]
-                if (thread.name==link.reader):
-                    thread.links_as_reader += [link]
-                try:
-                    assert(not((thread.name==link.writer) and (thread.name==link.reader)))
-                except:
-                    print("Error: Class " + thread.name + " cannot read from and write to itself!")
+                if (thread.name == link.writer):
+                    thread.links_as_writer.append(link)
+                if (thread.name == link.reader):
+                    thread.links_as_reader.append(link)
+                if thread.name == link.writer and thread.name == link.reader:
+                    print_error("Class " + thread.name + " cannot read from and write to itself!")
                     sys.exit(-1)
-                if (thread.name==link.writer) or (thread.name==link.reader):
-                    try:
-                        assert(link.data in thread.class_xml.data_blocks)
-                    except:
-                        print("Error: Data block " + link.data + " not specified in XML file for " + thread.name + "!")
-                        sys.exit(-1)
+                elif not link.data in thread.class_xml.data_blocks:
+                    print_error("Data block " + link.data + " not specified in XML file for " + thread.name + "!")
+                    sys.exit(-1)
         self.find_thread_names()
         for link in self.links:
-            try:
-                assert(link.writer in self.thread_names)
-            except:
-                print("Error: Link " + str(link) + " refers to a writer object that is not specified: " + link.writer)
+            if not link.writer in self.thread_names:
+                print_error("Link " + str(link) + " refers to a writer object that is not specified: " + link.writer)
                 sys.exit(-1)
-            try:
-                assert(link.reader in self.thread_names)
-            except:
-                print("Error: Link " + str(link) + " refers to a reader object that is not specified: " + link.reader)
+            if not link.reader in self.thread_names:
+                print_error("Link " + str(link) + " refers to a reader object that is not specified: " + link.reader)
                 sys.exit(-1)                
         print("AppXml: Check passed!")
         return True
     
 
-    
-if __name__=="__main__":
-    
+if __name__ == "__main__":
     try:
         project_path = sys.argv[1]
     except:
