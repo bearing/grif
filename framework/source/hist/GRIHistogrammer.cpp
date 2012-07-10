@@ -37,6 +37,11 @@ int GRIHistogrammer::Clear() {
     return 0;
 }
 
+bool GRIHistogrammer::IdenticalTo(GRIHistogrammer *other) {
+  return this->get_id() == other->get_id() &&
+    this->get_hist_name() == other->get_hist_name();
+}
+
 void GRIHistogrammer::Init(QString BlockName, int id, QString HistName) {
     set_hist_name(HistName);
     hist_->SetTitle(HistName.toStdString().c_str());

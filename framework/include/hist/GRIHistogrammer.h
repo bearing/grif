@@ -80,6 +80,8 @@ class GRIHistogrammer: public GRIObject {
     hist_->SetName(name.toStdString().c_str());
   }
 
+  bool IdenticalTo(GRIHistogrammer *other);
+
  protected:
   void Init(QString BlockName, int id, QString HistName);
 
