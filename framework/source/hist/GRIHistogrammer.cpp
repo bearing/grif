@@ -38,10 +38,8 @@ int GRIHistogrammer::Clear() {
 }
 
 bool GRIHistogrammer::IdenticalTo(GRIHistogrammer *other) {
-  if ((this->get_id() == other->get_id()) && (this->get_hist_name() == other->get_hist_name())) {
-    return true;
-  }
-  return false;
+  return this->get_id() == other->get_id() &&
+    this->get_hist_name() == other->get_hist_name();
 }
 
 void GRIHistogrammer::Init(QString BlockName, int id, QString HistName) {
