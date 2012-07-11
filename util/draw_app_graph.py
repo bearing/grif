@@ -37,10 +37,11 @@ class grif_node_style(object):
     def __init__(self, isdaq=False):
         self.shape = "box"
         self.style = "rounded, filled"
+        alpha = "88"
         if isdaq:
-            self.fillcolor = "#ffaaff" + "88"
+            self.fillcolor = "#ffaaaa" + alpha
         else:
-            self.fillcolor = "#aaffaa" + "88"
+            self.fillcolor = "#aaaaff" + alpha
         self.fontname = "Helvetica"
         self.fontsize = "12.0"
     
