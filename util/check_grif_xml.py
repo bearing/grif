@@ -31,12 +31,12 @@ def format(path):
 
 def print_error(error_message):
     """Print error message to stderr."""
-    print("*** Error: "+error_message, file=sys.stderr)
+    print("*** Error: " + error_message, file=sys.stderr)
 
 
 def print_warning(warning_message):
     """Print warning message."""
-    print("*** Warning: "+warning_message)
+    print("*** Warning: " + warning_message)
 
 
 class ClassXml(object):
@@ -96,7 +96,8 @@ class ClassXml(object):
             self.class_name = Info.attrib['cname']
             self.isdaq = (Info.attrib['isdaq'].lower() == 'true')
         except:
-            print_error("Attributes \'name\', \'hname\', \'cname\', and \'isdaq\' are not all specified in " + self.filename)
+            print_error("Attributes \'name\', \'hname\', \'cname\', and \'isdaq\'\n" \
+                        + "    are not all specified in " + self.filename)
             sys.exit(-1)
         try:
             Data = DataBlocks.findall('Data')
@@ -305,7 +306,8 @@ class AppXml(object):
                 if thread.name == link.reader:
                     thread.links_as_reader.append(link)
                 if thread.name == link.writer and thread.name == link.reader:
-                    print_error("Class " + thread.name + " cannot read from and write to itself.  Offending link: "+str(link))
+                    print_error("Class " + thread.name + " cannot read from and write to itself.\n" \
+                                + "    Offending link: "+str(link))
                     sys.exit(-1)
             if len(thread.links_as_writer) == 0 and len(thread.links_as_reader) == 0:
                 print_warning("Object " + thread.name + " does not read or write any data blocks")

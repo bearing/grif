@@ -34,7 +34,7 @@ except:
 #  http://www.graphviz.org/doc/info/index.html
 
 class grif_node_style(object):
-    def __init__(self, isdaq = False):
+    def __init__(self, isdaq=False):
         self.shape = "box"
         self.style = "rounded, filled"
         if isdaq:
@@ -52,17 +52,17 @@ class grif_edge_style(object):
     
 
 def thread_to_pydot_node(thread):
-    return pydot.Node(thread.name, label = "<<table border=\"0\">" \
+    return pydot.Node(thread.name, label="<<table border=\"0\">" \
                                 + "<tr><td align=\"center\"><b>" + thread.name + "</b></td></tr>" \
                                 + "<tr><td align=\"center\">" + thread.class_xml.class_name + "</td></tr>" \
                                 + "<tr><td align=\"center\"><i>" + thread.class_xml.header_name + "</i></td></tr>" \
                                 + "</table>>", \
-        fontname = grif_node_style(isdaq = thread.class_xml.isdaq).fontname, \
-        fontsize = grif_node_style(isdaq = thread.class_xml.isdaq).fontsize, \
-        labelfontsize = grif_node_style(isdaq = thread.class_xml.isdaq).fontsize, \
-        shape = grif_node_style(isdaq = thread.class_xml.isdaq).shape, \
-        style = grif_node_style(isdaq = thread.class_xml.isdaq).style, \
-        fillcolor = grif_node_style(isdaq = thread.class_xml.isdaq).fillcolor)
+        fontname=grif_node_style(isdaq=thread.class_xml.isdaq).fontname, \
+        fontsize=grif_node_style(isdaq=thread.class_xml.isdaq).fontsize, \
+        labelfontsize=grif_node_style(isdaq=thread.class_xml.isdaq).fontsize, \
+        shape=grif_node_style(isdaq=thread.class_xml.isdaq).shape, \
+        style=grif_node_style(isdaq=thread.class_xml.isdaq).style, \
+        fillcolor=grif_node_style(isdaq=thread.class_xml.isdaq).fillcolor)
 
 def pydot_node_dict(thread_list):
     node_dict = {}
@@ -73,9 +73,9 @@ def pydot_node_dict(thread_list):
 def link_to_pydot_edge(link, node_dict):
     link_writer = node_dict[link.writer]
     link_reader = node_dict[link.reader]
-    return pydot.Edge(link_writer, link_reader, label = " " + link.data + " ", \
-        fontname = grif_edge_style().fontname, \
-        fontsize = grif_edge_style().fontsize)
+    return pydot.Edge(link_writer, link_reader, label=" " + link.data + " ", \
+        fontname=grif_edge_style().fontname, \
+        fontsize=grif_edge_style().fontsize)
 
 def pydot_edge_list(link_list, node_dict):
     edge_list = [link_to_pydot_edge(link, node_dict) for link in link_list]
@@ -109,9 +109,9 @@ if __name__ == "__main__":
     
     # start DOT graph using pydot
     if LR_orientation:
-        graph = pydot.Dot(graph_type = 'digraph', rankdir = 'LR')
+        graph = pydot.Dot(graph_type='digraph', rankdir='LR')
     else:
-        graph = pydot.Dot(graph_type = 'digraph')
+        graph = pydot.Dot(graph_type='digraph')
 
     write_format = { \
         'png':graph.write_png, \
