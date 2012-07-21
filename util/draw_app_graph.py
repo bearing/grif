@@ -53,16 +53,16 @@ class grif_edge_style(object):
     
 
 def thread_to_pydot_node(thread):
-    return pydot.Node(thread.name, label="<<table border=\"0\">" \
-                                + "<tr><td align=\"center\"><b>" + thread.name + "</b></td></tr>" \
-                                + "<tr><td align=\"center\">" + thread.class_xml.class_name + "</td></tr>" \
-                                + "<tr><td align=\"center\"><i>" + thread.class_xml.header_name + "</i></td></tr>" \
-                                + "</table>>", \
-        fontname=grif_node_style(isdaq=thread.class_xml.isdaq).fontname, \
-        fontsize=grif_node_style(isdaq=thread.class_xml.isdaq).fontsize, \
-        labelfontsize=grif_node_style(isdaq=thread.class_xml.isdaq).fontsize, \
-        shape=grif_node_style(isdaq=thread.class_xml.isdaq).shape, \
-        style=grif_node_style(isdaq=thread.class_xml.isdaq).style, \
+    return pydot.Node(thread.name, label="<<table border=\"0\">"
+                                + "<tr><td align=\"center\"><b>" + thread.name + "</b></td></tr>"
+                                + "<tr><td align=\"center\">" + thread.class_xml.class_name + "</td></tr>"
+                                + "<tr><td align=\"center\"><i>" + thread.class_xml.header_name + "</i></td></tr>"
+                                + "</table>>",
+        fontname=grif_node_style(isdaq=thread.class_xml.isdaq).fontname,
+        fontsize=grif_node_style(isdaq=thread.class_xml.isdaq).fontsize,
+        labelfontsize=grif_node_style(isdaq=thread.class_xml.isdaq).fontsize,
+        shape=grif_node_style(isdaq=thread.class_xml.isdaq).shape,
+        style=grif_node_style(isdaq=thread.class_xml.isdaq).style,
         fillcolor=grif_node_style(isdaq=thread.class_xml.isdaq).fillcolor)
 
 def pydot_node_dict(thread_list):
@@ -74,8 +74,8 @@ def pydot_node_dict(thread_list):
 def link_to_pydot_edge(link, node_dict):
     link_writer = node_dict[link.writer]
     link_reader = node_dict[link.reader]
-    return pydot.Edge(link_writer, link_reader, label=" " + link.data + " ", \
-        fontname=grif_edge_style().fontname, \
+    return pydot.Edge(link_writer, link_reader, label=" " + link.data + " ",
+        fontname=grif_edge_style().fontname,
         fontsize=grif_edge_style().fontsize)
 
 def pydot_edge_list(link_list, node_dict):
@@ -114,12 +114,12 @@ if __name__ == "__main__":
     else:
         graph = pydot.Dot(graph_type='digraph')
 
-    write_format = { \
-        'png':graph.write_png, \
-        'gif':graph.write_gif, \
-        'jpg':graph.write_jpg, \
-        'pdf':graph.write_pdf, \
-        'svg':graph.write_svg \
+    write_format = {
+        'png':graph.write_png,
+        'gif':graph.write_gif,
+        'jpg':graph.write_jpg,
+        'pdf':graph.write_pdf,
+        'svg':graph.write_svg
         }
     
     # check if output types are valid

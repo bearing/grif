@@ -96,7 +96,7 @@ class ClassXml(object):
             self.class_name = Info.attrib['cname']
             self.isdaq = (Info.attrib['isdaq'].lower() == 'true')
         except:
-            print_error("Attributes \'name\', \'hname\', \'cname\', and \'isdaq\'\n" \
+            print_error("Attributes \'name\', \'hname\', \'cname\', and \'isdaq\'\n"
                         + "    are not all specified in " + self.filename)
             sys.exit(-1)
         try:
@@ -224,15 +224,15 @@ class AppXml(object):
     
     def check(self):
         """Perform all checks that the APP.XML objects and links are well-formed."""
-        return self._check_no_duplicate_threads() \
-            and self._check_class_xmls() \
-            and self._check_daq_exists() \
-            and self._check_analysis_exists() \
-            and self._check_no_duplicate_links() \
-            and self._check_link_read_write() \
-            and self._check_link_data_blocks() \
-            and self._check_link_threads_exist() \
-            and self._check_daq_write_only()
+        return (self._check_no_duplicate_threads()
+            and self._check_class_xmls()
+            and self._check_daq_exists()
+            and self._check_analysis_exists()
+            and self._check_no_duplicate_links()
+            and self._check_link_read_write()
+            and self._check_link_data_blocks()
+            and self._check_link_threads_exist()
+            and self._check_daq_write_only())
     
     def find_thread_names(self):
         """Return sorted list of thread names.  Also updates self.thread_names."""
@@ -271,7 +271,7 @@ class AppXml(object):
             if thread.name != thread.class_xml.name:
                 print(thread.name, thread.class_xml.name)
                 # print(thread.class_name, thread.class_xml.class_name)
-                print_error("Mismatch between APP.XML definition and class XML definition for " \
+                print_error("Mismatch between APP.XML definition and class XML definition for "
                         + thread.name + " in " + thread.name + ".XML")
                 sys.exit(-1)
         print("AppXml: Check passed")
@@ -306,7 +306,7 @@ class AppXml(object):
                 if thread.name == link.reader:
                     thread.links_as_reader.append(link)
                 if thread.name == link.writer and thread.name == link.reader:
-                    print_error("Class " + thread.name + " cannot read from and write to itself.\n" \
+                    print_error("Class " + thread.name + " cannot read from and write to itself.\n"
                                 + "    Offending link: "+str(link))
                     sys.exit(-1)
             if len(thread.links_as_writer) == 0 and len(thread.links_as_reader) == 0:
